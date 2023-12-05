@@ -1,5 +1,4 @@
-﻿using Helix.Models;
-using Helix.Queries;
+﻿using Helix.Queries;
 using Helix.Tiger.DataAccess.DataStores.Base;
 using Helix.Tiger.DataAccess.Helper;
 using Helix.Tiger.DataAccess.Services;
