@@ -9,17 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApiGateway", "WebApiGateway", "{7AD8DEAB-3CC9-43A0-B83D-4F180D6BBE52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Web.ApiGateway", "src\ApiGateways\WebApiGateway\Helix.Web.ApiGateway\Helix.Web.ApiGateway.csproj", "{029833D5-F4D2-45F7-851F-BAEC27ED38E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.Web.ApiGateway", "src\ApiGateways\WebApiGateway\Helix.Web.ApiGateway\Helix.Web.ApiGateway.csproj", "{029833D5-F4D2-45F7-851F-BAEC27ED38E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{D2489367-D423-4596-A6A9-35DA48AA31DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{54DE53E8-ADC8-48A4-8A9E-7F0C582FF2E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.EventBus.Base", "src\BuildingBlocks\EventBus\Helix.EventBus.Base\Helix.EventBus.Base.csproj", "{C41903D5-732E-4444-BC81-39EE2152EB70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.EventBus.Base", "src\BuildingBlocks\EventBus\Helix.EventBus.Base\Helix.EventBus.Base.csproj", "{C41903D5-732E-4444-BC81-39EE2152EB70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.EventBus.Factory", "src\BuildingBlocks\EventBus\Helix.EventBus.Factory\Helix.EventBus.Factory.csproj", "{F65138FB-E881-40CC-9DDD-2972F8513A69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.EventBus.Factory", "src\BuildingBlocks\EventBus\Helix.EventBus.Factory\Helix.EventBus.Factory.csproj", "{F65138FB-E881-40CC-9DDD-2972F8513A69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.EventBus.RabbitMQ", "src\BuildingBlocks\EventBus\Helix.EventBus.RabbitMQ\Helix.EventBus.RabbitMQ.csproj", "{D0C7C2FA-3139-4B00-B1D5-5F7EECFD5EA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.EventBus.RabbitMQ", "src\BuildingBlocks\EventBus\Helix.EventBus.RabbitMQ\Helix.EventBus.RabbitMQ.csproj", "{D0C7C2FA-3139-4B00-B1D5-5F7EECFD5EA0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{545A203E-A040-4BFD-A610-48C2C1C9A72D}"
 EndProject
@@ -29,21 +29,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entity", "Entity", "{D9324C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{F83BE06B-AEE9-41A2-9E1B-3A2D8E5C6080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Tiger.Entity", "src\Core\Entity\Helix.Tiger.Entity\Helix.Tiger.Entity.csproj", "{5E647957-B588-4BC8-9DAD-6EA05E9B1E93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.Tiger.Entity", "src\Core\Entity\Helix.Tiger.Entity\Helix.Tiger.Entity.csproj", "{5E647957-B588-4BC8-9DAD-6EA05E9B1E93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Go.Entity", "src\Core\Entity\Helix.Go.Entity\Helix.Go.Entity.csproj", "{6D8D61D2-C8FE-4026-AE17-F68A95128E3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.Go.Entity", "src\Core\Entity\Helix.Go.Entity\Helix.Go.Entity.csproj", "{6D8D61D2-C8FE-4026-AE17-F68A95128E3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Tiger.DataAccess", "src\Core\DataAccess\Helix.Tiger.DataAccess\Helix.Tiger.DataAccess.csproj", "{80874EAC-F1FD-42D6-9ACF-627D6F7FCF0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.Tiger.DataAccess", "src\Core\DataAccess\Helix.Tiger.DataAccess\Helix.Tiger.DataAccess.csproj", "{80874EAC-F1FD-42D6-9ACF-627D6F7FCF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Go.DataAccess", "src\Core\DataAccess\Helix.Go.DataAccess\Helix.Go.DataAccess.csproj", "{E2D69C9B-7DD6-4A22-95B8-151C12CB3099}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.Go.DataAccess", "src\Core\DataAccess\Helix.Go.DataAccess\Helix.Go.DataAccess.csproj", "{E2D69C9B-7DD6-4A22-95B8-151C12CB3099}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductService", "ProductService", "{DB0150A8-E660-4C6E-9540-538D96DA6945}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.ProductService.Api", "src\Services\ProductService\Helix.ProductService.Api\Helix.ProductService.Api\Helix.ProductService.Api.csproj", "{580451B8-2500-43A0-BF98-0C7E8A1B5BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.ProductService.Api", "src\Services\ProductService\Helix.ProductService.Api\Helix.ProductService.Api\Helix.ProductService.Api.csproj", "{580451B8-2500-43A0-BF98-0C7E8A1B5BF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerService", "CustomerService", "{93CDEF7E-418B-4BAA-810F-B10F16BD6A3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.CustomerService.Api", "src\Services\CustomerService\Helix.CustomerService.Api\Helix.CustomerService.Api.csproj", "{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.CustomerService.Api", "src\Services\CustomerService\Helix.CustomerService.Api\Helix.CustomerService.Api.csproj", "{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Models", "Models\Helix.Models.csproj", "{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Queries", "Helix.Queries\Helix.Queries.csproj", "{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +95,14 @@ Global
 		{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +128,8 @@ Global
 		{580451B8-2500-43A0-BF98-0C7E8A1B5BF5} = {DB0150A8-E660-4C6E-9540-538D96DA6945}
 		{93CDEF7E-418B-4BAA-810F-B10F16BD6A3D} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
 		{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27} = {93CDEF7E-418B-4BAA-810F-B10F16BD6A3D}
+		{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1} = {D9324C7D-D01A-4775-BD69-80EE479A90B5}
+		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9} = {F83BE06B-AEE9-41A2-9E1B-3A2D8E5C6080}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}

@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Shared.Entity" Version="1.0.50" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Helix.Queries\Helix.Queries.csproj" />
+    <ProjectReference Include="..\..\..\..\Models\Helix.Models.csproj" />
+    <ProjectReference Include="..\..\Entity\Helix.Tiger.Entity\Helix.Tiger.Entity.csproj" />
+  </ItemGroup>
+
 </Project>
