@@ -1,4 +1,4 @@
-﻿using Helix.Models;
+﻿using Helix.SharedEntity.BaseModels;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;

@@ -1,10 +1,10 @@
-﻿using Helix.Models;
+﻿using Helix.SharedEntity.BaseModels;
 using Helix.Queries;
 using Helix.Tiger.DataAccess.DataStores.Base;
 using Helix.Tiger.DataAccess.Helper;
 using Helix.Tiger.DataAccess.Services;
 using Microsoft.Extensions.Configuration;
-using Shared.Entity.Models;
+using Helix.SharedEntity.Models;
 
 namespace Helix.Tiger.DataAccess.DataStores
 {
