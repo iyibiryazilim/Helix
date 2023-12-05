@@ -7,5 +7,5 @@ public interface IWorkstationService
 {
 	public Task<DataResult<IEnumerable<Workstation>>> GetWorkstations();
 	public Task<DataResult<Workstation>> GetWorkstationById(int id);
-	public Task<DataResult<BankAccount>> GetWorkstationByCode(string code);
+	public Task<DataResult<Workstation>> GetWorkstationByCode(string code);
 }

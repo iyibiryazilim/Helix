@@ -1,5 +1,7 @@
 ﻿using Helix.Models;
+using Helix.Queries;
 using Helix.Tiger.DataAccess.DataStores.Base;
+using Helix.Tiger.DataAccess.Helper;
 using Helix.Tiger.DataAccess.Services;
 using Microsoft.Extensions.Configuration;
 using Shared.Entity.Models;
@@ -12,18 +14,21 @@ public class WorkstationDataStore : BaseDataStore, IWorkstationService
 	{
 	}
 
-	public Task<DataResult<BankAccount>> GetWorkstationByCode(string code)
+	public Task<DataResult<Workstation>> GetWorkstationByCode(string code)
 	{
-		throw new NotImplementedException();
+		var result = new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationByCode(code));
+		return result;
 	}
 
 	public Task<DataResult<Workstation>> GetWorkstationById(int id)
 	{
-		throw new NotImplementedException();
+		var result = new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationById(id));
+		return result;
 	}
 
 	public Task<DataResult<IEnumerable<Workstation>>> GetWorkstations()
 	{
-		throw new NotImplementedException();
+		var result = new SqlQueryHelper<Workstation>().GetObjectsAsync(new WorkstationQuery(_configuraiton).GetWorkstationList());
+		return result;
 	}
 }

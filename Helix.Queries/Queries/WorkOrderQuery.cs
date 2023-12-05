@@ -60,7 +60,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 ";
 		public string GetWorkOrderByStatus(int[] status)
 		{
@@ -120,7 +120,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.LINESTATUS IN ({statusString})";
 			return query;
 		}		
@@ -176,7 +176,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.LOGICALREF = {id}";
 
 		#region Workstation Filter
@@ -232,7 +232,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE Workstation.LOGICALREF = {id}";
 		public string GetWorkOrderByWorkstationCode(string code) =>
 	@$"SELECT
@@ -286,7 +286,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE Workstation.CODE = {code}";
 		#endregion
 
@@ -343,7 +343,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.PRODORDREF = {id}";
 		public string GetWorkOrderByProductionOrderCode(string code) =>
 	@$"SELECT
@@ -397,7 +397,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE ProductionOrder.FICHENO = {code}";
 		#endregion
 	}

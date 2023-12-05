@@ -45,9 +45,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerService", "Customer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.CustomerService.Api", "src\Services\CustomerService\Helix.CustomerService.Api\Helix.CustomerService.Api.csproj", "{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Models", "Models\Helix.Models.csproj", "{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.Models", "Models\Helix.Models.csproj", "{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Queries", "Helix.Queries\Helix.Queries.csproj", "{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.Queries", "Helix.Queries\Helix.Queries.csproj", "{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SalesService", "SalesService", "{DB61A3C0-BE51-4CC1-8F50-7F4DDE7E7F51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Sales.Definition.Api", "src\Services\SalesService\Helix.Sales.Definition.Api\Helix.Sales.Definition.Api.csproj", "{CF994F9A-0346-4708-8834-CED0516595E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +107,10 @@ Global
 		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF994F9A-0346-4708-8834-CED0516595E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF994F9A-0346-4708-8834-CED0516595E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF994F9A-0346-4708-8834-CED0516595E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF994F9A-0346-4708-8834-CED0516595E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +138,8 @@ Global
 		{C2BC12E1-5F81-455C-ADB3-98D8B4A61A27} = {93CDEF7E-418B-4BAA-810F-B10F16BD6A3D}
 		{1D2D2941-C7F2-4BA9-850C-1C5DAABAFAD1} = {D9324C7D-D01A-4775-BD69-80EE479A90B5}
 		{44D1D5C9-D672-4935-B7A3-70BBC44D6DE9} = {F83BE06B-AEE9-41A2-9E1B-3A2D8E5C6080}
+		{DB61A3C0-BE51-4CC1-8F50-7F4DDE7E7F51} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
+		{CF994F9A-0346-4708-8834-CED0516595E3} = {DB61A3C0-BE51-4CC1-8F50-7F4DDE7E7F51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}
