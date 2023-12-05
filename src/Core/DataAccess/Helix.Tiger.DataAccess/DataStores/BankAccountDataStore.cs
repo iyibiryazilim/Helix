@@ -22,19 +22,19 @@ namespace Helix.Tiger.DataAccess.DataStores
 
 		public Task<DataResult<IEnumerable<BankAccount>>> GetBankAccounts()
 		{
-			var result = new SqlQueryHelper<IEnumerable<BankAccount>>().GetObjectAsync(new BankAccountQuery(_configuraiton).GetBankAccountList());
+			var result = new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountList());
 			return result;
 		}
 
 		public Task<DataResult<IEnumerable<BankAccount>>> GetBankAccountsByBankCode(string code)
 		{
-			var result = new SqlQueryHelper<IEnumerable<BankAccount>>().GetObjectAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankCode(code));
+			var result = new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankCode(code));
 			return result;
 		}
 
 		public Task<DataResult<IEnumerable<BankAccount>>> GetBankAccountsByBankId(int id)
 		{
-			var result = new SqlQueryHelper<IEnumerable<BankAccount>>().GetObjectAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankId(id));
+			var result = new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankId(id));
 			return result;
 		}
 	}
