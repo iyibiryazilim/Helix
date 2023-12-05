@@ -8,7 +8,7 @@ namespace Helix.Queries
 		{
 		}
 
-		public string GetPurchaseOrderLineQuery() =>
+		public string GetPurchaseOrderLine() =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -45,7 +45,7 @@ namespace Helix.Queries
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2";
 
-		public string GetWaitingPurchaseOrderLineQuery() =>
+		public string GetWaitingPurchaseOrderLine() =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -82,7 +82,7 @@ namespace Helix.Queries
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0";
 
-		public string GetPurchaseOrderLineByCodeQuery(string code) =>
+		public string GetPurchaseOrderLineByCode(string code) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -118,7 +118,7 @@ namespace Helix.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND ORFICHE.FICHENO = '{code}' ";
-		public string GetPurchaseOrderLineByIdQuery(int id) =>
+		public string GetPurchaseOrderLineById(int id) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -156,7 +156,7 @@ namespace Helix.Queries
 			WHERE ORFLINE.TRCODE = 2 AND ORFICHE.LOGICALREF = {id} ";
 
 		#region Current Filter
-		public string GetPurchaseOrderLineByCurrentIdQuery(int id) =>
+		public string GetPurchaseOrderLineByCurrentId(int id) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -192,7 +192,7 @@ namespace Helix.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND CLCARD.LOGICALREF = {id} ";
-		public string GetWaitingPurchaseOrderLineByCurrentIdQuery(int id) =>
+		public string GetWaitingPurchaseOrderLineByCurrentId(int id) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -229,7 +229,7 @@ namespace Helix.Queries
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND CLCARD.LOGICALREF = {id} AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 ";
 
-		public string GetPurchaseOrderLineByCurrentCodeQuery(string code) =>
+		public string GetPurchaseOrderLineByCurrentCode(string code) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -265,7 +265,7 @@ namespace Helix.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND CLCARD.CODE = '{code}' ";
-		public string GetWaitingPurchaseOrderLineByCurrentCodeQuery(string code) =>
+		public string GetWaitingPurchaseOrderLineByCurrentCode(string code) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -304,7 +304,7 @@ namespace Helix.Queries
 		#endregion
 
 		#region Product Filter
-		public string GetPurchaseOrderLineByProductIdQuery(int id) =>
+		public string GetPurchaseOrderLineByProductId(int id) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -340,7 +340,7 @@ namespace Helix.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND ITEMS.LOGICALREF = {id} ";
-		public string GetWaitingPurchaseOrderLineByProductIdQuery(int id) =>
+		public string GetWaitingPurchaseOrderLineByProductId(int id) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -376,7 +376,7 @@ namespace Helix.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND ITEMS.LOGICALREF = {id} AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 ";
-		public string GetPurchaseOrderLineByProductCodeQuery(string code) =>
+		public string GetPurchaseOrderLineByProductCode(string code) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
@@ -412,7 +412,7 @@ namespace Helix.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
 			WHERE ORFLINE.TRCODE = 2 AND ITEMS.CODE = '{code}' ";
-		public string GetWaitingPurchaseOrderLineByProductCodeQuery(string code) =>
+		public string GetWaitingPurchaseOrderLineByProductCode(string code) =>
 			@$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
