@@ -1,10 +1,10 @@
-﻿using Helix.Models;
-using Helix.Queries;
+﻿using Helix.Queries;
 using Helix.Tiger.DataAccess.DataStores.Base;
 using Helix.Tiger.DataAccess.Helper;
 using Helix.Tiger.DataAccess.Services;
 using Microsoft.Extensions.Configuration;
-using Shared.Entity.Models;
+using Helix.SharedEntity.Models;
+using Helix.SharedEntity.BaseModels;
 
 namespace Helix.Tiger.DataAccess.DataStores
 {
@@ -22,32 +22,38 @@ namespace Helix.Tiger.DataAccess.DataStores
 
 		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLines()
 		{
-			throw new NotImplementedException();
+			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineList());
+			return result;
 		}
 
 		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankAccountId(int id)
 		{
-			throw new NotImplementedException();
+			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankAccountId(id));
+			return result;
 		}
 
 		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankAccountIdAndBankId(int accountId, int bankId)
 		{
-			throw new NotImplementedException();
+			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankAccountIdAndBankId(accountId, bankId));
+			return result;
 		}
 
 		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankCode(string code)
 		{
-			throw new NotImplementedException();
+			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankCode(code));
+			return result;
 		}
 
 		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankId(int id)
 		{
-			throw new NotImplementedException();
+			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankId(id));
+			return result;
 		}
 
 		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankIdAndCurrencyId(int bankId, int currencyId)
 		{
-			throw new NotImplementedException();
+			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankIdAndCurrencyId(bankId, currencyId));
+			return result;
 		}
 	}
 }

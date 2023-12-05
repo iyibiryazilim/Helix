@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Shared.Entity.BaseModels.BaseProductionOrder" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SQRgYAEEAmAlgKZgKKA0gIwgooAEEApgAAgJYMkMYSA=</HashCode>
+      <FileName>BaseModels\BaseProductionOrder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Shared.Entity.Models.OutSourceProductionOrder" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAASAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAEg=</HashCode>
+      <FileName>Models\OutSourceProductionOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.ProductionOrder" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ProductionOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.BaseWorkOrder" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kyZhMIaEAQGEAIhoJBAy0C8AoNCUAABoUAgA4UQOYCA=</HashCode>
+      <FileName>BaseModels\BaseWorkOrder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Shared.Entity.Models.OutSourceWorkOrder" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAASAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAEg=</HashCode>
+      <FileName>Models\OutSourceWorkOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.WorkOrder" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WorkOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

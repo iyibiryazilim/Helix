@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Shared.Entity.BaseModels.BaseTransactionLine" Collapsed="true">
+    <Position X="10.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>oQRgAgAAAAA2EMBgsAhUYAwIgQIGUIHiCEwA8CkcYBI=</HashCode>
+      <FileName>BaseModels\BaseTransactionLine.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.BaseProductTransactionLine" Collapsed="true">
+    <Position X="13.75" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModels\BaseProductTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.BaseDispatchTransactionLine" Collapsed="true">
+    <Position X="4" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModels\BaseDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.BaseSalesDispatchTransactionLine" Collapsed="true">
+    <Position X="2.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModels\BaseSalesDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.BasePurchaseDispatchTransactionLine" Collapsed="true">
+    <Position X="8.75" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModels\BasePurchaseDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.SalesDispatchTransactionLine" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModels\SalesDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.SalesRetrunDispatchTransactionLine" Collapsed="true">
+    <Position X="5.25" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModels\SalesRetrunDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.WholeSalesDispatchTransactionLine" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WholeSalesDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.RetailSalesDispatchTransactionLine" Collapsed="true">
+    <Position X="2.25" Y="5.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RetailSalesDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.RetailSalesReturnDispatchTransactionLine" Collapsed="true">
+    <Position X="5.25" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RetailSalesReturnDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.WholeSalesReturnDispatchTransactionLine" Collapsed="true">
+    <Position X="7.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WholeSalesReturnDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.BaseModels.PurchaseDispatchTransactionLine" Collapsed="true">
+    <Position X="8.5" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModels\PurchaseDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.PurchaseReturnDispatchTransactionLine" Collapsed="true">
+    <Position X="10.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PurchaseReturnDispatchTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.WastageTransactionLine" Collapsed="true">
+    <Position X="14" Y="4.25" Width="1.5" />
+    <InheritanceLine Type="Shared.Entity.BaseModels.BaseProductTransactionLine" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.875" Y="2.441" />
+        <Point X="14.875" Y="4.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WastageTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.ConsumableTransactionLine" Collapsed="true">
+    <Position X="13.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ConsumableTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.InCountingTransactionLine" Collapsed="true">
+    <Position X="15.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\InCountingTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.OutCountingTransactionLine" Collapsed="true">
+    <Position X="16.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\OutCountingTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.ProductionTransactionLine" Collapsed="true">
+    <Position X="17.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ProductionTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Entity.Models.TransferTransactionLine" Collapsed="true">
+    <Position X="18.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TransferTransactionLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
