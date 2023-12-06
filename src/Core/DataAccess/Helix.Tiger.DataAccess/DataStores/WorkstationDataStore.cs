@@ -12,7 +12,7 @@ public class WorkstationDataStore : BaseDataStore, IWorkstationService
 	{
 	}
 
-	public Task<DataResult<BankAccount>> GetWorkstationByCode(string code)
+	public Task<DataResult<Workstation>> GetWorkstationByCode(string code)
 	{
 		throw new NotImplementedException();
 	}
