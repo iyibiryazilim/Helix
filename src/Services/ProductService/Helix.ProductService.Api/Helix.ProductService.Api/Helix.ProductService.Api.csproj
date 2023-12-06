@@ -12,11 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\DataAccess\Helix.Tiger.DataAccess\Helix.Tiger.DataAccess.csproj" />
+    <ProjectReference Include="..\..\Helix.Product.Service.Domain\Helix.Product.Service.Domain.csproj" />
   </ItemGroup>
 
 </Project>
