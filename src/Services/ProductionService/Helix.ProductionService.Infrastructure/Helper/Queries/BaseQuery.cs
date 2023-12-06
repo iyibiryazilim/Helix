@@ -13,6 +13,5 @@ public abstract class BaseQuery
 		_configuration = configuration;
 		FirmNumber = Convert.ToInt32(_configuration["LBSParameterDto:DefaultFirmNumber"]);
 		PeriodNumber = Convert.ToInt32(_configuration["LBSParameterDto:DefaultPeriodNumber"]);
-
 	}
 }

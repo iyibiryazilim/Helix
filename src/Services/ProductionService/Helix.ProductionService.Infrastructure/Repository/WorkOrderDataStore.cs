@@ -1,15 +1,9 @@
 ﻿using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.Models;
-using Helix.ProductionService.Domain.Models.BaseModels;
 using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Helix.ProductionService.Infrastructure.Repository;
 

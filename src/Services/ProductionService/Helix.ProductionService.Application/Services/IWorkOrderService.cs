@@ -1,5 +1,4 @@
 ﻿using Helix.ProductionService.Domain.Models;
-using Helix.ProductionService.Domain.Models.BaseModels;
 
 namespace Helix.ProductionService.Application.Services;
 

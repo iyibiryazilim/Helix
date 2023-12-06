@@ -35,4 +35,3 @@ public class WorkstationQuery : BaseQuery
 			FROM LG_00{FirmNumber}_WORKSTAT AS Workstation
 			WHERE Workstation.LOGICALREF = {id}";
 }
-}

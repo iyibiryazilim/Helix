@@ -1,6 +1,6 @@
 ﻿using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.AggregateModels;
-using Helix.ProductionService.Domain.Models.BaseModels;
+using Helix.ProductionService.Domain.Models;
 using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
