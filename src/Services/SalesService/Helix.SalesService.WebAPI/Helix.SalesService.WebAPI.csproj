@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Helix.SalesService.Application\Helix.SalesService.Application.csproj" />
+    <ProjectReference Include="..\Helix.SalesService.Domain\Helix.SalesService.Domain.csproj" />
+    <ProjectReference Include="..\Helix.SalesService.Infrastructure\Helix.SalesService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
