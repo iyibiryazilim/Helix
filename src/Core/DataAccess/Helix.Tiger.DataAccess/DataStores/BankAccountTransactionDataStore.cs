@@ -14,21 +14,21 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 		}
 
-		public Task<DataResult<BankAccountTransaction>> GetBankAccountTransactionByCode(string code)
+		public async Task<DataResult<BankAccountTransaction>> GetBankAccountTransactionByCode(string code)
 		{
-			var result = new SqlQueryHelper<BankAccountTransaction>().GetObjectAsync(new BankAccountTransactionQuery(_configuraiton).GetBankAccountTransactionByCode(code));
+			var result = await new SqlQueryHelper<BankAccountTransaction>().GetObjectAsync(new BankAccountTransactionQuery(_configuraiton).GetBankAccountTransactionByCode(code));
 			return result;
 		}
 
-		public Task<DataResult<BankAccountTransaction>> GetBankAccountTransactionById(int id)
+		public async Task<DataResult<BankAccountTransaction>> GetBankAccountTransactionById(int id)
 		{
-			var result = new SqlQueryHelper<BankAccountTransaction>().GetObjectAsync(new BankAccountTransactionQuery(_configuraiton).GetBankAccountTransactionById(id));
+			var result = await new SqlQueryHelper<BankAccountTransaction>().GetObjectAsync(new BankAccountTransactionQuery(_configuraiton).GetBankAccountTransactionById(id));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccountTransaction>>> GetBankAccountTransactionList()
+		public async Task<DataResult<IEnumerable<BankAccountTransaction>>> GetBankAccountTransactionList()
 		{
-			var result = new SqlQueryHelper<BankAccountTransaction>().GetObjectsAsync(new BankAccountTransactionQuery(_configuraiton).GetBankAccountTransactionList());
+			var result = await new SqlQueryHelper<BankAccountTransaction>().GetObjectsAsync(new BankAccountTransactionQuery(_configuraiton).GetBankAccountTransactionList());
 			return result;
 		}
 	}

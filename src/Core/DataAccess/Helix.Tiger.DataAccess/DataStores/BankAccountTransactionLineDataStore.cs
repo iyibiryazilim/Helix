@@ -14,45 +14,45 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 		}
 
-		public Task<DataResult<BankAccountTransactionLine>> GetBankAccountTransactionLineById(int id)
+		public async Task<DataResult<BankAccountTransactionLine>> GetBankAccountTransactionLineById(int id)
 		{
-			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineById(id));
+			var result = await  new SqlQueryHelper<BankAccountTransactionLine>().GetObjectAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineById(id));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLines()
+		public async Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLines()
 		{
-			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineList());
+			var result = await  new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineList());
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankAccountId(int id)
+		public async Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankAccountId(int id)
 		{
-			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankAccountId(id));
+			var result = await  new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankAccountId(id));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankAccountIdAndBankId(int accountId, int bankId)
+		public async Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankAccountIdAndBankId(int accountId, int bankId)
 		{
-			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankAccountIdAndBankId(accountId, bankId));
+			var result = await  new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankAccountIdAndBankId(accountId, bankId));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankCode(string code)
+		public async Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankCode(string code)
 		{
-			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankCode(code));
+			var result = await  new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankCode(code));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankId(int id)
+		public async Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankId(int id)
 		{
-			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankId(id));
+			var result = await  new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankId(id));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankIdAndCurrencyId(int bankId, int currencyId)
+		public async Task<DataResult<IEnumerable<BankAccountTransactionLine>>> GetBankAccountTransactionLinesByBankIdAndCurrencyId(int bankId, int currencyId)
 		{
-			var result = new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankIdAndCurrencyId(bankId, currencyId));
+			var result = await  new SqlQueryHelper<BankAccountTransactionLine>().GetObjectsAsync(new BankAccountTransactionLineQuery(_configuraiton).GetBankAccountTransactionLineByBankIdAndCurrencyId(bankId, currencyId));
 			return result;
 		}
 	}

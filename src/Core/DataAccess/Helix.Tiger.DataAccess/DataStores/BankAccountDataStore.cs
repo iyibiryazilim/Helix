@@ -14,27 +14,27 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 		}
 
-		public Task<DataResult<BankAccount>> GetBankAccountById(int id)
+		public async Task<DataResult<BankAccount>> GetBankAccountById(int id)
 		{
-			var result = new SqlQueryHelper<BankAccount>().GetObjectAsync(new BankAccountQuery(_configuraiton).GetBankAccountById(id));
+			var result = await new  SqlQueryHelper<BankAccount>().GetObjectAsync(new BankAccountQuery(_configuraiton).GetBankAccountById(id));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccount>>> GetBankAccounts()
+		public async Task<DataResult<IEnumerable<BankAccount>>> GetBankAccounts()
 		{
-			var result = new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountList());
+			var result = await new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountList());
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccount>>> GetBankAccountsByBankCode(string code)
+		public async Task<DataResult<IEnumerable<BankAccount>>> GetBankAccountsByBankCode(string code)
 		{
-			var result = new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankCode(code));
+			var result = await new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankCode(code));
 			return result;
 		}
 
-		public Task<DataResult<IEnumerable<BankAccount>>> GetBankAccountsByBankId(int id)
+		public async Task<DataResult<IEnumerable<BankAccount>>> GetBankAccountsByBankId(int id)
 		{
-			var result = new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankId(id));
+			var result = await new SqlQueryHelper<BankAccount>().GetObjectsAsync(new BankAccountQuery(_configuraiton).GetBankAccountByBankId(id));
 			return result;
 		}
 	}
