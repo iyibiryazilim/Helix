@@ -64,6 +64,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.ProductService.Infrastructure", "src\Services\ProductService\Helix.ProductService.Infrastructure\Helix.ProductService.Infrastructure.csproj", "{1C79738F-6548-4987-8AEE-8128A17BED66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.ProductService.Domain", "src\Services\ProductService\Helix.ProductService.Domain\Helix.ProductService.Domain.csproj", "{35FC5028-2FE0-480C-8815-54A668314131}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PurchaseService", "PurchaseService", "{99393B8B-F96A-41C4-977E-B018825BB33F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.Application", "src\Services\PurchaseService\Helix.PurchaseService.Application\Helix.PurchaseService.Application.csproj", "{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.Domain", "src\Services\PurchaseService\Helix.PurchaseService.Domain\Helix.PurchaseService.Domain.csproj", "{DB5B5C6B-6DE4-4370-B35F-055793CB79DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.Infrastructure", "src\Services\PurchaseService\Helix.PurchaseService.Infrastructure\Helix.PurchaseService.Infrastructure.csproj", "{6F4091BB-70FD-408B-952C-D8FD75AC7D86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.WebAPI", "src\Services\PurchaseService\Helix.PurchaseService.WebAPI\Helix.PurchaseService.WebAPI.csproj", "{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +156,22 @@ Global
 		{35FC5028-2FE0-480C-8815-54A668314131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35FC5028-2FE0-480C-8815-54A668314131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35FC5028-2FE0-480C-8815-54A668314131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB5B5C6B-6DE4-4370-B35F-055793CB79DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB5B5C6B-6DE4-4370-B35F-055793CB79DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB5B5C6B-6DE4-4370-B35F-055793CB79DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB5B5C6B-6DE4-4370-B35F-055793CB79DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F4091BB-70FD-408B-952C-D8FD75AC7D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F4091BB-70FD-408B-952C-D8FD75AC7D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F4091BB-70FD-408B-952C-D8FD75AC7D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F4091BB-70FD-408B-952C-D8FD75AC7D86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +207,11 @@ Global
 		{4126181A-BDB3-4515-8B88-4960A8F2006F} = {DB0150A8-E660-4C6E-9540-538D96DA6945}
 		{1C79738F-6548-4987-8AEE-8128A17BED66} = {DB0150A8-E660-4C6E-9540-538D96DA6945}
 		{35FC5028-2FE0-480C-8815-54A668314131} = {DB0150A8-E660-4C6E-9540-538D96DA6945}
+		{99393B8B-F96A-41C4-977E-B018825BB33F} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
+		{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039} = {99393B8B-F96A-41C4-977E-B018825BB33F}
+		{DB5B5C6B-6DE4-4370-B35F-055793CB79DC} = {99393B8B-F96A-41C4-977E-B018825BB33F}
+		{6F4091BB-70FD-408B-952C-D8FD75AC7D86} = {99393B8B-F96A-41C4-977E-B018825BB33F}
+		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4} = {99393B8B-F96A-41C4-977E-B018825BB33F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}
