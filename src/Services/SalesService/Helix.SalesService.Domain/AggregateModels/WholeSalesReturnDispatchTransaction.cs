@@ -3,6 +3,6 @@
 namespace Helix.SalesService.Domain.AggregateModels;
 
 
-public class WholeSalesReturnDispatchTransaction :SalesRetrunDispatchTransaction
+public class WholeSalesReturnDispatchTransaction :SalesReturnDispatchTransaction
 {
 }

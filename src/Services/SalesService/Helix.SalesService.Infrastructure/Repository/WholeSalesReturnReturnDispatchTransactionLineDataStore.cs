@@ -8,9 +8,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Helix.Tiger.DataAccess.DataStores;
 
-public class WholeSalesReturnReturnDispatchTransactionLineDataStore : BaseDataStore,IWholeSalesReturnReturnDispatchTransactionLineService
+public class WholeSalesReturnDispatchTransactionLineDataStore : BaseDataStore,IWholeSalesReturnDispatchTransactionLineService
 {
-	public WholeSalesReturnReturnDispatchTransactionLineDataStore(IConfiguration configuration) : base(configuration)
+	public WholeSalesReturnDispatchTransactionLineDataStore(IConfiguration configuration) : base(configuration)
 	{
 	}
 

@@ -2,7 +2,7 @@
 using Helix.SalesService.Domain.Models;
 
 namespace Helix.SalesService.Application.Repository;
-public interface IWholeSalesReturnReturnDispatchTransactionLineService 
+public interface IWholeSalesReturnDispatchTransactionLineService 
 {
 	public Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransactionLine>>> GetWholeSalesReturnDispatchTransactionLinesAsync();
 	public Task<DataResult<WholeSalesReturnDispatchTransactionLine>> GetWholeSalesReturnDispatchTransactionLineByIdAsync(int id);
