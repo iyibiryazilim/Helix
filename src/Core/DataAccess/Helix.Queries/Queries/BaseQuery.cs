@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Helix.PurchaseService.Infrastructure.Helper.Queries
+namespace Helix.Queries
 {
 	public abstract class BaseQuery
 	{

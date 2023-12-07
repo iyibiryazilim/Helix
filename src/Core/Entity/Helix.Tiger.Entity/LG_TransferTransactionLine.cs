@@ -10,6 +10,6 @@ namespace Helix.Tiger.Entity
         }
         public short DESTINDEX { get; set; } = default;
         public short DESTCOSTGRP { get; set; } = default;
-        public IList<LG_SeriLotTransaction> SLTRANS { get; set; }
+		public IList<LG_SeriLotTransaction> SLTRANS { get; set; }
     }
 }
