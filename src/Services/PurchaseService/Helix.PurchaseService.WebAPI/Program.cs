@@ -1,4 +1,5 @@
 using Helix.PurchaseService.Application.Services;
+using Helix.PurchaseService.Infrastructure.Repository;
 using Helix.Tiger.DataAccess.DataStores;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddTransient<IPurchaseDispatchTransactionLineService, PurchaseD
 builder.Services.AddTransient<IPurchaseDispatchTransactionService, PurchaseDispatchTransactionDataStore>();
 builder.Services.AddTransient<IPurchaseReturnDispatchTransactionLineService, PurchaseReturnDispatchTransactionLineDataStore>();
 builder.Services.AddTransient<IPurchaseReturnDispatchTransactionService, PurchaseReturnDispatchTransactionDataStore>();
-
+builder.Services.AddTransient<ISupplierService, SupplierDataStore>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
