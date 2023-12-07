@@ -1,16 +1,16 @@
-﻿using Helix.SharedEntity.BaseModels;
-using Helix.Tiger.DataAccess.Services;
+﻿using Helix.ProductService.Application.Repository;
+using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.ProductService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommercialProduct : ControllerBase
+    public class CommercialProductController : ControllerBase
     {
         ICommercialProductService _commercialProductService;
 
-        public CommercialProduct(ICommercialProductService commercialProductService)
+        public CommercialProductController(ICommercialProductService commercialProductService)
         {
             _commercialProductService= commercialProductService;
         }

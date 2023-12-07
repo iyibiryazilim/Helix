@@ -1,4 +1,4 @@
-﻿namespace Helix.Product.Service.Domain.Models;
+﻿namespace Helix.ProductService.Domain.Models;
 
 public class DataResult<T> where T : class
 {

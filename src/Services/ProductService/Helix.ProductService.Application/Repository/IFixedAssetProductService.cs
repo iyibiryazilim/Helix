@@ -1,5 +1,6 @@
-﻿using Helix.SharedEntity.BaseModels;
-using Helix.SharedEntity.Models;
+﻿
+
+using Helix.ProductService.Domain.Models;
 
 namespace Helix.ProductService.Application.Repository
 {

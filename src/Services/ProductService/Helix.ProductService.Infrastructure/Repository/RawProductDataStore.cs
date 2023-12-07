@@ -1,9 +1,8 @@
-﻿using Helix.Queries;
-using Helix.SharedEntity.BaseModels;
-using Helix.SharedEntity.Models;
-using Helix.Tiger.DataAccess.DataStores.Base;
-using Helix.Tiger.DataAccess.Helper;
-using Helix.Tiger.DataAccess.Services;
+﻿using Helix.ProductService.Application.Repository;
+using Helix.ProductService.Domain.Models;
+using Helix.ProductService.Infrastructure.Helpers;
+using Helix.ProductService.Infrastructure.Repository.Base;
+
 using Microsoft.Extensions.Configuration;
 
 namespace Helix.ProductService.Infrastructure.Repository

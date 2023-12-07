@@ -13,7 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\DataAccess\Helix.Tiger.DataAccess\Helix.Tiger.DataAccess.csproj" />
-    <ProjectReference Include="..\..\Helix.Product.Service.Domain\Helix.Product.Service.Domain.csproj" />
+    <ProjectReference Include="..\..\Helix.ProductService.Application\Helix.ProductService.Application.csproj" />
+    <ProjectReference Include="..\..\Helix.ProductService.Infrastructure\Helix.ProductService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,12 @@
-﻿using Helix.Queries;
-
-using Helix.Tiger.DataAccess.DataStores.Base;
-using Helix.Tiger.DataAccess.Helper;
-using Helix.Tiger.DataAccess.Services;
+﻿using Helix.ProductService.Application.Repository;
+using Helix.ProductService.Domain.Models;
+using Helix.ProductService.Infrastructure.Helpers;
+using Helix.ProductService.Infrastructure.Helpers.Queries;
+using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
-
 namespace Helix.ProductService.Infrastructure.Repository
 {
-	public class CommercialProductDataStore : BaseDataStore, ICommercialProductService
+    public class CommercialProductDataStore : BaseDataStore, ICommercialProductService
 	{
 		public CommercialProductDataStore(IConfiguration configuration) : base(configuration)
 		{

@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Helix.ProductService.Domain\Helix.ProductService.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

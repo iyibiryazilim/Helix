@@ -1,4 +1,4 @@
-﻿using Helix.Product.Service.Domain.Models;
+﻿using Helix.ProductService.Domain.Models;
 
 namespace Helix.ProductService.Application.Repository
 {
