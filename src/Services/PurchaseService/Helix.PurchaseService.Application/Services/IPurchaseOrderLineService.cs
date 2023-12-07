@@ -8,7 +8,7 @@ namespace Helix.PurchaseService.Application.Services
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLine();
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLine();
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCode(string code);
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineById(int id);
+		public Task<DataResult<PurchaseOrderLine>> GetPurchaseOrderLineById(int id);
 
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentId(int id);
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentId(int id);

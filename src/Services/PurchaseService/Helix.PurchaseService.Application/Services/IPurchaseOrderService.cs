@@ -5,7 +5,7 @@ namespace Helix.PurchaseService.Application.Services
 {
 	public interface IPurchaseOrderService
 	{
-		public Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrder();
+		public Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderList();
 		public Task<DataResult<PurchaseOrder>> GetPurchaseOrderByCode(string code);
 		public Task<DataResult<PurchaseOrder>> GetPurchaseOrderById(int id);
 

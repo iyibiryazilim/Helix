@@ -38,9 +38,9 @@ namespace Helix.Tiger.DataAccess.DataStores
 			return result;
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineById(int id)
+		public async Task<DataResult<PurchaseOrderLine>> GetPurchaseOrderLineById(int id)
 		{
-			var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineById(id));
+			var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineById(id));
 			return result;
 		}
 

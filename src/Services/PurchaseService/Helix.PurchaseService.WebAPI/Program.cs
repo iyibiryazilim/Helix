@@ -1,9 +1,19 @@
+using Helix.PurchaseService.Application.Services;
+using Helix.Tiger.DataAccess.DataStores;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddTransient<IPurchaseOrderLineService, PurchaseOrderLineDataStore>();
+builder.Services.AddTransient<IPurchaseOrderService, PurchaseOrderDataStore>();
+builder.Services.AddTransient<IPurchaseDispatchTransactionLineService, PurchaseDispatchTransactionLineDataStore>();
+builder.Services.AddTransient<IPurchaseDispatchTransactionService, PurchaseDispatchTransactionDataStore>();
+builder.Services.AddTransient<IPurchaseReturnDispatchTransactionLineService, PurchaseReturnDispatchTransactionLineDataStore>();
+builder.Services.AddTransient<IPurchaseReturnDispatchTransactionService, PurchaseReturnDispatchTransactionDataStore>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

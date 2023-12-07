@@ -15,7 +15,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrder()
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderList()
 		{
 			var result = await  new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderQuery());
 			return result;
