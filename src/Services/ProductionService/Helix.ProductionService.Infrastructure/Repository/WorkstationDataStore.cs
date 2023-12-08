@@ -4,30 +4,59 @@ using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.Repository;
 
 public class WorkstationDataStore : BaseDataStore, IWorkstationService
 {
-	public WorkstationDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<WorkstationDataStore> _logger;
+	public WorkstationDataStore(IConfiguration configuration, ILogger<WorkstationDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<Workstation>> GetWorkstationByCode(string code)
+	public async Task<DataResult<Workstation>> GetWorkstationByCode(string code)
 	{
-		var result = new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationByCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationByCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 
-	public Task<DataResult<Workstation>> GetWorkstationById(int id)
+	public async Task<DataResult<Workstation>> GetWorkstationById(int id)
 	{
-		var result = new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationById(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<Workstation>>> GetWorkstationList()
+	public async Task<DataResult<IEnumerable<Workstation>>> GetWorkstationList()
 	{
-		var result = new SqlQueryHelper<Workstation>().GetObjectsAsync(new WorkstationQuery(_configuraiton).GetWorkstationList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<Workstation>().GetObjectsAsync(new WorkstationQuery(_configuraiton).GetWorkstationList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 }

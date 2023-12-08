@@ -1,10 +1,13 @@
 using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Infrastructure.Repository;
+using Helix.ProductionService.WebAPI.ConsulRegistrations;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Add services to the container.
-
+builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.AddTransient<IWorkOrderService, WorkOrderDataStore>();
 builder.Services.AddTransient<IWorkstationService, WorkstationDataStore>();
 builder.Services.AddTransient<IStopCauseService, StopCauseDataStore>();
@@ -33,5 +36,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.RegisterWithConsul(app.Lifetime);
 
 app.Run();

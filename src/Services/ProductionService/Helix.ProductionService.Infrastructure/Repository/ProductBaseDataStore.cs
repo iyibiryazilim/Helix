@@ -5,30 +5,59 @@ using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.Repository;
 
 public class ProductBaseDataStore : BaseDataStore, IProductService
 {
-	public ProductBaseDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<ProductBaseDataStore> _logger;
+	public ProductBaseDataStore(IConfiguration configuration, ILogger<ProductBaseDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<Product>> GetProductByCode(string code)
+	public async Task<DataResult<Product>> GetProductByCode(string code)
 	{
-		var result = new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductByCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductByCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex) {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 
-	public Task<DataResult<Product>> GetProductById(int id)
+	public async Task<DataResult<Product>> GetProductById(int id)
 	{
-		var result = new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductById(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<Product>>> GetProductList()
+	public async Task<DataResult<IEnumerable<Product>>> GetProductList()
 	{
-		var result = new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+
 	}
 }
