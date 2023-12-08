@@ -5,62 +5,139 @@ using Helix.PurchaseService.Infrastructure.BaseRepository;
 using Helix.PurchaseService.Infrastructure.Helper;
 using Helix.PurchaseService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 
 namespace Helix.Tiger.DataAccess.DataStores
 {
 	public class PurchaseDispatchTransactionLineDataStore : BaseDataStore, IPurchaseDispatchTransactionLineService
 	{
-		public PurchaseDispatchTransactionLineDataStore(IConfiguration configuration) : base(configuration)
+		private readonly ILogger<PurchaseDispatchTransactionLineDataStore> _logger;
+		public PurchaseDispatchTransactionLineDataStore(IConfiguration configuration, ILogger<PurchaseDispatchTransactionLineDataStore> logger) : base(configuration)
 		{
+			_logger = logger;
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetPurchaseDispatchTransactionLineByCurrentCode(string code)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
-			return result;
-		}
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			}
+			
+ 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetPurchaseDispatchTransactionLineByCurrentId(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetPurchaseDispatchTransactionLineByFicheCode(string code)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetPurchaseDispatchTransactionLineByFicheId(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<PurchaseDispatchTransactionLine>> GetPurchaseDispatchTransactionLineById(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionById(id));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionById(id));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetPurchaseDispatchTransactionLineByProductCode(string code)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetPurchaseDispatchTransactionLineByProductId(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetPurchaseDispatchTransactionLineList()
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionList());
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransactionLine>().GetObjectsAsync(new PurchaseDispatchTransactionLineQuery(_configuraiton).GetTransactionList());
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			}
+			 
 		}
 	}
 }

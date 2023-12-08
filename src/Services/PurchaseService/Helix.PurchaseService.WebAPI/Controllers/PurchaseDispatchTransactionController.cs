@@ -9,12 +9,14 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 	[ApiController]
 	public class PurchaseDispatchTransactionController : ControllerBase
 	{
+		private readonly ILogger<PurchaseDispatchTransactionController> _logger;
 		IConfiguration _configuration;
 		IPurchaseDispatchTransactionService _purchaseDispatchTransactionService;
-		public PurchaseDispatchTransactionController(IConfiguration configuration, IPurchaseDispatchTransactionService purchaseDispatchTransactionService)
+		public PurchaseDispatchTransactionController(IConfiguration configuration, IPurchaseDispatchTransactionService purchaseDispatchTransactionService, ILogger<PurchaseDispatchTransactionController> logger)
 		{
 			_configuration = configuration;
 			_purchaseDispatchTransactionService = purchaseDispatchTransactionService;
+			_logger = logger;
 		}
 		//[HttpPost]
 		//public async Task<DataResult<PurchaseDispatchTransaction>> Insert([FromBody] PurchaseDispatchTransactionInsertDto dto)

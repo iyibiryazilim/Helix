@@ -3,6 +3,9 @@ using Helix.PurchaseService.Infrastructure.Repository;
 using Helix.Tiger.DataAccess.DataStores;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 
 // Add services to the container.
 

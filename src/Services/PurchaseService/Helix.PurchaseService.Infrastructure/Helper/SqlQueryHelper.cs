@@ -7,7 +7,7 @@ namespace Helix.PurchaseService.Infrastructure.Helper
 {
 	public class SqlQueryHelper<T> where T : class
     {
-        public async Task<DataResult<IEnumerable<T>>> GetObjectsAsync(string query)
+		public async Task<DataResult<IEnumerable<T>>> GetObjectsAsync(string query)
         {
             DataResult<IEnumerable<T>> dataResult = new();
             try
@@ -53,8 +53,9 @@ namespace Helix.PurchaseService.Infrastructure.Helper
                     Message = ex.Message,
                     TotalRecord = 0
                 };
-            }
-            return dataResult;
+
+			}
+			return dataResult;
 
         }
 

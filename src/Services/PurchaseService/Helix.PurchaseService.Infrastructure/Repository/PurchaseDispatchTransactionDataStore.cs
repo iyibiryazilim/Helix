@@ -5,44 +5,95 @@ using Helix.PurchaseService.Infrastructure.BaseRepository;
 using Helix.PurchaseService.Infrastructure.Helper;
 using Helix.PurchaseService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 
 namespace Helix.Tiger.DataAccess.DataStores
 {
 	public class PurchaseDispatchTransactionDataStore : BaseDataStore, IPurchaseDispatchTransactionService
 	{
-		public PurchaseDispatchTransactionDataStore(IConfiguration configuration) : base(configuration)
+		private readonly ILogger<PurchaseDispatchTransactionDataStore> _logger;
+		public PurchaseDispatchTransactionDataStore(IConfiguration configuration,ILogger<PurchaseDispatchTransactionDataStore> logger) : base(configuration)
 		{
+			_logger = logger;
 		}
 
 		public async Task<DataResult<PurchaseDispatchTransaction>> GetPurchaseDispatchTransactionByCode(string code)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
+				_logger.LogInformation(code, result);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message);
+				throw;
+			}
+			
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetPurchaseDispatchTransactionByCurrentCode(string code)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectsAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectsAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetPurchaseDispatchTransactionByCurrentId(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectsAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
-			return result;
-		}
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectsAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			}
+ 		}
 
 		public async Task<DataResult<PurchaseDispatchTransaction>> GetPurchaseDispatchTransactionById(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			}
+			
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetPurchaseDispatchTransactionList()
 		{
-			var result = await  new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectsAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionList());
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseDispatchTransaction>().GetObjectsAsync(new PurchaseDispatchTransactionQuery(_configuraiton).GetTransactionList());
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			}
+			
 		}
 	}
 }
