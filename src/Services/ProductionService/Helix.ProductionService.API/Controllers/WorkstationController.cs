@@ -19,7 +19,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpGet]
 		public async Task<DataResult<IEnumerable<Workstation>>> GetAll()
 		{
-			var result = await _workstationService.GetWorkstations();
+			var result = await _workstationService.GetWorkstationList();
 			return result;
 		}
 

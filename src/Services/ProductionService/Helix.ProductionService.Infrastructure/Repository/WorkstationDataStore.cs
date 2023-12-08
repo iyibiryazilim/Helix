@@ -25,7 +25,7 @@ public class WorkstationDataStore : BaseDataStore, IWorkstationService
 		return result;
 	}
 
-	public Task<DataResult<IEnumerable<Workstation>>> GetWorkstations()
+	public Task<DataResult<IEnumerable<Workstation>>> GetWorkstationList()
 	{
 		var result = new SqlQueryHelper<Workstation>().GetObjectsAsync(new WorkstationQuery(_configuraiton).GetWorkstationList());
 		return result;
