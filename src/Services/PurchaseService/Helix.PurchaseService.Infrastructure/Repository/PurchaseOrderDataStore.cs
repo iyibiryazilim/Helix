@@ -5,44 +5,88 @@ using Helix.PurchaseService.Infrastructure.BaseRepository;
 using Helix.PurchaseService.Infrastructure.Helper;
 using Helix.PurchaseService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 
 namespace Helix.Tiger.DataAccess.DataStores
 {
 	public class PurchaseOrderDataStore : BaseDataStore, IPurchaseOrderService
 	{
-		public PurchaseOrderDataStore(IConfiguration configuration) : base(configuration)
+		private readonly ILogger<PurchaseOrderDataStore> _logger;
+		public PurchaseOrderDataStore(IConfiguration configuration, ILogger<PurchaseOrderDataStore> logger) : base(configuration)
 		{
+			_logger = logger;
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderList()
 		{
-			var result = await  new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderQuery());
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderQuery());
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<PurchaseOrder>> GetPurchaseOrderByCode(string code)
 		{
-			var result = await  new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCodeQuery(code));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCodeQuery(code)); _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentCode(string code)
 		{
-			var result = await  new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentCodeQuery(code));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentCodeQuery(code));
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentId(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentIdQuery(id));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentIdQuery(id));
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 
 		public async Task<DataResult<PurchaseOrder>> GetPurchaseOrderById(int id)
 		{
-			var result = await  new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByIdQuery(id));
-			return result;
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByIdQuery(id));
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			} 
 		}
 	}
 }
