@@ -5,42 +5,100 @@ using Helix.SalesService.Infrastructure.BaseRepository;
 using Helix.SalesService.Infrastructure.Helper;
 using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.Tiger.DataAccess.DataStores;
 
 public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 {
-	public SalesOrderDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<SalesOrderDataStore> _logger;
+	public SalesOrderDataStore(IConfiguration configuration,ILogger<SalesOrderDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<SalesOrder>> GetSalesOrderByIdAsync(int id)
+	public async Task<DataResult<SalesOrder>> GetSalesOrderByIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<SalesOrder>().GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByIdQuery(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByIdQuery(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<SalesOrder>> GetSalesOrderByCode(string code)
+	public async Task<DataResult<SalesOrder>> GetSalesOrderByCode(string code)
 	{
-		var result = new SqlQueryHelper<SalesOrder>().GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCodeQuery(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCodeQuery(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersAsync()
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersAsync()
 	{
-		var result = new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderQuery());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderQuery());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentCodeQuery(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentCodeQuery(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAsync(int id)
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdQuery(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdQuery(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 }

@@ -5,61 +5,152 @@ using Helix.SalesService.Infrastructure.BaseRepository;
 using Helix.SalesService.Infrastructure.Helper;
 using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.Tiger.DataAccess.DataStores;
 
 public class RetailSalesDispatchTransactionLineDataStore : BaseDataStore,IRetailSalesDispatchTransactionLineService
 {
-	public RetailSalesDispatchTransactionLineDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<RetailSalesDispatchTransactionLineDataStore> _logger;
+	public RetailSalesDispatchTransactionLineDataStore(IConfiguration configuration , ILogger<RetailSalesDispatchTransactionLineDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
 
-	public Task<DataResult<RetailSalesDispatchTransactionLine>> GetRetailSalesDispatchTransactionLineByIdAsync(int id)
+	public async Task<DataResult<RetailSalesDispatchTransactionLine>> GetRetailSalesDispatchTransactionLineByIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionById(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesAsync()
+	public async Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesAsync()
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByCurrentCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByCurrentCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByCurrentIdAsync(int id)
+	public async Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByCurrentIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByFicheCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByFicheCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByFicheIdAsync(int id)
+	public async Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByFicheIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByProductCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByProductCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByProductIdAsync(int id)
+	public async Task<DataResult<IEnumerable<RetailSalesDispatchTransactionLine>>> GetRetailSalesDispatchTransactionLinesByProductIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectsAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 }

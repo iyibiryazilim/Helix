@@ -5,42 +5,100 @@ using Helix.SalesService.Infrastructure.BaseRepository;
 using Helix.SalesService.Infrastructure.Helper;
 using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.Tiger.DataAccess.DataStores;
 
 public class WholeSalesReturnDispatchTransactionDataStore : BaseDataStore,IWholeSalesReturnDispatchTransactionService
 {
-	public WholeSalesReturnDispatchTransactionDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<WholeSalesReturnDispatchTransactionDataStore> _logger;
+	public WholeSalesReturnDispatchTransactionDataStore(IConfiguration configuration,ILogger<WholeSalesReturnDispatchTransactionDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<WholeSalesReturnDispatchTransaction>> GetWholeSalesReturnDispatchTransactionByCode(string code)
+	public async Task<DataResult<WholeSalesReturnDispatchTransaction>> GetWholeSalesReturnDispatchTransactionByCode(string code)
 	{
-		var result = new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<WholeSalesReturnDispatchTransaction>> GetWholeSalesReturnDispatchTransactionByIdAsync(int id)
+	public async Task<DataResult<WholeSalesReturnDispatchTransaction>> GetWholeSalesReturnDispatchTransactionByIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetWholeSalesReturnDispatchTransactionsAsync()
+	public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetWholeSalesReturnDispatchTransactionsAsync()
 	{
-		var result = new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectsAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectsAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectsAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectsAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(int id)
+	public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectsAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WholeSalesReturnDispatchTransaction>().GetObjectsAsync(new WholeSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 }
