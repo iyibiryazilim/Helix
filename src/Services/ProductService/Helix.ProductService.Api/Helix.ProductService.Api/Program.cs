@@ -1,3 +1,4 @@
+using Helix.ProductService.Api.ConsulRegistration;
 using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Repository;
@@ -7,6 +8,7 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
 // Add services to the container.
+builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.AddTransient<ICommercialProductService, CommercialProductDataStore>();
 builder.Services.AddTransient<IEndProductService, EndProductDataStore>();
 builder.Services.AddTransient<IFixedAssetProductService, FixedAssetProductDataStore>();
@@ -25,6 +27,8 @@ builder.Services.AddTransient<ITransferTransactionService, TransferTransactionDa
 builder.Services.AddTransient<ITransferTransactionLineService, TransferTransactionLineDataStore>();
 builder.Services.AddTransient<IWastageTransactionService, WastageTransactionDataStore>();
 builder.Services.AddTransient<IWastageTransactionLineService, WastageTransactionLineDataStore>();
+builder.Services.AddTransient<ISubUnitsetService, SubUnitsetDataStore>();
+builder.Services.AddTransient<IUnitsetService, UnitsetDataStore>();
 
 
 
@@ -52,5 +56,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.RegisterWithConsul(app.Lifetime);
 
 app.Run();
