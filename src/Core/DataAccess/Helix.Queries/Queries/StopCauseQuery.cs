@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Helix.PurchaseService.Infrastructure.Helper.Queries;
 
 namespace Helix.Queries
 {

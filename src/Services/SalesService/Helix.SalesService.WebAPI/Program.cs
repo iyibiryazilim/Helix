@@ -1,11 +1,14 @@
 using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Infrastructure.Repository;
+using Helix.SalesService.WebAPI.ConsulRegistrations;
 using Helix.Tiger.DataAccess.DataStores;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 // Add services to the container.
 
+builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.AddTransient<IRetailSalesDispatchTransactionService, RetailSalesDispatchTransactionDataStore>();
 builder.Services.AddTransient<IRetailSalesDispatchTransactionLineService, RetailSalesDispatchTransactionLineDataStore>();
 builder.Services.AddTransient<IRetailSalesReturnDispatchTransactionLineService, RetailSalesReturnDispatchTransactionLineDataStore>();
@@ -36,5 +39,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.RegisterWithConsul(app.Lifetime);
 
 app.Run();
