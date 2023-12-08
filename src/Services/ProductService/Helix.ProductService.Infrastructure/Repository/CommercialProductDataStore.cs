@@ -4,30 +4,63 @@ using Helix.ProductService.Infrastructure.Helpers;
 using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 namespace Helix.ProductService.Infrastructure.Repository
 {
     public class CommercialProductDataStore : BaseDataStore, ICommercialProductService
 	{
-		public CommercialProductDataStore(IConfiguration configuration) : base(configuration)
+		private readonly ILogger<CommercialProductDataStore> _logger;
+
+		public CommercialProductDataStore(IConfiguration configuration,ILogger<CommercialProductDataStore> logger) : base(configuration)
 		{
+			_logger = logger;
 		}
 
-		public Task<DataResult<CommercialProduct>> GetProductByCode(string code)
+		public async Task<DataResult<CommercialProduct>> GetProductByCode(string code)
 		{
-			var result = new SqlQueryHelper<CommercialProduct>().GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductByCode(code));
-			return result;
+			try
+			{
+                var result = await new SqlQueryHelper<CommercialProduct>().GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductByCode(code));
+                _logger.LogInformation(result.Message, DateTime.UtcNow.ToLongTimeString());
+                return result;
+            }
+			catch (Exception ex) {
+			
+				_logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+				throw;
+			
+			}	
 		}
 
-		public Task<DataResult<CommercialProduct>> GetProductById(int id)
+		public async Task<DataResult<CommercialProduct>> GetProductById(int id)
 		{
-			var result = new SqlQueryHelper<CommercialProduct>().GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductById(id));
-			return result;
-		}
+			try
+			{
+                var result = await new SqlQueryHelper<CommercialProduct>().GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductById(id));
+                return result;
 
-		public Task<DataResult<IEnumerable<CommercialProduct>>> GetProductList()
+            }
+			catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+            }
+        }
+
+		public async Task<DataResult<IEnumerable<CommercialProduct>>> GetProductList()
 		{
-			var result = new SqlQueryHelper<CommercialProduct>().GetObjectsAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductList());
-			return result;
+			try
+			{
+                var result = await new SqlQueryHelper<CommercialProduct>().GetObjectsAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductList());
+                return result;
+
+            }
+			catch (Exception ex)
+			{
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+            }
+
 		}
 	}
 }

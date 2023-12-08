@@ -3,6 +3,8 @@ using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Add services to the container.
 builder.Services.AddTransient<ICommercialProductService, CommercialProductDataStore>();
