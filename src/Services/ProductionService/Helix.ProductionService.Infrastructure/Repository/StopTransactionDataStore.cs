@@ -4,18 +4,30 @@ using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.Repository;
 
 public class StopTransactionDataStore : BaseDataStore, IStopTransactionService
 {
-	public StopTransactionDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<StopTransactionDataStore> _logger;
+	public StopTransactionDataStore(IConfiguration configuration, ILogger<StopTransactionDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<IEnumerable<StopTransaction>>> GetStopTransactionList()
+	public async Task<DataResult<IEnumerable<StopTransaction>>> GetStopTransactionList()
 	{
-		var result = new SqlQueryHelper<StopTransaction>().GetObjectsAsync(new StopTransactionQuery(_configuraiton).GetStopTransactionList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<StopTransaction>().GetObjectsAsync(new StopTransactionQuery(_configuraiton).GetStopTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
 	}
 }

@@ -5,60 +5,151 @@ using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Helpers;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductService.Infrastructure.Repository;
 
 public class ConsumableTransactionLineDataStore : BaseDataStore,IConsumableTransactionLineService
 {
-	public ConsumableTransactionLineDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<ConsumableTransactionLineDataStore> _logger;
+	public ConsumableTransactionLineDataStore(IConfiguration configuration,ILogger<ConsumableTransactionLineDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<ConsumableTransactionLine>> GetConsumableTransactionLineByIdAsync(int id)
+	public async Task<DataResult<ConsumableTransactionLine>> GetConsumableTransactionLineByIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionById(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesAsync()
+	public async Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesAsync()
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByCurrentCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByCurrentCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByCurrentIdAsync(int id)
+	public async Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByCurrentIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByFicheCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByFicheCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByFicheIdAsync(int id)
+	public async Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByFicheIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByProductCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByProductCodeAsync(string code)
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByProductIdAsync(int id)
+	public async Task<DataResult<IEnumerable<ConsumableTransactionLine>>> GetConsumableTransactionLinesByProductIdAsync(int id)
 	{
-		var result = new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ConsumableTransactionLine>().GetObjectsAsync(new ConsumableTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
 	}
 }

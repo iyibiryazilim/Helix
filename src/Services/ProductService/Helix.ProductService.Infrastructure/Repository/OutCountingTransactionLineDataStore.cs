@@ -5,60 +5,151 @@ using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Helpers;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductService.Infrastructure.Repository;
 
 public class OutCountingTransactionLineDataStore : BaseDataStore, IOutCountingTransactionLineService
 {
-    public OutCountingTransactionLineDataStore(IConfiguration configuration) : base(configuration)
+    ILogger<OutCountingTransactionLineDataStore> _logger;
+    public OutCountingTransactionLineDataStore(IConfiguration configuration,ILogger<OutCountingTransactionLineDataStore> logger) : base(configuration)
     {
+        _logger = logger;   
     }
 
-    public Task<DataResult<OutCountingTransactionLine>> GetOutCountingTransactionLineByIdAsync(int id)
+    public async Task<DataResult<OutCountingTransactionLine>> GetOutCountingTransactionLineByIdAsync(int id)
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionById(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesAsync()
+    public async Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesAsync()
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionList());
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByCurrentCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByCurrentCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByCurrentIdAsync(int id)
+    public async Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByCurrentIdAsync(int id)
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByFicheCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByFicheCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByFicheIdAsync(int id)
+    public async Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByFicheIdAsync(int id)
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByProductCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByProductCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByProductIdAsync(int id)
+    public async Task<DataResult<IEnumerable<OutCountingTransactionLine>>> GetOutCountingTransactionLinesByProductIdAsync(int id)
     {
-        var result = new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<OutCountingTransactionLine>().GetObjectsAsync(new OutCountingTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 }
