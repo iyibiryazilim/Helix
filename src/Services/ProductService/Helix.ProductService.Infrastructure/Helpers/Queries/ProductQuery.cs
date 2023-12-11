@@ -3,13 +3,15 @@ using Microsoft.Extensions.Configuration;
 
 
 
-	public class ProductQuery : BaseQuery
-	{
-		public ProductQuery(IConfiguration configuration) : base(configuration)
-		{
-		}
-		public string GetProductList() =>
-			@$"SELECT
+namespace Helix.ProductService.Infrastructure.Helpers.Queries
+{
+    public class ProductQuery : BaseQuery
+    {
+        public ProductQuery(IConfiguration configuration) : base(configuration)
+        {
+        }
+        public string GetProductList() =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -34,8 +36,8 @@ using Microsoft.Extensions.Configuration;
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ'";
 
-		public string GetProductByCode(string code) =>
-			@$"SELECT
+        public string GetProductByCode(string code) =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -60,8 +62,8 @@ using Microsoft.Extensions.Configuration;
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND  ITEMS.CODE = '{code}'";
 
-		public string GetProductById(int id) =>
-			@$"SELECT
+        public string GetProductById(int id) =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -85,5 +87,6 @@ using Microsoft.Extensions.Configuration;
 		LEFT JOIN LG_00{FirmNumber}_MARK AS MARK ON ITEMS.MARKREF = MARK.LOGICALREF
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND  ITEMS.LOGICALREF = {id}";
-	}
+    }
 
+}
