@@ -5,30 +5,61 @@ using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.Repository;
 
 public class ProductionOrderDataStore : BaseDataStore, IProductionOrderService
 {
-	public ProductionOrderDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<ProductionOrderDataStore> _logger;
+	public ProductionOrderDataStore(IConfiguration configuration, ILogger<ProductionOrderDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<IEnumerable<ProductionOrder>>> GetProductionOrderList()
+	public async Task<DataResult<IEnumerable<ProductionOrder>>> GetProductionOrderList()
 	{
-		var result = new SqlQueryHelper<ProductionOrder>().GetObjectsAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ProductionOrder>().GetObjectsAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 
-	public Task<DataResult<ProductionOrder>> GetProductionOrderByCode(string code)
+	public async Task<DataResult<ProductionOrder>> GetProductionOrderByCode(string code)
 	{
-		var result = new SqlQueryHelper<ProductionOrder>().GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderByCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ProductionOrder>().GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderByCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+
 	}
 
-	public Task<DataResult<ProductionOrder>> GetProductionOrderById(int id)
+	public async Task<DataResult<ProductionOrder>> GetProductionOrderById(int id)
 	{
-		var result = new SqlQueryHelper<ProductionOrder>().GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderById(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<ProductionOrder>().GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 }

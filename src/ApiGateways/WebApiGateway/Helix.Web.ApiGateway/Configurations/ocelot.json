@@ -1,13 +1,21 @@
 ﻿{
     "Routes": [
-        {
-            "UseServiceDiscovery": true,
-            "ServiceName": "SalesService",
-            "DownstreamPathTemplate": "/api/{everything}",
-            "DownstreamScheme": "http",
-            "UpstreamPathTemplate": "/gateway/sales/{everything}",
-            "UpstreamHttpMethod": [ "Get","POST" ]
-        }
+      {
+        "UseServiceDiscovery": true,
+        "ServiceName": "SalesService",
+        "DownstreamPathTemplate": "/api/{everything}",
+        "DownstreamScheme": "http",
+        "UpstreamPathTemplate": "/gateway/sales/{everything}",
+        "UpstreamHttpMethod": [ "Get", "POST" ]
+      },
+      {
+        "UseServiceDiscovery": true,
+        "ServiceName": "ProductionService",
+        "DownstreamPathTemplate": "/api/{everything}",
+        "DownstreamScheme": "http",
+        "UpstreamPathTemplate": "/gateway/production/{everything}",
+        "UpstreamHttpMethod": [ "Get", "POST" ]
+      }
     ],
     "GlobalConfiguration": {
         "BaseUrl": "https://localhost:5000",
