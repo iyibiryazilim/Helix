@@ -5,42 +5,100 @@ using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Helpers;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductService.Infrastructure.Repository;
 
 public class ProductionTransactionDataStore : BaseDataStore, IProductionTransactionService
 {
-    public ProductionTransactionDataStore(IConfiguration configuration) : base(configuration)
+    ILogger<ProductionTransactionDataStore> _logger;    
+    public ProductionTransactionDataStore(IConfiguration configuration,ILogger<ProductionTransactionDataStore> logger) : base(configuration)
     {
+        _logger = logger;
     }
 
-    public Task<DataResult<ProductionTransaction>> GetProductionTransactionByCode(string code)
+    public async Task<DataResult<ProductionTransaction>> GetProductionTransactionByCode(string code)
     {
-        var result = new SqlQueryHelper<ProductionTransaction>().GetObjectAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionByCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<ProductionTransaction>().GetObjectAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionByCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<ProductionTransaction>> GetProductionTransactionByIdAsync(int id)
+    public async Task<DataResult<ProductionTransaction>> GetProductionTransactionByIdAsync(int id)
     {
-        var result = new SqlQueryHelper<ProductionTransaction>().GetObjectAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionById(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<ProductionTransaction>().GetObjectAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<ProductionTransaction>>> GetProductionTransactionsAsync()
+    public async Task<DataResult<IEnumerable<ProductionTransaction>>> GetProductionTransactionsAsync()
     {
-        var result = new SqlQueryHelper<ProductionTransaction>().GetObjectsAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionList());
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<ProductionTransaction>().GetObjectsAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<ProductionTransaction>>> GetProductionTransactionsByCurrentCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<ProductionTransaction>>> GetProductionTransactionsByCurrentCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<ProductionTransaction>().GetObjectsAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<ProductionTransaction>().GetObjectsAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<ProductionTransaction>>> GetProductionTransactionsByCurrentIdAsync(int id)
+    public async Task<DataResult<IEnumerable<ProductionTransaction>>> GetProductionTransactionsByCurrentIdAsync(int id)
     {
-        var result = new SqlQueryHelper<ProductionTransaction>().GetObjectsAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<ProductionTransaction>().GetObjectsAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 }

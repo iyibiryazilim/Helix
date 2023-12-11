@@ -5,42 +5,100 @@ using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Helpers;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductService.Infrastructure.Repository;
 
 public class WastageTransactionDataStore : BaseDataStore, IWastageTransactionService
 {
-    public WastageTransactionDataStore(IConfiguration configuration) : base(configuration)
+    ILogger<WastageTransactionDataStore> _logger;
+    public WastageTransactionDataStore(IConfiguration configuration,ILogger<WastageTransactionDataStore> logger) : base(configuration)
     {
+        _logger = logger;
     }
 
-    public Task<DataResult<WastageTransaction>> GetWastageTransactionByCode(string code)
+    public async Task<DataResult<WastageTransaction>> GetWastageTransactionByCode(string code)
     {
-        var result = new SqlQueryHelper<WastageTransaction>().GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<WastageTransaction>> GetWastageTransactionByIdAsync(int id)
+    public async Task<DataResult<WastageTransaction>> GetWastageTransactionByIdAsync(int id)
     {
-        var result = new SqlQueryHelper<WastageTransaction>().GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionById(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<WastageTransaction>>> GetWastageTransactionsAsync()
+    public async Task<DataResult<IEnumerable<WastageTransaction>>> GetWastageTransactionsAsync()
     {
-        var result = new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionList());
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<WastageTransaction>>> GetWastageTransactionsByCurrentCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<WastageTransaction>>> GetWastageTransactionsByCurrentCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<WastageTransaction>>> GetWastageTransactionsByCurrentIdAsync(int id)
+    public async Task<DataResult<IEnumerable<WastageTransaction>>> GetWastageTransactionsByCurrentIdAsync(int id)
     {
-        var result = new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 }
