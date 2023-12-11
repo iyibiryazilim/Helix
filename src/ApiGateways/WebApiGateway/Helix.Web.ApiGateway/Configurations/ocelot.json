@@ -10,6 +10,14 @@
     },
     {
       "UseServiceDiscovery": true,
+      "ServiceName": "ProductionService",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/gateway/production/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST" ]
+    },
+    {
+      "UseServiceDiscovery": true,
       "ServiceName": "ProductService",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
