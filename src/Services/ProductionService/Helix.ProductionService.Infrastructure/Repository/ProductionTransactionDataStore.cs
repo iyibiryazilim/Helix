@@ -83,6 +83,7 @@ public class ProductionTransactionDataStore : BaseDataStore, IProductionTransact
 		try
 		{
 			var result = await new SqlQueryHelper<ProductionTransaction>().GetObjectsAsync(new ProductionTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
 		catch (Exception ex)

@@ -53,6 +53,7 @@ public class ProductionOrderDataStore : BaseDataStore, IProductionOrderService
 		try
 		{
 			var result = await new SqlQueryHelper<ProductionOrder>().GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
 		{
