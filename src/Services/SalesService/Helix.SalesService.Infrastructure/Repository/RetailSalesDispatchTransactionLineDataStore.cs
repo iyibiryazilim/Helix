@@ -7,11 +7,12 @@ using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
+
 namespace Helix.Tiger.DataAccess.DataStores;
 
 public class RetailSalesDispatchTransactionLineDataStore : BaseDataStore,IRetailSalesDispatchTransactionLineService
 {
-	ILogger<RetailSalesDispatchTransactionLineDataStore> _logger;
+	private readonly ILogger<RetailSalesDispatchTransactionLineDataStore> _logger;
 	public RetailSalesDispatchTransactionLineDataStore(IConfiguration configuration , ILogger<RetailSalesDispatchTransactionLineDataStore> logger) : base(configuration)
 	{
 		_logger = logger;
@@ -24,6 +25,7 @@ public class RetailSalesDispatchTransactionLineDataStore : BaseDataStore,IRetail
 		{
 			var result = await new SqlQueryHelper<RetailSalesDispatchTransactionLine>().GetObjectAsync(new RetailSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			
 
 			return result;
 		}

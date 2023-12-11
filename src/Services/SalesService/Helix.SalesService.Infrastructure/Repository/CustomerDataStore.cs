@@ -22,6 +22,8 @@ public class CustomerDataStore : BaseDataStore, ICustomerService
 		{
 			var result = await new SqlQueryHelper<Customer>().GetObjectAsync(new CustomerQuery(_configuraiton).GetCustomerById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			
+			_logger.LogError("error");
 			return result;
 		}
 		catch (Exception ex)
