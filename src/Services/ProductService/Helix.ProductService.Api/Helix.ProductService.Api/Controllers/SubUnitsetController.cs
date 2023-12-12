@@ -23,14 +23,14 @@ namespace Helix.ProductService.Api.Controllers
             return result;
         }
 
-        [HttpGet("Id/{id:int}")]
+        [HttpGet("Unitset/Id/{id:int}")]
         public async Task<DataResult<IEnumerable<SubUnitset>>> GetByUnitsetId(int id)
         {
             var result = await _subUnitsetService.GetSubUnitsetByUnitsetId(id);
             return result;
         }
 
-        [HttpGet("Id/{id:int}")]
+        [HttpGet("Product/Id/{id:int}")]
         public async Task<DataResult<IEnumerable<SubUnitset>>> GetByProductId(int id)
         {
             var result = await _subUnitsetService.GetSubUnitsetsFromProductId(id);
