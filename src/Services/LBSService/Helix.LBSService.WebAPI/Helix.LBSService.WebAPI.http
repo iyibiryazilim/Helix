@@ -1,0 +1,6 @@
+@Helix.LBSService.WebAPI_HostAddress = http://localhost:5023
+
+GET {{Helix.LBSService.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
