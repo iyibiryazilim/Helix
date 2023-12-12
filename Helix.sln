@@ -68,20 +68,30 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.ProductionService.Infrastructure", "src\Services\ProductionService\Helix.ProductionService.Infrastructure\Helix.ProductionService.Infrastructure.csproj", "{1C33629C-D3DB-48C0-81C9-6911D27C3486}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.ProductionService.WebAPI", "src\Services\ProductionService\Helix.ProductionService.API\Helix.ProductionService.WebAPI.csproj", "{AED5DEC2-20A1-4E77-9F26-A95FED55A414}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.ProductService.Application", "src\Services\ProductService\Helix.ProductService.Application\Helix.ProductService.Application.csproj", "{4126181A-BDB3-4515-8B88-4960A8F2006F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.ProductService.Infrastructure", "src\Services\ProductService\Helix.ProductService.Infrastructure\Helix.ProductService.Infrastructure.csproj", "{1C79738F-6548-4987-8AEE-8128A17BED66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.ProductService.Domain", "src\Services\ProductService\Helix.ProductService.Domain\Helix.ProductService.Domain.csproj", "{35FC5028-2FE0-480C-8815-54A668314131}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.ProductService.Domain", "src\Services\ProductService\Helix.ProductService.Domain\Helix.ProductService.Domain.csproj", "{35FC5028-2FE0-480C-8815-54A668314131}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PurchaseService", "PurchaseService", "{99393B8B-F96A-41C4-977E-B018825BB33F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.Application", "src\Services\PurchaseService\Helix.PurchaseService.Application\Helix.PurchaseService.Application.csproj", "{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.PurchaseService.Application", "src\Services\PurchaseService\Helix.PurchaseService.Application\Helix.PurchaseService.Application.csproj", "{3FE2CCCE-CDBC-4922-9114-4BC4D42D0039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.Domain", "src\Services\PurchaseService\Helix.PurchaseService.Domain\Helix.PurchaseService.Domain.csproj", "{DB5B5C6B-6DE4-4370-B35F-055793CB79DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.PurchaseService.Domain", "src\Services\PurchaseService\Helix.PurchaseService.Domain\Helix.PurchaseService.Domain.csproj", "{DB5B5C6B-6DE4-4370-B35F-055793CB79DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.Infrastructure", "src\Services\PurchaseService\Helix.PurchaseService.Infrastructure\Helix.PurchaseService.Infrastructure.csproj", "{6F4091BB-70FD-408B-952C-D8FD75AC7D86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.PurchaseService.Infrastructure", "src\Services\PurchaseService\Helix.PurchaseService.Infrastructure\Helix.PurchaseService.Infrastructure.csproj", "{6F4091BB-70FD-408B-952C-D8FD75AC7D86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.PurchaseService.WebAPI", "src\Services\PurchaseService\Helix.PurchaseService.WebAPI\Helix.PurchaseService.WebAPI.csproj", "{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.PurchaseService.WebAPI", "src\Services\PurchaseService\Helix.PurchaseService.WebAPI\Helix.PurchaseService.WebAPI.csproj", "{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LBSService", "LBSService", "{7438FA5D-0998-49CE-8730-0D12A0534A78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.WebAPI", "src\Services\LBSService\Helix.LBSService.WebAPI\Helix.LBSService.WebAPI.csproj", "{C3453F89-C25B-4821-AD36-3FE8D27CEAE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.Tiger", "src\Services\LBSService\Helix.LBSService.Application\Helix.LBSService.Tiger\Helix.LBSService.Tiger.csproj", "{3A746DDF-E9A5-4306-8C64-C225CB11C291}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.Go", "src\Services\LBSService\Helix.LBSService.Go\Helix.LBSService.Go.csproj", "{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -197,6 +207,18 @@ Global
 		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3453F89-C25B-4821-AD36-3FE8D27CEAE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3453F89-C25B-4821-AD36-3FE8D27CEAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3453F89-C25B-4821-AD36-3FE8D27CEAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3453F89-C25B-4821-AD36-3FE8D27CEAE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A746DDF-E9A5-4306-8C64-C225CB11C291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A746DDF-E9A5-4306-8C64-C225CB11C291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A746DDF-E9A5-4306-8C64-C225CB11C291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A746DDF-E9A5-4306-8C64-C225CB11C291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -242,6 +264,10 @@ Global
 		{DB5B5C6B-6DE4-4370-B35F-055793CB79DC} = {99393B8B-F96A-41C4-977E-B018825BB33F}
 		{6F4091BB-70FD-408B-952C-D8FD75AC7D86} = {99393B8B-F96A-41C4-977E-B018825BB33F}
 		{1F4C92CA-FC07-4D5A-935E-991B7E2781F4} = {99393B8B-F96A-41C4-977E-B018825BB33F}
+		{7438FA5D-0998-49CE-8730-0D12A0534A78} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
+		{C3453F89-C25B-4821-AD36-3FE8D27CEAE0} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
+		{3A746DDF-E9A5-4306-8C64-C225CB11C291} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
+		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}
