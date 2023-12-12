@@ -33,7 +33,7 @@ namespace Helix.ProductService.Api.Controllers
             return result;
         }
 
-        [HttpGet("Id/{id:int}")]
+        [HttpGet("Product/Id/{id:int}")]
         public async Task<DataResult<IEnumerable<Unitset>>> GetByProductId(int id)
         {
 

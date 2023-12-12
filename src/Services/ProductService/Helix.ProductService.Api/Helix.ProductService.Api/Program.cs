@@ -2,13 +2,18 @@ using Helix.ProductService.Api.ConsulRegistration;
 using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Repository;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+builder.Host.UseSerilog();
 
-// Add services to the container.
-builder.Services.ConfigureConsul(builder.Configuration);
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
+
+//// Add services to the container.
+//builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.AddTransient<ICommercialProductService, CommercialProductDataStore>();
 builder.Services.AddTransient<IEndProductService, EndProductDataStore>();
 builder.Services.AddTransient<IFixedAssetProductService, FixedAssetProductDataStore>();
@@ -56,6 +61,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.RegisterWithConsul(app.Lifetime);
+//app.RegisterWithConsul(app.Lifetime);
+app.UseSerilogRequestLogging();
 
 app.Run();
