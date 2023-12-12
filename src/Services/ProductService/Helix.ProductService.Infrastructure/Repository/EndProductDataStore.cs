@@ -48,7 +48,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<EndProduct>().GetObjectsAsync(nSew EndProductQuery(_configuraiton).GetEndProductList());
+                var result = await new SqlQueryHelper<EndProduct>().GetObjectsAsync(new EndProductQuery(_configuraiton).GetEndProductList());
                 return result;
 
             }
