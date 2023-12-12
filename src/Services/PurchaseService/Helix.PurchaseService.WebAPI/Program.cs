@@ -1,5 +1,6 @@
 using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Infrastructure.Repository;
+using Helix.PurchaseService.WebAPI.ConsulRegistrations;
 using Helix.Tiger.DataAccess.DataStores;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Logging.AddConsole();
 
 
 // Add services to the container.
+builder.Services.ConfigureConsul(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,5 +37,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.RegisterWithConsul(app.Lifetime);
 
 app.Run();
