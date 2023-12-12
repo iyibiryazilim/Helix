@@ -5,19 +5,30 @@ using Helix.ProductService.Infrastructure.Helpers;
 using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductService.Infrastructure.Repository
 {
 	public class WarehouseDataStore : BaseDataStore, IWarehouseService
 	{
-		public WarehouseDataStore(IConfiguration configuration) : base(configuration)
+        private readonly ILogger<WarehouseDataStore> _logger;
+        public WarehouseDataStore(IConfiguration configuration, ILogger<WarehouseDataStore> logger) : base(configuration)
 		{
-		}
+            _logger = logger;
+        }
 
-		public Task<DataResult<IEnumerable<Warehouse>>> GetWarehouseList()
+		public async Task<DataResult<IEnumerable<Warehouse>>> GetWarehouseList()
 		{
-			var result = new SqlQueryHelper<Warehouse>().GetObjectsAsync(new WarehouseQuery(_configuraiton).GetWarehouseList());
-			return result;
+			try
+			{
+                var result = await new SqlQueryHelper<Warehouse>().GetObjectsAsync(new WarehouseQuery(_configuraiton).GetWarehouseList());
+                return result;
+            }
+			catch (Exception ex)
+			{
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+            }
 		}
 	}
 }

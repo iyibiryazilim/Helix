@@ -3,14 +3,16 @@ using Microsoft.Extensions.Configuration;
 
 
 
-public class SemiProductQuery : BaseQuery
+namespace Helix.ProductService.Infrastructure.Helpers.Queries
 {
-	public SemiProductQuery(IConfiguration configuration) : base(configuration)
-	{
-	}
+    public class SemiProductQuery : BaseQuery
+    {
+        public SemiProductQuery(IConfiguration configuration) : base(configuration)
+        {
+        }
 
-	public string GetSemiProductList() =>
-			@$"SELECT
+        public string GetSemiProductList() =>
+                @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -35,8 +37,8 @@ public class SemiProductQuery : BaseQuery
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND ITEMS.CARDTYPE = 11";
 
-	public string GetSemiProductByCode(string code) =>
-		@$"SELECT
+        public string GetSemiProductByCode(string code) =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -61,8 +63,8 @@ public class SemiProductQuery : BaseQuery
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND ITEMS.CARDTYPE = 11 AND ITEMS.CODE = '{code}'";
 
-	public string GetSemiProductById(int id) =>
-		@$"SELECT
+        public string GetSemiProductById(int id) =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -86,4 +88,5 @@ public class SemiProductQuery : BaseQuery
 		LEFT JOIN LG_00{FirmNumber}_MARK AS MARK ON ITEMS.MARKREF = MARK.LOGICALREF
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND ITEMS.CARDTYPE = 11 AND ITEMS.LOGICALREF = {id}";
+    }
 }

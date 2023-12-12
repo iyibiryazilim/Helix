@@ -2,34 +2,67 @@
 using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Helpers;
+using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Repository.Base;
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductService.Infrastructure.Repository
 {
 	public class SemiProductDataStore : BaseDataStore, ISemiProductService
 	{
-		public SemiProductDataStore(IConfiguration configuration) : base(configuration)
+		private readonly ILogger _logger;
+		public SemiProductDataStore(IConfiguration configuration, ILogger<SemiProductDataStore>logger) : base(configuration)
 		{
+			_logger = logger;
 		}
 
-		public Task<DataResult<SemiProduct>> GetProductByCode(string code)
+		public async  Task<DataResult<SemiProduct>> GetProductByCode(string code)
 		{
-			var result = new SqlQueryHelper<SemiProduct>().GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductByCode(code));
+			try
+			{
+				var result = await new SqlQueryHelper<SemiProduct>().GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductByCode(code));
 			return result;
+			}
+			catch (Exception ex)
+			{
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+            }
+
 		}
 
-		public Task<DataResult<SemiProduct>> GetProductById(int id)
+		public async Task<DataResult<SemiProduct>> GetProductById(int id)
 		{
-			var result = new SqlQueryHelper<SemiProduct>().GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductById(id));
-			return result;
-		}
+			try
+			{
+                var result = await new SqlQueryHelper<SemiProduct>().GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductById(id));
+                return result;
 
-		public Task<DataResult<IEnumerable<SemiProduct>>> GetProductList()
+            }
+			catch (Exception ex)
+			{
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+            }
+
+        }
+
+		public async  Task<DataResult<IEnumerable<SemiProduct>>> GetProductList()
 		{
-			var result = new SqlQueryHelper<SemiProduct>().GetObjectsAsync(new SemiProductQuery(_configuraiton).GetSemiProductList());
-			return result;
+			try
+			{
+                var result = await new SqlQueryHelper<SemiProduct>().GetObjectsAsync(new SemiProductQuery(_configuraiton).GetSemiProductList());
+                return result;
+
+            }
+			catch(Exception ex)
+			{
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+
+            }
 		}
 	}
 }

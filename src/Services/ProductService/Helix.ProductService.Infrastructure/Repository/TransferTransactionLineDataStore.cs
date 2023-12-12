@@ -5,60 +5,152 @@ using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Helpers;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductService.Infrastructure.Repository;
 
 public class TransferTransactionLineDataStore : BaseDataStore, ITransferTransactionLineService
 {
-    public TransferTransactionLineDataStore(IConfiguration configuration) : base(configuration)
+    ILogger<TransferTransactionLineDataStore> _logger;
+    public TransferTransactionLineDataStore(IConfiguration configuration,ILogger<TransferTransactionLineDataStore> logger) : base(configuration)
     {
+        _logger = logger;
     }
 
-    public Task<DataResult<TransferTransactionLine>> GetTransferTransactionLineByIdAsync(int id)
+    public async Task<DataResult<TransferTransactionLine>> GetTransferTransactionLineByIdAsync(int id)
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionById(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesAsync()
+    public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesAsync()
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionList());
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByCurrentCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByCurrentCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByCurrentIdAsync(int id)
+    public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByCurrentIdAsync(int id)
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByFicheCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByFicheCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
-        return result;
+        try
+        {
+
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByFicheIdAsync(int id)
+    public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByFicheIdAsync(int id)
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByProductCodeAsync(string code)
+    public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByProductCodeAsync(string code)
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 
-    public Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByProductIdAsync(int id)
+    public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetTransferTransactionLinesByProductIdAsync(int id)
     {
-        var result = new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
-        return result;
+        try
+        {
+            var result = await new SqlQueryHelper<TransferTransactionLine>().GetObjectsAsync(new TransferTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+        }
+        catch (Exception ex)
+        {
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+        }
     }
 }

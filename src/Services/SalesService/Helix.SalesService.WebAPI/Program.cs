@@ -2,13 +2,18 @@ using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Infrastructure.Repository;
 using Helix.SalesService.WebAPI.ConsulRegistrations;
 using Helix.Tiger.DataAccess.DataStores;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+builder.Host.UseSerilog();
+
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
 // Add services to the container.
 
-builder.Services.ConfigureConsul(builder.Configuration);
+//builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.AddTransient<IRetailSalesDispatchTransactionService, RetailSalesDispatchTransactionDataStore>();
 builder.Services.AddTransient<IRetailSalesDispatchTransactionLineService, RetailSalesDispatchTransactionLineDataStore>();
 builder.Services.AddTransient<IRetailSalesReturnDispatchTransactionLineService, RetailSalesReturnDispatchTransactionLineDataStore>();
@@ -27,18 +32,21 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-}
+//// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+	
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-app.RegisterWithConsul(app.Lifetime);
+//app.RegisterWithConsul(app.Lifetime);
+
+app.UseSerilogRequestLogging();
 
 app.Run();

@@ -4,54 +4,126 @@ using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.Repository;
 
 public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 {
-	public WorkOrderDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<WorkOrderDataStore> _logger;
+	public WorkOrderDataStore(IConfiguration configuration, ILogger<WorkOrderDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<WorkOrder>> GetWorkOrderById(int id)
+	public async Task<DataResult<WorkOrder>> GetWorkOrderById(int id)
 	{
-		var result = new SqlQueryHelper<WorkOrder>().GetObjectAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderById(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WorkOrder>().GetObjectAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderById(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+
 	}
 
-	public Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByProductionOrderCode(string code)
+	public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByProductionOrderCode(string code)
 	{
-		var result = new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 
-	public Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByProductionOrderId(int id)
+	public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByProductionOrderId(int id)
 	{
-		var result = new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderId(id));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 
-	public Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByStatus(int[] status)
+	public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByStatus(int[] status)
 	{
-		var result = new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByStatus(status));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByStatus(status));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+
 	}
 
-	public Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByWorkstationCode(string code)
+	public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByWorkstationCode(string code)
 	{
-		var result = new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationCode(code));
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationCode(code));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		} catch(Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+		
 	}
 
-	public Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByWorkstationId(int id)
+	public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByWorkstationId(int id)
 	{
-		var result = new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationId(id));
-		return result;
+		
+		try
+		{
+			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationId(id));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
 	}
 
-	public Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderList()
+	public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderList()
 	{
-		var result = new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+
 	}
 }

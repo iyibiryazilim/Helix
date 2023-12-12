@@ -2,13 +2,15 @@
 using Microsoft.Extensions.Configuration;
 
 
-public class FixedAssetProductQuery : BaseQuery
+namespace Helix.ProductService.Infrastructure.Helpers.Queries
 {
-	public FixedAssetProductQuery(IConfiguration configuration) : base(configuration)
-	{
-	}
-	public string GetFixedAssetProductList() =>
-		@$"SELECT
+    public class FixedAssetProductQuery : BaseQuery
+    {
+        public FixedAssetProductQuery(IConfiguration configuration) : base(configuration)
+        {
+        }
+        public string GetFixedAssetProductList() =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -33,8 +35,8 @@ public class FixedAssetProductQuery : BaseQuery
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND ITEMS.CARDTYPE = 4";
 
-	public string GetFixedAssetProductByCode(string code) =>
-		@$"SELECT
+        public string GetFixedAssetProductByCode(string code) =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -59,8 +61,8 @@ public class FixedAssetProductQuery : BaseQuery
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND ITEMS.CARDTYPE = 4 AND ITEMS.CODE = '{code}'";
 
-	public string GetFixedAssetProductById(int id) =>
-		@$"SELECT
+        public string GetFixedAssetProductById(int id) =>
+            @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -84,4 +86,5 @@ public class FixedAssetProductQuery : BaseQuery
 		LEFT JOIN LG_00{FirmNumber}_MARK AS MARK ON ITEMS.MARKREF = MARK.LOGICALREF
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND ITEMS.CARDTYPE = 4 AND ITEMS.LOGICALREF = {id}";
+    }
 }

@@ -4,18 +4,31 @@ using Helix.ProductionService.Infrastructure.BaseRepository;
 using Helix.ProductionService.Infrastructure.Helper;
 using Helix.ProductionService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.Repository;
 
 public class StopCauseDataStore : BaseDataStore, IStopCauseService
 {
-	public StopCauseDataStore(IConfiguration configuration) : base(configuration)
+	ILogger<StopCauseDataStore> _logger;
+	public StopCauseDataStore(IConfiguration configuration, ILogger<StopCauseDataStore> logger) : base(configuration)
 	{
+		_logger = logger;
 	}
 
-	public Task<DataResult<IEnumerable<StopCause>>> GetStopCauseList()
+	public async Task<DataResult<IEnumerable<StopCause>>> GetStopCauseList()
 	{
-		var result = new SqlQueryHelper<StopCause>().GetObjectsAsync(new StopCauseQuery(_configuraiton).GetStopCauseList());
-		return result;
+		try
+		{
+			var result = await new SqlQueryHelper<StopCause>().GetObjectsAsync(new StopCauseQuery(_configuraiton).GetStopCauseList());
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+
 	}
 }
