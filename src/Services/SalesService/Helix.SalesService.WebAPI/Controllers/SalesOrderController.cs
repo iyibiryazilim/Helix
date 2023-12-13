@@ -1,5 +1,8 @@
-﻿using Helix.SalesService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.AggregateModels;
+using Helix.SalesService.Domain.Dtos;
+using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +13,12 @@ namespace Helix.SalesService.WebAPI.Controllers;
 public class SalesOrderController : ControllerBase
 {
 	ISalesOrderService _salesOrderService;
-    public SalesOrderController(ISalesOrderService salesOrderService)
+	IEventBus _eventBus;
+
+	public SalesOrderController(ISalesOrderService salesOrderService,IEventBus eventBus)
     {
         _salesOrderService = salesOrderService;
+		_eventBus = eventBus;
     }
 
     [HttpGet]
@@ -46,5 +52,12 @@ public class SalesOrderController : ControllerBase
 	{
 		var result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code);
 		return result;
+	}
+
+	[HttpPost]
+	public async Task SalesOrderInsert([FromBody] SalesOrderDto salesOrderDto)
+	{
+
+		_eventBus.Publish(new SalesOrderInsertedIntegrationEvent(salesOrderDto.referenceId, salesOrderDto.code, salesOrderDto.orderDate));
 	}
 }

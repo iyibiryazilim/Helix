@@ -1,13 +1,46 @@
+using Helix.EventBus.Base;
+using Helix.EventBus.Base.Abstractions;
+using Helix.EventBus.Base.Events;
+using Helix.EventBus.Factory;
 using Helix.SalesService.Application.Repository;
+using Helix.SalesService.Domain.Events;
+using Helix.SalesService.Infrastructure.EventHandlers;
 using Helix.SalesService.Infrastructure.Repository;
 using Helix.SalesService.WebAPI.ConsulRegistrations;
 using Helix.Tiger.DataAccess.DataStores;
+using RabbitMQ.Client;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
+
+builder.Services.AddSingleton<IEventBus>(eb =>
+{
+	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
+	{
+		ConnectionRetryCount = 5,
+		SubscriperClientAppName = "SalesService",
+		DefaultTopicName = "HelixTopicName",
+		EventBusType = EventBusType.RabbitMQ,
+		EventNameSuffix = nameof(IntegrationEvent),
+		//Connection = new ConnectionFactory
+		//{
+		//	HostName = "rattlesnake-01.rmq.cloudamqp.com",
+		//	Port = 5672,
+		//	UserName = "oqhbtvgt",
+		//	Password = "Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g"
+		//}
+	}, eb);
+});
+
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+
+eventBus.Subscribe<SalesOrderInsertedIntegrationEvent, SalesOrderInsertedIntegrationEventHandler>();
+
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
@@ -22,6 +55,8 @@ builder.Services.AddTransient<IWholeSalesDispatchTransactionLineService, WholeSa
 builder.Services.AddTransient<IWholeSalesDispatchTransactionService, WholeSalesDispatchTransactionDataStore>();
 builder.Services.AddTransient<IWholeSalesReturnDispatchTransactionLineService, WholeSalesReturnDispatchTransactionLineDataStore>();
 builder.Services.AddTransient<IWholeSalesReturnDispatchTransactionService, WholeSalesReturnDispatchTransactionDataStore>();
+builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
+
 builder.Services.AddTransient<ICustomerService, CustomerDataStore>();
 
 
