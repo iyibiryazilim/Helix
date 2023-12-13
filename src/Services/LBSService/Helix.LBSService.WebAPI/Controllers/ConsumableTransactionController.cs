@@ -1,11 +1,13 @@
-﻿using Helix.SharedEntity.DTOs;
+﻿using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.Tiger.Services;
 using Helix.SharedEntity.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Helix.LBSService.Tiger.Models.BaseModel;
+
 
 namespace Helix.LBSService.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class ConsumableTransactionController : ControllerBase
     {
@@ -17,7 +19,7 @@ namespace Helix.LBSService.WebAPI.Controllers
             _logger = logger;
         }
         [HttpPost("Insert")]
-        public async Task<DataResult<ConsumableTransaction>> Insert([FromBody] ConsumableTransactionDto dto)
+        public async Task<DataResult<ConsumableTransactionDto>> Insert([FromBody] ConsumableTransactionDto dto)
         {
             var result = await _consumableTransactionService.Insert(dto);
             return result;

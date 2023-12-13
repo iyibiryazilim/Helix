@@ -1,7 +1,7 @@
-﻿using Helix.SharedEntity.DTOs;
-using Helix.SharedEntity.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.Tiger.Services;
 using Microsoft.AspNetCore.Mvc;
+using Helix.LBSService.Tiger.Models.BaseModel;
 
 namespace Helix.LBSService.WebAPI.Controllers
 {
@@ -18,7 +18,7 @@ namespace Helix.LBSService.WebAPI.Controllers
         }
 
         [HttpPost("Insert")]
-        public async Task<DataResult<TransferTransaction>> Insert([FromBody] TransferTransactionDto dto)
+        public async Task<DataResult<TransferTransactionDto>> Insert([FromBody] TransferTransactionDto dto)
         {
             var result = await _transferTransactionService.Insert(dto);
             return result;

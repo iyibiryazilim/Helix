@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.Tiger.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using Helix.LBSService.Tiger.Models.BaseModel;
 namespace Helix.LBSService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -15,7 +16,7 @@ namespace Helix.LBSService.WebAPI.Controllers
             _logger = logger;
         }
         [HttpPost("Insert")]
-        public async Task<DataResult<ProductionTransaction>> Insert([FromBody] ProductionTransactionInsertDto dto)
+        public async Task<DataResult<ProductionTransactionDto>> Insert([FromBody] ProductionTransactionDto dto)
         {
             var result = await _productionTransactionService.Insert(dto);
             return result;

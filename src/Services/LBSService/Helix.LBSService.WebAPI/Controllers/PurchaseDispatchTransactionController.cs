@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.Tiger.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using Helix.LBSService.Tiger.Models.BaseModel;
 namespace Helix.LBSService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -18,7 +19,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 
 
         [HttpPost("Insert")]
-        public async Task<DataResult<PurchaseDispatchTransaction>> Insert([FromBody] PurchaseDispatchTransactionDto dto)
+        public async Task<DataResult<PurchaseDispatchTransactionDto>> Insert([FromBody] PurchaseDispatchTransactionDto dto)
         {
             var result = await _purchaseDispatchTransactionService.Insert(dto);
             return result;
