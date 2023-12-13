@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Base\Helix.EventBus.Base.csproj" />
+  </ItemGroup>
+
 </Project>

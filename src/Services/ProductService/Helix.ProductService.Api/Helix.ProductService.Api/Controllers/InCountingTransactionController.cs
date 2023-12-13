@@ -1,5 +1,7 @@
-﻿using Helix.ProductService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.AggregateModels;
+using Helix.ProductService.Domain.Dtos;
 using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +14,12 @@ namespace Helix.ProductService.Api.Controllers;
 public class InCountingTransactionController : ControllerBase
 {
 	IInCountingTransactionService _inCountingTransactionService;
-	public InCountingTransactionController(IInCountingTransactionService inCountingTransactionService)
+    IEventBus _eventBus;
+    public InCountingTransactionController(IInCountingTransactionService inCountingTransactionService, IEventBus eventBus)
 	{
 		_inCountingTransactionService = inCountingTransactionService;
-	}
+        _eventBus = eventBus;
+    }
 
 
 	[HttpGet]
@@ -52,4 +56,11 @@ public class InCountingTransactionController : ControllerBase
 		var result = await _inCountingTransactionService.GetInCountingTransactionsByCurrentCodeAsync(code);
 		return result;
 	}
+
+	[HttpPost]
+	public async Task InCountingInsert([FromBody] InCountingTransactionDto inCountingtransaction)
+	{
+        
+
+    }
 }
