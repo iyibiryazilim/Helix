@@ -1,4 +1,7 @@
-﻿using Helix.ProductionService.Application.Services;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductionService.Application.Services;
+using Helix.ProductionService.Domain.Dtos;
+using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +12,12 @@ namespace Helix.ProductionService.WebAPI.Controllers
 	public class WorkOrderController : ControllerBase
 	{
 		IWorkOrderService _workOrderService;
+		IEventBus _eventBus;
 
-		public WorkOrderController(IWorkOrderService workOrderService)
+		public WorkOrderController(IWorkOrderService workOrderService, IEventBus eventBus)
 		{
 			_workOrderService = workOrderService;
+			_eventBus = eventBus;
 		}
 
 		[HttpGet]
@@ -62,6 +67,12 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		{
 			var result = await _workOrderService.GetWorkOrderByProductionOrderCode(code);
 			return result;
+		}
+
+		[HttpPost]
+		public async Task WorkOrderInsert([FromBody] WorkOrderDto workOrderDto)
+		{
+			_eventBus.Publish(new WorkOrderInsertedIntegrationEvent(workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
 		}
 
 	}
