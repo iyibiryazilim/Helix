@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Helix.EventBus.Base\Helix.EventBus.Base.csproj" />
+    <ProjectReference Include="..\Helix.EventBus.RabbitMQ\Helix.EventBus.RabbitMQ.csproj" />
+  </ItemGroup>
+
 </Project>
