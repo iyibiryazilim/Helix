@@ -35,7 +35,15 @@ namespace Helix.EventBus.RabbitMQ
             }
             else
             {
-                _connectionFactory = new ConnectionFactory();
+                _connectionFactory = new ConnectionFactory()
+                {
+                    Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt")
+					//HostName = "rattlesnake-01.rmq.cloudamqp.com",
+					//Port = 5672,
+					//UserName = "oqhbtvgt",
+					//Password = "Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g"
+				};
+                
             }
 
             persistentConnection = new RabbitMQPersistentConnection(_connectionFactory, eventBusconfig.ConnectionRetryCount);
@@ -171,7 +179,7 @@ namespace Helix.EventBus.RabbitMQ
             }
 
             _subscriptionManager.AddSubscription<T, TH>();
-            StartBasicConsume(eventName);
+            //StartBasicConsume(eventName);
         }
 
         public override void UnSubscribe<T, TH>()
