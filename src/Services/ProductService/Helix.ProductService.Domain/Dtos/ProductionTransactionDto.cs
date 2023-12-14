@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helix.ProductService.Domain.Dtos
-{
-    public record InCountingTransactionDto(
-   int referenceId,
+namespace Helix.ProductService.Domain.Dtos;
+
+public record ProductionTransactionDto(int referenceId,
     DateTime transactionDate,
      string transactionTime,
      int convertedTime,
@@ -42,8 +41,7 @@ namespace Helix.ProductService.Domain.Dtos
      string docTrackingNumber,
      short isEInvoice,
      short eDispatchProfileId,
-     short eInvoiceProfileId
-        )
-    {
-    }
+     short eInvoiceProfileId)
+{
+    
 }

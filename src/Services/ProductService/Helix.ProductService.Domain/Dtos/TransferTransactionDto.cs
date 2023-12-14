@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Helix.ProductService.Domain.Dtos
 {
-    public record InCountingTransactionDto(
-   int referenceId,
-    DateTime transactionDate,
+    public record TransferTransactionDto(
+     int referenceId,
+     DateTime transactionDate,
      string transactionTime,
      int convertedTime,
-    int orderReference,
+     int orderReference,
      string code,
      short groupType,
      short iOType,
@@ -42,8 +42,8 @@ namespace Helix.ProductService.Domain.Dtos
      string docTrackingNumber,
      short isEInvoice,
      short eDispatchProfileId,
-     short eInvoiceProfileId
-        )
+     short eInvoiceProfileId)
     {
+
     }
 }

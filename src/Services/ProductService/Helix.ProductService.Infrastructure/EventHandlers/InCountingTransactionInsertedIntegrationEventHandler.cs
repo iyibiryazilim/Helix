@@ -18,7 +18,7 @@ namespace Helix.ProductService.Infrastructure.EventHandlers
         }
         public Task Handle(InCountingTransactionInsertedIntegrationEvent @event)
         {
-            _logger.LogInformation("consumable transaction inserted started");
+            _logger.LogInformation("incounting transaction inserted started");
             return Task.CompletedTask;
         }
     }

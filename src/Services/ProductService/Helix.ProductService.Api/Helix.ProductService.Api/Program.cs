@@ -1,4 +1,4 @@
-using Helix.EventBus.Base.Abstractions;
+ using Helix.EventBus.Base.Abstractions;
 using Helix.EventBus.Base.Events;
 using Helix.EventBus.Base;
 using Helix.EventBus.Factory;
@@ -35,6 +35,11 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
 eventBus.Subscribe<ConsumableTransactionInsertedIntegrationEvent, ConsumableTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<InCountingTransactionInsertedIntegrationEvent, InCountingTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<ProductionTransactionInsertedIntegrationEvent, ProductionTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<TransferTransactionInsertedIntegrationEvent, TransferTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<WastageTransactionInsertedIntegrationEvent, WastageTransactionInsertedIntegrationEventHandler>();
+
 
 
 
