@@ -1,4 +1,7 @@
-﻿using Helix.ProductionService.Application.Services;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductionService.Application.Services;
+using Helix.ProductionService.Domain.Dtos;
+using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +12,11 @@ namespace Helix.ProductionService.WebAPI.Controllers
 	public class StopTransactionController : ControllerBase
 	{
 		IStopTransactionService _stopTransactionService;
-		public StopTransactionController(IStopTransactionService stopTransactionService)
+		IEventBus _eventBus;
+		public StopTransactionController(IStopTransactionService stopTransactionService, IEventBus eventBus)
 		{
 			_stopTransactionService = stopTransactionService;
+			_eventBus = eventBus;
 		}
 
 		[HttpGet]
@@ -19,6 +24,12 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		{
 			var result = await _stopTransactionService.GetStopTransactionList();
 			return result;
+		}
+
+		[HttpPost]
+		public async Task InsertStopTransaction([FromBody] StopTransactionForWorkOrderDto stopTransactionForWorkOrderDto)
+		{
+			_eventBus.Publish(new StopTransactionForWorkOrderInsertedIntegrationEvent(stopTransactionForWorkOrderDto.workOrderReferenceId, stopTransactionForWorkOrderDto.stopCauseReferenceId, stopTransactionForWorkOrderDto.stopDate, stopTransactionForWorkOrderDto.stopTime));
 		}
 	}
 }

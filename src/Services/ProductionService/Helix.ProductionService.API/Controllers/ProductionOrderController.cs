@@ -1,4 +1,5 @@
-﻿using Helix.ProductionService.Application.Services;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.AggregateModels;
 using Helix.ProductionService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 	public class ProductionOrderController : ControllerBase
 	{
 		IProductionOrderService _productionOrderService;
+
 		public ProductionOrderController(IProductionOrderService productionOrderService)
 		{
 			_productionOrderService = productionOrderService;
@@ -35,6 +37,5 @@ namespace Helix.ProductionService.WebAPI.Controllers
 			var result = await _productionOrderService.GetProductionOrderByCode(code);
 			return result;
 		}
-
 	}
 }

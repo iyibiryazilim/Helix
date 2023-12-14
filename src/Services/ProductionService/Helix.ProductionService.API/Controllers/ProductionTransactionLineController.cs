@@ -1,5 +1,8 @@
-﻿using Helix.ProductionService.Application.Services;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.AggregateModels;
+using Helix.ProductionService.Domain.Dtos;
+using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +12,13 @@ namespace Helix.ProductionService.WebAPI.Controllers
 	[ApiController]
 	public class ProductionTransactionLineController : ControllerBase
 	{
-		IProductionTransactionLineService _productionTransactionLineService;	
+		IProductionTransactionLineService _productionTransactionLineService;
+		IEventBus _eventBus;
 
-		public ProductionTransactionLineController(IProductionTransactionLineService productionTransactionLineService)
+		public ProductionTransactionLineController(IProductionTransactionLineService productionTransactionLineService, IEventBus eventBus)
 		{
 			_productionTransactionLineService = productionTransactionLineService;
+			_eventBus = eventBus;
 		}
 
 		[HttpGet]
@@ -70,6 +75,34 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		{
 			var result = await _productionTransactionLineService.GetProductionTransactionLinesByFicheCodeAsync(code);
 			return result;
+		}
+
+		[HttpPost]
+		public async Task InsertProductionTransactionLine([FromBody] ProductionTransactionLineDto productionTransactionLineDto)
+		{
+			_eventBus.Publish(new ProductionTransactionLineInsertedIntegrationEvent(productReferenceId: productionTransactionLineDto.productReferenceId,
+				productCode: productionTransactionLineDto.productCode,
+				quantity: productionTransactionLineDto.quantity,
+				subUnitsetReferenceId: productionTransactionLineDto.subUnitsetReferenceId,
+				subUnitsetCode: productionTransactionLineDto.subUnitsetCode,
+				transactionDate: productionTransactionLineDto.transactionDate,
+				transactionType: productionTransactionLineDto.transactionType,
+				transactionTypeName: productionTransactionLineDto.transactionTypeName,
+				referenceId: productionTransactionLineDto.referenceId,
+				transactionTime: productionTransactionLineDto.transactionTime,
+				convertedTime: productionTransactionLineDto.convertedTime,
+				iOType: productionTransactionLineDto.iOType,
+				warehouseNumber: productionTransactionLineDto.warehouseNumber,
+				unitPrice: productionTransactionLineDto.unitPrice,
+				vatRate: productionTransactionLineDto.vatRate,
+				orderReferenceId: productionTransactionLineDto.orderReferenceId,
+				description: productionTransactionLineDto.description,
+				dispatchReferenceId: productionTransactionLineDto.dispatchReferenceId,
+				speCode: productionTransactionLineDto.speCode,
+				conversionFactor: productionTransactionLineDto.conversionFactor,
+				otherConversionFactor: productionTransactionLineDto.otherConversionFactor,
+				seriLotTransactions: productionTransactionLineDto.seriLotTransactions
+				));
 		}
 	}
 }
