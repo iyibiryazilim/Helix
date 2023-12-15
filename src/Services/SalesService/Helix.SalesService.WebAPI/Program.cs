@@ -6,15 +6,21 @@ using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Infrastructure.EventHandlers;
 using Helix.SalesService.Infrastructure.Repository;
+using Helix.SalesService.WebAPI.AuthRegistrations;
 using Helix.SalesService.WebAPI.ConsulRegistrations;
 using Helix.Tiger.DataAccess.DataStores;
 using RabbitMQ.Client;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
+
+builder.Services.ConfigureAuth(configuration);
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
@@ -25,13 +31,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
 		EventNameSuffix = nameof(IntegrationEvent),
-		//Connection = new ConnectionFactory
-		//{
-		//	HostName = "rattlesnake-01.rmq.cloudamqp.com",
-		//	Port = 5672,
-		//	UserName = "oqhbtvgt",
-		//	Password = "Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g"
-		//}
+		
 	}, eb);
 });
 
@@ -45,11 +45,6 @@ eventBus.Subscribe<RetailSalesReturnDispatchTransactionInsertedIntegrationEvent,
 eventBus.Subscribe<WholeSalesDispatchTransactionInsertedIntegrationEvent, WholeSalesDispatchTransactionInsertedIntegrationEventHandler>();
 eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertedIntegrationEvent, WholeSalesReturnDispatchTransactionInsertedIntegrationEventHandler>();
 
-
-
-//builder.Logging.ClearProviders();
-//builder.Logging.AddConsole();
-// Add services to the container.
 
 //builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.AddTransient<IRetailSalesDispatchTransactionService, RetailSalesDispatchTransactionDataStore>();
@@ -83,6 +78,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 //app.RegisterWithConsul(app.Lifetime);
