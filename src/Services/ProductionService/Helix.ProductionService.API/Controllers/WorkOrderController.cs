@@ -72,19 +72,19 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpPost]
 		public async Task WorkOrderInsert([FromBody] WorkOrderDto workOrderDto)
 		{
-			_eventBus.Publish(new WorkOrderInsertingIntegrationEvent(workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
+			_eventBus.Publish(new WorkOrderInsertedIntegrationEvent(workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
 		}
 
 		[HttpPost("WorkOrders")]
 		public async Task WorkOrdersInsert([FromBody] WorkOrdersDto workOrdersDto)
 		{
-			_eventBus.Publish(new WorkOrdersInsertingIntegrationEvent(workOrdersDto.workOrders));
+			_eventBus.Publish(new WorkOrdersInsertedIntegrationEvent(workOrdersDto.workOrders));
 		}
 
 		[HttpPost("ChangeStatus")]
 		public async Task WorkOrderChangeStatus([FromBody] WorkOrderChangeStatusDto workOrderChangeStatusDto)
 		{
-			_eventBus.Publish(new WorkOrderChangeStatusInsertingIntegrationEvent(ficheNo: workOrderChangeStatusDto.ficheNo,
+			_eventBus.Publish(new WorkOrderChangeStatusInsertedIntegrationEvent(ficheNo: workOrderChangeStatusDto.ficheNo,
 				status: workOrderChangeStatusDto.status,
 				deleteFiche: workOrderChangeStatusDto.deleteFiche));
 		}

@@ -31,7 +31,7 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
 eventBus.Subscribe<WorkOrderInsertingIntegrationEvent, WorkOrderInsertingIntegrationEventHandler>();
-eventBus.Subscribe<StopTransactionForWorkOrderInsertingIntegrationEvent, StopTransactionForWorkOrderInsertingIntegrationEventHandler>();
+eventBus.Subscribe<StopTransactionForWorkOrderInsertedIntegrationEvent, StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
 eventBus.Subscribe<WorkOrdersInsertingIntegrationEvent, WorkOrdersInsertingIntegrationEventHandler>();
 eventBus.Subscribe<WorkOrderChangeStatusInsertingIntegrationEvent, WorkOrderChangeStatusInsertingIntegrationEventHandler>();
 eventBus.Subscribe<ProductionTransactionInsertingIntegrationEvent, ProductionTransactionInsertingIntegrationEventHandler>();

@@ -29,7 +29,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpPost]
 		public async Task InsertStopTransaction([FromBody] StopTransactionForWorkOrderDto stopTransactionForWorkOrderDto)
 		{
-			_eventBus.Publish(new StopTransactionForWorkOrderInsertingIntegrationEvent(stopTransactionForWorkOrderDto.workOrderReferenceId, stopTransactionForWorkOrderDto.stopCauseReferenceId, stopTransactionForWorkOrderDto.stopDate, stopTransactionForWorkOrderDto.stopTime));
+			_eventBus.Publish(new StopTransactionForWorkOrderInsertedIntegrationEvent(stopTransactionForWorkOrderDto.workOrderReferenceId, stopTransactionForWorkOrderDto.stopCauseReferenceId, stopTransactionForWorkOrderDto.stopDate, stopTransactionForWorkOrderDto.stopTime));
 		}
 	}
 }
