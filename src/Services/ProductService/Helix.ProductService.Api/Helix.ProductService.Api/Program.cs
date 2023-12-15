@@ -1,13 +1,47 @@
+ using Helix.EventBus.Base.Abstractions;
+using Helix.EventBus.Base.Events;
+using Helix.EventBus.Base;
+using Helix.EventBus.Factory;
 using Helix.ProductService.Api.ConsulRegistration;
 using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Repository;
 using Serilog;
+using Helix.ProductService.Domain.Events;
+using Helix.ProductService.Infrastructure.EventHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
+
+
+
+builder.Services.AddSingleton<IEventBus>(eb =>
+{
+    return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
+    {
+        ConnectionRetryCount = 5,
+        SubscriperClientAppName = "ProductService",
+        DefaultTopicName = "HelixTopicName",
+        EventBusType = EventBusType.RabbitMQ,
+        EventNameSuffix = nameof(IntegrationEvent),
+        
+    }, eb);
+});
+
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+
+eventBus.Subscribe<ConsumableTransactionInsertedIntegrationEvent, ConsumableTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<InCountingTransactionInsertedIntegrationEvent, InCountingTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<ProductionTransactionInsertedIntegrationEvent, ProductionTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<TransferTransactionInsertedIntegrationEvent, TransferTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<WastageTransactionInsertedIntegrationEvent, WastageTransactionInsertedIntegrationEventHandler>();
+
+
+
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();

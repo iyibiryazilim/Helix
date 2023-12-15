@@ -1,5 +1,8 @@
-﻿using Helix.ProductService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.AggregateModels;
+using Helix.ProductService.Domain.Dtos;
+using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +14,11 @@ namespace Helix.ProductService.Api.Controllers;
 public class WastageTransactionController : ControllerBase
 {
 	IWastageTransactionService _wastageTransactionService;
-	public WastageTransactionController(IWastageTransactionService wastageTransactionService)
+	IEventBus _eventbus;
+	public WastageTransactionController(IWastageTransactionService wastageTransactionService, IEventBus eventbus)
 	{
 		_wastageTransactionService = wastageTransactionService;
+		_eventbus = eventbus;
 	}
 
 
@@ -51,4 +56,9 @@ public class WastageTransactionController : ControllerBase
 		var result = await _wastageTransactionService.GetWastageTransactionsByCurrentCodeAsync(code);
 		return result;
 	}
+    [HttpPost]
+    public async Task WastageTransactionInsert([FromBody] WastageTransactionDto wastageTransactionDto)
+    {
+        _eventbus.Publish(new WastageTransactionInsertedIntegrationEvent(wastageTransactionDto.referenceId, wastageTransactionDto.transactionDate, wastageTransactionDto.transactionTime, wastageTransactionDto.convertedTime, wastageTransactionDto.orderReference, wastageTransactionDto.code, wastageTransactionDto.groupType, wastageTransactionDto.iOType, wastageTransactionDto.transactionType, wastageTransactionDto.transactionTypeName, wastageTransactionDto.warehouseNumber, wastageTransactionDto.currentReferenceId, wastageTransactionDto.currentCode, wastageTransactionDto.total, wastageTransactionDto.totalVat, wastageTransactionDto.netTotal, wastageTransactionDto.description, wastageTransactionDto.dispatchType, wastageTransactionDto.carrierReferenceId, wastageTransactionDto.carrierCode, wastageTransactionDto.driverReferenceId, wastageTransactionDto.driverFirstName, wastageTransactionDto.driverLastName, wastageTransactionDto.identityNumber, wastageTransactionDto.plaque, wastageTransactionDto.shipInfoReferenceId, wastageTransactionDto.shipInfoCode, wastageTransactionDto.shipInfoName, wastageTransactionDto.speCode, wastageTransactionDto.dispatchStatus, wastageTransactionDto.isEDispatch, wastageTransactionDto.doCode, wastageTransactionDto.docTrackingNumber, wastageTransactionDto.isEInvoice, wastageTransactionDto.eDispatchProfileId, wastageTransactionDto.eInvoiceProfileId));
+    }
 }

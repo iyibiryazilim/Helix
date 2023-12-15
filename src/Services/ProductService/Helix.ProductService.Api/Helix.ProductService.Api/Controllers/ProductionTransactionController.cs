@@ -1,5 +1,8 @@
-﻿using Helix.ProductService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.AggregateModels;
+using Helix.ProductService.Domain.Dtos;
+using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +14,11 @@ namespace Helix.ProductService.Api.Controllers;
 public class ProductionTransactionController : ControllerBase
 {
 	IProductionTransactionService _productionTransactionService;
-	public ProductionTransactionController(IProductionTransactionService productionTransactionService)
+	IEventBus _eventBus;
+	public ProductionTransactionController(IProductionTransactionService productionTransactionService, IEventBus eventbus)
 	{
 		_productionTransactionService = productionTransactionService;
+		_eventBus = eventbus;
 	}
 
 
@@ -51,4 +56,11 @@ public class ProductionTransactionController : ControllerBase
 		var result = await _productionTransactionService.GetProductionTransactionsByCurrentCodeAsync(code);
 		return result;
 	}
+
+	[HttpPost]
+	public async Task ProductionTransactionInsert([FromBody] ProductionTransactionDto productionTransactionDto)
+	{
+		_eventBus.Publish(new ProductionTransactionInsertedIntegrationEvent(productionTransactionDto.referenceId, productionTransactionDto.transactionDate, productionTransactionDto.transactionTime, productionTransactionDto.convertedTime, productionTransactionDto.orderReference, productionTransactionDto.code, productionTransactionDto.groupType, productionTransactionDto.iOType, productionTransactionDto.transactionType, productionTransactionDto.transactionTypeName, productionTransactionDto.warehouseNumber, productionTransactionDto.currentReferenceId, productionTransactionDto.currentCode, productionTransactionDto.total, productionTransactionDto.totalVat, productionTransactionDto.netTotal, productionTransactionDto.description, productionTransactionDto.dispatchType, productionTransactionDto.carrierReferenceId, productionTransactionDto.carrierCode, productionTransactionDto.driverReferenceId, productionTransactionDto.driverFirstName, productionTransactionDto.driverLastName, productionTransactionDto.identityNumber, productionTransactionDto.plaque, productionTransactionDto.shipInfoReferenceId, productionTransactionDto.shipInfoCode, productionTransactionDto.shipInfoName, productionTransactionDto.speCode, productionTransactionDto.dispatchStatus, productionTransactionDto.isEDispatch, productionTransactionDto.doCode, productionTransactionDto.docTrackingNumber, productionTransactionDto.isEInvoice, productionTransactionDto.eDispatchProfileId, productionTransactionDto.eInvoiceProfileId));
+	}
+
 }
