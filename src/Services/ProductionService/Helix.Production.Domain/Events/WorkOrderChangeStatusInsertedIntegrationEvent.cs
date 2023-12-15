@@ -2,13 +2,13 @@
 
 namespace Helix.ProductionService.Domain.Events;
 
-public class WorkOrderChangeStatusInsertingIntegrationEvent : IntegrationEvent
+public class WorkOrderChangeStatusInsertedIntegrationEvent : IntegrationEvent
 {
 	public string FicheNo { get; private set; }
 	public int Status { get; private set; }
 	public short DeleteFiche { get; private set; }
 
-	public WorkOrderChangeStatusInsertingIntegrationEvent(string ficheNo, int status, short deleteFiche)
+	public WorkOrderChangeStatusInsertedIntegrationEvent(string ficheNo, int status, short deleteFiche)
 	{
 		FicheNo = ficheNo;
 		Status = status;

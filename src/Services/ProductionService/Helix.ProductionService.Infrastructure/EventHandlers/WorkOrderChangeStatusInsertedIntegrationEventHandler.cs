@@ -4,16 +4,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.EventHandlers;
 
-public class WorkOrderChangeStatusInsertingIntegrationEventHandler : IIntegrationEventHandler<WorkOrderChangeStatusInsertingIntegrationEvent>
+public class WorkOrderChangeStatusInsertedIntegrationEventHandler : IIntegrationEventHandler<WorkOrderChangeStatusInsertedIntegrationEvent>
 {
-	ILogger<WorkOrderChangeStatusInsertingIntegrationEventHandler> _logger;
+	ILogger<WorkOrderChangeStatusInsertedIntegrationEventHandler> _logger;
 
-	public WorkOrderChangeStatusInsertingIntegrationEventHandler(ILogger<WorkOrderChangeStatusInsertingIntegrationEventHandler> logger)
+	public WorkOrderChangeStatusInsertedIntegrationEventHandler(ILogger<WorkOrderChangeStatusInsertedIntegrationEventHandler> logger)
 	{
 		_logger = logger;
 	}
 
-	public Task Handle(WorkOrderChangeStatusInsertingIntegrationEvent @event)
+	public Task Handle(WorkOrderChangeStatusInsertedIntegrationEvent @event)
 	{
 		_logger.LogInformation($"Work order change status inserting started");
 		return Task.CompletedTask;

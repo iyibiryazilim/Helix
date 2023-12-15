@@ -30,12 +30,12 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 var serviceProvider = builder.Services.BuildServiceProvider();
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
-eventBus.Subscribe<WorkOrderInsertingIntegrationEvent, WorkOrderInsertingIntegrationEventHandler>();
+eventBus.Subscribe<WorkOrderInsertedIntegrationEvent, WorkOrderInsertedIntegrationEventHandler>();
 eventBus.Subscribe<StopTransactionForWorkOrderInsertedIntegrationEvent, StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
-eventBus.Subscribe<WorkOrdersInsertingIntegrationEvent, WorkOrdersInsertingIntegrationEventHandler>();
-eventBus.Subscribe<WorkOrderChangeStatusInsertingIntegrationEvent, WorkOrderChangeStatusInsertingIntegrationEventHandler>();
-eventBus.Subscribe<ProductionTransactionInsertingIntegrationEvent, ProductionTransactionInsertingIntegrationEventHandler>();
-eventBus.Subscribe<ProductionTransactionLineInsertingIntegrationEvent, ProductionTransactionLineInsertingIntegrationEventHandler>();
+eventBus.Subscribe<WorkOrdersInsertedIntegrationEvent, WorkOrdersInsertedIntegrationEventHandler>();
+eventBus.Subscribe<WorkOrderChangeStatusInsertedIntegrationEvent, WorkOrderChangeStatusInsertedIntegrationEventHandler>();
+eventBus.Subscribe<ProductionTransactionInsertedIntegrationEvent, ProductionTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<ProductionTransactionLineInsertedIntegrationEvent, ProductionTransactionLineInsertedIntegrationEventHandler>();
 
 
 //builder.Logging.ClearProviders();

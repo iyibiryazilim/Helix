@@ -4,16 +4,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Helix.ProductionService.Infrastructure.EventHandlers;
 
-public class ProductionTransactionInsertingIntegrationEventHandler : IIntegrationEventHandler<ProductionTransactionInsertingIntegrationEvent>
+public class ProductionTransactionInsertedIntegrationEventHandler : IIntegrationEventHandler<ProductionTransactionInsertedIntegrationEvent>
 {
-	ILogger<ProductionTransactionInsertingIntegrationEventHandler> _logger;
+	ILogger<ProductionTransactionInsertedIntegrationEventHandler> _logger;
 
-	public ProductionTransactionInsertingIntegrationEventHandler(ILogger<ProductionTransactionInsertingIntegrationEventHandler> logger)
+	public ProductionTransactionInsertedIntegrationEventHandler(ILogger<ProductionTransactionInsertedIntegrationEventHandler> logger)
 	{
 		_logger = logger;
 	}
 
-	public Task Handle(ProductionTransactionInsertingIntegrationEvent @event)
+	public Task Handle(ProductionTransactionInsertedIntegrationEvent @event)
 	{
 		_logger.LogInformation($"Production transaction inserting started");
 		return Task.CompletedTask;

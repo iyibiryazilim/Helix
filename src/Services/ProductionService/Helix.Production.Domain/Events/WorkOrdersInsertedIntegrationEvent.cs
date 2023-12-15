@@ -3,11 +3,11 @@ using Helix.ProductionService.Domain.Dtos;
 
 namespace Helix.ProductionService.Domain.Events;
 
-public class WorkOrdersInsertingIntegrationEvent : IntegrationEvent
+public class WorkOrdersInsertedIntegrationEvent : IntegrationEvent
 {
 	public IList<WorkOrderDto> WorkOrders { get; private set; }
 
-	public WorkOrdersInsertingIntegrationEvent(IList<WorkOrderDto> workOrders)
+	public WorkOrdersInsertedIntegrationEvent(IList<WorkOrderDto> workOrders)
 	{
 		WorkOrders = workOrders;
 	}
