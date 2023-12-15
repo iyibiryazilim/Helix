@@ -1,5 +1,8 @@
-﻿using Helix.ProductionService.Application.Services;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.AggregateModels;
+using Helix.ProductionService.Domain.Dtos;
+using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +13,12 @@ namespace Helix.ProductionService.WebAPI.Controllers
 	public class ProductionTransactionController : ControllerBase
 	{
 		IProductionTransactionService _productionTransactionService;
-		public ProductionTransactionController(IProductionTransactionService productionTransactionService)
+		IEventBus _eventBus;
+
+		public ProductionTransactionController(IProductionTransactionService productionTransactionService, IEventBus eventBus)
 		{
 			_productionTransactionService = productionTransactionService;
+			_eventBus = eventBus;
 		}
 
 		[HttpGet]
@@ -48,6 +54,48 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		{
 			var result = await _productionTransactionService.GetProductionTransactionsByCurrentCodeAsync(code);
 			return result;
+		}
+
+		[HttpPost]
+		public async Task InsertProductionTransaction([FromBody] ProductionTransactionDto productionTransactionDto)
+		{
+			_eventBus.Publish(new ProductionTransactionInsertedIntegrationEvent(referenceId: productionTransactionDto.referenceId, transactionDate: productionTransactionDto.transactionDate,
+			  transactionTime: productionTransactionDto.transactionTime,
+			  convertedTime: productionTransactionDto.convertedTime,
+			  orderReference: productionTransactionDto.orderReference,
+			  code: productionTransactionDto.code,
+			  groupType: productionTransactionDto.groupType,
+			  iOType: productionTransactionDto.iOType,
+			  transactionType: productionTransactionDto.transactionType,
+			  transactionTypeName: productionTransactionDto.transactionTypeName,
+			  warehouseNumber: productionTransactionDto.warehouseNumber,
+			  currentReferenceId: productionTransactionDto.currentReferenceId,
+			  currentCode: productionTransactionDto.currentCode,
+			  total: productionTransactionDto.total,
+			  totalVat: productionTransactionDto.totalVat,
+			  netTotal: productionTransactionDto.netTotal,
+			  description: productionTransactionDto.description,
+			  dispatchType: productionTransactionDto.dispatchType,
+			  carrierReferenceId: productionTransactionDto.carrierReferenceId,
+			  carrierCode: productionTransactionDto.carrierCode,
+			  driverReferenceId: productionTransactionDto.driverReferenceId,
+			  driverFirstName: productionTransactionDto.driverFirstName,
+			  driverLastName: productionTransactionDto.driverLastName,
+			  identityNumber: productionTransactionDto.identityNumber,
+			  plaque: productionTransactionDto.plaque,
+			  shipInfoReferenceId: productionTransactionDto.shipInfoReferenceId,
+			  shipInfoCode: productionTransactionDto.shipInfoCode,
+			  shipInfoName: productionTransactionDto.shipInfoName,
+			  speCode: productionTransactionDto.speCode,
+			  dispatchStatus: productionTransactionDto.dispatchStatus,
+			  isEDispatch: productionTransactionDto.isEDispatch,
+			  doCode: productionTransactionDto.doCode,
+			  docTrackingNumber: productionTransactionDto.docTrackingNumber,
+			  isEInvoice: productionTransactionDto.isEInvoice,
+			  eDispatchProfileId: productionTransactionDto.eDispatchProfileId,
+			  eInvoiceProfileId: productionTransactionDto.eInvoiceProfileId,
+			  lines: productionTransactionDto.lines
+			  ));
 		}
 	}
 }
