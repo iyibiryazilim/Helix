@@ -191,6 +191,7 @@ namespace Helix.EventBus.RabbitMQ
 
 		public override void Consume(IntegrationEvent @event)
 		{
+
 			var eventName = @event.GetType().Name;
 			eventName = eventName.TrimEnd(_eventBusconfig.EventNameSuffix.ToArray());
 			StartBasicConsume(eventName);
