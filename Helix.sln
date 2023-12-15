@@ -88,15 +88,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7D261835
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{E58B19EF-922E-4698-AC55-B634CD12D0D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "tests\BuildingBlocks\TestProject1\TestProject1.csproj", "{C0AD4703-5BA7-4F00-81FF-6100B3AA4075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject1", "tests\BuildingBlocks\TestProject1\TestProject1.csproj", "{C0AD4703-5BA7-4F00-81FF-6100B3AA4075}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LBSService", "LBSService", "{7438FA5D-0998-49CE-8730-0D12A0534A78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.WebAPI", "src\Services\LBSService\Helix.LBSService.WebAPI\Helix.LBSService.WebAPI.csproj", "{C3453F89-C25B-4821-AD36-3FE8D27CEAE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.LBSService.WebAPI", "src\Services\LBSService\Helix.LBSService.WebAPI\Helix.LBSService.WebAPI.csproj", "{C3453F89-C25B-4821-AD36-3FE8D27CEAE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.Tiger", "src\Services\LBSService\Helix.LBSService.Application\Helix.LBSService.Tiger\Helix.LBSService.Tiger.csproj", "{3A746DDF-E9A5-4306-8C64-C225CB11C291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.LBSService.Tiger", "src\Services\LBSService\Helix.LBSService.Application\Helix.LBSService.Tiger\Helix.LBSService.Tiger.csproj", "{3A746DDF-E9A5-4306-8C64-C225CB11C291}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.Go", "src\Services\LBSService\Helix.LBSService.Go\Helix.LBSService.Go.csproj", "{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.LBSService.Go", "src\Services\LBSService\Helix.LBSService.Go\Helix.LBSService.Go.csproj", "{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.EventConsumer", "src\Services\LBSService\Helix.LBSService.EventConsumer\Helix.LBSService.EventConsumer.csproj", "{E57CC946-FDB3-446E-9A3A-B3B940B2DA74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -228,7 +230,10 @@ Global
 		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A}.Release|Any CPU.Build.0 = Release|Any CPU
-
+		{E57CC946-FDB3-446E-9A3A-B3B940B2DA74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E57CC946-FDB3-446E-9A3A-B3B940B2DA74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E57CC946-FDB3-446E-9A3A-B3B940B2DA74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E57CC946-FDB3-446E-9A3A-B3B940B2DA74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -280,6 +285,7 @@ Global
 		{C3453F89-C25B-4821-AD36-3FE8D27CEAE0} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
 		{3A746DDF-E9A5-4306-8C64-C225CB11C291} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
 		{E1CA34E3-6808-4B2E-B479-AE318ED0C92A} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
+		{E57CC946-FDB3-446E-9A3A-B3B940B2DA74} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}

@@ -4,13 +4,12 @@ using Helix.EventBus.Base.Events;
 using Helix.EventBus.Factory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RabbitMQ.Client;
 using TestProject1.TestEvents.EventHandlers;
 using TestProject1.TestEvents.Events;
 
 namespace TestProject1
 {
-    public class EventBusTest
+	public class EventBusTest
     {
         private ServiceCollection services;
 
@@ -54,22 +53,35 @@ namespace TestProject1
 
         }
 
-        private EventBusConfig GetRabbitMQConfig()
+		[Fact]
+		public void Test_RabbitMQ_Consume()
+		{
+			services.AddSingleton<IEventBus>(eb =>
+			{
+				return EventBusFactory.Create(GetRabbitMQConfig(), eb);
+			});
+
+			var serviceProvider = services.BuildServiceProvider();
+
+			var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+
+			eventBus.Consume(new TransferTransactionInsertedIntegrationEvent());
+
+		}
+
+		private EventBusConfig GetRabbitMQConfig()
         {
             return new EventBusConfig
             {
                 ConnectionRetryCount = 5,
-                SubscriperClientAppName = "EventBus.UnitTest",
+                SubscriperClientAppName = "ProductService",
                 DefaultTopicName = "HelixTopicName",
                 EventBusType = EventBusType.RabbitMQ,
                 EventNameSuffix = nameof(IntegrationEvent),
-                Connection = new ConnectionFactory
-                {
-                    HostName = "localhost",
-                    Port = 5672,
-                    UserName = "guest",
-                    Password = "guest"
-                }
+    //            Connection = new ConnectionFactory
+    //            {
+				//	Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt")
+				//}
             };
         }
     }

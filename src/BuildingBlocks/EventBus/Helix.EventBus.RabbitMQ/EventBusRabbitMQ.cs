@@ -6,185 +6,204 @@ using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Helix.EventBus.RabbitMQ
 {
-    public class EventBusRabbitMQ : BaseEventBus
-    {
-        RabbitMQPersistentConnection persistentConnection;
-        private readonly IConnectionFactory _connectionFactory;
-        private readonly IModel _consumerChannel;
+	public class EventBusRabbitMQ : BaseEventBus
+	{
+		RabbitMQPersistentConnection persistentConnection;
+		private readonly IConnectionFactory _connectionFactory;
+		private readonly IModel _consumerChannel;
+		private EventingBasicConsumer _consumer;
 
-        public EventBusRabbitMQ(IServiceProvider serviceProvider, EventBusConfig eventBusconfig) : base(serviceProvider, eventBusconfig)
-        {
-            if (eventBusconfig.Connection != null)
-            {
-                var configJson = JsonConvert.SerializeObject(eventBusconfig.Connection, new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                });
+		public EventBusRabbitMQ(IServiceProvider serviceProvider, EventBusConfig eventBusconfig) : base(serviceProvider, eventBusconfig)
+		{
+			if (eventBusconfig.Connection != null)
+			{
+				var configJson = JsonConvert.SerializeObject(eventBusconfig.Connection, new JsonSerializerSettings
+				{
+					ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+				});
 
-                _connectionFactory = JsonConvert.DeserializeObject<ConnectionFactory>(configJson);
-            }
-            else
-            {
-                _connectionFactory = new ConnectionFactory()
-                {
-                    Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt")
+				_connectionFactory = JsonConvert.DeserializeObject<ConnectionFactory>(configJson);
+			}
+			else
+			{
+				_connectionFactory = new ConnectionFactory()
+				{
+					Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt")
 					//HostName = "rattlesnake-01.rmq.cloudamqp.com",
 					//Port = 5672,
 					//UserName = "oqhbtvgt",
 					//Password = "Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g"
 				};
-                
-            }
 
-            persistentConnection = new RabbitMQPersistentConnection(_connectionFactory, eventBusconfig.ConnectionRetryCount);
+			}
 
-            _consumerChannel = CreateConsumerModel();
+			persistentConnection = new RabbitMQPersistentConnection(_connectionFactory, eventBusconfig.ConnectionRetryCount);
 
-            _subscriptionManager.OnEventRemoved += SubscriptionManager_OnEventRemoved;
-        }
+			_consumerChannel = CreateConsumerModel();
 
-        private void SubscriptionManager_OnEventRemoved(object? sender, string eventName)
-        {
-            eventName = ProcessEventName(eventName);
+			_subscriptionManager.OnEventRemoved += SubscriptionManager_OnEventRemoved;
+		}
 
-            if (!persistentConnection.IsConnection)
-                persistentConnection.TryConnect();
+		private void SubscriptionManager_OnEventRemoved(object? sender, string eventName)
+		{
+			eventName = ProcessEventName(eventName);
 
-            _consumerChannel.QueueUnbind(queue: eventName,
-                                                         exchange: _eventBusconfig.DefaultTopicName,
-                                                         routingKey: eventName
-                                                            );
+			if (!persistentConnection.IsConnection)
+				persistentConnection.TryConnect();
 
-            if (_subscriptionManager.isEmpty)
-                _consumerChannel.Close();
-            
-        }
+			_consumerChannel.QueueUnbind(queue: eventName,
+														 exchange: _eventBusconfig.DefaultTopicName,
+														 routingKey: eventName
+															);
 
-        private IModel CreateConsumerModel()
-        {
-            if (!persistentConnection.IsConnection)
-                persistentConnection.TryConnect();
+			if (_subscriptionManager.isEmpty)
+				_consumerChannel.Close();
 
-            var channel = persistentConnection.CreateModel();
+		}
 
-            channel.ExchangeDeclare(exchange: _eventBusconfig.DefaultTopicName, type: "direct");
+		private IModel CreateConsumerModel()
+		{
+			if (!persistentConnection.IsConnection)
+				persistentConnection.TryConnect();
 
-            return channel;
+			var channel = persistentConnection.CreateModel();
 
-        }
+			channel.ExchangeDeclare(exchange: _eventBusconfig.DefaultTopicName, type: "direct");
 
-        private void StartBasicConsume(string eventName)
-        {
-            if (_consumerChannel != null)
-            {
-                var consumer = new EventingBasicConsumer(_consumerChannel);
 
-                consumer.Received += Consumer_Received;
+			return channel;
 
-                _consumerChannel.BasicConsume(queue: GetSubName(eventName),
-                                                                    autoAck: false,
-                                                                    consumer: consumer);
-            }
+		}
 
-        }
+		private void StartBasicConsume(string eventName)
+		{
+			if (_consumerChannel != null)
+			{
+				_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
 
-        private async void Consumer_Received(object sender, BasicDeliverEventArgs args)
-        {
-            var eventName = args.RoutingKey;
-            eventName = ProcessEventName(eventName);
-            var message = Encoding.UTF8.GetString(args.Body.Span);
 
-            try
-            {
-                await ProcessEvent(eventName, message);
-            }
-            catch (Exception)
-            {
+				//var consumer = new EventingBasicConsumer(_consumerChannel);
 
-                throw;
-            }
+				//consumer.Received += Consumer_Received;
+				_consumer = new EventingBasicConsumer(_consumerChannel);
 
-            _consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
+				_consumerChannel.BasicConsume(queue: GetSubName(eventName),
+																	autoAck: false,
+																	consumer: _consumer);
+				
+			}
 
-        }
+		}
 
-        public override void Publish(IntegrationEvent @event)
-        {
-            if (!persistentConnection.IsConnection)
-                persistentConnection.TryConnect();
+		private async void Consumer_Received(object sender, BasicDeliverEventArgs args)
+		{
+			var eventName = args.RoutingKey;
+			eventName = ProcessEventName(eventName);
+			var message = Encoding.UTF8.GetString(args.Body.Span);
 
-            var policy = Policy.Handle<SocketException>()
-                                      .Or<BrokerUnreachableException>()
-                                      .WaitAndRetry(_eventBusconfig.ConnectionRetryCount, retyAttemp => TimeSpan.FromSeconds(Math.Pow(2, retyAttemp)),(ex, time) =>
-                                      {
-                                          //create log
-                                      });
+			try
+			{
+				await ProcessEvent(eventName, message);
+			}
+			catch (Exception)
+			{
 
-            var eventName = @event.GetType().Name;
-            eventName = ProcessEventName(eventName);
+				throw;
+			}
 
-            _consumerChannel.ExchangeDeclare(exchange: _eventBusconfig.DefaultTopicName,
-                                                                  type: "direct");
+			_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
 
-            var message = JsonConvert.SerializeObject(@event);
-            var body = Encoding.UTF8.GetBytes(message);
+		}
 
-            policy.Execute(() =>
-            {
-                var properties = _consumerChannel.CreateBasicProperties();
-                properties.DeliveryMode = 2; //persistent
+		public override void Publish(IntegrationEvent @event)
+		{
+			if (!persistentConnection.IsConnection)
+				persistentConnection.TryConnect();
 
-                _consumerChannel.QueueDeclare(queue: GetSubName(eventName),
-                                                                  durable: true,
-                                                                  exclusive: false,
-                                                                  autoDelete: false,
-                                                                  arguments: null);
+			var policy = Policy.Handle<SocketException>()
+									  .Or<BrokerUnreachableException>()
+									  .WaitAndRetry(_eventBusconfig.ConnectionRetryCount, retyAttemp => TimeSpan.FromSeconds(Math.Pow(2, retyAttemp)), (ex, time) =>
+									  {
+										  //create log
+									  });
 
-                _consumerChannel.BasicPublish(exchange: _eventBusconfig.DefaultTopicName,
-                                                               routingKey: eventName,
-                                                               mandatory: true,
-                                                               basicProperties: properties,
-                                                               body: body);
+			var eventName = @event.GetType().Name;
+			eventName = ProcessEventName(eventName);
 
-            });
-            
-        }
+			_consumerChannel.ExchangeDeclare(exchange: _eventBusconfig.DefaultTopicName,
+																  type: "direct");
 
-        public override void Subscribe<T, TH>()
-        {
-            var eventName = typeof(T).Name;
-            eventName = ProcessEventName(eventName);
+			var message = JsonConvert.SerializeObject(@event);
+			var body = Encoding.UTF8.GetBytes(message);
 
-            if (!_subscriptionManager.HasSubscriptionsForEvent(eventName))
-            {
-                _consumerChannel.QueueDeclare(queue: GetSubName(eventName),
-                                                                  durable: true,
-                                                                  exclusive: false,
-                                                                  autoDelete: false,
-                                                                  arguments: null);
+			policy.Execute(() =>
+			{
+				var properties = _consumerChannel.CreateBasicProperties();
+				properties.DeliveryMode = 2; //persistent
 
-                _consumerChannel.QueueBind(queue: GetSubName(eventName),
-                                                              exchange: _eventBusconfig.DefaultTopicName,
-                                                              routingKey: eventName);
-            }
+				_consumerChannel.QueueDeclare(queue: GetSubName(eventName),
+																  durable: true,
+																  exclusive: false,
+																  autoDelete: false,
+																  arguments: null);
 
-            _subscriptionManager.AddSubscription<T, TH>();
-            //StartBasicConsume(eventName);
-        }
+				_consumerChannel.BasicPublish(exchange: _eventBusconfig.DefaultTopicName,
+															   routingKey: eventName,
+															   mandatory: true,
+															   basicProperties: properties,
+															   body: body);
 
-        public override void UnSubscribe<T, TH>()
-        {
-            _subscriptionManager.RemoveSubscription<T, TH>();
-        }
-    }
+			});
+
+		}
+
+		public override void Subscribe<T, TH>()
+		{
+			var eventName = typeof(T).Name;
+			eventName = ProcessEventName(eventName);
+
+			if (!_subscriptionManager.HasSubscriptionsForEvent(eventName))
+			{
+				_consumerChannel.QueueDeclare(queue: GetSubName(eventName),
+																  durable: true,
+																  exclusive: false,
+																  autoDelete: false,
+																  arguments: null);
+
+				_consumerChannel.QueueBind(queue: GetSubName(eventName),
+															  exchange: _eventBusconfig.DefaultTopicName,
+															  routingKey: eventName);
+			}
+
+			_subscriptionManager.AddSubscription<T, TH>();
+			//StartBasicConsume(eventName);
+		}
+
+		public override void UnSubscribe<T, TH>()
+		{
+			_subscriptionManager.RemoveSubscription<T, TH>();
+		}
+
+		public override void Consume(IntegrationEvent @event)
+		{
+			var eventName = @event.GetType().Name;
+			eventName = eventName.TrimEnd(_eventBusconfig.EventNameSuffix.ToArray());
+			StartBasicConsume(eventName);
+		}
+
+		public override EventingBasicConsumer GetConsumer()
+		{
+			return _consumer;
+		}
+
+		public override IModel GetConsumerChannel()
+		{
+			return _consumerChannel;
+		}
+	}
 }

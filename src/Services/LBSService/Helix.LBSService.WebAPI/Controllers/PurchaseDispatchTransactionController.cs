@@ -1,10 +1,10 @@
 ﻿using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.Tiger.Models.BaseModel;
 using Helix.LBSService.Tiger.Services;
 using Microsoft.AspNetCore.Mvc;
-using Helix.LBSService.Tiger.Models.BaseModel;
 namespace Helix.LBSService.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class PurchaseDispatchTransactionController : ControllerBase
     {

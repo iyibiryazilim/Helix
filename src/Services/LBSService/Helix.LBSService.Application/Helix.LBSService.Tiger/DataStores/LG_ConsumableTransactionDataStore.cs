@@ -4,6 +4,7 @@ using Helix.LBSService.Tiger.Helper.Mappers;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Models.BaseModel;
 using Helix.LBSService.Tiger.Services;
+using System.Diagnostics;
 using UnityObjects;
 
 namespace Helix.LBSService.Tiger.DataStores
@@ -132,7 +133,7 @@ namespace Helix.LBSService.Tiger.DataStores
 							else
 							{
 								result.IsSuccess = false;
-								result.Message = new ErrorHelper().GetError(items).ToString();
+								result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
 							}
 						}
 						else

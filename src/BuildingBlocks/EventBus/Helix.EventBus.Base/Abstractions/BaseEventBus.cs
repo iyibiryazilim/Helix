@@ -2,6 +2,8 @@
 using Helix.EventBus.Base.SubManagers;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace Helix.EventBus.Base.Abstractions;
 
@@ -18,7 +20,6 @@ public abstract class BaseEventBus : IEventBus
         _subscriptionManager = new InMemoryEventBusSubscriptionManager(ProcessEventName);
         _eventBusconfig = eventBusconfig;
     }
-
     public virtual string ProcessEventName(string eventName)
     {
         if (_eventBusconfig.DeleteEventPrefix)
@@ -29,17 +30,14 @@ public abstract class BaseEventBus : IEventBus
 
         return eventName;
     }
-
     public virtual string GetSubName(string eventName)
     {
         return $"{_eventBusconfig.SubscriperClientAppName}.{ProcessEventName(eventName)}";
     }
-
     public virtual void Dispose()
     {
         _eventBusconfig = null;
     }
-
     public async Task<bool> ProcessEvent(string eventName,string message)
     {
         eventName  = ProcessEventName(eventName);
@@ -73,10 +71,11 @@ public abstract class BaseEventBus : IEventBus
 
         return processed;
     }
-
-    public abstract void Publish(IntegrationEvent @event);
-
+	public abstract void Publish(IntegrationEvent @event);
     public abstract void Subscribe<T, TH>() where T : IntegrationEvent where TH : IIntegrationEventHandler<T>;
-
     public abstract void UnSubscribe<T, TH>() where T : IntegrationEvent where TH : IIntegrationEventHandler<T>;
+    public abstract void Consume(IntegrationEvent @event);
+    public abstract EventingBasicConsumer GetConsumer();
+    public abstract IModel GetConsumerChannel();
+
 }
