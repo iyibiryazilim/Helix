@@ -1,6 +1,12 @@
+using Helix.LBSService.Tiger.DataStores;
+using Helix.LBSService.Tiger.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
+
+builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

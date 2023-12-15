@@ -21,7 +21,7 @@ namespace Helix.LBSService.Tiger.Helper.Mappers
 			CreateMap<PurchaseDispatchTransactionDto, LG_PurchaseDispatchTransaction>();
 			CreateMap<PurchaseDispatchTransactionLineDto, LG_PurchaseDispatchTransactionLine>();
 			CreateMap<PurchaseReturnDispatchTransactionDto, LG_PurchaseReturnDispatchTransaction>();
-			CreateMap<PurchaseReturnDispatchTransactionLine, LG_PurchaseReturnDispatchTransactionLine>();
+			CreateMap<PurchaseReturnDispatchTransactionLineDto, LG_PurchaseReturnDispatchTransactionLine>();
 			CreateMap<WastageTransactionDto, LG_WastageTransaction>();
 			CreateMap<WastageTransactionLineDto, LG_WastageTransactionLine>();
 			CreateMap<InCountingTransactionDto, LG_InCountingTransaction>();

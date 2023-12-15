@@ -74,7 +74,7 @@ namespace Helix.LBSService.Tiger.DataStores
 				object StpTime = 0;
 				unity.PackDate(dtos.StopDate.Day, dtos.StopDate.Month, dtos.StopDate.Year, ref StpDate);
 				unity.PackTime(dtos.StopTime.Hours, dtos.StopTime.Minutes, dtos.StopTime.Seconds, ref StpTime);
-				if (!(ProdApp.AddStopTransForAWOrd(dtos.WorkOrderReferenceId, dtos.StopCauseReferenceId, Convert.ToInt16(StpDate), Convert.ToInt16(StpTime), 0, 0)))
+				if (!(ProdApp.AddStopTransForAWOrd(dtos.WorkOrderReferenceId, dtos.StopCauseReferenceId, Convert.ToInt32(StpDate), Convert.ToInt32(StpTime), 0, 0)))
 				{
 					result = new DataResult<WorkOrderDto>
 					{
