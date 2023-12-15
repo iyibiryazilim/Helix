@@ -40,6 +40,11 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
 eventBus.Subscribe<SalesOrderInsertedIntegrationEvent, SalesOrderInsertedIntegrationEventHandler>();
+eventBus.Subscribe<RetailSalesDispatchTransactionInsertedIntegrationEvent, RetailSalesDispatchTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<RetailSalesReturnDispatchTransactionInsertedIntegrationEvent, RetailSalesReturnDispatchTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<WholeSalesDispatchTransactionInsertedIntegrationEvent, WholeSalesDispatchTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertedIntegrationEvent, WholeSalesReturnDispatchTransactionInsertedIntegrationEventHandler>();
+
 
 
 //builder.Logging.ClearProviders();

@@ -16,4 +16,7 @@ public class SalesOrderInsertedIntegrationEvent : IntegrationEvent
 		OrderDate = orderDate;
 	}
 
+	public SalesOrderInsertedIntegrationEvent()
+	{
+	}
 }
