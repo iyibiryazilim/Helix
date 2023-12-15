@@ -13,6 +13,7 @@ public class SalesOrderInsertedIntegrationEventHandler : IIntegrationEventHandle
     }
     public Task Handle(SalesOrderInsertedIntegrationEvent @event)
 	{
+        
         _logger.LogInformation("sales order inserted started");
 		return Task.CompletedTask;
 	}
