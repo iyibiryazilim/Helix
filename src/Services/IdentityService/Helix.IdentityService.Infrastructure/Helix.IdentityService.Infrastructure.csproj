@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Base\Helix.EventBus.Base.csproj" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Helix.IdentityService.Application\Helix.IdentityService.Application.csproj" />
   </ItemGroup>
 
 </Project>

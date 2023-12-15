@@ -1,5 +1,8 @@
-﻿using Helix.ProductService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.AggregateModels;
+using Helix.ProductService.Domain.Dtos;
+using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +14,11 @@ namespace Helix.ProductService.Api.Controllers;
 public class TransferTransactionController : ControllerBase
 {
 	ITransferTransactionService _transferTransactionService;
-	public TransferTransactionController(ITransferTransactionService transferTransactionService)
+	IEventBus _eventbus;
+	public TransferTransactionController(ITransferTransactionService transferTransactionService, IEventBus eventBus)
 	{
 		_transferTransactionService = transferTransactionService;
+		_eventbus = eventBus;
 	}
 
 
@@ -50,5 +55,11 @@ public class TransferTransactionController : ControllerBase
 	{
 		var result = await _transferTransactionService.GetTransferTransactionsByCurrentCodeAsync(code);
 		return result;
+	}
+
+	[HttpPost]
+	public async Task TransferTransactionInsert([FromBody] TransferTransactionDto transferTransactionDto)
+	{
+		_eventbus.Publish(new TransferTransactionInsertedIntegrationEvent(transferTransactionDto.referenceId, transferTransactionDto.transactionDate, transferTransactionDto.transactionTime, transferTransactionDto.convertedTime, transferTransactionDto.orderReference, transferTransactionDto.code, transferTransactionDto.groupType, transferTransactionDto.iOType, transferTransactionDto.transactionType, transferTransactionDto.transactionTypeName, transferTransactionDto.warehouseNumber, transferTransactionDto.currentReferenceId, transferTransactionDto.currentCode, transferTransactionDto.total, transferTransactionDto.totalVat, transferTransactionDto.netTotal, transferTransactionDto.description, transferTransactionDto.dispatchType, transferTransactionDto.carrierReferenceId, transferTransactionDto.carrierCode, transferTransactionDto.driverReferenceId, transferTransactionDto.driverFirstName, transferTransactionDto.driverLastName, transferTransactionDto.identityNumber, transferTransactionDto.plaque, transferTransactionDto.shipInfoReferenceId, transferTransactionDto.shipInfoCode, transferTransactionDto.shipInfoName, transferTransactionDto.speCode, transferTransactionDto.dispatchStatus, transferTransactionDto.isEDispatch, transferTransactionDto.doCode, transferTransactionDto.docTrackingNumber, transferTransactionDto.isEInvoice, transferTransactionDto.eDispatchProfileId, transferTransactionDto.eInvoiceProfileId)); 
 	}
 }

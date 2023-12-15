@@ -1,5 +1,8 @@
-﻿using Helix.ProductService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.AggregateModels;
+using Helix.ProductService.Domain.Dtos;
+using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +14,11 @@ namespace Helix.ProductService.Api.Controllers;
 public class WastageTransactionLineController : ControllerBase
 {
 	IWastageTransactionLineService _wastageTransactionLineService;
+	//IEventBus _eventbus;
 	public WastageTransactionLineController(IWastageTransactionLineService wastageTransactionLineService)
 	{
 		_wastageTransactionLineService = wastageTransactionLineService;
+        
 	}
 
 	[HttpGet]
@@ -71,4 +76,6 @@ public class WastageTransactionLineController : ControllerBase
 		var result = await _wastageTransactionLineService.GetWastageTransactionLinesByFicheCodeAsync(code);
 		return result;
 	}
+
+	
 }

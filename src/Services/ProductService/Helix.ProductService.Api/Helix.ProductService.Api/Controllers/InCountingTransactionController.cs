@@ -1,5 +1,8 @@
-﻿using Helix.ProductService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.AggregateModels;
+using Helix.ProductService.Domain.Dtos;
+using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +15,12 @@ namespace Helix.ProductService.Api.Controllers;
 public class InCountingTransactionController : ControllerBase
 {
 	IInCountingTransactionService _inCountingTransactionService;
-	public InCountingTransactionController(IInCountingTransactionService inCountingTransactionService)
+    IEventBus _eventBus;
+    public InCountingTransactionController(IInCountingTransactionService inCountingTransactionService, IEventBus eventBus)
 	{
 		_inCountingTransactionService = inCountingTransactionService;
-	}
+        _eventBus = eventBus;
+    }
 
 
 	[HttpGet]
@@ -52,4 +57,11 @@ public class InCountingTransactionController : ControllerBase
 		var result = await _inCountingTransactionService.GetInCountingTransactionsByCurrentCodeAsync(code);
 		return result;
 	}
+
+	[HttpPost]
+	public async Task InCountingInsert([FromBody] InCountingTransactionDto inCountingtransaction)
+	{
+		_eventBus.Publish(new InCountingTransactionInsertedIntegrationEvent(inCountingtransaction.referenceId, inCountingtransaction.transactionDate, inCountingtransaction.transactionTime, inCountingtransaction.convertedTime, inCountingtransaction.orderReference, inCountingtransaction.code, inCountingtransaction.groupType, inCountingtransaction.iOType, inCountingtransaction.transactionType, inCountingtransaction.transactionTypeName, inCountingtransaction.warehouseNumber, inCountingtransaction.currentReferenceId, inCountingtransaction.currentCode, inCountingtransaction.total, inCountingtransaction.totalVat, inCountingtransaction.netTotal, inCountingtransaction.description, inCountingtransaction.dispatchType, inCountingtransaction.carrierReferenceId, inCountingtransaction.carrierCode, inCountingtransaction.driverReferenceId, inCountingtransaction.driverFirstName, inCountingtransaction.driverLastName, inCountingtransaction.identityNumber, inCountingtransaction.plaque, inCountingtransaction.shipInfoReferenceId, inCountingtransaction.shipInfoCode, inCountingtransaction.shipInfoName, inCountingtransaction.speCode, inCountingtransaction.dispatchStatus, inCountingtransaction.isEDispatch, inCountingtransaction.doCode, inCountingtransaction.docTrackingNumber, inCountingtransaction.isEInvoice, inCountingtransaction.eDispatchProfileId, inCountingtransaction.eInvoiceProfileId));
+
+    }
 }

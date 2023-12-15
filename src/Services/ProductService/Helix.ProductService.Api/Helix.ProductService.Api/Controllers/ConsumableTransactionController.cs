@@ -2,6 +2,9 @@
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Domain.AggregateModels;
 using Microsoft.AspNetCore.Mvc;
+using Helix.ProductService.Domain.Dtos;
+using Helix.EventBus.Base.Abstractions;
+using Helix.ProductService.Domain.Events;
 
 
 namespace Helix.ProductService.Api.Controllers;
@@ -11,10 +14,12 @@ namespace Helix.ProductService.Api.Controllers;
 public class ConsumableTransactionController : ControllerBase
 {
 	IConsumableTransactionService _consumableTransactionService;
-	public ConsumableTransactionController( IConsumableTransactionService consumableTransactionService)
+	IEventBus _eventBus;
+	public ConsumableTransactionController( IConsumableTransactionService consumableTransactionService, IEventBus eventBus)
 	{
 		_consumableTransactionService = consumableTransactionService;
-	}
+        _eventBus = eventBus;
+    }
 
 	[HttpGet]
 	public async Task<DataResult<IEnumerable<ConsumableTransaction>>> GetAll()
@@ -49,5 +54,10 @@ public class ConsumableTransactionController : ControllerBase
 	{
 		var result = await _consumableTransactionService.GetConsumableTransactionsByCurrentCodeAsync(code);
 		return result;
+	}
+	[HttpPost]
+	public async Task ConsumableTransactionInsert([FromBody] ConsumableTransactionDto consumableTransactionDto)
+	{
+		_eventBus.Publish(new ConsumableTransactionInsertedIntegrationEvent(consumableTransactionDto.referenceId, consumableTransactionDto.transactionDate, consumableTransactionDto.transactionTime, consumableTransactionDto.convertedTime, consumableTransactionDto.orderReference, consumableTransactionDto.code, consumableTransactionDto.groupType, consumableTransactionDto.iOType, consumableTransactionDto.transactionType, consumableTransactionDto.transactionTypeName, consumableTransactionDto.warehouseNumber, consumableTransactionDto.currentReferenceId, consumableTransactionDto.currentCode, consumableTransactionDto.total, consumableTransactionDto.totalVat, consumableTransactionDto.netTotal, consumableTransactionDto.description, consumableTransactionDto.dispatchType, consumableTransactionDto.carrierReferenceId, consumableTransactionDto.carrierCode, consumableTransactionDto.driverReferenceId, consumableTransactionDto.driverFirstName, consumableTransactionDto.driverLastName, consumableTransactionDto.identityNumber, consumableTransactionDto.plaque, consumableTransactionDto.shipInfoReferenceId, consumableTransactionDto.shipInfoCode, consumableTransactionDto.shipInfoName, consumableTransactionDto.speCode, consumableTransactionDto.dispatchStatus, consumableTransactionDto.isEDispatch, consumableTransactionDto.doCode, consumableTransactionDto.docTrackingNumber, consumableTransactionDto.isEInvoice, consumableTransactionDto.eDispatchProfileId, consumableTransactionDto.eInvoiceProfileId));
 	}
 }

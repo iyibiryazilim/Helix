@@ -57,7 +57,7 @@ public class SalesOrderController : ControllerBase
 	[HttpPost]
 	public async Task SalesOrderInsert([FromBody] SalesOrderDto salesOrderDto)
 	{
-
+		
 		_eventBus.Publish(new SalesOrderInsertedIntegrationEvent(salesOrderDto.referenceId, salesOrderDto.code, salesOrderDto.orderDate));
 	}
 }
