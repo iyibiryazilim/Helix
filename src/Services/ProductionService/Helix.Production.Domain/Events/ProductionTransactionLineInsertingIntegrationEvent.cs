@@ -3,7 +3,7 @@ using Helix.ProductionService.Domain.Dtos;
 
 namespace Helix.ProductionService.Domain.Events;
 
-public class ProductionTransactionLineInsertedIntegrationEvent : IntegrationEvent
+public class ProductionTransactionLineInsertingIntegrationEvent : IntegrationEvent
 {
 	public int ProductReferenceId { get; private set; }
 	public string ProductCode { get; private set; }
@@ -28,7 +28,7 @@ public class ProductionTransactionLineInsertedIntegrationEvent : IntegrationEven
 	public double OtherConversionFactor { get; private set; }
 	public IList<SeriLotTransactionDto> SeriLotTransactions { get; private set; }
 
-	public ProductionTransactionLineInsertedIntegrationEvent(int productReferenceId, string productCode, double quantity, int subUnitsetReferenceId, string subUnitsetCode, DateTime transactionDate, short transactionType, string transactionTypeName, int referenceId, string transactionTime, int convertedTime, int iOType, int warehouseNumber, double unitPrice, double vatRate, int orderReferenceId, string description, int dispatchReferenceId, string speCode, double conversionFactor, double otherConversionFactor, IList<SeriLotTransactionDto> seriLotTransactions)
+	public ProductionTransactionLineInsertingIntegrationEvent(int productReferenceId, string productCode, double quantity, int subUnitsetReferenceId, string subUnitsetCode, DateTime transactionDate, short transactionType, string transactionTypeName, int referenceId, string transactionTime, int convertedTime, int iOType, int warehouseNumber, double unitPrice, double vatRate, int orderReferenceId, string description, int dispatchReferenceId, string speCode, double conversionFactor, double otherConversionFactor, IList<SeriLotTransactionDto> seriLotTransactions)
 	{
 		ProductReferenceId = productReferenceId;
 		ProductCode = productCode;

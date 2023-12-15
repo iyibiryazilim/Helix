@@ -3,7 +3,7 @@ using Helix.ProductionService.Domain.Dtos;
 
 namespace Helix.ProductionService.Domain.Events;
 
-public class ProductionTransactionInsertedIntegrationEvent : IntegrationEvent
+public class ProductionTransactionInsertingIntegrationEvent : IntegrationEvent
 {
 	public int ReferenceId { get; private set; }
 	public DateTime TransactionDate { get; private set; }
@@ -43,7 +43,7 @@ public class ProductionTransactionInsertedIntegrationEvent : IntegrationEvent
 	public short EInvoiceProfileId { get; private set; }
 	public IList<ProductionTransactionLineDto> Lines { get; private set; }
 
-	public ProductionTransactionInsertedIntegrationEvent(int referenceId, DateTime transactionDate, string transactionTime, int convertedTime, int orderReference, string code, short groupType, short iOType, short transactionType, string transactionTypeName, int warehouseNumber, int currentReferenceId, string currentCode, double total, double totalVat, double netTotal, string description, short dispatchType, int carrierReferenceId, string carrierCode, int driverReferenceId, string driverFirstName, string driverLastName, string identityNumber, string plaque, int shipInfoReferenceId, string shipInfoCode, string shipInfoName, string speCode, short dispatchStatus, short isEDispatch, string doCode, string docTrackingNumber, short isEInvoice, short eDispatchProfileId, short eInvoiceProfileId, IList<ProductionTransactionLineDto> lines)
+	public ProductionTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string transactionTime, int convertedTime, int orderReference, string code, short groupType, short iOType, short transactionType, string transactionTypeName, int warehouseNumber, int currentReferenceId, string currentCode, double total, double totalVat, double netTotal, string description, short dispatchType, int carrierReferenceId, string carrierCode, int driverReferenceId, string driverFirstName, string driverLastName, string identityNumber, string plaque, int shipInfoReferenceId, string shipInfoCode, string shipInfoName, string speCode, short dispatchStatus, short isEDispatch, string doCode, string docTrackingNumber, short isEInvoice, short eDispatchProfileId, short eInvoiceProfileId, IList<ProductionTransactionLineDto> lines)
 	{
 		ReferenceId = referenceId;
 		TransactionDate = transactionDate;

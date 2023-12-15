@@ -80,7 +80,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpPost]
 		public async Task InsertProductionTransactionLine([FromBody] ProductionTransactionLineDto productionTransactionLineDto)
 		{
-			_eventBus.Publish(new ProductionTransactionLineInsertedIntegrationEvent(productReferenceId: productionTransactionLineDto.productReferenceId,
+			_eventBus.Publish(new ProductionTransactionLineInsertingIntegrationEvent(productReferenceId: productionTransactionLineDto.productReferenceId,
 				productCode: productionTransactionLineDto.productCode,
 				quantity: productionTransactionLineDto.quantity,
 				subUnitsetReferenceId: productionTransactionLineDto.subUnitsetReferenceId,

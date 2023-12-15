@@ -59,7 +59,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpPost]
 		public async Task InsertProductionTransaction([FromBody] ProductionTransactionDto productionTransactionDto)
 		{
-			_eventBus.Publish(new ProductionTransactionInsertedIntegrationEvent(referenceId: productionTransactionDto.referenceId, transactionDate: productionTransactionDto.transactionDate,
+			_eventBus.Publish(new ProductionTransactionInsertingIntegrationEvent(referenceId: productionTransactionDto.referenceId, transactionDate: productionTransactionDto.transactionDate,
 			  transactionTime: productionTransactionDto.transactionTime,
 			  convertedTime: productionTransactionDto.convertedTime,
 			  orderReference: productionTransactionDto.orderReference,
