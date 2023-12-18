@@ -59,7 +59,7 @@ namespace Helix.UI.Mobile
 		}
 		public static MauiAppBuilder SalesRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddTransient<ICustomerService<Customer>, CustomerDataStore>();
+			mauiAppBuilder.Services.AddTransient<ICustomerService, CustomerDataStore>();
 			return mauiAppBuilder;
 		}
 		#endregion
