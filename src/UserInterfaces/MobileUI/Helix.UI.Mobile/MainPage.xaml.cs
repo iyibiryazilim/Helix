@@ -14,7 +14,7 @@ namespace Helix.UI.Mobile
 
 		}
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
             count++;
 
@@ -24,7 +24,7 @@ namespace Helix.UI.Mobile
                 CounterBtn.Text = $"Clicked {count} times";
             CustomerDataStore dto = new();
             
-            dto.GetObjects(_service.GetOrCreateHttpClient());
+            var result = await dto.GetObjects(_service.GetOrCreateHttpClient());
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
     }
