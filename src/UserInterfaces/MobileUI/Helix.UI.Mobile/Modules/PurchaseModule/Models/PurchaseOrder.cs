@@ -33,11 +33,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 		[ObservableProperty]
 		string divisionCity;
 		[ObservableProperty]
-		int supplierReferenceId;
+		int currentReferenceId;
 		[ObservableProperty]
-		string supplierCode;
+		string currentCode;
 		[ObservableProperty]
-		string supplierName;
+		string currentName;
 		[ObservableProperty]
 		double total;
 		[ObservableProperty]
