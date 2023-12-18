@@ -2,6 +2,6 @@
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.Models;
 
-public class PurchaseReturnDispatchTransactionLine : BaseTransactionLine
+public class RetailSalesReturnDispatchTransaction : BaseTransaction
 {
 }

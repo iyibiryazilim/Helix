@@ -1,5 +1,7 @@
-﻿namespace Helix.UI.Mobile.Modules.ReturnModule.Models;
+﻿using Helix.UI.Mobile.Modules.ReturnModule.Models.BaseModels;
 
-public class WholeSalesReturnDispatchTransactionLine
+namespace Helix.UI.Mobile.Modules.ReturnModule.Models;
+
+public class WholeSalesReturnDispatchTransactionLine : BaseTransactionLine
 {
 }
