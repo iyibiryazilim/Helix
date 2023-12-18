@@ -1,5 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.SalesModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 
 namespace Helix.UI.Mobile
 {
@@ -11,6 +15,7 @@ namespace Helix.UI.Mobile
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+				.RegisterHttpClientServices()
 				.ReturnRegisterServices()
 				.ReturnRegisterViewModels()
 				.ReturnRegisterViews()
@@ -36,6 +41,13 @@ namespace Helix.UI.Mobile
             return builder.Build();
         }
 
+		public static MauiAppBuilder RegisterHttpClientServices(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddSingleton<IHttpClientService, HttpClientService>();
+			return mauiAppBuilder;
+
+		}
+
 		#region SalesModule
 		public static MauiAppBuilder SalesRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -47,6 +59,7 @@ namespace Helix.UI.Mobile
 		}
 		public static MauiAppBuilder SalesRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
+			mauiAppBuilder.Services.AddTransient<ICustomerService<Customer>, CustomerDataStore>();
 			return mauiAppBuilder;
 		}
 		#endregion
