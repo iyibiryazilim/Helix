@@ -67,7 +67,7 @@
 	  <Folder Include="Modules\LoginModule\Views\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
-	  <Folder Include="Modules\PurchaseModule\Models\" />
+	  <Folder Include="Modules\PurchaseModule\Dtos\" />
 	  <Folder Include="Modules\PurchaseModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
