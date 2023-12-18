@@ -2,7 +2,7 @@
 
 namespace Helix.UI.Mobile.Modules.SalesModule.Models
 {
-	public partial class SalesOrderLine : ObservableObject
+	public partial class BaseSalesDispatchTransactionLine : ObservableObject
 	{
 		[ObservableProperty]
 		int referenceId;
@@ -10,6 +10,12 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		short transactionType;
 		[ObservableProperty]
 		string transactionTypeName;
+		[ObservableProperty]
+		TimeSpan transactionTime;
+		[ObservableProperty]
+		int convertedTime;
+		[ObservableProperty]
+		short iOType;
 		[ObservableProperty]
 		int productReferenceId;
 		[ObservableProperty]
@@ -27,15 +33,11 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		[ObservableProperty]
 		double quantity;
 		[ObservableProperty]
-		double shippedQuantity;
-		[ObservableProperty]
-		double waitingQuantity;
-		[ObservableProperty]
 		double unitPrice;
 		[ObservableProperty]
 		double vatRate;
 		[ObservableProperty]
-		int divisonReferenceId;
+		int divisionReferenceId;
 		[ObservableProperty]
 		short divisionNumber;
 		[ObservableProperty]
@@ -49,30 +51,26 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		[ObservableProperty]
 		short warehouseNumber;
 		[ObservableProperty]
-		DateTime dueDate;
-		[ObservableProperty]
-		double total;
-		[ObservableProperty]
-		double totalVat;
-		[ObservableProperty]
-		double netTotal;
+		int orderReferenceId;
 		[ObservableProperty]
 		string description;
 		[ObservableProperty]
-		int orderReferenceId;
+		int baseTransactionReferenceId;
 		[ObservableProperty]
-		DateTime orderDate;
+		string baseTransactionCode;
 		[ObservableProperty]
-		int orderTransactionType;
+		int supplierReferenceId;
 		[ObservableProperty]
-		int orderTransactionTypeName;
+		string supplierCode;
 		[ObservableProperty]
-		string orderCode;
+		string supplierName;
 		[ObservableProperty]
-		int currentReferenceId;
+		int dispatchReferenceId;
 		[ObservableProperty]
-		string currentCode;
+		string speCode;
 		[ObservableProperty]
-		string currentName;
+		double conversionFactor;
+		[ObservableProperty]
+		double otherConversionFactor;
 	}
 }

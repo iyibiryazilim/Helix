@@ -1,5 +1,5 @@
 ﻿namespace Helix.UI.Mobile.Modules.SalesModule.Models;
 
-public class RetailSalesDispatchTransaction
+public partial class RetailSalesDispatchTransaction : BaseSalesDispatchTransaction
 {
 }
