@@ -3,7 +3,7 @@ using Helix.UI.Mobile.Modules.ReturnModule.Models;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.Services;
 
-public interface IWholeSalesReturnTransactionService
+public interface IWholeSalesReturnDispatchTransactionService
 {
 	Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetObjects(HttpClient httpClient);
 	Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId);
