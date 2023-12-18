@@ -13,7 +13,7 @@ public class StopTransactionForWorkOrderInsertedIntegrationEventHandler : IInteg
 	}
 	public Task Handle(StopTransactionForWorkOrderInsertedIntegrationEvent @event)
 	{
-		_logger.LogInformation($"Stop transaction for work order inserted started");
+		_logger.LogInformation($"Stop transaction for work order inserting started");
 		return Task.CompletedTask;
 	}
 }

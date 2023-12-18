@@ -15,7 +15,7 @@ public class WorkOrderInsertedIntegrationEventHandler : IIntegrationEventHandler
 
 	public Task Handle(WorkOrderInsertedIntegrationEvent @event)
 	{
-		_logger.LogInformation($"Work order inserted started");
+		_logger.LogInformation($"Work order inserting started");
 		return Task.CompletedTask;
 	}
 }

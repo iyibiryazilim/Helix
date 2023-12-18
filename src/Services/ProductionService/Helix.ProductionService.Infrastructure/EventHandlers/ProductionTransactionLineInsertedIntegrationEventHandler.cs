@@ -14,7 +14,7 @@ public class ProductionTransactionLineInsertedIntegrationEventHandler : IIntegra
 	}
 	public Task Handle(ProductionTransactionLineInsertedIntegrationEvent @event)
 	{
-		_logger.LogInformation($"Production transaction line inserted started");
+		_logger.LogInformation($"Production transaction line inserting started");
 		return Task.CompletedTask;
 	}
 }
