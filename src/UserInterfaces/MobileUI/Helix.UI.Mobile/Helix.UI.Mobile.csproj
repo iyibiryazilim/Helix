@@ -49,6 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
@@ -63,12 +67,9 @@
 	  <Folder Include="Modules\LoginModule\Views\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
-	  <Folder Include="Modules\PurchaseModule\DataStores\" />
-	  <Folder Include="Modules\PurchaseModule\Dtos\" />
 	  <Folder Include="Modules\PurchaseModule\Models\" />
 	  <Folder Include="Modules\PurchaseModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
-	  <Folder Include="Modules\PurchaseModule\Services\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\Views\" />
 	  <Folder Include="Modules\ReturnModule\ViewModels\" />
