@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Helix.UI.Mobile.Modules.PurchaseModule.Dtos
+namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 {
- 	public partial class BasePurchaseDispatchTransactionLine : ObservableObject
+	public partial class BasePurchaseDispatchTransactionLine : ObservableObject
 	{
 		[ObservableProperty]
 		int referenceId;
