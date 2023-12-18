@@ -1,6 +1,12 @@
-﻿namespace Helix.SalesService.Domain.Dtos;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public record BaseTransactionDto(int referenceId,
+namespace Helix.PurchaseService.Domain.Dtos;
+
+public record PurchaseReturnDispatchTransactionDto(int referenceId,
  DateTime transactionDate,
   string transactionTime,
   int convertedTime,
