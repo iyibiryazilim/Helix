@@ -5,22 +5,22 @@ public class HttpClientService : IHttpClientService
 	private readonly Lazy<HttpClient> _httpClient = new Lazy<HttpClient>(
 () =>
 {
-   var httpClient = new HttpClient();
+	var httpClient = new HttpClient();
 
-   string uri = SecureStorage.Default.GetAsync("baseUri").Result;
+	//string uri = SecureStorage.Default.GetAsync("baseUri").Result;
 
-   if (uri == null)
-   {
-	   httpClient.BaseAddress = new Uri("");
-   }
-   else
-   {
-	   httpClient.BaseAddress = new Uri(uri);
-   }
+	//if (uri == null)
+	//{
+	// httpClient.BaseAddress = new Uri("");
+	//}
+	//else
+	//{
+	// httpClient.BaseAddress = new Uri(uri);
+	//}
+	httpClient.BaseAddress = new Uri("http://195.142.192.18:1089");
+	httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-   httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-   return httpClient;
+	return httpClient;
 }
 
 , LazyThreadSafetyMode.None);
@@ -31,6 +31,8 @@ public class HttpClientService : IHttpClientService
 
 	public HttpClient GetOrCreateHttpClient()
 	{
+
+
 		var httpClient = _httpClient.Value;
 
 

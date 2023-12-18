@@ -56,10 +56,19 @@
 
 	<ItemGroup>
 	  <Folder Include="DataStores\" />
+	  <Folder Include="Modules\BaseModule\DataStores\" />
+	  <Folder Include="Modules\BaseModule\Models\" />
+	  <Folder Include="Modules\BaseModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
+	  <Folder Include="Modules\PurchaseModule\DataStores\" />
+	  <Folder Include="Modules\PurchaseModule\Dtos\" />
+	  <Folder Include="Modules\PurchaseModule\Models\" />
+	  <Folder Include="Modules\PurchaseModule\Views\" />
+	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
+	  <Folder Include="Modules\PurchaseModule\Services\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\Views\" />
 	  <Folder Include="Modules\ReturnModule\ViewModels\" />
