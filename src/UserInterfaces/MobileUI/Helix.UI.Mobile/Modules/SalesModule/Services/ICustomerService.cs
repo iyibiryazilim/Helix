@@ -2,9 +2,9 @@
 
 namespace Helix.UI.Mobile.Modules.SalesModule.Services;
 
-public interface ICustomerService<T> where T : class
+public interface ICustomerService
 {
-	Task<DataResult<IEnumerable<T>>> GetObjects(HttpClient httpClient);
-	Task<DataResult<T>> GetObjectById(HttpClient httpClient, int ReferenceId);
-	Task<DataResult<T>> GetObjectByCode(HttpClient httpClient, string Code);
+	Task<DataResult<IEnumerable<Customer>>> GetObjects(HttpClient httpClient);
+	Task<DataResult<Customer>> GetObjectById(HttpClient httpClient, int ReferenceId);
+	Task<DataResult<Customer>> GetObjectByCode(HttpClient httpClient, string Code);
 }

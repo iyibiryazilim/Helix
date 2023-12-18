@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 {
-	public class CustomerDataStore : ICustomerService<Customer>
+	public class CustomerDataStore : ICustomerService
 	{
 		string postUrl = $"/gateway/sales/" + typeof(Customer).Name;
 
