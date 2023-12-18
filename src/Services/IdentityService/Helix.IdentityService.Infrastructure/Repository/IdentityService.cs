@@ -2,34 +2,55 @@
 using Helix.IdentityService.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace Helix.IdentityService.Infrastructure.Repository;
 
 public class IdentityService : IIdentityService
 {
-	public Task<LoginResponseModel> Login(LoginRequestModel requestModel)
+	IHttpClientFactory _httpClientFactory;
+	public IdentityService(IHttpClientFactory httpClientFactory)
 	{
-		//Veri tabanı veya appsettingsten veri okuma işlemi
-		var claims = new Claim[]
+		_httpClientFactory = httpClientFactory;
+	}
+	public async Task<LoginResponseModel> Login(LoginRequestModel requestModel)
+	{
+		var loginResponseModel = new LoginResponseModel();
+		//Veri tabanı veri okuma işlemi
+		var httpClient = _httpClientFactory.CreateClient("wms");
+
+		var responseMessage = await httpClient.PostAsync($"/api/Authentication/Authenticate",
+			   new StringContent(JsonSerializer.Serialize(new { requestModel.UserName, requestModel.Password }), Encoding.UTF8, "application/json"));
+
+		if (responseMessage.IsSuccessStatusCode)
 		{
-			new Claim(ClaimTypes.NameIdentifier,requestModel.UserName),
-			new Claim(ClaimTypes.Name,"İyibir Yazılım")
-		};
+			if (responseMessage.StatusCode == System.Net.HttpStatusCode.OK)
+			{
+				var getToken = await responseMessage.Content.ReadAsStringAsync();
+				var claims = new Claim[]
+				{
+					new Claim(ClaimTypes.NameIdentifier,requestModel.UserName),
+					new Claim(ClaimTypes.Name,"İyibir Yazılım"),
+					new Claim(ClaimTypes.Authentication,getToken)
+				};
 
-		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(""));
-		var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-		var expriy = DateTime.Now.AddDays(1);
+				var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("iyibirSoftwareAndTechnologyDeveloperTeam"));
+				var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+				var expriy = DateTime.Now.AddDays(1);
 
-		var token = new JwtSecurityToken(claims: claims, expires: expriy, signingCredentials: creds, notBefore: DateTime.Now);
-		var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
+				var token = new JwtSecurityToken(claims: claims, expires: expriy, signingCredentials: creds, notBefore: DateTime.Now);
+				var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-		LoginResponseModel responseModel = new()
-		{
-			UserName = requestModel.UserName,
-			Token = encodedJwt,
-		};
-		return Task.FromResult(responseModel);
+				loginResponseModel.Token = encodedJwt;
+				loginResponseModel.UserName = requestModel.UserName;
+			}
+
+		}
+
+		return await Task.FromResult(loginResponseModel);
 	}
 }

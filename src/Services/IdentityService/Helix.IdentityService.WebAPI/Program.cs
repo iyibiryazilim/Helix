@@ -1,6 +1,16 @@
+using Helix.IdentityService.Application.Repository;
+using Helix.IdentityService.Infrastructure.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient("wms", configureClient =>
+{
+	configureClient.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+});
+builder.Services.AddSingleton<IIdentityService, IdentityService>();
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

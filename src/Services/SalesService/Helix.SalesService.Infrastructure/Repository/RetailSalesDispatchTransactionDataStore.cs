@@ -25,6 +25,7 @@ public class RetailSalesDispatchTransactionDataStore : BaseDataStore, IRetailSal
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
+			
 		}
 		catch (Exception ex)
 		{

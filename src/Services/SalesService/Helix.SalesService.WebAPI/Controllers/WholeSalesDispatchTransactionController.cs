@@ -1,5 +1,8 @@
-﻿using Helix.SalesService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.AggregateModels;
+using Helix.SalesService.Domain.Dtos;
+using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +13,11 @@ namespace Helix.SalesService.WebAPI.Controllers;
 public class WholeSalesDispatchTransactionController : ControllerBase
 {
 	IWholeSalesDispatchTransactionService _wholeSalesDispatchTransactionService;
-    public WholeSalesDispatchTransactionController(IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService)
+	IEventBus _eventBus;
+    public WholeSalesDispatchTransactionController(IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService,IEventBus eventBus)
     {
         _wholeSalesDispatchTransactionService = wholeSalesDispatchTransactionService;
+		_eventBus = eventBus;
     }
 	[HttpGet]
 	public async Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetAll()
@@ -47,5 +52,11 @@ public class WholeSalesDispatchTransactionController : ControllerBase
 	{
 		var result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code);
 		return result;
+	}
+	[HttpPost]
+	public async Task WholeSalesDispatchTransactionInsert([FromBody] WholeSalesDispatchTransactionDto wholeSalesDispatchTransactionDto)
+	{
+		_eventBus.Publish(new WholeSalesDispatchTransactionInsertingIntegrationEvent(wholeSalesDispatchTransactionDto.referenceId, wholeSalesDispatchTransactionDto.transactionDate, wholeSalesDispatchTransactionDto.transactionTime, wholeSalesDispatchTransactionDto.convertedTime, wholeSalesDispatchTransactionDto.orderReference, wholeSalesDispatchTransactionDto.code, wholeSalesDispatchTransactionDto.groupType, wholeSalesDispatchTransactionDto.iOType, wholeSalesDispatchTransactionDto.transactionType, wholeSalesDispatchTransactionDto.transactionTypeName, wholeSalesDispatchTransactionDto.warehouseNumber, wholeSalesDispatchTransactionDto.currentReferenceId, wholeSalesDispatchTransactionDto.currentCode, wholeSalesDispatchTransactionDto.total, wholeSalesDispatchTransactionDto.totalVat, wholeSalesDispatchTransactionDto.netTotal, wholeSalesDispatchTransactionDto.description, wholeSalesDispatchTransactionDto.dispatchType, wholeSalesDispatchTransactionDto.carrierReferenceId, wholeSalesDispatchTransactionDto.carrierCode, wholeSalesDispatchTransactionDto.driverReferenceId, wholeSalesDispatchTransactionDto.driverFirstName, wholeSalesDispatchTransactionDto.driverLastName, wholeSalesDispatchTransactionDto.identityNumber, wholeSalesDispatchTransactionDto.plaque, wholeSalesDispatchTransactionDto.shipInfoReferenceId, wholeSalesDispatchTransactionDto.shipInfoCode, wholeSalesDispatchTransactionDto.shipInfoName, wholeSalesDispatchTransactionDto.speCode, wholeSalesDispatchTransactionDto.dispatchStatus, wholeSalesDispatchTransactionDto.isEDispatch, wholeSalesDispatchTransactionDto.doCode, wholeSalesDispatchTransactionDto.docTrackingNumber, wholeSalesDispatchTransactionDto.isEInvoice, wholeSalesDispatchTransactionDto.eDispatchProfileId, wholeSalesDispatchTransactionDto.eInvoiceProfileId));
+
 	}
 }

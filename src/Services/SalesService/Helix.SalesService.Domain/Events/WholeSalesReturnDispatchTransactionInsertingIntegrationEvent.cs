@@ -2,7 +2,7 @@
 
 namespace Helix.SalesService.Domain.Events;
 
-public class WholeSalesDispatchTransactionInsertedIntegrationEvent : IntegrationEvent
+public class WholeSalesReturnDispatchTransactionInsertingIntegrationEvent : IntegrationEvent
 {
 	public int ReferenceId { get; private set; }
 	public DateTime TransactionDate { get; private set; }
@@ -41,7 +41,7 @@ public class WholeSalesDispatchTransactionInsertedIntegrationEvent : Integration
 	public short EDispatchProfileId { get; private set; }
 	public short EInvoiceProfileId { get; private set; }
 
-	public WholeSalesDispatchTransactionInsertedIntegrationEvent(int referenceId, DateTime transactionDate, string transactionTime, int convertedTime, int orderReference, string code, short groupType, short iOType, short transactionType, string transactionTypeName, int? warehouseNumber, int? currentReferenceId, string? currentCode, double total, double totalVat, double netTotal, string description, short dispatchType, int carrierReferenceId, string carrierCode, int driverReferenceId, string driverFirstName, string driverLastName, string ıdentityNumber, string plaque, int shipInfoReferenceId, string shipInfoCode, string shipInfoName, string speCode, short dispatchStatus, short ısEDispatch, string doCode, string docTrackingNumber, short ısEInvoice, short eDispatchProfileId, short eInvoiceProfileId)
+	public WholeSalesReturnDispatchTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string transactionTime, int convertedTime, int orderReference, string code, short groupType, short iOType, short transactionType, string transactionTypeName, int? warehouseNumber, int? currentReferenceId, string? currentCode, double total, double totalVat, double netTotal, string description, short dispatchType, int carrierReferenceId, string carrierCode, int driverReferenceId, string driverFirstName, string driverLastName, string ıdentityNumber, string plaque, int shipInfoReferenceId, string shipInfoCode, string shipInfoName, string speCode, short dispatchStatus, short ısEDispatch, string doCode, string docTrackingNumber, short ısEInvoice, short eDispatchProfileId, short eInvoiceProfileId)
 	{
 		ReferenceId = referenceId;
 		TransactionDate = transactionDate;
