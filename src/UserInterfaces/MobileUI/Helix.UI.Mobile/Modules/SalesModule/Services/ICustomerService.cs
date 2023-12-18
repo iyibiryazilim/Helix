@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helix.UI.Mobile.Modules.SalesModule.Models;
 
-namespace Helix.UI.Mobile.Modules.SalesModule.Services
+namespace Helix.UI.Mobile.Modules.SalesModule.Services;
+
+public interface ICustomerService<T> where T : class
 {
-    public interface ICustomerService
-    {
-    }
+	Task<DataResult<IEnumerable<T>>> GetObjects(HttpClient httpClient);
+	Task<DataResult<T>> GetObjectById(HttpClient httpClient, int ReferenceId);
+	Task<DataResult<T>> GetObjectByCode(HttpClient httpClient, string Code);
 }
