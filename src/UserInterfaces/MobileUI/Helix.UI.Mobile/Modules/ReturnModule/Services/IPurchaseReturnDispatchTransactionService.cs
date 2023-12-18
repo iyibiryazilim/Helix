@@ -1,12 +1,13 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.ReturnModule.Models;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.Services;
 
-public interface IPurchaseReturnDispatchTransactionService<T> where T : class
+public interface IPurchaseReturnDispatchTransactionService
 {
-	Task<DataResult<IEnumerable<T>>> GetObjects(HttpClient httpClient);
-	Task<DataResult<T>> GetObjectById(HttpClient httpClient, int id);
-	Task<DataResult<T>> GetObjectByCode(HttpClient httpClient, string code);
-	Task<DataResult<T>> GetObjectByCurrentId(HttpClient httpClient, int id);
-	Task<DataResult<T>> GetObjectByCurrentCode(HttpClient httpClient, string code);
+	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>> GetObjects(HttpClient httpClient);
+	Task<DataResult<PurchaseReturnDispatchTransaction>> GetObjectById(HttpClient httpClient, int id);
+	Task<DataResult<PurchaseReturnDispatchTransaction>> GetObjectByCode(HttpClient httpClient, string code);
+	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>> GetObjectsByCurrentId(HttpClient httpClient, int id);
+	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>> GetObjectsByCurrentCode(HttpClient httpClient, string code);
 }

@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.DataStores;
 
-public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatchTransactionService<PurchaseReturnDispatchTransaction>
+public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatchTransactionService
 {
 	string postUrl = $"/gateway/purchase/{typeof(PurchaseReturnDispatchTransaction).Name}";
 	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>> GetObjects(HttpClient httpClient)
@@ -173,10 +173,10 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 		}
 	}
 
-	public async Task<DataResult<PurchaseReturnDispatchTransaction>> GetObjectByCurrentId(HttpClient httpClient, int id)
+	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>> GetObjectsByCurrentId(HttpClient httpClient, int id)
 	{
 		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{id}");
-		DataResult<PurchaseReturnDispatchTransaction> dataResult = new DataResult<PurchaseReturnDispatchTransaction>();
+		DataResult<IEnumerable<PurchaseReturnDispatchTransaction>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>();
 
 		if (responseMessage.IsSuccessStatusCode)
 		{
@@ -186,7 +186,7 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransaction>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -197,7 +197,7 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransaction>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -209,7 +209,7 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransaction>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
@@ -228,10 +228,10 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 		}
 	}
 
-	public async Task<DataResult<PurchaseReturnDispatchTransaction>> GetObjectByCurrentCode(HttpClient httpClient, string code)
+	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>> GetObjectsByCurrentCode(HttpClient httpClient, string code)
 	{
 		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{code}");
-		DataResult<PurchaseReturnDispatchTransaction> dataResult = new DataResult<PurchaseReturnDispatchTransaction>();
+		DataResult<IEnumerable<PurchaseReturnDispatchTransaction>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>();
 
 		if (responseMessage.IsSuccessStatusCode)
 		{
@@ -241,7 +241,7 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransaction>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -252,7 +252,7 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransaction>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -264,7 +264,7 @@ public class PurchaseReturnDispatchTransactionDataStore : IPurchaseReturnDispatc
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransaction>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransaction>>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
