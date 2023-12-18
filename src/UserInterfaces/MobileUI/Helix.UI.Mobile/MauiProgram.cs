@@ -4,6 +4,7 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 
 namespace Helix.UI.Mobile
 {
@@ -55,6 +56,7 @@ namespace Helix.UI.Mobile
 		}
 		public static MauiAppBuilder SalesRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
+			mauiAppBuilder.Services.AddTransient<CustomerListViewModel>();
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder SalesRegisterServices(this MauiAppBuilder mauiAppBuilder)

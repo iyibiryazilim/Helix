@@ -1,13 +1,18 @@
-﻿namespace Helix.UI.Mobile
+﻿using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+
+namespace Helix.UI.Mobile
 {
     public partial class MainPage : ContentPage
     {
         int count = 0;
+        HttpClientService _service = new();
 
         public MainPage()
         {
             InitializeComponent();
-        }
+
+		}
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
@@ -17,7 +22,9 @@
                 CounterBtn.Text = $"Clicked {count} time";
             else
                 CounterBtn.Text = $"Clicked {count} times";
-
+            CustomerDataStore dto = new();
+            
+            dto.GetObjects(_service.GetOrCreateHttpClient());
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
     }
