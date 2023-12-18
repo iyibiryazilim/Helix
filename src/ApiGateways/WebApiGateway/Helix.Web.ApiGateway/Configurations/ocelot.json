@@ -1,30 +1,30 @@
 ﻿{
     "Routes": [
         {
-            "UseServiceDiscovery": true,
-            "ServiceName": "SalesService",
             "DownstreamPathTemplate": "/api/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
-                    "Port": 5124
+                    "Host": "172.25.86.101",
+                    "Port": 10089
                 }
             ],
             "UpstreamPathTemplate": "/gateway/sales/{everything}",
             "UpstreamHttpMethod": [ "Get", "POST" ]
         },
         {
-            "UseServiceDiscovery": true,
-            "ServiceName": "ProductionService",
             "DownstreamPathTemplate": "/api/{everything}",
             "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5249
+                }
+            ],
             "UpstreamPathTemplate": "/gateway/production/{everything}",
             "UpstreamHttpMethod": [ "Get", "POST" ]
         },
         {
-            "UseServiceDiscovery": true,
-            "ServiceName": "PurchaseService",
             "DownstreamPathTemplate": "/api/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
@@ -37,8 +37,7 @@
             "UpstreamHttpMethod": [ "Get", "POST" ]
         },
         {
-            "UseServiceDiscovery": true,
-            "ServiceName": "ProductService",
+            
             "DownstreamPathTemplate": "/api/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
@@ -47,32 +46,33 @@
                     "Port": 5030
                 }
             ],
+            
             "UpstreamPathTemplate": "/gateway/product/{everything}",
             "UpstreamHttpMethod": [ "Get", "POST" ]
-        },
-        {
-            "UseServiceDiscovery": true,
-            "ServiceName": "IdentityServer",
-            "DownstreamPathTemplate": "/api/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "http://172.25.86.101",
-                    "Port": 10081
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/identity/{everything}",
-            "UpstreamHttpMethod": [ "POST" ]
         }
+        //{
+        //    "UseServiceDiscovery": true,
+        //    "ServiceName": "IdentityServer",
+        //    "DownstreamPathTemplate": "/api/{everything}",
+        //    "DownstreamScheme": "http",
+        //    "DownstreamHostAndPorts": [
+        //        {
+        //            "Host": "http://172.25.86.101",
+        //            "Port": 10081
+        //        }
+        //    ],
+        //    "UpstreamPathTemplate": "/gateway/identity/{everything}",
+        //    "UpstreamHttpMethod": [ "POST" ]
+        //}
     ],
 
     "GlobalConfiguration": {
-        "BaseUrl": "https://localhost:5000",
-        "ServiceDiscoveryProvider": {
-            "Scheme": "http",
-            "Host": "localhost",
-            "Port": 8500,
-            "Type": "Consul"
-        }
+        "BaseUrl": "https://localhost:5000"
+        //"ServiceDiscoveryProvider": {
+        //    "Scheme": "http",
+        //    "Host": "localhost",
+        //    "Port": 8500,
+        //    "Type": "Consul"
+        //}
     }
 }
