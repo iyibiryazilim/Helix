@@ -196,8 +196,8 @@
             <ShellContent Title="Siparişler"
                           ContentTemplate="{DataTemplate waitingOrderViews:WaitingSalesOrderLineListView}" />
         </Tab>
-       <Tab Title="İşlemler">
-            <!--<Tab.Icon>
+        <!--<Tab Title="İşlemler">
+            <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.BarsProgress}" />
@@ -209,7 +209,7 @@
 
     </FlyoutItem>
 
-    <FlyoutItem Title="Mal Kabul İşlemleri"
+    <!--<FlyoutItem Title="Mal Kabul İşlemleri"
                 Route="ProductionTransactionView">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FAS"
@@ -258,7 +258,7 @@
             <ShellContent Title="İşlemler"
                           ContentTemplate="{DataTemplate menuViews:PurchaseMenuView}" />
         </Tab>
-    </FlyoutItem>
+    </FlyoutItem>-->
 
     <!--<FlyoutItem Title="İade İşlemleri">
         <FlyoutItem.Icon>
