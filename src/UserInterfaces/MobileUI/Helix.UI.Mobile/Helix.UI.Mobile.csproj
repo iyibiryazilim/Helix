@@ -69,8 +69,16 @@
 	  <Folder Include="Modules\BaseModule\DataStores\" />
 	  <Folder Include="Modules\BaseModule\Models\" />
 	  <Folder Include="Modules\BaseModule\Services\" />
+	  <Folder Include="Modules\FastProductionModule\Dtos\" />
+	  <Folder Include="Modules\FastProductionModule\DataStores\" />
+	  <Folder Include="Modules\FastProductionModule\Models\" />
+	  <Folder Include="Modules\FastProductionModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
+	  <Folder Include="Modules\PanelModule\Models\" />
+	  <Folder Include="Modules\PanelModule\DataStores\" />
+	  <Folder Include="Modules\PanelModule\Dtos\" />
+	  <Folder Include="Modules\PanelModule\Services\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
@@ -79,6 +87,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PanelModule\Views\PanelView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\PurchaseOperationView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
