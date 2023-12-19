@@ -28,9 +28,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			try
 			{
 				await Task.Delay(500);
-				await Task.WhenAll(
-				  GetCustomersAsync()
-				);
+				await MainThread.InvokeOnMainThreadAsync(GetCustomersAsync);
 
 			}
 			catch (Exception ex)
@@ -54,11 +52,15 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				var result = await _customerService.GetObjects(httpClient);
-				foreach (Customer item in result.Data)
+				
+				if (Items.Any())
 				{
-					Items.Add(item);
+					Items.Clear();
+					foreach (Customer item in result.Data)
+					{
+						Items.Add(item);
+					}
 				}
-
 
 			}
 			catch (Exception ex)
