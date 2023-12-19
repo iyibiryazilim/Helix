@@ -7,7 +7,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.DataStores;
 
 public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDispatchTransactionLineService
 {
-	string postUrl = $"/gateway/purchase/{typeof(PurchaseReturnDispatchTransactionLine)}";
+	string postUrl = $"/gateway/purchase/{nameof(PurchaseReturnDispatchTransactionLine)}";
 
 	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjects(HttpClient httpClient)
 	{
