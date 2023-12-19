@@ -29,8 +29,8 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
-                    "Port": 5173
+                    "Host": "172.25.86.101",
+                    "Port": 10087
                 }
             ],
             "UpstreamPathTemplate": "/gateway/purchase/{everything}",
@@ -42,8 +42,8 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
-                    "Port": 5030
+                    "Host": "172.25.86.101",
+                    "Port": 10086
                 }
             ],
             

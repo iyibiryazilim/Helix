@@ -174,7 +174,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
 
-					dataResult.Data = Enumerable.Empty<T>();
+					dataResult.Data = Enumerable.Empty<PurchaseDispatchTransaction>();
 					dataResult.IsSuccess = false;
 					dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -185,7 +185,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 			else
 			{
-				dataResult.Data = Enumerable.Empty<T>();
+				dataResult.Data = Enumerable.Empty<PurchaseDispatchTransaction>();
 				dataResult.IsSuccess = false;
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 				return dataResult;
@@ -235,7 +235,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
 
-					dataResult.Data = Enumerable.Empty<T>();
+					dataResult.Data = Enumerable.Empty<PurchaseDispatchTransaction>();
 					dataResult.IsSuccess = false;
 					dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -307,7 +307,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 			else
 			{
-				dataResult.Data = Enumerable.Empty<T>();
+				dataResult.Data = Enumerable.Empty<PurchaseDispatchTransaction>();
 				dataResult.IsSuccess = false;
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 				return dataResult;
