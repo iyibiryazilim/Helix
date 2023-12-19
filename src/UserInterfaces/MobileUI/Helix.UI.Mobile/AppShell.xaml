@@ -4,11 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Helix.UI.Mobile"
+    xmlns:page="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+                  ContentTemplate="{DataTemplate page:CustomerListView}"
         Route="MainPage" />
 
 </Shell>
