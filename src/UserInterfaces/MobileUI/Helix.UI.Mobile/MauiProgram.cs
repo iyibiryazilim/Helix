@@ -8,6 +8,16 @@ using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 
 namespace Helix.UI.Mobile
 {
@@ -60,6 +70,9 @@ namespace Helix.UI.Mobile
 		{
 			mauiAppBuilder.Services.AddTransient<CustomerListView>();
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListView>();
+			mauiAppBuilder.Services.AddTransient<SalesPanelView>();
+			mauiAppBuilder.Services.AddTransient<SalesOperationView>();
+
 
 
 			return mauiAppBuilder;
@@ -68,6 +81,9 @@ namespace Helix.UI.Mobile
 		{
 			mauiAppBuilder.Services.AddTransient<CustomerListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<SalesPanelViewModel>();
+			mauiAppBuilder.Services.AddTransient<SalesOperationViewModel>();
+
 
 			return mauiAppBuilder;
 		}
@@ -83,14 +99,26 @@ namespace Helix.UI.Mobile
 		#region PurchaseModule
 		public static MauiAppBuilder PurchaseRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
+			mauiAppBuilder.Services.AddTransient<SupplierListView>();
+			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineListView>();
+
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder PurchaseRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
+			mauiAppBuilder.Services.AddTransient<SupplierListViewModel>();
+			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineLineListViewModel>();
+
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder PurchaseRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
+			mauiAppBuilder.Services.AddTransient<ISupplierService, SupplierDataStore>();
+			mauiAppBuilder.Services.AddTransient<IPurchaseOrderLineService, PurchaseOrderLineDataStore>();
+
+
 			return mauiAppBuilder;
 		}
 		#endregion

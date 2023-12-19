@@ -5,6 +5,11 @@
        xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
        xmlns:customerViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
        xmlns:waitingOrderViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews"
+       xmlns:salesPanelViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews"
+       xmlns:salesOperationViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews"
+       xmlns:supplierViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews"
+       xmlns:purchaseWaitingOrderViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews"
+       
        xmlns:local="clr-namespace:Helix.UI.Mobile"
        xmlns:page="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
        xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
@@ -168,15 +173,15 @@
                              Glyph="{x:Static fontAwesome:FontAwesomeIcons.Truck}" />
 
         </FlyoutItem.Icon>
-       <!--<Tab Title="Panel">
+       <Tab Title="Panel">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
             </Tab.Icon>
             <ShellContent Title="Sevkiyat Paneli"
-                          ContentTemplate="{DataTemplate panelViews:SalesPanelView}" />
-        </Tab>-->
+                          ContentTemplate="{DataTemplate salesPanelViews:SalesPanelView}" />
+        </Tab>
         <Tab Title="Müşteriler">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
@@ -196,7 +201,7 @@
             <ShellContent Title="Siparişler"
                           ContentTemplate="{DataTemplate waitingOrderViews:WaitingSalesOrderLineListView}" />
         </Tab>
-        <!--<Tab Title="İşlemler">
+        <Tab Title="İşlemler">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
@@ -204,12 +209,12 @@
             </Tab.Icon>
 
             <ShellContent Title="İşlemler"
-                          ContentTemplate="{DataTemplate menuViews:SalesMenuView}" />
-        </Tab>-->
+                          ContentTemplate="{DataTemplate salesOperationViews:SalesOperationView}" />
+        </Tab>
 
     </FlyoutItem>
 
-    <!--<FlyoutItem Title="Mal Kabul İşlemleri"
+    <FlyoutItem Title="Mal Kabul İşlemleri"
                 Route="ProductionTransactionView">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FAS"
@@ -217,7 +222,7 @@
                              Glyph="{x:Static fontAwesome:FontAwesomeIcons.Dolly}" />
 
         </FlyoutItem.Icon>
-        <Tab Title="Panel">
+        <!--<Tab Title="Panel">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
@@ -225,7 +230,7 @@
             </Tab.Icon>
             <ShellContent Title="Mal Kabul Paneli"
                           ContentTemplate="{DataTemplate panelViews:PurchasePanelView}" />
-        </Tab>
+        </Tab>-->
         <Tab Title="Tedarikçiler">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
@@ -245,10 +250,10 @@
             </Tab.Icon>
 
             <ShellContent Title="Siparişler"
-                          ContentTemplate="{DataTemplate waitingOrderViews:WaitingPurchaseOrderListView}" />
+                          ContentTemplate="{DataTemplate purchaseWaitingOrderViews:PurchaseOrderLineListView}" />
         </Tab>
 
-        <Tab Title="İşlemler">
+        <!--<Tab Title="İşlemler">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
@@ -257,8 +262,8 @@
 
             <ShellContent Title="İşlemler"
                           ContentTemplate="{DataTemplate menuViews:PurchaseMenuView}" />
-        </Tab>
-    </FlyoutItem>-->
+        </Tab>-->
+    </FlyoutItem>
 
     <!--<FlyoutItem Title="İade İşlemleri">
         <FlyoutItem.Icon>
