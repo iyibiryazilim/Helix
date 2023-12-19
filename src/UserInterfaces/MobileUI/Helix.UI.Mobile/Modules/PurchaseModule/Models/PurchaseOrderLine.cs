@@ -5,71 +5,71 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 	public partial class PurchaseOrderLine : ObservableObject
 	{
 		[ObservableProperty]
-		int referenceId;
+		int? referenceId;
 		[ObservableProperty]
-		short transactionType;
+		short? transactionType;
 		[ObservableProperty]
 		string transactionTypeName;
 		[ObservableProperty]
-		int productReferenceId;
+		int? productReferenceId;
 		[ObservableProperty]
 		string productCode;
 		[ObservableProperty]
 		string productName;
 		[ObservableProperty]
-		int unitsetReferenceId;
+		int? unitsetReferenceId;
 		[ObservableProperty]
 		string unitsetCode;
 		[ObservableProperty]
-		int subUnitsetReferenceId;
+		int? subUnitsetReferenceId;
 		[ObservableProperty]
 		string subUnitsetCode;
 		[ObservableProperty]
-		double quantity;
+		double? quantity;
 		[ObservableProperty]
-		double shippedQuantity;
+		double? shippedQuantity;
 		[ObservableProperty]
-		double waitingQuantity;
+		double? waitingQuantity;
 		[ObservableProperty]
-		double unitPrice;
+		double? unitPrice;
 		[ObservableProperty]
-		double vatRate;
+		double? vatRate;
 		[ObservableProperty]
-		int divisonReferenceId;
+		int? divisonReferenceId;
 		[ObservableProperty]
-		short divisionNumber;
+		short? divisionNumber;
 		[ObservableProperty]
 		string divisionCountry;
 		[ObservableProperty]
 		string divisionCity;
 		[ObservableProperty]
-		int warehouseReferenceId;
+		int? warehouseReferenceId;
 		[ObservableProperty]
 		string warehouseName;
 		[ObservableProperty]
-		short warehouseNumber;
+		short? warehouseNumber;
 		[ObservableProperty]
-		DateTime dueDate;
+		DateTime? dueDate;
 		[ObservableProperty]
-		double total;
+		double? total;
 		[ObservableProperty]
-		double totalVat;
+		double? totalVat;
 		[ObservableProperty]
-		double netTotal;
+		double? netTotal;
 		[ObservableProperty]
 		string description;
 		[ObservableProperty]
-		int orderReferenceId;
+		int? orderReferenceId;
 		[ObservableProperty]
-		DateTime orderDate;
+		DateTime? orderDate;
 		[ObservableProperty]
-		int orderTransactionType;
+		int? orderTransactionType;
 		[ObservableProperty]
-		int orderTransactionTypeName;
+		int? orderTransactionTypeName;
 		[ObservableProperty]
 		string orderCode;
 		[ObservableProperty]
-		int currentReferenceId;
+		int? currentReferenceId;
 		[ObservableProperty]
 		string currentCode;
 		[ObservableProperty]

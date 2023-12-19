@@ -5,48 +5,48 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 	public partial class PurchaseOrder : ObservableObject
 	{
 		[ObservableProperty]
-		int referenceId;
+		int? referenceId;
 		[ObservableProperty]
-		DateTime date;
+		DateTime? date;
 		[ObservableProperty]
-		TimeSpan time;
+		TimeSpan? time;
 		[ObservableProperty]
-		int transactionType;
+		int? transactionType;
 		[ObservableProperty]
 		string transactionTypeName;
 		[ObservableProperty]
-		short orderType;
+		short? orderType;
 		[ObservableProperty]
 		string code;
 		[ObservableProperty]
-		int warehouseReferenceId;
+		int? warehouseReferenceId;
 		[ObservableProperty]
 		string warehouseName;
 		[ObservableProperty]
-		short warehouseNumber;
+		short? warehouseNumber;
 		[ObservableProperty]
-		int divisionReferenceId;
+		int? divisionReferenceId;
 		[ObservableProperty]
-		short divisionNumber;
+		short? divisionNumber;
 		[ObservableProperty]
 		string divisonCountry;
 		[ObservableProperty]
 		string divisionCity;
 		[ObservableProperty]
-		int currentReferenceId;
+		int? currentReferenceId;
 		[ObservableProperty]
 		string currentCode;
 		[ObservableProperty]
 		string currentName;
 		[ObservableProperty]
-		double total;
+		double? total;
 		[ObservableProperty]
-		double totalVat;
+		double? totalVat;
 		[ObservableProperty]
-		double netTotal;
+		double? netTotal;
 		[ObservableProperty]
 		string description;
 		[ObservableProperty]
-		short status;
+		short? status;
 	}
 }
