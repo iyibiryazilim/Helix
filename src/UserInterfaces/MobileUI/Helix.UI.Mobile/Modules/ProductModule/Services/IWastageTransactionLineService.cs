@@ -1,10 +1,5 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.Services;
 
