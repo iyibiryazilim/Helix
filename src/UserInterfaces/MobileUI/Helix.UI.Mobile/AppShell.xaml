@@ -2,12 +2,357 @@
 <Shell x:Class="Helix.UI.Mobile.AppShell"
        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+       xmlns:customerViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
+       xmlns:waitingOrderViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews"
        xmlns:local="clr-namespace:Helix.UI.Mobile"
        xmlns:page="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
-       Shell.FlyoutBehavior="Disabled">
+       xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+       Shell.FlyoutBehavior="Flyout">
 
-    <ShellContent Title="Home"
-                  ContentTemplate="{DataTemplate local:MainPage}"
-                  Route="MainPage" />
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout Padding="20"
+                         HeightRequest="150"
+                         VerticalOptions="Center"
+                         Spacing="20">
+
+                <Grid RowDefinitions="Auto,Auto"
+                      ColumnDefinitions="Auto,*"
+                      Padding="10"
+                      ColumnSpacing="15">
+
+                    <toolkit:AvatarView Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.RowSpan="2"
+                                        StrokeThickness="2"
+                                        HeightRequest="70"
+                                        WidthRequest="70"
+                                        CornerRadius="35"
+                                        ImageSource="user.svg"
+                                        HorizontalOptions="Start" />
+
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Text="Volkan Sunuk"
+                           FontAttributes="Bold"
+                           FontSize="Subtitle"
+                           FontFamily="Roboto"
+                           VerticalOptions="End" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Paketleme"
+                           FontSize="Small"
+                           FontFamily="Roboto"
+                           TextColor="{StaticResource Gray400}"
+                           VerticalOptions="Start" />
+
+                </Grid>
+
+                <BoxView HeightRequest="1"
+                         Opacity="0.5"
+                         Color="{StaticResource Primary}" />
+            </StackLayout>
+
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+
+            <Grid ColumnDefinitions="Auto,Auto,*"
+                  ColumnSpacing="10"
+                  Padding="15"
+                  VerticalOptions="CenterAndExpand">
+
+                <Image Grid.Column="0"
+                       Aspect="AspectFill"
+                       Source="{Binding Icon}"
+                       HeightRequest="20"
+                       WidthRequest="20">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                    </Image.Behaviors>
+
+                </Image>
+
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontSize="Subtitle"
+                       HorizontalOptions="StartAndExpand" />
+
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+   <!--<FlyoutItem Route="Login">
+        <ShellContent Title="Login"
+                      ContentTemplate="{DataTemplate loginView:LoginView}" />
+
+    </FlyoutItem>-->
+
+   <!--<FlyoutItem Title="Panel"
+                Route="PanelMenuView">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
+
+        </FlyoutItem.Icon>
+        <Tab>
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
+            </Tab.Icon>
+            <ShellContent Title="Panel"
+                          ContentTemplate="{DataTemplate menuViews:PanelMenuView}" />
+        </Tab>
+
+    </FlyoutItem>-->
+
+   <!--<FlyoutItem Title="Malzeme İşlemleri"
+                FlyoutDisplayOptions="AsSingleItem">
+
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}" />
+
+        </FlyoutItem.Icon>
+        <Tab Title="Panel">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
+            </Tab.Icon>
+            <ShellContent Title="Malzeme Paneli"
+                          ContentTemplate="{DataTemplate panelViews:ProductPanelView}" />
+        </Tab>
+        <Tab Title="Ambarlar">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Warehouse}" />
+            </Tab.Icon>
+
+            <ShellContent Title="Ambar"
+                          ContentTemplate="{DataTemplate warehouseViews:WarehouseListView}" />
+        </Tab>
+        <Tab Title="Malzemeler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}" />
+            </Tab.Icon>
+
+            <ShellContent Title="Malzeme"
+                          ContentTemplate="{DataTemplate productViews:ProductListView}" />
+        </Tab>
+        <Tab Title="İşlemler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.BarsProgress}" />
+            </Tab.Icon>
+            <ShellContent Title="İşlemler"
+                          ContentTemplate="{DataTemplate menuViews:ProductMenuView}" />
+        </Tab>
+    </FlyoutItem>-->
+
+    <FlyoutItem Title="Sevkiyat İşlemleri">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Truck}" />
+
+        </FlyoutItem.Icon>
+       <!--<Tab Title="Panel">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
+            </Tab.Icon>
+            <ShellContent Title="Sevkiyat Paneli"
+                          ContentTemplate="{DataTemplate panelViews:SalesPanelView}" />
+        </Tab>-->
+        <Tab Title="Müşteriler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.CircleUser}" />
+            </Tab.Icon>
+
+            <ShellContent Title="Müşteriler"
+                          ContentTemplate="{DataTemplate customerViews:CustomerListView}" />
+        </Tab>
+        <Tab Title="Siparişler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.CartShopping}" />
+            </Tab.Icon>
+            <ShellContent Title="Siparişler"
+                          ContentTemplate="{DataTemplate waitingOrderViews:WaitingSalesOrderLineListView}" />
+        </Tab>
+       <Tab Title="İşlemler">
+            <!--<Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.BarsProgress}" />
+            </Tab.Icon>
+
+            <ShellContent Title="İşlemler"
+                          ContentTemplate="{DataTemplate menuViews:SalesMenuView}" />
+        </Tab>-->
+
+    </FlyoutItem>
+
+    <FlyoutItem Title="Mal Kabul İşlemleri"
+                Route="ProductionTransactionView">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Dolly}" />
+
+        </FlyoutItem.Icon>
+        <Tab Title="Panel">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
+            </Tab.Icon>
+            <ShellContent Title="Mal Kabul Paneli"
+                          ContentTemplate="{DataTemplate panelViews:PurchasePanelView}" />
+        </Tab>
+        <Tab Title="Tedarikçiler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.CircleUser}" />
+            </Tab.Icon>
+
+            <ShellContent Title="Tedarikçiler"
+                          ContentTemplate="{DataTemplate supplierViews:SupplierListView}" />
+        </Tab>
+
+        <Tab Title="Siparişler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.CartShopping}" />
+            </Tab.Icon>
+
+            <ShellContent Title="Siparişler"
+                          ContentTemplate="{DataTemplate waitingOrderViews:WaitingPurchaseOrderListView}" />
+        </Tab>
+
+        <Tab Title="İşlemler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.BarsProgress}" />
+            </Tab.Icon>
+
+            <ShellContent Title="İşlemler"
+                          ContentTemplate="{DataTemplate menuViews:PurchaseMenuView}" />
+        </Tab>
+    </FlyoutItem>
+
+    <!--<FlyoutItem Title="İade İşlemleri">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}" />
+
+        </FlyoutItem.Icon>
+
+        <Tab Title="Panel">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
+            </Tab.Icon>
+
+            <ShellContent Title="İade İşlemleri Paneli"
+                          ContentTemplate="{DataTemplate panelViews:ReturnPanelView}" />
+        </Tab>
+        <Tab Icon="return_icon.png"
+             Title="Satış İade">
+
+            <ShellContent Title="Satış İade"
+                          ContentTemplate="{DataTemplate returnViews:SalesReturnView}" />
+        </Tab>
+
+        <Tab Icon="return_icon.png"
+             Title="Satın Alma İade">
+
+            <ShellContent Title="Satın Alma İade"
+                          ContentTemplate="{DataTemplate returnViews:PurchaseReturnView}" />
+        </Tab>
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Ambar Sayım">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Warehouse}" />
+
+        </FlyoutItem.Icon>
+        <ShellContent Title="Ambar Sayım"
+                      ContentTemplate="{DataTemplate warehouseOperationsViews:WarehouseCountingView}" />
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Hızlı Üretim">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowUpFromBracket}" />
+
+        </FlyoutItem.Icon>
+        <ShellContent Title="Hızlı Üretim"
+                      ContentTemplate="{DataTemplate fastProductionViews:FastProductionListView}" />
+    </FlyoutItem>-->
+
+    <!--<FlyoutItem Title="Devir">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowRightArrowLeft}" />
+
+        </FlyoutItem.Icon>
+
+        <ShellContent Title="Devir"
+                      ContentTemplate="{DataTemplate devirTransactionListViews:DevirTransactionListView}" />
+    </FlyoutItem>-->
+   <!--<FlyoutItem Title="Test"
+                IsVisible="False">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowRightArrowLeft}" />
+        </FlyoutItem.Icon>
+        <ShellContent Title="Test"
+                      ContentTemplate="{DataTemplate shared:TestView}" />
+    </FlyoutItem>-->
+    
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout Padding="20"
+                         VerticalOptions="End"
+                         Spacing="20">
+
+                <Button Text="Oturumu Kapat"
+                        
+                        BackgroundColor="{StaticResource Danger}" />
+
+                <Label Text="Copyright İyibir Yazılım ve Teknoloji 2023"
+                       FontSize="Micro"
+                       HorizontalOptions="Center" />
+
+            </StackLayout>
+
+        </DataTemplate>
+
+    </Shell.FlyoutFooterTemplate>
 
 </Shell>
