@@ -69,28 +69,22 @@
 	  <Folder Include="Modules\BaseModule\DataStores\" />
 	  <Folder Include="Modules\BaseModule\Models\" />
 	  <Folder Include="Modules\BaseModule\Services\" />
-	  <Folder Include="Modules\FastProductionModule\Dtos\" />
-	  <Folder Include="Modules\FastProductionModule\DataStores\" />
-	  <Folder Include="Modules\FastProductionModule\Models\" />
-	  <Folder Include="Modules\FastProductionModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
-	  <Folder Include="Modules\PanelModule\Models\" />
-	  <Folder Include="Modules\PanelModule\DataStores\" />
-	  <Folder Include="Modules\PanelModule\Dtos\" />
-	  <Folder Include="Modules\PanelModule\Services\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
+	  <Folder Include="Modules\PurchaseModule\ViewModels\OperationsViewModels\" />
+	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />
+	  <Folder Include="Modules\PurchaseModule\Views\OperationsViews\" />
+	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
+	  <Folder Include="Modules\ReturnModule\ViewModels\" />
+	  <Folder Include="Modules\ReturnModule\Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Modules\ProductModule\Views\WarehouseViews\WarehouseListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseDispatchTransactionLineListView.xaml">
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
