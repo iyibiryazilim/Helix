@@ -20,8 +20,10 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
+				
                 var result = await new SqlQueryHelper<CommercialProduct>().GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductByCode(code));
                 _logger.LogInformation("Ürün kodu {ProductCode} ile başarıyla getirildi. Mesaj: {ResultMessage}", code, result.Message);
+
                 
                 return result;
             }

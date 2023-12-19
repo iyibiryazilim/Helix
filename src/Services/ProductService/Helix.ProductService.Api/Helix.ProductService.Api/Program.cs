@@ -34,11 +34,11 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
-eventBus.Subscribe<ConsumableTransactionInsertedIntegrationEvent, ConsumableTransactionInsertedIntegrationEventHandler>();
-eventBus.Subscribe<InCountingTransactionInsertedIntegrationEvent, InCountingTransactionInsertedIntegrationEventHandler>();
-eventBus.Subscribe<ProductionTransactionInsertedIntegrationEvent, ProductionTransactionInsertedIntegrationEventHandler>();
-eventBus.Subscribe<TransferTransactionInsertedIntegrationEvent, TransferTransactionInsertedIntegrationEventHandler>();
-eventBus.Subscribe<WastageTransactionInsertedIntegrationEvent, WastageTransactionInsertedIntegrationEventHandler>();
+eventBus.Subscribe<ConsumableTransactionInsertingIntegrationEvent, ConsumableTransactionInsertingIntegrationEventHandler>();
+eventBus.Subscribe<InCountingTransactionInsertingIntegrationEvent, InCountingTransactionInsertingIntegrationEventHandler>();
+eventBus.Subscribe<ProductionTransactionInsertingIntegrationEvent, ProductionTransactionInsertingIntegrationEventHandler>();
+eventBus.Subscribe<TransferTransactionInsertingIntegrationEvent, TransferTransactionInsertingIntegrationEventHandler>();
+eventBus.Subscribe<WastageTransactionInsertingIntegrationEvent, WastageTransactionInsertingIntegrationEventHandler>();
 
 
 
