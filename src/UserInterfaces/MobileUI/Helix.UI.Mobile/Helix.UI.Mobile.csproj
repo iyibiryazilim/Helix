@@ -67,6 +67,9 @@
 	  <Folder Include="Modules\BaseModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
+	  <Folder Include="Modules\ProductModule\DataStores\" />
+	  <Folder Include="Modules\ProductModule\Views\" />
+	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
