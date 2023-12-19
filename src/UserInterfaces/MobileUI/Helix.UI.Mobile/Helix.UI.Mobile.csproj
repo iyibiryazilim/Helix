@@ -73,15 +73,26 @@
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
-	  <Folder Include="Modules\PurchaseModule\Views\" />
-	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
-	  <Folder Include="Modules\PurchaseModule\ViewModels\" />
-	  <Folder Include="Modules\PurchaseModule\Views\" />
 	  <Folder Include="Modules\ReturnModule\ViewModels\" />
 	  <Folder Include="Modules\ReturnModule\Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseDispatchTransactionLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseDispatchTransactionListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseOrderLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseOrderListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\SupplierListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
