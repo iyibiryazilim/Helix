@@ -36,7 +36,10 @@ namespace Helix.UI.Mobile
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+					fonts.AddFont("fa-solid.otf", "FAS");
+					fonts.AddFont("fa-regular.otf", "FAR");
+					fonts.AddFont("fa-brands.otf", "FAB");
+				});
 
 #if DEBUG
             builder.Logging.AddDebug();
