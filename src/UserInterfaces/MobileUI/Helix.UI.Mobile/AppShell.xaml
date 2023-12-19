@@ -9,7 +9,8 @@
        xmlns:salesOperationViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews"
        xmlns:supplierViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews"
        xmlns:purchaseWaitingOrderViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews"
-       
+        xmlns:purchasePanelViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews"
+       xmlns:purchaseOperationViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews"
        xmlns:local="clr-namespace:Helix.UI.Mobile"
        xmlns:page="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
        xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
@@ -222,15 +223,15 @@
                              Glyph="{x:Static fontAwesome:FontAwesomeIcons.Dolly}" />
 
         </FlyoutItem.Icon>
-        <!--<Tab Title="Panel">
+        <Tab Title="Panel">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
             </Tab.Icon>
             <ShellContent Title="Mal Kabul Paneli"
-                          ContentTemplate="{DataTemplate panelViews:PurchasePanelView}" />
-        </Tab>-->
+                          ContentTemplate="{DataTemplate purchasePanelViews:PurchasePanelViews}" />
+        </Tab>
         <Tab Title="Tedarikçiler">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
@@ -253,7 +254,7 @@
                           ContentTemplate="{DataTemplate purchaseWaitingOrderViews:PurchaseOrderLineListView}" />
         </Tab>
 
-        <!--<Tab Title="İşlemler">
+        <Tab Title="İşlemler">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
@@ -261,8 +262,8 @@
             </Tab.Icon>
 
             <ShellContent Title="İşlemler"
-                          ContentTemplate="{DataTemplate menuViews:PurchaseMenuView}" />
-        </Tab>-->
+                          ContentTemplate="{DataTemplate purchaseOperationViews:PurchaseOperationView}" />
+        </Tab>
     </FlyoutItem>
 
     <!--<FlyoutItem Title="İade İşlemleri">

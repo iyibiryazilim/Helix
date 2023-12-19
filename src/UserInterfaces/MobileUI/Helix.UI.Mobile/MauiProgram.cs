@@ -1,27 +1,30 @@
-﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
-using Helix.UI.Mobile.Modules.SalesModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.DataStores;
-using Helix.UI.Mobile.Modules.SalesModule.Models;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
-using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
-using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
-using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
-using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
-using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels;
-using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
-using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels;
-using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
+using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PanelViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.UI.Mobile
 {
-    public static class MauiProgram
+	public static class MauiProgram
     {
         public static MauiApp CreateMauiApp()
         {
@@ -101,6 +104,9 @@ namespace Helix.UI.Mobile
 		{
 			mauiAppBuilder.Services.AddTransient<SupplierListView>();
 			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineListView>();
+			mauiAppBuilder.Services.AddTransient<PurchasePanelViews>();
+			mauiAppBuilder.Services.AddTransient<PurchaseOperationView>();
+
 
 
 			return mauiAppBuilder;
@@ -109,6 +115,9 @@ namespace Helix.UI.Mobile
 		{
 			mauiAppBuilder.Services.AddTransient<SupplierListViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<PurchasePanelViewModel>();
+			mauiAppBuilder.Services.AddTransient<PurchaseOperationViewModel>();
+
 
 
 			return mauiAppBuilder;
