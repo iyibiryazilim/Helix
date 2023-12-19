@@ -67,16 +67,15 @@
 	  <Folder Include="Modules\BaseModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
-	  <Folder Include="Modules\ProductModule\Views\" />
-	  <Folder Include="Modules\ProductModule\ViewModels\" />
-	  <Folder Include="Modules\ProductModule\ViewModels\" />
-	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
 	  <Folder Include="Modules\ReturnModule\ViewModels\" />
 	  <Folder Include="Modules\ReturnModule\Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Modules\ProductModule\Views\WarehouseViews\WarehouseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseDispatchTransactionLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

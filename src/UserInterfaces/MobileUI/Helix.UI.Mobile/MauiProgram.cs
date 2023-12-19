@@ -8,6 +8,10 @@ using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
+using Helix.UI.Mobile.Modules.ProductModule.DataStores;
+using Helix.UI.Mobile.Modules.ProductModule.Services;
 
 namespace Helix.UI.Mobile
 {
@@ -95,15 +99,18 @@ namespace Helix.UI.Mobile
 		#region ProductModule
 		public static MauiAppBuilder ProductRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
-			return mauiAppBuilder;
+            mauiAppBuilder.Services.AddTransient<WarehouseListView>();
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
-			return mauiAppBuilder;
+            mauiAppBuilder.Services.AddTransient<WarehouseListViewModel>();
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
-			return mauiAppBuilder;
+            mauiAppBuilder.Services.AddTransient<IWarehouseService, WarehouseDataStore>();
+            return mauiAppBuilder;
 		}
 		#endregion
 
