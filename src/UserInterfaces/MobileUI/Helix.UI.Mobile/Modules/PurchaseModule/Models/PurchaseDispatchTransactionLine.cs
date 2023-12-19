@@ -1,8 +1,6 @@
-﻿using Helix.UI.Mobile.Modules.PurchaseModule.Dtos;
-
-namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
+﻿namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 {
-    public partial class PurchaseDispatchTransactionLine : BasePurchaseDispatchTransactionLine
+	public partial class PurchaseDispatchTransactionLine : BasePurchaseDispatchTransactionLine
     {
     }
 }

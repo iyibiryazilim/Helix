@@ -69,10 +69,10 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 		[ObservableProperty]
 		string orderCode;
 		[ObservableProperty]
-		int supplierReferenceId;
+		int currentReferenceId;
 		[ObservableProperty]
-		string supplierCode;
+		string currentCode;
 		[ObservableProperty]
-		string supplierName;
+		string currentName;
 	}
 }
