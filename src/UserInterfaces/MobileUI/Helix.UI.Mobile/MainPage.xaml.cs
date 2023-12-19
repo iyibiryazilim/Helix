@@ -1,4 +1,6 @@
 ﻿using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.ProductModule.DataStores;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 
 namespace Helix.UI.Mobile
@@ -22,7 +24,7 @@ namespace Helix.UI.Mobile
                 CounterBtn.Text = $"Clicked {count} time";
             else
                 CounterBtn.Text = $"Clicked {count} times";
-            CustomerDataStore dto = new();
+            SemiProductDataStore dto = new();
             
             var result = await dto.GetObjects(_service.GetOrCreateHttpClient());
             SemanticScreenReader.Announce(CounterBtn.Text);

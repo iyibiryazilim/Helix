@@ -3,8 +3,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Models;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.Services;
 
-public class ICommericalProduct
+public interface IEndProductService :IBaseProductService<EndProduct>
 {
-    //Task<DataResult<IEnumerable<CommercialProduct>>> GetObjects(HttpClient httpClient);
-
+   
 }
