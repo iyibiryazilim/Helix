@@ -130,9 +130,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.IdentityServer.WebApi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SysService", "SysService", "{C20B1C74-EFD4-4F0B-8BC6-CF98878E1A2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.SysService.WebAPI", "src\Services\SysService\Helix.SysService.WebAPI\Helix.SysService.WebAPI.csproj", "{AA34D665-18B1-40D2-8E4C-508682EBFF4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.SysService.WebAPI", "src\Services\SysService\Helix.SysService.WebAPI\Helix.SysService.WebAPI.csproj", "{AA34D665-18B1-40D2-8E4C-508682EBFF4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.UI.Mobile", "src\UserInterfaces\MobileUI\Helix.UI.Mobile\Helix.UI.Mobile.csproj", "{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.UI.Mobile", "src\UserInterfaces\MobileUI\Helix.UI.Mobile\Helix.UI.Mobile.csproj", "{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasketService", "BasketService", "{64387395-9684-4395-AD2C-6130CBA008DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.BasketService.Application", "src\Services\BasketService\Helix.BasketService.Application\Helix.BasketService.Application.csproj", "{64907CBF-0261-4678-9C74-96BC888B78C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.BasketService.Domain", "src\Services\BasketService\Helix.BasketService.Domain\Helix.BasketService.Domain.csproj", "{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.BasketService.Infrastructure", "src\Services\BasketService\Helix.BasketService.Infrastructure\Helix.BasketService.Infrastructure.csproj", "{8B792FDF-7B85-47B7-AB43-C380D414D2F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.BasketService.WebAPI", "src\Services\BasketService\Helix.BasketService.WebAPI\Helix.BasketService.WebAPI.csproj", "{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -396,6 +406,30 @@ Global
 		{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{64907CBF-0261-4678-9C74-96BC888B78C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64907CBF-0261-4678-9C74-96BC888B78C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64907CBF-0261-4678-9C74-96BC888B78C4}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{64907CBF-0261-4678-9C74-96BC888B78C4}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{64907CBF-0261-4678-9C74-96BC888B78C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64907CBF-0261-4678-9C74-96BC888B78C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B792FDF-7B85-47B7-AB43-C380D414D2F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B792FDF-7B85-47B7-AB43-C380D414D2F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B792FDF-7B85-47B7-AB43-C380D414D2F6}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B792FDF-7B85-47B7-AB43-C380D414D2F6}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{8B792FDF-7B85-47B7-AB43-C380D414D2F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B792FDF-7B85-47B7-AB43-C380D414D2F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -465,6 +499,11 @@ Global
 		{C20B1C74-EFD4-4F0B-8BC6-CF98878E1A2A} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
 		{AA34D665-18B1-40D2-8E4C-508682EBFF4A} = {C20B1C74-EFD4-4F0B-8BC6-CF98878E1A2A}
 		{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9} = {3F289B64-169A-4C08-AF06-61E620888566}
+		{64387395-9684-4395-AD2C-6130CBA008DE} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
+		{64907CBF-0261-4678-9C74-96BC888B78C4} = {64387395-9684-4395-AD2C-6130CBA008DE}
+		{C898D4FB-1B76-411D-8A1D-0FBA98FC90E8} = {64387395-9684-4395-AD2C-6130CBA008DE}
+		{8B792FDF-7B85-47B7-AB43-C380D414D2F6} = {64387395-9684-4395-AD2C-6130CBA008DE}
+		{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF} = {64387395-9684-4395-AD2C-6130CBA008DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}
