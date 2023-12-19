@@ -76,19 +76,28 @@
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
-	  <Folder Include="Modules\PurchaseModule\ViewModels\OperationsViewModels\" />
-	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />
-	  <Folder Include="Modules\PurchaseModule\Views\OperationsViews\" />
-	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
-	  <Folder Include="Modules\ReturnModule\ViewModels\" />
-	  <Folder Include="Modules\ReturnModule\Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\PurchaseOperationView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\PanelViews\PurchasePanelViews.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseOrderViews\PurchaseOrderLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\SupplierViews\SupplierListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Panel\ReturnPanelView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnPurchasesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerListView.xaml">
