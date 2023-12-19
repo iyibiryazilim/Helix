@@ -1,4 +1,4 @@
-using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.Views;
 

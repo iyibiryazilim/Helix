@@ -72,27 +72,28 @@
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
+	  <Folder Include="Modules\PurchaseModule\ViewModels\OperationsViewModels\" />
+	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />
+	  <Folder Include="Modules\PurchaseModule\Views\OperationsViews\" />
+	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
 	  <Folder Include="Modules\ReturnModule\ViewModels\" />
 	  <Folder Include="Modules\ReturnModule\Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseDispatchTransactionLineListView.xaml">
+	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseOrderViews\PurchaseOrderLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseDispatchTransactionListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseOrderLineListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseOrderListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\SupplierListView.xaml">
+	  <MauiXaml Update="Modules\PurchaseModule\Views\SupplierViews\SupplierListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\SalesOperationView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\PanelViews\SalesPanelView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\SalesOrderViews\WaitingSalesOrderLineListView.xaml">
