@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews.SalesPanelView"
+             Title="SalesPanelView">
+    <VerticalStackLayout>
+        <Frame BackgroundColor="{StaticResource DarkPrimary}" HeightRequest="100" WidthRequest="350" BorderColor="{StaticResource DarkPrimary}">
+            
+        </Frame>
+      
+    </VerticalStackLayout>
+</ContentPage>
