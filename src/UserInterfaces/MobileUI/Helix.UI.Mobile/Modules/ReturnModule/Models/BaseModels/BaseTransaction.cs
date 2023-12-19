@@ -7,23 +7,23 @@ public partial class BaseTransaction : ObservableObject
 	[ObservableProperty]
 	int referenceId;
 	[ObservableProperty]
-	DateTime? transactionDate;
+	DateTime transactionDate;
 	[ObservableProperty]
-	TimeSpan? transactionTime;
+	TimeSpan transactionTime;
 	[ObservableProperty]
-	int? convertedTime;
+	int convertedTime;
 	[ObservableProperty]
-	int? orderReference;
+	int orderReference;
 	[ObservableProperty]
-	string? code;
+	string code;
 	[ObservableProperty]
-	short? groupType;
+	short groupType;
 	[ObservableProperty]
-	short? iOType;
+	short iOType;
 	[ObservableProperty]
-	short? transactionType;
+	short transactionType;
 	[ObservableProperty]
-	string? transactionTypeName;
+	string transactionTypeName;
 	[ObservableProperty]
 	int divisionReferenceId;
 	[ObservableProperty]
@@ -35,15 +35,15 @@ public partial class BaseTransaction : ObservableObject
 	[ObservableProperty]
 	int warehouseReferenceId;
 	[ObservableProperty]
-	string? warehouseName;
+	string warehouseName;
 	[ObservableProperty]
-	short? warehouseNumber;
+	short warehouseNumber;
 	[ObservableProperty]
-	int? currentReferenceId;
+	int currentReferenceId;
 	[ObservableProperty]
-	string? currentCode;
+	string currentCode;
 	[ObservableProperty]
-	string? currentName;
+	string currentName;
 	[ObservableProperty]
 	double total;
 	[ObservableProperty]
@@ -53,37 +53,37 @@ public partial class BaseTransaction : ObservableObject
 	[ObservableProperty]
 	string description;
 	[ObservableProperty]
-	short? dispatchType;
+	short dispatchType;
 	[ObservableProperty]
-	int? carrierReferenceId;
+	int carrierReferenceId;
 	[ObservableProperty]
-	string? carrierCode;
+	string carrierCode;
 	[ObservableProperty]
-	int? driverReferenceId;
+	int driverReferenceId;
 	[ObservableProperty]
-	string? driverFirstName;
+	string driverFirstName;
 	[ObservableProperty]
-	string? driverLastName;
+	string driverLastName;
 	[ObservableProperty]
-	string? identityNumber;
+	string identityNumber;
 	[ObservableProperty]
-	string? plaque;
+	string plaque;
 	[ObservableProperty]
-	int? shipInfoReferenceId;
+	int shipInfoReferenceId;
 	[ObservableProperty]
-	string? shipInfoCode;
+	string shipInfoCode;
 	[ObservableProperty]
-	string? shipInfoName;
+	string shipInfoName;
 	[ObservableProperty]
-	string? speCode;
+	string speCode;
 	[ObservableProperty]
 	short dispatchStatus;
 	[ObservableProperty]
 	short isEDispatch;
 	[ObservableProperty]
-	string? doCode;
+	string doCode;
 	[ObservableProperty]
-	string? docTrackingNumber;
+	string docTrackingNumber;
 	[ObservableProperty]
 	short isEInvoice;
 	[ObservableProperty]

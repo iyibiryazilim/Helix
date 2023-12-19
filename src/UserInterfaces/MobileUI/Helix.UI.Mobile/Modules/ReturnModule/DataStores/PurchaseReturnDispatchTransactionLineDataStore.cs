@@ -66,7 +66,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetByFicheNo(HttpClient httpClient, string BaseTransactionCode)
+	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByFicheNo(HttpClient httpClient, string BaseTransactionCode)
 	{
 		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Code/{BaseTransactionCode}");
 		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
