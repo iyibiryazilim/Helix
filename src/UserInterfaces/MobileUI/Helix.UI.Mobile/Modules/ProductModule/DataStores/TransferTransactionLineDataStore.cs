@@ -1,27 +1,27 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
-using Helix.UI.Mobile.Modules.ReturnModule.Models;
-using Helix.UI.Mobile.Modules.ReturnModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Services;
 using System.Text.Json;
 
-namespace Helix.UI.Mobile.Modules.ReturnModule.DataStores;
+namespace Helix.UI.Mobile.Modules.ProductModule.DataStores;
 
-public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDispatchTransactionLineService
+public class TransferTransactionLineDataStore : ITransferTransactionLineService
 {
-	string postUrl = $"/gateway/purchase/{nameof(PurchaseReturnDispatchTransactionLine)}";
-
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjects(HttpClient httpClient)
+	string postUrl = $"gateway/product/{nameof(TransferTransactionLine)}";
+	public async Task<DataResult<TransferTransactionLine>> GetObjectById(HttpClient httpClient, int id)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
-		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Id/{id}");
+		DataResult<TransferTransactionLine> dataResult = new DataResult<TransferTransactionLine>();
 
 		if (responseMessage.IsSuccessStatusCode)
 		{
 			var data = await responseMessage.Content.ReadAsStringAsync();
+
 			if (data != null)
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<TransferTransactionLine>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -32,7 +32,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<TransferTransactionLine>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -44,121 +44,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
-				{
-					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-				});
-				dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
-				dataResult.IsSuccess = false;
-				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
-
-				return dataResult;
-			}
-
-		}
-		else
-		{
-			dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
-			dataResult.IsSuccess = false;
-			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
-
-			return dataResult;
-		}
-	}
-
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByFicheNo(HttpClient httpClient, string BaseTransactionCode)
-	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Code/{BaseTransactionCode}");
-		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
-
-		if (responseMessage.IsSuccessStatusCode)
-		{
-			var data = await responseMessage.Content.ReadAsStringAsync();
-			if (data != null)
-			{
-				if (!string.IsNullOrEmpty(data))
-				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
-					{
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-					});
-					dataResult.Data = result?.Data;
-					dataResult.IsSuccess = true;
-					dataResult.Message = "success";
-					return dataResult;
-				}
-				else
-				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
-					{
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-					});
-					dataResult.Data = result?.Data;
-					dataResult.IsSuccess = true;
-					dataResult.Message = "empty";
-					return dataResult;
-				}
-			}
-			else
-			{
-				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
-				{
-					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-				});
-				dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
-				dataResult.IsSuccess = false;
-				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
-
-				return dataResult;
-			}
-		}
-		else
-		{
-			dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
-			dataResult.IsSuccess = false;
-			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
-
-			return dataResult;
-		}
-	}
-
-	public async Task<DataResult<PurchaseReturnDispatchTransactionLine>> GetObjectById(HttpClient httpClient, int ReferenceId)
-	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Id/{ReferenceId}");
-		DataResult<PurchaseReturnDispatchTransactionLine> dataResult = new DataResult<PurchaseReturnDispatchTransactionLine>();
-
-		if (responseMessage.IsSuccessStatusCode)
-		{
-			var data = await responseMessage.Content.ReadAsStringAsync();
-
-			if (data != null)
-			{
-				if (!string.IsNullOrEmpty(data))
-				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransactionLine>>(data, new JsonSerializerOptions
-					{
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-					});
-					dataResult.Data = result?.Data;
-					dataResult.IsSuccess = true;
-					dataResult.Message = "success";
-					return dataResult;
-				}
-				else
-				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransactionLine>>(data, new JsonSerializerOptions
-					{
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-					});
-					dataResult.Data = result?.Data;
-					dataResult.IsSuccess = true;
-					dataResult.Message = "empty";
-					return dataResult;
-				}
-			}
-			else
-			{
-				var result = JsonSerializer.Deserialize<DataResult<PurchaseReturnDispatchTransactionLine>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<TransferTransactionLine>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
@@ -175,15 +61,12 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 			return dataResult;
 		}
-
 	}
 
-
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code)
+	public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetObjects(HttpClient httpClient)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}");
-		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
-
+		HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
+		DataResult<IEnumerable<TransferTransactionLine>> dataResult = new DataResult<IEnumerable<TransferTransactionLine>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
 			var data = await responseMessage.Content.ReadAsStringAsync();
@@ -191,7 +74,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -202,7 +85,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -214,20 +97,21 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
-				dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+				dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 				dataResult.IsSuccess = false;
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
 				return dataResult;
 			}
+
 		}
 		else
 		{
-			dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+			dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 			dataResult.IsSuccess = false;
 			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -235,11 +119,10 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId)
+	public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetObjectsByCurrentCode(HttpClient httpClient, string code)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{ReferenceId}");
-		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
-
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{code}");
+		DataResult<IEnumerable<TransferTransactionLine>> dataResult = new DataResult<IEnumerable<TransferTransactionLine>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
 			var data = await responseMessage.Content.ReadAsStringAsync();
@@ -247,7 +130,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -258,7 +141,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -270,20 +153,21 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
-				dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+				dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 				dataResult.IsSuccess = false;
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
 				return dataResult;
 			}
+
 		}
 		else
 		{
-			dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+			dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 			dataResult.IsSuccess = false;
 			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -291,11 +175,10 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByFicheId(HttpClient httpClient, int ReferenceId)
+	public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetObjectsByCurrentId(HttpClient httpClient, int id)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Id/{ReferenceId}");
-		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
-
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{id}");
+		DataResult<IEnumerable<TransferTransactionLine>> dataResult = new DataResult<IEnumerable<TransferTransactionLine>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
 			var data = await responseMessage.Content.ReadAsStringAsync();
@@ -303,7 +186,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -314,7 +197,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -326,20 +209,21 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
-				dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+				dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 				dataResult.IsSuccess = false;
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
 				return dataResult;
 			}
+
 		}
 		else
 		{
-			dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+			dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 			dataResult.IsSuccess = false;
 			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -347,11 +231,10 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByProductCode(HttpClient httpClient, string Code)
+	public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetObjectsByFicheCode(HttpClient httpClient, string code)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Product/Code/{Code}");
-		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
-
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Code/{code}");
+		DataResult<IEnumerable<TransferTransactionLine>> dataResult = new DataResult<IEnumerable<TransferTransactionLine>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
 			var data = await responseMessage.Content.ReadAsStringAsync();
@@ -359,7 +242,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -370,7 +253,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -382,20 +265,21 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
-				dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+				dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 				dataResult.IsSuccess = false;
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
 				return dataResult;
 			}
+
 		}
 		else
 		{
-			dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+			dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 			dataResult.IsSuccess = false;
 			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -403,11 +287,10 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByProductId(HttpClient httpClient, int ReferenceId)
+	public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetObjectsByFicheId(HttpClient httpClient, int id)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Product/Id/{ReferenceId}");
-		DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>> dataResult = new DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>();
-
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Id/{id}");
+		DataResult<IEnumerable<TransferTransactionLine>> dataResult = new DataResult<IEnumerable<TransferTransactionLine>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
 			var data = await responseMessage.Content.ReadAsStringAsync();
@@ -415,7 +298,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			{
 				if (!string.IsNullOrEmpty(data))
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -426,7 +309,7 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -438,11 +321,11 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 			}
 			else
 			{
-				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>>(data, new JsonSerializerOptions
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 				});
-				dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+				dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 				dataResult.IsSuccess = false;
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -452,7 +335,119 @@ public class PurchaseReturnDispatchTransactionLineDataStore : IPurchaseReturnDis
 		}
 		else
 		{
-			dataResult.Data = Enumerable.Empty<PurchaseReturnDispatchTransactionLine>();
+			dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
+			dataResult.IsSuccess = false;
+			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+			return dataResult;
+		}
+	}
+
+	public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetObjectsByProductCode(HttpClient httpClient, string code)
+	{
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Product/Code/{code}");
+		DataResult<IEnumerable<TransferTransactionLine>> dataResult = new DataResult<IEnumerable<TransferTransactionLine>>();
+		if (responseMessage.IsSuccessStatusCode)
+		{
+			var data = await responseMessage.Content.ReadAsStringAsync();
+			if (data != null)
+			{
+				if (!string.IsNullOrEmpty(data))
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+					dataResult.Data = result?.Data;
+					dataResult.IsSuccess = true;
+					dataResult.Message = "success";
+					return dataResult;
+				}
+				else
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+					dataResult.Data = result?.Data;
+					dataResult.IsSuccess = true;
+					dataResult.Message = "empty";
+					return dataResult;
+				}
+			}
+			else
+			{
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
+				{
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+				});
+				dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
+				dataResult.IsSuccess = false;
+				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+				return dataResult;
+			}
+
+		}
+		else
+		{
+			dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
+			dataResult.IsSuccess = false;
+			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+			return dataResult;
+		}
+	}
+
+	public async Task<DataResult<IEnumerable<TransferTransactionLine>>> GetObjectsByProductId(HttpClient httpClient, int id)
+	{
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Product/Id/{id}");
+		DataResult<IEnumerable<TransferTransactionLine>> dataResult = new DataResult<IEnumerable<TransferTransactionLine>>();
+		if (responseMessage.IsSuccessStatusCode)
+		{
+			var data = await responseMessage.Content.ReadAsStringAsync();
+			if (data != null)
+			{
+				if (!string.IsNullOrEmpty(data))
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+					dataResult.Data = result?.Data;
+					dataResult.IsSuccess = true;
+					dataResult.Message = "success";
+					return dataResult;
+				}
+				else
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+					dataResult.Data = result?.Data;
+					dataResult.IsSuccess = true;
+					dataResult.Message = "empty";
+					return dataResult;
+				}
+			}
+			else
+			{
+				var result = JsonSerializer.Deserialize<DataResult<IEnumerable<TransferTransactionLine>>>(data, new JsonSerializerOptions
+				{
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+				});
+				dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
+				dataResult.IsSuccess = false;
+				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+				return dataResult;
+			}
+
+		}
+		else
+		{
+			dataResult.Data = Enumerable.Empty<TransferTransactionLine>();
 			dataResult.IsSuccess = false;
 			dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 

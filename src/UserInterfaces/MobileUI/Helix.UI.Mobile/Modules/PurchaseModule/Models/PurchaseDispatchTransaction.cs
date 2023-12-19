@@ -1,6 +1,6 @@
 ﻿namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 {
-	public partial class PurchaseDispatchTransaction
+	public partial class PurchaseDispatchTransaction : BasePurchaseDispatchTransaction
 	{
 	}
 }

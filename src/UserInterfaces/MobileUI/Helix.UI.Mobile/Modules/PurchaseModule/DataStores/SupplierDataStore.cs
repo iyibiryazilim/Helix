@@ -7,7 +7,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 {
 	public class SupplierDataStore : ISupplierService
 	{
-		public string postUrl = $"gateway/purchase/api/" + typeof(Supplier);
+		public string postUrl = $"gateway/purchase/" + nameof(Supplier);
 
 		public async Task<DataResult<Supplier>> GetObjectByCode(HttpClient httpClient, string Code)
 		{
@@ -187,7 +187,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			{
 				dataResult.Data = Enumerable.Empty<Supplier>();
 				dataResult.IsSuccess = false;
-				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+				dataResult.Message = await responseMessage.Content.ReadAsStringAsync() + responseMessage.StatusCode;
 				return dataResult;
 			}
 		}
