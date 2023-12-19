@@ -13,6 +13,6 @@ public interface IPurchaseReturnDispatchTransactionLineService
 	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByProductId(HttpClient httpClient, int ReferenceId);
 	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByProductCode(HttpClient httpClient, string Code);
 	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByFicheId(HttpClient httpClient, int ReferenceId);
-	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetByFicheNo(HttpClient httpClient, string BaseTransactionCode);
+	Task<DataResult<IEnumerable<PurchaseReturnDispatchTransactionLine>>> GetObjectsByFicheNo(HttpClient httpClient, string BaseTransactionCode);
 
 }

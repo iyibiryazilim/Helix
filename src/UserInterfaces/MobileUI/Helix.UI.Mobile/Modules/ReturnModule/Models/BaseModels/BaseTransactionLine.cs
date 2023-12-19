@@ -12,31 +12,31 @@ public partial class BaseTransactionLine : ObservableObject
 	[ObservableProperty]
 	int referenceId;
 	[ObservableProperty]
-	short? transactionType;
+	short transactionType;
 	[ObservableProperty]
-	string? transactionTypeName;
+	string transactionTypeName;
 	[ObservableProperty]
-	DateTime? transactionDate;
+	DateTime transactionDate;
 	[ObservableProperty]
-	TimeSpan? transactionTime;
+	TimeSpan transactionTime;
 	[ObservableProperty]
-	int? convertedTime;
+	int convertedTime;
 	[ObservableProperty]
-	short? iOType;
+	short iOType;
 	[ObservableProperty]
 	int productReferenceId;
 	[ObservableProperty]
-	string? productCode;
+	string productCode;
 	[ObservableProperty]
-	string? productName;
+	string productName;
 	[ObservableProperty]
-	int? unitsetReferenceId;
+	int unitsetReferenceId;
 	[ObservableProperty]
-	string? unitsetCode;
+	string unitsetCode;
 	[ObservableProperty]
-	int? subUnitsetReferenceId;
+	int subUnitsetReferenceId;
 	[ObservableProperty]
-	string? subUnitsetCode;
+	string subUnitsetCode;
 	[ObservableProperty]
 	double quantity;
 	[ObservableProperty]
@@ -54,27 +54,27 @@ public partial class BaseTransactionLine : ObservableObject
 	[ObservableProperty]
 	int warehouseReferenceId;
 	[ObservableProperty]
-	string? warehouseName;
+	string warehouseName;
 	[ObservableProperty]
-	short? warehouseNumber;
+	short warehouseNumber;
 	[ObservableProperty]
-	int? orderReference;
+	int orderReference;
 	[ObservableProperty]
-	string? description;
+	string description;
 	[ObservableProperty]
-	int? baseTransactionReferenceId;
+	int baseTransactionReferenceId;
 	[ObservableProperty]
-	string? baseTransactionCode;
+	string baseTransactionCode;
 	[ObservableProperty]
-	int? currentReferenceId;
+	int currentReferenceId;
 	[ObservableProperty]
-	string? currentCode;
+	string currentCode;
 	[ObservableProperty]
-	string? currentName;
+	string currentName;
 	[ObservableProperty]
-	int? dispatchReference;
+	int dispatchReference;
 	[ObservableProperty]
-	string? speCode;
+	string speCode;
 	[ObservableProperty]
 	double conversionFactor;
 	[ObservableProperty]

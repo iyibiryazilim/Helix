@@ -17,5 +17,5 @@ public interface IRetailSalesReturnDispatchTransactionLineService
 	Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransactionLine>>> GetObjectsByProductId(HttpClient httpClient, int ReferenceId);
 	Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransactionLine>>> GetObjectsByProductCode(HttpClient httpClient, string Code);
 	Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransactionLine>>> GetObjectsByFicheId(HttpClient httpClient, int ReferenceId);
-	Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransactionLine>>> GetByFicheNo(HttpClient httpClient, string BaseTransactionCode);
+	Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransactionLine>>> GetObjectsByFicheNo(HttpClient httpClient, string BaseTransactionCode);
 }
