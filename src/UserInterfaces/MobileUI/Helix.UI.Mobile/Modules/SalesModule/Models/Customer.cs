@@ -5,7 +5,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
     public partial class Customer : ObservableObject
     {
 		[ObservableProperty]
-		int referenceId;
+		int? referenceId;
 		[ObservableProperty]
 		string code;
 		[ObservableProperty]
@@ -25,7 +25,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		[ObservableProperty]
 		string taxNumber;
 		[ObservableProperty]
-		short cardType;
+		short? cardType;
 		[ObservableProperty]
 		string county;
 		[ObservableProperty]
@@ -33,13 +33,13 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		[ObservableProperty]
 		string country;
 		[ObservableProperty]
-		int referenceCount;
+		int? referenceCount;
 		[ObservableProperty]
-		double netTotal;
+		double? netTotal;
 		[ObservableProperty]
-		DateTime lastTransactionDate;
+		DateTime? lastTransactionDate;
 		[ObservableProperty]
-		TimeSpan lastTransactionTime;
+		TimeSpan? lastTransactionTime;
 		[ObservableProperty]
 		string image;
 	}

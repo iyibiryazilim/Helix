@@ -5,61 +5,61 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 	public partial class BaseSalesDispatchTransaction : ObservableObject
 	{
 		[ObservableProperty]
-		int referenceId;
+		int? referenceId;
 		[ObservableProperty]
-		DateTime transactionDate;
+		DateTime? transactionDate;
 		[ObservableProperty]
-		TimeSpan transactionTime;
+		TimeSpan? transactionTime;
 		[ObservableProperty]
-		int convertedTime;
+		int? convertedTime;
 		[ObservableProperty]
-		int orderReferenceId;
+		int? orderReferenceId;
 		[ObservableProperty]
 		string code;
 		[ObservableProperty]
-		short groupType;
+		short? groupType;
 		[ObservableProperty]
-		short iOType;
+		short? iOType;
 		[ObservableProperty]
-		short transactionType;
+		short? transactionType;
 		[ObservableProperty]
 		string transactionTypeName;
 		[ObservableProperty]
-		int divisionReferenceId;
+		int? divisionReferenceId;
 		[ObservableProperty]
-		short divisionNumber;
+		short? divisionNumber;
 		[ObservableProperty]
 		string divisionCountry;
 		[ObservableProperty]
 		string divisionCity;
 		[ObservableProperty]
-		int warehouseReferenceId;
+		int? warehouseReferenceId;
 		[ObservableProperty]
-		short warehouseNumber;
+		short? warehouseNumber;
 		[ObservableProperty]
 		string warehouseName;
 		[ObservableProperty]
-		int supplierReferenceId;
+		int? currentReferenceId;
 		[ObservableProperty]
-		string supplierCode;
+		string currentCode;
 		[ObservableProperty]
-		string supplierName;
+		string currentName;
 		[ObservableProperty]
-		double total;
+		double? total;
 		[ObservableProperty]
-		double totalVat;
+		double? totalVat;
 		[ObservableProperty]
-		double netTotal;
+		double? netTotal;
 		[ObservableProperty]
 		string description;
 		[ObservableProperty]
-		short dispatchType;
+		short? dispatchType;
 		[ObservableProperty]
-		int carrierReferenceId;
+		int? carrierReferenceId;
 		[ObservableProperty]
 		string carrierCode;
 		[ObservableProperty]
-		int driverReferenceId;
+		int? driverReferenceId;
 		[ObservableProperty]
 		string driverFirstName;
 		[ObservableProperty]
@@ -69,7 +69,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		[ObservableProperty]
 		string plaque;
 		[ObservableProperty]
-		int shipInfoReferenceId;
+		int? shipInfoReferenceId;
 		[ObservableProperty]
 		string shipInfoCode;
 		[ObservableProperty]
@@ -77,16 +77,16 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		[ObservableProperty]
 		string speCode;
 		[ObservableProperty]
-		short dispatchStatus;
+		short? dispatchStatus;
 		[ObservableProperty]
-		short isEDispatch;
+		short? isEDispatch;
 		[ObservableProperty]
 		string docTrackingNumber;
 		[ObservableProperty]
-		short isEInvoice;
+		short? isEInvoice;
 		[ObservableProperty]
-		short eDispatchProfileId;
+		short? eDispatchProfileId;
 		[ObservableProperty]
-		short eInvoiceProfileId;
+		short? eInvoiceProfileId;
 	}
 }

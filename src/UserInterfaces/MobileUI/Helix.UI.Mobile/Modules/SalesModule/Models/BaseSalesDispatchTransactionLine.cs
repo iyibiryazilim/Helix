@@ -59,11 +59,11 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 		[ObservableProperty]
 		string baseTransactionCode;
 		[ObservableProperty]
-		int supplierReferenceId;
+		int currentReferenceId;
 		[ObservableProperty]
-		string supplierCode;
+		string currentCode;
 		[ObservableProperty]
-		string supplierName;
+		string currentName;
 		[ObservableProperty]
 		int dispatchReferenceId;
 		[ObservableProperty]
