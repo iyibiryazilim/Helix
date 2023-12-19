@@ -87,6 +87,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Modules\ProductModule\Views\WarehouseViews\WarehouseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseDispatchTransactionLineListView.xaml">
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

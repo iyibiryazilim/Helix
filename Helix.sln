@@ -130,9 +130,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.IdentityServer.WebApi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SysService", "SysService", "{C20B1C74-EFD4-4F0B-8BC6-CF98878E1A2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.SysService.WebAPI", "src\Services\SysService\Helix.SysService.WebAPI\Helix.SysService.WebAPI.csproj", "{AA34D665-18B1-40D2-8E4C-508682EBFF4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.SysService.WebAPI", "src\Services\SysService\Helix.SysService.WebAPI\Helix.SysService.WebAPI.csproj", "{AA34D665-18B1-40D2-8E4C-508682EBFF4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.UI.Mobile", "src\UserInterfaces\MobileUI\Helix.UI.Mobile\Helix.UI.Mobile.csproj", "{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.UI.Mobile", "src\UserInterfaces\MobileUI\Helix.UI.Mobile\Helix.UI.Mobile.csproj", "{EA8EDE23-2F44-445E-AA08-E858C9F9ACE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,6 +4,7 @@
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
+using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 
 
 namespace Helix.UI.Mobile
@@ -28,7 +29,7 @@ namespace Helix.UI.Mobile
             else
                 CounterBtn.Text = $"Clicked {count} times";
 
-			PurchaseDispatchTransactionDataStore dto = new();
+			WarehouseDataStore dto = new();
 
             
             var result = await dto.GetObjects(_service.GetOrCreateHttpClient());
