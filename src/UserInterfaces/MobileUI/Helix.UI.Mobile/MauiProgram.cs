@@ -76,6 +76,27 @@ namespace Helix.UI.Mobile
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+
+					fonts.AddFont("RobotoSlab-Black.ttf", "RobotoSlabBlack");
+					fonts.AddFont("RobotoSlab-Bold.ttf", "RobotoSlabBold");
+					fonts.AddFont("RobotoSlab-ExtraBold.ttf", "RobotoSlabExtraBold");
+					fonts.AddFont("RobotoSlab-ExtraLight.ttf", "RobotoSlabExtraLight");
+					fonts.AddFont("RobotoSlab-Light.ttf", "RobotoSlabLight");
+					fonts.AddFont("RobotoSlab-Medium.ttf", "RobotoSlabMedium");
+					fonts.AddFont("RobotoSlab-Regular.ttf", "RobotoSlabRegular");
+					fonts.AddFont("RobotoSlab-SemiBold.ttf", "RobotoSlabSemiBold");
+					fonts.AddFont("RobotoSlab-Thin.ttf", "RobotoSlabThin");
+
+					fonts.AddFont("Roboto-Black.ttf", "RobotoBlack");
+					fonts.AddFont("Roboto-Bold.ttf", "RobotoBold");
+					fonts.AddFont("Roboto-ExtraBold.ttf", "RobotoExtraBold");
+					fonts.AddFont("Roboto-ExtraLight.ttf", "RobotoExtraLight");
+					fonts.AddFont("Roboto-Light.ttf", "RobotoLight");
+					fonts.AddFont("Roboto-Medium.ttf", "RobotoMedium");
+					fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
+					fonts.AddFont("Roboto-SemiBold.ttf", "RobotoSemiBold");
+					fonts.AddFont("Roboto-Thin.ttf", "RobotoThin");
+
 					fonts.AddFont("fa-solid.otf", "FAS");
 					fonts.AddFont("fa-regular.otf", "FAR");
 					fonts.AddFont("fa-brands.otf", "FAB");
