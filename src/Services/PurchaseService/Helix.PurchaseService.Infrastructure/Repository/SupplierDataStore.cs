@@ -46,11 +46,11 @@ namespace Helix.PurchaseService.Infrastructure.Repository
 			} 
 		}
 
-		public async Task<DataResult<IEnumerable<Supplier>>> GetSupplierList()
+		public async Task<DataResult<IEnumerable<Supplier>>> GetSupplierList(string search, string orderBy, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Supplier>().GetObjectsAsync(new SupplierQuery(_configuraiton).GetSupplierList());
+				var result = await new SqlQueryHelper<Supplier>().GetObjectsAsync(new SupplierQuery(_configuraiton).GetSupplierList(search,orderBy,page,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}

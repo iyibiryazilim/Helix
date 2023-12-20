@@ -1,5 +1,6 @@
 ﻿using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -51,7 +52,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 				IsRefreshing = true;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				var result = await _customerService.GetObjects(httpClient);
+				var result = await _customerService.GetObjects(httpClient,"",CustomerOrderBy.nameasc,0,20);
 
 				if (result.Data.Any())
 				{

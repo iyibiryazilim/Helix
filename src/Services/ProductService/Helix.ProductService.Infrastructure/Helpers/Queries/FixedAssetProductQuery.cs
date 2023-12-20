@@ -14,6 +14,7 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
+[GroupName] = ITEMS.STGRPCODE,
         [Name] = ITEMS.NAME,
 		[TrackingType] = ITEMS.TRACKTYPE,
 		LockTrackingType = ITEMS.LOCTRACKING,
@@ -40,6 +41,7 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
+[GroupName] = ITEMS.STGRPCODE,
         [Name] = ITEMS.NAME,
 		[TrackingType] = ITEMS.TRACKTYPE,
 		LockTrackingType = ITEMS.LOCTRACKING,
@@ -65,6 +67,7 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
             @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
+[GroupName] = ITEMS.STGRPCODE,
         [Code] = ITEMS.CODE,
         [Name] = ITEMS.NAME,
 		[TrackingType] = ITEMS.TRACKTYPE,

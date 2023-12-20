@@ -1,4 +1,5 @@
 ﻿using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -52,7 +53,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                var result = await _purchaseDispatchTransactionService.GetObjects(httpClient);
+                var result = await _purchaseDispatchTransactionService.GetObjects(httpClient,"",SupplierOrderBy.nameasc,0,20);
                 foreach (PurchaseDispatchTransaction item in result.Data)
                 {
                     Items.Add(item);
