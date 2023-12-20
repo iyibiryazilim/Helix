@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.LoginModule.Views.LoginView"
              Title="LoginView"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="False">
+             >
 
     <Grid RowDefinitions=".35*,.35*,*,Auto,Auto"
           Padding="30"
