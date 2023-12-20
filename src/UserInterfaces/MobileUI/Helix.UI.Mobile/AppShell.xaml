@@ -4,6 +4,8 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
        xmlns:productViews="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews"
+       xmlns:panelViews="clr-namespace:Helix.UI.Mobile.Modules.PanelModule.Views"
+       xmlns:fastProductionModule="clr-namespace:Helix.UI.Mobile.Modules.FastProductionModule.Views"
        xmlns:warehouseViews="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews"
        xmlns:productPanelViews="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews"
        xmlns:productOperationViews="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews"
@@ -103,7 +105,7 @@
 
     </FlyoutItem>-->
 
-   <!--<FlyoutItem Title="Panel"
+   <FlyoutItem Title="Panel"
                 Route="PanelMenuView">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FAS"
@@ -118,10 +120,10 @@
                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
             </Tab.Icon>
             <ShellContent Title="Panel"
-                          ContentTemplate="{DataTemplate menuViews:PanelMenuView}" />
+                          ContentTemplate="{DataTemplate panelViews:PanelView}" />
         </Tab>
 
-    </FlyoutItem>-->
+    </FlyoutItem>
 
    <FlyoutItem Title="Malzeme İşlemleri"
                 FlyoutDisplayOptions="AsSingleItem">
@@ -186,7 +188,7 @@
                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}" />
             </Tab.Icon>
             <ShellContent Title="Sevkiyat Paneli"
-                          ContentTemplate="{DataTemplate loginView:LoginView}" />
+                          ContentTemplate="{DataTemplate salesPanelViews:SalesPanelView}" />
         </Tab>
         <Tab Title="Müşteriler">
             <Tab.Icon>
@@ -313,7 +315,7 @@
         <ShellContent Title="Ambar Sayım"
                       ContentTemplate="{DataTemplate warehouseOperationsViews:WarehouseCountingView}" />
     </FlyoutItem>-->
-    <!--<FlyoutItem Title="Hızlı Üretim">
+    <FlyoutItem Title="Hızlı Üretim">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FAS"
                              Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
@@ -321,8 +323,8 @@
 
         </FlyoutItem.Icon>
         <ShellContent Title="Hızlı Üretim"
-                      ContentTemplate="{DataTemplate fastProductionViews:FastProductionListView}" />
-    </FlyoutItem>-->
+                      ContentTemplate="{DataTemplate fastProductionModule:FastProductionView}" />
+    </FlyoutItem>
 
     <!--<FlyoutItem Title="Devir">
         <FlyoutItem.Icon>
