@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Helix.UI.Mobile.Modules.LoginModule.Views.LoginView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.LoginModule.ViewModels"
+             x:DataType="viewModel:LoginViewModel"
              Title="LoginView"
              >
 
-    <Grid RowDefinitions=".35*,.35*,*,Auto,Auto"
+    <Grid RowDefinitions="0.30*,0.05*,*,Auto,Auto"
           Padding="30"
           RowSpacing="20">
 
+       
+        
         <Frame BackgroundColor="{StaticResource DarkPrimary}"
+               
                WidthRequest="70"
                HeightRequest="70"
                CornerRadius="13"
                HorizontalOptions="Start"
                VerticalOptions="End">
-
+            <Label Text="W" TextColor="{StaticResource White}" FontSize="28" VerticalOptions="Start" HorizontalOptions="Center" FontAttributes="Bold">
+                
+            </Label>
         </Frame>
         <VerticalStackLayout Grid.Row="1"
                              Spacing="10"
@@ -37,35 +45,42 @@
                              Spacing="25"
                              VerticalOptions="Center">
             <Frame CornerRadius="13"
-                   Padding="0"
+                   Padding="2"
                    BackgroundColor="#dbe1ed"
                    BorderColor="Transparent">
                 <Entry Placeholder="Kullanıcı Adı"
                        Margin="5,0,0,0"
-                       FontSize="12"
+                       FontSize="14"
                        PlaceholderColor="#adb3c3"
                        VerticalOptions="Center" />
             </Frame>
 
-            <Frame Padding="0" 
+            <Frame Padding="2" 
                    BackgroundColor="#dbe1ed"
                    CornerRadius="13"
                    BorderColor="Transparent">
                 <Entry Placeholder="Şifre"
                        Margin="5,0,0,0"
                        IsPassword="True"
-                       FontSize="12"
+                       FontSize="14"
                        PlaceholderColor="#adb3c3"
                        VerticalOptions="Center" />
             </Frame>
         </VerticalStackLayout>
-        <Button Grid.Row="3"
-                CornerRadius="13"
-                Text="Login"
-                TextColor="{StaticResource White}"
-                VerticalOptions="Start">
+        <VerticalStackLayout Grid.Row="3" Spacing="10" VerticalOptions="End">
+            <Button Command="{Binding GoToMainPageCommand}"
+                    
+                    CornerRadius="13"
+                    Text="Login"
+                    TextColor="{StaticResource White}"
+                    >
 
-        </Button>
+            </Button>
+            <Label Text="Şifremi Unuttum" HorizontalOptions="Center">
+                
+            </Label>
+        </VerticalStackLayout>
+      
 
     </Grid>
 
