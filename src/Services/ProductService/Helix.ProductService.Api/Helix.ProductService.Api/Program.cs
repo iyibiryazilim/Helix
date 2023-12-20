@@ -1,14 +1,12 @@
- using Helix.EventBus.Base.Abstractions;
-using Helix.EventBus.Base.Events;
 using Helix.EventBus.Base;
+using Helix.EventBus.Base.Abstractions;
+using Helix.EventBus.Base.Events;
 using Helix.EventBus.Factory;
-using Helix.ProductService.Api.ConsulRegistration;
 using Helix.ProductService.Application.Repository;
-using Helix.ProductService.Domain.Models;
-using Helix.ProductService.Infrastructure.Repository;
-using Serilog;
 using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Infrastructure.EventHandlers;
+using Helix.ProductService.Infrastructure.Repository;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
@@ -68,6 +66,7 @@ builder.Services.AddTransient<IWastageTransactionService, WastageTransactionData
 builder.Services.AddTransient<IWastageTransactionLineService, WastageTransactionLineDataStore>();
 builder.Services.AddTransient<ISubUnitsetService, SubUnitsetDataStore>();
 builder.Services.AddTransient<IUnitsetService, UnitsetDataStore>();
+builder.Services.AddTransient<IProductService, ProductDataStore>();
 
 
 

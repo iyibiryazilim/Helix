@@ -143,6 +143,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.BasketService.Infrastructure", "src\Services\BasketService\Helix.BasketService.Infrastructure\Helix.BasketService.Infrastructure.csproj", "{8B792FDF-7B85-47B7-AB43-C380D414D2F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.BasketService.WebAPI", "src\Services\BasketService\Helix.BasketService.WebAPI\Helix.BasketService.WebAPI.csproj", "{F79D8F1D-764D-4EF2-9300-0B4FFEF22BAF}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
