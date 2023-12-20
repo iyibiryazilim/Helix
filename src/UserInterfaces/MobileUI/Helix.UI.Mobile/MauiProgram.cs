@@ -1,5 +1,12 @@
 ﻿using CommunityToolkit.Maui;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.LoginModule.Views;
+using Helix.UI.Mobile.Modules.ProductModule.DataStores;
+using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
+using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels;
@@ -20,15 +27,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
-using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
-using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
-using Helix.UI.Mobile.Modules.ProductModule.DataStores;
-using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Microsoft.Extensions.Logging;
-using Helix.UI.Mobile.Modules.LoginModule.Views;
-using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
-using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 
 
 namespace Helix.UI.Mobile
