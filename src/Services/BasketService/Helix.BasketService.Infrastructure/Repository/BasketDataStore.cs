@@ -9,32 +9,39 @@ namespace Helix.BasketService.Infrastructure.Repository;
 
 public class BasketDataStore : IBasketService
 {
-	private readonly MemoryCache _memoryCache;
-	private readonly IConnectionMultiplexer _connectionMultiplexer;
-	private readonly IDatabase _db;
+	IConnectionMultiplexer _connectionMultiplexer;
+	IDatabase _db;
 	const string basketKey = "basket";
 
-	public BasketDataStore(MemoryCache memoryCache, IConnectionMultiplexer connectionMultiplexer)
+	public BasketDataStore(IConnectionMultiplexer connectionMultiplexer)
 	{
-		_memoryCache = memoryCache;
 		_connectionMultiplexer = connectionMultiplexer;
 		_db = _connectionMultiplexer.GetDatabase();
 	}
-	public Task AddBasket(Basket basket)
+	public Task AddBasket(string key,Basket basket)
 	{
-		_memoryCache.Set(basketKey, JsonSerializer.Serialize(basket));
+		var jsonData = JsonSerializer.Serialize(basket);
+		_db.StringSet(key, jsonData);
 		return Task.CompletedTask; // kaldırılacak
 	}
 
 	public Task ClearBasket()
 	{
-		_memoryCache.Clear();
+		// remove all the keys in db
+		var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints()[0]);
+		server.Keys(pattern: "*").ToList().ForEach(key => _db.KeyDelete(key));
 		return Task.CompletedTask; // kaldırılacak
 	}
 
 	public Task RemoveBasket(string key)
 	{
-		_memoryCache.Remove(key);
+		_db.KeyDelete(key);
 		return Task.CompletedTask; // kaldırılacak
+	}
+
+	public Task<Basket> GetBasket(string key)
+	{
+		var basket = _db.StringGet(key);
+		return Task.FromResult(JsonSerializer.Deserialize<Basket>(basket));
 	}
 }

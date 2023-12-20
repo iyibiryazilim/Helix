@@ -12,13 +12,11 @@ namespace Helix.BasketService.WebAPI
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			// Redis configuration
-			builder.Services.AddMemoryCache();
 			IConfiguration configuration = builder.Configuration;
-			var redis = ConnectionMultiplexer.Connect("redis-19047.c250.eu-central-1-1.ec2.cloud.redislabs.com:19047,password=BX46QsxiatvvorbAhsffv1SJ2zDqPyzD");
-			using IHost host = builder.Build();
-			IMemoryCache distributedCache = host.Services.GetRequiredService<IMemoryCache>();
+			var connection = ConnectionMultiplexer.Connect(configuration["CacheConnections:RedisConnection"]);
 			// Add services to the container.
-			builder.Services.AddSingleton<IBasketService, BasketDataStore>();
+			builder.Services.AddSingleton<IConnectionMultiplexer>(connection);
+			builder.Services.AddTransient<IBasketService, BasketDataStore>();
 			builder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
