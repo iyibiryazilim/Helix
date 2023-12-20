@@ -6,6 +6,6 @@ public interface IBasketService
 {
 	Task<Basket> GetBasket(string key);
 	Task AddBasket(string key, Basket basket);
-	Task RemoveBasket(string key, Basket basket);
+	Task RemoveBasket(string key);
 	Task ClearBasket();
 }

@@ -28,4 +28,16 @@ public class BasketController : ControllerBase
 		var result = _basketService.AddBasket(key, basket);
 		return result;
 	}
+
+	[HttpDelete("Delete/Item/Key/{key}")]
+	public async Task RemoveBasketAsync([FromBody] string key)
+	{
+		await _basketService.RemoveBasket(key);
+	}
+
+	[HttpDelete("Delete/All")]
+	public async Task ClearBasketAsync()
+	{
+		await _basketService.ClearBasket();
+	}
 }

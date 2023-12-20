@@ -27,14 +27,15 @@ public class BasketDataStore : IBasketService
 
 	public Task ClearBasket()
 	{
-		
+		// remove all the keys in db
+		var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints()[0]);
+		server.Keys(pattern: "*").ToList().ForEach(key => _db.KeyDelete(key));
 		return Task.CompletedTask; // kaldırılacak
 	}
 
-	public Task RemoveBasket(string key, Basket basket)
+	public Task RemoveBasket(string key)
 	{
-		var jsonData = JsonSerializer.Serialize(basket);
-		_db.SetRemove(key, jsonData);
+		_db.KeyDelete(key);
 		return Task.CompletedTask; // kaldırılacak
 	}
 
