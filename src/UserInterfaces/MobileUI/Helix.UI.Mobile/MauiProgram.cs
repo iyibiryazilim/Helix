@@ -32,6 +32,10 @@ using Helix.UI.Mobile.Modules.LoginModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 using Android.Content.Res;
+using Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
 
 
 namespace Helix.UI.Mobile
@@ -156,15 +160,21 @@ namespace Helix.UI.Mobile
 		{
             mauiAppBuilder.Services.AddTransient<WarehouseListView>();
             mauiAppBuilder.Services.AddTransient<ProductListView>();
+			mauiAppBuilder.Services.AddTransient<ProductPanelView>();
+			mauiAppBuilder.Services.AddTransient<ProductOperationView>();
 
 
-            return mauiAppBuilder;
+
+			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
             mauiAppBuilder.Services.AddTransient<WarehouseListViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductListViewModel>();
-            return mauiAppBuilder;
+			mauiAppBuilder.Services.AddTransient<ProductPanelViewModel>();
+			mauiAppBuilder.Services.AddTransient<ProductOperationViewModel>();
+
+			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
