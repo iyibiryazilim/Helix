@@ -9,23 +9,30 @@
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <Border BackgroundColor="Red">
-        <Grid ColumnDefinitions=".3*,*">
-            <Grid Grid.Column="0"
-                  BackgroundColor="Blue"
-                  Padding="5">
-                <Frame IsClippedToBounds="True">
-                    <Image Source="{Binding Source={x:Reference this}, Converter={StaticResource ByteArrayToImageSourceConverter},Path=Current.Image}" />
-                </Frame>
-            </Grid>
-            <Grid Grid.Column="1">
-                <VerticalStackLayout VerticalOptions="Center"
-                                     Spacing="5"
-                                     Padding="10">
-                    <Label Text="{Binding Source={x:Reference this},Path=Current.Name}"></Label>
-                    <Label Text="{Binding Source={x:Reference this},Path=Current.Code}"></Label>
-                </VerticalStackLayout>
-            </Grid>
+    <Border StrokeShape="RoundRectangle 10"
+            BackgroundColor="White"
+            Padding="5"
+            HeightRequest="85"
+            WidthRequest="370">
+        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5" >
+            <Border Grid.Column="0"
+                    StrokeShape="RoundRectangle 10"
+                    WidthRequest="75"
+                    HorizontalOptions="Center"
+                    Padding="10"
+                    StrokeThickness="0">
+                <Image Aspect="AspectFit"
+                       Source="{Binding Source={x:Reference this}, Converter={StaticResource ByteArrayToImageSourceConverter},Path=Current.Image}" />
+            </Border>
+            <VerticalStackLayout Grid.Column="1"
+                                 Padding="5"
+                                 Spacing="5"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Center">
+                <Label TextColor="{StaticResource Primary}"
+                       Text="{Binding Source={x:Reference this},Path=Current.Name}"></Label>
+                <Label Text="{Binding Source={x:Reference this},Path=Current.Code}"></Label>
+            </VerticalStackLayout>
         </Grid>
     </Border>
 </ContentView>

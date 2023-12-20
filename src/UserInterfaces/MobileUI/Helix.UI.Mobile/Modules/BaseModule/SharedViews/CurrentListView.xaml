@@ -8,49 +8,32 @@
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.CurrentListView">
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
-            Margin="-1,25,-1,-5">
+            Margin="0,30,0,0">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="40,40,0,0" />
+            <RoundRectangle CornerRadius="30,30,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="0.14*,*">
-            <Grid Grid.Row="0"
-                  Padding="20">
-                <Frame Padding="0"
-                       BackgroundColor="White"
-                       BorderColor="Transparent"
-                       HasShadow="False">
-                    <Grid VerticalOptions="Center">
-                        <Grid ColumnDefinitions="*,auto">
-                            <SearchBar Grid.Column="0"
-                                       BackgroundColor="{StaticResource WhiteSmoke}"
-                                       Placeholder="Müşteri Ara"></SearchBar>
-                            <Image Grid.Column="1"
-                                   Margin="10"
-                                   VerticalOptions="Center"
-                                   Aspect="AspectFit"
-                                   HeightRequest="25"
-                                   WidthRequest="25">
-                                <Image.Source>
-                                    <FontImageSource FontFamily="FAS"
-                                                     Color="{StaticResource Primary}"
-                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"></FontImageSource>
-                                </Image.Source>
-                            </Image>
-                        </Grid>
-                    </Grid>
-                </Frame>
+        <Grid RowDefinitions="Auto,*"
+              RowSpacing="10"
+              BackgroundColor="Transparent">
+            <Grid Grid.Row="0">
+                <Border StrokeShape="RoundRectangle 20" >
+                    <SearchBar Placeholder="Müşteri Ara"></SearchBar>
+                </Border>
             </Grid>
-            <Grid Grid.Row="1">
-                <ScrollView>
-                    <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=CurrentList}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="baseModel:Current">
-                                <sharedViews:CurrentCardView Current="{Binding .}"></sharedViews:CurrentCardView>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </ScrollView>
-            </Grid>
+            <ScrollView  Grid.Row="1"
+                         Padding="5">
+                <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=CurrentList}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="baseModel:Current">
+                            <sharedViews:CurrentCardView Current="{Binding .}"></sharedViews:CurrentCardView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
         </Grid>
     </Border>
 </ContentView>
