@@ -5,6 +5,7 @@
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews.CustomerListView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              x:DataType="viewModel:CustomerListViewModel"
              BackgroundColor="{StaticResource Primary}"
              Title="CustomerListView">
@@ -12,11 +13,5 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetCustomersCommand}" />
     </ContentPage.Behaviors>
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
-            StrokeThickness="0"
-            Margin="-1,25,-1,-5">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="40,40,0,0" />
-        </Border.StrokeShape>
-    </Border>
+    <sharedViews:CurrentListView CurrentList="{Binding Items}"></sharedViews:CurrentListView>
 </ContentPage>
