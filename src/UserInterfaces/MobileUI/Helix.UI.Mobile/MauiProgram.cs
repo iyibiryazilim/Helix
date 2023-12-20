@@ -28,6 +28,10 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
+using Helix.UI.Mobile.Modules.LoginModule.Views;
+using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
+using Android.Content.Res;
 
 
 namespace Helix.UI.Mobile
@@ -62,9 +66,15 @@ namespace Helix.UI.Mobile
 					fonts.AddFont("fa-regular.otf", "FAR");
 					fonts.AddFont("fa-brands.otf", "FAB");
 				});
+			Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+			{
+#if ANDROID
+				handler.PlatformView.BackgroundTintList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+			});
 
 #if DEBUG
-            builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
