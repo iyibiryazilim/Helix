@@ -67,7 +67,6 @@
 	<ItemGroup>
 	  <Folder Include="DataStores\" />
 	  <Folder Include="Modules\BaseModule\DataStores\" />
-	  <Folder Include="Modules\BaseModule\Models\" />
 	  <Folder Include="Modules\BaseModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
@@ -86,6 +85,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentCardView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
