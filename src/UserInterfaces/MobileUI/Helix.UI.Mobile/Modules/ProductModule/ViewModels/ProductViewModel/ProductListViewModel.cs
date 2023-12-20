@@ -10,16 +10,17 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 public partial class ProductListViewModel :BaseViewModel
 {
     IHttpClientService _httpClientService;
-    private readonly IProductService _productService;
+    //private readonly IProductService _productService;
+    private readonly IEndProductService _endProductService;
 
     public ObservableCollection<Product> Items { get; } = new();
 
     public Command GetProductsCommand { get;  }
 
-    public ProductListViewModel(IHttpClientService httpClientService,IProductService productService)
+    public ProductListViewModel(IHttpClientService httpClientService, IEndProductService endproductService)
     {
         _httpClientService = httpClientService;
-        _productService = productService;
+        _endProductService = endproductService;
         GetProductsCommand = new Command(async () => await LoadData());
 
     }
@@ -61,9 +62,9 @@ public partial class ProductListViewModel :BaseViewModel
             IsBusy = true;
             IsRefreshing = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
-            var result = await _productService.GetObjects(httpClient);
+            var result = await _endProductService.GetObjects(httpClient);
 
-            if (Items.Any())
+            if (result.Data.Any())
             {
                 Items.Clear();
                 foreach (Product item in result.Data)
