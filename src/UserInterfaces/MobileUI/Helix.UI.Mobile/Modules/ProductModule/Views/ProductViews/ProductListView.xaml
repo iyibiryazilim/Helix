@@ -4,6 +4,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.ProductListView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.FastProductionModule.ViewModels"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="ProductListView">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
