@@ -1,12 +1,11 @@
-using AndroidX.Lifecycle;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 
 public partial class ProductOperationView : ContentPage
 {
-    ProductOperationView _viewModel;
-    public ProductOperationView(ProductOperationView viewModel)
+    ProductOperationViewModel _viewModel;
+    public ProductOperationView(ProductOperationViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = _viewModel = viewModel;

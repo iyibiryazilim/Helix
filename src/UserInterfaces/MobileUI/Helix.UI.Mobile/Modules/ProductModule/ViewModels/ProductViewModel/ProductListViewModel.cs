@@ -16,7 +16,7 @@ public partial class ProductListViewModel :BaseViewModel
 
     public Command GetProductsCommand { get;  }
 
-    public ProductListViewModel(HttpClientService httpClientService,IProductService productService)
+    public ProductListViewModel(IHttpClientService httpClientService,IProductService productService)
     {
         _httpClientService = httpClientService;
         _productService = productService;
