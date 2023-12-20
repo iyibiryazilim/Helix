@@ -2,7 +2,7 @@
 
 namespace Helix.UI.Mobile.Modules.BaseModule.Models
 {
-	public partial class Current : ObservableObject
+	public  abstract partial class Current : ObservableObject
 	{
 		[ObservableProperty]
 		int? referenceId;

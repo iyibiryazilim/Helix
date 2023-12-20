@@ -36,6 +36,11 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.PanelModule.ViewModels;
+using Helix.UI.Mobile.Modules.PanelModule.Views;
+using Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
+using Helix.UI.Mobile.Modules.FastProductionModule.Views;
+using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
 
 
 namespace Helix.UI.Mobile
@@ -49,6 +54,8 @@ namespace Helix.UI.Mobile
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
 				.RegisterHttpClientServices()
+				.LoginViews()
+				.LoginViewModels()
 				.ReturnRegisterServices()
 				.ReturnRegisterViewModels()
 				.ReturnRegisterViews()
@@ -61,7 +68,10 @@ namespace Helix.UI.Mobile
 				.ProductRegisterServices()
 				.ProductRegisterViewModels()
 				.ProductRegisterViews()
-				.LoginViews()
+				.PanelViewModels()
+				.PanelViews()
+				.FastProductionViewModels()
+				.FastProductionViews()
 				.ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -206,10 +216,45 @@ namespace Helix.UI.Mobile
 		#region LoginModule
 		public static MauiAppBuilder LoginViews(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddTransient<LoginView>();
+			mauiAppBuilder.Services.AddSingleton<LoginView>();
 			return mauiAppBuilder;
 		}
-		
+		public static MauiAppBuilder LoginViewModels(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
+			return mauiAppBuilder;
+		}
+
+		#endregion
+
+		#region PanelModule
+		public static MauiAppBuilder PanelViews(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddTransient<PanelView>();
+			return mauiAppBuilder;
+		}
+		public static MauiAppBuilder PanelViewModels(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddTransient<PanelViewModel>();
+
+			return mauiAppBuilder;
+		}
+
+		#endregion
+
+		#region FastProductionModule
+		public static MauiAppBuilder FastProductionViews(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddTransient<FastProductionView>();
+			return mauiAppBuilder;
+		}
+		public static MauiAppBuilder FastProductionViewModels(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddTransient<FastProductionViewModel>();
+
+			return mauiAppBuilder;
+		}
+
 		#endregion
 
 	}

@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Helix.UI.Mobile.Helpers.HttpClientHelper;
+﻿using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -13,10 +12,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 	{
 		IHttpClientService _httpClientService;
 		private readonly ICustomerService _customerService;
-		public ObservableCollection<Customer> Items { get; } = new();
+		public ObservableCollection<Current> Items { get; } = new();
 		public Command GetCustomersCommand { get; }
-		[ObservableProperty]
-		Current test = new Current { Name = "Test", Code = "test" };
 		public CustomerListViewModel(IHttpClientService httpClientService, ICustomerService customerService)
 		{
 			_httpClientService = httpClientService;
@@ -56,7 +53,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 
 				var result = await _customerService.GetObjects(httpClient);
 
-				if (Items.Any())
+				if (result.Data.Any())
 				{
 					Items.Clear();
 					foreach (Customer item in result.Data)
