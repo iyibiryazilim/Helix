@@ -15,19 +15,17 @@ public class BasketController : ControllerBase
 		_basketService = basketService;
 	}
 
-	[HttpDelete]
-	public async Task<IActionResult> ClearBasket()
+	[HttpGet]
+	public Task<Basket> GetBasket(string key)
 	{
-		await _basketService.ClearBasket();
-		return Ok();
+		var result =  _basketService.GetBasket(key);
+		return result;
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> AddBasket(Basket basket)
+	public Task AddBasket(string key, Basket basket)
 	{
-		await _basketService.AddBasket(basket);
-		return Ok();
+		var result = _basketService.AddBasket(key, basket);
+		return result;
 	}
-
-
 }
