@@ -20,6 +20,10 @@ public class BasketDataStore : IBasketService
 	}
 	public Task AddBasket(string key,Basket basket)
 	{
+		if(_db.KeyExists(key))
+		{
+			return Task.CompletedTask; // kaldırılacak
+		}
 		var jsonData = JsonSerializer.Serialize(basket);
 		_db.StringSet(key, jsonData);
 		return Task.CompletedTask; // kaldırılacak
@@ -35,12 +39,16 @@ public class BasketDataStore : IBasketService
 
 	public Task RemoveBasket(string key)
 	{
+		if(!_db.KeyExists(key))
+			return Task.CompletedTask; // kaldırılacak
 		_db.KeyDelete(key);
 		return Task.CompletedTask; // kaldırılacak
 	}
 
 	public Task<Basket> GetBasket(string key)
 	{
+		if(!_db.KeyExists(key))
+			return Task.FromResult<Basket>(null);
 		var basket = _db.StringGet(key);
 		return Task.FromResult(JsonSerializer.Deserialize<Basket>(basket));
 	}
