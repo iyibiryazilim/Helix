@@ -5,6 +5,7 @@ using Helix.SalesService.Infrastructure.Helper;
 using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using static Helix.SalesService.Infrastructure.Helper.Queries.CustomerQuery;
 
 namespace Helix.SalesService.Infrastructure.Repository;
 
@@ -32,11 +33,11 @@ public class CustomerDataStore : BaseDataStore, ICustomerService
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<Customer>>> GetCustomersAsync()
+	public async Task<DataResult<IEnumerable<Customer>>> GetCustomersAsync(string search = "", string orderBy = CustomerOrderBy.CustomerNameDesc, int page = 0, int pageSize = 20)
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Customer>().GetObjectsAsync(new CustomerQuery(_configuraiton).GetCustomerList());
+			var result = await new SqlQueryHelper<Customer>().GetObjectsAsync(new CustomerQuery(_configuraiton).GetCustomerList(search,orderBy,page,pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

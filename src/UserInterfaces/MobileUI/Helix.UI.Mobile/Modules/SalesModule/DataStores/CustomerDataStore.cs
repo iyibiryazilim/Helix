@@ -9,9 +9,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 	{
 		string postUrl = $"/gateway/sales/" + typeof(Customer).Name;
 
-		public async Task<DataResult<IEnumerable<Customer>>> GetObjects(HttpClient httpClient)
+		public async Task<DataResult<IEnumerable<Customer>>> GetObjects(HttpClient httpClient,string search, CustomerOrderBy orderBy,int page,int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
+			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl+ $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<Customer>> dataResult = new DataResult<IEnumerable<Customer>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
@@ -191,5 +191,13 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 				return dataResult;
 			}
 		}
+	}
+
+	public enum CustomerOrderBy
+	{
+		nameasc,
+		namedesc,
+		codeasc,
+		codedesc
 	}
 }
