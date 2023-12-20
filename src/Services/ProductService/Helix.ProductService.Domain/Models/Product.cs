@@ -148,7 +148,37 @@ public class Product : INotifyPropertyChanged
         }
     }
 
-    string? brandName;
+	DateTime? lastTransactionDate;
+	public DateTime? LastTransactionDate
+	{
+		get => lastTransactionDate;
+		set
+		{
+			lastTransactionDate = value;
+			NotifyPropertyChanged();
+		}
+	}
+	string? image;
+	public string? Image
+	{
+		get => image;
+		set
+		{
+			image = value;
+			NotifyPropertyChanged();
+		}
+	}
+	double? stockQuantity;
+	public double? StockQuantity
+	{
+		get => stockQuantity;
+		set
+		{
+			stockQuantity = value;
+			NotifyPropertyChanged();
+		}
+	}
+	string? brandName;
     public string? BrandName
     {
         get => brandName;

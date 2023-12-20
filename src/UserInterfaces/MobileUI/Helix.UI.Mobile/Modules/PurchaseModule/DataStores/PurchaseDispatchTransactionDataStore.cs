@@ -131,9 +131,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetObjects(HttpClient httpClient)
+		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetObjects(HttpClient httpClient, string search, SupplierOrderBy orderBy, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
+			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl + $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<PurchaseDispatchTransaction>> dataResult = new DataResult<IEnumerable<PurchaseDispatchTransaction>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
@@ -313,5 +313,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				return dataResult;
 			}
 		}
+	}
+	public enum SupplierOrderBy
+	{
+		nameasc,
+		namedesc,
+		codeasc,
+		codedesc
 	}
 }
