@@ -6,20 +6,17 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:DataType="viewModel:CustomerListViewModel"
+             BackgroundColor="{StaticResource Primary}"
              Title="CustomerListView">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetCustomersCommand}" />
     </ContentPage.Behaviors>
-    <Grid>
-        <VerticalStackLayout>
-            <sharedViews:CurrentCardView Current="{Binding Test}"></sharedViews:CurrentCardView>
-            <sharedViews:CurrentCardView Current="{Binding Test}"></sharedViews:CurrentCardView>
-            <sharedViews:CurrentCardView Current="{Binding Test}"></sharedViews:CurrentCardView>
-            <sharedViews:CurrentCardView Current="{Binding Test}"></sharedViews:CurrentCardView>
-            <sharedViews:CurrentCardView Current="{Binding Test}"></sharedViews:CurrentCardView>
-            <sharedViews:CurrentCardView Current="{Binding Test}"></sharedViews:CurrentCardView>
-            <sharedViews:CurrentCardView Current="{Binding Test}"></sharedViews:CurrentCardView>
-        </VerticalStackLayout>
-    </Grid>
+    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+            StrokeThickness="0"
+            Margin="-1,25,-1,-5">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="40,40,0,0" />
+        </Border.StrokeShape>
+    </Border>
 </ContentPage>
