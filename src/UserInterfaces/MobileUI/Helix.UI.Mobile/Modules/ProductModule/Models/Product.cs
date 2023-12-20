@@ -6,91 +6,62 @@ public partial class Product :ObservableObject
 {
     [ObservableProperty]
     int referenceId;
-    [ObservableProperty]
-    DateTime transactionDate;
-    [ObservableProperty]
-    TimeSpan transactionTime;
-    [ObservableProperty]
-    int convertedTime;
-    [ObservableProperty]
-    int orderReference;
+
     [ObservableProperty]
     string code;
+
     [ObservableProperty]
-    short groupType;
+    string name;
+
     [ObservableProperty]
-    short iOType;
+    string groupName;
+
     [ObservableProperty]
-    short transactionType;
+    int cardType;
+
     [ObservableProperty]
-    string transactionTypeName;
+    int unitsetReferenceId;
+
     [ObservableProperty]
-    int divisionreferenceId;
+    string unitsetCode;
+
     [ObservableProperty]
-    short divisionNumber;
+    int subUnitsetReferenceId;
+
     [ObservableProperty]
-    string divisionCountry;
+    string subUnitsetCode;
+
     [ObservableProperty]
-    string divisionCity;
+    int? brandReferenceId;
+
     [ObservableProperty]
-    int warehouseReferenceId;
+    string brandCode;
+
     [ObservableProperty]
-    string warehouseName;
+    string brandName;
+
     [ObservableProperty]
-    short warehouseNumber;
+    string producerCode;
+
     [ObservableProperty]
-    int currentReferenceId;
+    string speCode;
+
     [ObservableProperty]
-    string currentCode;
+    short trackingType;
+
     [ObservableProperty]
-    string currentName;
+    short lockTrackingType;
+
     [ObservableProperty]
-    double total = default;
+    string image;
+
     [ObservableProperty]
-    double totalVat = default;
+    DateTimeOffset? lastTransactionDate;
+
     [ObservableProperty]
-    double netTotal = default;
-    [ObservableProperty]
-    string description;
-    [ObservableProperty]
-    short dispatchType = default;
-    [ObservableProperty]
-    int? carrierReferenceId;
-    [ObservableProperty]
-    string? carrierCode;
-    [ObservableProperty]
-    int? driverReferenceId;
-    [ObservableProperty]
-    string? driverFirstName;
-    [ObservableProperty]
-    string? driverLastName;
-    [ObservableProperty]
-    string? identityNumber;
-    [ObservableProperty]
-    string? plaque;
-    [ObservableProperty]
-    int? shipInfoReferenceId;
-    [ObservableProperty]
-    string? shipInfoCode;
-    [ObservableProperty]
-    string? shipInfoName;
-    [ObservableProperty]
-    string? speCode;
-    [ObservableProperty]
-    short dispatchStatus = default;
-    [ObservableProperty]
-    short isEDispatch = default;
-    [ObservableProperty]
-    string doCode;
-    [ObservableProperty]
-    string docTrackingNumber;
-    [ObservableProperty]
-    short isEInvoice = default;
-    [ObservableProperty]
-    short eDispatchProfileId = default;
-    [ObservableProperty]
-    short eInvoiceProfileId = default;
-   
+    double stockQuantity;
+
+
 
 
 }
