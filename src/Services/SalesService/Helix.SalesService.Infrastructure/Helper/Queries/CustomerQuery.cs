@@ -8,8 +8,11 @@ public class CustomerQuery : BaseQuery
 	{
 	}
 
-	public string GetCustomerList() =>
-			@$"SELECT
+	public string GetCustomerList(string search, string orderBy, int currentPage = 0, int pageSize = 20)
+	{
+        int currentIndex = pageSize * currentPage;
+
+		string query = @$"SELECT
 		[ReferenceId] = CLCARD.LOGICALREF,
         [Code] = CLCARD.CODE,
         [Name] = CLCARD.DEFINITION_,
@@ -26,10 +29,15 @@ public class CustomerQuery : BaseQuery
         [ReferenceCount]=ISNULL((SELECT COUNT(DISTINCT STOCKREF) FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE WHERE CLIENTREF = CLCARD.LOGICALREF AND (AMOUNT-SHIPPEDAMOUNT) > 0 AND CLOSED = 0  AND LINETYPE = 0 AND TRCODE = 1 ),0),
 		[NetTotal] = ISNULL((SELECT SUM(LINENET) FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE WHERE CLIENTREF = CLCARD.LOGICALREF AND(AMOUNT - SHIPPEDAMOUNT) > 0 AND CLOSED = 0 AND LINETYPE = 0 AND TRCODE = 1),0),
 		[LastTransactionDate] = (SELECT TOP 1 DATE_ FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE WHERE CLIENTREF = CLCARD.LOGICALREF ORDER BY DATE_ DESC),
-        [LastTransactionTime] = (SELECT TOP 1 dbo.LG_INTTOTIME(FTIME) FROM LG_00{FirmNumber}_01_STLINE WHERE CLIENTREF = CLCARD.LOGICALREF ORDER BY DATE_ DESC)
+        [LastTransactionTime] = (SELECT TOP 1 dbo.LG_INTTOTIME(FTIME) FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE WHERE CLIENTREF = CLCARD.LOGICALREF ORDER BY DATE_ DESC)
         FROM LG_00{FirmNumber}_CLCARD AS CLCARD
 		LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = CLCARD.LOGICALREF AND FIRMDOC.INFOTYP = 21
-        WHERE CLCARD.CODE LIKE '12%' AND CLCARD.CARDTYPE<> 4";
+        WHERE CLCARD.CODE LIKE '12%' AND CLCARD.CARDTYPE<> 4 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' )
+		{orderBy}
+		OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+		return query;
+	}
+
 
 	public string GetCustomerByCode(string code) =>
 		@$"SELECT
@@ -77,5 +85,12 @@ public class CustomerQuery : BaseQuery
         FROM LG_00{FirmNumber}_CLCARD AS CLCARD
 		LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = CLCARD.LOGICALREF AND FIRMDOC.INFOTYP = 21
         WHERE CLCARD.LOGICALREF='{id}' AND CLCARD.CARDTYPE<> 4";
-	
+
+	public class CustomerOrderBy
+	{
+		public const string CustomerCodeAsc = "ORDER BY CLCARD.CODE ASC";
+		public const string CustomerCodeDesc = "ORDER BY CLCARD.CODE DESC";
+		public const string CustomerNameAsc = "ORDER BY CLCARD.DEFINITION_ ASC";
+		public const string CustomerNameDesc = "ORDER BY CLCARD.DEFINITION_ DESC";
+	}
 }

@@ -110,9 +110,18 @@ public class Product : INotifyPropertyChanged
             NotifyPropertyChanged();
         }
     }
-
-    //Brand  ref-code-name
-    int? brandReferenceId;
+	string? groupName;
+	public string? GroupName
+	{
+		get => groupName;
+		set
+		{
+			groupName = value;
+			NotifyPropertyChanged();
+		}
+	}
+	//Brand  ref-code-name
+	int? brandReferenceId;
 
     public int? BrandReferenceId
     {
