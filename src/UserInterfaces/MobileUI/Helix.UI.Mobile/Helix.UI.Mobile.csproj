@@ -53,7 +53,6 @@
 	  <None Remove="Resources\Fonts\fa-brands.otf" />
 	  <None Remove="Resources\Fonts\fa-regular.otf" />
 	  <None Remove="Resources\Fonts\fa-solid.otf" />
-	  <None Remove="Resources\Images\notfoundimage.png" />
 	  <None Remove="Resources\Images\user.svg" />
 	</ItemGroup>
 
@@ -69,6 +68,7 @@
 	  <Folder Include="DataStores\" />
 	  <Folder Include="Modules\BaseModule\DataStores\" />
 	  <Folder Include="Modules\BaseModule\Services\" />
+	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
 
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
@@ -85,7 +85,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductListContentView.xaml">
-	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">

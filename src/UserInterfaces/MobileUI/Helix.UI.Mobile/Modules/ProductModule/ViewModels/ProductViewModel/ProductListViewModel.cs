@@ -10,17 +10,20 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 public partial class ProductListViewModel :BaseViewModel
 {
     IHttpClientService _httpClientService;
-    //private readonly IProductService _productService;
-    private readonly IEndProductService _endProductService;
+    private readonly IProductService _productService;
+    //private readonly IEndProductService _endProductService;
 
     public ObservableCollection<Product> Items { get; } = new();
+    public ObservableCollection<string> Groups { get; } = new();
+
 
     public Command GetProductsCommand { get;  }
 
-    public ProductListViewModel(IHttpClientService httpClientService, IEndProductService endproductService)
+    public ProductListViewModel(IHttpClientService httpClientService, IProductService productService)
     {
+        Title = "Malzemeler";
         _httpClientService = httpClientService;
-        _endProductService = endproductService;
+        _productService = productService;
         GetProductsCommand = new Command(async () => await LoadData());
 
     }
@@ -50,9 +53,6 @@ public partial class ProductListViewModel :BaseViewModel
 
 
 
-
-
-
     async Task GetProductsAsync()
     {
         if (IsBusy)
@@ -62,10 +62,18 @@ public partial class ProductListViewModel :BaseViewModel
             IsBusy = true;
             IsRefreshing = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
-            var result = await _endProductService.GetObjects(httpClient);
+            var result = await _productService.GetObjects(httpClient);
 
             if (result.Data.Any())
             {
+                Groups.Clear();
+                var groupingData= result.Data.GroupBy(x => x.GroupName);
+                Groups.Add("Tümü");
+                foreach (var group in groupingData)
+                {
+                    Groups.Add(group.Key);
+                }
+                
                 Items.Clear();
                 foreach (Product item in result.Data)
                 {
