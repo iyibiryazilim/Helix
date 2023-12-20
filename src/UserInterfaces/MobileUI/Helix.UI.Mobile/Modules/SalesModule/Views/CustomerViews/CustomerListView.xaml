@@ -8,7 +8,7 @@
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              x:DataType="viewModel:CustomerListViewModel"
              BackgroundColor="{StaticResource Primary}"
-             Title="CustomerListView">
+             Title="Müşteriler">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetCustomersCommand}" />
