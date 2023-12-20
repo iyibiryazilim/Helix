@@ -67,13 +67,8 @@
 	<ItemGroup>
 	  <Folder Include="DataStores\" />
 	  <Folder Include="Modules\BaseModule\DataStores\" />
-	  <Folder Include="Modules\BaseModule\Models\" />
 	  <Folder Include="Modules\BaseModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
-	  <Folder Include="Modules\ProductModule\Views\" />
-	  <Folder Include="Modules\ProductModule\ViewModels\" />
-	  <Folder Include="Modules\ProductModule\ViewModels\" />
-	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
 
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
@@ -86,6 +81,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentCardView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -93,6 +91,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PanelModule\Views\PanelView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\ProductOperationView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\PanelViews\ProductPanelView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\ProductViews\ProductListView.xaml">
