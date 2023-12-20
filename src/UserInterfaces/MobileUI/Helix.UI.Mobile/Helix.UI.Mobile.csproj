@@ -53,6 +53,27 @@
 	  <None Remove="Resources\Fonts\fa-brands.otf" />
 	  <None Remove="Resources\Fonts\fa-regular.otf" />
 	  <None Remove="Resources\Fonts\fa-solid.otf" />
+	  <None Remove="Resources\Fonts\Roboto-Black.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Italic.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Light.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Thin.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-ThinItalic.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-Black.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-Bold.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-Light.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-Medium.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-Regular.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\RobotoSlab-Thin.ttf" />
 	  <None Remove="Resources\Images\user.svg" />
 	</ItemGroup>
 

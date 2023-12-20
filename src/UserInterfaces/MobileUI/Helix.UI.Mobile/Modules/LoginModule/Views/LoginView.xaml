@@ -21,7 +21,7 @@
                CornerRadius="13"
                HorizontalOptions="Start"
                VerticalOptions="End">
-            <Label Text="W" TextColor="{StaticResource White}" FontSize="28" VerticalOptions="Start" HorizontalOptions="Center" FontAttributes="Bold">
+            <Label Text="V" TextColor="{StaticResource White}" FontSize="28" VerticalOptions="Start" HorizontalOptions="Center" FontAttributes="Bold">
                 
             </Label>
         </Frame>
@@ -35,7 +35,7 @@
             </Label>
             <Label Text="Login or register using your email and password"
                    FontSize="Subtitle"
-                   FontAttributes="Italic"
+                   
                    TextColor="Blue">
 
             </Label>
