@@ -26,6 +26,7 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Microsoft.Extensions.Logging;
+using Helix.UI.Mobile.Modules.LoginModule.Views;
 
 namespace Helix.UI.Mobile
 {
@@ -50,7 +51,8 @@ namespace Helix.UI.Mobile
 				.ProductRegisterServices()
 				.ProductRegisterViewModels()
 				.ProductRegisterViews()
-                .ConfigureFonts(fonts =>
+				.LoginViews()
+				.ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
@@ -168,6 +170,15 @@ namespace Helix.UI.Mobile
 		{
 			return mauiAppBuilder;
 		}
+		#endregion
+
+		#region LoginModule
+		public static MauiAppBuilder LoginViews(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddTransient<LoginView>();
+			return mauiAppBuilder;
+		}
+		
 		#endregion
 
 	}

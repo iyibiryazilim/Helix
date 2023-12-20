@@ -70,7 +70,6 @@
 	  <Folder Include="Modules\BaseModule\Models\" />
 	  <Folder Include="Modules\BaseModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
-	  <Folder Include="Modules\LoginModule\Views\" />
 	  <Folder Include="Modules\ProductModule\Views\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
 	  <Folder Include="Modules\ProductModule\ViewModels\" />
@@ -86,6 +85,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\LoginModule\Views\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PanelModule\Views\PanelView.xaml">
@@ -125,5 +127,7 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionHelixUIMobileHideInfoBar="True" /></VisualStudio></ProjectExtensions>
    
 </Project>
