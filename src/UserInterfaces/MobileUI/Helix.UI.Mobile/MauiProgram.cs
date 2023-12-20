@@ -27,6 +27,9 @@ using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Microsoft.Extensions.Logging;
 using Helix.UI.Mobile.Modules.LoginModule.Views;
+using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
+
 
 namespace Helix.UI.Mobile
 {
@@ -143,16 +146,21 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder ProductRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
             mauiAppBuilder.Services.AddTransient<WarehouseListView>();
+            mauiAppBuilder.Services.AddTransient<ProductListView>();
+
+
             return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
             mauiAppBuilder.Services.AddTransient<WarehouseListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ProductListViewModel>();
             return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
             mauiAppBuilder.Services.AddTransient<IWarehouseService, WarehouseDataStore>();
+            mauiAppBuilder.Services.AddTransient<IProductService, ProductDataStore>();
             return mauiAppBuilder;
 		}
 		#endregion
