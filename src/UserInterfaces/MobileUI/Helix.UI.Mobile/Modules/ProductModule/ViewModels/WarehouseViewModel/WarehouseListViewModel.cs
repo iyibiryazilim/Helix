@@ -198,7 +198,7 @@ public partial class WarehouseListViewModel : BaseViewModel
 		if (IsBusy) return;
 		try
 		{
-			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Numaraya Göre Artan", "Numara Göre Azalan");
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Numaraya Göre Artan", "Numaraya Göre Azalan");
 			if (!string.IsNullOrEmpty(response))
 			{
 				CurrentPage = 0;
@@ -222,7 +222,6 @@ public partial class WarehouseListViewModel : BaseViewModel
 						await ReloadAsync();
 						break;
 					default:
-						await ReloadAsync();
 						break;
 				}
 			}
