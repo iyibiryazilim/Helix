@@ -20,7 +20,7 @@
                 <Border StrokeShape="RoundRectangle 20">
                     <Grid ColumnDefinitions="*,auto">
                         <Grid Grid.Column="0">
-                            <SearchBar Placeholder="Müşteri Ara"
+                            <SearchBar Placeholder="Ara"
                                        x:Name="searchBar">
                                 <SearchBar.Behaviors>
                                     <toolkit:EventToCommandBehavior EventName="TextChanged"
@@ -50,7 +50,8 @@
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=CurrentList}"
                                 RemainingItemsThreshold="10"
-                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}">
+                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}"
+                                EmptyView="Veri yok...">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                                            ItemSpacing="5" />

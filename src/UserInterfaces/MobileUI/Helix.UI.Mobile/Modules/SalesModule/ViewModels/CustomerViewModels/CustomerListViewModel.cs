@@ -68,7 +68,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 				return;
 			try
 			{
-				IsBusy = true;
 				if (!string.IsNullOrEmpty(text))
 				{
 					if (text.Length >= 3)
@@ -135,6 +134,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 		[RelayCommand]
 		async Task ReloadAsync()
 		{
+			if (IsBusy)
+				return;
 			try
 			{
 				IsBusy = true;
@@ -194,7 +195,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 							await ReloadAsync();
 							break;
 						default:
-							await Shell.Current.DisplayAlert("Customer Error: ", "Yanlış Girdi", "Tamam");
 							await ReloadAsync();
 							break;
 
