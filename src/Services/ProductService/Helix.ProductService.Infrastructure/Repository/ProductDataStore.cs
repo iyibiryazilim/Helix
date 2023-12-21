@@ -43,11 +43,13 @@ namespace Helix.ProductService.Infrastructure.Repository
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<Product>>> GetProductList()
+		 
+
+		public async Task<DataResult<IEnumerable<Product>>> GetProductList(string search, string groupCode, string orderBy, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList());
+				var result = await new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList(search,groupCode,orderBy,page,pageSize));
 				return result;
 
 			}

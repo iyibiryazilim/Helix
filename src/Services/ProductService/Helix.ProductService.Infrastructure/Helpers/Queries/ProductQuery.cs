@@ -1,17 +1,19 @@
-﻿using Helix.ProductService.Infrastructure.Helpers.Queries;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 
 
 namespace Helix.ProductService.Infrastructure.Helpers.Queries
 {
-    public class ProductQuery : BaseQuery
+	public class ProductQuery : BaseQuery
     {
         public ProductQuery(IConfiguration configuration) : base(configuration)
         {
         }
-        public string GetProductList() =>
-            @$"SELECT
+        public string GetProductList(string search = "", string groupCode = "", string orderBy = ProductOrderBy.ItemNameAsc, int page = 0, int pageSize = 20)
+        {
+			int currentIndex = pageSize * page;
+
+			string query = @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
         [CardType] =ITEMS.CARDTYPE,
         [Code] = ITEMS.CODE,
@@ -35,7 +37,13 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON SUBUNITSET.UNITSETREF = UNITSET.LOGICALREF AND SUBUNITSET.MAINUNIT = 1
 		LEFT JOIN LG_00{FirmNumber}_MARK AS MARK ON ITEMS.MARKREF = MARK.LOGICALREF
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
-        WHERE ITEMS.CODE <> 'ÿ'";
+        WHERE ITEMS.CODE <> 'ÿ' AND (ITEMS.CODE LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%') AND ITEMS.STGRPCODE LIKE '%{groupCode}%'
+        {orderBy}
+        OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY
+        "; ;
+            return query;
+		}
+           
 
         public string GetProductByCode(string code) =>
             @$"SELECT
@@ -91,5 +99,12 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND  ITEMS.LOGICALREF = {id}";
     }
+    public class ProductOrderBy
+    {
+		public const string ItemCodeAsc = "ORDER BY ITEMS.CODE ASC";
+		public const string ItemCodeDesc = "ORDER BY ITEMS.CODE DESC";
+		public const string ItemNameAsc = "ORDER BY ITEMS.NAME ASC";
+		public const string ItemNameDesc = "ORDER BY ITEMS.NAME DESC";
+	}
 
 }
