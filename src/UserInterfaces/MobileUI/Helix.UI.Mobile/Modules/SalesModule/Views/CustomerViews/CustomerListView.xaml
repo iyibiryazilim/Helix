@@ -13,5 +13,11 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetCustomersCommand}" />
     </ContentPage.Behaviors>
-    <sharedViews:CurrentListView CurrentList="{Binding Items}"></sharedViews:CurrentListView>
+    <sharedViews:CurrentListView CurrentList="{Binding Items}"
+                                 IsRefreshing="{Binding IsRefreshing}"
+                                 IsBusy="{Binding IsBusy}"
+                                 LoadMoreCommand="{Binding LoadMoreCommand}"
+                                 ReloadCommand="{Binding ReloadCommand}"
+                                 SearchCommand="{Binding SearchCommand}"
+                                 SortCommand="{Binding SortCommand}"></sharedViews:CurrentListView>
 </ContentPage>
