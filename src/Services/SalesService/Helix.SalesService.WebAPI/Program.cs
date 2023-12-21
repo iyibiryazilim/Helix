@@ -20,7 +20,6 @@ IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettin
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
 
-builder.Services.ConfigureAuth(configuration);
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
@@ -59,6 +58,7 @@ builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
 
 builder.Services.AddTransient<ICustomerService, CustomerDataStore>();
 
+builder.Services.ConfigureAuth(configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -75,10 +75,10 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 //app.RegisterWithConsul(app.Lifetime);

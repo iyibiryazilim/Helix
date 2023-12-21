@@ -2,42 +2,260 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels"
+             x:DataType="viewModel:ProductOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductOperationView"
-             Title="ProductOperationView" BackgroundColor="{StaticResource WhiteSmoke}">
-    
-    <VerticalStackLayout Padding="20">
-        <Grid RowDefinitions="Auto,Auto" RowSpacing="15">
-            <Label Text="Giriş İşlemleri" FontSize="20" FontAttributes="Bold"/>
-            <Grid Grid.Row="1" RowDefinitions="50*,50*" >
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
+    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+            StrokeThickness="0"
+            Margin="0,30,0,0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <VerticalStackLayout Padding="20" Spacing="25">
+        <Grid RowDefinitions="Auto,Auto"
+              RowSpacing="15">
+            <Label Text="Giriş İşlemleri"
+                   FontSize="20"
+                   FontAttributes="Bold" />
+            <Grid Grid.Row="1"
+                  RowDefinitions="50*,50*">
                 <Border Grid.Row="0"
+                        Padding="10"
                         BackgroundColor="{StaticResource White}"
-                        HeightRequest="40"
+                        HeightRequest="50"
+                        Stroke="Transparent"
+                        StrokeThickness="1"
                         StrokeShape="RoundRectangle 5,5,0,0">
                     <Grid ColumnDefinitions="90*,10*">
-                        <Label Text="fasfsafasf" VerticalOptions="Center">
-                            
+                        <Label Text="Üretimden Giriş İşlemleri"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               FontAttributes="Bold">
+
                         </Label>
-                        <Image Grid.Column="1" HorizontalOptions="Center" HeightRequest="20">
+                        <Image Grid.Column="1"
+                               HorizontalOptions="Center"
+                               HeightRequest="15">
                             <Image.Source>
                                 <FontImageSource FontFamily="FAS"
                                                  Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.House}"></FontImageSource>
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
                             </Image.Source>
                         </Image>
                     </Grid>
-                    
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Primary}"
+                                Radius="40"
+                                Opacity="0.1" />
+                    </Border.Shadow>
                 </Border>
-                <Border Grid.Row="2"
-                        HeightRequest="40"
+                <Border Grid.Row="1"
+                        Padding="10"
                         BackgroundColor="{StaticResource White}"
-                        Margin="0,-2,0,0"
+                        HeightRequest="50"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
                         StrokeShape="RoundRectangle 0,0,5,5">
+                    <Grid ColumnDefinitions="90*,10*">
+                        <Label Text="Sayım Fazlası İşlemleri"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               FontAttributes="Bold">
 
+                        </Label>
+                        <Image Grid.Column="1"
+                               HorizontalOptions="Center"
+                               HeightRequest="15">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Primary}"
+                                Radius="40"
+                                Opacity="0.1" />
+                    </Border.Shadow>
                 </Border>
 
             </Grid>
-        </Grid>        
-    
-    </VerticalStackLayout>
+        </Grid>
 
+        <Grid RowDefinitions="Auto,Auto"
+              RowSpacing="15">
+            <Label Text="Çıkış İşlemleri"
+                   FontSize="20"
+                   FontAttributes="Bold" />
+            <Grid Grid.Row="1"
+                  RowDefinitions="33*,33*,33*">
+                <Border Grid.Row="0"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="50"
+                        Stroke="Transparent"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 5,5,0,0">
+                    <Grid ColumnDefinitions="90*,10*">
+                        <Label Text="Sarf İşlemleri"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               FontAttributes="Bold">
+
+                        </Label>
+                        <Image Grid.Column="1"
+                               HorizontalOptions="Center"
+                               HeightRequest="15">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Primary}"
+                                Radius="40"
+                                Opacity="0.1" />
+                    </Border.Shadow>
+                </Border>
+                <Border Grid.Row="1"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="50"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 0,0,0,0">
+                    <Grid ColumnDefinitions="90*,10*">
+                        <Label Text="Sayım Eksiği İşlemleri"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               FontAttributes="Bold">
+
+                        </Label>
+                        <Image Grid.Column="1"
+                               HorizontalOptions="Center"
+                               HeightRequest="15">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Primary}"
+                                Radius="40"
+                                Opacity="0.1" />
+                    </Border.Shadow>
+                </Border>
+                <Border Grid.Row="2"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="50"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 0,0,5,5">
+                    <Grid ColumnDefinitions="90*,10*">
+                        <Label Text="Fire İşlemleri"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               FontAttributes="Bold">
+
+                        </Label>
+                        <Image Grid.Column="1"
+                               HorizontalOptions="Center"
+                               HeightRequest="15">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Primary}"
+                                Radius="40"
+                                Opacity="0.1" />
+                    </Border.Shadow>
+                </Border>
+
+            </Grid>
+        </Grid>
+        <Grid RowDefinitions="Auto,Auto"
+              RowSpacing="15">
+            <Label Text="Diğer İşlemler"
+                   FontSize="20"
+                   FontAttributes="Bold" />
+            <Grid Grid.Row="1"
+                  RowDefinitions="50*,50*">
+                <Border Grid.Row="0"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="50"
+                        Stroke="Transparent"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 5,5,0,0">
+                    <Grid ColumnDefinitions="90*,10*">
+                        <Label Text="Transfer İşlemleri"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               FontAttributes="Bold">
+
+                        </Label>
+                        <Image Grid.Column="1"
+                               HorizontalOptions="Center"
+                               HeightRequest="15">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Primary}"
+                                Radius="40"
+                                Opacity="0.1" />
+                    </Border.Shadow>
+                </Border>
+                <Border Grid.Row="1"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="50"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 0,0,5,5">
+                    <Grid ColumnDefinitions="90*,10*">
+                        <Label Text="Virman İşlemleri"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               FontAttributes="Bold">
+
+                        </Label>
+                        <Image Grid.Column="1"
+                               HorizontalOptions="Center"
+                               HeightRequest="15">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Primary}"
+                                Radius="40"
+                                Opacity="0.1" />
+                    </Border.Shadow>
+                </Border>
+
+            </Grid>
+        </Grid>
+
+    </VerticalStackLayout>
+    </Border>
 </ContentPage>

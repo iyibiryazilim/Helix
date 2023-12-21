@@ -72,13 +72,14 @@ public class Startup {
                 };
             });
 
-        services.AddAuthorization(options => {
-            options.DefaultPolicy = new AuthorizationPolicyBuilder(
-                JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser()
-                    .RequireXafAuthentication()
-                    .Build();
-        });
+        //services.AddAuthorization(options => {
+        //    options.DefaultPolicy = new AuthorizationPolicyBuilder(
+        //        JwtBearerDefaults.AuthenticationScheme)
+        //            .RequireAuthenticatedUser()
+        //            .RequireXafAuthentication()
+        //            .Build();
+        //});
+        services.AddAuthorization();
         services.AddAuditTrailXpoServices();
         services.AddXafReportingCore(options => {
             options.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.ReportDataV2);

@@ -13,18 +13,19 @@
        xmlns:waitingOrderViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews"
        xmlns:salesPanelViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews"
        xmlns:salesOperationViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews"
+       xmlns:basketViews="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.BasketViews"
        xmlns:supplierViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews"
        xmlns:purchaseWaitingOrderViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews"
        xmlns:purchasePanelViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews"
        xmlns:loginView="clr-namespace:Helix.UI.Mobile.Modules.LoginModule.Views"
        xmlns:introView="clr-namespace:Helix.UI.Mobile.Modules.IntroductionModule.Views"
-       
        xmlns:purchaseOperationViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews"
        xmlns:local="clr-namespace:Helix.UI.Mobile"
        xmlns:page="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
        xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-       Shell.FlyoutBehavior="Flyout">
-
+       Shell.FlyoutBehavior="Flyout"
+     >
+   
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <StackLayout Padding="20"
@@ -220,6 +221,16 @@
 
             <ShellContent Title="İşlemler"
                           ContentTemplate="{DataTemplate salesOperationViews:SalesOperationView}" />
+        </Tab>
+        <Tab Title="Sepet">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.CartShopping}" />
+            </Tab.Icon>
+
+            <ShellContent Title="Sepet"
+                          ContentTemplate="{DataTemplate basketViews:BasketView}" />
         </Tab>
 
     </FlyoutItem>
