@@ -15,7 +15,7 @@ namespace Helix.UI.Mobile.Modules.LoginModule.ViewModels
 		{
 
 			var result = await SecureStorage.Default.GetAsync("isWatch"); 
-			if (result=="asd")
+			if (result=="true")
 			{
 				Application.Current.MainPage = new AppShell();
 
