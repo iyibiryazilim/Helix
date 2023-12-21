@@ -1,4 +1,5 @@
-using Helix.UI.Mobile.Modules.BaseModule.Models;
+//using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 

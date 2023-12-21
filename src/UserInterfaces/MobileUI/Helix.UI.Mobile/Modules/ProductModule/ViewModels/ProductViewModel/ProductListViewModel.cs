@@ -1,4 +1,6 @@
-﻿using Helix.UI.Mobile.Helpers.HttpClientHelper;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -15,6 +17,12 @@ public partial class ProductListViewModel :BaseViewModel
 
     public ObservableCollection<Product> Items { get; } = new();
     public ObservableCollection<string> Groups { get; } = new();
+
+    [ObservableProperty]
+    string searchText = string.Empty;
+
+    [ObservableProperty]
+    int currentIndex = 0;
 
 
     public Command GetProductsCommand { get;  }
@@ -41,17 +49,13 @@ public partial class ProductListViewModel :BaseViewModel
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+            await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {
             IsBusy = false;
         }
     }
-
-
-
-
 
     async Task GetProductsAsync()
     {
@@ -94,6 +98,44 @@ public partial class ProductListViewModel :BaseViewModel
             IsRefreshing = false;
         }
 
+    }
+
+    [RelayCommand]
+    public async Task PerformSearch(string text)
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
+            if (!string.IsNullOrEmpty(text))
+            {
+                if (text.Length >= 3)
+                {
+                    SearchText = text;
+                    //await LoadingAsync();
+
+                }
+
+            }
+            else
+            {
+                SearchText = string.Empty;
+                //await LoadingAsync();
+
+
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Application.Current.MainPage.DisplayAlert("Search Error :", ex.Message, "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
 
