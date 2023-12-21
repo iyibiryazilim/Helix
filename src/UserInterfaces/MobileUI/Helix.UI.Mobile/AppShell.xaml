@@ -17,6 +17,8 @@
        xmlns:purchaseWaitingOrderViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews"
        xmlns:purchasePanelViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews"
        xmlns:loginView="clr-namespace:Helix.UI.Mobile.Modules.LoginModule.Views"
+       xmlns:introView="clr-namespace:Helix.UI.Mobile.Modules.IntroductionModule.Views"
+       
        xmlns:purchaseOperationViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews"
        xmlns:local="clr-namespace:Helix.UI.Mobile"
        xmlns:page="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
