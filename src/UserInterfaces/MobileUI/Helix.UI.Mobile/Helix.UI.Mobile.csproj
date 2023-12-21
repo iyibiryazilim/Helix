@@ -112,6 +112,10 @@
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+
+	  <MauiXaml Update="Modules\IntroductionModule\Views\IntroductionScreenView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\LoginModule\Views\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
