@@ -17,11 +17,11 @@ namespace Helix.ProductService.Infrastructure.Repository
             _logger = logger;
         }
 
-		public async Task<DataResult<IEnumerable<Warehouse>>> GetWarehouseList()
+		public async Task<DataResult<IEnumerable<Warehouse>>> GetWarehouseList(string search, string orderBy, int page, int pageSize)
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<Warehouse>().GetObjectsAsync(new WarehouseQuery(_configuraiton).GetWarehouseList());
+                var result = await new SqlQueryHelper<Warehouse>().GetObjectsAsync(new WarehouseQuery(_configuraiton).GetWarehouseList(search,orderBy,page,pageSize));
                 return result;
             }
 			catch (Exception ex)
