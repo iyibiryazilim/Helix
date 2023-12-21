@@ -56,5 +56,13 @@ namespace Helix.ProductService.Api.Controllers
 			var result = await _productService.GetProductById(id);
 			return result;
 		}
+
+		[HttpGet($"{nameof(ProductGroup)}")]
+		public async Task<DataResult<IEnumerable<ProductGroup>>> GetProductCodes()
+		{
+
+			var result = await _productService.GetProductGroupCodes();
+			return result;
+		}
 	}
 }
