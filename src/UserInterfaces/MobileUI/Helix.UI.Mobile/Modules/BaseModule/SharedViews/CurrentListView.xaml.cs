@@ -68,7 +68,7 @@ public partial class CurrentListView : ContentView
 	}
 	public CurrentListView()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
 
 

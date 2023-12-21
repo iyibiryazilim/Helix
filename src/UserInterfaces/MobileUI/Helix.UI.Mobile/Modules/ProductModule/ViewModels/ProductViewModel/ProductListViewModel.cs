@@ -3,9 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 
@@ -18,11 +20,19 @@ public partial class ProductListViewModel :BaseViewModel
     public ObservableCollection<Product> Items { get; } = new();
     public ObservableCollection<string> Groups { get; } = new();
 
+    public Command SearchCommand { get; }
+
+    //Properties
     [ObservableProperty]
     string searchText = string.Empty;
-
     [ObservableProperty]
-    int currentIndex = 0;
+    ProductOrderBy orderBy = ProductOrderBy.nameasc;
+    [ObservableProperty]
+    int currentPage = 0;
+    [ObservableProperty]
+    int pageSize = 20;
+    [ObservableProperty]
+    string groupCode = string.Empty;
 
 
     public Command GetProductsCommand { get;  }
@@ -33,6 +43,7 @@ public partial class ProductListViewModel :BaseViewModel
         _httpClientService = httpClientService;
         _productService = productService;
         GetProductsCommand = new Command(async () => await LoadData());
+        SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
     }
 
@@ -43,7 +54,8 @@ public partial class ProductListViewModel :BaseViewModel
         try
         {
             await Task.Delay(500);
-            await MainThread.InvokeOnMainThreadAsync(GetProductsAsync);
+            await GetGroupsAsync();
+            await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 
         }
         catch (Exception ex)
@@ -57,32 +69,59 @@ public partial class ProductListViewModel :BaseViewModel
         }
     }
 
-    async Task GetProductsAsync()
+    public async Task PerformSearchAsync(string text)
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            
+            if (!string.IsNullOrEmpty(text))
+            {
+                if (text.Length >= 3)
+                {
+                    SearchText = text;
+                    await ReloadAsync();
+                }
+            }
+            else
+            {
+                SearchText = string.Empty;
+                await ReloadAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+    [RelayCommand]
+    async Task LoadMoreAsync()
     {
         if (IsBusy)
             return;
         try
         {
             IsBusy = true;
-            IsRefreshing = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
-            var result = await _productService.GetObjects(httpClient);
 
+            CurrentPage++;
+            var result = await _productService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
             if (result.Data.Any())
             {
-                Groups.Clear();
-                var groupingData= result.Data.GroupBy(x => x.GroupName);
-                Groups.Add("Tümü");
-                foreach (var group in groupingData)
-                {
-                    Groups.Add(group.Key);
-                }
-                
-                Items.Clear();
                 foreach (Product item in result.Data)
                 {
+                    await Task.Delay(50);
                     Items.Add(item);
                 }
+            }
+            else
+            {
+                CurrentPage--;
             }
 
         }
@@ -97,46 +136,132 @@ public partial class ProductListViewModel :BaseViewModel
             IsBusy = false;
             IsRefreshing = false;
         }
-
     }
-
     [RelayCommand]
-    public async Task PerformSearch(string text)
+    async Task ReloadAsync()
     {
         if (IsBusy)
-            return;
+            return; 
+
+       
         try
         {
             IsBusy = true;
-            if (!string.IsNullOrEmpty(text))
+            IsRefreshing = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            CurrentPage = 0;
+            var result = await _productService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+            if (result.Data.Any())
             {
-                if (text.Length >= 3)
+                Items.Clear();
+                foreach (Product item in result.Data)
                 {
-                    SearchText = text;
-                    //await LoadingAsync();
-
+                    await Task.Delay(100);
+                    Items.Add(item);
+                    Groups.Add(item.GroupName);
                 }
-
             }
-            else
-            {
-                SearchText = string.Empty;
-                //await LoadingAsync();
-
-
-            }
-
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Application.Current.MainPage.DisplayAlert("Search Error :", ex.Message, "Tamam");
+            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {
             IsBusy = false;
+            IsRefreshing = false;
         }
     }
+
+    [RelayCommand]
+    async Task SortAsync()
+    {
+        if (IsBusy) return;
+        try
+        {
+            string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A");
+            if (!string.IsNullOrEmpty(response))
+            {
+                CurrentPage = 0;
+                await Task.Delay(100);
+                switch (response)
+                {
+                    case "Kod A-Z":
+                        OrderBy = ProductOrderBy.codeasc;
+                        await ReloadAsync();
+                        break;
+                    case "Kod Z-A":
+                        OrderBy = ProductOrderBy.codedesc;
+                        await ReloadAsync();
+                        break;
+                    case "Ad A-Z":
+                        OrderBy = ProductOrderBy.nameasc;
+                        await ReloadAsync();
+                        break;
+                    case "Ad Z-A":
+                        OrderBy = ProductOrderBy.namedesc;
+                        await ReloadAsync();
+                        break;
+                    default:
+                        await Shell.Current.DisplayAlert("Customer Error: ", "Yanlış Girdi", "Tamam");
+                        await ReloadAsync();
+                        break;
+
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+        }
+    }
+
+
+    [RelayCommand]
+    async Task GetGroupsAsync()
+    {
+
+        try
+        {
+            IsBusy = true;
+            IsRefreshing = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            CurrentPage = 0;
+            var result = await _productService.GetGroupCode(httpClient);
+            if (result.Data.Any())
+            {
+                Items.Clear();
+                foreach (ProductGroup item in result.Data)
+                {
+                    await Task.Delay(100);
+                   
+                    Groups.Add(item.GroupDefinition);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+        }
+    }
+
+
+
 
 
 
