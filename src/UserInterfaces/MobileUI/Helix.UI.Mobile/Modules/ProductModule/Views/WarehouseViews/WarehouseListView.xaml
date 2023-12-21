@@ -16,19 +16,62 @@
         <Border
             Margin="0,30,0,0"
             BackgroundColor="{StaticResource WhiteSmoke}"
-            StrokeShape="RoundRectangle 20,20,0,0"
             StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,0,0" />
+            </Border.StrokeShape>
             <Grid
                 BackgroundColor="Transparent"
                 RowDefinitions="Auto, *"
                 RowSpacing="10">
                 <Grid Grid.Row="0">
                     <Border StrokeShape="RoundRectangle 20">
-                        <SearchBar Placeholder="Ambar Ara" />
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Grid Grid.Column="0">
+                                <SearchBar
+                                    x:Name="searchBar"
+                                    Grid.Column="0"
+                                    Placeholder="Ambar Ara">
+                                    <SearchBar.Behaviors>
+                                        <toolkit:EventToCommandBehavior
+                                            Command="{Binding PerformSearchCommand}"
+                                            CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                                            EventName="TextChanged" />
+                                    </SearchBar.Behaviors>
+                                </SearchBar>
+                            </Grid>
+                            <Grid Grid.Column="1" Padding="0,0,20,0">
+                                <ImageButton
+                                    Aspect="AspectFit"
+                                    Command="{Binding SortCommand}"
+                                    HeightRequest="25"
+                                    WidthRequest="25">
+                                    <ImageButton.Source>
+                                        <FontImageSource
+                                            FontFamily="FAS"
+                                            Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                            Color="{StaticResource Primary}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+                            </Grid>
+                        </Grid>
                     </Border>
                 </Grid>
-                <ScrollView Grid.Row="1" Padding="5">
-                    <CollectionView ItemsSource="{Binding Items}">
+                <ActivityIndicator
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsBusy}"
+                    VerticalOptions="Center"
+                    Color="{StaticResource Primary}" />
+                <RefreshView
+                    Grid.Row="1"
+                    Command="{Binding ReloadCommand}"
+                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                    RefreshColor="{StaticResource DarkPrimary}">
+                    <CollectionView
+                        ItemsSource="{Binding Items}"
+                        RemainingItemsThreshold="10"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
@@ -37,29 +80,36 @@
                                 <Border
                                     Padding="5"
                                     BackgroundColor="{StaticResource White}"
-                                    StrokeShape="RoundRectangle 10">
-                                    <Grid ColumnDefinitions=".25*, .75*">
+                                    HeightRequest="85"
+                                    StrokeShape="RoundRectangle 10"
+                                    WidthRequest="370">
+                                    <Grid ColumnDefinitions="Auto, *">
                                         <Border
                                             Grid.Column="0"
                                             Padding="10"
-                                            StrokeShape="RoundRectangle 10"
-                                            StrokeThickness="1"
-                                            WidthRequest="75">
-                                            <toolkit:AvatarView Text="A" />
+                                            StrokeThickness="0">
+                                            <toolkit:AvatarView
+                                                BackgroundColor="#E6E7F6"
+                                                CornerRadius="50"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Number}" />
                                         </Border>
                                         <VerticalStackLayout
                                             Grid.Column="1"
                                             Padding="5"
                                             Spacing="5"
-                                            VerticalOptions="Start">
-                                            <Label Text="{Binding Name}" />
+                                            VerticalOptions="Center">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Body"
+                                                Text="{Binding Name}" />
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </ScrollView>
+                </RefreshView>
             </Grid>
         </Border>
     </Grid>

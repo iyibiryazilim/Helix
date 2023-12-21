@@ -29,10 +29,7 @@ namespace Helix.UI.Mobile
             else
                 CounterBtn.Text = $"Clicked {count} times";
 
-			WarehouseDataStore dto = new();
-
-            
-            var result = await dto.GetObjects(_service.GetOrCreateHttpClient());
+			
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
     }
