@@ -1,11 +1,149 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductListContentView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid BackgroundColor="{StaticResource Primary}">
+        <Border BackgroundColor="{StaticResource WhiteSmoke}"
+                StrokeThickness="0"
+                Margin="0,30,0,0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,0,0" />
+            </Border.StrokeShape>
+            <Grid RowDefinitions="Auto,Auto,*"
+                  RowSpacing="10"
+                  BackgroundColor="Transparent">
+                <Grid Grid.Row="0">
+                    <Border StrokeShape="RoundRectangle 20">
+
+                        <Grid ColumnDefinitions=".85*,.15*"
+                              ColumnSpacing="5">
+                            <SearchBar Grid.Column="0"></SearchBar>
+                            <ImageButton Grid.Column="1"
+                                         BackgroundColor="Transparent"
+                                         Aspect="AspectFit"
+                                         HeightRequest="22"
+                                         WidthRequest="22">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FAS"
+                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                                     Color="{StaticResource DarkPrimary}" />
+                                </ImageButton.Source>
+                            </ImageButton>
+
+
+                        </Grid>
+
+                    </Border>
+                </Grid>
+                <VerticalStackLayout Grid.Row="1"
+                                     Padding="7">
+                    <CollectionView ItemsSource="{Binding Groups}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"
+                                               ItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate  x:DataType="baseModel:Product">
+                                <Border StrokeShape="RoundRectangle 20"
+                                        BackgroundColor="White"
+                                        Padding="5"
+                                        HeightRequest="35"
+                                        WidthRequest="120">
+                                    <Label Text="{Binding . }"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"></Label>
+                                </Border>
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </VerticalStackLayout>
+                <ScrollView  Grid.Row="2"
+                             Padding="5">
+                    <CollectionView ItemsSource="{Binding Items}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate  x:DataType="baseModel:Product">
+                                <Border StrokeShape="RoundRectangle 10"
+                                        BackgroundColor="White"
+                                        Padding="5"
+                                        HeightRequest="85"
+                                        WidthRequest="370">
+                                    <Grid ColumnDefinitions=".25*,.75*">
+                                        <Border Grid.Column="0"
+                                                StrokeShape="RoundRectangle 10"
+                                                WidthRequest="75"
+                                                HorizontalOptions="Start"
+                                                Padding="10"
+                                                StrokeThickness="0">
+                                            <Image Aspect="AspectFit"
+                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="5"
+                                                             Spacing="5"
+                                                             HorizontalOptions="Start">
+                                            <Label Text="{Binding Code}"
+                                                   FontSize="Body"
+                                                   FontAttributes="Bold"></Label>
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="Caption"></Label>
+                                            <Label TextColor="{StaticResource Primary}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding StockQuantity, StringFormat='{0:N2} '}"
+                                                              FontAttributes="Bold" />
+                                                        <Span Text="{Binding SubUnitsetCode}"
+                                                              FontAttributes="Bold" />
+
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+
+
+                                        </VerticalStackLayout>
+
+                                    </Grid>
+
+
+                                </Border>
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </ScrollView>
+
+
+
+            </Grid>
+
+
+
+
+
+
+
+
+
+        </Border>
+    </Grid>
+
+
 </ContentView>
