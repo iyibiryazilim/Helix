@@ -288,6 +288,7 @@ public partial class ProductListViewModel :BaseViewModel
         }
     }
 
+    [RelayCommand]
     async Task SelectGroupAsync(ProductGroup productGroup)
     {
         if(IsBusy)

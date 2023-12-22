@@ -114,6 +114,10 @@
                                     Padding="5"
                                     HeightRequest="85"
                                     WidthRequest="370">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}" />
+                                </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions=".25*,.75*">
                                     <Border Grid.Column="0"
                                             StrokeShape="RoundRectangle 10"

@@ -1,4 +1,5 @@
 ﻿using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 
 namespace Helix.UI.Mobile
@@ -9,7 +10,7 @@ namespace Helix.UI.Mobile
         {
             InitializeComponent();
 			Routing.RegisterRoute(nameof(ProductListView), typeof(ProductListView));
-      Routing.RegisterRoute(nameof(ProductDetailView), typeof(ProductDetailView));
+			Routing.RegisterRoute(nameof(ProductDetailView), typeof(ProductDetailView));
 			Routing.RegisterRoute(nameof(WarehouseDetailView), typeof(WarehouseDetailView));
 			Routing.RegisterRoute(nameof(CustomerDetailView), typeof(CustomerDetailView));
 		}
