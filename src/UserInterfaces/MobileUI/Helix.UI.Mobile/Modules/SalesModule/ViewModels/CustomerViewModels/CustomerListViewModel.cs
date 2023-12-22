@@ -219,6 +219,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 		{
 			try
 			{
+				await Task.Delay(500);
 				await Shell.Current.GoToAsync($"{nameof(CustomerDetailView)}", new Dictionary<string, object>
 				{
 					[nameof(Current)] = current

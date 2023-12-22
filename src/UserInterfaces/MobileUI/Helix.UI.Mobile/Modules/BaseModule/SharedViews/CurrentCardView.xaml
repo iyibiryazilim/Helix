@@ -12,9 +12,10 @@
     <Border StrokeShape="RoundRectangle 10"
             BackgroundColor="White"
             Padding="5"
-            HeightRequest="85"
-            WidthRequest="370"> 
-        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5" >
+            Margin="10,0,10,0"
+            HeightRequest="85">
+        <Grid ColumnDefinitions="Auto,*"
+              ColumnSpacing="5">
             <Border Grid.Column="0"
                     StrokeShape="RoundRectangle 10"
                     WidthRequest="75"
