@@ -8,4 +8,6 @@ public partial class ProductOperationViewModel :BaseViewModel
     {
         Title = "Malzeme İşlemleri";
     }
+
+
 }

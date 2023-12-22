@@ -203,6 +203,10 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductDetailView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionView>();
+
 
 
 
@@ -217,6 +221,10 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductDetailViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListViewModel>();
+
 
 
 			return mauiAppBuilder;
