@@ -111,12 +111,13 @@
                                 TextColor="{StaticResource Gray300}" />
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
-                    <!--  Command="{Binding OpenFastOperationBottomSheetCommand}"  -->
+                    
                     <Button
                         Grid.Row="2"
                         Padding="0"
                         BackgroundColor="{StaticResource Primary}"
                         CornerRadius="12"
+                        Command="{Binding OpenFastOperationBottomSheetCommand}"
                         FontAttributes="Bold"
                         FontSize="13"
                         HeightRequest="30"
