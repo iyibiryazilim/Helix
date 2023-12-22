@@ -43,7 +43,19 @@ namespace Helix.ProductService.Infrastructure.Repository
 			}
 		}
 
-		 
+		public async Task<DataResult<IEnumerable<ProductGroup>>> GetProductGroupCodes()
+		{
+			try
+			{
+				var result = await new SqlQueryHelper<ProductGroup>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductsGroups());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+				throw;
+			}
+		}
 
 		public async Task<DataResult<IEnumerable<Product>>> GetProductList(string search, string groupCode, string orderBy, int page, int pageSize)
 		{

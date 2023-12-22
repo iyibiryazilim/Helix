@@ -43,8 +43,6 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         "; ;
             return query;
 		}
-           
-
         public string GetProductByCode(string code) =>
             @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
@@ -71,7 +69,6 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
 		LEFT JOIN LG_00{FirmNumber}_MARK AS MARK ON ITEMS.MARKREF = MARK.LOGICALREF
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND  ITEMS.CODE = '{code}'";
-
         public string GetProductById(int id) =>
             @$"SELECT
         [ReferenceId] = ITEMS.LOGICALREF,
@@ -98,6 +95,15 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
 		LEFT JOIN LG_00{FirmNumber}_MARK AS MARK ON ITEMS.MARKREF = MARK.LOGICALREF
         LEFT JOIN LG_00{FirmNumber}_FIRMDOC AS FIRMDOC ON FIRMDOC.INFOREF = ITEMS.LOGICALREF AND FIRMDOC.INFOTYP = 20
         WHERE ITEMS.CODE <> 'ÿ' AND  ITEMS.LOGICALREF = {id}";
+        public string GetProductsGroups()
+        {
+            string query = @$"SELECT
+                [GroupDefinition] = specode.DEFINITION_,
+                [GroupCode] = specode.SPECODE
+                from LG_00{FirmNumber}_SPECODES as specode
+                WHERE CODETYPE = 4 AND SPECODETYPE = 0";
+            return query;
+        }
     }
     public class ProductOrderBy
     {

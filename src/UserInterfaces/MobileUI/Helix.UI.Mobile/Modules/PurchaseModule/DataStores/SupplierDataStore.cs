@@ -131,9 +131,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<Supplier>>> GetObjects(HttpClient httpClient)
+		 
+
+		public async Task<DataResult<IEnumerable<Supplier>>> GetObjects(HttpClient httpClient, string search, SupplierOrderBy orderBy, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
+			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl + $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<Supplier>> dataResult = new DataResult<IEnumerable<Supplier>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
