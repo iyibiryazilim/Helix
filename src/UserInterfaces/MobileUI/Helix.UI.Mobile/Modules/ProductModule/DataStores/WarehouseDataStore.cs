@@ -131,10 +131,10 @@ public class WarehouseDataStore : IWarehouseService
         }
     }
 
-    public async Task<DataResult<IEnumerable<Warehouse>>> GetObjects(HttpClient httpClient)
+    public async Task<DataResult<IEnumerable<Warehouse>>> GetObjects(HttpClient httpClient, string search, WarehouseOrderBy orderBy, int page, int pageSize)
     {
-        HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
-        DataResult<IEnumerable<Warehouse>> dataResult = new DataResult<IEnumerable<Warehouse>>();
+		HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl + $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+		DataResult<IEnumerable<Warehouse>> dataResult = new DataResult<IEnumerable<Warehouse>>();
         if (responseMessage.IsSuccessStatusCode)
         {
             var data = await responseMessage.Content.ReadAsStringAsync();
@@ -190,6 +190,13 @@ public class WarehouseDataStore : IWarehouseService
             dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
             return dataResult;
         }
+    }
+    public enum WarehouseOrderBy
+    {
+        namedesc,
+        nameasc,
+        numberdesc,
+        numberasc
     }
 
    
