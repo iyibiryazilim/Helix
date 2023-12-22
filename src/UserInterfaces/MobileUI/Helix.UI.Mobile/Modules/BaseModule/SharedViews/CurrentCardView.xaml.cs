@@ -12,6 +12,7 @@ public partial class CurrentCardView : ContentView
 		get => (Current)GetValue(CurrentCardView.CurrentProperty);
 		set => SetValue(CurrentCardView.CurrentProperty, value);
 	}
+
 	public CurrentCardView()
 	{
 		InitializeComponent();

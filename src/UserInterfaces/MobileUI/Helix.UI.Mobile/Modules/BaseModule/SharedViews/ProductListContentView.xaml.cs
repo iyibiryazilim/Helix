@@ -9,7 +9,7 @@ public partial class ProductListContentView : ContentView
 {
     //List
     public static readonly BindableProperty ProductListProperty = BindableProperty.Create(nameof(ProductList), typeof(ObservableCollection<Product>), typeof(ProductListContentView), null);
-    public static readonly BindableProperty GroupListProperty = BindableProperty.Create(nameof(GroupList), typeof(ObservableCollection<string>), typeof(ProductListContentView), null);
+    public static readonly BindableProperty GroupListProperty = BindableProperty.Create(nameof(GroupList), typeof(ObservableCollection<ProductGroup>), typeof(ProductListContentView), null);
 
 
     //Commands
@@ -17,6 +17,7 @@ public partial class ProductListContentView : ContentView
     public static readonly BindableProperty LoadMoreCommandProperty = BindableProperty.Create(nameof(LoadMoreCommand), typeof(AsyncRelayCommand), typeof(ProductListContentView), null);
     public static readonly BindableProperty SortCommandProperty = BindableProperty.Create(nameof(SortCommand), typeof(AsyncRelayCommand), typeof(ProductListContentView), null);
     public static readonly BindableProperty ReloadCommandProperty = BindableProperty.Create(nameof(ReloadCommand), typeof(AsyncRelayCommand), typeof(ProductListContentView), null);
+    public static readonly BindableProperty SelectGroupCommandProperty = BindableProperty.Create(nameof(SelectGroupCommand), typeof(AsyncRelayCommand), typeof(ProductListContentView), null);
 
     //Properties
     public static readonly BindableProperty IsRefreshingProperty = BindableProperty.Create(nameof(IsRefreshing), typeof(bool), typeof(ProductListContentView), false);
@@ -27,9 +28,9 @@ public partial class ProductListContentView : ContentView
         get => GetValue(ProductListProperty) as ObservableCollection<Product>;
         set => SetValue(ProductListProperty, value);
     }
-    public ObservableCollection<string> GroupList
+    public ObservableCollection<ProductGroup> GroupList
     {
-        get => GetValue(GroupListProperty) as ObservableCollection<string>;
+        get => GetValue(GroupListProperty) as ObservableCollection<ProductGroup>;
         set => SetValue(GroupListProperty, value);
     }
     //Commands
@@ -58,6 +59,13 @@ public partial class ProductListContentView : ContentView
 
         get => GetValue(ReloadCommandProperty) as AsyncRelayCommand;
         set => SetValue(ReloadCommandProperty, value);
+
+    }
+    public AsyncRelayCommand SelectGroupCommand
+    {
+
+        get => GetValue(SelectGroupCommandProperty) as AsyncRelayCommand;
+        set => SetValue(SelectGroupCommandProperty, value);
 
     }
     public bool IsRefreshing

@@ -58,12 +58,6 @@
                         </Grid>
                     </Border>
                 </Grid>
-                <ActivityIndicator
-                    Grid.Row="1"
-                    HorizontalOptions="Center"
-                    IsRunning="{Binding IsBusy}"
-                    VerticalOptions="Center"
-                    Color="{StaticResource Primary}" />
                 <RefreshView
                     Grid.Row="1"
                     Command="{Binding ReloadCommand}"
