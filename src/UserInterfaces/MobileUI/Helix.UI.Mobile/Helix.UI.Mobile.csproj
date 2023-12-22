@@ -49,6 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\values\styles.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
 	  <None Remove="Resources\Fonts\fa-brands.otf" />
 	  <None Remove="Resources\Fonts\fa-regular.otf" />
@@ -127,6 +131,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\PanelViews\ProductPanelView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\ProductViews\BottomSheetViews.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\ProductViews\BottomSheetViews\ProductFastOperationBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\ProductViews\ProductDetailView.xaml">
