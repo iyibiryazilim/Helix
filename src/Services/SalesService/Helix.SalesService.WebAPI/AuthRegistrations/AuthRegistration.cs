@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace Helix.SalesService.WebAPI.AuthRegistrations
 {
-    public static class AuthRegistration
+	public static class AuthRegistration
     {
         public static IServiceCollection ConfigureAuth(this IServiceCollection services,IConfiguration configuration)
         {
