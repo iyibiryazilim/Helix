@@ -167,6 +167,7 @@ public partial class WarehouseListViewModel : BaseViewModel
 			IsRefreshing = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
+			CurrentPage = 0;
 			var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy,CurrentPage, PageSize);
 
 			if (result.Data.Any())
