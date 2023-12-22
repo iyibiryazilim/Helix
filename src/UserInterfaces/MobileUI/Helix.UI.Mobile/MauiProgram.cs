@@ -40,6 +40,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
+using The49.Maui.BottomSheet;
 
 
 namespace Helix.UI.Mobile
@@ -51,6 +52,7 @@ namespace Helix.UI.Mobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+				.UseBottomSheet()
                 .UseMauiCommunityToolkit()
 				.RegisterHttpClientServices()
 				.LoginViews()

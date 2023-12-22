@@ -22,6 +22,7 @@
                                         ReloadCommand="{Binding ReloadCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         SelectGroupCommand="{Binding SelectGroupCommand}"
+                                        GoToDetailCommand="{Binding GoToDetailCommand}"
                                         SortCommand="{Binding SortCommand}"></sharedViews:ProductListContentView>
 
 
