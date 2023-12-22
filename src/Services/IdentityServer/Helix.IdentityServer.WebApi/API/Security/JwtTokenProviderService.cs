@@ -20,7 +20,9 @@ public class JwtTokenProviderService : IAuthenticationTokenProvider {
         ClaimsPrincipal user = securityAuthenticationService.Authenticate(logonParameters);
 
         if(user != null) {
-            var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:IssuerSigningKey"]));
+            var key = configuration["Authentication:Jwt:IssuerSigningKey"];
+
+			var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:IssuerSigningKey"]));
             var token = new JwtSecurityToken(
                 //issuer: configuration["Authentication:Jwt:Issuer"],
                 //audience: configuration["Authentication:Jwt:Audience"],
