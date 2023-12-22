@@ -237,7 +237,7 @@
                                             CornerRadius="12"
                                             FontSize="13"
                                             Grid.Column="1"
-                                            Command="{Binding .}"
+                                            Command="{Binding GoToWarehouseDetailBottomSheetCommand}"
                                             BackgroundColor="{StaticResource Primary}"
                                             Text="Daha Fazla">
                                     </Button>
