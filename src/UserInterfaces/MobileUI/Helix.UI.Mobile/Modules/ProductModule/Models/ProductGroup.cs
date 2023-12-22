@@ -10,5 +10,9 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 
         [ObservableProperty]
         string groupCode;
+
+        [ObservableProperty]
+        bool isSelected = false;
+
     }
 }
