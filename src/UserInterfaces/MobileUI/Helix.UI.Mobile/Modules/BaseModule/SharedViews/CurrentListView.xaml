@@ -58,7 +58,12 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="baseModel:Current">
-                            <sharedViews:CurrentCardView Current="{Binding .}"></sharedViews:CurrentCardView>
+                            <sharedViews:CurrentCardView Current="{Binding .}">
+                                <sharedViews:CurrentCardView.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={x:Reference this},Path=BindingContext.GoToDetailCommand}"></TapGestureRecognizer>
+                                </sharedViews:CurrentCardView.GestureRecognizers>
+                            </sharedViews:CurrentCardView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

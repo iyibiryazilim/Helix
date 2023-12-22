@@ -221,12 +221,12 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			{
 				await Shell.Current.GoToAsync($"{nameof(CustomerDetailView)}", new Dictionary<string, object>
 				{
-					["Current"] = current
+					[nameof(Current)] = current
 				});
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
 

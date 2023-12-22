@@ -155,6 +155,9 @@
 	  <MauiXaml Update="Modules\SalesModule\Views\BasketViews\BasketView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
