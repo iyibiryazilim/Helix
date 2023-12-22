@@ -13,7 +13,7 @@
             BackgroundColor="White"
             Padding="5"
             HeightRequest="85"
-            WidthRequest="370">
+            WidthRequest="370"> 
         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5" >
             <Border Grid.Column="0"
                     StrokeShape="RoundRectangle 10"

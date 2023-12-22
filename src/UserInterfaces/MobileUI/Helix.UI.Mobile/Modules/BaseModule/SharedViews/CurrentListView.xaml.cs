@@ -15,6 +15,7 @@ public partial class CurrentListView : ContentView
 	public static readonly BindableProperty LoadMoreCommandProperty = BindableProperty.Create(nameof(LoadMoreCommand), typeof(AsyncRelayCommand), typeof(CurrentListView), null);
 	public static readonly BindableProperty SortCommandProperty = BindableProperty.Create(nameof(SortCommand), typeof(AsyncRelayCommand), typeof(CurrentListView), null);
 	public static readonly BindableProperty ReloadCommandProperty = BindableProperty.Create(nameof(ReloadCommand), typeof(AsyncRelayCommand), typeof(CurrentListView), null);
+	public static readonly BindableProperty GoToDetailCommandProperty = BindableProperty.Create(nameof(GoToDetailCommand), typeof(AsyncRelayCommand), typeof(CurrentListView), null);
 
 	//Properties
 	public static readonly BindableProperty IsRefreshingProperty = BindableProperty.Create(nameof(IsRefreshing), typeof(bool), typeof(CurrentListView), false);
@@ -45,6 +46,13 @@ public partial class CurrentListView : ContentView
 
 		get => GetValue(SortCommandProperty) as AsyncRelayCommand;
 		set => SetValue(SortCommandProperty, value);
+
+	}
+	public AsyncRelayCommand GoToDetailCommand
+	{
+
+		get => GetValue(GoToDetailCommandProperty) as AsyncRelayCommand;
+		set => SetValue(GoToDetailCommandProperty, value);
 
 	}
 	public AsyncRelayCommand ReloadCommand

@@ -19,5 +19,6 @@
                                  LoadMoreCommand="{Binding LoadMoreCommand}"
                                  ReloadCommand="{Binding ReloadCommand}"
                                  SearchCommand="{Binding SearchCommand}"
+                                 GoToDetailCommand="{Binding GoToDetailCommand}"
                                  SortCommand="{Binding SortCommand}"></sharedViews:CurrentListView>
 </ContentPage>

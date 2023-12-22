@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -210,6 +211,22 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			{
 				IsBusy = false;
 				IsRefreshing = false;
+			}
+		}
+
+		[RelayCommand]
+		async Task GoToDetailAsync(Current current)
+		{
+			try
+			{
+				await Shell.Current.GoToAsync($"{nameof(CustomerDetailView)}", new Dictionary<string, object>
+				{
+					[nameof(Current)] = current
+				});
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
 
