@@ -2,11 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews.CustomerDetailView"
-             Title="CustomerDetailView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             x:DataType="viewModel:CustomerDetailViewModel"
+             Title="Müşteri Detay">
+    <sharedViews:CurrentDetailContentView  Current="{Binding Current}"
+                                          IsRefreshing="{Binding IsRefreshing}"
+                                          IsBusy="{Binding IsBusy}">
+        
+    </sharedViews:CurrentDetailContentView>
 </ContentPage>
