@@ -9,6 +9,8 @@ namespace Helix.UI.Mobile
         {
             InitializeComponent();
 			Routing.RegisterRoute(nameof(ProductListView), typeof(ProductListView));
+			Routing.RegisterRoute(nameof(WarehouseDetailView), typeof(WarehouseDetailView));
+
 		}
-    }
+	}
 }

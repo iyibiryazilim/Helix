@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -43,8 +44,8 @@ public partial class WarehouseListViewModel : BaseViewModel
 		try
 		{
 			await Task.Delay(500);
-			//await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
-			await ReloadAsync();
+			await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
+			//await ReloadAsync();
 
 		}
 		catch (Exception ex)
@@ -235,6 +236,24 @@ public partial class WarehouseListViewModel : BaseViewModel
 		{
 			IsBusy = false;
 			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task GoToDetailAsync(Warehouse warehouse)
+	{
+		try
+		{
+			await Task.Delay(500);
+			await Shell.Current.GoToAsync($"{nameof(WarehouseDetailView)}", new Dictionary<string, object>
+			{
+				["Warehouse"] = warehouse
+			});
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Application.Current.MainPage.DisplayAlert("Error :", ex.Message, "Tamam");
 		}
 	}
 }
