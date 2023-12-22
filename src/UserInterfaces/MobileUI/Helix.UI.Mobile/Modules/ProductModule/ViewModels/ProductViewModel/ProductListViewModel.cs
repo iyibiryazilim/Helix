@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -260,6 +261,33 @@ public partial class ProductListViewModel :BaseViewModel
     }
 
     [RelayCommand]
+    async Task GoToDetailAsync(Product product)
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
+            IsRefreshing = true;
+            
+            await Task.Delay(300);
+            await Shell.Current.GoToAsync($"{nameof(ProductDetailView)}", new Dictionary<string, object>
+            {
+                [nameof(Product)] = product
+            });
+        }
+        catch(Exception ex)
+        {
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
+		}
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+        }
+    }
+
     async Task SelectGroupAsync(ProductGroup productGroup)
     {
         if(IsBusy)
@@ -295,12 +323,4 @@ public partial class ProductListViewModel :BaseViewModel
             Debug.WriteLine("veri yok");
         }
     }
-
-
-
-
-
-
-
-
 }
