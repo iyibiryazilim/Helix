@@ -8,93 +8,107 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductListContentView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews" BackgroundColor="{StaticResource Primary}">
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             BackgroundColor="{StaticResource Primary}">
     <ContentView.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
 
-        <Border BackgroundColor="{StaticResource WhiteSmoke}"
-                StrokeThickness="0"
-                Margin="0,30,0,0">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20,20,0,0" />
-            </Border.StrokeShape>
-            <Grid RowDefinitions="Auto,Auto,*"
-                  RowSpacing="10"
-                  BackgroundColor="Transparent">
-                <Grid Grid.Row="0">
-                    <Border StrokeShape="RoundRectangle 20">
+    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+            StrokeThickness="0"
+            Margin="0,30,0,0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="Auto,Auto,*"
+              RowSpacing="10"
+              BackgroundColor="Transparent">
+            <Grid Grid.Row="0">
+                <Border StrokeShape="RoundRectangle 20">
 
-                        <Grid ColumnDefinitions=".85*,.15*"
-                              ColumnSpacing="5">
-                            <SearchBar Grid.Column="0"
-                                       x:Name="searchBar">
+                    <Grid ColumnDefinitions=".85*,.15*"
+                          ColumnSpacing="5">
+                        <SearchBar Grid.Column="0"
+                                   x:Name="searchBar">
 
-                                <SearchBar.Behaviors>
-                                    <toolkit:EventToCommandBehavior EventName="TextChanged"
-                                                                    Command="{Binding Source={x:Reference this},Path=SearchCommand,Mode=TwoWay}"
-                                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
-                                </SearchBar.Behaviors>
-                            </SearchBar>
-                            <ImageButton Grid.Column="1"
-                                         BackgroundColor="Transparent"
-                                         Aspect="AspectFit"
-                                         HeightRequest="22"
-                                         WidthRequest="22"
-                                         Command="{Binding Source={x:Reference this},Path=SortCommand}">
-                                <ImageButton.Source>
-                                    <FontImageSource FontFamily="FAS"
-                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
-                                                     Color="{StaticResource DarkPrimary}" />
-                                </ImageButton.Source>
-                            </ImageButton>
+                            <SearchBar.Behaviors>
+                                <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                                Command="{Binding Source={x:Reference this},Path=SearchCommand,Mode=TwoWay}"
+                                                                CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+                            </SearchBar.Behaviors>
+                        </SearchBar>
+                        <ImageButton Grid.Column="1"
+                                     BackgroundColor="Transparent"
+                                     Aspect="AspectFit"
+                                     HeightRequest="22"
+                                     WidthRequest="22"
+                                     Command="{Binding Source={x:Reference this},Path=SortCommand}">
+                            <ImageButton.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                                 Color="{StaticResource DarkPrimary}" />
+                            </ImageButton.Source>
+                        </ImageButton>
 
 
-                        </Grid>
+                    </Grid>
 
-                    </Border>
-                </Grid>
-                <VerticalStackLayout Grid.Row="1"
-                                     Padding="7">
+                </Border>
+            </Grid>
+            <VerticalStackLayout Grid.Row="1"
+                                 Padding="7">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=GroupList}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"
-                                               ItemSpacing="10" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate  x:DataType="baseModel:Product">
-                                <Border StrokeShape="RoundRectangle 20"
-                                        BackgroundColor="White"
-                                        Padding="5"
-                                        HeightRequest="35"
-                                        WidthRequest="120">
-                                    <Label Text="{Binding . }"
-                                           LineBreakMode="TailTruncation"
-                                           VerticalOptions="Center"
-                                           HorizontalOptions="Center"></Label>
-                                </Border>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate  x:DataType="baseModel:ProductGroup">
+                            <Frame BindingContext="{Binding}" BackgroundColor="White"
+                                   Padding="5"
+                                   HeightRequest="35"
+                                   WidthRequest="120">
+                                <Frame.GestureRecognizers>
+                                    
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectGroupCommand}" />
+                                </Frame.GestureRecognizers>
+                                <Frame.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected}"
+                                                 TargetType="Frame"
+                                                 Value="True">
+                                        <Setter Property="BackgroundColor"
+                                                Value="{StaticResource Primary}" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
 
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
+                                <Label Text="{Binding GroupDefinition }"
+                                       LineBreakMode="TailTruncation"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"></Label>
+                            </Frame>
 
-                    </CollectionView>
-                </VerticalStackLayout>
-                <RefreshView Grid.Row="2"
-                             IsRefreshing="{Binding Source={x:Reference this},Path=IsRefreshing,Mode=OneWay}"
-                             Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
-                             RefreshColor="{StaticResource DarkPrimary}">
-                    <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=ProductList}"
-                                    RemainingItemsThreshold="10"
-                                    EmptyView="bulunamadı"
-                                    RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical"
-                                               ItemSpacing="5" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate  x:DataType="baseModel:Product">
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </VerticalStackLayout>
+            <RefreshView Grid.Row="2"
+                         IsRefreshing="{Binding Source={x:Reference this},Path=IsRefreshing,Mode=OneWay}"
+                         Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
+                         RefreshColor="{StaticResource DarkPrimary}">
+                <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=ProductList}"
+                                RemainingItemsThreshold="10"
+                                EmptyView="bulunamadı"
+                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate  x:DataType="baseModel:Product">
                             <Border StrokeShape="RoundRectangle 10"
                                     BackgroundColor="White"
                                     Padding="5"
@@ -140,11 +154,11 @@
 
                             </Border>
                         </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </RefreshView>
-             
-            </Grid>
-        </Border>
-        
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+        </Grid>
+    </Border>
+
 </ContentView>
