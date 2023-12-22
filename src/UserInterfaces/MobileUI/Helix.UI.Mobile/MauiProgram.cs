@@ -1,10 +1,20 @@
-﻿using CommunityToolkit.Maui;
+﻿using Android.Content.Res;
+using CommunityToolkit.Maui;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
+using Helix.UI.Mobile.Modules.FastProductionModule.Views;
+using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.Views;
+using Helix.UI.Mobile.Modules.PanelModule.ViewModels;
+using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
@@ -28,19 +38,6 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
-using Helix.UI.Mobile.Modules.LoginModule.Views;
-using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
-using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
-using Android.Content.Res;
-using Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews;
-using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
-using Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels;
-using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
-using Helix.UI.Mobile.Modules.PanelModule.ViewModels;
-using Helix.UI.Mobile.Modules.PanelModule.Views;
-using Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
-using Helix.UI.Mobile.Modules.FastProductionModule.Views;
-using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
 
 
 namespace Helix.UI.Mobile
@@ -126,6 +123,7 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder SalesRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<CustomerListView>();
+			mauiAppBuilder.Services.AddTransient<CustomerDetailView>();
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListView>();
 			mauiAppBuilder.Services.AddTransient<SalesPanelView>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationView>();
@@ -137,6 +135,7 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder SalesRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<CustomerListViewModel>();
+			mauiAppBuilder.Services.AddTransient<CustomerDetailViewModel>();
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesPanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationViewModel>();
