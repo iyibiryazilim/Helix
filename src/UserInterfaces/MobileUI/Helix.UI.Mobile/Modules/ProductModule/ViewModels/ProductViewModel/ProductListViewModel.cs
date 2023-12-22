@@ -8,6 +8,7 @@ using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
@@ -19,7 +20,7 @@ public partial class ProductListViewModel :BaseViewModel
     //private readonly IEndProductService _endProductService;
 
     public ObservableCollection<Product> Items { get; } = new();
-    public ObservableCollection<string> Groups { get; } = new();
+    public ObservableCollection<ProductGroup> Groups { get; } = new();
 
     public Command SearchCommand { get; }
 
@@ -34,6 +35,7 @@ public partial class ProductListViewModel :BaseViewModel
     int pageSize = 20;
     [ObservableProperty]
     string groupCode = string.Empty;
+    
 
 
     public Command GetProductsCommand { get;  }
@@ -44,8 +46,7 @@ public partial class ProductListViewModel :BaseViewModel
         _httpClientService = httpClientService;
         _productService = productService;
         GetProductsCommand = new Command(async () => await LoadData());
-        SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
-
+        SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));      
     }
 
     async Task LoadData()
@@ -111,7 +112,7 @@ public partial class ProductListViewModel :BaseViewModel
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             CurrentPage++;
-            var result = await _productService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+            var result = await _productService.GetObjects(httpClient, SearchText, GroupCode,OrderBy, CurrentPage, PageSize);
             if (result.Data.Any())
             {
                 foreach (Product item in result.Data)
@@ -152,7 +153,7 @@ public partial class ProductListViewModel :BaseViewModel
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             CurrentPage = 0;
-            var result = await _productService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+            var result = await _productService.GetObjects(httpClient, SearchText, GroupCode, OrderBy, CurrentPage, PageSize);
             if (result.Data.Any())
             {
                 Items.Clear();
@@ -160,7 +161,6 @@ public partial class ProductListViewModel :BaseViewModel
                 {
                     await Task.Delay(100);
                     Items.Add(item);
-                    Groups.Add(item.GroupName);
                 }
             }
         }
@@ -243,9 +243,8 @@ public partial class ProductListViewModel :BaseViewModel
                 Items.Clear();
                 foreach (ProductGroup item in result.Data)
                 {
-                    await Task.Delay(100);
-                   
-                    Groups.Add(item.GroupDefinition);
+                    await Task.Delay(50);
+                    Groups.Add(item);
                 }
             }
         }
@@ -270,7 +269,7 @@ public partial class ProductListViewModel :BaseViewModel
         {
             IsBusy = true;
             IsRefreshing = true;
-
+            
             await Task.Delay(300);
             await Shell.Current.GoToAsync($"{nameof(ProductDetailView)}", new Dictionary<string, object>
             {
@@ -289,10 +288,39 @@ public partial class ProductListViewModel :BaseViewModel
         }
     }
 
+    async Task SelectGroupAsync(ProductGroup productGroup)
+    {
+        if(IsBusy)
+            return;
+        if (productGroup != null)
+        {
+            try
+            {
+                foreach (var item in Groups.Where(x => x.IsSelected == true))
+                {
+                    item.IsSelected = false;
+                }
+                productGroup.IsSelected = true;
+
+                GroupCode = productGroup.GroupCode;
+                await ReloadAsync();
 
 
-
-
-
-
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+                IsRefreshing = false;
+            }
+        }
+        else
+        {
+            Debug.WriteLine("veri yok");
+        }
+    }
 }

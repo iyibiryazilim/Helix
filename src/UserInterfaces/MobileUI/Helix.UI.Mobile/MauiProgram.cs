@@ -125,6 +125,7 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder SalesRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<CustomerListView>();
+			mauiAppBuilder.Services.AddTransient<CustomerDetailView>();
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListView>();
 			mauiAppBuilder.Services.AddTransient<SalesPanelView>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationView>();
@@ -138,6 +139,7 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder SalesRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<CustomerListViewModel>();
+			mauiAppBuilder.Services.AddTransient<CustomerDetailViewModel>();
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesPanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationViewModel>();
@@ -197,8 +199,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductPanelView>();
 			mauiAppBuilder.Services.AddTransient<ProductOperationView>();
 			mauiAppBuilder.Services.AddTransient<ProductDetailView>();
-
-
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailView>();
 
 
 			return mauiAppBuilder;
@@ -210,6 +211,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductPanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProductOperationViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProductDetailViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseDetailViewModel>();
 
 			return mauiAppBuilder;
 		}
