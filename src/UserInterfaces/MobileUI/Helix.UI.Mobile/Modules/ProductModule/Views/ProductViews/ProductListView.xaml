@@ -5,21 +5,23 @@
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.ProductListView"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel"
+             x:DataType="viewModel:ProductListViewModel"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
-             
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              Title="{Binding Title}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetProductsCommand}" />
     </ContentPage.Behaviors>
-    <sharedViews:ProductListContentView Product="{Binding Items}" ></sharedViews:ProductListContentView>
+    <sharedViews:ProductListContentView ProductList="{Binding Items}"
+                                        GroupList ="{Binding Groups}"
+                                        IsRefreshing="{Binding IsRefreshing}"
+                                        IsBusy="{Binding IsBusy}"
+                                        LoadMoreCommand="{Binding LoadMoreCommand}"
+                                        ReloadCommand="{Binding ReloadCommand}"
+                                        SearchCommand="{Binding SearchCommand}"
+                                        SortCommand="{Binding SortCommand}"></sharedViews:ProductListContentView>
 
 
 </ContentPage>

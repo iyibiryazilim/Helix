@@ -1,4 +1,5 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using System.Text.Json;
 
@@ -6,10 +7,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.DataStores;
 
 public class BaseProductDataStore<T> : IBaseProductService<T> where T : class
 {
-    string postUrl=$"/gateway/product/"+typeof(T).Name;
-    public async Task<DataResult<IEnumerable<T>>> GetObjects(HttpClient httpClient)
+    public string postUrl=$"/gateway/product/"+typeof(T).Name;
+    public async Task<DataResult<IEnumerable<T>>> GetObjects(HttpClient httpClient, string search, ProductOrderBy orderBy, int page, int pageSize)
     {
-        HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
+        HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl + $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
         DataResult<IEnumerable<T>> dataResult = new DataResult<IEnumerable<T>>();
         if (responseMessage.IsSuccessStatusCode)
         {
@@ -187,4 +188,5 @@ public class BaseProductDataStore<T> : IBaseProductService<T> where T : class
             return dataResult;
         }
     }
+  
 }

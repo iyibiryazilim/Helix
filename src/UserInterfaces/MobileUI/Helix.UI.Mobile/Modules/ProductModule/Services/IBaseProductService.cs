@@ -4,7 +4,8 @@ using Helix.UI.Mobile.Modules.ProductModule.Models;
 
 public interface IBaseProductService< T> where T : class
 {
-    Task<DataResult<IEnumerable<T>>> GetObjects(HttpClient httpClient);
+    Task<DataResult<IEnumerable<T>>> GetObjects(HttpClient httpClient,string search, ProductOrderBy orderBy, int page, int pageSize);
+
     Task<DataResult<T>> GetObjectById(HttpClient httpClient,int ReferenceId);
 
     Task<DataResult<T>> GetObjectByCode(HttpClient httpClient,string Code);
