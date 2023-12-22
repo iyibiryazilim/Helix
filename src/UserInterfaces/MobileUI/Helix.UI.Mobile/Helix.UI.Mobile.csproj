@@ -105,14 +105,15 @@
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentCardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentDetailContentView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductListContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+
+	  <MauiXaml Update="Modules\IntroductionModule\Views\IntroductionScreenView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\LoginModule\Views\LoginView.xaml">
@@ -151,7 +152,7 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerDetailView.xaml">
+	  <MauiXaml Update="Modules\SalesModule\Views\BasketViews\BasketView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerListView.xaml">

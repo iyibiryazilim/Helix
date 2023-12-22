@@ -29,10 +29,12 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.Views.BasketViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
@@ -127,6 +129,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListView>();
 			mauiAppBuilder.Services.AddTransient<SalesPanelView>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationView>();
+			mauiAppBuilder.Services.AddTransient<BasketView>();
+
 
 
 
@@ -139,6 +143,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesPanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationViewModel>();
+			mauiAppBuilder.Services.AddTransient<BasketViewModel>();
+
 
 
 			return mauiAppBuilder;

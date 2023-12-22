@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -8,7 +9,9 @@ namespace Helix.SalesService.WebAPI.AuthRegistrations
     {
         public static IServiceCollection ConfigureAuth(this IServiceCollection services,IConfiguration configuration)
         {
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["AuthConfig:Secret"]));
+            var key = configuration["AuthConfig:Secret"];
+
+			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthConfig:Secret"]));
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -26,7 +29,7 @@ namespace Helix.SalesService.WebAPI.AuthRegistrations
                     };
                 });
 
-            return services;
+			return services;
 
         }
     }

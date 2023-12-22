@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Modules.IntroductionModule.Views;
 using Helix.UI.Mobile.MVVMHelper;
 
 namespace Helix.UI.Mobile.Modules.LoginModule.ViewModels
@@ -12,8 +13,17 @@ namespace Helix.UI.Mobile.Modules.LoginModule.ViewModels
         [RelayCommand]
 		async Task GoToMainPage()
 		{
-			Application.Current.MainPage = new AppShell();
-			//await Shell.Current.GoToAsync(nameof(AppShell));
+
+			var result = await SecureStorage.Default.GetAsync("isWatch"); 
+			if (result=="true")
+			{
+				Application.Current.MainPage = new AppShell();
+
+			}
+			else
+			{
+				Application.Current.MainPage = new IntroductionScreenView();
+			}
 		}
 	}
 
