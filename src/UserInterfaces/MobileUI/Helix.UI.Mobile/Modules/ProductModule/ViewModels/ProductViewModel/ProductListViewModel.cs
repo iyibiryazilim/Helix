@@ -56,8 +56,12 @@ public partial class ProductListViewModel :BaseViewModel
         try
         {
             await Task.Delay(500);
-            await GetGroupsAsync();
-            await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
+            await Task.WhenAll(
+            
+                 GetGroupsAsync(),
+                 ReloadAsync()
+            );
+           
 
         }
         catch (Exception ex)
@@ -101,6 +105,8 @@ public partial class ProductListViewModel :BaseViewModel
             IsBusy = false;
         }
     }
+
+
     [RelayCommand]
     async Task LoadMoreAsync()
     {
@@ -233,7 +239,7 @@ public partial class ProductListViewModel :BaseViewModel
         try
         {
             IsBusy = true;
-            IsRefreshing = true;
+            //IsRefreshing = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             CurrentPage = 0;

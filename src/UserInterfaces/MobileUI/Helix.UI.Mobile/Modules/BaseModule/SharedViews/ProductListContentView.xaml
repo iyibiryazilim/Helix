@@ -58,7 +58,7 @@
                 </Border>
             </Grid>
             <VerticalStackLayout Grid.Row="1"
-                                 Padding="7">
+                                 Padding="0" Margin="10,0,10,0">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=GroupList}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal"
@@ -66,29 +66,48 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate  x:DataType="baseModel:ProductGroup">
-                            <Frame BindingContext="{Binding}" BackgroundColor="White"
-                                   Padding="5"
-                                   HeightRequest="35"
-                                   WidthRequest="120">
-                                <Frame.GestureRecognizers>
+                            <Border BindingContext="{Binding}"
                                     
+                                    BackgroundColor="{StaticResource White}"
+                                    Padding="5"
+                                    HeightRequest="35"
+                                    WidthRequest="120">
+                               
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10,10,10,10" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                           Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectGroupCommand}" />
-                                </Frame.GestureRecognizers>
-                                <Frame.Triggers>
+                                </Border.GestureRecognizers>
+                                <Border.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected}"
-                                                 TargetType="Frame"
+                                                 TargetType="Border"
                                                  Value="True">
                                         <Setter Property="BackgroundColor"
                                                 Value="{StaticResource Primary}" />
                                     </DataTrigger>
-                                </Frame.Triggers>
-
+                                </Border.Triggers>
                                 <Label Text="{Binding GroupDefinition }"
                                        LineBreakMode="TailTruncation"
                                        VerticalOptions="Center"
-                                       HorizontalOptions="Center"></Label>
-                            </Frame>
+                                       HorizontalOptions="Center">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Setter Property="TextColor"
+                                                    Value="Black" />
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding IsSelected}"
+                                                             Value="True">
+                                                    <Setter Property="TextColor"
+                                                            Value="White" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                            </Border>
 
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -110,10 +129,11 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate  x:DataType="baseModel:Product">
                             <Border StrokeShape="RoundRectangle 10"
-                                    BackgroundColor="White"
+                                    BackgroundColor="{StaticResource White}"
                                     Padding="5"
+                                    Margin="10,0,10,0"
                                     HeightRequest="85"
-                                    WidthRequest="370">
+                                   >
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                           Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}" />
