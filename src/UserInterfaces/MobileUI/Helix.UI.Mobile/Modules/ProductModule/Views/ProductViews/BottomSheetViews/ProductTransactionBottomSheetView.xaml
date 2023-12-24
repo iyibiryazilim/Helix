@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                   xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
-                   xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-                   HasHandle="True"
-                   BackgroundColor="#EFECFB"
-                   HandleColor="{StaticResource Primary}"
-                   xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-                   xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel.BottomSheetViewModels"
-                   x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.BottomSheetViews.ProductFastOperationBottomSheetView">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.BottomSheetViews.ProductTransactionBottomSheetView"
+             xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel.BottomSheetViewModels"
+             HasHandle="True"
+             BackgroundColor="#EFECFB"
+             HandleColor="{StaticResource Primary}">
     <the49:BottomSheet.Detents>
         <!-- Stop at the height of the screen -->
         <the49:FullscreenDetent />
@@ -21,13 +21,14 @@
                 Margin="0,0,0,40">
         <VerticalStackLayout Spacing="10"
                              Padding="10">
-            <Frame Padding="10"
-                   CornerRadius="10">
+            <Frame CornerRadius="10"
+                   Padding="10"
+                   BackgroundColor="{StaticResource White}">
                 <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToProductionTransactionListViewCommand}"
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductInputReturnListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,Auto"
+                <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
                            Aspect="AspectFit"
@@ -39,20 +40,18 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.TruckRampBox}">
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}">
 
                             </FontImageSource>
                         </Image.Source>
 
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Üretimden Giriş"
+                        <Label Text="Giriş İadeleri"
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Üretim giriş fişi ile stok girişi yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
+                        <Label Text="Giriş İadeleri bilgileri bulunur."></Label>
                     </VerticalStackLayout>
                     <Image Grid.Column="2"
                            HorizontalOptions="End"
@@ -67,10 +66,240 @@
                 </Grid>
             </Frame>
             <Frame Padding="10"
-                   CornerRadius="10">
+                   CornerRadius="10" BackgroundColor="{StaticResource White}">
 
                 <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToConsumableTransactionListViewCommand}"
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductOutputReturnListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
+
+                </Frame.GestureRecognizers>-->
+                <Grid ColumnDefinitions="30,*,auto"
+                      ColumnSpacing="10">
+                    <Image Grid.Column="0"
+                           Aspect="AspectFit"
+                           HeightRequest="20"
+                           WidthRequest="20">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                        </Image.Behaviors>
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateRight}">
+
+                            </FontImageSource>
+                        </Image.Source>
+
+                    </Image>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Çıkış İadeleri"
+                               FontSize="16"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"></Label>
+                        <Label Text="Çıkış İade bilgileri bulunur."></Label>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="2"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Frame>
+            <Frame Padding="10"
+                   CornerRadius="10"
+                   BackgroundColor="{StaticResource White}">
+
+                <!--Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductInputTransactionListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
+
+                </Frame.GestureRecognizers>-->
+                <Grid ColumnDefinitions="30,*,auto"
+                      ColumnSpacing="10">
+                    <Image Grid.Column="0"
+                           Aspect="AspectFit"
+                           HeightRequest="20"
+                           WidthRequest="20">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                        </Image.Behaviors>
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowUp}">
+
+                            </FontImageSource>
+                        </Image.Source>
+
+                    </Image>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Giriş Hareketleri"
+                               FontSize="16"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"></Label>
+                        <Label Text="Giriş hareket bilgileri bulunur."></Label>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="2"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Frame>
+            <Frame Padding="10"
+                   CornerRadius="10"
+                   BackgroundColor="{StaticResource White}">
+
+                <!--<Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductOutputTransactionListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
+
+                </Frame.GestureRecognizers>-->
+                <Grid ColumnDefinitions="30,*,auto"
+                      ColumnSpacing="10">
+                    <Image Grid.Column="0"
+                           Aspect="AspectFit"
+                           HeightRequest="20"
+                           WidthRequest="20">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                        </Image.Behaviors>
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowDown}">
+
+                            </FontImageSource>
+                        </Image.Source>
+
+                    </Image>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Çıkış Hareketleri"
+                               FontSize="16"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"></Label>
+                        <Label Text="Çıkış hareket bilgileri bulunur."></Label>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="2"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Frame>
+            <Frame Padding="10"
+                   CornerRadius="10"
+                   BackgroundColor="{StaticResource White}">
+
+                <!--<Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductPurchaseDispatchListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
+
+                </Frame.GestureRecognizers>-->
+                <Grid ColumnDefinitions="30,*,auto"
+                      ColumnSpacing="10">
+                    <Image Grid.Column="0"
+                           Aspect="AspectFit"
+                           HeightRequest="20"
+                           WidthRequest="20">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                        </Image.Behaviors>
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.TruckArrowRight}">
+
+                            </FontImageSource>
+                        </Image.Source>
+
+                    </Image>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Satınalma İrsaliyesi"
+                               FontSize="16"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"></Label>
+                        <Label Text="Satınalma bilgileri bulunur."></Label>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="2"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Frame>
+            <Frame Padding="10"
+                   CornerRadius="10"
+                   BackgroundColor="{StaticResource White}">
+
+                <!--<Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductSalesDispatchListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
+
+                </Frame.GestureRecognizers>-->
+                <Grid ColumnDefinitions="30,*,auto"
+                      ColumnSpacing="10">
+                    <Image Grid.Column="0"
+                           Aspect="AspectFit"
+                           HeightRequest="20"
+                           WidthRequest="20">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                        </Image.Behaviors>
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.TruckArrowRight}" 
+                                             >
+                            </FontImageSource>
+                        </Image.Source>
+
+                    </Image>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Satış İrsaliyesi"
+                               FontSize="16"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"></Label>
+                        <Label Text="Satış bilgileri bulunur."></Label>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="2"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Frame>
+            <Frame Padding="10"
+                   CornerRadius="10"
+                   BackgroundColor="{StaticResource White}">
+
+                <!--<Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductSalesOrderListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
 
                 </Frame.GestureRecognizers>-->
@@ -93,13 +322,11 @@
 
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Sarf İşlemleri"
+                        <Label Text="Satış Siparişleri"
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Sarf işlemleri ile stok çıkışı yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
+                        <Label Text="Bekleyen satış sipariş bilgileri bulunur."></Label>
                     </VerticalStackLayout>
                     <Image Grid.Column="2"
                            HorizontalOptions="End"
@@ -114,104 +341,11 @@
                 </Grid>
             </Frame>
             <Frame Padding="10"
-                   CornerRadius="10">
+                   CornerRadius="10"
+                   BackgroundColor="{StaticResource White}">
 
                 <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToWastageTransactionListViewCommand}"
-                                          Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,Auto"
-                      ColumnSpacing="10">
-                    <Image Grid.Column="0"
-                           Aspect="AspectFit"
-                           HeightRequest="20"
-                           WidthRequest="20">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
-                        </Image.Behaviors>
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}">
-
-                            </FontImageSource>
-                        </Image.Source>
-
-                    </Image>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Fire İşlemleri"
-                               FontSize="16"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center"></Label>
-                        <Label Text="Fire işlemi ile stok çıkışı yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
-                    </VerticalStackLayout>
-                    <Image Grid.Column="2"
-                           HorizontalOptions="End"
-                           VerticalOptions="Center"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                        </Image.Source>
-                    </Image>
-                </Grid>
-            </Frame>
-            <Frame Padding="10"
-                   CornerRadius="10">
-
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToInCountingTransactionListViewCommand}"
-                                          Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,Auto"
-                      ColumnSpacing="10">
-                    <Image Grid.Column="0"
-                           Aspect="AspectFit"
-                           HeightRequest="20"
-                           WidthRequest="20">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
-                        </Image.Behaviors>
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}">
-
-                            </FontImageSource>
-                        </Image.Source>
-
-                    </Image>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Sayım Fazlası"
-                               FontSize="16"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center"></Label>
-                        <Label Text="Sayım fazlası fişi ile stok girişi yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
-                    </VerticalStackLayout>
-                    <Image Grid.Column="2"
-                           HorizontalOptions="End"
-                           VerticalOptions="Center"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                        </Image.Source>
-                    </Image>
-                </Grid>
-            </Frame>
-            <Frame Padding="10"
-                   CornerRadius="10">
-
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToOutCountingTransactionListViewCommand}"
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionListBottomSheetViewModel}},Path=GoToProductPurchaseOrderListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
 
                 </Frame.GestureRecognizers>-->
@@ -227,219 +361,25 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}">
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Dolly}">
 
                             </FontImageSource>
                         </Image.Source>
 
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Sayım Eksiği"
+                        <Label Text="Satınalma Siparişleri"
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Sayım eksiği işlemleri ile stok çıkışı yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
+                        <Label Text="Bekleyen satınalma sipariş bilgileri bulunur."></Label>
                     </VerticalStackLayout>
-                    <Image Grid.Column="2"
+                    <Label Text=">"
+                           Grid.Column="2"
+                           FontAttributes="Bold"
+                           FontSize="Large"
                            HorizontalOptions="End"
-                           VerticalOptions="Center"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                        </Image.Source>
-                    </Image>
-                </Grid>
-            </Frame>
-            <Frame Padding="10"
-                   CornerRadius="10">
-
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToProductTransferListViewCommand}"
-                                          Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,auto"
-                      ColumnSpacing="10">
-                    <Image Grid.Column="0"
-                           Aspect="AspectFit"
-                           HeightRequest="20"
-                           WidthRequest="20">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
-                        </Image.Behaviors>
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RightLeft}">
-
-                            </FontImageSource>
-                        </Image.Source>
-
-                    </Image>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Transfer İşlemleri"
-                               FontSize="16"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center"></Label>
-                        <Label Text="Ambar fişi ile ambarlar arası transfer yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
-                    </VerticalStackLayout>
-                    <Image Grid.Column="2"
-                           HorizontalOptions="End"
-                           VerticalOptions="Center"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                        </Image.Source>
-                    </Image>
-                </Grid>
-            </Frame>
-            <Frame Padding="10"
-                   CornerRadius="10">
-
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToTransactionTransferListViewCommand}"
-                                          Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,auto"
-                      ColumnSpacing="10">
-                    <Image Grid.Column="0"
-                           Aspect="AspectFit"
-                           HeightRequest="20"
-                           WidthRequest="20">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
-                        </Image.Behaviors>
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.MoneyBillTransfer}">
-
-                            </FontImageSource>
-                        </Image.Source>
-
-                    </Image>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Virman İşlemleri"
-                               FontSize="16"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center"></Label>
-                        <Label Text="Virman fişi ile malzemeler arası stok aktarımı yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
-                    </VerticalStackLayout>
-                    <Image Grid.Column="2"
-                           HorizontalOptions="End"
-                           VerticalOptions="Center"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                        </Image.Source>
-                    </Image>
-                </Grid>
-            </Frame>
-            <Frame Padding="10"
-                   CornerRadius="10">
-
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToFastProductionListViewCommand}"
-                                          Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,auto"
-                      ColumnSpacing="10">
-                    <Image Grid.Column="0"
-                           Aspect="AspectFit"
-                           HeightRequest="20"
-                           WidthRequest="20">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
-                        </Image.Behaviors>
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.BoxesStacked}">
-
-                            </FontImageSource>
-                        </Image.Source>
-
-                    </Image>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Hızlı Üretim"
-                               FontSize="16"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center" />
-                        <Label Text="Hızlı üretim fişi ile hızlı üretim işlemleri yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
-                    </VerticalStackLayout>
-                    <Image Grid.Column="2"
-                           HorizontalOptions="End"
-                           VerticalOptions="Center"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                        </Image.Source>
-                    </Image>
-                </Grid>
-            </Frame>
-            <Frame Padding="10"
-                   CornerRadius="10">
-
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToDevirTransactionListViewCommand}"
-                                          Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,auto"
-                      ColumnSpacing="10">
-                    <Image Grid.Column="0"
-                           Aspect="AspectFit"
-                           HeightRequest="20"
-                           WidthRequest="20">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
-                        </Image.Behaviors>
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.PeopleCarryBox}">
-
-                            </FontImageSource>
-                        </Image.Source>
-
-                    </Image>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Devir"
-                               FontSize="16"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center"></Label>
-                        <Label Text="Devir fişi ile devir işlemleri yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
-                    </VerticalStackLayout>
-                    <Image Grid.Column="2"
-                           HorizontalOptions="End"
-                           VerticalOptions="Center"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                        </Image.Source>
-                    </Image>
+                           VerticalOptions="Center"></Label>
                 </Grid>
             </Frame>
         </VerticalStackLayout>

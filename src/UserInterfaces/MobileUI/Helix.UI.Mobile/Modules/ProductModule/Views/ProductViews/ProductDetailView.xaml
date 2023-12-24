@@ -165,9 +165,9 @@
                                     FontSize="Subtitle"
                                     Text="Son Hareketler"
                                     VerticalOptions="Center" />
-                                <!--  Command="{Binding OpenTransactionListBottomSheetCommand}"  -->
                                 <Button
                                     Grid.Column="1"
+                                    Command="{Binding OpenProductTransactionBottomSheetCommand}"
                                     Padding="0"
                                     BackgroundColor="{StaticResource Primary}"
                                     CornerRadius="12"
