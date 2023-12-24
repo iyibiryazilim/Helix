@@ -52,10 +52,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 				model.Warehouse = Warehouse;
 
 				WarehouseDetailBottomSheetView sheet = new WarehouseDetailBottomSheetView(model);
-				sheet.HasHandle = true;
-				sheet.CornerRadius = 20;
-				sheet.BackgroundColor = Color.FromArgb("#512BD4");
-				sheet.HandleColor = Color.FromArgb("#E1E3EA");
+				
 				await sheet.ShowAsync();
 
 			}
