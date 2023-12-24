@@ -1,4 +1,4 @@
-﻿using Android.Content.Res;
+using Android.Content.Res;
 using CommunityToolkit.Maui;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
@@ -198,17 +198,22 @@ namespace Helix.UI.Mobile
 		{
             mauiAppBuilder.Services.AddTransient<WarehouseListView>();
             mauiAppBuilder.Services.AddTransient<ProductListView>();
-			mauiAppBuilder.Services.AddTransient<ProductPanelView>();
-			mauiAppBuilder.Services.AddTransient<ProductOperationView>();
-			mauiAppBuilder.Services.AddTransient<ProductDetailView>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailView>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetView>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListView>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionView>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionView>();
+            mauiAppBuilder.Services.AddTransient<ProductPanelView>();
+            mauiAppBuilder.Services.AddTransient<ProductOperationView>();
+            mauiAppBuilder.Services.AddTransient<ProductDetailView>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailView>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetView>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListView>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionView>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionView>();
 
+            mauiAppBuilder.Services.AddTransient<ProductionTransactionOperationView>();
+            mauiAppBuilder.Services.AddTransient<OutCountingTransactionOperationView>();
+            mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationView>();
+            mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationView>();
+            mauiAppBuilder.Services.AddTransient<WastageTransactionOperationView>();
 
-
+            
 
 			return mauiAppBuilder;
 		}
@@ -216,17 +221,21 @@ namespace Helix.UI.Mobile
 		{
             mauiAppBuilder.Services.AddTransient<WarehouseListViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductListViewModel>();
-			mauiAppBuilder.Services.AddTransient<ProductPanelViewModel>();
-			mauiAppBuilder.Services.AddTransient<ProductOperationViewModel>();
-			mauiAppBuilder.Services.AddTransient<ProductDetailViewModel>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailViewModel>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetViewModel>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionViewModel>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionViewModel>();
-			mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ProductPanelViewModel>();
+            mauiAppBuilder.Services.AddTransient<ProductOperationViewModel>();
+            mauiAppBuilder.Services.AddTransient<ProductDetailViewModel>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailViewModel>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetViewModel>();
 
-
-
+            mauiAppBuilder.Services.AddTransient<ProductionTransactionOperationViewModel>();
+            mauiAppBuilder.Services.AddTransient<OutCountingTransactionOperationViewModel>();
+            mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationViewModel>();
+            mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationViewModel>();
+            mauiAppBuilder.Services.AddTransient<WastageTransactionOperationViewModel>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionViewModel>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionViewModel>();
+            mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListViewModel>();
+      
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)

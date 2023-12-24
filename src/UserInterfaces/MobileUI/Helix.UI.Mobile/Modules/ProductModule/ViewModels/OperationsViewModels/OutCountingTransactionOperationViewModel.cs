@@ -2,6 +2,6 @@
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
 
-public class ProductionTransactionOperationViewModel : BaseViewModel
+public class OutCountingTransactionOperationViewModel : BaseViewModel
 {
 }
