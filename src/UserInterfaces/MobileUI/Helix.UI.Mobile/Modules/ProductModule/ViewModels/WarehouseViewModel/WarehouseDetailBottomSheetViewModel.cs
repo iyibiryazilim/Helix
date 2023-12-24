@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 
@@ -23,10 +24,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 			try
 			{
 				IsBusy = true;
-				//await Shell.Current.GoToAsync($"{nameof(WarehouseProductListView)}", new Dictionary<string, object>
-				//{
-				//	["Warehouse"] = Warehouse
-				//});
+				await Shell.Current.GoToAsync($"{nameof(WarehouseDetailProductListView)}", new Dictionary<string, object>
+				{
+					["Warehouse"] = Warehouse
+				});
 			}
 			catch (Exception ex)
 			{
@@ -47,10 +48,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 			try
 			{
 				IsBusy = true;
-				//await Shell.Current.GoToAsync($"{nameof(WarehouseInputTransactionListView)}", new Dictionary<string, object>
-				//{
-				//	["Warehouse"] = Warehouse
-				//});
+				await Shell.Current.GoToAsync($"{nameof(WarehouseDetailInputTransactionView)}", new Dictionary<string, object>
+				{
+					["Warehouse"] = Warehouse
+				});
 			}
 			catch (Exception ex)
 			{
@@ -71,10 +72,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 			try
 			{
 				IsBusy = true;
-				//await Shell.Current.GoToAsync($"{nameof(WarehouseOutputTransactionListView)}", new Dictionary<string, object>
-				//{
-				//	["Warehouse"] = Warehouse
-				//});
+				await Shell.Current.GoToAsync($"{nameof(WarehouseDetailOutputTransactionView)}", new Dictionary<string, object>
+				{
+					["Warehouse"] = Warehouse
+				});
 			}
 			catch (Exception ex)
 			{

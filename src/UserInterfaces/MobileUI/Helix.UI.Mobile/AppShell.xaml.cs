@@ -13,6 +13,10 @@ namespace Helix.UI.Mobile
 			Routing.RegisterRoute(nameof(ProductDetailView), typeof(ProductDetailView));
 			Routing.RegisterRoute(nameof(WarehouseDetailView), typeof(WarehouseDetailView));
 			Routing.RegisterRoute(nameof(CustomerDetailView), typeof(CustomerDetailView));
+			Routing.RegisterRoute(nameof(WarehouseDetailInputTransactionView), typeof(WarehouseDetailInputTransactionView));
+			Routing.RegisterRoute(nameof(WarehouseDetailOutputTransactionView), typeof(WarehouseDetailOutputTransactionView));
+			Routing.RegisterRoute(nameof(WarehouseDetailProductListView), typeof(WarehouseDetailProductListView));
+
 		}
 	}
 }
