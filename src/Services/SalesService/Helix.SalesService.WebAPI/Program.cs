@@ -55,6 +55,10 @@ builder.Services.AddTransient<IWholeSalesDispatchTransactionService, WholeSalesD
 builder.Services.AddTransient<IWholeSalesReturnDispatchTransactionLineService, WholeSalesReturnDispatchTransactionLineDataStore>();
 builder.Services.AddTransient<IWholeSalesReturnDispatchTransactionService, WholeSalesReturnDispatchTransactionDataStore>();
 builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
+builder.Services.AddTransient<ICustomerTransactionLineService, CustomerTransactionLineDataStore>();
+builder.Services.AddTransient<ICustomerTransactionService, CustomerTransactionDataStore>();
+
+
 
 builder.Services.AddTransient<ICustomerService, CustomerDataStore>();
 

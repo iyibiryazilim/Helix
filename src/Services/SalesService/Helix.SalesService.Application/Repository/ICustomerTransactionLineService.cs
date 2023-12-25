@@ -9,14 +9,16 @@ namespace Helix.SalesService.Application.Repository
 		/// </summary>
 		/// <param name="TransactionType"></param>
 		/// <returns></returns>
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByTransactionTypeAsync(string currentCode, string TransactionType);
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByTransactionTypeAsync(int currentId, string TransactionType);
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetInputTransactionLineByCurrentCode(string code);
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetInputTransactionLineByCurrentId(int id);
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetOutputTransactionLineByCurrentCode(string code);
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetOutputTransactionLineByCurrentId(int id);
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByFicheId(int id);
-		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByFicheCode(string code);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByTransactionTypeAsync(string search, string orderBy, string currentCode, string TransactionType, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByTransactionTypeAsync(string search, string orderBy, int currentId, string TransactionType, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetInputTransactionLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetInputTransactionLineByCurrentId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetOutputTransactionLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetOutputTransactionLineByCurrentId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByFicheId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByFicheCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByCurrentId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize);
 
 	}
 }

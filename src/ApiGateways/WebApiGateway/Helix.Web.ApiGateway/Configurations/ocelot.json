@@ -1,78 +1,91 @@
 ﻿{
-    "Routes": [
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    //"Port": 10089
-                    "Port": 5124
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/sales/{everything}",
-            "UpstreamHttpMethod": [ "Get", "POST" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5249
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/production/{everything}",
-            "UpstreamHttpMethod": [ "Get", "POST" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "172.25.86.101",
-                    "Port": 10087
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/purchase/{everything}",
-            "UpstreamHttpMethod": [ "Get", "POST" ]
-        },
-        {
-            
-            "DownstreamPathTemplate": "/api/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "172.25.86.101",
-                    "Port": 10086
-                }
-            ],
-            
-            "UpstreamPathTemplate": "/gateway/product/{everything}",
-            "UpstreamHttpMethod": [ "Get", "POST" ]
-        },
-        {
-           
-            "DownstreamPathTemplate": "/api/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5125
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/identity/{everything}",
-            "UpstreamHttpMethod": [ "POST" ]
+          "Host": "172.25.86.101",
+          "Port": 10089
+          //"Port": 5124
         }
-    ],
+      ],
+      "UpstreamPathTemplate": "/gateway/sales/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.25.86.101",
+          "Port": 5249
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/production/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.25.86.101",
+          "Port": 10087
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/purchase/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST" ]
+    },
+    {
 
-    "GlobalConfiguration": {
-        "BaseUrl": "https://localhost:5000"
-        //"ServiceDiscoveryProvider": {
-        //    "Scheme": "http",
-        //    "Host": "localhost",
-        //    "Port": 8500,
-        //    "Type": "Consul"
-        //}
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.25.86.101",
+          "Port": 10086
+        }
+      ],
+
+      "UpstreamPathTemplate": "/gateway/product/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST" ]
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5125
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/identity/{everything}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.25.86.101",
+          "Port": 10090
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customQuery/{everything}",
+      "UpstreamHttpMethod": [ "POST" ]
     }
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5000"
+    //"ServiceDiscoveryProvider": {
+    //    "Scheme": "http",
+    //    "Host": "localhost",
+    //    "Port": 8500,
+    //    "Type": "Consul"
+    //}
+  }
 }
