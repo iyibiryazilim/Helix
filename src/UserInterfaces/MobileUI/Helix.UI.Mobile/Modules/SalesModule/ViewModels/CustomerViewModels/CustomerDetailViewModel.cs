@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
-using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.MVVMHelper;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 {
@@ -17,12 +16,21 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 
 		[ObservableProperty]
 		Customer current;
+		public ObservableCollection<string> Items { get; } = new();
 
- 		public CustomerDetailViewModel(IHttpClientService httpClientService, ICustomQueryService services)
+
+		public CustomerDetailViewModel(IHttpClientService httpClientService, ICustomQueryService services)
 		{
 			Title = "Müşteri Detayı";
 			_httpClientService = httpClientService;
 			_services = services;
+
+			Items.Add("selam");
+			Items.Add("selam");
+
+			Items.Add("selam");
+			Items.Add("selam");
+
 
 		}
 

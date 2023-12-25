@@ -8,8 +8,7 @@
              x:DataType="viewModel:CustomerDetailViewModel"
              Title="Müşteri Detay">
     <sharedViews:CurrentDetailContentView  Current="{Binding Current}"
-                                          IsRefreshing="{Binding IsRefreshing}"
-                                          IsBusy="{Binding IsBusy}">
-        
-    </sharedViews:CurrentDetailContentView>
+                                           IsRefreshing="{Binding IsRefreshing}"
+                                           IsBusy="{Binding IsBusy}"
+                                           deneme="{Binding Items}"></sharedViews:CurrentDetailContentView>
 </ContentPage>
