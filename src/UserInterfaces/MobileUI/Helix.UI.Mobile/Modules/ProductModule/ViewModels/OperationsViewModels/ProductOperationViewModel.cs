@@ -1,5 +1,10 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;

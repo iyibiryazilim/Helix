@@ -87,7 +87,7 @@
                     </Border.Shadow>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductOperationViewModel}},Path=InCountingTransactionOperationView}" />
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductOperationViewModel}},Path=GoToInCountingCommand}" />
 
                         </Border.GestureRecognizers>
 
@@ -132,8 +132,13 @@
                                 Radius="40"
                                 Opacity="0.1" />
                     </Border.Shadow>
-                        
-                </Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductOperationViewModel}},Path=GoToConsumableTransactionCommand}" />
+
+                        </Border.GestureRecognizers>
+
+                    </Border>
                 <Border Grid.Row="1"
                         Padding="10"
                         BackgroundColor="{StaticResource White}"
@@ -163,7 +168,12 @@
                                 Radius="40"
                                 Opacity="0.1" />
                     </Border.Shadow>
-                </Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductOperationViewModel}},Path=GoToOutCountingCommand}" />
+
+                        </Border.GestureRecognizers>
+                    </Border>
                 <Border Grid.Row="2"
                         Padding="10"
                         BackgroundColor="{StaticResource White}"
@@ -193,7 +203,12 @@
                                 Radius="40"
                                 Opacity="0.1" />
                     </Border.Shadow>
-                </Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductOperationViewModel}},Path=GoToWastageTransactionCommand}" />
+
+                        </Border.GestureRecognizers>
+                    </Border>
 
             </Grid>
         </Grid>

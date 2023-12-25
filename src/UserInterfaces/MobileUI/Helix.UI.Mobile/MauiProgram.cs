@@ -10,10 +10,21 @@ using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
@@ -32,11 +43,13 @@ using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.Views.BasketViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
@@ -132,6 +145,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<SalesPanelView>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationView>();
 			mauiAppBuilder.Services.AddTransient<BasketView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderCustomerView>();	
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderFicheView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderFormView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineListView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSummaryView>();	
+			
 
 
 
@@ -146,10 +165,16 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<SalesPanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationViewModel>();
 			mauiAppBuilder.Services.AddTransient<BasketViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderCustomerViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderFicheViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSummaryViewModel>();
 
 
 
-			return mauiAppBuilder;
+
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder SalesRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -212,6 +237,9 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationView>();
             mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationView>();
             mauiAppBuilder.Services.AddTransient<WastageTransactionOperationView>();
+
+
+
 
             
 

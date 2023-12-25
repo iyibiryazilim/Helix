@@ -1,7 +1,13 @@
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 
 namespace Helix.UI.Mobile
 {
@@ -20,12 +26,15 @@ namespace Helix.UI.Mobile
             Routing.RegisterRoute(nameof(ConsumableTransactionOperationView), typeof(ConsumableTransactionOperationView));
             Routing.RegisterRoute(nameof(WastageTransactionOperationView), typeof(WastageTransactionOperationView));
 
-
-
             Routing.RegisterRoute(nameof(WarehouseDetailInputTransactionView), typeof(WarehouseDetailInputTransactionView));
             Routing.RegisterRoute(nameof(WarehouseDetailOutputTransactionView), typeof(WarehouseDetailOutputTransactionView));
             Routing.RegisterRoute(nameof(WarehouseDetailProductListView), typeof(WarehouseDetailProductListView));
 
+            Routing.RegisterRoute(nameof(DispatchBySalesOrderCustomerView), typeof(DispatchBySalesOrderCustomerView));
+            Routing.RegisterRoute(nameof(DispatchBySalesOrderFicheView), typeof(DispatchBySalesOrderFicheView));
+            Routing.RegisterRoute(nameof(DispatchBySalesOrderLineListView), typeof(DispatchBySalesOrderLineListView));
+            Routing.RegisterRoute(nameof(DispatchBySalesOrderSummaryView), typeof(DispatchBySalesOrderSummaryView));  
+            Routing.RegisterRoute(nameof(DispatchBySalesOrderFormView), typeof(DispatchBySalesOrderFormView));
         }
     }
 }
