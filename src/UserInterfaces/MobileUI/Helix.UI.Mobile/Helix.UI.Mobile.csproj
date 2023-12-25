@@ -87,13 +87,12 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="The49.Maui.BottomSheet" Version="1.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="DataStores\" />
-	  <Folder Include="Modules\BaseModule\DataStores\" />
-	  <Folder Include="Modules\BaseModule\Services\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
 
