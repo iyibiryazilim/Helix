@@ -313,26 +313,26 @@ public class BaseTransactionLine : INotifyPropertyChanged
 
     //ProductTransaction--->BaseTransaction
     //ref
-    int baseTransactionReferenceId;
-    public int BaseTransactioneReferenceId
+    int ficheReferenceId;
+    public int FicheReferenceId
     {
-        get => baseTransactionReferenceId;
+        get => ficheReferenceId;
         set
         {
-            if (value != baseTransactionReferenceId)
+            if (value != ficheReferenceId)
             {
-                baseTransactionReferenceId = value;
-                NotifyPropertyChanged(nameof(BaseTransactioneReferenceId));
+				ficheReferenceId = value;
+                NotifyPropertyChanged(nameof(ficheReferenceId));
             }
         }
     }
-    string? baseTransactioncode;
-    public string? BaseTransactionCode
+    string? ficheCode;
+    public string? FicheCode
     {
-        get => baseTransactioncode;
+        get => ficheCode;
         set
         {
-            baseTransactioncode = value;
+			ficheCode = value;
             NotifyPropertyChanged();
         }
     }
