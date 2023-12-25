@@ -19,8 +19,11 @@ public class Basket : INotifyPropertyChanged
 		get => productReferenceId;
 		set
 		{
-			productReferenceId = value;
-			NotifyPropertyChanged();
+			if(value != productReferenceId)
+			{
+				productReferenceId = value;
+				NotifyPropertyChanged(nameof(ProductReferenceId));
+			}
 		}
 	}
 
