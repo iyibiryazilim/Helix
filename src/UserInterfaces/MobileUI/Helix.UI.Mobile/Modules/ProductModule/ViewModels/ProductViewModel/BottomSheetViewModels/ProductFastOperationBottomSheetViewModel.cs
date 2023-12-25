@@ -39,8 +39,9 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		}
 	}
 
+	/*
 	[RelayCommand]
-	async Task GoTo2ViewAsync()  // Sarf İşlemleri View
+	async Task GoToViewAsync()  // Sarf İşlemleri View
 	{
 		if (IsBusy)
 			return;
@@ -238,4 +239,5 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
+	*/
 }
