@@ -68,6 +68,7 @@ builder.Services.AddTransient<ISubUnitsetService, SubUnitsetDataStore>();
 builder.Services.AddTransient<IUnitsetService, UnitsetDataStore>();
 builder.Services.AddTransient<IProductService, ProductDataStore>();
 builder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
+builder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 
 
 
