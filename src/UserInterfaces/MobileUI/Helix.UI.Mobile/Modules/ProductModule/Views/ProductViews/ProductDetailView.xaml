@@ -118,9 +118,9 @@
                         BackgroundColor="{StaticResource Primary}"
                         CornerRadius="12"
                         Command="{Binding OpenFastOperationBottomSheetCommand}"
-                        FontAttributes="Bold"
                         FontSize="13"
                         HeightRequest="30"
+                        FontAttributes="Bold"
                         Text="Hızlı İşlemler"
                         WidthRequest="120" />
 

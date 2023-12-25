@@ -26,7 +26,8 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailInputReturnListViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailInputReturnListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped"/>
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
                       ColumnSpacing="10">
@@ -69,7 +70,8 @@
                    CornerRadius="10" BackgroundColor="{StaticResource White}">
 
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToProductDetailOutputReturnListViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailOutputReturnListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
@@ -113,7 +115,8 @@
                    BackgroundColor="{StaticResource White}">
 
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToProductDetailInputTransactionListViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailInputTransactionListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
@@ -157,7 +160,8 @@
                    BackgroundColor="{StaticResource White}">
 
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToProductDetailOutputTransactionListViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailOutputTransactionListViewCommand}" 
+                                          Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
                       ColumnSpacing="10">
@@ -201,7 +205,8 @@
                    BackgroundColor="{StaticResource White}">
 
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToProductDetailPurchaseDispatchListViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailPurchaseDispatchListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
@@ -245,7 +250,8 @@
                    BackgroundColor="{StaticResource White}">
 
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToProductDetailSalesDispatchListViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailSalesDispatchListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
                       ColumnSpacing="10">
@@ -289,8 +295,8 @@
                    BackgroundColor="{StaticResource White}">
 
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToProductDetailSalesOrderListViewCommand}" />
-
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailSalesOrderListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
                       ColumnSpacing="10">
@@ -334,7 +340,8 @@
                    BackgroundColor="{StaticResource White}">
 
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToProductDetailPurchaseOrderListViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductTransactionBottomSheetViewModel}},Path=GoToProductDetailPurchaseOrderListViewCommand}"
+                                          Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
