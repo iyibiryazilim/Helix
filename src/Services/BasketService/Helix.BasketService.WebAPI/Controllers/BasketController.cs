@@ -16,9 +16,9 @@ public class BasketController : ControllerBase
 	}
 
 	[HttpGet]
-	public Task<Basket> GetBasket(string key)
+	public async Task<DataResult<IEnumerable<Basket>>> GetBasket(string key)
 	{
-		var result =  _basketService.GetBasket(key);
+		var result = await _basketService.GetBasketAsync(key);
 		return result;
 	}
 
