@@ -1,6 +1,8 @@
 using Android.Content.Res;
 using CommunityToolkit.Maui;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.DataStores;
+using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
 using Helix.UI.Mobile.Modules.FastProductionModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
@@ -62,6 +64,7 @@ namespace Helix.UI.Mobile
 				.ReturnRegisterServices()
 				.ReturnRegisterViewModels()
 				.ReturnRegisterViews()
+				.BaseRegisterServices()
 				.SalesRegisterServices()
 				.SalesRegisterViewModels()
 				.SalesRegisterViews()
@@ -118,6 +121,14 @@ namespace Helix.UI.Mobile
             return builder.Build();
         }
 
+
+		public static MauiAppBuilder BaseRegisterServices(this MauiAppBuilder mauiAppBuilder)
+		{
+
+			mauiAppBuilder.Services.AddTransient<ICustomQueryService, CustomQueryDataStore>();
+
+			return mauiAppBuilder;
+		}
 		public static MauiAppBuilder RegisterHttpClientServices(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddSingleton<IHttpClientService, HttpClientService>();
