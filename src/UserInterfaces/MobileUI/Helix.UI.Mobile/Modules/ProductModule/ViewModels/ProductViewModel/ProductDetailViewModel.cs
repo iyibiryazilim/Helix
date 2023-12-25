@@ -46,4 +46,29 @@ public partial class ProductDetailViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
+
+	[RelayCommand]
+	async Task OpenProductTransactionBottomSheetAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+
+			ProductTransactionBottomSheetViewModel viewModel = _serviceProvider.GetService<ProductTransactionBottomSheetViewModel>();
+
+			ProductTransactionBottomSheetView sheet = new ProductTransactionBottomSheetView(viewModel);
+			await sheet.ShowAsync();
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
 }
