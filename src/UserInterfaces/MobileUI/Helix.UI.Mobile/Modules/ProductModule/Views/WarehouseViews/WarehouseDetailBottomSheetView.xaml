@@ -4,7 +4,11 @@
              xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseDetailBottomSheetView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel"
-                   x:DataType="viewModel:WarehouseDetailBottomSheetViewModel"
+             HasHandle="True"
+             Padding="20"
+             BackgroundColor="#EFECFB"
+             HandleColor="{StaticResource Primary}"
+             x:DataType="viewModel:WarehouseDetailBottomSheetViewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
             >
@@ -16,11 +20,10 @@
         <!-- Stop at 120dp -->
         <the49:HeightDetent Height="400" />
     </the49:BottomSheet.Detents>
-    <Frame CornerRadius="5">
         <ScrollView>
             <VerticalStackLayout Spacing="10">
                 <Frame Padding="10"
-                       CornerRadius="10">
+                       CornerRadius="10" Margin="0,10,0,0">
 
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseDetailBottomSheetViewModel}},Path=GoToWarehouseProductListViewCommand}"
@@ -52,13 +55,16 @@
                                    VerticalOptions="Center"></Label>
                             <Label Text="Ürün bilgileri bulunur."></Label>
                         </VerticalStackLayout>
-                        <Label Text=">"
-                               Grid.Column="2"
-                               FontAttributes="Bold"
-                               FontSize="Large"
-                               HorizontalOptions="End"
-                               VerticalOptions="Center"></Label>
-                    </Grid>
+                    <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
+                    <Image.Source>
+                        <FontImageSource FontFamily="FAS"
+                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
+
+                        </FontImageSource>
+                    </Image.Source>
+                    </Image>
+                </Grid>
                 </Frame>
                 <Frame Padding="10"
                        CornerRadius="10">
@@ -93,13 +99,19 @@
                                    VerticalOptions="Center"></Label>
                             <Label Text="Giriş hareket bilgileri bulunur."></Label>
                         </VerticalStackLayout>
-                        <Label Text=">"
-                               Grid.Column="2"
-                               FontAttributes="Bold"
-                               FontSize="Large"
-                               HorizontalOptions="End"
-                               VerticalOptions="Center"></Label>
-                    </Grid>
+                    <Image VerticalOptions="Center"
+                           Grid.Column="2"
+                           WidthRequest="15"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
+
+                            </FontImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
                 </Frame>
                 <Frame Padding="10"
                        CornerRadius="10">
@@ -134,18 +146,23 @@
                                    VerticalOptions="Center"></Label>
                             <Label Text="Çıkış hareket bilgileri bulunur."></Label>
                         </VerticalStackLayout>
-                        <Label Text=">"
-                               Grid.Column="2"
-                               FontAttributes="Bold"
-                               FontSize="Large"
-                               HorizontalOptions="End"
-                               VerticalOptions="Center"></Label>
-                    </Grid>
+                    <Image VerticalOptions="Center"
+                           Grid.Column="2"
+                           WidthRequest="15"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
+
+                            </FontImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
                 </Frame>
 
             </VerticalStackLayout>
 
         </ScrollView>
 
-    </Frame>
 </the49:BottomSheet>

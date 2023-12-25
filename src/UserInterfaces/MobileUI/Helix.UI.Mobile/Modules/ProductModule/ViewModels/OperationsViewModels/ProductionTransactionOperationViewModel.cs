@@ -1,5 +1,7 @@
-﻿namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
+﻿using Helix.UI.Mobile.MVVMHelper;
 
-public class ProductionTransactionOperationViewModel
+namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
+
+public class ProductionTransactionOperationViewModel : BaseViewModel
 {
 }

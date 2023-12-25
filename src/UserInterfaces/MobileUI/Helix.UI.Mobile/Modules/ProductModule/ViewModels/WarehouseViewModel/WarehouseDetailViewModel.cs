@@ -8,69 +8,63 @@ using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 using System.Net.Http;
 
-namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
+namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
+
+[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+
+public partial class WarehouseDetailViewModel : BaseViewModel
 {
-	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 
-	public partial class WarehouseDetailViewModel : BaseViewModel
-	{
+	IHttpClientService _httpClientService;
+	private readonly IWarehouseService _warehouseService;
+	IServiceProvider _serviceProvider;
 
-		IHttpClientService _httpClientService;
-		private readonly IWarehouseService _warehouseService;
-		IServiceProvider _serviceProvider;
+	//public Command GetWarehouseDetailCommand { get; }
 
-		//public Command GetWarehouseDetailCommand { get; }
+	[ObservableProperty]
+	Warehouse warehouse;
 
-		[ObservableProperty]
-		Warehouse warehouse;
-
-		public WarehouseDetailViewModel(IHttpClientService httpClientService,IWarehouseService warehouseService,IServiceProvider serviceProvider)
+	public WarehouseDetailViewModel(IHttpClientService httpClientService,IWarehouseService warehouseService,IServiceProvider serviceProvider)
         {
-			Title = "Ambar Detayı";
+		Title = "Ambar Detayı";
             _httpClientService = httpClientService;
-			_warehouseService = warehouseService;
-			_serviceProvider = serviceProvider;
+		_warehouseService = warehouseService;
+		_serviceProvider = serviceProvider;
+		
+	}
+
+	[RelayCommand]
+	async Task GoToBackAsync()
+	{
+		await Shell.Current.GoToAsync("..");
+	}
+
+	[RelayCommand]
+	async Task GoToWarehouseDetailBottomSheet()
+	{
+		if (IsBusy)
+			return;
+
+		try
+		{
+			IsBusy = true;
+			WarehouseDetailBottomSheetViewModel model = _serviceProvider.GetService<WarehouseDetailBottomSheetViewModel>();
+			model.Warehouse = Warehouse;
+
+			WarehouseDetailBottomSheetView sheet = new WarehouseDetailBottomSheetView(model);
 			
-		}
+			await sheet.ShowAsync();
 
-		[RelayCommand]
-		async Task GoToBackAsync()
+		}
+		catch (Exception ex)
 		{
-			await Shell.Current.GoToAsync("..");
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
 		}
-
-		[RelayCommand]
-		async Task GoToWarehouseDetailBottomSheet()
+		finally
 		{
-			if (IsBusy)
-				return;
-
-			try
-			{
-				IsBusy = true;
-				WarehouseDetailBottomSheetViewModel model = _serviceProvider.GetService<WarehouseDetailBottomSheetViewModel>();
-				model.Warehouse = Warehouse;
-
-				WarehouseDetailBottomSheetView sheet = new WarehouseDetailBottomSheetView(model);
-				sheet.HasHandle = true;
-				sheet.CornerRadius = 20;
-				sheet.BackgroundColor = Color.FromArgb("#512BD4");
-				sheet.HandleColor = Color.FromArgb("#E1E3EA");
-				await sheet.ShowAsync();
-
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-
+			IsBusy = false;
 		}
-
 
 	}
 }

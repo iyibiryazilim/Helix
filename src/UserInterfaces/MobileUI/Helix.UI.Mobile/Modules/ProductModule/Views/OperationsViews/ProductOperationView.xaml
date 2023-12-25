@@ -35,10 +35,10 @@
                                FontAttributes="Bold">
 
                         </Label>
-                        <Image Grid.Column="1"
-                               HorizontalOptions="Center"
-                               HeightRequest="15">
-                            <Image.Source>
+                            <Image Grid.Column="1"
+                                   HorizontalOptions="Center"
+                                   HeightRequest="15">
+                                <Image.Source>
                                 <FontImageSource FontFamily="FAS"
                                                  Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
@@ -50,7 +50,12 @@
                                 Radius="40"
                                 Opacity="0.1" />
                     </Border.Shadow>
-                </Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductOperationViewModel}},Path=GoToProductionOperationCommand}" />
+
+                        </Border.GestureRecognizers>
+                    </Border>
                 <Border Grid.Row="1"
                         Padding="10"
                         BackgroundColor="{StaticResource White}"
@@ -80,7 +85,13 @@
                                 Radius="40"
                                 Opacity="0.1" />
                     </Border.Shadow>
-                </Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductOperationViewModel}},Path=InCountingTransactionOperationView}" />
+
+                        </Border.GestureRecognizers>
+
+                    </Border>
 
             </Grid>
         </Grid>
@@ -121,6 +132,7 @@
                                 Radius="40"
                                 Opacity="0.1" />
                     </Border.Shadow>
+                        
                 </Border>
                 <Border Grid.Row="1"
                         Padding="10"
