@@ -73,11 +73,12 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="baseModel:Warehouse">
                                 <Border
+                                    Margin="10,0,10,0"
                                     Padding="5"
                                     BackgroundColor="{StaticResource White}"
                                     HeightRequest="85"
                                     StrokeShape="RoundRectangle 10"
-                                    WidthRequest="370">
+                                    >
                                     <Grid ColumnDefinitions="Auto, *">
                                         <Border
                                             Grid.Column="0"
@@ -97,6 +98,8 @@
                                             <Label
                                                 FontAttributes="Bold"
                                                 FontSize="Body"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
                                                 Text="{Binding Name}" />
                                         </VerticalStackLayout>
                                     </Grid>
