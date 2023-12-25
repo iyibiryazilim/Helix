@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.MVVMHelper;
 
@@ -10,8 +10,6 @@ public partial class ProductOperationViewModel :BaseViewModel
     {
         Title = "Malzeme İşlemleri";
     }
-
-
 
     [RelayCommand]
     async Task GoToInCounting()
@@ -43,5 +41,5 @@ public partial class ProductOperationViewModel :BaseViewModel
     {
         await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}");
     }
-}
 
+}
