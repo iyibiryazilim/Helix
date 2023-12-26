@@ -129,7 +129,7 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 			if (result.Data.Any())
 			{
 				WarehouseDetailTransactions.Clear();
-				foreach (WarehouseTransaction item in result.Data.Take(5))
+				foreach (WarehouseTransaction item in result.Data.Take(3))
 				{
 					WarehouseDetailTransactions.Add(item);
 				}

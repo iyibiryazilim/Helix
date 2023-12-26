@@ -15,7 +15,10 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
 			string query = @$"SELECT 
 			[ReferenceId] = LGMAIN.LOGICALREF,
 			[Number] = LGMAIN.NR,
-			[Name] = LGMAIN.NAME
+			[Name] = LGMAIN.NAME,
+			[LastTransactionDate] = (SELECT TOP 1 LASTTRDATE
+			FROM LV_00{FirmNumber}_0{PeriodNumber}_STINVTOT 
+			WHERE INVENNO = LGMAIN.NR ORDER BY DATE_ DESC)
 			FROM L_CAPIWHOUSE AS LGMAIN WITH (NOLOCK) WHERE LGMAIN.FIRMNR = {FirmNumber} AND (LGMAIN.NAME LIKE '%{search}%' OR LGMAIN.NR LIKE '%{search}%')
 			{orderBy}
 			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
