@@ -78,4 +78,20 @@ public class WarehouseTransactionDataStore : BaseDataStore, IWarehouseTransactio
 			throw;
 		}
 	}
+
+	public async Task<DataResult<IEnumerable<WarehouseTransaction>>> GetTransactionsByWarehouseNumber(int number, string search, string orderBy, int currentPage, int pageSize)
+	{
+		try
+		{
+			var result = await new SqlQueryHelper<WarehouseTransaction>().GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetTransactionsByWarehouseNumber(number, search, orderBy, currentPage, pageSize));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+			throw;
+		}
+	}
 }

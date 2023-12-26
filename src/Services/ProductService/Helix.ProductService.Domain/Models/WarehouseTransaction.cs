@@ -2,6 +2,6 @@
 
 namespace Helix.ProductService.Domain.Models;
 
-public class WarehouseTransaction : BaseTransaction
+public class WarehouseTransaction : BaseTransactionLine
 {
 }
