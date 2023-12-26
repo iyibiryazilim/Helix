@@ -1,4 +1,5 @@
 ﻿using Helix.BasketService.Application.Services;
+using Helix.BasketService.Domain.Dtos;
 using Helix.BasketService.Domain.Models;
 using Helix.BasketService.Infrastructure.BaseRepository;
 using Microsoft.Extensions.Caching.Memory;
@@ -20,31 +21,32 @@ public class BasketDataStore : BaseDataStore, IBasketService
 		_connectionMultiplexer = connectionMultiplexer;
 		_db = _connectionMultiplexer.GetDatabase();
 	}
-	public Task AddBasket(string key,Basket basket)
+	public async Task<bool> AddBasketAsync(string key, Basket basket)
 	{
 		if(_db.KeyExists(key))
 		{
-			return Task.CompletedTask; // kaldırılacak
+			return false;
 		}
 		var jsonData = JsonSerializer.Serialize(basket);
-		_db.StringSet(key, jsonData);
-		return Task.CompletedTask; // kaldırılacak
+		var result = await _db.StringSetAsync(key, jsonData);
+
+		return result;
 	}
 
-	public Task ClearBasket()
+	public void ClearBasket()
 	{
-		// remove all the keys in db
 		var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints()[0]);
-		server.Keys(pattern: "*").ToList().ForEach(key => _db.KeyDelete(key));
-		return Task.CompletedTask; // kaldırılacak
+		if(server is null)
+			return;
+		server.Keys(pattern: "*").ToList().ForEach(async key =>await  _db.KeyDeleteAsync(key));
 	}
 
-	public Task RemoveBasket(string key)
+	public async Task<bool> RemoveBasketAsync(string key)
 	{
-		if(!_db.KeyExists(key))
-			return Task.CompletedTask; // kaldırılacak
-		_db.KeyDelete(key);
-		return Task.CompletedTask; // kaldırılacak
+		if (!_db.KeyExists(key))
+			return false; 
+		var result = await _db.KeyDeleteAsync(key);
+		return result;
 	}
 
 	public async Task<DataResult<IEnumerable<Basket>>> GetBasketAsync(string key)

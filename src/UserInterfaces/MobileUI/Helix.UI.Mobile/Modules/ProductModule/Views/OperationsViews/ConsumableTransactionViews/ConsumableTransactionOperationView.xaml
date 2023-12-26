@@ -2,65 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             x:Name="this"   
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
+             x:DataType="viewModel:ProductTransactionContentViewModel"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews.ConsumableTransactionOperationView"          
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
-            StrokeThickness="0"
-            Margin="0,30,0,0">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="20,20,0,0" />
-        </Border.StrokeShape>
-        <Grid RowDefinitions="Auto,*,Auto">
-            <Grid Grid.Row="0">
-                <Border >
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20,20,0,0" />
-                    </Border.StrokeShape>
-                    <HorizontalStackLayout Padding="10">
-                            <ImageButton HorizontalOptions="Start"
-                                         
-                                         Aspect="AspectFit"
-                                         HeightRequest="22"
-                                         WidthRequest="22">
-                                <ImageButton.Source>
-                                    <FontImageSource FontFamily="FAS"
-                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Barcode}"
-                                                     Color="{AppThemeBinding Light={StaticResource Black},
-Dark={StaticResource White}}" />
-                                </ImageButton.Source>
-                            </ImageButton>
-                                
-                            <SearchBar HorizontalOptions="Center"  WidthRequest="320"></SearchBar>
-                                
-                            <ImageButton  HorizontalOptions="End"
-                                         Aspect="AspectFit"
-                                         HeightRequest="22"
-                                         WidthRequest="22">
-                                <ImageButton.Source>
-                                    <FontImageSource FontFamily="FAS"
-                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
-                                                     Color="{AppThemeBinding Light={StaticResource Black},
-Dark={StaticResource White}}" />
-                                </ImageButton.Source>
-                            </ImageButton>
-
-                        </HorizontalStackLayout>
-
-
-                   
-                </Border>
-                        
-            </Grid>
-            <Frame Grid.Row="1" Margin="20"  >
-                
-            </Frame>
-            <VerticalStackLayout Grid.Row="2" Padding="20">
-                <Button Text="İleri">
-                    
-                </Button>
-            </VerticalStackLayout>
-            
-        </Grid>
-    </Border>
+    <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}">
+        
+    </sharedViews:ProductTransactionContentView>
+ 
 </ContentPage>

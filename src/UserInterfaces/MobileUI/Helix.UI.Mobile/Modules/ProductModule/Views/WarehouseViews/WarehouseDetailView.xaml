@@ -5,12 +5,20 @@
              x:DataType="viewModel:WarehouseDetailViewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:models="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseDetailView"
              Title="{Binding Title}">
-
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetWarehouseDetailCommand}"
+                                        EventName="Loaded" />
+    </ContentPage.Behaviors>
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
                  Command="{Binding .}">
+
         <Grid RowDefinitions="0.1*,0.9*">
+            <Button BackgroundColor="{StaticResource Success}">
+
+            </Button>
             <Frame Grid.Row="0"
                    Grid.Column="0"
                    CornerRadius="0"
@@ -82,8 +90,9 @@
                                 HeightRequest="30"
                                 FontSize="13"
                                 Command="{Binding .}"
-                                BackgroundColor="{StaticResource Primary}"
+                                BackgroundColor="{StaticResource Success}"
                                 Text="Sayım"
+                                
                                 FontAttributes="Bold">
 
                         </Button>
@@ -95,118 +104,55 @@
                                    FontSize="Body"></Label>
                             <VerticalStackLayout Spacing="10"
                                                  HorizontalOptions="Center">
-                                <!--<CollectionView ItemsSource="{Binding .}">
+
+                                <CollectionView  ItemsSource="{Binding WarehouseDetailCardTypeCounts}">
                                     <CollectionView.ItemsLayout>
                                         <LinearItemsLayout ItemSpacing="10"
-                                                           Orientation="Horizontal" />
+                                                           
+                                                           Orientation="Horizontal">
+                                            
+                                        </LinearItemsLayout>
                                     </CollectionView.ItemsLayout>
                                     <CollectionView.ItemTemplate>
-                                        <DataTemplate >
-                                            <Frame WidthRequest="120"
-                                                   Padding="10"
-                                                   BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource BlackSolid}}">
-                                                <VerticalStackLayout HorizontalOptions="Center">
-                                                    <Label Text="{Binding .}"
-                                                           HorizontalOptions="Center"
+                                        <DataTemplate x:DataType="models:WarehouseDetailCardTypeCount">
+                                            <Grid Padding="0,0,5,5">
+                                            <Border WidthRequest="120">
+
+                                                <Grid RowDefinitions="50*,50*"
+                                                      RowSpacing="5"
+                                                      Padding="5">
+                                                    <Label Grid.Row="0"
+                                                           FontSize="18"
                                                            FontAttributes="Bold"
-                                                           FontSize="Large">
+                                                           Text="{Binding ReferenceCount}"
+                                                           
+                                                           HorizontalOptions="Center">
 
                                                     </Label>
-                                                    <Label Text="{Binding .}"
-                                                           FontAttributes="None"
-                                                           HorizontalOptions="Center"
-                                                           TextColor="{StaticResource Gray500}"></Label>
-                                                </VerticalStackLayout>
-                                            </Frame>
+                                                    <Label Grid.Row="1"
+                                                           Text="{Binding CardTypeName}"
+                                                           HorizontalOptions="Center">
+
+                                                    </Label>
+
+                                                </Grid>
+                                                <Border.Shadow>
+                                                    <Shadow Brush="{StaticResource Primary}"
+                                                            Offset="20,20"
+                                                            Radius="20"
+                                                            Opacity="0.1" />
+                                                </Border.Shadow>
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="5,5,5,5" />
+                                                </Border.StrokeShape>
+                                            </Border>
+                                            </Grid>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
-                                </CollectionView>-->
-                                <HorizontalStackLayout Spacing="10">
-                                    
-                                    <Border WidthRequest="120" >
-                                        <Grid RowDefinitions="50*,50*" RowSpacing="5" Padding="5">
-                                            <Label Grid.Row="0"
-                                                   FontSize="18"
-                                                   FontAttributes="Bold"
-                                                   Text="15" HorizontalOptions="Center">
-
-                                            </Label>
-                                            <Label Grid.Row="1"
-                                                   Text="Hammadde"
-                                                   HorizontalOptions="Center">
-                                                
-                                            </Label>
-                                          
-                                        </Grid>
-                                        <Border.Shadow>
-                                            <Shadow Brush="{StaticResource Primary}"
-                                                    Offset="20,20"
-                                                    Radius="20"
-                                                    Opacity="0.1" />
-                                        </Border.Shadow>
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="5,5,5,5" />
-                                        </Border.StrokeShape>
-                                    </Border>
-                                    <Border WidthRequest="120">
-                                        <Grid RowDefinitions="50*,50*"
-                                              RowSpacing="5"
-                                              Padding="5">
-                                            <Label Grid.Row="0"
-                                                   FontSize="18"
-                                                   FontAttributes="Bold"
-                                                   Text="1023"
-                                                   HorizontalOptions="Center">
-
-                                            </Label>
-                                            <Label Grid.Row="1"
-                                                   Text="Mamül"
-                                                   HorizontalOptions="Center">
-
-                                            </Label>
-
-                                        </Grid>
-                                        <Border.Shadow>
-                                            <Shadow Brush="{StaticResource Primary}"
-                                                    Offset="20,20"
-                                                    Radius="20"
-                                                    Opacity="0.1" />
-                                        </Border.Shadow>
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="5,5,5,5" />
-                                        </Border.StrokeShape>
-                                    </Border>
-                                    <Border WidthRequest="120" >
-                                        <Grid RowDefinitions="50*,50*"
-                                              RowSpacing="5"
-                                              Padding="5">
-                                            <Label Grid.Row="0"
-                                                   FontSize="18"
-                                                   FontAttributes="Bold"
-                                                   Text="856"
-                                                   HorizontalOptions="Center">
-
-                                            </Label>
-                                            <Label Grid.Row="1"
-                                                   Text="Yarı Mamül"
-                                                   HorizontalOptions="Center">
-
-                                            </Label>
-
-                                        </Grid>
-                                        <Border.Shadow>
-                                            <Shadow Brush="{StaticResource Primary}"
-                                                    Offset="20,20"
-                                                    Radius="20"
-                                                    Opacity="0.1" />
-                                        </Border.Shadow>
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="5,5,5,5" />
-                                        </Border.StrokeShape>
-                                    </Border>
-                                </HorizontalStackLayout>
+                                </CollectionView>
+     
                             </VerticalStackLayout>
-
+                            
                         </VerticalStackLayout>
                         <Frame IsVisible="false"
                                Grid.Row="4"
@@ -246,6 +192,49 @@
                               
 
                             </VerticalStackLayout>
+                            <CollectionView  ItemsSource="{Binding WarehouseDetailTransactions}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout ItemSpacing="10"
+                                                       Orientation="Horizontal">
+
+                                    </LinearItemsLayout>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:WarehouseTransaction">
+                                        <Grid Padding="0,0,5,5">
+                                            <Border WidthRequest="120">
+
+                                                <Grid RowDefinitions="50*,50*"
+                                                      RowSpacing="5"
+                                                      Padding="5">
+                                                    <Label Grid.Row="0"
+                                                           FontSize="18"
+                                                           FontAttributes="Bold"
+                                                           Text="{Binding SubUnitsetCode}"
+                                                           HorizontalOptions="Center">
+
+                                                    </Label>
+                                                    <Label Grid.Row="1"
+                                                           Text="{Binding TransactionType}"
+                                                           HorizontalOptions="Center">
+
+                                                    </Label>
+
+                                                </Grid>
+                                                <Border.Shadow>
+                                                    <Shadow Brush="{StaticResource Primary}"
+                                                            Offset="20,20"
+                                                            Radius="20"
+                                                            Opacity="0.1" />
+                                                </Border.Shadow>
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="5,5,5,5" />
+                                                </Border.StrokeShape>
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                         </VerticalStackLayout>
                     </Grid>
                 </ScrollView>

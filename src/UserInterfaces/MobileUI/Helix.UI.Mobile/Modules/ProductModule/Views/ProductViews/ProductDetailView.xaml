@@ -14,6 +14,9 @@
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetProductTransactionLineCommand}" />
+    </ContentPage.Behaviors>
     <Grid BackgroundColor="{StaticResource Primary}" RowDefinitions="0.1*,0.9*">
         <Frame
             Grid.Row="0"

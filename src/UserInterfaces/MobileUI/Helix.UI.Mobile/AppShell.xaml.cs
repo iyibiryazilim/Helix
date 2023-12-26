@@ -1,3 +1,4 @@
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
@@ -48,10 +49,8 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(WarehouseDetailProductListView), typeof(WarehouseDetailProductListView));
 		Routing.RegisterRoute(nameof(CustomerShowMoreBottomSheetView), typeof(CustomerShowMoreBottomSheetView));
 		Routing.RegisterRoute(nameof(CustomerFastOperationBottomSheetView), typeof(CustomerFastOperationBottomSheetView));
+        Routing.RegisterRoute(nameof(SharedProductListView), typeof(SharedProductListView));
 
-
-
-
-	}
+    }
 }
 

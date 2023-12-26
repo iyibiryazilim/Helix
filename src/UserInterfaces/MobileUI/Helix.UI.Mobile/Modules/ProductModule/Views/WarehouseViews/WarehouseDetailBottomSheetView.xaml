@@ -27,8 +27,7 @@
 
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseDetailBottomSheetViewModel}},Path=GoToWarehouseProductListViewCommand}"
-                                               />
-
+                                              Tapped="TapGestureRecognizer_Tapped" />
                     </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="30,*,auto"
                           ColumnSpacing="10">
@@ -56,13 +55,13 @@
                             <Label Text="Ürün bilgileri bulunur."></Label>
                         </VerticalStackLayout>
                     <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
-                    <Image.Source>
-                        <FontImageSource FontFamily="FAS"
-                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
 
-                        </FontImageSource>
-                    </Image.Source>
+                            </FontImageSource>
+                        </Image.Source>
                     </Image>
                 </Grid>
                 </Frame>
@@ -71,8 +70,7 @@
 
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseDetailBottomSheetViewModel}},Path=GoToWarehouseInputTransactionListViewCommand}"
-                                               />
-
+                                              Tapped="TapGestureRecognizer_Tapped" />
                     </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="30,*,auto"
                           ColumnSpacing="10">
@@ -118,8 +116,7 @@
 
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseDetailBottomSheetViewModel}},Path=GoToWarehouseOutputTransactionListViewCommand}"
-                                               />
-
+                                              Tapped="TapGestureRecognizer_Tapped" />
                     </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="30,*,auto"
                           ColumnSpacing="10">
@@ -146,19 +143,19 @@
                                    VerticalOptions="Center"></Label>
                             <Label Text="Çıkış hareket bilgileri bulunur."></Label>
                         </VerticalStackLayout>
-                    <Image VerticalOptions="Center"
-                           Grid.Column="2"
-                           WidthRequest="15"
-                           HeightRequest="15">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FAS"
-                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
+                        <Image VerticalOptions="Center"
+                               Grid.Column="2"
+                               WidthRequest="15"
+                               HeightRequest="15">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
 
-                            </FontImageSource>
-                        </Image.Source>
-                    </Image>
-                </Grid>
+                                </FontImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
                 </Frame>
 
             </VerticalStackLayout>
