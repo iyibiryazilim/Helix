@@ -3,13 +3,13 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
+using Helix.UI.Mobile.Modules.BaseModule.ViewModels;
+using Helix.UI.Mobile.Modules.BaseModule.Views;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
-using Microcharts;
-using SkiaSharp;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -26,8 +26,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 		[ObservableProperty]
 		Customer current;
 		public ObservableCollection<CurrentTransactionLine> Items { get; } = new();
-		[ObservableProperty]
-		LineChart chart = new();
+		//[ObservableProperty]
+		//LineChart chart = new();
 		public Command GetLoadDataCommand { get; }
 
 		//Properties
@@ -58,8 +58,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			{
 				await Task.Delay(500);
 				await MainThread.InvokeOnMainThreadAsync(GetLastTransactionsAsync);
-				await LoadChartDataAsync();
-
+ 
 			}
 			catch (Exception ex)
 			{
@@ -104,52 +103,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			}
 		}
 
-		public async Task LoadChartDataAsync()
-		{
-			try
-			{
-				IsBusy = true;
-				ChartEntry[] entries = new[]
-	   {
-			new ChartEntry(212)
-			{
-				Label = "Windows",
-				ValueLabel = "112",
-				Color = SKColor.Parse("#2c3e50")
-			},
-			new ChartEntry(248)
-			{
-				Label = "Android",
-				ValueLabel = "648",
-				Color = SKColor.Parse("#77d065")
-			},
-			new ChartEntry(128)
-			{
-				Label = "iOS",
-				ValueLabel = "428",
-				Color = SKColor.Parse("#b455b6")
-			},
-			new ChartEntry(514)
-			{
-				Label = ".NET MAUI",
-				ValueLabel = "214",
-				Color = SKColor.Parse("#3498db")
-			}
-		};
-				Chart.Entries = entries;
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
-				IsRefreshing = false;
-			}
-		}
-
+ 
 		[RelayCommand]
 		async Task GoToBackAsync()
 		{
@@ -165,9 +119,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			{
 				IsBusy = true;
 
-				CustomerShowMoreBottomSheetViewModel viewModel = _serviceProvider.GetService<CustomerShowMoreBottomSheetViewModel>();
-
-				CustomerShowMoreBottomSheetView sheet = new CustomerShowMoreBottomSheetView(viewModel);
+				CurrentShowMoreBottomSheetViewModel viewModel = _serviceProvider.GetService<CurrentShowMoreBottomSheetViewModel>();
+				viewModel.Current = Current;
+				CurrentShowMoreBottomSheetView sheet = new CurrentShowMoreBottomSheetView(viewModel);
 				await sheet.ShowAsync();
 			}
 			catch (Exception ex)
@@ -191,6 +145,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 				IsBusy = true;
 
 				CustomerFastOperationBottomSheetViewModel viewModel = _serviceProvider.GetService<CustomerFastOperationBottomSheetViewModel>();
+				viewModel.Current = Current;
 
 				CustomerFastOperationBottomSheetView sheet = new CustomerFastOperationBottomSheetView(viewModel);
 				await sheet.ShowAsync();
