@@ -58,6 +58,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
+using Microcharts.Maui;
 using Microsoft.Extensions.Logging;
 using The49.Maui.BottomSheet;
 
@@ -72,6 +73,7 @@ namespace Helix.UI.Mobile
             builder
                 .UseMauiApp<App>()
 				.UseBottomSheet()
+				.UseMicrocharts()
                 .UseMauiCommunityToolkit()
 				.RegisterHttpClientServices()
 				.LoginViews()
@@ -164,9 +166,9 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderFicheView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderFormView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineListView>();
-			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSummaryView>();	
-			
-
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSummaryView>();
+			mauiAppBuilder.Services.AddTransient<CustomerShowMoreBottomSheetView>();
+			mauiAppBuilder.Services.AddTransient<CustomerFastOperationBottomSheetView>();
 
 
 
@@ -185,15 +187,18 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderFormViewModel>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineListViewModel>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSummaryViewModel>();
+			mauiAppBuilder.Services.AddTransient<CustomerShowMoreBottomSheetViewModel>();
+			mauiAppBuilder.Services.AddTransient<CustomerFastOperationBottomSheetViewModel>();
 
 
 
-
-            return mauiAppBuilder;
+			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder SalesRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<ICustomerService, CustomerDataStore>();
+			mauiAppBuilder.Services.AddTransient<ICustomerTransactionLineService, CustomerTransactionLineDataStore>();
+			mauiAppBuilder.Services.AddTransient<ICustomerTransactionService, CustomerTransactionDataStore>();
 			mauiAppBuilder.Services.AddTransient<ISalesOrderLineService, SalesOrderLineLineDataStore>();
 
 			return mauiAppBuilder;

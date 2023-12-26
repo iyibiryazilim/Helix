@@ -9,6 +9,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
+using Microsoft.Maui.Hosting;
 
 namespace Helix.UI.Mobile;
 
@@ -46,7 +47,8 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(WarehouseDetailInputTransactionView), typeof(WarehouseDetailInputTransactionView));
         Routing.RegisterRoute(nameof(WarehouseDetailOutputTransactionView), typeof(WarehouseDetailOutputTransactionView));
         Routing.RegisterRoute(nameof(WarehouseDetailProductListView), typeof(WarehouseDetailProductListView));
-
+		Routing.RegisterRoute(nameof(CustomerShowMoreBottomSheetView), typeof(CustomerShowMoreBottomSheetView));
+		Routing.RegisterRoute(nameof(CustomerFastOperationBottomSheetView), typeof(CustomerFastOperationBottomSheetView));
         Routing.RegisterRoute(nameof(SharedProductListView), typeof(SharedProductListView));
 
     }
