@@ -119,6 +119,11 @@
                                     Radius="40"
                                     Opacity="0.1" />
                         </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:SalesOperationViewModel}},Path=GoToDispatchBySalesOrderCustomerViewCommand}" />
+
+                        </Border.GestureRecognizers>
                     </Border>
                     <Border Grid.Row="2"
                             Padding="10"

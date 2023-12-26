@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 using System.Reflection;
@@ -39,8 +40,9 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		}
 	}
 
+	/*
 	[RelayCommand]
-	async Task GoTo2ViewAsync()  // Sarf İşlemleri View
+	async Task GoToViewAsync()  // Sarf İşlemleri View
 	{
 		if (IsBusy)
 			return;
@@ -238,4 +240,5 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
+	*/
 }

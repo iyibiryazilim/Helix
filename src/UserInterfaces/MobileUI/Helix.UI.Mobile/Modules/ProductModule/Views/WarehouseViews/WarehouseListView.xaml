@@ -74,15 +74,19 @@
                             <DataTemplate x:DataType="baseModel:Warehouse">
                                 <Border
                                     Margin="10,0,10,0"
-                                    Padding="5"
+                                    Padding="10"
                                     BackgroundColor="{StaticResource White}"
                                     HeightRequest="85"
-                                    StrokeShape="RoundRectangle 10"
-                                    >
-                                    <Grid ColumnDefinitions="Auto, *">
+                                    StrokeShape="RoundRectangle 10">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseListViewModel}},Path=GoToDetailCommand}" />
+
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="Auto, *, Auto">
                                         <Border
                                             Grid.Column="0"
-                                            Padding="10"
+                                            Padding="0,0,10,0"
                                             StrokeThickness="0">
                                             <toolkit:AvatarView
                                                 BackgroundColor="#E6E7F6"
@@ -97,17 +101,32 @@
                                             VerticalOptions="Center">
                                             <Label
                                                 FontAttributes="Bold"
-                                                FontSize="Body"
+                                                FontSize="Default"
                                                 LineBreakMode="TailTruncation"
                                                 MaxLines="1"
                                                 Text="{Binding Name}" />
+                                            <Label>
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span
+                                                            TextColor="{StaticResource Gray300}"
+                                                            Text="Son Hareket Tarihi: " />
+                                                        <Span Text="25.12.2023" TextColor="{StaticResource Gray300}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
                                         </VerticalStackLayout>
-                                    </Grid>
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseListViewModel}},Path=GoToDetailCommand}" />
+                                        <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="FAS"
+                                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
 
-                                    </Border.GestureRecognizers>
+                                                </FontImageSource>
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                    
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
