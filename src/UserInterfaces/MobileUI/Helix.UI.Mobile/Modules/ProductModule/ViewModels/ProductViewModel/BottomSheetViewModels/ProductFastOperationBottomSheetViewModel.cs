@@ -27,11 +27,10 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationView)}", new Dictionary<string, object>
-			//{
-			//	["Product"] = Product
-			//});
-			await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationView)}");
+			await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationView)}", new Dictionary<string, object>
+			{
+				["Product"] = Product
+			});
 		}
 		catch(Exception ex)
 		{
@@ -54,11 +53,10 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
-			//{
-			//	["Product"] = Product
-			//});
-			await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}");
+			await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
+			{
+				["Product"] = Product
+			});
 		}
 		catch (Exception ex)
 		{
@@ -80,11 +78,10 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}", new Dictionary<string, object>
-			//{
-			//	["Product"] = Product
-			//});
-			await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}");
+			await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}", new Dictionary<string, object>
+			{
+				["Product"] = Product
+			});
 		}
 		catch (Exception ex)
 		{
@@ -106,12 +103,10 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationView)}", new Dictionary<string, object>
-			//{
-			//	["Product"] = Product
-			//});
-			await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationView)}");
-
+			await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationView)}", new Dictionary<string, object>
+			{
+				["Product"] = Product
+			});
 		}
 		catch (Exception ex)
 		{
@@ -133,11 +128,10 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}", new Dictionary<string, object>
-			//{
-			//	["Product"] = Product
-			//});
-			await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}");
+			await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}", new Dictionary<string, object>
+			{
+				["Product"] = Product
+			});
 		}
 		catch (Exception ex)
 		{
@@ -150,6 +144,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		}
 	}
 
+	/*
 	[RelayCommand]
 	async Task GoToTransferIslemleriViewAsync()  // Transfer İslemleri View
 	{
@@ -249,5 +244,5 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
-	
+	*/
 }
