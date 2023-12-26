@@ -149,11 +149,12 @@
                             </HorizontalStackLayout>
                             <Button CornerRadius="12"
                                     Padding="0"
+                                    Margin="5"
                                     HorizontalOptions="Center"
                                     WidthRequest="100"
                                     HeightRequest="30"
                                     FontSize="13"
-                                    BackgroundColor="{StaticResource Warning}"
+                                    BackgroundColor="{StaticResource Success}"
                                     Text="Hızlı İşlemler"
                                     Command="{Binding Source={x:Reference this},Path=OpenFastOperationBottomSheetCommand}"
                                     FontAttributes="Bold"></Button>

@@ -85,19 +85,16 @@
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Microcharts.Maui" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="SkiaSharp" Version="2.88.6" />
 
 		<PackageReference Include="The49.Maui.BottomSheet" Version="1.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="DataStores\" />
-	  <Folder Include="Modules\BaseModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
 
@@ -129,6 +126,33 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\SharedProductListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\CurrentShowMoreBottomSheetView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentInputListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentOutputListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentPurchaseDispatchListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentPurchaseOrderListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentPurchaseReturnListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentSalesDispatchListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentSalesOrderListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentSalesReturnListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 
@@ -269,9 +293,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerShowMoreBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderCustomerView.xaml">

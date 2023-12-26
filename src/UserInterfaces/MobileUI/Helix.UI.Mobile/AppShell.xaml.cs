@@ -1,4 +1,6 @@
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
+using Helix.UI.Mobile.Modules.BaseModule.Views;
+using Helix.UI.Mobile.Modules.BaseModule.Views.Current;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
@@ -47,10 +49,23 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(WarehouseDetailInputTransactionView), typeof(WarehouseDetailInputTransactionView));
         Routing.RegisterRoute(nameof(WarehouseDetailOutputTransactionView), typeof(WarehouseDetailOutputTransactionView));
         Routing.RegisterRoute(nameof(WarehouseDetailProductListView), typeof(WarehouseDetailProductListView));
-		Routing.RegisterRoute(nameof(CustomerShowMoreBottomSheetView), typeof(CustomerShowMoreBottomSheetView));
 		Routing.RegisterRoute(nameof(CustomerFastOperationBottomSheetView), typeof(CustomerFastOperationBottomSheetView));
         Routing.RegisterRoute(nameof(SharedProductListView), typeof(SharedProductListView));
+		Routing.RegisterRoute(nameof(CurrentShowMoreBottomSheetView), typeof(CurrentShowMoreBottomSheetView));
+		Routing.RegisterRoute(nameof(CurrentInputListView), typeof(CurrentInputListView));
+		Routing.RegisterRoute(nameof(CurrentOutputListView), typeof(CurrentOutputListView));
+		Routing.RegisterRoute(nameof(CurrentPurchaseDispatchListView), typeof(CurrentPurchaseDispatchListView));
+		Routing.RegisterRoute(nameof(CurrentSalesDispatchListView), typeof(CurrentSalesDispatchListView));
+		Routing.RegisterRoute(nameof(CurrentPurchaseOrderListView), typeof(CurrentPurchaseOrderListView));
+		Routing.RegisterRoute(nameof(CurrentSalesOrderListView), typeof(CurrentSalesOrderListView));
+		Routing.RegisterRoute(nameof(CurrentPurchaseReturnListView), typeof(CurrentPurchaseReturnListView));
+		Routing.RegisterRoute(nameof(CurrentSalesReturnListView), typeof(CurrentSalesReturnListView));
 
-    }
+
+
+
+
+
+	}
 }
 

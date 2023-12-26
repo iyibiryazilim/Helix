@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   x:Class="Helix.UI.Mobile.Modules.BaseModule.Views.CurrentShowMoreBottomSheetView"
                    xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
                    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-                   x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews.CustomerShowMoreBottomSheetView"
+                   xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.ViewModels"
                    HasHandle="True"
+                   x:DataType="viewModel:CurrentShowMoreBottomSheetViewModel"
                    x:Name="this"
                    BackgroundColor="#EFECFB"
                    HandleColor="{StaticResource Primary}">
@@ -25,7 +27,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToPurchaseReturnListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -40,7 +42,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.TruckRampBox}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
@@ -66,7 +68,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToSalesReturnListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -81,7 +83,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.TruckRampBox}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
@@ -107,7 +109,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToInputListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -122,7 +124,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Dolly}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
@@ -148,7 +150,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToOutputListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -163,7 +165,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Dolly}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
@@ -189,7 +191,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToPurchaseDispatchListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -204,7 +206,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Truck}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
@@ -230,7 +232,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToSalesDispatchListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -245,7 +247,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Truck}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
@@ -271,7 +273,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToSalesOrderListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -286,7 +288,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Truck}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
@@ -312,7 +314,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding GoToPurchaseOrderListCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -327,7 +329,7 @@
                         <Image.Source>
                             <FontImageSource FontFamily="FAS"
                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}"></FontImageSource>
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Truck}"></FontImageSource>
                         </Image.Source>
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
