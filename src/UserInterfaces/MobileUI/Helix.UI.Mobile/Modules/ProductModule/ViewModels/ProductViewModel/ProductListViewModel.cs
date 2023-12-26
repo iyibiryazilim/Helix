@@ -49,7 +49,7 @@ public partial class ProductListViewModel :BaseViewModel
         SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));      
     }
 
-    async Task LoadData()
+    public async Task LoadData()
     {
         if (IsBusy)
             return;
@@ -108,7 +108,7 @@ public partial class ProductListViewModel :BaseViewModel
 
 
     [RelayCommand]
-    async Task LoadMoreAsync()
+    public async Task LoadMoreAsync()
     {
         if (IsBusy)
             return;
@@ -146,7 +146,7 @@ public partial class ProductListViewModel :BaseViewModel
         }
     }
     [RelayCommand]
-    async Task ReloadAsync()
+    public async Task ReloadAsync()
     {
         if (IsBusy)
             return; 
@@ -183,7 +183,7 @@ public partial class ProductListViewModel :BaseViewModel
     }
 
     [RelayCommand]
-    async Task SortAsync()
+    public async Task SortAsync()
     {
         if (IsBusy) return;
         try
@@ -233,7 +233,7 @@ public partial class ProductListViewModel :BaseViewModel
 
 
     [RelayCommand]
-    async Task GetGroupsAsync()
+    public async Task GetGroupsAsync()
     {
 
         try
@@ -267,7 +267,7 @@ public partial class ProductListViewModel :BaseViewModel
     }
 
     [RelayCommand]
-    async Task GoToDetailAsync(Product product)
+    public async Task GoToDetailAsync(Product product)
     {
         if (IsBusy)
             return;
@@ -295,7 +295,7 @@ public partial class ProductListViewModel :BaseViewModel
     }
 
     [RelayCommand]
-    async Task SelectGroupAsync(ProductGroup productGroup)
+    public async Task SelectGroupAsync(ProductGroup productGroup)
     {
         if(IsBusy)
             return;

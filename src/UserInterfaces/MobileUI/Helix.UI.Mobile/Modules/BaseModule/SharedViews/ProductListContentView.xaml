@@ -115,8 +115,8 @@
                 </CollectionView>
             </VerticalStackLayout>
             <RefreshView Grid.Row="2"
-                         IsRefreshing="{Binding Source={x:Reference this},Path=IsRefreshing,Mode=OneWay}"
-                         Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
+                         IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=ProductList}"
                                 RemainingItemsThreshold="10"

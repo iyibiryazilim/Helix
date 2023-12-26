@@ -173,7 +173,7 @@ public partial class SharedProductListViewModel :BaseViewModel
     [RelayCommand]
     async Task SortAsync()
     {
-        if (IsBusy) return;
+        
         try
         {
             string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A");
