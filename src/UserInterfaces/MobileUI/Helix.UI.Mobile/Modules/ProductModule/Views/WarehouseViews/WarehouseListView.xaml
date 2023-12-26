@@ -111,7 +111,7 @@
                                                         <Span
                                                             TextColor="{StaticResource Gray300}"
                                                             Text="Son Hareket Tarihi: " />
-                                                        <Span Text="25.12.2023" TextColor="{StaticResource Gray300}" />
+                                                        <Span Text="{Binding LastTransactionDate}" TextColor="{StaticResource Gray300}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>

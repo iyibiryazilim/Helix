@@ -79,4 +79,37 @@ public partial class BaseTransactionLine : ObservableObject
 	double conversionFactor;
 	[ObservableProperty]
 	double otherConversionFactor;
+
+	public Microsoft.Maui.Graphics.Color ListColor
+	{
+		get
+		{
+			if (IOType != 0)
+			{
+				switch (IOType)
+				{
+					case 1:
+						return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");
+					case 2:
+						return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");
+					case 3:
+						return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");
+					case 4:
+						return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");
+					default:
+						return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");
+				}
+			}
+			else
+			{
+				return Microsoft.Maui.Graphics.Color.FromRgba("#42ba96");
+			}
+
+		}
+		set
+		{
+
+		}
+
+	}
 }

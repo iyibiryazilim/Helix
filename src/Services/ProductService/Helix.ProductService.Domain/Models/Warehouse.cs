@@ -28,7 +28,20 @@ namespace Helix.ProductService.Domain.Models
                 NotifyPropertyChanged();
             }
         }
-        short? number;
+
+        DateTime? lastTransactionDate;
+
+	    public DateTime? LastTransactionDate
+		{
+			get => lastTransactionDate;
+			set
+			{
+				lastTransactionDate = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+		short? number;
         public short? Number
         {
             get => number;

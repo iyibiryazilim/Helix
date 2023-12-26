@@ -193,45 +193,99 @@
 
                             </VerticalStackLayout>
                             <CollectionView  ItemsSource="{Binding WarehouseDetailTransactions}">
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout ItemSpacing="10"
-                                                       Orientation="Horizontal">
-
-                                    </LinearItemsLayout>
-                                </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="models:WarehouseTransaction">
-                                        <Grid Padding="0,0,5,5">
-                                            <Border WidthRequest="120">
-
-                                                <Grid RowDefinitions="50*,50*"
-                                                      RowSpacing="5"
-                                                      Padding="5">
-                                                    <Label Grid.Row="0"
-                                                           FontSize="18"
-                                                           FontAttributes="Bold"
-                                                           Text="{Binding SubUnitsetCode}"
-                                                           HorizontalOptions="Center">
-
-                                                    </Label>
-                                                    <Label Grid.Row="1"
-                                                           Text="{Binding TransactionType}"
-                                                           HorizontalOptions="Center">
-
-                                                    </Label>
-
-                                                </Grid>
-                                                <Border.Shadow>
-                                                    <Shadow Brush="{StaticResource Primary}"
-                                                            Offset="20,20"
-                                                            Radius="20"
-                                                            Opacity="0.1" />
-                                                </Border.Shadow>
-                                                <Border.StrokeShape>
-                                                    <RoundRectangle CornerRadius="5,5,5,5" />
-                                                </Border.StrokeShape>
-                                            </Border>
-                                        </Grid>
+                                        <toolkit:Expander x:Name="expander"
+                                                          Margin="0,10,0,0">
+                                            <toolkit:Expander.Header>
+                                                <Border BackgroundColor="{StaticResource White}"
+                                                        StrokeShape="RoundRectangle 10">
+                                                    <Grid ColumnDefinitions="auto,auto,*,auto"
+                                                          ColumnSpacing="10"
+                                                          Padding="0,0,10,0">
+                                                        <Frame Grid.Column="0" BackgroundColor="{Binding ListColor}" WidthRequest="5" >
+                                                            
+                                                        </Frame>
+                                                        <VerticalStackLayout Grid.Column="1"
+                                                                             Spacing="4"
+                                                                             Padding="10">
+                                                            <Label FontAttributes="Bold"
+                                                                   FontSize="Medium"
+                                                                   HorizontalOptions="Center"
+                                                                   Text="{Binding TransactionDate,StringFormat='{0:dd}'}"
+                                                                   TextColor="{StaticResource Primary}" />
+                                                            <Label FontAttributes="Bold"
+                                                                   FontSize="Default"
+                                                                   HorizontalOptions="Center"
+                                                                       Text="{Binding TransactionDate, StringFormat='{0:MM/yyyy}'}"
+                                                                   TextColor="{StaticResource Gray400}" />
+                                                            <Label FontAttributes="Bold"
+                                                                   FontSize="Micro"
+                                                                   HorizontalOptions="Center"
+                                                                   Text="{Binding TransactionTime}"
+                                                                   TextColor="{StaticResource Gray400}" />
+                                                        </VerticalStackLayout>
+                                                        <VerticalStackLayout Grid.Column="2"
+                                                                             VerticalOptions="Center"
+                                                                             Spacing="5">
+                                                            <Label Text="{Binding ProductCode}"
+                                                                   FontAttributes="Bold"></Label>
+                                                            <Label Text="{Binding ProductName}"
+                                                                   FontSize="12"></Label>
+                                                            <Label TextColor="{StaticResource Primary}">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{Binding  Quantity, StringFormat='{0:N2}'}"
+                                                                              FontAttributes="Bold" />
+                                                                        <Span Text=" "
+                                                                              FontAttributes="Bold" />
+                                                                        <Span Text="{Binding SubUnitsetCode}"
+                                                                              FontAttributes="Bold" />
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </VerticalStackLayout>
+                                                        <Image Grid.Column="3"
+                                                               HorizontalOptions="Center"
+                                                               HeightRequest="15"
+                                                               Margin="0,0,10,0">
+                                                            <Image.Source>
+                                                                <FontImageSource FontFamily="FAS"
+                                                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"></FontImageSource>
+                                                            </Image.Source>
+                                                            <Image.Triggers>
+                                                                <DataTrigger TargetType="Image"
+                                                                             Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                                                             Value="True">
+                                                                    <Setter Property="Rotation"
+                                                                            Value="180"></Setter>
+                                                                </DataTrigger>
+                                                            </Image.Triggers>
+                                                        </Image>
+                                                    </Grid>
+                                                </Border>
+                                            </toolkit:Expander.Header>
+                                            <toolkit:Expander.Content>
+                                                <TableView Intent="Form"
+                                                           Margin="20,10,5,0">
+                                                    <TableRoot>
+                                                        <TableSection>
+                                                            <TextCell Text="Fiş Türü "
+                                                                      Detail="{Binding TransactionType}" />
+                                                            <TextCell Text="Fiş Numarası"
+                                                                      Detail="{Binding BaseTransactionCode}" />
+                                                            <TextCell Text="Müşteri"
+                                                                      Detail="{Binding CurrentName}" />
+                                                            <TextCell Text="Belge Numarası"
+                                                                      Detail="11111111111111111111" />
+                                                            <TextCell Text="Döküman İzleme"
+                                                                      Detail="11111111111111111111" />
+                                                        </TableSection>
+                                                    </TableRoot>
+                                                </TableView>
+                                            </toolkit:Expander.Content>
+                                        </toolkit:Expander>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>

@@ -24,5 +24,7 @@ public partial class Warehouse :ObservableObject
     string country;
     [ObservableProperty]
     string county;
-   
+	[ObservableProperty]
+	DateTime? lastTransactionDate;
+
 }
