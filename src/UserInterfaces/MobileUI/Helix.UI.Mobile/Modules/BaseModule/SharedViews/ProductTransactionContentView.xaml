@@ -55,16 +55,17 @@
 
                 </Grid>
                 <Frame Grid.Row="1"
-                       Margin="20"
-                       HeightRequest="480">
+                       Margin="10"
+                       HeightRequest="500">
 
                 </Frame>
-                <VerticalStackLayout Grid.Row="2"
-                                     Padding="20">
-                    <Button Text="İleri">
+                
+                    <Button Grid.Row="2" Margin="10"
+                            
+                            Text="İleri">
 
                     </Button>
-                </VerticalStackLayout>
+               
 
             </Grid>
         </VerticalStackLayout>
