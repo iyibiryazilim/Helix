@@ -2,7 +2,8 @@
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Newtonsoft.Json;
 using System.Text;
-using System.Text.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 {
@@ -23,10 +24,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 				{
 					if (!string.IsNullOrEmpty(data))
 					{
-						var result = System.Text.Json.JsonSerializer.Deserialize<DataResult<dynamic>>(data, new JsonSerializerOptions
-						{
-							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-						});
+						var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<Dictionary<string, object>>>>(data);
 
 						dataResult.Data = result?.Data.FirstOrDefault();
 						dataResult.IsSuccess = true;
@@ -36,10 +34,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 					}
 					else
 					{
-						var result = System.Text.Json.JsonSerializer.Deserialize<DataResult<dynamic>>(data, new JsonSerializerOptions
-						{
-							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-						});
+						var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<Dictionary<string, object>>>>(data);
 
 						dataResult.Data = result?.Data.FirstOrDefault();
 						dataResult.IsSuccess = true;
@@ -50,10 +45,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 				}
 				else
 				{
-					var result = System.Text.Json.JsonSerializer.Deserialize<DataResult<dynamic>>(data, new JsonSerializerOptions
-					{
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-					});
+					var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<Dictionary<string, object>>>>(data);
 
 					dataResult.Data = null;
 					dataResult.IsSuccess = false;
@@ -75,8 +67,8 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 
 		public async Task<DataResult<IEnumerable<dynamic>>> GetObjectsAsync(HttpClient httpClient, string query)
 		{
-			var json = JsonConvert.SerializeObject(query);
-			var content = new StringContent(json, Encoding.UTF8, "application/json");
+			var content = new StringContent(JsonConvert.SerializeObject(query), Encoding.UTF8, "application/json");
+			//var content = new StringContent($"\"{query}\"", null, "application/json");
 
 			HttpResponseMessage responseMessage = await httpClient.PostAsync(postUrl, content);
 			DataResult<IEnumerable<dynamic>> dataResult = new DataResult<IEnumerable<dynamic>>();
@@ -87,10 +79,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 				{
 					if (!string.IsNullOrEmpty(data))
 					{
-						var result = System.Text.Json.JsonSerializer.Deserialize<DataResult<IEnumerable<dynamic>>>(data, new JsonSerializerOptions
-						{
-							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-						});
+						var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<Dictionary<string, object>>>>(data);
 
 						dataResult.Data = result?.Data;
 						dataResult.IsSuccess = true;
@@ -100,10 +89,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 					}
 					else
 					{
-						var result = System.Text.Json.JsonSerializer.Deserialize<DataResult<IEnumerable<dynamic>>>(data, new JsonSerializerOptions
-						{
-							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-						});
+						var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<Dictionary<string, object>>>>(data);
 
 						dataResult.Data = result?.Data;
 						dataResult.IsSuccess = true;
@@ -114,10 +100,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 				}
 				else
 				{
-					var result = System.Text.Json.JsonSerializer.Deserialize<DataResult<IEnumerable<dynamic>>>(data, new JsonSerializerOptions
-					{
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-					});
+					var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<Dictionary<string, object>>>>(data);
 
 					dataResult.Data = Enumerable.Empty<dynamic>();
 					dataResult.IsSuccess = false;

@@ -2,13 +2,14 @@
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.MVVMHelper;
 
-namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels
+namespace Helix.UI.Mobile.Modules.BaseModule.SharedViewModel
 {
-   public partial class ConsumableTransactionOperationViewModel : BaseViewModel 
+    public partial class ProductTransactionContentViewModel : BaseViewModel
     {
-        public ConsumableTransactionOperationViewModel()
+        
+        public ProductTransactionContentViewModel()
         {
-            Title = "Sarf İşlemleri";
+            
         }
         [RelayCommand]
         async Task GoToSharedProductList()

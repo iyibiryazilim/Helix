@@ -4,4 +4,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 
 public class OutCountingTransactionOperationViewModel: BaseViewModel
 {
+    public OutCountingTransactionOperationViewModel()
+    {
+        Title = "Sayım Eksikliği İşlemleri";
+    }
 }

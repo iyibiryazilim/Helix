@@ -3,6 +3,8 @@ using CommunityToolkit.Maui;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.DataStores;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
 using Helix.UI.Mobile.Modules.FastProductionModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
@@ -259,11 +261,13 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationView>();
             mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationView>();
             mauiAppBuilder.Services.AddTransient<WastageTransactionOperationView>();
+			mauiAppBuilder.Services.AddTransient<SharedProductListView>();
 
 
 
 
-            
+
+
 
 			return mauiAppBuilder;
 		}
@@ -294,6 +298,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductDetailPurchaseOrderListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProductDetailSalesDispatchListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProductDetailSalesOrderListViewModel>();
+			mauiAppBuilder.Services.AddTransient<SharedProductListViewModel>();
 
 			return mauiAppBuilder;
 		}
@@ -303,8 +308,10 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<IProductService, ProductDataStore>();
             mauiAppBuilder.Services.AddTransient<IEndProductService, EndProductDataStore>();
 			mauiAppBuilder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
+			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 
-            return mauiAppBuilder;
+
+			return mauiAppBuilder;
 		}
 		#endregion
 
