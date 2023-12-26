@@ -18,8 +18,32 @@ public class WarehouseTransactionController : ControllerBase
 		_warehouseTransactionService = warehouseTransactionService;
 	}
 
+	[HttpGet("Warehouse/Number/{number:int}")]
+	public async Task<DataResult<IEnumerable<WarehouseTransaction>>> GetTransactionsByWarehouseNumber(int number, [FromQuery] string search = "", string orderBy = WarehouseTransactionOrderBy.DateDesc, int page = 0, int pageSize = 20)
+	{
+		DataResult<IEnumerable<WarehouseTransaction>> result = new();
+		switch (orderBy)
+		{
+			case "QuantityAsc":
+				result = await _warehouseTransactionService.GetTransactionsByWarehouseNumber(number, search, WarehouseTransactionOrderBy.QuantityAsc, page, pageSize);
+				return result;
+			case "QuantityDesc":
+				result = await _warehouseTransactionService.GetTransactionsByWarehouseNumber(number, search, WarehouseTransactionOrderBy.QuantityDesc, page, pageSize);
+				return result;
+			case "DateAsc":
+				result = await _warehouseTransactionService.GetTransactionsByWarehouseNumber(number, search, WarehouseTransactionOrderBy.DateAsc, page, pageSize);
+				return result;
+			case "DateDesc":
+				result = await _warehouseTransactionService.GetTransactionsByWarehouseNumber(number, search, WarehouseTransactionOrderBy.DateDesc, page, pageSize);
+				return result;
+			default:
+				result = await _warehouseTransactionService.GetTransactionsByWarehouseNumber(number, search, orderBy, page, pageSize);
+				return result;
+		}
+	}
+
 	[HttpGet("Warehouse/Number/{number:int}/Input")]
-	public async Task<DataResult<IEnumerable<WarehouseTransaction>>> GetInputTransactionByWarehouseNumberAsync(int number, [FromQuery] string search = "", string orderBy = WarehouseTransactionOrderBy.DateAsc, int page = 0, int pageSize = 20)
+	public async Task<DataResult<IEnumerable<WarehouseTransaction>>> GetInputTransactionByWarehouseNumberAsync(int number, [FromQuery] string search = "", string orderBy = WarehouseTransactionOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
 		DataResult<IEnumerable<WarehouseTransaction>> result = new();
 		switch(orderBy)

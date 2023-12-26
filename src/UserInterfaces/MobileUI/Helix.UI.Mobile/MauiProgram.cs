@@ -266,7 +266,8 @@ namespace Helix.UI.Mobile
 
 
 
-            
+
+
 
 			return mauiAppBuilder;
 		}
@@ -306,8 +307,10 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<IWarehouseService, WarehouseDataStore>();
             mauiAppBuilder.Services.AddTransient<IProductService, ProductDataStore>();
             mauiAppBuilder.Services.AddTransient<IEndProductService, EndProductDataStore>();
+			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 
-            return mauiAppBuilder;
+
+			return mauiAppBuilder;
 		}
 		#endregion
 

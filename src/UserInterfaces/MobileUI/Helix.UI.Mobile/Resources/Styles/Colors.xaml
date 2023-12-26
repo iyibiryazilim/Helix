@@ -7,10 +7,10 @@
     <Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="DarkPrimary">#2B0B98</Color>
     <Color x:Key="Secondary">#E1E3EA</Color>
-    <Color x:Key="Success">#50cd89</Color>
-    <Color x:Key="Info">#7239ea</Color>
-    <Color x:Key="Warning">#ffc700</Color>
-    <Color x:Key="Danger">#f1416c</Color>
+    <Color x:Key="Success">#2ca57c</Color>
+    <Color x:Key="Info">#01b1fd</Color>
+    <Color x:Key="Warning">#f9ae1f</Color>
+    <Color x:Key="Danger">#c1322a</Color>
 
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="White">White</Color>

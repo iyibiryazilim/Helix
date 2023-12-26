@@ -20,7 +20,7 @@ public partial class BaseTransactionLine : ObservableObject
 	[ObservableProperty]
 	TimeSpan transactionTime;
 	[ObservableProperty]
-	int convertedTime;
+	int? convertedTime;
 	[ObservableProperty]
 	short iOType;
 	[ObservableProperty]
@@ -44,13 +44,13 @@ public partial class BaseTransactionLine : ObservableObject
 	[ObservableProperty]
 	double vatRate;
 	[ObservableProperty]
-	int divisionReferenceId;
+	int? divisionReferenceId;
 	[ObservableProperty]
-	short divisionNumber;
+	short? divisionNumber;
 	[ObservableProperty]
-	string divisionCountry;
+	string? divisionCountry;
 	[ObservableProperty]
-	string divisionCity;
+	string? divisionCity;
 	[ObservableProperty]
 	int warehouseReferenceId;
 	[ObservableProperty]
@@ -58,21 +58,21 @@ public partial class BaseTransactionLine : ObservableObject
 	[ObservableProperty]
 	short warehouseNumber;
 	[ObservableProperty]
-	int orderReference;
+	int? orderReference;
 	[ObservableProperty]
 	string description;
 	[ObservableProperty]
-	int baseTransactionReferenceId;
+	int? baseTransactionReferenceId;
 	[ObservableProperty]
 	string baseTransactionCode;
 	[ObservableProperty]
-	int currentReferenceId;
+	int? currentReferenceId;
 	[ObservableProperty]
 	string currentCode;
 	[ObservableProperty]
 	string currentName;
 	[ObservableProperty]
-	int dispatchReference;
+	int? dispatchReference;
 	[ObservableProperty]
 	string speCode;
 	[ObservableProperty]
