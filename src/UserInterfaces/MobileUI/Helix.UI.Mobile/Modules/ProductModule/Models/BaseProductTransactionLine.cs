@@ -11,6 +11,12 @@ public partial class BaseProductTransactionLine :ObservableObject
     [ObservableProperty]
     TimeSpan? transactionTime;
     [ObservableProperty]
+    int productReferenceId;
+    [ObservableProperty]
+    string? productCode;
+    [ObservableProperty]
+    string? productName;
+    [ObservableProperty]
     int? convertedTime;
     [ObservableProperty]
     int? orderReference;
@@ -40,6 +46,10 @@ public partial class BaseProductTransactionLine :ObservableObject
     short? warehouseNumber;
     [ObservableProperty]
     int? currentReferenceId;
+    [ObservableProperty]
+    int baseTransactioneReferenceId;
+    [ObservableProperty]
+    string baseTransactionCode;
     [ObservableProperty]
     string? currentCode;
     [ObservableProperty]
