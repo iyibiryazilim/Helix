@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.SharedProductListView"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
+             x:DataType="viewModel:SharedProductListViewModel"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             Title="{Binding Title}"
+             Shell.PresentationMode="ModalAnimated"
+             BackgroundColor="{StaticResource Primary}">
+    <Border  BackgroundColor="{StaticResource WhiteSmoke}"
+             StrokeThickness="0"
+             Margin="0,30,0,0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0"/>
+        </Border.StrokeShape>
+        <Grid RowDefinitions=".10*,.90*">
+            <HorizontalStackLayout Grid.Row="0"
+                                   >
+                
+            </HorizontalStackLayout>
+            <Grid Grid.Row="1"  BackgroundColor="Yellow">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <Grid Grid.Row="0">
+                        <Border StrokeShape="RoundRectangle 20">
+
+                            <Grid ColumnDefinitions=".85*,.15*">
+
+                                <SearchBar Grid.Column="0">
+
+
+                                </SearchBar>
+
+                                <ImageButton Grid.Column="2"
+                                             BackgroundColor="Transparent"
+                                             Aspect="AspectFit"
+                                             HeightRequest="22"
+                                             WidthRequest="22"
+                                             Command="{Binding Source={x:Reference this},Path=BindingContext.GoToSharedProductListCommand}">
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="FAS"
+                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                                         Color="{StaticResource DarkPrimary}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+
+
+                            </Grid>
+
+                        </Border>
+
+                    </Grid>
+                    <ScrollView Grid.Row="1">
+                        <CollectionView Grid.Row="1"
+                                        ItemsSource="{Binding Items}"
+                                        RemainingItemsThreshold="10"
+                                        EmptyView="bulunamadı"
+                                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical"
+                                                   ItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate  x:DataType="baseModel:Product">
+                                    <Border StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="{StaticResource White}"
+                                            Padding="5"
+                                            Margin="10,0,10,0"
+                                            HeightRequest="85">
+
+                                        <Grid ColumnDefinitions=".25*,.75*">
+                                            <Border Grid.Column="0"
+                                                    StrokeShape="RoundRectangle 10"
+                                                    WidthRequest="75"
+                                                    HorizontalOptions="Start"
+                                                    Padding="10"
+                                                    StrokeThickness="0">
+                                                <Image Aspect="AspectFit"
+                                                       Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1"
+                                                                 Padding="5"
+                                                                 Spacing="5"
+                                                                 HorizontalOptions="Start">
+                                                <Label Text="{Binding Code}"
+                                                       FontSize="Body"
+                                                       FontAttributes="Bold"></Label>
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="Caption"></Label>
+                                                <Label TextColor="{StaticResource Primary}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding StockQuantity, StringFormat='{0:N2} '}"
+                                                                  FontAttributes="Bold" />
+                                                            <Span Text="{Binding SubUnitsetCode}"
+                                                                  FontAttributes="Bold" />
+
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+
+
+                                            </VerticalStackLayout>
+
+                                        </Grid>
+
+
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ScrollView>
+                    <Button Grid.Row="2"
+                            Text="Seç">
+
+                    </Button>
+                </Grid>
+
+            </Grid>
+            
+        </Grid>
+           
+               
+
+    </Border>
+     
+   
+</ContentPage>
