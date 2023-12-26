@@ -16,28 +16,29 @@ public class BasketController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<DataResult<IEnumerable<Basket>>> GetBasket(string key)
+	public async Task<DataResult<IEnumerable<Basket>>> GetBasketAsync(string key)
 	{
 		var result = await _basketService.GetBasketAsync(key);
 		return result;
 	}
 
 	[HttpPost]
-	public Task AddBasket(string key, Basket basket)
+	public async Task<bool> AddBasketAsync(string key, [FromBody] Basket basket)
 	{
-		var result = _basketService.AddBasket(key, basket);
+		var result = await _basketService.AddBasketAsync(key, basket);
 		return result;
 	}
 
 	[HttpDelete]
-	public async Task RemoveBasketAsync([FromBody] string key)
+	public async Task<bool> RemoveBasketAsync([FromBody] string key)
 	{
-		await _basketService.RemoveBasket(key);
+		var result = await _basketService.RemoveBasketAsync(key);
+		return result;
 	}
 
-	[HttpDelete("All")]
-	public async Task ClearBasketAsync()
+	[HttpDelete("Clear")]
+	public void ClearBasket()
 	{
-		await _basketService.ClearBasket();
+		_basketService.ClearBasket();
 	}
 }
