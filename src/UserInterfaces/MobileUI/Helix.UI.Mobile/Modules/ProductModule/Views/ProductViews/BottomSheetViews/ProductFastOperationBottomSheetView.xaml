@@ -70,11 +70,10 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToConsumableTransactionListViewCommand}"
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToConsumableTransactionOperationViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
+                </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
@@ -117,11 +116,10 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToWastageTransactionListViewCommand}"
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToWastageTransactionOperationViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
+                </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
@@ -164,11 +162,10 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToInCountingTransactionListViewCommand}"
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToInCountingTransactionOperationViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
+                </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
@@ -211,12 +208,11 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToOutCountingTransactionListViewCommand}"
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToOutCountingTransactionOperationViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
-
-                </Frame.GestureRecognizers>-->
-                <Grid ColumnDefinitions="30,*,auto"
+                </Frame.GestureRecognizers>
+                <Grid ColumnDefinitions="30,*,Auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
                            Aspect="AspectFit"
@@ -240,8 +236,9 @@
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
                         <Label Text="Sayım eksiği işlemleri ile stok çıkışı yapabilirsiniz."
-                               FontSize="12"
-                               LineBreakMode="TailTruncation"/>
+                               LineBreakMode="TailTruncation"
+                               MaxLines="1"
+                               FontSize="12" />
                     </VerticalStackLayout>
                     <Image Grid.Column="2"
                            HorizontalOptions="End"

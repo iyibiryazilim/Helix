@@ -366,14 +366,18 @@
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Bekleyen satınalma sipariş bilgileri bulunur."></Label>
+                        <Label Text="Bekleyen satınalma sipariş bilgileri bulunur." MaxLines="1" LineBreakMode="TailTruncation" />
                     </VerticalStackLayout>
-                    <Label Text=">"
-                           Grid.Column="2"
-                           FontAttributes="Bold"
-                           FontSize="Large"
+                    <Image Grid.Column="2"
                            HorizontalOptions="End"
-                           VerticalOptions="Center"></Label>
+                           VerticalOptions="Center"
+                           HeightRequest="15">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                        </Image.Source>
+                    </Image>
                 </Grid>
             </Frame>
         </VerticalStackLayout>

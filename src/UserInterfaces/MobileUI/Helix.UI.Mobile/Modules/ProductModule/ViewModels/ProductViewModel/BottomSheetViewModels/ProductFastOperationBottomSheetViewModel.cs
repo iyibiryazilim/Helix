@@ -2,7 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 using System.Reflection;
@@ -40,9 +44,9 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		}
 	}
 
-	/*
+	
 	[RelayCommand]
-	async Task GoToViewAsync()  // Sarf İşlemleri View
+	async Task GoToConsumableTransactionOperationViewAsync()  // Sarf İşlemleri View
 	{
 		if (IsBusy)
 			return;
@@ -50,10 +54,11 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof()}", new Dictionary<string, object>
+			//await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
 			//{
 			//	["Product"] = Product
 			//});
+			await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}");
 		}
 		catch (Exception ex)
 		{
@@ -67,7 +72,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task GoToFireViewAsync()  // Fire İşlemleri View
+	async Task GoToWastageTransactionOperationViewAsync()  // Fire İşlemleri View
 	{
 		if (IsBusy)
 			return;
@@ -75,10 +80,11 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof()}", new Dictionary<string, object>
+			//await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}", new Dictionary<string, object>
 			//{
 			//	["Product"] = Product
 			//});
+			await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}");
 		}
 		catch (Exception ex)
 		{
@@ -92,7 +98,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task GoToSayimFazlasiViewAsync()  // Sayım Fazlası View
+	async Task GoToInCountingTransactionOperationViewAsync()  // Sayım Fazlası View
 	{
 		if (IsBusy)
 			return;
@@ -100,10 +106,12 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof()}", new Dictionary<string, object>
+			//await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationView)}", new Dictionary<string, object>
 			//{
 			//	["Product"] = Product
 			//});
+			await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationView)}");
+
 		}
 		catch (Exception ex)
 		{
@@ -117,7 +125,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task GoToSayimEksigiViewAsync()  // Sayım Eksigi View
+	async Task GoToOutCountingTransactionOperationViewAsync()  // Sayım Eksigi View
 	{
 		if (IsBusy)
 			return;
@@ -125,10 +133,11 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//await Shell.Current.GoToAsync($"{nameof()}", new Dictionary<string, object>
+			//await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}", new Dictionary<string, object>
 			//{
 			//	["Product"] = Product
 			//});
+			await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}");
 		}
 		catch (Exception ex)
 		{
@@ -240,5 +249,5 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
-	*/
+	
 }

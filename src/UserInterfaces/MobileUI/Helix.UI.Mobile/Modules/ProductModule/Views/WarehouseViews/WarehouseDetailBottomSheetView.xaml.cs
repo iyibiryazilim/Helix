@@ -10,6 +10,9 @@ public partial class WarehouseDetailBottomSheetView : BottomSheet
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = viewModel;
-		
+	}
+	async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+	{
+		await this.DismissAsync();
 	}
 }
