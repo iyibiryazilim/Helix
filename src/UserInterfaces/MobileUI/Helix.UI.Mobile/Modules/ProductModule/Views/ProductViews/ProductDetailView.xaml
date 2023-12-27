@@ -77,7 +77,7 @@
                                         <Label FontAttributes="Bold"
                                                FontSize="Medium"
                                                HorizontalOptions="CenterAndExpand"
-                                               Text="{Binding InputQuantity}"
+                                               Text="{Binding InputQuantity, StringFormat='{0:N0}'}"
                                                TextColor="{StaticResource Success}" />
                                         <BoxView HeightRequest="0.1" />
                                         <Label FontSize="Small"
@@ -90,7 +90,7 @@
                                         <Label FontAttributes="Bold"
                                                 FontSize="Medium"
                                                 HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding StockQuantity}"
+                                                Text="{Binding StockQuantity, StringFormat='{0:N0}'}"
                                                 TextColor="{StaticResource Primary}" />
                                         <BoxView HeightRequest="0.1" />
                                         <Label FontSize="Small"
@@ -102,7 +102,7 @@
                                         <Label FontAttributes="Bold"
                                                 FontSize="Medium"
                                                 HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding OutputQuantity}"
+                                                Text="{Binding OutputQuantity, StringFormat='{0:N0}'}"
                                                 TextColor="{StaticResource Danger}" />
                                         <BoxView HeightRequest="0.1" />
                                         <Label FontSize="Small"
