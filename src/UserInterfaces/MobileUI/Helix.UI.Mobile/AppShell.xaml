@@ -212,16 +212,6 @@
             <ShellContent Title="Siparişler"
                           ContentTemplate="{DataTemplate waitingOrderViews:WaitingSalesOrderLineListView}" />
         </Tab>
-        <Tab Title="İşlemler">
-            <Tab.Icon>
-                <FontImageSource FontFamily="FAS"
-                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
-                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.BarsProgress}" />
-            </Tab.Icon>
-
-            <ShellContent Title="İşlemler"
-                          ContentTemplate="{DataTemplate salesOperationViews:SalesOperationView}" />
-        </Tab>
         <Tab Title="Sepet">
             <Tab.Icon>
                 <FontImageSource FontFamily="FAS"
@@ -232,6 +222,17 @@
             <ShellContent Title="Sepet"
                           ContentTemplate="{DataTemplate basketViews:BasketView}" />
         </Tab>
+        <Tab Title="İşlemler">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.BarsProgress}" />
+            </Tab.Icon>
+
+            <ShellContent Title="İşlemler"
+                          ContentTemplate="{DataTemplate salesOperationViews:SalesOperationView}" />
+        </Tab>
+       
 
     </FlyoutItem>
 

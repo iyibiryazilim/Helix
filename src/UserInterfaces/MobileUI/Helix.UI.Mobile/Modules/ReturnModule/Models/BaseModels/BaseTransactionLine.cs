@@ -30,11 +30,11 @@ public partial class BaseTransactionLine : ObservableObject
 	[ObservableProperty]
 	string productName;
 	[ObservableProperty]
-	int unitsetReferenceId;
+	int? unitsetReferenceId;
 	[ObservableProperty]
 	string unitsetCode;
 	[ObservableProperty]
-	int subUnitsetReferenceId;
+	int? subUnitsetReferenceId;
 	[ObservableProperty]
 	string subUnitsetCode;
 	[ObservableProperty]

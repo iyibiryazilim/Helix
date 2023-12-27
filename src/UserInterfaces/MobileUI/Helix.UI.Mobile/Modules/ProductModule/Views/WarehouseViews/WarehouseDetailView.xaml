@@ -203,9 +203,9 @@
                                                     <Grid ColumnDefinitions="auto,auto,*,auto"
                                                           ColumnSpacing="10"
                                                           Padding="0,0,10,0">
-                                                        <Frame Grid.Column="0" BackgroundColor="{Binding ListColor}" WidthRequest="5" >
-                                                            
-                                                        </Frame>
+                                                        <Border Grid.Column="0" Margin="-2" BackgroundColor="{Binding ListColor}" WidthRequest="15" StrokeShape="RoundRectangle 10,0,0,0">
+                                                           
+                                                        </Border>
                                                         <VerticalStackLayout Grid.Column="1"
                                                                              Spacing="4"
                                                                              Padding="10">
