@@ -123,7 +123,7 @@ public partial class ProductListViewModel :BaseViewModel
             {
                 foreach (Product item in result.Data)
                 {
-                    await Task.Delay(50);
+                    await Task.Delay(100);
                     Items.Add(item);
                 }
             }
@@ -249,7 +249,7 @@ public partial class ProductListViewModel :BaseViewModel
                 Items.Clear();
                 foreach (ProductGroup item in result.Data)
                 {
-                    await Task.Delay(50);
+                    await Task.Delay(100);
                     Groups.Add(item);
                 }
             }
