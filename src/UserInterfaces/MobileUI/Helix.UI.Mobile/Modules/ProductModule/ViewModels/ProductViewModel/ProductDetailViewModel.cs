@@ -66,7 +66,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 			if (result.Data.Any())
 			{
 				ProductTransactionLines.Clear();
-				foreach(var item in result.Data.Take(5))
+				foreach(var item in result.Data.Take(3))
 				{
 					ProductTransactionLines.Add(item);
 				}
