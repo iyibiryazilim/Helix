@@ -54,6 +54,10 @@ builder.Services.AddTransient<IPurchaseDispatchTransactionService, PurchaseDispa
 builder.Services.AddTransient<IPurchaseReturnDispatchTransactionLineService, PurchaseReturnDispatchTransactionLineDataStore>();
 builder.Services.AddTransient<IPurchaseReturnDispatchTransactionService, PurchaseReturnDispatchTransactionDataStore>();
 builder.Services.AddTransient<ISupplierService, SupplierDataStore>();
+builder.Services.AddTransient<ISupplierTransactionService, SupplierTransactionDataStore>();
+builder.Services.AddTransient<ISupplierTransactionLineService, SupplierTransactionLineDataStore>();
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
