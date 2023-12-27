@@ -1,8 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
+
 namespace Helix.UI.Mobile.Modules.ProductModule.Models;
 
-public partial class Product :ObservableObject
+public partial class ProductModel :ObservableObject
 {
     [ObservableProperty]
     int referenceId;
@@ -62,8 +63,8 @@ public partial class Product :ObservableObject
     double stockQuantity;
 
     [ObservableProperty]
+    double quantity;
+
+    [ObservableProperty]
     bool isSelected = false;
-
-
-
 }

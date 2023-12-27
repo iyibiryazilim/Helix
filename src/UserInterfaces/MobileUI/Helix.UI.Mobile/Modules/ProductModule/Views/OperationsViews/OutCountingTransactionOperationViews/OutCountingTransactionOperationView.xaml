@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews.OutCountingTransactionOperationView"
-             Title="OutCountingTransactionOperationView">
-    <sharedViews:ProductTransactionContentView>
+             x:Name="this"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels"
+             x:DataType="viewModel:OutCountingTransactionOperationViewModel"
+             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews.OutCountingTransactionOperationView" 
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
+    <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}" >
         
     </sharedViews:ProductTransactionContentView>
    

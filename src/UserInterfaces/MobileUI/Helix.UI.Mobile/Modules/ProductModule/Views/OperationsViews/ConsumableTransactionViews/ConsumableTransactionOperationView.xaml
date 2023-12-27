@@ -4,13 +4,14 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:Name="this"   
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
-             x:DataType="viewModel:ProductTransactionContentViewModel"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels"
+             x:DataType="viewModel:ConsumableTransactionOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews.ConsumableTransactionOperationView"          
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
-    <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}">
-        
+    <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
+                                               DenemeCommand="{Binding DenemeCommand}">
+       
     </sharedViews:ProductTransactionContentView>
  
 </ContentPage>

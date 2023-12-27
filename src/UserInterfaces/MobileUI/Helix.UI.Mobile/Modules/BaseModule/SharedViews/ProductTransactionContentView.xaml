@@ -12,7 +12,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="10*,80*,10*">
+        <Grid RowDefinitions="10*,70*,10*,10*">
             <Grid Grid.Row="0">
                 <Border StrokeShape="RoundRectangle 20">
 
@@ -67,7 +67,9 @@
                     VerticalOptions="End">
 
             </Button>
-
+            <Button Grid.Row="3" Command="{Binding Source={x:Reference this},Path=BindingContext.DenemeCommand}">
+                
+            </Button>
 
         </Grid>
     </Border>
