@@ -67,7 +67,7 @@ namespace Helix.ProductService.Api.Controllers
 			}
 		}
 
-		[HttpGet("ProductAndTransactionType/{ProductCode}&{transactionType}")]
+		[HttpGet("ProductAndTransactionType/{ProductCode}&{TransactionType}")]
 		public async Task<DataResult<IEnumerable<ProductTransactionLine>>> GetTransactionLineByTransactionType(string ProductCode, string TransactionType, [FromQuery] string search = "", string orderBy = ProductTransactionLineOrderBy.DateDesc, int page = 0, int pageSize = 20)
 		{
 			DataResult<IEnumerable<ProductTransactionLine>> result = new();
