@@ -140,6 +140,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 			ProductFastOperationBottomSheetViewModel viewModel = _serviceProvider.GetService<ProductFastOperationBottomSheetViewModel>();
 
 			ProductFastOperationBottomSheetView sheet = new ProductFastOperationBottomSheetView(viewModel);
+			viewModel.Product = Product;
 			await sheet.ShowAsync();
 		}
 		catch(Exception ex)
@@ -165,6 +166,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 			ProductTransactionBottomSheetViewModel viewModel = _serviceProvider.GetService<ProductTransactionBottomSheetViewModel>();
 
 			ProductTransactionBottomSheetView sheet = new ProductTransactionBottomSheetView(viewModel);
+			viewModel.Product = Product;
 			await sheet.ShowAsync();
 		}
 		catch (Exception ex)
