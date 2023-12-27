@@ -203,7 +203,7 @@
                                                     <Grid ColumnDefinitions="auto,auto,*,auto"
                                                           ColumnSpacing="10"
                                                           Padding="0,0,10,0">
-                                                        <Border Grid.Column="0" Margin="-2" BackgroundColor="{Binding ListColor}" WidthRequest="15" StrokeShape="RoundRectangle 10,0,0,0">
+                                                        <Border Grid.Column="0" Margin="-2" BackgroundColor="{Binding ListColor}" WidthRequest="12" StrokeShape="RoundRectangle 10,0,0,0">
                                                            
                                                         </Border>
                                                         <VerticalStackLayout Grid.Column="1"
@@ -267,23 +267,44 @@
                                                 </Border>
                                             </toolkit:Expander.Header>
                                             <toolkit:Expander.Content>
-                                                <TableView Intent="Form"
-                                                           Margin="20,10,5,0">
-                                                    <TableRoot>
-                                                        <TableSection>
-                                                            <TextCell Text="Fiş Türü "
-                                                                      Detail="{Binding TransactionType}" />
-                                                            <TextCell Text="Fiş Numarası"
-                                                                      Detail="{Binding BaseTransactionCode}" />
-                                                            <TextCell Text="Müşteri"
-                                                                      Detail="{Binding CurrentName}" />
-                                                            <TextCell Text="Belge Numarası"
-                                                                      Detail="11111111111111111111" />
-                                                            <TextCell Text="Döküman İzleme"
-                                                                      Detail="11111111111111111111" />
-                                                        </TableSection>
-                                                    </TableRoot>
-                                                </TableView>
+                                                <VerticalStackLayout Margin="20,10,5,0"
+                                                                     Spacing="4">
+                                                    <VerticalStackLayout Spacing="4">
+                                                        <Label Text="Fiş Türü"
+                                                               TextColor="{StaticResource Primary}" />
+                                                        <Label Text="{Binding TransactionType}" />
+                                                        <BoxView  HeightRequest="0.7"
+                                                                  Color="{StaticResource Primary}" />
+                                                    </VerticalStackLayout>
+                                                    <VerticalStackLayout Spacing="4">
+                                                        <Label Text="Fiş Numarası"
+                                                               TextColor="{StaticResource Primary}" />
+                                                        <Label Text="{Binding BaseTransactionCode}" />
+                                                        <BoxView  HeightRequest="0.7"
+                                                                  Color="{StaticResource Primary}" />
+                                                    </VerticalStackLayout>
+                                                    <VerticalStackLayout Spacing="4">
+                                                        <Label Text="Müşteri"
+                                                               TextColor="{StaticResource Primary}" />
+                                                        <Label Text="{Binding CurrentName}" />
+                                                        <BoxView  HeightRequest="0.7"
+                                                                  Color="{StaticResource Primary}" />
+                                                    </VerticalStackLayout>
+                                                    <VerticalStackLayout Spacing="4">
+                                                        <Label Text="Belge Numarası"
+                                                               TextColor="{StaticResource Primary}" />
+                                                        <Label Text="11111111111" />
+                                                        <BoxView  HeightRequest="0.7"
+                                                                  Color="{StaticResource Primary}" />
+                                                    </VerticalStackLayout>
+                                                    <VerticalStackLayout Spacing="4">
+                                                        <Label Text="Döküman İzleme Numarası"
+                                                               TextColor="{StaticResource Primary}" />
+                                                        <Label Text="11111111111" />
+                                                        <BoxView  HeightRequest="0.7"
+                                                                  Color="{StaticResource Primary}" />
+                                                    </VerticalStackLayout>
+                                                </VerticalStackLayout>
                                             </toolkit:Expander.Content>
                                         </toolkit:Expander>
                                     </DataTemplate>
