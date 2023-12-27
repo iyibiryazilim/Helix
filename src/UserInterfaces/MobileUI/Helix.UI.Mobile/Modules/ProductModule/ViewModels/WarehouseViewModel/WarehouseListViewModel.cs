@@ -104,7 +104,7 @@ public partial class WarehouseListViewModel : BaseViewModel
 			{
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(50);
+					await Task.Delay(100);
 					Items.Add(item);
 				}
 			}
