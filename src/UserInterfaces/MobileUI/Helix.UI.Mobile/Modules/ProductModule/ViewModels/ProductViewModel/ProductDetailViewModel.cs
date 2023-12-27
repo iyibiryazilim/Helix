@@ -42,7 +42,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 		_serviceProvider = serviceProvider;
 		_httpClient = httpClient;
 		_productTransactionLineService = productTransactionLineService;
-		GetProductTransactionLineCommand = new Command(async () => await GetProductTransactionLineAsync());
+		GetProductTransactionLineCommand = new Command(async () => await LoadData());
 	}
 
 	public async Task GetProductTransactionLineAsync()
@@ -52,21 +52,23 @@ public partial class ProductDetailViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
+			IsRefreshing = true;
+
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			var result = await _productTransactionLineService.GetTransactionLinesByProductId(httpClient, Product.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
 
 			if (result.Data.Any())
 			{
+				ProductTransactionLines.Clear();
 				foreach(var item in result.Data.Take(5))
 				{
-					await Task.Delay(50);
 					ProductTransactionLines.Add(item);
 				}
 			}
-			else
-			{
-				CurrentPage--;
-			}
+			//else
+			//{
+			//	CurrentPage--;
+			//}
 
 		}
 		catch(Exception ex)
@@ -77,9 +79,32 @@ public partial class ProductDetailViewModel : BaseViewModel
 		finally
 		{
 			IsBusy = false;
+			IsRefreshing = false;
 		}
 	}
 
+	async Task LoadData()
+	{
+		if(IsBusy)
+			return;
+		try
+		{
+			await Task.Delay(500);
+			await Task.WhenAll(
+				GetProductTransactionLineAsync()
+			);
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+    }
+	
 	[RelayCommand]
 	async Task OpenFastOperationBottomSheetAsync()
 	{
