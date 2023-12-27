@@ -108,10 +108,10 @@
                                             <Label>
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span
+                                                        <Span FontSize="12"
                                                             TextColor="{StaticResource Gray300}"
                                                             Text="Son Hareket Tarihi: " />
-                                                        <Span Text="{Binding LastTransactionDate}" TextColor="{StaticResource Gray300}" />
+                                                        <Span FontSize="12" Text="{Binding LastTransactionDate}" TextColor="{StaticResource Gray300}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
