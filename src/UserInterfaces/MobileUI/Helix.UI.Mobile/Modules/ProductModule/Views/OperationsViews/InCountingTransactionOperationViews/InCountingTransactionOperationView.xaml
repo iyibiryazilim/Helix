@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             x:Name="this"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels"
+             x:DataType="viewModel:InCountingTransactionOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews.InCountingTransactionOperationView"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
-    <sharedViews:ProductTransactionContentView>
+    <sharedViews:ProductTransactionContentView  GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}">
         
     </sharedViews:ProductTransactionContentView>
    

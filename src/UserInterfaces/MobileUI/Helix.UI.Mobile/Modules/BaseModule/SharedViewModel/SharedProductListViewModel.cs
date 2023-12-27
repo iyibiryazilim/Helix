@@ -4,18 +4,22 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 
+[QueryProperty(nameof(ViewType), nameof(ViewType))]
 public partial class SharedProductListViewModel :BaseViewModel
 {
     IHttpClientService _httpClientService;
     private readonly IProductService _productService;
+    IServiceProvider _serviceProvider;
 
     public ObservableCollection<Product> Items { get; } = new();
+    public ObservableCollection<Product> SelectedProducts { get; } = new();
 
     public Command SearchCommand { get; }
     //Properties
@@ -30,8 +34,11 @@ public partial class SharedProductListViewModel :BaseViewModel
     [ObservableProperty]
     string groupCode = string.Empty;
 
+    [ObservableProperty]
+    public int viewType;
+
     public Command GetProductsCommand { get; }
-    public SharedProductListViewModel( IHttpClientService httpClientService, IProductService productService)
+    public SharedProductListViewModel( IHttpClientService httpClientService, IProductService productService, IServiceProvider serviceProvider)
     {
 
         Title = "Ürün Listesi";
@@ -39,7 +46,65 @@ public partial class SharedProductListViewModel :BaseViewModel
         _productService = productService;
         GetProductsCommand = new Command(async () => await LoadData());
         SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+        _serviceProvider = serviceProvider;
     }
+
+
+    [RelayCommand]
+    private void ToggleSelection(Product item)
+    {
+        item.IsSelected = !item.IsSelected;
+        if (item.IsSelected)
+        {
+            SelectedProducts.Add(item);
+        }
+        else
+        {
+            SelectedProducts.Remove(item);
+        }
+    }
+    [RelayCommand]
+    async Task SaveAsync()
+    {
+        switch (ViewType)
+        {
+            //Consumable Transaction
+            case 12:
+                var consumableService = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
+                foreach (var product in SelectedProducts)
+                {
+                    if (consumableService.Items.ToList().Exists(x => x.Code == product.Code))
+                    {
+                        consumableService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+
+                    }
+                    else
+                    {
+                        var model = new ProductModel
+                        {
+                            ReferenceId = product.ReferenceId,
+                            Code=product.Code,
+                            Name=product.Name,
+                            UnitsetCode=product.UnitsetCode,
+                            SubUnitsetCode=product.SubUnitsetCode,
+                            SubUnitsetReferenceId=product.SubUnitsetReferenceId,
+                            UnitsetReferenceId=product.UnitsetReferenceId,
+                            Quantity=1
+
+                        };
+                        product.IsSelected = false;
+                        consumableService.Items.Add(model);
+                    }
+
+                }
+                break;
+            default:
+                break;
+        }
+   
+        await Shell.Current.GoToAsync("..");
+    }
+
 
     async Task LoadData()
     {

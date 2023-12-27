@@ -48,7 +48,9 @@ public partial class ProductListViewModel :BaseViewModel
         GetProductsCommand = new Command(async () => await LoadData());
         SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));      
     }
+   
 
+    [RelayCommand]
     public async Task LoadData()
     {
         if (IsBusy)
@@ -56,12 +58,13 @@ public partial class ProductListViewModel :BaseViewModel
         try
         {
             await Task.Delay(500);
-            await Task.WhenAll(
-            
-                 GetGroupsAsync(),
-                 ReloadAsync()
-            );
-           
+           // await Task.WhenAll(MainThread.InvokeOnMainThreadAsync(ReloadAsync), MainThread.InvokeOnMainThreadAsync(GetGroupsAsync));
+           Task t1= ReloadAsync();
+            Task t2 = GetGroupsAsync();
+            await Task.WhenAll(t1, t2);
+
+
+
 
         }
         catch (Exception ex)
@@ -74,7 +77,7 @@ public partial class ProductListViewModel :BaseViewModel
             IsBusy = false;
         }
     }
-
+    [RelayCommand]
     public async Task PerformSearchAsync(string text)
     {
         if (IsBusy)
@@ -105,7 +108,6 @@ public partial class ProductListViewModel :BaseViewModel
             IsBusy = false;
         }
     }
-
 
     [RelayCommand]
     public async Task LoadMoreAsync()
@@ -148,9 +150,6 @@ public partial class ProductListViewModel :BaseViewModel
     [RelayCommand]
     public async Task ReloadAsync()
     {
-        if (IsBusy)
-            return; 
-
        
         try
         {
@@ -231,8 +230,6 @@ public partial class ProductListViewModel :BaseViewModel
         }
     }
 
-
-    [RelayCommand]
     public async Task GetGroupsAsync()
     {
 
@@ -247,6 +244,7 @@ public partial class ProductListViewModel :BaseViewModel
             if (result.Data.Any())
             {
                 Items.Clear();
+                await Task.Delay(200);
                 foreach (ProductGroup item in result.Data)
                 {
                     await Task.Delay(100);
@@ -303,13 +301,20 @@ public partial class ProductListViewModel :BaseViewModel
         {
             try
             {
-                foreach (var item in Groups.Where(x => x.IsSelected == true))
+                
+                productGroup.IsSelected = !productGroup.IsSelected;
+
+                if (!productGroup.IsSelected)
+                    GroupCode = string.Empty;
+                else
+                    GroupCode = productGroup.GroupCode;
+                
+                foreach (var item in Groups.Where(x => x.IsSelected == true && x.GroupCode!=productGroup.GroupCode))
                 {
                     item.IsSelected = false;
                 }
-                productGroup.IsSelected = true;
 
-                GroupCode = productGroup.GroupCode;
+                //GroupCode = productGroup.GroupCode;
                 await ReloadAsync();
 
 

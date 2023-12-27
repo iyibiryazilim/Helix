@@ -115,20 +115,21 @@
                 </CollectionView>
             </VerticalStackLayout>
             <RefreshView Grid.Row="2"
-                         IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding ReloadCommand}"
+                         IsRefreshing="{Binding Source={x:Reference this},Path=IsRefreshing,Mode=OneWay}"
+                         Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=ProductList}"
                                 RemainingItemsThreshold="10"
-                                EmptyView="bulunamadı"
-                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}">
+                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}"
+                               >
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                                            ItemSpacing="5" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate  x:DataType="baseModel:Product">
-                            <Border StrokeShape="RoundRectangle 10"
+                           
+                                <Border StrokeShape="RoundRectangle 10"
                                     BackgroundColor="{StaticResource White}"
                                     Padding="5"
                                     Margin="10,0,10,0"
@@ -154,9 +155,11 @@
                                                          HorizontalOptions="Start">
                                         <Label Text="{Binding Code}"
                                                FontSize="Body"
+                                               LineBreakMode="TailTruncation"
                                                FontAttributes="Bold"></Label>
                                         <Label Text="{Binding Name}"
-                                               FontSize="Caption"></Label>
+                                               FontSize="Caption"
+                                               LineBreakMode="TailTruncation"></Label>
                                         <Label TextColor="{StaticResource Primary}">
                                             <Label.FormattedText>
                                                 <FormattedString>
@@ -177,6 +180,7 @@
 
 
                             </Border>
+                            
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
