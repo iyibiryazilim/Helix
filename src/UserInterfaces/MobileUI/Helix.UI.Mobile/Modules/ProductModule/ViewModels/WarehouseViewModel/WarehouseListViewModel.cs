@@ -45,7 +45,6 @@ public partial class WarehouseListViewModel : BaseViewModel
 		{
 			await Task.Delay(500);
 			await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
-			//await ReloadAsync();
 
 		}
 		catch (Exception ex)
@@ -56,38 +55,6 @@ public partial class WarehouseListViewModel : BaseViewModel
 		finally
 		{
 			IsBusy = false;
-		}
-	}
-
-	async Task GetWarehousesAsync()
-	{
-		if (IsBusy) return;
-
-		try
-		{
-			IsBusy = true;
-			IsRefreshing = true;
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-			if (result.Data.Any())
-			{
-				Items.Clear();
-				foreach (Warehouse item in result.Data)
-				{
-					Items.Add(item);
-				}
-			}
-		}
-
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Warehouse Error:", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-			IsRefreshing = false;
 		}
 	}
 
@@ -224,6 +191,7 @@ public partial class WarehouseListViewModel : BaseViewModel
 						await ReloadAsync();
 						break;
 					default:
+						await ReloadAsync();
 						break;
 				}
 			}
