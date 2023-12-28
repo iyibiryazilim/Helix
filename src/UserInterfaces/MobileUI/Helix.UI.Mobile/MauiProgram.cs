@@ -303,6 +303,7 @@ namespace Helix.UI.Mobile
 
 
 
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
@@ -343,6 +344,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<IEndProductService, EndProductDataStore>();
 			mauiAppBuilder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
+			mauiAppBuilder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
+
 
 
 			return mauiAppBuilder;
