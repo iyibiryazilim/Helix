@@ -65,57 +65,52 @@
                             Text="{Binding Product.Name}" />
 
                     </VerticalStackLayout>
-                    <CollectionView Grid.Row="1" ItemsSource="{Binding ProductDetailValues}">
+                    
+                    <Grid Padding="10" ColumnDefinitions=".33*,.33*,.33*"
+                                          ColumnSpacing="30"
+                                          Grid.Row="1"
+                                          HorizontalOptions="CenterAndExpand"
+                                          VerticalOptions="Center">
+                        <VerticalStackLayout Spacing="4" Grid.Column="0">
+                            <Label FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="{Binding ProductDetailValues.InputQuantity, StringFormat='{0:N2}'}"
+                                    TextColor="{StaticResource Success}" />
+                            <BoxView HeightRequest="0.1" />
+                            <Label FontSize="Small"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="Giriş"
+                                    TextColor="{StaticResource Gray300}" /> 
+                        </VerticalStackLayout>
 
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="baseModel:ProductDetailValues">
-                                <HorizontalStackLayout Padding="10"
-                                                       HorizontalOptions="CenterAndExpand"
-                                                       Spacing="50"
-                                                       VerticalOptions="Center">
-                                    <VerticalStackLayout Spacing="4">
-                                        <Label FontAttributes="Bold"
-                                               FontSize="Medium"
-                                               HorizontalOptions="CenterAndExpand"
-                                               Text="{Binding InputQuantity, StringFormat='{0:N2}'}"
-                                               TextColor="{StaticResource Success}" />
-                                        <BoxView HeightRequest="0.1" />
-                                        <Label FontSize="Small"
-                                               HorizontalOptions="CenterAndExpand"
-                                               Text="Giriş"
-                                               TextColor="{StaticResource Gray300}" /> 
-                                    </VerticalStackLayout>
-
-                                    <VerticalStackLayout Spacing="4">
-                                        <Label FontAttributes="Bold"
-                                                FontSize="Medium"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding StockQuantity, StringFormat='{0:N2}'}"
-                                                TextColor="{StaticResource Primary}" />
-                                        <BoxView HeightRequest="0.1" />
-                                        <Label FontSize="Small"
-                                               HorizontalOptions="CenterAndExpand"
-                                               Text="Stok"
-                                               TextColor="{StaticResource Gray300}" />
-                                    </VerticalStackLayout>
-                                    <VerticalStackLayout Spacing="4">
-                                        <Label FontAttributes="Bold"
-                                                FontSize="Medium"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding OutputQuantity, StringFormat='{0:N2}'}"
-                                                TextColor="{StaticResource Danger}" />
-                                        <BoxView HeightRequest="0.1" />
-                                        <Label FontSize="Small"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="Çıkış"
-                                                TextColor="{StaticResource Gray300}" />
-                                    </VerticalStackLayout>
-                                </HorizontalStackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                        
-                        
-                    </CollectionView>
+                        <VerticalStackLayout Spacing="4" Grid.Column="1">
+                            <Label FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="{Binding ProductDetailValues.StockQuantity, StringFormat='{0:N2}'}"
+                                    TextColor="{StaticResource Primary}" />
+                            
+                            <BoxView HeightRequest="0.1" />
+                            <Label FontSize="Small"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="Stok"
+                                    TextColor="{StaticResource Gray300}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="4" Grid.Column="2">
+                            <Label FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="{Binding ProductDetailValues.OutputQuantity, StringFormat='{0:N2}'}"
+                                    TextColor="{StaticResource Danger}" />
+                            <BoxView HeightRequest="0.1" />
+                            <Label FontSize="Small"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="Çıkış"
+                                    TextColor="{StaticResource Gray300}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                            
                     
                     
                     <Button
@@ -195,7 +190,7 @@
                                                     <Grid ColumnDefinitions="Auto,Auto,*,Auto"
                                                           ColumnSpacing="10"
                                                           Padding="0,0,10,0">
-                                                        <Border Grid.Column="0" Margin="-2" BackgroundColor="{Binding ListColor}" WidthRequest="15" StrokeShape="RoundRectangle 10,0,0,0">
+                                                        <Border Grid.Column="0" Margin="-2" BackgroundColor="{Binding ListColor}" WidthRequest="9" StrokeShape="RoundRectangle 10,0,0,0">
 
                                                         </Border>
                                                         <VerticalStackLayout Grid.Column="1"
