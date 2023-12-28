@@ -58,7 +58,7 @@
                         </Grid>
                     </Border>
                 </Grid>
-                <RefreshView
+                <RefreshView 
                     Grid.Row="1"
                     Command="{Binding ReloadCommand}"
                     IsRefreshing="{Binding IsRefreshing}"

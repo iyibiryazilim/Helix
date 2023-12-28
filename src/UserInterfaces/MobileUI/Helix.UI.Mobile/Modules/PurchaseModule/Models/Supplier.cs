@@ -2,7 +2,7 @@
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 {
-	public partial class Supplier : Current
+	public class Supplier : Current
 	{
 		 
 	}
