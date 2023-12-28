@@ -153,4 +153,6 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 			}
 		}
 	}
+
+	 
 }
