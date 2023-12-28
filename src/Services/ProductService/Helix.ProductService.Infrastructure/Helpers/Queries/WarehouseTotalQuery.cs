@@ -21,13 +21,13 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
             [SubUnitsetReferenceId] = UNITSET.LOGICALREF,
             [UnitsetCode] = BASEUNITSET.CODE,
             [UnitsetReferenceId] = BASEUNITSET.LOGICALREF,
-            [OnHand] = ISNULL(SUM(STINVTOT.ONHAND),0),
+            [OnHand] = ISNULL(SUM(STINVTOT.ONHAND),0)
             from LV_00{FirmNumber}_0{PeriodNumber}_STINVTOT AS STINVTOT 
             LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON STINVTOT.STOCKREF = ITEMS.LOGICALREF
              LEFT JOIN LG_00{FirmNumber}_UNITSETF AS BASEUNITSET ON ITEMS.UNITSETREF = BASEUNITSET.LOGICALREF
             LEFT JOIN LG_00{FirmNumber}_UNITSETL AS UNITSET ON UNITSET.UNITSETREF = BASEUNITSET.LOGICALREF AND MAINUNIT = 1
             
-            WHERE  (ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%') {CardType}
+            WHERE  (ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%') AND ITEMS.CARDTYPE IN ({CardType})
             GROUP BY STINVTOT.STOCKREF,STINVTOT.INVENNO,ITEMS.CODE,ITEMS.NAME,UNITSET.CODE,UNITSET.LOGICALREF,UNITSET.CODE,
 			BASEUNITSET.CODE,BASEUNITSET.LOGICALREF
             HAVING STINVTOT.INVENNO = 
@@ -49,16 +49,5 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
 		public const string NameDesc = "ORDER BY ITEMS.NAME DESC";
 	}
 
-	public class WarehouseTotalCardTypeFilter
-	{
-		public const string CommercialProduct = "ITEMS.CARDTYPE = 1";
-		public const string FixedAssetProduct = "ITEMS.CARDTYPE = 4";
-		public const string RawProduct = "ITEMS.CARDTYPE = 10";
-		public const string EndProduct = "ITEMS.CARDTYPE = 12";
-		public const string SemiProduct = "ITEMS.CARDTYPE = 11";
-		public const string ReturnableProduct = "ITEMS.CARDTYPE = 3";
-		public const string ConsumerProduct = "ITEMS.CARDTYPE = 13";
-		public const string MixedProduct = "ITEMS.CARDTYPE = 2";
-
-	}
+	
 }

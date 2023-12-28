@@ -16,29 +16,36 @@ namespace Helix.ProductService.Api.Controllers
 			_warehouseTotalService = warehouseTotalService;
 
 		}
-		//[HttpGet]
-		//public async Task<DataResult<IEnumerable<WarehouseTotal>>> GetWarehousesAsync(int number,string cardType="", [FromQuery] string search = "", string orderBy = WarehouseTotalOrderBy.CodeAsc, int page = 0, int pageSize = 20)
-		//{
-		//	DataResult<IEnumerable<WarehouseTotal>> result = new();
-		//	switch (orderBy)
-		//	{
-		//		case "namedesc":
-		//			result = await _warehouseService.GetWarehouseList(search, WarehouseOrderBy.ItemNameDesc, page, pageSize);
-		//			return result;
-		//		case "nameasc":
-		//			result = await _warehouseService.GetWarehouseList(search, WarehouseOrderBy.ItemNameAsc, page, pageSize);
-		//			return result;
-		//		case "numberdesc":
-		//			result = await _warehouseService.GetWarehouseList(search, WarehouseOrderBy.ItemNumberDesc, page, pageSize);
-		//			return result;
-		//		case "numberasc":
-		//			result = await _warehouseService.GetWarehouseList(search, WarehouseOrderBy.ItemNumberAsc, page, pageSize);
-		//			return result;
-		//		default:
-		//			result = await _warehouseService.GetWarehouseList(search, orderBy, page, pageSize);
-		//			return result;
-		//	}
 
-		//}
+		[HttpGet("Warehouse/Number/{number}&{cardType}")]
+		public async Task<DataResult<IEnumerable<WarehouseTotal>>> GetWarehousesAsync(int number, string cardType = "1,2,3,4,10,11,12,13", [FromQuery] string search = "", string orderBy = WarehouseTotalOrderBy.CodeAsc, int page = 0, int pageSize = 20)
+		{
+			DataResult<IEnumerable<WarehouseTotal>> result = new();
+			switch (orderBy)
+			{
+				case "namedesc":
+					result = await _warehouseTotalService.GetProductsByWarehouseNumber(number,cardType,search, WarehouseTotalOrderBy.NameDesc, page, pageSize);
+					return result;
+				case "nameasc":
+					result = await _warehouseTotalService.GetProductsByWarehouseNumber(number, cardType, search, WarehouseTotalOrderBy.NameAsc, page, pageSize);
+					return result;
+				case "codedesc":
+					result = await _warehouseTotalService.GetProductsByWarehouseNumber(number, cardType, search, WarehouseTotalOrderBy.CodeDesc, page, pageSize);
+					return result;
+				case "codeasc":
+					result = await _warehouseTotalService.GetProductsByWarehouseNumber(number, cardType, search, WarehouseTotalOrderBy.CodeAsc, page, pageSize);
+					return result;
+				case "quantitydesc":
+					result = await _warehouseTotalService.GetProductsByWarehouseNumber(number, cardType, search, WarehouseTotalOrderBy.QuantityDesc, page, pageSize);
+					return result;
+				case "quantityasc":
+					result = await _warehouseTotalService.GetProductsByWarehouseNumber(number, cardType, search, WarehouseTotalOrderBy.QuantityAsc, page, pageSize);
+					return result;
+				default:
+					result = await _warehouseTotalService.GetProductsByWarehouseNumber(number, cardType, search,orderBy, page, pageSize);
+					return result;
+			}
+
+		}
 	}
 }
