@@ -47,7 +47,7 @@ public partial class ProductDetailOutputReturnListViewModel : BaseViewModel
 			return;
 		try
 		{
-			await Task.Delay(500);
+			await Task.Delay(1000);
 			await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 		}
 		catch (Exception ex)
@@ -77,7 +77,6 @@ public partial class ProductDetailOutputReturnListViewModel : BaseViewModel
 			{
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(50);
 					ProductTransactionOutputReturnListItems.Add(item);
 				}
 			}
@@ -118,7 +117,6 @@ public partial class ProductDetailOutputReturnListViewModel : BaseViewModel
 				ProductTransactionOutputReturnListItems.Clear();
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(100);
 					ProductTransactionOutputReturnListItems.Add(item);
 				}
 			}

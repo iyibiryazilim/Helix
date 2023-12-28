@@ -117,7 +117,6 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 				ProductTransactionInputReturnListItems.Clear();
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(100);
 					ProductTransactionInputReturnListItems.Add(item);
 				}
 			}
