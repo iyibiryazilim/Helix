@@ -68,6 +68,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAsync(search, SupplierTransactionLineOrderBy.DateDesc, currentId, TransactionType, page, pageSize);
                     return result;
                 default:
+                    result.Message = "OrderBy wrong text";
                     return result;
             }
 

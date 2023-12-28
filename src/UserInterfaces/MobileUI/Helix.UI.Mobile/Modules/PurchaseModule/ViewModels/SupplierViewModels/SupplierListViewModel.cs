@@ -5,6 +5,8 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -210,6 +212,21 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 			}
 		}
 
-
+		[RelayCommand]
+		async Task GoToDetailAsync(Current current)
+		{
+			try
+			{
+				await Task.Delay(500);
+				await Shell.Current.GoToAsync($"{nameof(SupplierDetailView)}", new Dictionary<string, object>
+				{
+					[nameof(Current)] = current
+				});
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+			}
+		}
 	}
 }
