@@ -8,10 +8,17 @@
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Shell.PresentationMode="ModalAnimated"
              >
-    <!--<ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior
-    </ContentPage.Behaviors>-->
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetProductInputTransactionListItemsCommand}" />
+    </ContentPage.Behaviors>
     <Grid>
-        
+        <sharedViews:ProductTransactionListView ProductTransactionList="{Binding ProductInputTransactionListItems}"
+                                                SearchCommand="{Binding SearchCommand}"
+                                                LoadMoreCommand="{Binding LoadMoreCommand}"  
+                                                ReloadCommand="{Binding ReloadCommand}"
+                                                GoToBackCommand="{Binding GoToBackCommand}"
+                                                SortCommand="{Binding SortCommand}"
+                                                IsBusy="{Binding IsBusy}"
+                                                IsRefreshing="{Binding IsRefreshing}" />
     </Grid>
 </ContentPage>

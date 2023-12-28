@@ -12,8 +12,8 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 		private string postUrl = "/gateway/customQuery/CustomQuery";
 		public async Task<DataResult<dynamic>> GetObjectAsync(HttpClient httpClient, string query)
 		{
-			var json = JsonConvert.SerializeObject(query);
-			var content = new StringContent(json, Encoding.UTF8, "application/json");
+			var content = new StringContent(JsonConvert.SerializeObject(query), Encoding.UTF8, "application/json");
+			//var content = new StringContent($"\"{query}\"", null, "application/json");
 
 			HttpResponseMessage responseMessage = await httpClient.PostAsync(postUrl, content);
 			DataResult<dynamic> dataResult = new();

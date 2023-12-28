@@ -47,7 +47,7 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 			return;
 		try
 		{
-			await Task.Delay(500);
+			await Task.Delay(1000);
 			await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 		}
 		catch (Exception ex)
@@ -77,7 +77,6 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 			{
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(50);
 					ProductTransactionInputReturnListItems.Add(item);
 				}
 			}
@@ -110,7 +109,6 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 			IsBusy = true;
 			IsRefreshing = true;
 			var httpClient = _httpClient.GetOrCreateHttpClient();
-			Console.WriteLine(Product);
 			CurrentPage = 0;
 			
 			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "2,3", SearchText, OrderBy, CurrentPage, PageSize);
@@ -119,7 +117,6 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 				ProductTransactionInputReturnListItems.Clear();
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(100);
 					ProductTransactionInputReturnListItems.Add(item);
 				}
 			}
