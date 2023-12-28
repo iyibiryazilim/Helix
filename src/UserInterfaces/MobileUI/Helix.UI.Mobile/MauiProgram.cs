@@ -307,11 +307,11 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductTransactionBottomSheetViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetViewModel>();
-			mauiAppBuilder.Services.AddTransient<ProductionTransactionOperationViewModel>();
-			mauiAppBuilder.Services.AddTransient<OutCountingTransactionOperationViewModel>();
-			mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<ProductionTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<OutCountingTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<InCountingTransactionOperationViewModel>();
 			mauiAppBuilder.Services.AddScoped<ConsumableTransactionOperationViewModel>();
-			mauiAppBuilder.Services.AddTransient<WastageTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<WastageTransactionOperationViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListViewModel>();

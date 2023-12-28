@@ -10,8 +10,12 @@
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
-                                               DenemeCommand="{Binding DenemeCommand}">
-       
+                                               ProductModelList="{Binding Items}"
+                                               DenemeCommand="{Binding DenemeCommand}"
+                                               RemoveItemCommand="{Binding RemoveItemCommand}"
+                                               >
     </sharedViews:ProductTransactionContentView>
+        
+    
  
 </ContentPage>
