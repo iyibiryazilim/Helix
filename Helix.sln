@@ -146,13 +146,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.BasketService.WebAPI"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FinanceService", "FinanceService", "{765C7EC9-49A3-4EB4-ADB3-06D1920762A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.FinanceService.Domain", "src\Services\FinanceService\Helix.FinanceService.Domain\Helix.FinanceService.Domain.csproj", "{A84BB151-08C0-4F52-8008-D6A8F414A9D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.FinanceService.Domain", "src\Services\FinanceService\Helix.FinanceService.Domain\Helix.FinanceService.Domain.csproj", "{A84BB151-08C0-4F52-8008-D6A8F414A9D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.FinanceService.Application", "src\Services\FinanceService\Helix.FinanceService.Application\Helix.FinanceService.Application.csproj", "{14C6F653-8D33-4C2D-83A8-E8BCB9778858}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.FinanceService.Application", "src\Services\FinanceService\Helix.FinanceService.Application\Helix.FinanceService.Application.csproj", "{14C6F653-8D33-4C2D-83A8-E8BCB9778858}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.FinanceService.Infrastructure", "src\Services\FinanceService\Helix.FinanceService.Infrastructure\Helix.FinanceService.Infrastructure.csproj", "{0E6F0A9B-61B8-45F2-8D25-05CC6D12381F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.FinanceService.Infrastructure", "src\Services\FinanceService\Helix.FinanceService.Infrastructure\Helix.FinanceService.Infrastructure.csproj", "{0E6F0A9B-61B8-45F2-8D25-05CC6D12381F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.FinanceService.WebAPI", "src\Services\FinanceService\Helix.FinanceService.WebAPI\Helix.FinanceService.WebAPI.csproj", "{D1BC12AB-6D86-4B9E-AB27-90BA4D8AF36F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.FinanceService.WebAPI", "src\Services\FinanceService\Helix.FinanceService.WebAPI\Helix.FinanceService.WebAPI.csproj", "{D1BC12AB-6D86-4B9E-AB27-90BA4D8AF36F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
