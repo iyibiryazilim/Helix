@@ -7,7 +7,6 @@
              x:DataType="viewModel:ProductDetailInputReturnListViewModel"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Shell.PresentationMode="ModalAnimated"
-             Title="{Binding Title}"
              >
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetProductTransactionInputReturnListItemsCommand}" />
@@ -17,6 +16,7 @@
                                                 SearchCommand="{Binding SearchCommand}"
                                                 LoadMoreCommand="{Binding LoadMoreCommand}"  
                                                 ReloadCommand="{Binding ReloadCommand}"
+                                                GoToBackCommand="{Binding GoToBackCommand}"
                                                 SortCommand="{Binding SortCommand}"
                                                 IsBusy="{Binding IsBusy}"
                                                 IsRefreshing="{Binding IsRefreshing}"
