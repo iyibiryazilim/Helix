@@ -30,9 +30,12 @@
                                  Spacing="5"
                                  HorizontalOptions="Start"
                                  VerticalOptions="Center">
-                <Label TextColor="{StaticResource Primary}"
-                       Text="{Binding Source={x:Reference this},Path=Current.Name}"></Label>
-                <Label Text="{Binding Source={x:Reference this},Path=Current.Code}"></Label>
+                <Label FontSize="Body"
+                       FontAttributes="Bold"
+                       Text="{Binding Source={x:Reference this},Path=Current.Code}"></Label>
+                <Label FontSize="Caption"
+                       Text="{Binding Source={x:Reference this},Path=Current.Name}"
+                       LineBreakMode="TailTruncation"></Label>
             </VerticalStackLayout>
         </Grid>
     </Border>

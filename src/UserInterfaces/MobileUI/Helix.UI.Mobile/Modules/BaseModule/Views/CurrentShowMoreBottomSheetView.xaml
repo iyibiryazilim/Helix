@@ -7,9 +7,10 @@
                    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
                    xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.ViewModels"
                    HasHandle="True"
+                   HasBackdrop="True"
                    x:DataType="viewModel:CurrentShowMoreBottomSheetViewModel"
                    x:Name="this"
-                   BackgroundColor="#EFECFB"
+                   BackgroundColor="White"
                    HandleColor="{StaticResource Primary}">
     <the49:BottomSheet.Detents>
         <!-- Stop at the height of the screen -->

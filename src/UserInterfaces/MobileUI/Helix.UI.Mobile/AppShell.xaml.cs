@@ -9,6 +9,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Microsoft.Maui.Hosting;
@@ -60,6 +61,8 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(CurrentSalesOrderListView), typeof(CurrentSalesOrderListView));
 		Routing.RegisterRoute(nameof(CurrentPurchaseReturnListView), typeof(CurrentPurchaseReturnListView));
 		Routing.RegisterRoute(nameof(CurrentSalesReturnListView), typeof(CurrentSalesReturnListView));
+		Routing.RegisterRoute(nameof(SupplierDetailView), typeof(SupplierDetailView));
+
 
 
 
