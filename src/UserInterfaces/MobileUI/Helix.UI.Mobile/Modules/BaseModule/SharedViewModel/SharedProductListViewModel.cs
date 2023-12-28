@@ -5,6 +5,10 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -68,14 +72,14 @@ public partial class SharedProductListViewModel :BaseViewModel
     {
         switch (ViewType)
         {
-            //Consumable Transaction
+            //Consumable Transaction//sarf işlemleri
             case 12:
                 var consumableService = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
                 foreach (var product in SelectedProducts)
                 {
                     if (consumableService.Items.ToList().Exists(x => x.Code == product.Code))
                     {
-                        consumableService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+                        consumableService.Items.ToList().First(x => x.Code == product.Code).Quantity += 1;
 
                     }
                     else
@@ -98,12 +102,131 @@ public partial class SharedProductListViewModel :BaseViewModel
 
                 }
                 break;
+            case 50:
+                var inCountingService = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
+                foreach (var product in SelectedProducts)
+                {
+                    if (inCountingService.Items.ToList().Exists(x => x.Code == product.Code))
+                    {
+                        inCountingService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+
+                    }
+                    else
+                    {
+                        var model = new ProductModel
+                        {
+                            ReferenceId = product.ReferenceId,
+                            Code = product.Code,
+                            Name = product.Name,
+                            UnitsetCode = product.UnitsetCode,
+                            SubUnitsetCode = product.SubUnitsetCode,
+                            SubUnitsetReferenceId = product.SubUnitsetReferenceId,
+                            UnitsetReferenceId = product.UnitsetReferenceId,
+                            Quantity = 1
+
+                        };
+                        product.IsSelected = false;
+                        inCountingService.Items.Add(model);
+                    }
+
+                }
+                break;
+            case 51:
+                var outCountingService = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
+                foreach (var product in SelectedProducts)
+                {
+                    if (outCountingService.Items.ToList().Exists(x => x.Code == product.Code))
+                    {
+                        outCountingService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+
+                    }
+                    else
+                    {
+                        var model = new ProductModel
+                        {
+                            ReferenceId = product.ReferenceId,
+                            Code = product.Code,
+                            Name = product.Name,
+                            UnitsetCode = product.UnitsetCode,
+                            SubUnitsetCode = product.SubUnitsetCode,
+                            SubUnitsetReferenceId = product.SubUnitsetReferenceId,
+                            UnitsetReferenceId = product.UnitsetReferenceId,
+                            Quantity = 1
+
+                        };
+                        product.IsSelected = false;
+                        outCountingService.Items.Add(model);
+                    }
+
+                }
+                break;
+            case 13:
+                var productionTransactionService = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
+                foreach (var product in SelectedProducts)
+                {
+                    if (productionTransactionService.Items.ToList().Exists(x => x.Code == product.Code))
+                    {
+                        productionTransactionService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+
+                    }
+                    else
+                    {
+                        var model = new ProductModel
+                        {
+                            ReferenceId = product.ReferenceId,
+                            Code = product.Code,
+                            Name = product.Name,
+                            UnitsetCode = product.UnitsetCode,
+                            SubUnitsetCode = product.SubUnitsetCode,
+                            SubUnitsetReferenceId = product.SubUnitsetReferenceId,
+                            UnitsetReferenceId = product.UnitsetReferenceId,
+                            Quantity = 1
+
+                        };
+                        product.IsSelected = false;
+                        productionTransactionService.Items.Add(model);
+                    }
+
+                }
+                break;
+            case 11:
+                var wastageTransactionService = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
+                foreach (var product in SelectedProducts)
+                {
+                    if (wastageTransactionService.Items.ToList().Exists(x => x.Code == product.Code))
+                    {
+                        wastageTransactionService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+
+                    }
+                    else
+                    {
+                        var model = new ProductModel
+                        {
+                            ReferenceId = product.ReferenceId,
+                            Code = product.Code,
+                            Name = product.Name,
+                            UnitsetCode = product.UnitsetCode,
+                            SubUnitsetCode = product.SubUnitsetCode,
+                            SubUnitsetReferenceId = product.SubUnitsetReferenceId,
+                            UnitsetReferenceId = product.UnitsetReferenceId,
+                            Quantity = 1
+
+                        };
+                        product.IsSelected = false;
+                        wastageTransactionService.Items.Add(model);
+                    }
+
+                }
+                break;
+
             default:
                 break;
         }
    
         await Shell.Current.GoToAsync("..");
     }
+
+    
 
 
     async Task LoadData()
