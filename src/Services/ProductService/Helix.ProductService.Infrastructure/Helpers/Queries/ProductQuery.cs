@@ -40,7 +40,7 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         WHERE ITEMS.CODE <> 'ÿ' AND (ITEMS.CODE LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%') AND ITEMS.STGRPCODE LIKE '%{groupCode}%'
         {orderBy}
         OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY
-        "; ;
+        "; 
             return query;
 		}
         public string GetProductByCode(string code) =>
