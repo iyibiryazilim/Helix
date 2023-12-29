@@ -34,4 +34,18 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
 
     }
 
+    [RelayCommand]
+    async Task AddQuantity(ProductModel item)
+    {
+        item.Quantity++;
+
+    }
+
+
+
+
+
+
+
+
 }
