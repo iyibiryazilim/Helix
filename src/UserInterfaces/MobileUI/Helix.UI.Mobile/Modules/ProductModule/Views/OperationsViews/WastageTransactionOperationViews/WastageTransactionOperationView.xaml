@@ -8,11 +8,13 @@
              x:DataType="viewModel:WastageTransactionOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews.WastageTransactionOperationView"
              Title="{Binding Title}"
-             BackgroundColor="{StaticResource Primary}" 
-             >
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
                                                ProductModelList="{Binding Items}"
-                                               RemoveItemCommand="{Binding RemoveItemCommand}">
+                                               RemoveItemCommand="{Binding RemoveItemCommand}"
+                                               AddQuantityCommand="{Binding AddQuantityCommand}"
+                                               DeleteQuantityCommand="{Binding DeleteQuantityCommand}">
         
     </sharedViews:ProductTransactionContentView>
 </ContentPage>

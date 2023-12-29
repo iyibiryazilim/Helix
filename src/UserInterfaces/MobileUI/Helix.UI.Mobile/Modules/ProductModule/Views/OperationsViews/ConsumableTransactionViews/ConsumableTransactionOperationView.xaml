@@ -8,12 +8,14 @@
              x:DataType="viewModel:ConsumableTransactionOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews.ConsumableTransactionOperationView"          
              Title="{Binding Title}"
-             BackgroundColor="{StaticResource Primary}">
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
                                                ProductModelList="{Binding Items}"
                                                DenemeCommand="{Binding DenemeCommand}"
                                                RemoveItemCommand="{Binding RemoveItemCommand}"
-                                               >
+                                               AddQuantityCommand="{Binding AddQuantityCommand}"
+                                               DeleteQuantityCommand="{Binding DeleteQuantityCommand}">
     </sharedViews:ProductTransactionContentView>
         
     
