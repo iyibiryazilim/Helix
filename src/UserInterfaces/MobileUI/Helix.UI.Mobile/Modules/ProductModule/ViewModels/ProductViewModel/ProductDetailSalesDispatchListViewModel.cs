@@ -108,6 +108,7 @@ public partial class ProductDetailSalesDispatchListViewModel : BaseViewModel
 			IsBusy = true;
 			IsRefreshing = true;
 			var httpClient = _httpClient.GetOrCreateHttpClient();
+			
 			CurrentPage = 0;
 
 			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "7,8", SearchText, OrderBy, CurrentPage, PageSize);
@@ -116,6 +117,7 @@ public partial class ProductDetailSalesDispatchListViewModel : BaseViewModel
 				ProductTransactionSalesDispatchListItems.Clear();
 				foreach (var item in result.Data)
 				{
+					await Task.Delay(200);
 					ProductTransactionSalesDispatchListItems.Add(item);
 				}
 			}

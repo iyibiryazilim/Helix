@@ -272,7 +272,6 @@ public partial class ProductListViewModel :BaseViewModel
         try
         {
             IsBusy = true;
-            IsRefreshing = true;
             
             await Task.Delay(300);
             await Shell.Current.GoToAsync($"{nameof(ProductDetailView)}", new Dictionary<string, object>

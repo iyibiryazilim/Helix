@@ -90,10 +90,10 @@ public partial class ProductDetailViewModel : BaseViewModel
 			return;
 		try
 		{
-			await Task.Delay(500);
+			await Task.Delay(1000);
 			await Task.WhenAll(
-				GetProductDetailValues(),
-				GetProductTransactionLineAsync()
+				 GetProductDetailValues(),
+				 GetProductTransactionLineAsync()
 			);
 		}
 		catch (Exception ex)
