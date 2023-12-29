@@ -7,6 +7,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Services
 {
     public interface IWarehouseTransactionService
     {
-		Task<DataResult<IEnumerable<WarehouseTransaction>>> GetWarehouseTransactions(HttpClient httpClient,int number, string search, WarehouseTransactionOrderBy orderBy, int page, int pageSiz);
+		Task<DataResult<IEnumerable<WarehouseTransaction>>> GetWarehouseTransactions(HttpClient httpClient,int number, string search, WarehouseTransactionOrderBy orderBy, int page, int pageSize);
+		Task<DataResult<IEnumerable<WarehouseTransaction>>> GetInputTransactionByWarehouseNumberAsync(HttpClient httpClient, int number, string search, string orderBy, int page, int pageSize);
+		Task<DataResult<IEnumerable<WarehouseTransaction>>> GetInputTransactionByWarehouseReferenceIdAsync(HttpClient httpClient, int id, string search, WarehouseTransactionOrderBy orderBy, int page, int pageSize);
+		Task<DataResult<IEnumerable<WarehouseTransaction>>> GetOutputTransactionByWarehouseNumberAsync(HttpClient httpClient, int number, string search, WarehouseTransactionOrderBy orderBy, int page, int pageSize);
+		Task<DataResult<IEnumerable<WarehouseTransaction>>> GetOutputTransactionByWarehouseReferenceIdAsync(HttpClient httpClient, int id, string search, WarehouseTransactionOrderBy orderBy, int page, int pageSize);
 	}
 }
