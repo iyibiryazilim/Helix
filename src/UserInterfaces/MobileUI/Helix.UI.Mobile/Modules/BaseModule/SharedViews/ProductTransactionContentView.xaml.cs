@@ -11,6 +11,7 @@ public partial class ProductTransactionContentView : ContentView
 {
     //Commands
     public static readonly BindableProperty GoToSharedProductListCommandProperty = BindableProperty.Create(nameof(GoToSharedProductListCommand), typeof(Command), typeof(SharedProductListView), null);
+    public static readonly BindableProperty GoToConsumableTransactionFormCommandProperty = BindableProperty.Create(nameof(GoToConsumableTransactionFormCommand), typeof(Command), typeof(SharedProductListView), null);
 
     public static readonly BindableProperty DenemeCommandProperty = BindableProperty.Create(nameof(DenemeCommand), typeof(Command), typeof(SharedProductListView), null);
     // delete command
@@ -32,6 +33,13 @@ public partial class ProductTransactionContentView : ContentView
     {
         get => GetValue(GoToSharedProductListCommandProperty) as Command;
         set => SetValue(GoToSharedProductListCommandProperty, value);
+    }
+
+    //form page
+    public Command GoToConsumableTransactionFormCommand
+    {
+        get => GetValue(GoToConsumableTransactionFormCommandProperty) as Command;
+        set => SetValue(GoToConsumableTransactionFormCommandProperty, value);
     }
     //ProductModelList
     public ObservableCollection<ProductModel> ProductModelList

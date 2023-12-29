@@ -296,6 +296,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationView>();
 			mauiAppBuilder.Services.AddTransient<WastageTransactionOperationView>();
 			mauiAppBuilder.Services.AddTransient<SharedProductListView>();
+            mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationFormView>();
 
 
 
@@ -304,7 +305,7 @@ namespace Helix.UI.Mobile
 
 
 
-			return mauiAppBuilder;
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -334,8 +335,9 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductDetailSalesDispatchListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProductDetailSalesOrderListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SharedProductListViewModel>();
+            mauiAppBuilder.Services.AddScoped<ConsumableTransactionOperationFormViewModel>();
 
-			return mauiAppBuilder;
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{

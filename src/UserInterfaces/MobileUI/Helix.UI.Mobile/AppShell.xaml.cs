@@ -64,11 +64,13 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(SupplierDetailView), typeof(SupplierDetailView));
 
 
+        Routing.RegisterRoute(nameof(ConsumableTransactionOperationFormView), typeof(ConsumableTransactionOperationFormView));
 
 
 
 
 
-	}
+
+    }
 }
 

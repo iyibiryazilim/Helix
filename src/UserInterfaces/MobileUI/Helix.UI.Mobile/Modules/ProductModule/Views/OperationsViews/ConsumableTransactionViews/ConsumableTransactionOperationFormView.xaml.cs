@@ -4,9 +4,9 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.Consumable
 
 public partial class ConsumableTransactionOperationFormView : ContentPage
 {
-	ConsumableTransactionOperationViewModel _viewModel;
+    ConsumableTransactionOperationFormViewModel _viewModel;
 
-    public ConsumableTransactionOperationFormView(ConsumableTransactionOperationViewModel viewModel)
+    public ConsumableTransactionOperationFormView(ConsumableTransactionOperationFormViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = _viewModel = viewModel;
