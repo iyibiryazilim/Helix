@@ -45,7 +45,7 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 	public WarehouseDetailViewModel(IHttpClientService httpClientService,IWarehouseService warehouseService,IServiceProvider serviceProvider,ICustomQueryService customQueryService, IWarehouseTransactionService warehouseTransactionService)
         {
 		Title = "Ambar Detayı";
-            _httpClientService = httpClientService;
+		_httpClientService = httpClientService;
 		_warehouseService = warehouseService;
 		_serviceProvider = serviceProvider;
 		_customQueryService = customQueryService;
