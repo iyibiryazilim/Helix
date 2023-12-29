@@ -20,16 +20,11 @@ public partial class ProductTransactionContentView : ContentView
     //ProductModellist
     public static readonly BindableProperty ProductModelListProperty = BindableProperty.Create(nameof(ProductModelList), typeof(ObservableCollection<ProductModel>), typeof(ProductListContentView), null);
 
-    // delete command
-    public static readonly BindableProperty RemoveItemCommandProperty = BindableProperty.Create(nameof(RemoveItemCommand), typeof(Command), typeof(ProductTransactionContentView), null);
-
     //plus command
     public static readonly BindableProperty AddQuantityCommandProperty = BindableProperty.Create(nameof(AddQuantityCommand), typeof(Command), typeof(ProductTransactionContentView), null);
 
 
-    //ProductModellist
-    public static readonly BindableProperty ProductModelListProperty = BindableProperty.Create(nameof(ProductModelList), typeof(ObservableCollection<ProductModel>), typeof(ProductListContentView), null);
-
+  
     public Command GoToSharedProductListCommand
     {
         get => GetValue(GoToSharedProductListCommandProperty) as Command;
