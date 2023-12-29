@@ -8,10 +8,13 @@
              x:DataType="viewModel:OutCountingTransactionOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews.OutCountingTransactionOperationView" 
              Title="{Binding Title}"
-             BackgroundColor="{StaticResource Primary}">
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
                                                ProductModelList="{Binding Items}"
-                                               RemoveItemCommand="{Binding RemoveItemCommand}">
+                                               RemoveItemCommand="{Binding RemoveItemCommand}"
+                                               AddQuantityCommand="{Binding AddQuantityCommand}"
+                                               DeleteQuantityCommand="{Binding DeleteQuantityCommand}">
         
     </sharedViews:ProductTransactionContentView>
    

@@ -7,14 +7,23 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              x:DataType="viewModel:ProductTransactionContentViewModel"
-             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductTransactionContentView">
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductTransactionContentView" >
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
             Margin="0,30,0,0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="10*,80*,10*">
+        <Grid RowDefinitions="Auto,70*,10*"
+              RowSpacing="10">
             <Grid Grid.Row="0">
                 <Border StrokeShape="RoundRectangle 20">
 
@@ -55,133 +64,144 @@
 
             </Grid>
             <Grid Grid.Row="1">
-                <Frame Grid.Row="1"
-                       Margin="10">
+                <Grid Grid.Row="1"
+                       >
                     <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=ProductModelList}"
-                                    SelectionMode="None">
+                                   >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="3" />
+                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="baseModel:ProductModel">
-                                <StackLayout Padding="3">
-                                    <SwipeView Margin="3"
-                                               Threshold="200">
-                                        <SwipeView.RightItems>
-                                            <SwipeItems Mode="Execute">
-                                                <SwipeItem BackgroundColor="{StaticResource Primary}"
-                                                           CommandParameter="{Binding .}"
-                                                           Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveItemCommand}"
-                                                           Text="Malzeme Sil" />
-                                            </SwipeItems>
-                                        </SwipeView.RightItems>
+                            <DataTemplate  x:DataType="baseModel:ProductModel">
+                                <SwipeView Margin="3"
+                                           Threshold="200">
+                                    <SwipeView.RightItems>
+                                        <SwipeItems Mode="Execute">
+                                            <SwipeItem BackgroundColor="{StaticResource Primary}"
+                                                       CommandParameter="{Binding .}"
+                                                       Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveItemCommand}"
+                                                       Text="Malzeme Sil" />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
 
-                                        <Frame Padding="0"
-                                               CornerRadius="10"
-                                               HasShadow="False"
-                                               HeightRequest="80">
+                                    <Border StrokeShape="RoundRectangle 10"
+                                        BackgroundColor="{StaticResource White}"
+                                        Padding="5"
+                                        Margin="5,0,5,0"
+                                        HeightRequest="85">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="20*,65*,15*">
+                                        <Border Grid.Column="0"
+                                                StrokeShape="RoundRectangle 10"
+                                                WidthRequest="75"
+                                                HorizontalOptions="Start"
+                                                Padding="10"
+                                                StrokeThickness="0">
+                                            <Image Aspect="AspectFit"
+                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="5"
+                                                             Spacing="5"
+                                                             HorizontalOptions="Start">
+                                            <Label Text="{Binding Code}"
+                                                   FontSize="Body"
+                                                   LineBreakMode="TailTruncation"
+                                                   FontAttributes="Bold"></Label>
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="Caption"
+                                                   LineBreakMode="TailTruncation"></Label>
+                                            <Label TextColor="{StaticResource Primary}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding StockQuantity, StringFormat='{0:N2} '}"
+                                                              FontAttributes="Bold" />
+                                                        <Span Text="{Binding SubUnitsetCode}"
+                                                              FontAttributes="Bold" />
 
-                                            <Grid Padding="10"
-                                                  ColumnDefinitions="15*,60*,20*"
-                                                  ColumnSpacing="15"
-                                                  RowDefinitions="*,*"
-                                                  RowSpacing="1">
-
-                                                <Image Grid.Row="0"
-                                                       Grid.RowSpan="2"
-                                                       Grid.Column="0"
-                                                       Aspect="AspectFill"
-                                                       HeightRequest="30"
-                                                       WidthRequest="30">
-                                                    <Image.Source>
-                                                        <FontImageSource FontFamily="FAS"
-                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}"
-                                                                         Color="{StaticResource DarkPrimary}" />
-                                                    </Image.Source>
-
-                                                </Image>
-
-                                                <Label Grid.Row="0"
-                                                       Grid.Column="1"
-                                                       FontAttributes="Bold"
-                                                       FontSize="Default"
-                                                       HorizontalOptions="Start"
-                                                       LineBreakMode="TailTruncation"
-                                                       Text="{Binding Code}"
-                                                       VerticalOptions="End" />
-
-                                                <Label Grid.Row="1"
-                                                       Grid.Column="1"
-                                                       FontSize="12"
-                                                       HorizontalOptions="Start"
-                                                       LineBreakMode="TailTruncation"
-                                                       Text="{Binding Name}"
-                                                       VerticalOptions="Start" />
-
-                                                <Frame Grid.Column="2"
-                                                       CornerRadius="10"
-                                                       Grid.Row="0"
-                                                       Padding="0"
-                                                       Grid.RowSpan="2"
-                                                       WidthRequest="35">
-                                                    <Grid RowDefinitions=".30*,.40*,.30*">
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
 
 
 
-                                                        <ImageButton Grid.Row="0"
-                                                                     BackgroundColor="Transparent"
-                                                                     Aspect="AspectFit"
-                                                                     HeightRequest="12"
-                                                                     WidthRequest="12">
-                                                            <ImageButton.Source>
-                                                                <FontImageSource FontFamily="FAS"
-                                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
-                                                                                 Color="{StaticResource Success}" />
-                                                            </ImageButton.Source>
-                                                        </ImageButton>
-
-                                                        <Label Text="{Binding Quantity}"
-                                                               Grid.Row="1"
-                                                               HorizontalOptions="Center">
-
-                                                        </Label>
-
-                                                        <ImageButton Grid.Row="2"
-                                                                     BackgroundColor="Transparent"
-                                                                     Aspect="AspectFit"
-                                                                     HeightRequest="12"
-                                                                     WidthRequest="12">
-                                                            <ImageButton.Source>
-                                                                <FontImageSource FontFamily="FAS"
-                                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
-                                                                                 Color="{StaticResource Danger}" />
-                                                            </ImageButton.Source>
-                                                        </ImageButton>
-                                                    </Grid>
+                                        </VerticalStackLayout>
+                                        
+                                            <Border Grid.Column="2" HorizontalOptions="End"
+                                                   StrokeShape="RoundRectangle 10"
+                                                   Grid.Row="0"
+                                                   Padding="0"
+                                                   Grid.RowSpan="2"
+                                                   WidthRequest="35">
+                                                <Grid RowDefinitions=".30*,.40*,.30*">
 
 
-                                                </Frame>
 
-                                            </Grid>
+                                                    <ImageButton Grid.Row="0"
+                                                                 BackgroundColor="Transparent"
+                                                                 Aspect="AspectFit"
+                                                                 HeightRequest="12"
+                                                                 WidthRequest="12"
+                                                                 CommandParameter="{Binding .}"
+                                                                 Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}">
+                                                        <ImageButton.Source>
+                                                            <FontImageSource FontFamily="FAS"
+                                                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
+                                                                             Color="{StaticResource Success}" />
+                                                        </ImageButton.Source>
+                                                    </ImageButton>
 
-                                        </Frame>
+                                                    <Label Text="{Binding Quantity}"
+                                                           Grid.Row="1"
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="Center">
+
+                                                    </Label>
+
+                                                    <ImageButton Grid.Row="2"
+                                                                 BackgroundColor="Transparent"
+                                                                 Aspect="AspectFit"
+                                                                 HeightRequest="12"
+                                                                 WidthRequest="12"
+                                                                 CommandParameter="{Binding .}"
+                                                                 Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}">
+                                                        <ImageButton.Source>
+                                                            <FontImageSource FontFamily="FAS"
+                                                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
+                                                                             Color="{StaticResource Danger}" />
+                                                        </ImageButton.Source>
+                                                    </ImageButton>
+                                                </Grid>
 
 
-                                    </SwipeView>
-                                </StackLayout>
+                                            </Border>
+
+
+
+                                    </Grid>
+
+
+                                </Border>
+                                </SwipeView>
 
                             </DataTemplate>
-
                         </CollectionView.ItemTemplate>
-
                     </CollectionView>
 
-                </Frame>
+                </Grid>
 
             </Grid>
 
 
             <Button Grid.Row="2"
-                    Margin="10"
-                    Text="İleri"
-                    VerticalOptions="End">
+                    Margin="20"
+                    Padding="10"
+                    Text="İleri" 
+                    >
 
             </Button>
            

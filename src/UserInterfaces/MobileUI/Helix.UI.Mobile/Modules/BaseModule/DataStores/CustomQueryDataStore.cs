@@ -79,7 +79,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.DataStores
 				{
 					if (!string.IsNullOrEmpty(data))
 					{
-						var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<Dictionary<string, object>>>>(data);
+						var result = JsonConvert.DeserializeObject<DataResult<IEnumerable<dynamic>>>(data);
 
 						dataResult.Data = result?.Data;
 						dataResult.IsSuccess = true;

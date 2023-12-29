@@ -132,16 +132,16 @@
 
                                 <Border StrokeShape="RoundRectangle 10"
                                     BackgroundColor="{StaticResource White}"
-                                    Padding="5"
+                                    Padding="10,0,10,0"
                                     Margin="10,0,10,0"
                                     HeightRequest="85"
                                    >
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}" />
-                                    </Border.GestureRecognizers>
-                                    <Grid ColumnDefinitions=".25*,.75*">
-                                        <Border Grid.Column="0"
+
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="auto,*,auto">
+                                    <Border Grid.Column="0"
                                             StrokeShape="RoundRectangle 10"
                                             WidthRequest="75"
                                             HorizontalOptions="Start"
@@ -175,9 +175,18 @@
 
 
 
-                                        </VerticalStackLayout>
-
-                                    </Grid>
+                                    </VerticalStackLayout>
+                                    <Image VerticalOptions="Center"
+                                           Grid.Column="2"
+                                           WidthRequest="15"
+                                           HeightRequest="15">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="FAS"
+                                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
+                                        </Image.Source>
+                                    </Image>
+                                </Grid>
 
 
                                 </Border>

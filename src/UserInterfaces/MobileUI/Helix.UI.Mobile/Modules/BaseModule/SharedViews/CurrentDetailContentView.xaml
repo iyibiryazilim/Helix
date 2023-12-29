@@ -166,7 +166,7 @@
                                                             <Border Grid.Column="0"
                                                                     Margin="-2"
                                                                     BackgroundColor="{Binding ListColor}"
-                                                                    WidthRequest="15"
+                                                                    WidthRequest="9"
                                                                     StrokeShape="RoundRectangle 10,0,0,0"></Border>
                                                             <VerticalStackLayout Grid.Column="1"
                                                                                  Spacing="4"

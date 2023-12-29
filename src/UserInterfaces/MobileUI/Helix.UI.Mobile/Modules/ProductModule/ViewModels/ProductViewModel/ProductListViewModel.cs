@@ -245,6 +245,13 @@ public partial class ProductListViewModel :BaseViewModel
             {
                 Items.Clear();
                 await Task.Delay(200);
+                Groups.Add(new ProductGroup
+                {
+                    GroupCode = "Tümü",
+                    GroupDefinition = "Tümü",
+                    IsSelected = true
+                });
+
                 foreach (ProductGroup item in result.Data)
                 {
                     await Task.Delay(100);
@@ -303,8 +310,12 @@ public partial class ProductListViewModel :BaseViewModel
                 
                 productGroup.IsSelected = !productGroup.IsSelected;
 
-                if (!productGroup.IsSelected)
+                if (productGroup.GroupDefinition == "Tümü")
+                {
                     GroupCode = string.Empty;
+
+                }
+                   
                 else
                     GroupCode = productGroup.GroupCode;
                 
