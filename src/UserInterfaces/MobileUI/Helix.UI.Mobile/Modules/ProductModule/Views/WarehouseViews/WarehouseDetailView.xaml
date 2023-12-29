@@ -13,12 +13,12 @@
                                         EventName="Loaded" />
     </ContentPage.Behaviors>
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
-                 Command="{Binding .}">
-
-        <Grid RowDefinitions="0.1*,0.9*">
-            <Button BackgroundColor="{StaticResource Success}">
-
-            </Button>
+                 ZIndex="999"
+                 Command="{Binding GetWarehouseDetailCommand}"
+                 RefreshColor="{StaticResource DarkPrimary}">
+        <ScrollView>
+            <Grid RowDefinitions="0.1*,0.9*">
+            
             <Frame Grid.Row="0"
                    Grid.Column="0"
                    CornerRadius="0"
@@ -324,6 +324,7 @@
 
             </Border>
         </Grid>
+        </ScrollView>
     </RefreshView>
 
 
