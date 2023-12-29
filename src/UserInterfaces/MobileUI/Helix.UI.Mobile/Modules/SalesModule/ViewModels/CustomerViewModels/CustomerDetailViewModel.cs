@@ -34,7 +34,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 		[ObservableProperty]
 		string searchText = string.Empty;
 		[ObservableProperty]
-		CustomerTransactionLineOrderBy orderBy = CustomerTransactionLineOrderBy.dateasc;
+		CustomerTransactionLineOrderBy orderBy = CustomerTransactionLineOrderBy.datedesc;
 		[ObservableProperty]
 		int currentPage = 0;
 		[ObservableProperty]
