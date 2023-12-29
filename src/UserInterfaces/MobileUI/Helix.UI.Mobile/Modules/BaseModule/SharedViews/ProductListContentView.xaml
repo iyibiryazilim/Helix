@@ -137,7 +137,7 @@
                                     HeightRequest="85"
                                    >
                                     <Border.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"></TapGestureRecognizer>
 
                                 </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions="auto,*,auto">
