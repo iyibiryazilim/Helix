@@ -4,6 +4,7 @@ namespace Helix.UI.Mobile.Helpers.ImageConverter
 {
 	public class ByteArrayToImageSourceConverter : IValueConverter
 	{
+
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			byte[] bytes;

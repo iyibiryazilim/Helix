@@ -175,7 +175,7 @@
                                     FontSize="13"
                                     HeightRequest="30"
                                     HorizontalOptions="End"
-                                    Text="Malzeme Hareketleri"
+                                    Text="Daha Fazla"
                                     VerticalOptions="Center"
                                     WidthRequest="135" />
                             </Grid>
