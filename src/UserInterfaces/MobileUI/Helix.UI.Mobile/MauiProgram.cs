@@ -47,6 +47,12 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Panel;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
@@ -355,10 +361,18 @@ namespace Helix.UI.Mobile
 		#region ReturnModule
 		public static MauiAppBuilder ReturnRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
+			mauiAppBuilder.Services.AddSingleton<ReturnPanelView>();
+			mauiAppBuilder.Services.AddSingleton<ReturnPurchasesView>();
+			mauiAppBuilder.Services.AddSingleton<ReturnSalesView>();
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ReturnRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
+			mauiAppBuilder.Services.AddSingleton<ReturnPanelViewModel>();
+			mauiAppBuilder.Services.AddSingleton<ReturnPurchasesViewModel>();
+			mauiAppBuilder.Services.AddSingleton<ReturnSalesViewModel>();
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ReturnRegisterServices(this MauiAppBuilder mauiAppBuilder)

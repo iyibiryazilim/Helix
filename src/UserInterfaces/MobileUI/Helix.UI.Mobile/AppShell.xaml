@@ -22,6 +22,9 @@
        xmlns:purchaseOperationViews="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews"
        xmlns:local="clr-namespace:Helix.UI.Mobile"
        xmlns:page="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews"
+       xmlns:returnPanelViews="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.Views.Panel"
+       xmlns:salesReturnViews="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.Views.Sales"
+       xmlns:purchaseReturnViews="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases"
        xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
        Shell.FlyoutBehavior="Flyout"
      >
@@ -287,7 +290,7 @@
         </Tab>
     </FlyoutItem>
 
-    <!--<FlyoutItem Title="İade İşlemleri">
+    <FlyoutItem Title="İade İşlemleri">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FAS"
                              Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
@@ -303,22 +306,30 @@
             </Tab.Icon>
 
             <ShellContent Title="İade İşlemleri Paneli"
-                          ContentTemplate="{DataTemplate panelViews:ReturnPanelView}" />
+                          ContentTemplate="{DataTemplate returnPanelViews:ReturnPanelView}" />
         </Tab>
-        <Tab Icon="return_icon.png"
+        <Tab 
              Title="Satış İade">
-
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}" />
+            </Tab.Icon>
             <ShellContent Title="Satış İade"
-                          ContentTemplate="{DataTemplate returnViews:SalesReturnView}" />
+                          ContentTemplate="{DataTemplate salesReturnViews:ReturnSalesView}" />
         </Tab>
 
-        <Tab Icon="return_icon.png"
+        <Tab 
              Title="Satın Alma İade">
-
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource White}}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.RotateLeft}" />
+            </Tab.Icon>
             <ShellContent Title="Satın Alma İade"
-                          ContentTemplate="{DataTemplate returnViews:PurchaseReturnView}" />
+                          ContentTemplate="{DataTemplate purchaseReturnViews:ReturnPurchasesView}" />
         </Tab>
-    </FlyoutItem>-->
+    </FlyoutItem>
     <!--<FlyoutItem Title="Ambar Sayım">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FAS"
