@@ -11,6 +11,7 @@
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
+                                               GoToConsumableTransactionFormCommand="{ Binding GoToConsumableTransactionFormCommand}"
                                                ProductModelList="{Binding Items}"
                                                DenemeCommand="{Binding DenemeCommand}"
                                                RemoveItemCommand="{Binding RemoveItemCommand}"

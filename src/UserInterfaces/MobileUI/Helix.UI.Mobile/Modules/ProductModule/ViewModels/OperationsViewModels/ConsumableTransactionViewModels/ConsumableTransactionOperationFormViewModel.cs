@@ -1,7 +1,14 @@
-﻿using Helix.UI.Mobile.MVVMHelper;
+﻿using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.MVVMHelper;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
 
-public class ConsumableTransactionOperationFormViewModel:BaseViewModel
+public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
 {
+    public ConsumableTransactionOperationFormViewModel()
+    {
+        Title = "Sarf İşlemleri";
+    }
+
+    
 }

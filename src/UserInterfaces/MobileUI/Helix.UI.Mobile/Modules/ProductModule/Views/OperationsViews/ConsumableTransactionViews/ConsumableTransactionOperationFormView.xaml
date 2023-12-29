@@ -4,7 +4,11 @@
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews.ConsumableTransactionOperationFormView"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
-    <Border>
+    <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*">
+        <VerticalStackLayout Grid.Row="0">
+           
+            
+        </VerticalStackLayout>
         
-    </Border>
+    </Grid>
 </ContentPage>

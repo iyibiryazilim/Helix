@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using System.Diagnostics;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
@@ -30,6 +31,13 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
             ["ViewType"] = 12
         });
     }
+    [RelayCommand]
+    async Task GoToConsumableTransactionForm()
+    {
+        await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationFormView)}");
+        
+    }
+
 
     [RelayCommand]
     async Task RemoveItemAsync(ProductModel item)
