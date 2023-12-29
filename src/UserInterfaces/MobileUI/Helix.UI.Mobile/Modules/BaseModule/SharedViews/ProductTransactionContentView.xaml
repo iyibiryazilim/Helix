@@ -55,6 +55,7 @@
             <Grid Grid.Row="1">
                 <Frame Grid.Row="1"
                        Margin="10">
+
                     <CollectionView ItemsSource="{Binding Source={x:Reference this},Path=ProductModelList}"
                                     SelectionMode="None" >
                         <CollectionView.ItemTemplate>
@@ -171,6 +172,7 @@
                         </CollectionView.ItemTemplate>
 
                     </CollectionView>
+>>>>>>> Stashed changes
 
                 </Frame>
 
