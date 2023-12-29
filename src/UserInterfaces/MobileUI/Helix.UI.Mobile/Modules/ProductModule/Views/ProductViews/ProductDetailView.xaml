@@ -71,12 +71,12 @@
 
                             </VerticalStackLayout>
 
-                            <Grid Padding="10" ColumnDefinitions=".33*,.33*,.33*"
-                                              ColumnSpacing="30"
+                            <Grid Padding="0,10,0,10" ColumnDefinitions="Auto,Auto,Auto"
+                                              ColumnSpacing="25"
                                               Grid.Row="1"
                                               HorizontalOptions="CenterAndExpand"
                                               VerticalOptions="Center">
-                                <VerticalStackLayout Spacing="4" Grid.Column="0">
+                                <VerticalStackLayout Spacing="4" Grid.Column="0" HorizontalOptions="Start">
                                     <Label FontAttributes="Bold"
                                         FontSize="Medium"
                                         HorizontalOptions="CenterAndExpand"
@@ -89,7 +89,7 @@
                                         TextColor="{StaticResource Gray300}" />
                                 </VerticalStackLayout>
 
-                                <VerticalStackLayout Spacing="4" Grid.Column="1">
+                                <VerticalStackLayout Spacing="4" Grid.Column="1" HorizontalOptions="Center">
                                     <Label FontAttributes="Bold"
                                         FontSize="Medium"
                                         HorizontalOptions="CenterAndExpand"
@@ -102,7 +102,7 @@
                                         Text="Stok"
                                         TextColor="{StaticResource Gray300}" />
                                 </VerticalStackLayout>
-                                <VerticalStackLayout Spacing="4" Grid.Column="2">
+                                <VerticalStackLayout Spacing="4" Grid.Column="2" HorizontalOptions="End">
                                     <Label FontAttributes="Bold"
                                         FontSize="Medium"
                                         HorizontalOptions="CenterAndExpand"
