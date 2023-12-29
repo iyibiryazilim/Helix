@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Accessibilityservice.AccessibilityService;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
@@ -117,6 +118,7 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 				ProductTransactionInputReturnListItems.Clear();
 				foreach (var item in result.Data)
 				{
+					await Task.Delay(200);
 					ProductTransactionInputReturnListItems.Add(item);
 				}
 			}

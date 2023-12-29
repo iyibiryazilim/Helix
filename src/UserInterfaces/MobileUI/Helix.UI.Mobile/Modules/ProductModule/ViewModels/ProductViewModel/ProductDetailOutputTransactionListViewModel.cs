@@ -116,6 +116,7 @@ public partial class ProductDetailOutputTransactionListViewModel : BaseViewModel
 				ProductOutputTransactionListItems.Clear();
 				foreach (var item in result.Data)
 				{
+					await Task.Delay(200);
 					ProductOutputTransactionListItems.Add(item);
 				}
 			}

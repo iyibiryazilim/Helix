@@ -117,6 +117,7 @@ public partial class ProductDetailPurchaseDispatchListViewModel : BaseViewModel
 				ProductTransactionPurchaseDispatchListItems.Clear();
 				foreach (var item in result.Data)
 				{
+					await Task.Delay(200);
 					ProductTransactionPurchaseDispatchListItems.Add(item);
 				}
 			}

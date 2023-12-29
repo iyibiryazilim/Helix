@@ -63,74 +63,72 @@
                     Command="{Binding ReloadCommand}"
                     IsRefreshing="{Binding IsRefreshing}"
                     RefreshColor="{StaticResource DarkPrimary}">
-                    <CollectionView
-                        ItemsSource="{Binding Items}"
-                        RemainingItemsThreshold="10"
-                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="baseModel:Warehouse">
-                                <Border
-                                    Margin="10,0,10,0"
-                                    Padding="10"
-                                    BackgroundColor="{StaticResource White}"
-                                    HeightRequest="85"
-                                    StrokeShape="RoundRectangle 10">
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseListViewModel}},Path=GoToDetailCommand}" />
+                    <Grid BackgroundColor="Transparent" Padding="0,0,0,10">
+                        <CollectionView
+                            ItemsSource="{Binding Items}"
+                            RemainingItemsThreshold="10"
+                            RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="baseModel:Warehouse">
+                                    <Border Margin="10,0,10,0"
+                                            Padding="10"
+                                            BackgroundColor="{StaticResource White}"
+                                            HeightRequest="85"
+                                            StrokeShape="RoundRectangle 10">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseListViewModel}},Path=GoToDetailCommand}" />
 
-                                    </Border.GestureRecognizers>
-                                    <Grid ColumnDefinitions="Auto, *, Auto">
-                                        <Border
-                                            Grid.Column="0"
-                                            Padding="0,0,10,0"
-                                            StrokeThickness="0">
-                                            <toolkit:AvatarView
-                                                BackgroundColor="#E6E7F6"
-                                                CornerRadius="50"
-                                                HorizontalOptions="Start"
-                                                Text="{Binding Number}" />
-                                        </Border>
-                                        <VerticalStackLayout
-                                            Grid.Column="1"
-                                            Padding="5"
-                                            Spacing="5"
-                                            VerticalOptions="Center">
-                                            <Label
-                                                FontAttributes="Bold"
-                                                FontSize="Default"
-                                                LineBreakMode="TailTruncation"
-                                                MaxLines="1"
-                                                Text="{Binding Name}" />
-                                            <Label>
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontSize="12"
-                                                            TextColor="{StaticResource Gray300}"
-                                                            Text="Son Hareket Tarihi: " />
-                                                        <Span FontSize="12" Text="{Binding LastTransactionDate}" TextColor="{StaticResource Gray300}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </VerticalStackLayout>
-                                        <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
-                                            <Image.Source>
-                                                <FontImageSource FontFamily="FAS"
-                                                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="Auto, *, Auto">
+                                            <Border Grid.Column="0"
+                                                    Padding="0,0,10,0"
+                                                    StrokeThickness="0">
+                                                <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                                    CornerRadius="50"
+                                                                    HorizontalOptions="Start"
+                                                                    Text="{Binding Number}" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1"
+                                                                Padding="5"
+                                                                Spacing="5"
+                                                                VerticalOptions="Center">
+                                                <Label FontAttributes="Bold"
+                                                       FontSize="Default"
+                                                       LineBreakMode="TailTruncation"
+                                                       MaxLines="1"
+                                                       Text="{Binding Name}" />
+                                                <Label>
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontSize="12"
+                                                                  TextColor="{StaticResource Gray300}"
+                                                                  Text="Son Hareket Tarihi: " />
+                                                            <Span FontSize="12" Text="{Binding LastTransactionDate}" TextColor="{StaticResource Gray300}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </VerticalStackLayout>
+                                            <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
+                                                <Image.Source>
+                                                    <FontImageSource FontFamily="FAS"
+                                                                     Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
 
-                                                </FontImageSource>
-                                            </Image.Source>
-                                        </Image>
-                                    </Grid>
-                                    
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                                                    </FontImageSource>
+                                                </Image.Source>
+                                            </Image>
+                                        </Grid>
+
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                    
                 </RefreshView>
             </Grid>
         </Border>
