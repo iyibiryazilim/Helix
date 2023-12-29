@@ -8,7 +8,7 @@ public partial class OutCountingTransactionOperationView : ContentPage
 
     public OutCountingTransactionOperationView(OutCountingTransactionOperationViewModel viewModel)
 	{
-		InitializeComponent();
+        InitializeComponent();
         BindingContext = _viewModel = viewModel;
     }
 }

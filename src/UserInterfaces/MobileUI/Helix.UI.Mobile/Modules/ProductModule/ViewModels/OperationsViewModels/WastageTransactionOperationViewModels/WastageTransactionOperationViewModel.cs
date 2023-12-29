@@ -57,4 +57,28 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
         }
 
     }
+    [RelayCommand]
+    async Task AddQuantity(ProductModel item)
+    {
+        if (item.StockQuantity < item.Quantity)
+        {
+            await Shell.Current.DisplayAlert("Uyarı", "Ekemek istediğiniz miktar stok miktarından stok miktarından fazla", "Kapat");
+        }
+        else
+        {
+            item.Quantity++;
+
+        }
+
+
+    }
+    [RelayCommand]
+
+    async Task DeleteQuantity(ProductModel item)
+    {
+        if (item.Quantity != 1)
+            item.Quantity--;
+
+
+    }
 }

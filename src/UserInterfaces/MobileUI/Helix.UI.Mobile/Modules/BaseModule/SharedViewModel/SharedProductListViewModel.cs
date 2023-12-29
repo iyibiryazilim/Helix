@@ -93,6 +93,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                             SubUnitsetCode=product.SubUnitsetCode,
                             SubUnitsetReferenceId=product.SubUnitsetReferenceId,
                             UnitsetReferenceId=product.UnitsetReferenceId,
+                            StockQuantity = product.StockQuantity,
                             Quantity=1
 
                         };
