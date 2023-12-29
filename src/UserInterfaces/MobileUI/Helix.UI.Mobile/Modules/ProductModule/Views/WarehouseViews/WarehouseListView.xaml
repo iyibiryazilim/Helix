@@ -1,75 +1,70 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseListView"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
-    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel"
-    x:DataType="viewModel:WarehouseListViewModel"
-    Title="{Binding Title}"
-    BackgroundColor="{StaticResource Primary}">
+<ContentPage x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseListView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel"
+             x:DataType="viewModel:WarehouseListViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}" EventName="Loaded" />
+        <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}"
+                                        EventName="Loaded" />
     </ContentPage.Behaviors>
     <Grid>
-        <Border
-            Margin="0,30,0,0"
-            BackgroundColor="{StaticResource WhiteSmoke}"
-            StrokeThickness="0">
+        <Border BackgroundColor="{StaticResource WhiteSmoke}"
+                StrokeThickness="0"
+                Padding="5,20,5,10">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,0,0" />
             </Border.StrokeShape>
-            <Grid
-                BackgroundColor="Transparent"
-                RowDefinitions="Auto, *"
-                RowSpacing="10">
+            <Grid BackgroundColor="Transparent"
+                  RowDefinitions="Auto, *"
+                  RowSpacing="10">
                 <Grid Grid.Row="0">
                     <Border StrokeShape="RoundRectangle 20">
                         <Grid ColumnDefinitions="*, Auto">
                             <Grid Grid.Column="0">
-                                <SearchBar
-                                    x:Name="searchBar"
-                                    Grid.Column="0"
-                                    Placeholder="Ambar Ara">
+                                <SearchBar x:Name="searchBar"
+                                           Grid.Column="0"
+                                           Placeholder="Ambar Ara">
                                     <SearchBar.Behaviors>
-                                        <toolkit:EventToCommandBehavior
-                                            Command="{Binding PerformSearchCommand}"
-                                            CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                                            EventName="TextChanged" />
+                                        <toolkit:EventToCommandBehavior Command="{Binding PerformSearchCommand}"
+                                                                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                                                                        EventName="TextChanged" />
                                     </SearchBar.Behaviors>
                                 </SearchBar>
                             </Grid>
-                            <Grid Grid.Column="1" Padding="0,0,20,0">
-                                <ImageButton
-                                    Aspect="AspectFit"
-                                    Command="{Binding SortCommand}"
-                                    HeightRequest="25"
-                                    WidthRequest="25">
+                            <Grid Grid.Column="1"
+                                  Padding="0,0,20,0">
+                                <ImageButton Aspect="AspectFit"
+                                             Command="{Binding SortCommand}"
+                                             HeightRequest="25"
+                                             WidthRequest="25">
                                     <ImageButton.Source>
-                                        <FontImageSource
-                                            FontFamily="FAS"
-                                            Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
-                                            Color="{StaticResource Primary}" />
+                                        <FontImageSource FontFamily="FAS"
+                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                                         Color="{StaticResource Primary}" />
                                     </ImageButton.Source>
                                 </ImageButton>
                             </Grid>
                         </Grid>
                     </Border>
                 </Grid>
-                <RefreshView 
-                    Grid.Row="1"
-                    Command="{Binding ReloadCommand}"
-                    IsRefreshing="{Binding IsRefreshing}"
-                    RefreshColor="{StaticResource DarkPrimary}">
-                    <Grid BackgroundColor="Transparent" Padding="0,0,0,10">
-                        <CollectionView
-                            ItemsSource="{Binding Items}"
-                            RemainingItemsThreshold="10"
-                            RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                <RefreshView Grid.Row="1"
+                             Command="{Binding ReloadCommand}"
+                             IsRefreshing="{Binding IsRefreshing}"
+                             RefreshColor="{StaticResource DarkPrimary}">
+                    <Grid BackgroundColor="Transparent"
+                          Padding="0,0,0,10">
+                        <CollectionView ItemsSource="{Binding Items}"
+                                        RemainingItemsThreshold="10"
+                                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                             <CollectionView.ItemsLayout>
-                                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                                <LinearItemsLayout ItemSpacing="5"
+                                                   Orientation="Vertical" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="baseModel:Warehouse">
@@ -80,8 +75,7 @@
                                             StrokeShape="RoundRectangle 10">
                                         <Border.GestureRecognizers>
                                             <TapGestureRecognizer CommandParameter="{Binding .}"
-                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseListViewModel}},Path=GoToDetailCommand}" />
-
+                                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseListViewModel}},Path=GoToDetailCommand}" />
                                         </Border.GestureRecognizers>
                                         <Grid ColumnDefinitions="Auto, *, Auto">
                                             <Border Grid.Column="0"
@@ -93,9 +87,9 @@
                                                                     Text="{Binding Number}" />
                                             </Border>
                                             <VerticalStackLayout Grid.Column="1"
-                                                                Padding="5"
-                                                                Spacing="5"
-                                                                VerticalOptions="Center">
+                                                                 Padding="5"
+                                                                 Spacing="5"
+                                                                 VerticalOptions="Center">
                                                 <Label FontAttributes="Bold"
                                                        FontSize="Default"
                                                        LineBreakMode="TailTruncation"
@@ -107,28 +101,29 @@
                                                             <Span FontSize="12"
                                                                   TextColor="{StaticResource Gray300}"
                                                                   Text="Son Hareket Tarihi: " />
-                                                            <Span FontSize="12" Text="{Binding LastTransactionDate}" TextColor="{StaticResource Gray300}" />
+                                                            <Span FontSize="12"
+                                                                  Text="{Binding LastTransactionDate}"
+                                                                  TextColor="{StaticResource Gray300}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                             </VerticalStackLayout>
-                                            <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
+                                            <Image VerticalOptions="Center"
+                                                   Grid.Column="2"
+                                                   WidthRequest="15"
+                                                   HeightRequest="15">
                                                 <Image.Source>
                                                     <FontImageSource FontFamily="FAS"
                                                                      Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}">
-
-                                                    </FontImageSource>
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
                                                 </Image.Source>
                                             </Image>
                                         </Grid>
-
                                     </Border>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </Grid>
-                    
                 </RefreshView>
             </Grid>
         </Border>
