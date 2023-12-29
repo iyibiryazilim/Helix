@@ -164,6 +164,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<CurrentSalesDispatchListViewModel>();
 
 
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder RegisterHttpClientServices(this MauiAppBuilder mauiAppBuilder)
@@ -232,6 +233,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineListView>();
 			mauiAppBuilder.Services.AddTransient<PurchasePanelViews>();
 			mauiAppBuilder.Services.AddTransient<PurchaseOperationView>();
+			mauiAppBuilder.Services.AddTransient<SupplierDetailView>();
+
 
 
 
@@ -243,6 +246,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchasePanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchaseOperationViewModel>();
+			mauiAppBuilder.Services.AddTransient<SupplierDetailViewModel>();
+
 
 
 
@@ -252,6 +257,10 @@ namespace Helix.UI.Mobile
 		{
 			mauiAppBuilder.Services.AddTransient<ISupplierService, SupplierDataStore>();
 			mauiAppBuilder.Services.AddTransient<IPurchaseOrderLineService, PurchaseOrderLineDataStore>();
+			mauiAppBuilder.Services.AddTransient<ISupplierTransactionLineService, SupplierTransactionLineDataStore>();
+			mauiAppBuilder.Services.AddTransient<ISupplierTransactionService, SupplierTransactionDataStore>();
+
+
 
 
 			return mauiAppBuilder;
@@ -294,6 +303,7 @@ namespace Helix.UI.Mobile
 
 
 
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
@@ -307,11 +317,11 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductTransactionBottomSheetViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailBottomSheetViewModel>();
-			mauiAppBuilder.Services.AddTransient<ProductionTransactionOperationViewModel>();
-			mauiAppBuilder.Services.AddTransient<OutCountingTransactionOperationViewModel>();
-			mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<ProductionTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<OutCountingTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<InCountingTransactionOperationViewModel>();
 			mauiAppBuilder.Services.AddScoped<ConsumableTransactionOperationViewModel>();
-			mauiAppBuilder.Services.AddTransient<WastageTransactionOperationViewModel>();
+			mauiAppBuilder.Services.AddScoped<WastageTransactionOperationViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailInputTransactionViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailOutputTransactionViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseDetailProductListViewModel>();
@@ -334,6 +344,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<IEndProductService, EndProductDataStore>();
 			mauiAppBuilder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
+			mauiAppBuilder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
+
 
 
 			return mauiAppBuilder;

@@ -9,7 +9,6 @@ using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel.BottomSheetViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.BottomSheetViews;
 using Helix.UI.Mobile.MVVMHelper;
-using Org.Apache.Http.Client;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.ProductTransactionLineDataStore;
@@ -26,9 +25,11 @@ public partial class ProductDetailViewModel : BaseViewModel
 
 	// Properties
 	[ObservableProperty]
+	ProductDetailValues productDetailValues = new();
+	[ObservableProperty]
 	Product product;
 	[ObservableProperty]
-	string searchText= string.Empty;
+	string searchText = string.Empty;
 	[ObservableProperty]
 	int currentPage = 0;
 	[ObservableProperty]
@@ -37,7 +38,6 @@ public partial class ProductDetailViewModel : BaseViewModel
 	ProductTransactionLineOrderBy orderBy = ProductTransactionLineOrderBy.datedesc;
 
 	public ObservableCollection<ProductTransactionLine> ProductTransactionLines { get; } = new();
-	public ObservableCollection<ProductDetailValues> ProductDetailValues { get; } = new();
 
 	public Command GetProductTransactionLineCommand { get; }
 
@@ -53,7 +53,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 
 	public async Task GetProductTransactionLineAsync()
 	{
-		if(IsBusy)
+		if (IsBusy)
 			return;
 		try
 		{
@@ -66,18 +66,13 @@ public partial class ProductDetailViewModel : BaseViewModel
 			if (result.Data.Any())
 			{
 				ProductTransactionLines.Clear();
-				foreach(var item in result.Data.Take(3))
+				foreach (var item in result.Data.Take(3))
 				{
 					ProductTransactionLines.Add(item);
 				}
 			}
-			//else
-			//{
-			//	CurrentPage--;
-			//}
-
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
@@ -91,7 +86,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 
 	async Task LoadData()
 	{
-		if(IsBusy)
+		if (IsBusy)
 			return;
 		try
 		{
@@ -110,28 +105,32 @@ public partial class ProductDetailViewModel : BaseViewModel
 		{
 			IsBusy = false;
 		}
-    }
+	}
 
 	async Task GetProductDetailValues()
 	{
-		var httpClient = _httpClient.GetOrCreateHttpClient();
-		var query = new ProductQuery().DetailValues(Product.ReferenceId);
-		var result = await _customQueryService.GetObjectsAsync(httpClient, query);
-		if(result.Data.Any())
+		try
 		{
-			ProductDetailValues.Clear();
-			foreach(var item in result.Data)
-			{
-				var obj = Mapping.Mapper.Map<ProductDetailValues>(item);
-				ProductDetailValues.Add(obj);
-			}
+			var httpClient = _httpClient.GetOrCreateHttpClient();
+			var query = new ProductQuery().DetailValues(Product.ReferenceId);
+			var result = await _customQueryService.GetObjectAsync(httpClient, query);
+			Console.WriteLine(result.Data);
+			var obj = Mapping.Mapper.Map<ProductDetailValues>(result.Data);
+			ProductDetailValues.InputQuantity = obj.InputQuantity;
+			ProductDetailValues.OutputQuantity = obj.OutputQuantity;
+			ProductDetailValues.StockQuantity = obj.StockQuantity;
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
 		}
 	}
-	
+
 	[RelayCommand]
 	async Task OpenFastOperationBottomSheetAsync()
 	{
-		if(IsBusy)
+		if (IsBusy)
 			return;
 		try
 		{
@@ -143,7 +142,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 			viewModel.Product = Product;
 			await sheet.ShowAsync();
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");

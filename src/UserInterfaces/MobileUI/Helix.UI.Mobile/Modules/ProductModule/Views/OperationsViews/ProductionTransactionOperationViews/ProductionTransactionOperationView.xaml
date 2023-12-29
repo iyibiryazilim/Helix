@@ -9,7 +9,9 @@
              x:DataType="viewModel:ProductionTransactionOperationViewModel"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
-    <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}">
+    <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
+                                               ProductModelList="{Binding Items}"
+                                               RemoveItemCommand="{Binding RemoveItemCommand}">
         
     </sharedViews:ProductTransactionContentView>
     

@@ -115,6 +115,31 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 
 	}
 
+	[RelayCommand]
+	async Task GoToWarehouseProductListViewAsync(WarehouseDetailCardTypeCount cardType)
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			await Shell.Current.GoToAsync($"{nameof(WarehouseDetailProductListView)}", new Dictionary<string, object>
+			{
+				["Warehouse"] = Warehouse,
+				["CardType"] = cardType.CardType
+			});
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex.Message);
+			await Application.Current.MainPage.DisplayAlert("Error :", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
 
 	async Task GetWarehouseTransactionAsync()
 	{
@@ -151,7 +176,7 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 	async Task GetWarehouseDetailCardTypeCount()
 	{
 		var httpClient = _httpClientService.GetOrCreateHttpClient();
-		string query = $@"SELECT DISTINCT ITEMS.CARDTYPE as [CardType] ,COUNT(STOCKREF) as [ReferenceCount] FROM LV_003_01_STINVTOT AS STINVTOT
+		string query = $@"SELECT ITEMS.CARDTYPE as [CardType] ,COUNT(DISTINCT STOCKREF) as [ReferenceCount] FROM LV_003_01_STINVTOT AS STINVTOT
                     LEFT JOIN LG_003_ITEMS AS ITEMS ON STINVTOT.STOCKREF = ITEMS.LOGICALREF
                     WHERE INVENNO={Warehouse.Number} AND ITEMS.CARDTYPE IS NOT NULL
                     GROUP BY ITEMS.CARDTYPE";

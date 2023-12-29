@@ -47,7 +47,7 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 			return;
 		try
 		{
-			await Task.Delay(500);
+			await Task.Delay(1000);
 			await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 		}
 		catch (Exception ex)
@@ -77,7 +77,6 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 			{
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(50);
 					ProductTransactionInputReturnListItems.Add(item);
 				}
 			}
@@ -110,16 +109,14 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 			IsBusy = true;
 			IsRefreshing = true;
 			var httpClient = _httpClient.GetOrCreateHttpClient();
-			Console.WriteLine(Product);
 			CurrentPage = 0;
 			
-			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "2", SearchText, OrderBy, CurrentPage, PageSize);
+			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "2,3", SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{
 				ProductTransactionInputReturnListItems.Clear();
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(100);
 					ProductTransactionInputReturnListItems.Add(item);
 				}
 			}
@@ -175,7 +172,7 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -208,6 +205,26 @@ public partial class ProductDetailInputReturnListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	public async Task GoToBackAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync("..");
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
 		}
 		finally
 		{

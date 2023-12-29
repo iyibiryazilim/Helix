@@ -78,6 +78,7 @@
 	  <None Remove="Resources\Fonts\RobotoSlab-Regular.ttf" />
 	  <None Remove="Resources\Fonts\RobotoSlab-SemiBold.ttf" />
 	  <None Remove="Resources\Fonts\RobotoSlab-Thin.ttf" />
+	  <None Remove="Resources\Images\notfoundimage.png" />
 	  <None Remove="Resources\Images\user.svg" />
 	</ItemGroup>
 
@@ -117,6 +118,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentCardView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentTransactionListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductListContentView.xaml">
@@ -272,6 +276,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\PurchaseOrderViews\PurchaseOrderLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\SupplierViews\SupplierDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\SupplierViews\SupplierFastOperationBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\SupplierViews\SupplierListView.xaml">

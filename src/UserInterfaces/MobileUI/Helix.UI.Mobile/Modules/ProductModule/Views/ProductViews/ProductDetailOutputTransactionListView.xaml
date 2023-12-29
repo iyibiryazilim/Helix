@@ -2,14 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.ProductDetailOutputTransactionListView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel"
              x:DataType="viewModel:ProductDetailOutputTransactionListViewModel"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="{Binding Title}"
              Shell.PresentationMode="ModalAnimated">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetProductOutputTransactionListItemsCommand}" />
+    </ContentPage.Behaviors>
+    <Grid>
+        <sharedViews:ProductTransactionListView ProductTransactionList="{Binding ProductOutputTransactionListItems}"
+                                                SearchCommand="{Binding SearchCommand}"
+                                                LoadMoreCommand="{Binding LoadMoreCommand}"  
+                                                ReloadCommand="{Binding ReloadCommand}"
+                                                GoToBackCommand="{Binding GoToBackCommand}"
+                                                SortCommand="{Binding SortCommand}"
+                                                IsBusy="{Binding IsBusy}"
+                                                IsRefreshing="{Binding IsRefreshing}" />
+    </Grid>
 </ContentPage>

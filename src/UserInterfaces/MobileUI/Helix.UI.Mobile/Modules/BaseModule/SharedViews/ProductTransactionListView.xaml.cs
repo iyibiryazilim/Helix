@@ -21,6 +21,7 @@ public partial class ProductTransactionListView : ContentView
 	public static readonly BindableProperty LoadMoreCommandProperty = BindableProperty.Create(nameof(LoadMoreCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionListView), null);
 	public static readonly BindableProperty ReloadCommandProperty = BindableProperty.Create(nameof(ReloadCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionListView), null);
 	public static readonly BindableProperty SortCommandProperty = BindableProperty.Create(nameof(SortCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionListView), null);
+	public static readonly BindableProperty GoToBackCommandProperty = BindableProperty.Create(nameof(GoToBackCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionListView), null);
 	#endregion
 
 	#region Properties --> Getter and Setter
@@ -67,6 +68,12 @@ public partial class ProductTransactionListView : ContentView
 	{
 		get => GetValue(SortCommandProperty) as AsyncRelayCommand;
 		set => SetValue(SortCommandProperty, value);
+	}
+
+	public AsyncRelayCommand GoToBackCommand
+	{
+		get => GetValue(GoToBackCommandProperty) as AsyncRelayCommand;
+		set => SetValue(GoToBackCommandProperty, value);
 	}
 
 	#endregion
