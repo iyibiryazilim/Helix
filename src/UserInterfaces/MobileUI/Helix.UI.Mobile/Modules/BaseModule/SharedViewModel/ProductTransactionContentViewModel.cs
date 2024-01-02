@@ -16,6 +16,12 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViewModel
         {
             await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}");
         }
+        [RelayCommand]
+        async Task GoToOperationForm()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ProductTransactionOperationFormContentView)}");
+        }
+
 
     }
 }

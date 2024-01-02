@@ -2,6 +2,7 @@
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -25,6 +26,37 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
         {
             ["ViewType"] = 13
         });
+    }
+
+    [RelayCommand]
+    async Task GoToOperationForm()
+    {
+        await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationFormView)}", new Dictionary<string, object>
+        {
+            [nameof(ProductModel)] = Items
+        });
+    }
+
+    [RelayCommand]
+    async Task GetBack()
+    {
+        if (Items.Count == 0)
+            await Shell.Current.GoToAsync("..");
+        else
+        {
+            bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+
+            if (answer)
+            {
+                await Shell.Current.GoToAsync("..");
+                Items.Clear();
+            }
+            else
+            {
+
+            }
+
+        }
     }
 
     [RelayCommand]

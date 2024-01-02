@@ -2,13 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews.ConsumableTransactionOperationFormView"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             x:Name="this"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels"
+             x:DataType="viewModel:ConsumableTransactionOperationViewModel"
              Title="{Binding Title}"
-             BackgroundColor="{StaticResource Primary}">
-    <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*">
-        <VerticalStackLayout Grid.Row="0">
-           
-            
-        </VerticalStackLayout>
-        
-    </Grid>
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
+    <sharedViews:ProductTransactionOperationFormContentView>
+
+    </sharedViews:ProductTransactionOperationFormContentView>
 </ContentPage>

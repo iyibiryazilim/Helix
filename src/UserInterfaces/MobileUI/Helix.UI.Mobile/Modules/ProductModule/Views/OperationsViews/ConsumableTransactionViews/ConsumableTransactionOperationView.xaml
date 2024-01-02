@@ -10,10 +10,14 @@
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GetBackCommand}" />
+    </Shell.BackButtonBehavior>
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
-                                               GoToConsumableTransactionFormCommand="{ Binding GoToConsumableTransactionFormCommand}"
+                                               GoToOperationFormCommand="{Binding GoToOperationFormCommand}"
+                                               GetWarehouseCommand="{Binding GetWarehouseCommand}"
                                                ProductModelList="{Binding Items}"
-                                               DenemeCommand="{Binding DenemeCommand}"
+                                               GetBackCommand="{Binding GetBackCommand}"
                                                RemoveItemCommand="{Binding RemoveItemCommand}"
                                                AddQuantityCommand="{Binding AddQuantityCommand}"
                                                DeleteQuantityCommand="{Binding DeleteQuantityCommand}">

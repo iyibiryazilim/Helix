@@ -19,6 +19,7 @@ using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationFormViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
@@ -138,8 +139,28 @@ namespace Helix.UI.Mobile
 #endif
 			});
 
+            Microsoft.Maui.Handlers.TimePickerHandler.Mapper.AppendToMapping(nameof(TimePicker), (handler, view) =>
+            {
+#if ANDROID
+                handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+            Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping(nameof(DatePicker), (handler, view) =>
+            {
+#if ANDROID
+                handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+
+
+
+
+
+
 #if DEBUG
-			builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
 			return builder.Build();
@@ -303,6 +324,11 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WastageTransactionOperationView>();
 			mauiAppBuilder.Services.AddTransient<SharedProductListView>();
             mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationFormView>();
+mauiAppBuilder.Services.AddTransient<OutCountingTransactionOperationFormView>();
+mauiAppBuilder.Services.AddTransient<ProductionTransactionOperationFormView>();
+mauiAppBuilder.Services.AddTransient<WastageTransactionOperationFormView>();
+mauiAppBuilder.Services.AddTransient<ProductTransactionOperationFormContentView>();
+mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationFormView>();
 
 
 
@@ -341,7 +367,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductDetailSalesDispatchListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProductDetailSalesOrderListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SharedProductListViewModel>();
-            mauiAppBuilder.Services.AddScoped<ConsumableTransactionOperationFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<OutCountingTransactionOperationFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<ProductionTransactionOperationFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<WastageTransactionOperationFormViewModel>();
+			mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationFormViewModel>();
+            
 
             return mauiAppBuilder;
 		}

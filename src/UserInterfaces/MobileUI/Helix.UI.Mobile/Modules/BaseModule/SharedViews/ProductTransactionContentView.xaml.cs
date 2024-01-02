@@ -11,11 +11,22 @@ public partial class ProductTransactionContentView : ContentView
 {
     //Commands
     public static readonly BindableProperty GoToSharedProductListCommandProperty = BindableProperty.Create(nameof(GoToSharedProductListCommand), typeof(Command), typeof(SharedProductListView), null);
+
+    //GotoForm
+    public static readonly BindableProperty GoToOperationFormCommandProperty = BindableProperty.Create(nameof(GoToOperationFormCommand), typeof(Command), typeof(ProductTransactionOperationFormContentView), null);
+
+    //GoBack
+    public static readonly BindableProperty GetBackCommandProperty = BindableProperty.Create(nameof(GetBackCommand), typeof(Command), typeof(ProductTransactionOperationFormContentView), null);
+
     public static readonly BindableProperty GoToConsumableTransactionFormCommandProperty = BindableProperty.Create(nameof(GoToConsumableTransactionFormCommand), typeof(Command), typeof(SharedProductListView), null);
 
     public static readonly BindableProperty DenemeCommandProperty = BindableProperty.Create(nameof(DenemeCommand), typeof(Command), typeof(SharedProductListView), null);
     // delete command
-    public static readonly BindableProperty RemoveItemCommandProperty = BindableProperty.Create(nameof(RemoveItemCommand), typeof(Command), typeof(ProductTransactionContentView), null); 
+    public static readonly BindableProperty RemoveItemCommandProperty = BindableProperty.Create(nameof(RemoveItemCommand), typeof(Command), typeof(ProductTransactionContentView), null);
+
+    //Warehouselist
+    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(Command), typeof(ProductTransactionOperationFormContentView), null);
+
 
 
     //ProductModellist
@@ -35,12 +46,34 @@ public partial class ProductTransactionContentView : ContentView
         set => SetValue(GoToSharedProductListCommandProperty, value);
     }
 
+    //get warehouse
+    public Command GetWarehouseCommand
+    {
+        get => GetValue(GetWarehouseCommandProperty) as Command;
+        set => SetValue(GetWarehouseCommandProperty, value);
+    }
+
     //form page
     public Command GoToConsumableTransactionFormCommand
     {
         get => GetValue(GoToConsumableTransactionFormCommandProperty) as Command;
         set => SetValue(GoToConsumableTransactionFormCommandProperty, value);
     }
+    //form page
+    public Command GetBackCommand
+    {
+        get => GetValue(GetBackCommandProperty) as Command;
+        set => SetValue(GetBackCommandProperty, value);
+    }
+
+
+    //form page
+    public Command GoToOperationFormCommand
+    {
+        get => GetValue(GoToOperationFormCommandProperty) as Command;
+        set => SetValue(GoToOperationFormCommandProperty, value);
+    }
+
     //ProductModelList
     public ObservableCollection<ProductModel> ProductModelList
     {

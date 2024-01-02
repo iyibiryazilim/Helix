@@ -2,6 +2,10 @@
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 
-public class WastageTransactionOperationFormViewModel : BaseViewModel
+public partial class WastageTransactionOperationFormViewModel : BaseViewModel
 {
+    public WastageTransactionOperationFormViewModel()
+    {
+        Title = "Fire İşlemleri";
+    }
 }

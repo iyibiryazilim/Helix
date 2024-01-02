@@ -15,10 +15,9 @@
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
-            Margin="0,30,0,0">
+            Padding="5,20,5,10">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
@@ -213,9 +212,8 @@
                     Margin="20"
                     Padding="10"
                     Text="İleri"
-                    
-                    Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToConsumableTransactionFormCommand}">
-
+                    Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToOperationFormCommand}">
+                
             </Button>
            
 
