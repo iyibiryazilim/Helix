@@ -7,8 +7,11 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 		public RetailSalesReturnDispatchTransactionLineQuery(IConfiguration configuration) : base(configuration)
 		{
 		}
-		public string GetTransactionList() =>
-	@$"SELECT
+		public string GetTransactionList(string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -39,9 +42,16 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2";
-		public string GetTransactionById(int id) =>
-		@$"SELECT
+		WHERE STLINE.TRCODE = 2 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+
+			return query;
+		}
+
+		public string GetTransactionById(int id)
+		{
+			string query = @$"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -72,9 +82,17 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2 AND STLINE.LOGICALREF = {id}";
-		public string GetTransactionByCurrentCode(string code) =>
-			@$"SELECT
+		WHERE STLINE.TRCODE = 2 AND STLINE.LOGICALREF = {id} ";
+
+			return query;
+		}
+
+		public string GetTransactionByCurrentCode(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -105,9 +123,17 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2 AND CLCARD.CODE = {code}";
-		public string GetTransactionByCurrentId(int id) =>
-					@$"SELECT
+		WHERE STLINE.TRCODE = 2 AND CLCARD.CODE = {code} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetTransactionByCurrentId(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+
+			string query = $@"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -138,9 +164,17 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2 AND CLCARD.LOGICALREF = {id}";
-		public string GetTransactionByProductCode(string code) =>
-						@$"SELECT
+		WHERE STLINE.TRCODE = 2 AND CLCARD.LOGICALREF = {id} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetTransactionByProductCode(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -171,9 +205,17 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2 AND ITEMS.CODE = {code}";
-		public string GetTransactionByProductId(int id) =>
-				@$"SELECT
+		WHERE STLINE.TRCODE = 2 AND ITEMS.CODE = {code} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetTransactionByProductId(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -204,9 +246,17 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2 AND ITEMS.LOGICALREF = {id}";
-		public string GetTransactionByFicheCode(string code) =>
-		@$"SELECT
+		WHERE STLINE.TRCODE = 2 AND ITEMS.LOGICALREF = {id} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetTransactionByFicheCode(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -237,9 +287,17 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2 AND STFICHE.FICHENO = {code}";
-		public string GetTransactionByFicheId(int id) =>
-		@$"SELECT
+		WHERE STLINE.TRCODE = 2 AND STFICHE.FICHENO = {code} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetTransactionByFicheId(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
         [ReferenceId] = STLINE.LOGICALREF,
         [TransactionDate] = STLINE.DATE_,
         [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -270,6 +328,24 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
         LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
 		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-		WHERE STLINE.TRCODE = 2 AND STFICHE.LOGICALREF = {id}";
+		WHERE STLINE.TRCODE = 2 AND STFICHE.LOGICALREF = {id} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+	}
+	public class RetailSalesReturnDispatchLineOrderBy
+	{
+		public const string CustomerCodeAsc = "ORDER BY CLCARD.CODE ASC";
+		public const string CustomerCodeDesc = "ORDER BY CLCARD.CODE DESC";
+		public const string CustomerNameAsc = "ORDER BY CLCARD.DEFINITION_ ASC";
+		public const string CustomerNameDesc = "ORDER BY CLCARD.DEFINITION_ DESC";
+		public const string ProductCodeAsc = "ORDER BY ITEMS.CODE ASC";
+		public const string ProductCodeDesc = "ORDER BY ITEMS.CODE DESC";
+		public const string ProductNameAsc = "ORDER BY ITEMS.NAME ASC";
+		public const string ProductNameDesc = "ORDER BY ITEMS.NAME DESC";
+		public const string DateAsc = "ORDER BY STFICHE.DATE_ ASC";
+		public const string DateDesc = "ORDER BY STFICHE.DATE_ DESC";
+
 	}
 }

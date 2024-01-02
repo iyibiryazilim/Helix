@@ -51,11 +51,11 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersAsync()
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersAsync(string search = "", string orderBy = SalesOrdersOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderQuery());
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderQuery(search,orderBy,page,pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -68,11 +68,11 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentCodeAsync(string code)
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentCodeAsync(string code, string search = "", string orderBy = SalesOrdersOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentCodeQuery(code));
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -85,11 +85,11 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAsync(int id)
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAsync(int id,string search= "", string orderBy = SalesOrdersOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdQuery(id));
+			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

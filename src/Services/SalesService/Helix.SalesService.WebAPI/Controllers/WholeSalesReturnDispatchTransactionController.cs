@@ -4,6 +4,7 @@ using Helix.SalesService.Domain.AggregateModels;
 using Helix.SalesService.Domain.Dtos;
 using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Domain.Models;
+using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,10 +23,40 @@ namespace Helix.SalesService.WebAPI.Controllers
         }
 
 		[HttpGet]
-		public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetAll()
+		public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetAll([FromQuery] string search = "", string orderBy = WholeSalesReturnDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 		{
-			var result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync();
-			return result;
+			DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>> result = new();
+			switch (orderBy)
+			{
+
+				case "customernamedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.CustomerNameDesc, page, pageSize);
+					return result;
+				case "customernameasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.CustomerNameAsc, page, pageSize);
+					return result;
+				case "customercodedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+					return result;
+				case "customercodeasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+					return result;
+				case "nettotalasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.NetTotalAsc, page, pageSize);
+					return result;
+				case "nettotaldesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.NetTotalDesc, page, pageSize);
+					return result;
+				case "dateasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.DateAsc, page, pageSize);
+					return result;
+				case "datedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, WholeSalesReturnDispatchOrderBy.DateDesc, page, pageSize);
+					return result;
+				default:
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsAsync(search, orderBy, page, pageSize);
+					return result;
+			}
 		}
 
 		[HttpGet("Id/{id:int}")]
@@ -43,17 +74,77 @@ namespace Helix.SalesService.WebAPI.Controllers
 		}
 
 		[HttpGet("Current/Id/{id:int}")]
-		public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetByCurrentId(int id)
+		public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetByCurrentId(int id, [FromQuery] string search = "", string orderBy = WholeSalesReturnDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 		{
-			var result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id);
-			return result;
+			DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>> result = new();
+			switch (orderBy)
+			{
+
+				case "customernamedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.CustomerNameDesc, page, pageSize);
+					return result;
+				case "customernameasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.CustomerNameAsc, page, pageSize);
+					return result;
+				case "customercodedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+					return result;
+				case "customercodeasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+					return result;
+				case "nettotalasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.NetTotalAsc, page, pageSize);
+					return result;
+				case "nettotaldesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.NetTotalDesc, page, pageSize);
+					return result;
+				case "dateasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.DateAsc, page, pageSize);
+					return result;
+				case "datedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesReturnDispatchOrderBy.DateDesc, page, pageSize);
+					return result;
+				default:
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, orderBy, page, pageSize);
+					return result;
+			}
 		}
 
 		[HttpGet("Current/Code/{code}")]
-		public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetByCurrentCode(string code)
+		public async Task<DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>>> GetByCurrentCode(string code, [FromQuery] string search = "", string orderBy = WholeSalesReturnDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 		{
-			var result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code);
-			return result;
+			DataResult<IEnumerable<WholeSalesReturnDispatchTransaction>> result = new();
+			switch (orderBy)
+			{
+
+				case "customernamedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.CustomerNameDesc, page, pageSize);
+					return result;
+				case "customernameasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.CustomerNameAsc, page, pageSize);
+					return result;
+				case "customercodedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+					return result;
+				case "customercodeasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+					return result;
+				case "nettotalasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.NetTotalAsc, page, pageSize);
+					return result;
+				case "nettotaldesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.NetTotalDesc, page, pageSize);
+					return result;
+				case "dateasc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.DateAsc, page, pageSize);
+					return result;
+				case "datedesc":
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesReturnDispatchOrderBy.DateDesc, page, pageSize);
+					return result;
+				default:
+					result = await _wholeSalesReturnDispatchTransactionService.GetWholeSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, orderBy, page, pageSize);
+					return result;
+			}
 		}
 		[HttpPost]
 		public async Task WholeSalesReturnDispatchTransactionInsert([FromBody] WholeSalesReturnDispatchTransactionDto wholeSalesReturnDispatchTransactionDto)
