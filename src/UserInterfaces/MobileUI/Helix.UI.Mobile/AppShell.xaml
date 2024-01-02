@@ -25,6 +25,7 @@
        xmlns:returnPanelViews="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.Views.Panel"
        xmlns:salesReturnViews="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.Views.Sales"
        xmlns:purchaseReturnViews="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases"
+       xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
        xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
        Shell.FlyoutBehavior="Flyout"
      >
@@ -348,7 +349,7 @@
 
         </FlyoutItem.Icon>
         <ShellContent Title="Hızlı Üretim"
-                      ContentTemplate="{DataTemplate fastProductionModule:FastProductionView}" />
+                      ContentTemplate="{DataTemplate sharedViews:SuccessPageView}" />
     </FlyoutItem>
 
     <!--<FlyoutItem Title="Devir">
