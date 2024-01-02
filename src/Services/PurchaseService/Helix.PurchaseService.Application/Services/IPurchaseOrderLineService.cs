@@ -5,26 +5,17 @@ namespace Helix.PurchaseService.Application.Services
 {
 	public interface IPurchaseOrderLineService
 	{
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLine();
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLine();
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCode(string code);
-		public Task<DataResult<PurchaseOrderLine>> GetPurchaseOrderLineById(int id);
-
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentId(int id);
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentId(int id);
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentCode(string code);
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentCode(string code);
-
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductId(int id);
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductId(int id);
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductCode(string code);
-		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductCode(string code);
-
-
-
-
-
-
-
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLine(string search, string orderBy, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLine(string search, string orderBy, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByFicheCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByFicheId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductId(string search, string orderBy, int id, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductCode(string search, string orderBy, string code, int page, int pageSize);
 	}
 }

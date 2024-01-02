@@ -20,12 +20,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 			_purchaseDispatchTransactionService = purchaseDispatchTransactionService;
 			_logger = logger;
 		}
-		//[HttpPost]
-		//public async Task<DataResult<PurchaseDispatchTransaction>> Insert([FromBody] PurchaseDispatchTransactionInsertDto dto)
-		//{
-		//	var result = await _purchaseDispatchTransactionService.Insert(dto);
-		//	return result;
-		//}
+		 
 		[HttpGet]
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetAll([FromQuery]string search = "", string orderBy = PurchaseDispatchTransactionOrderBy.DateDesc, int page = 0, int pageSize = 20)
 		{

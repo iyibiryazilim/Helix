@@ -1,9 +1,7 @@
-﻿using Consul;
-using Helix.PurchaseService.Application.Services;
+﻿using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using static Helix.PurchaseService.Infrastructure.Helper.Queries.PurchaseDispatchTransactionLineQuery;
-using static Helix.PurchaseService.Infrastructure.Helper.Queries.PurchaseDispatchTransactionQuery;
 
 namespace Helix.PurchaseService.WebAPI.Controllers
 {

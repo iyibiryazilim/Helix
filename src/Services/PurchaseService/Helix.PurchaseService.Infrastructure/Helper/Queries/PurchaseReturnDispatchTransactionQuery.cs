@@ -7,8 +7,11 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
 		public PurchaseReturnDispatchTransactionQuery(IConfiguration configuration) : base(configuration)
 		{
 		}
-		public string GetTransactionList() =>
- @$"SELECT
+		public string GetTransactionList(string search, string orderBy, int page, int pageSize)
+		{
+			int currentIndex = pageSize * page;
+
+			string query = @$"SELECT
             [ReferenceId] = STFICHE.LOGICALREF,
             [TransactionDate] = STFICHE.DATE_,
             [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -29,10 +32,15 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
             LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
-            STFICHE.TRCODE = 6
+            STFICHE.TRCODE = 6 AND (STFICHE.FICHENO LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR CLCARD.CODE LIKE '%{search}%' )
         GROUP BY
             STFICHE.LOGICALREF, STFICHE.FICHENO, STFICHE.DATE_, dbo.LG_INTTOTIME(STFICHE.FTIME), STFICHE.TRCODE, STFICHE.GENEXP1,
-            STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_;";
+            STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_
+        {orderBy}
+		OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY;";
+			return query;
+		}
+
 		public string GetTransactionById(int id) =>
 		 @$"SELECT
             [ReferenceId] = STFICHE.LOGICALREF,
@@ -85,8 +93,11 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         GROUP BY
             STFICHE.LOGICALREF, STFICHE.FICHENO, STFICHE.DATE_, dbo.LG_INTTOTIME(STFICHE.FTIME), STFICHE.TRCODE, STFICHE.GENEXP1,
             STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_;";
-		public string GetTransactionByCurrentId(int id) =>
-		 @$"SELECT
+		public string GetTransactionByCurrentId(string search, string orderBy, int id, int page, int pageSize)
+		{
+			int currentIndex = pageSize * page;
+
+			string query = @$"SELECT
             [ReferenceId] = STFICHE.LOGICALREF,
             [TransactionDate] = STFICHE.DATE_,
             [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -107,12 +118,20 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
             LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
-            CLCARD.LOGICALREF = {id} AND STFICHE.TRCODE = 6
+            CLCARD.LOGICALREF = {id} AND STFICHE.TRCODE = 6 AND STFICHE.FICHENO LIKE '%{search}%'
         GROUP BY
             STFICHE.LOGICALREF, STFICHE.FICHENO, STFICHE.DATE_, dbo.LG_INTTOTIME(STFICHE.FTIME), STFICHE.TRCODE, STFICHE.GENEXP1,
-            STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_;";
-		public string GetTransactionByCurrentCode(string code) =>
-		 @$"SELECT
+            STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_
+        {orderBy}
+		OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+
+		public string GetTransactionByCurrentCode(string search, string orderBy, string code, int page, int pageSize)
+		{
+			int currentIndex = pageSize * page;
+
+			string query = @$"SELECT
             [ReferenceId] = STFICHE.LOGICALREF,
             [TransactionDate] = STFICHE.DATE_,
             [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
@@ -133,9 +152,21 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
             LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
-            CLCARD.CODE = '{code}' AND STFICHE.TRCODE = 6
+            CLCARD.CODE = '{code}' AND STFICHE.TRCODE = 6  AND STFICHE.FICHENO LIKE '%{search}%'
         GROUP BY
             STFICHE.LOGICALREF, STFICHE.FICHENO, STFICHE.DATE_, dbo.LG_INTTOTIME(STFICHE.FTIME), STFICHE.TRCODE, STFICHE.GENEXP1,
-            STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_;";
+            STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_
+        {orderBy}
+		OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+
+		public class PurchaseReturnDispatchTransactionOrderBy
+		{
+			public const string DateAsc = "ORDER BY STFICHE.DATE_ ASC";
+			public const string DateDesc = "ORDER BY STFICHE.DATE_ DESC";
+			public const string CodeAsc = "ORDER BY STFICHE.FICHENO ASC";
+			public const string CodeDesc = "ORDER BY STFICHE.FICHENO DESC";
+		}
 	}
 }
