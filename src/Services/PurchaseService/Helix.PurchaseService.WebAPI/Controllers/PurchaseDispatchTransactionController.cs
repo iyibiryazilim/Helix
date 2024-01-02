@@ -27,7 +27,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 		//	return result;
 		//}
 		[HttpGet]
-		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetAll(string search = "", string orderBy = PurchaseDispatchTransactionOrderBy.DateDesc, int page = 0, int pageSize = 20)
+		public async Task<DataResult<IEnumerable<PurchaseDispatchTransaction>>> GetAll([FromQuery]string search = "", string orderBy = PurchaseDispatchTransactionOrderBy.DateDesc, int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<PurchaseDispatchTransaction>>();
 			switch (orderBy)
