@@ -17,5 +17,9 @@ namespace Helix.PurchaseService.Application.Services
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductId(string search, string orderBy, int id, int page, int pageSize);
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductCode(string search, string orderBy, string code, int page, int pageSize);
 		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByFicheCode(string search, string orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByFicheId(string search, string orderBy, int id, int page, int pageSize);
+
+
 	}
 }

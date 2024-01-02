@@ -18,11 +18,11 @@ namespace Helix.Tiger.DataAccess.DataStores
 			_logger = logger;
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderList()
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderList(string search, string orderBy, int currentPage, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderQuery());
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrder(search,orderBy,currentPage,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -37,7 +37,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCodeQuery(code)); _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCode(code)); _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
 			catch (Exception ex)
@@ -47,11 +47,11 @@ namespace Helix.Tiger.DataAccess.DataStores
 			} 
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentCode(string code)
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentCode(string search, string orderBy, string code, int currentPage, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentCodeQuery(code));
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentCode(search,orderBy,code,currentPage,pageSize));
 				return result;
 			}
 			catch (Exception ex)
@@ -61,11 +61,11 @@ namespace Helix.Tiger.DataAccess.DataStores
 			} 
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentId(int id)
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentId(string search, string orderBy, int id, int currentPage, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentIdQuery(id));
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentId(search, orderBy, id, currentPage, pageSize));
 				return result;
 			}
 			catch (Exception ex)
@@ -79,7 +79,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByIdQuery(id));
+				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderById(id));
 				return result;
 			}
 			catch (Exception ex)

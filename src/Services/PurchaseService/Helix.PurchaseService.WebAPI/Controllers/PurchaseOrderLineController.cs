@@ -111,50 +111,91 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 			}
 		}
 		[HttpGet("Fiche/Code/{code}")]
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetByCode(string code, [FromQuery] string search = "",string orderBy = "datedesc", int page = 0, int pageSize = 20)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetByCode(string code, [FromQuery] bool includeWaiting = false,string search = "",string orderBy = "datedesc", int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<PurchaseOrderLine>>();
 			switch (orderBy)
 			{
 				case "productcodedesc":
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductCodeDesc,code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductCodeDesc, code, page, pageSize);
 					return result;
 
 				case "productcodeasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductCodeAsc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductCodeAsc, code, page, pageSize);
 					return result;
 
 				case "productnamedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductNameDesc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductNameDesc, code, page, pageSize);
 					return result;
 				case "productnameasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductNameAsc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.ProductNameAsc, code, page, pageSize);
 					return result;
 				case "currentcodedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentCodeDesc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentCodeDesc, code, page, pageSize);
 					return result;
 				case "currentcodeasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentCodeAsc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentCodeAsc, code, page, pageSize);
 					return result;
 				case "currentnamedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentNameDesc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentNameDesc, code, page, pageSize);
 					return result;
 				case "currentnameasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentNameAsc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.CurrentNameAsc, code, page, pageSize);
 					return result;
 				case "dateasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.DateAsc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.DateAsc, code, page, pageSize);
 					return result;
 				case "datedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
@@ -164,50 +205,92 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 		}
 
 		[HttpGet("Fiche/Id/{id:int}")]
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetByFicheId(int id, [FromQuery] string search = "",string orderBy = "datedesc", int page = 0, int pageSize = 20)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetByFicheId(int id, [FromQuery] bool includeWaiting = false, string search = "",string orderBy = "datedesc", int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<PurchaseOrderLine>>();
 			switch (orderBy)
 			{
+
 				case "productcodedesc":
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductCodeDesc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductCodeDesc, id, page, pageSize);
 					return result;
 
 				case "productcodeasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductCodeAsc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductCodeAsc, id, page, pageSize);
 					return result;
 
 				case "productnamedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductNameDesc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductNameDesc, id, page, pageSize);
 					return result;
 				case "productnameasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductNameAsc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.ProductNameAsc, id, page, pageSize);
 					return result;
 				case "currentcodedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentCodeDesc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentCodeDesc, id, page, pageSize);
 					return result;
 				case "currentcodeasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentCodeAsc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentCodeAsc, id, page, pageSize);
 					return result;
 				case "currentnamedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentNameDesc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentNameDesc, id, page, pageSize);
 					return result;
 				case "currentnameasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentNameAsc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.CurrentNameAsc, id, page, pageSize);
 					return result;
 				case "dateasc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.DateAsc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.DateAsc, id, page, pageSize);
 					return result;
 				case "datedesc":
-
+					if (includeWaiting)
+					{
+						result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
+						return result;
+					}
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
