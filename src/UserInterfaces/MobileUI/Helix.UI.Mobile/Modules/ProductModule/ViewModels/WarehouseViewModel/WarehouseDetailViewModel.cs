@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Security.Identity;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
@@ -181,13 +182,14 @@ public partial class WarehouseDetailViewModel : BaseViewModel
                     WHERE INVENNO={Warehouse.Number} AND ITEMS.CARDTYPE IS NOT NULL
                     GROUP BY ITEMS.CARDTYPE";
 		var result = await _customQueryService.GetObjectsAsync(httpClient, query);
+
+		if(result.Data.Any()) 
+			WarehouseDetailCardTypeCounts.Clear();
+
 		foreach (var item in result.Data)
 		{
 			var obj = Mapping.Mapper.Map<WarehouseDetailCardTypeCount>(item);
 			WarehouseDetailCardTypeCounts.Add(obj);
 		}
-
-
-
 	}
 }

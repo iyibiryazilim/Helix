@@ -123,6 +123,9 @@
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentTransactionListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\LoadingView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductListContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
