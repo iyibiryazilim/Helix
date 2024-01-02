@@ -121,7 +121,7 @@
                             <Button
                             Grid.Row="2"
                             Padding="0"
-                            BackgroundColor="{StaticResource Primary}"
+                            BackgroundColor="{StaticResource Success}"
                             CornerRadius="12"
                             Command="{Binding OpenFastOperationBottomSheetCommand}"
                             FontSize="13"
