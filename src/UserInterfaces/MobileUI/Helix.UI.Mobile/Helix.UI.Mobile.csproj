@@ -123,6 +123,9 @@
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentTransactionListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\FailedPageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\LoadingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -139,6 +142,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\SharedProductListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\SuccessPageView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\Views\CurrentShowMoreBottomSheetView.xaml">

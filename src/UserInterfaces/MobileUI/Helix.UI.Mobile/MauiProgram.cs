@@ -168,6 +168,10 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<CurrentPurchaseDispatchListViewModel>();
 			mauiAppBuilder.Services.AddTransient<CurrentSalesDispatchListView>();
 			mauiAppBuilder.Services.AddTransient<CurrentSalesDispatchListViewModel>();
+			mauiAppBuilder.Services.AddTransient<SuccessPageView>();
+			mauiAppBuilder.Services.AddTransient<SuccessPageViewModel>();
+			mauiAppBuilder.Services.AddTransient<FailedPageView>();
+			mauiAppBuilder.Services.AddTransient<FailedPageViewModel>();
 
 
 
