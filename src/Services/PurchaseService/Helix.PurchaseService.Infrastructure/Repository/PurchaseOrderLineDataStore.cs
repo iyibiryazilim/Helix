@@ -17,11 +17,11 @@ namespace Helix.Tiger.DataAccess.DataStores
 			_logger = logger;
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLine()
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLine(string search, string orderBy, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLine());
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLine(search,orderBy,page,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -29,14 +29,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCode(string code)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCode(code));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentCode(search, orderBy,code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -44,14 +44,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentCode(string code)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentId(string search, string orderBy, int id, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentCode(code));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -59,14 +59,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByCurrentId(int id)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByFicheCode(string search, string orderBy, string code, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentId(id));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByFicheCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -74,14 +74,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<PurchaseOrderLine>> GetPurchaseOrderLineById(int id)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByFicheId(string search, string orderBy, int id, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineById(id));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByFicheId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -89,14 +89,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductCode(string code)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductCode(string search, string orderBy, string code, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductCode(code));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -105,14 +105,13 @@ namespace Helix.Tiger.DataAccess.DataStores
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
 			}
-			 
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductId(int id)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetPurchaseOrderLineByProductId(string search, string orderBy, int id, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductId(id));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -120,14 +119,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLine()
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLine(string search, string orderBy, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLine());
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLine(search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -135,14 +134,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentCode(string code)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentCode(code));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentCode(search, orderBy,code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -150,14 +149,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentId(int id)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentId(string search, string orderBy, int id, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentId(id));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentId(search, orderBy,id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -165,14 +164,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductCode(string code)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByFicheCode(string search, string orderBy, string code, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductCode(code));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByFicheCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -180,14 +179,14 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductId(int id)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByFicheId(string search, string orderBy, int id, int page, int pageSize)
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductId(id));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByFicheId(search, orderBy,id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -195,7 +194,37 @@ namespace Helix.Tiger.DataAccess.DataStores
 			{
 				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
 				throw;
-			} 
+			}
+		}
+
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductCode(string search, string orderBy, string code, int page, int pageSize)
+		{
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductCode(search, orderBy, code, page, pageSize));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			}
+		}
+
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByProductId(string search, string orderBy, int id, int page, int pageSize)
+		{
+			try
+			{
+				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductId(search, orderBy, id, page, pageSize));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+				throw;
+			}
 		}
 	}
 }

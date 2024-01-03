@@ -363,7 +363,7 @@ public abstract class OrderLine : INotifyPropertyChanged
     }
 
     string? orderCode;
-    public string? OrderCode
+    public string? Code
     {
         get => orderCode;
         set

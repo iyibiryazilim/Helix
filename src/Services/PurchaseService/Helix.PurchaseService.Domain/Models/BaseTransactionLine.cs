@@ -313,8 +313,8 @@ public class BaseTransactionLine : INotifyPropertyChanged
 
     //ProductTransaction--->BaseTransaction
     //ref
-    int baseTransactionReferenceId;
-    public int FicheReferenceId
+    int? baseTransactionReferenceId;
+    public int? FicheReferenceId
     {
         get => baseTransactionReferenceId;
         set
