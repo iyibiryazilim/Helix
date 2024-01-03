@@ -6,102 +6,21 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView.DispatchBySalesOrderCustomerView"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels"
+             xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             x:DataType="viewModel:DispatchBySalesOrderCustomerViewModel"
              Title="{Binding Title}" BackgroundColor="{StaticResource Primary}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
-            StrokeThickness="0"
-            Margin="0,30,0,0">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="20,20,0,0" />
-        </Border.StrokeShape>
-        <Grid RowDefinitions="Auto,*,Auto"
-              RowSpacing="10"
-              BackgroundColor="Transparent">
-            <Grid Grid.Row="0">
-                <Border StrokeShape="RoundRectangle 20">
-                    <Grid ColumnDefinitions="*,auto">
-                        <Grid Grid.Column="0">
-                            <SearchBar Placeholder="Ara"
-                                       x:Name="searchBar">
-                                <SearchBar.Behaviors>
-                                    <toolkit:EventToCommandBehavior EventName="TextChanged"
-                                                                    Command="{Binding SearchCommand}"
-                                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
-                                </SearchBar.Behaviors>
-                            </SearchBar>
-                        </Grid>
-                        <Grid Grid.Column="1"
-                              Padding="0,0,20,0">
-                            <ImageButton Aspect="AspectFit"
-                                         HeightRequest="25"
-                                         WidthRequest="25"
-                                         Command="{Binding SortCommand}">
-                                <ImageButton.Source>
-                                    <FontImageSource FontFamily="FAS"
-                                                     Color="{StaticResource Primary}"
-                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"></FontImageSource>
-                                </ImageButton.Source>
-                            </ImageButton>
-                        </Grid>
-                    </Grid>
-                </Border>
-            </Grid>
-            <RefreshView Grid.Row="1"
-                         IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding ReloadCommand}"
-                         RefreshColor="{StaticResource DarkPrimary}">
-                <CollectionView ItemsSource="{Binding Items}"
-                                RemainingItemsThreshold="10"
-                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
-                                EmptyView="Veri yok...">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"
-                                           ItemSpacing="5" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="baseModel:Customer">
-                            <Border StrokeShape="RoundRectangle 10"
-                                    BackgroundColor="White"
-                                    Padding="5"
-                                    Margin="10,0,10,0"
-                                    HeightRequest="85">
-                                <Grid ColumnDefinitions="Auto,*"
-                                      ColumnSpacing="5">
-                                    <Border Grid.Column="0"
-                                            StrokeShape="RoundRectangle 10"
-                                            WidthRequest="75"
-                                            HorizontalOptions="Center"
-                                            Padding="10"
-                                            StrokeThickness="0">
-                                        <Image Aspect="AspectFit"
-                                               Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
-                                    </Border>
-                                    <VerticalStackLayout Grid.Column="1"
-                                                         Padding="5"
-                                                         Spacing="5"
-                                                         HorizontalOptions="Start"
-                                                         VerticalOptions="Center">
-                                        <Label TextColor="{StaticResource Primary}"
-                                               Text="{Binding Name}"></Label>
-                                        <Label Text="{Binding Code}"></Label>
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
-
-            <Grid Grid.Row="2">
-                <Button Text="İleri"
-                        Margin="10,10,10,20"
-                        Command="{Binding GoToSalesOrderFicheCommand}">
-                </Button>
-            </Grid>
-        </Grid>
-    </Border>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetCustomersCommand}" />
+    </ContentPage.Behaviors>
+    <sharedView:CurrentSelectView LoadMoreCommand="{Binding LoadMoreCommand}"
+                                  ReloadCommand="{Binding ReloadCommand}"
+                                  SearchCommand="{Binding SearchCommand}"
+                                  SortCommand="{Binding SortCommand}"
+                                  GoToNextCommand="{Binding GoToSalesOrderFicheCommand}"
+                                  CurrentList="{Binding Items}"
+                                  IsBusy="{Binding IsBusy}"
+                                  ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                  IsRefreshing="{Binding IsRefreshing}"></sharedView:CurrentSelectView>
 </ContentPage>

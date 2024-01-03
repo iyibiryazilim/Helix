@@ -155,7 +155,9 @@ public partial class ProductListViewModel :BaseViewModel
         {
             IsBusy = true;
             IsRefreshing = true;
-            var httpClient = _httpClientService.GetOrCreateHttpClient();
+			IsRefreshing = false;
+
+			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             CurrentPage = 0;
             var result = await _productService.GetObjects(httpClient, SearchText, GroupCode, OrderBy, CurrentPage, PageSize);
