@@ -28,9 +28,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
             try
             {
                 await Task.Delay(500);
-                await Task.WhenAll(
-                  GetTransactionAsync()
-                );
+               
 
             }
             catch (Exception ex)
@@ -43,34 +41,6 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
                 IsBusy = false;
             }
         }
-        async Task GetTransactionAsync()
-        {
-            if (IsBusy)
-                return;
-            try
-            {
-                IsBusy = true;
-                IsRefreshing = true;
-                var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-                var result = await _purchaseOrderLineService.GetWaitingOrders(httpClient);
-                foreach (PurchaseOrderLine item in result.Data)
-                {
-                    Items.Add(item);
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-            }
-            finally
-            {
-                IsBusy = false;
-                IsRefreshing = false;
-            }
-        }
+     
     }
 }

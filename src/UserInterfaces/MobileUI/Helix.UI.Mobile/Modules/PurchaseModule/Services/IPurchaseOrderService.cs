@@ -1,18 +1,19 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.Services
 {
 	public interface IPurchaseOrderService
 	{
-		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjects(HttpClient httpClient);
+		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjects(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int page, int pageSize);
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="httpClient"></param>
 		/// <param name="ReferenceId">müşteri/tedarikçi id'si</param>
 		/// <returns>müşteri/tedarikçi Id'ye göre fişleri getirir </returns>
-		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId);
+		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentId(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int id, int page, int pageSize);
 
 		/// <summary>
 		/// 
@@ -20,7 +21,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Services
 		/// <param name="httpClient"></param>
 		/// <param name="Code">müşteri/tedarikçi kodu</param>
 		/// <returns>müşteri/tedarikçi koduna göre fişleri getirir </returns>
-		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code);
+		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, string code, int page, int pageSize);
 		/// <summary>
 		/// 
 		/// </summary>

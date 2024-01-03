@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.WaitingOrderLineContentView"
+             x:Name="this">
+    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+            StrokeThickness="0"
+            Margin="0,30,0,0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="Auto,*,Auto"
+              RowSpacing="10"
+              BackgroundColor="Transparent">
+            <Grid Grid.Row="0">
+                <Border StrokeShape="RoundRectangle 20">
+                    <Grid ColumnDefinitions="*,auto">
+                        <Grid Grid.Column="0">
+                            <SearchBar Placeholder="Ara"
+                                       x:Name="searchBar">
+                                <SearchBar.Behaviors>
+                                    <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                                    Command="{Binding Source={x:Reference this},Path=SearchCommand,Mode=TwoWay}"
+                                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+                                </SearchBar.Behaviors>
+                            </SearchBar>
+                        </Grid>
+                        <Grid Grid.Column="1"
+                              Padding="0,0,20,0">
+                            <ImageButton Aspect="AspectFit"
+                                         HeightRequest="25"
+                                         WidthRequest="25"
+                                         Command="{Binding Source={x:Reference this},Path=SortCommand}">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FAS"
+                                                     Color="{StaticResource Primary}"
+                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"></FontImageSource>
+                                </ImageButton.Source>
+                            </ImageButton>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+            <RefreshView Grid.Row="1"
+                         IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing}"
+                         Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
+                         RefreshColor="{StaticResource DarkPrimary}">
+                <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= WaitingOrderLineList}"
+                                RemainingItemsThreshold="10"
+                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}"
+                                EmptyView="Veri yok...">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="baseModel:WaitingOrderLine">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem BackgroundColor="{StaticResource Success}"
+                                                   Command="{Binding Source={x:Reference this}, Path=BindingContext.ToggleSelectionCommand}"
+                                                   CommandParameter="{Binding .}"
+                                                   Text=" Müşteri Seç" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <Border StrokeShape="RoundRectangle 10"
+                                        BackgroundColor="White"
+                                        Padding="5"
+                                        Margin="10,0,10,0"
+                                        HeightRequest="85">
+                                    <Border.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}"
+                                                     TargetType="Border"
+                                                     Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource Primary}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Grid ColumnDefinitions="Auto,*"
+                                          ColumnSpacing="5">
+                                        <Border Grid.Column="0"
+                                                StrokeShape="RoundRectangle 10"
+                                                WidthRequest="75"
+                                                HorizontalOptions="Center"
+                                                Padding="10"
+                                                StrokeThickness="0">
+                                            
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="5"
+                                                             Spacing="5"
+                                                             HorizontalOptions="Start"
+                                                             VerticalOptions="Center">
+                                            <Label TextColor="{StaticResource Primary}"
+                                                   Text="{Binding OrderCode}"></Label>
+                                         </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Grid Grid.Row="2">
+                <Button Text="İleri"
+                        Margin="10,10,10,20"
+                        Command="{Binding Source={x:Reference this},Path=GoToNextCommand}"></Button>
+            </Grid>
+        </Grid>
+    </Border>
+</ContentView>
