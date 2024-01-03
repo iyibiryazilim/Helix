@@ -31,10 +31,18 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToOperationForm()
     {
-        await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationFormView)}", new Dictionary<string, object>
+        if(Items.Count > 0)
         {
-            [nameof(ProductModel)] = Items
-        });
+			await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationFormView)}", new Dictionary<string, object>
+			{
+				[nameof(ProductModel)] = Items
+			});
+		} 
+        else
+        {
+			await Shell.Current.DisplayAlert("Hata", "Form sayfasına gitmek için ürününüzün bulunması gerekmektedir", "Tamam");
+		}
+       
     }
 
     [RelayCommand]
