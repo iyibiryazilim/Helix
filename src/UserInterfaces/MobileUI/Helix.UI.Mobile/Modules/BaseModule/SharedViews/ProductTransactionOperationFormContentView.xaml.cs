@@ -20,7 +20,7 @@ public partial class ProductTransactionOperationFormContentView : ContentView
     public static readonly BindableProperty TransactionTypeNameProperty = BindableProperty.Create(nameof(TransactionTypeName), typeof(string), typeof(ProductTransactionOperationFormContentView), null);
 
     //Ambar seçme iþlemi
-    public static readonly BindableProperty TransactionTypeNameProperty = BindableProperty.Create(nameof(TransactionTypeName), typeof(string), typeof(ProductTransactionOperationFormContentView), null);
+   // public static readonly BindableProperty TransactionTypeNameProperty = BindableProperty.Create(nameof(TransactionTypeName), typeof(string), typeof(ProductTransactionOperationFormContentView), null);
 
 
     public AsyncRelayCommand GoToOperationFormCommand

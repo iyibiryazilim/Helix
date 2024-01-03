@@ -87,6 +87,9 @@ public partial class ProductPanelViewModel :BaseViewModel
 		try
 		{
 			var result = await _customQueryService.GetObjectsAsync(_httpClientService.GetOrCreateHttpClient(), new ProductQuery().LastTransactionList());
+			if (Lines.Count > 0)
+				Lines.Clear();
+
 			foreach (var item in result.Data)
 			{
 				var obj = Mapping.Mapper.Map<ProductTransactionLine>(item);
