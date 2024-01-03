@@ -13,7 +13,7 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding StartAnimationCommand}" />
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="Auto,*" Padding="20">
+    <Grid RowDefinitions="Auto, *, Auto" Padding="10" RowSpacing="20">
         <ImageButton Grid.Row="0"
                  Command="{Binding CloseButtonHandlerCommand}"
                  HeightRequest="25"
@@ -27,12 +27,23 @@
                              Glyph="{x:Static fontAwesome:FontAwesomeIcons.Xmark}" />
             </ImageButton.Source>
         </ImageButton>
-        <Image x:Name="failedGif" 
-           Grid.Row="1"
-           Source="failed.gif" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" 
-           IsAnimationPlaying="{Binding IsAnimationStart}" />
+        
+        
+        <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="StartAndExpand">
+            <Image x:Name="failedGif"   
+                   Source="failed_page.gif" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center" 
+                   HeightRequest="500"
+                   Aspect="AspectFill"
+                   IsAnimationPlaying="{Binding IsAnimationStart}" />
+            <!--<Label Text="İşlem Başarısız"
+                   FontSize="Title"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource Danger}"
+                   FontAttributes="Bold"/>-->
+        </VerticalStackLayout>
+        <Button Grid.Row="2" Text="Çıkış Yap" BackgroundColor="Red" Command="{Binding CloseButtonHandlerCommand}" />
 
     </Grid>
 </ContentPage>

@@ -9,30 +9,41 @@
              x:DataType="viewModel:SuccessPageViewModel"
              Shell.NavBarIsVisible="False"
              Shell.PresentationMode="ModalAnimated" 
-             BackgroundColor="{StaticResource WhiteSmoke}">
+             BackgroundColor="{StaticResource White}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding StartAnimationCommand}" />
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="Auto,*" Padding="20">
+    <Grid RowDefinitions="Auto, *, Auto" Padding="10" RowSpacing="20">
         <ImageButton Grid.Row="0"
-                     Command="{Binding CloseButtonHandlerCommand}"
-                     HeightRequest="25"
-                     WidthRequest="25"
-                     Aspect="AspectFit"
-                     HorizontalOptions="End"
-                     VerticalOptions="Center">
+             Command="{Binding CloseButtonHandlerCommand}"
+             HeightRequest="25"
+             WidthRequest="25"
+             Aspect="AspectFit"
+             HorizontalOptions="End"
+             VerticalOptions="Center">
             <ImageButton.Source>
                 <FontImageSource FontFamily="FAS"
-                                 Color="{StaticResource Danger}"
-                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Xmark}" />
+                         Color="{StaticResource Danger}"
+                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Xmark}" />
             </ImageButton.Source>
         </ImageButton>
-        <Image x:Name="successGif" 
-               Grid.Row="1"
-               Source="success_nobg.gif" 
+
+
+        <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="StartAndExpand">
+            <Image x:Name="failedGif"   
+               Source="page_success.gif" 
                VerticalOptions="Center" 
                HorizontalOptions="Center" 
+               HeightRequest="500"
+               Aspect="AspectFill"
                IsAnimationPlaying="{Binding IsAnimationStart}" />
-        
+            <!--<Label Text="İşlem Başarısız"
+               FontSize="Title"
+               HorizontalOptions="Center"
+               TextColor="{StaticResource Danger}"
+               FontAttributes="Bold"/>-->
+        </VerticalStackLayout>
+        <Button Grid.Row="2" Text="Çıkış Yap" BackgroundColor="#32BD6D" Command="{Binding CloseButtonHandlerCommand}" />
+
     </Grid>
 </ContentPage>
