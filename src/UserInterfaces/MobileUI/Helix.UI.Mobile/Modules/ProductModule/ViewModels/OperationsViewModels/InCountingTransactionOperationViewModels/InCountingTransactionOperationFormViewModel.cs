@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -76,6 +77,11 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
             IsBusy = false;
 
         }
+    }
+    [RelayCommand]
+    async Task GoToSuccessPageView()
+    {
+        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}");
     }
 
 

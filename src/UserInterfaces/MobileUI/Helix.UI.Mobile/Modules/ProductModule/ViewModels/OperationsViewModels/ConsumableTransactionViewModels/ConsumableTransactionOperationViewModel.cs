@@ -10,6 +10,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
 
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
@@ -90,7 +91,20 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToOperationForm()
     {
-        await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationFormView)}");
+
+        if (Items.Any())
+        {
+           await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationFormView)}");
+           
+        }
+
+        else
+        {
+            await Shell.Current.DisplayAlert("Uyarı ", $"Ürün seçmediniz", "Kapat");
+        }
+
+
+        
     }
 
     [RelayCommand]
@@ -179,7 +193,6 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
         
        
     }
-
 
 
 

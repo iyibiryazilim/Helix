@@ -2,6 +2,7 @@
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -31,10 +32,21 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToOperationForm()
     {
-        await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationFormView)}", new Dictionary<string, object>
+        if (Items.Any())
         {
-            [nameof(ProductModel)] = Items
-        });
+           
+            await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationFormView)}", new Dictionary<string, object>
+            {
+                [nameof(ProductModel)] = Items
+            });
+        }
+
+        else
+        {
+            await Shell.Current.DisplayAlert("Uyarı ", $"Ürün seçmediniz", "Kapat");
+        }
+
+        
     }
 
     [RelayCommand]
@@ -92,15 +104,16 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
     [RelayCommand]
     async Task AddQuantity(ProductModel item)
     {
-        if (item.StockQuantity < item.Quantity)
-        {
-            await Shell.Current.DisplayAlert("Uyarı", "Ekemek istediğiniz miktar stok miktarından stok miktarından fazla", "Kapat");
-        }
-        else
-        {
-            item.Quantity++;
+        item.Quantity++;
+        //if (item.StockQuantity < item.Quantity)
+        //{
+        //    await Shell.Current.DisplayAlert("Uyarı", "Ekemek istediğiniz miktar stok miktarından stok miktarından fazla", "Kapat");
+        //}
+        //else
+        //{
+        //    item.Quantity++;
 
-        }
+        //}
 
 
     }
