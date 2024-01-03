@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -18,7 +19,10 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
     IHttpClientService _httpClientService;
     private readonly ICustomerService _customerService;
     //Lists
-    public ObservableCollection<Customer> Items { get; } = new();
+    public ObservableCollection<Current> Items { get; } = new();
+
+    [ObservableProperty]
+	Current selectedCustomer;
 
     //Commands
     public Command GetCustomersCommand { get; }
@@ -64,7 +68,6 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
             IsBusy = false;
         }
     }
-
     public async Task PerformSearchAsync(string text)
     {
         if (IsBusy)
@@ -143,7 +146,10 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
         {
             IsBusy = true;
             IsRefreshing = true;
-            var httpClient = _httpClientService.GetOrCreateHttpClient();
+			IsRefreshing = false;
+
+
+			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             CurrentPage = 0;
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
@@ -153,6 +159,9 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
                 foreach (Customer item in result.Data)
                 {
                     await Task.Delay(100);
+                    if (item.ReferenceId == SelectedCustomer.ReferenceId)
+                        item.IsSelected = true;
+
                     Items.Add(item);
                 }
             }
@@ -222,29 +231,18 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
         await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}");
     }
 
-    //[RelayCommand]
-    //async Task GoToDetailAsync(Customer customer)
-    //{
-    //    try
-    //    {
-    //        await Task.Delay(500);
-    //        await Shell.Current.GoToAsync($"{nameof(CustomerDetailView)}", new Dictionary<string, object>
-    //        {
-    //            [nameof(Current)] = current
-    //        });
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-    //    }
-    //}
-
-
-
-
-
-
-
-
+	[RelayCommand]
+	private void ToggleSelection(Current item)
+	{
+		item.IsSelected = !item.IsSelected;
+		if (SelectedCustomer != null)
+		{
+			SelectedCustomer.IsSelected = false;
+		}
+		if (item.IsSelected)
+		{
+ 			SelectedCustomer = item;
+		}	 
+	}
 
 }

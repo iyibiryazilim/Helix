@@ -129,10 +129,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 				return dataResult;
 			}
-		}
-
-		 
-
+		} 
 		public async Task<DataResult<IEnumerable<Supplier>>> GetObjects(HttpClient httpClient, string search, SupplierOrderBy orderBy, int page, int pageSize)
 		{
 			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl + $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");

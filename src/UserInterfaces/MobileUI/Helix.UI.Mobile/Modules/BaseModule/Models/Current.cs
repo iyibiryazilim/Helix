@@ -42,5 +42,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		TimeSpan? lastTransactionTime;
 		[ObservableProperty]
 		string image;
+		[ObservableProperty]
+		bool isSelected;
 	}
 }
