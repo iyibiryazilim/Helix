@@ -4,12 +4,18 @@
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews.WastageTransactionOperationFormView"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:Name="this"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels"
              x:DataType="viewModel:WastageTransactionOperationFormViewModel"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
-    <sharedViews:ProductTransactionOperationFormContentView >
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetWarehouseCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:ProductTransactionOperationFormContentView WarehouseList="{Binding WarehouseItems}"
+                                                            TransactionTypeName="{Binding TransactionTypeName}">
 
     </sharedViews:ProductTransactionOperationFormContentView>
 </ContentPage>

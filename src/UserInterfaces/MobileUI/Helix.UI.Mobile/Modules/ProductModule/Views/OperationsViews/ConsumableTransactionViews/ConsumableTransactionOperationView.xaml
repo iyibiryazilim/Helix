@@ -14,8 +14,9 @@
         <BackButtonBehavior Command="{Binding GetBackCommand}" />
     </Shell.BackButtonBehavior>
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
+                                               WarehouseList="{Binding WarehouseItems}"
                                                GoToOperationFormCommand="{Binding GoToOperationFormCommand}"
-                                               GetWarehouseCommand="{Binding GetWarehouseCommand}"
+                                               
                                                ProductModelList="{Binding Items}"
                                                GetBackCommand="{Binding GetBackCommand}"
                                                RemoveItemCommand="{Binding RemoveItemCommand}"

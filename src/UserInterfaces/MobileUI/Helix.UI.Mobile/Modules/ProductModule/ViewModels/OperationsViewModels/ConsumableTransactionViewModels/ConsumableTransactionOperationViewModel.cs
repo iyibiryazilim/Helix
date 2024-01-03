@@ -42,8 +42,8 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
 
     public ObservableCollection<ProductModel> Items { get; } = new();
 
-    [RelayCommand]
-    public async Task GetWarehouse()
+    
+    public async Task GetWarehouseAsync()
     {
 
         try
@@ -150,20 +150,23 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
     [RelayCommand]
     async Task AddQuantity(ProductModel item)
     {
-        if ( item.StockQuantity< item.Quantity)
-        {
-            bool result = await Shell.Current.DisplayAlert("Uyarı","Ekemek istediğiniz miktar stok miktarından stok miktarından fazla","Ekle","Vazgeç");
-            if (result)
-            {
-                item.Quantity++;
-            }
 
-        }
-        else
-        {
-            item.Quantity++;
+        item.Quantity++;
+
+        //if ( item.StockQuantity< item.Quantity)
+        //{
+        //    bool result = await Shell.Current.DisplayAlert("Uyarı","Ekemek istediğiniz miktar stok miktarından stok miktarından fazla","Ekle","Vazgeç");
+        //    if (result)
+        //    {
+        //        item.Quantity++;
+        //    }
+
+        //}
+        //else
+        //{
+        //    item.Quantity++;
             
-        }
+        //}
        
 
     }

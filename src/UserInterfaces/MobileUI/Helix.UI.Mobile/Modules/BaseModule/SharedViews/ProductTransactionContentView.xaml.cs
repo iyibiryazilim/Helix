@@ -25,7 +25,11 @@ public partial class ProductTransactionContentView : ContentView
     public static readonly BindableProperty RemoveItemCommandProperty = BindableProperty.Create(nameof(RemoveItemCommand), typeof(Command), typeof(ProductTransactionContentView), null);
 
     //Warehouselist
-    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(Command), typeof(ProductTransactionOperationFormContentView), null);
+    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(Command), typeof(ProductTransactionContentView), null);
+
+    //WarehouseModellist
+    public static readonly BindableProperty WarehouseListProperty = BindableProperty.Create(nameof(WarehouseList), typeof(ObservableCollection<Warehouse>), typeof(ProductTransactionOperationFormContentView), null);
+
 
 
 
@@ -52,6 +56,14 @@ public partial class ProductTransactionContentView : ContentView
         get => GetValue(GetWarehouseCommandProperty) as Command;
         set => SetValue(GetWarehouseCommandProperty, value);
     }
+
+    //WarehouseList
+    public ObservableCollection<Warehouse> WarehouseList
+    {
+        get => GetValue(WarehouseListProperty) as ObservableCollection<Warehouse>;
+        set => SetValue(WarehouseListProperty, value);
+    }
+
 
     //form page
     public Command GoToConsumableTransactionFormCommand

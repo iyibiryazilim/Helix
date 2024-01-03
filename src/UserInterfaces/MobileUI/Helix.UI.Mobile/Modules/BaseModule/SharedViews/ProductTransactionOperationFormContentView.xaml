@@ -2,7 +2,9 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductTransactionOperationFormContentView">
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductTransactionOperationFormContentView"
+             x:Name="this"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels">
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
             Padding="5,20,5,10">
@@ -18,7 +20,7 @@
                 <Label Text="Fiş Türü"
                        FontSize="Medium" />
                 <Border StrokeShape="RoundRectangle 15">
-                    <Entry Placeholder="  Fiş Türü Giriniz" />
+                    <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}" IsEnabled="False"/>
                 </Border>
             </VerticalStackLayout>
 
@@ -38,7 +40,7 @@
                     <Label Text="Saat"
                            FontSize="Medium" />
                     <Border StrokeShape="RoundRectangle 15">
-                        <TimePicker />
+                        <TimePicker  />
                     </Border>
                 </VerticalStackLayout>
 
@@ -50,24 +52,12 @@
                 <Label Text="Ambar"
                        FontSize="Medium" />
                 <Border StrokeShape="RoundRectangle 15">
-                    <Grid ColumnDefinitions="85*,15*" >
-                        <Entry Grid.Column="0" Placeholder="  Ambar Giriniz" />
-                        <ImageButton Grid.Column="1" 
-                                     BackgroundColor="Transparent"
-                                     Aspect="AspectFit"
-                                     HeightRequest="22"
-                                     WidthRequest="22"
-                                     Command="{Binding Source={x:Reference this},Path=BindingContext.GoToSharedProductListCommand}"
-                                     >
-                            <ImageButton.Source>
-                                <FontImageSource FontFamily="FAS"
-                                                 
-                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
-                                                 Color="{StaticResource DarkPrimary}" />
-                            </ImageButton.Source>
-                        </ImageButton>
+                    <Picker x:Name="pickerWarehouse"
+                            Title="Seçiniz.."
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
+                             />
 
-                    </Grid>
                 </Border>
             </VerticalStackLayout>
 
