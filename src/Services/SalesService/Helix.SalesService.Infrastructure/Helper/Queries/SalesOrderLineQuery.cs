@@ -16,7 +16,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -37,7 +37,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -62,7 +63,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -83,7 +84,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -108,7 +110,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -129,7 +131,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -152,7 +155,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -173,7 +176,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -199,7 +203,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -220,7 +224,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -242,7 +247,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -263,7 +268,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -288,7 +294,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -309,7 +315,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -331,7 +338,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -352,7 +359,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -377,7 +385,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -398,7 +406,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -422,7 +431,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -443,7 +452,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -468,7 +478,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -489,7 +499,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -513,7 +524,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -534,7 +545,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -556,7 +568,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -577,7 +589,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -599,7 +612,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -620,7 +633,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF

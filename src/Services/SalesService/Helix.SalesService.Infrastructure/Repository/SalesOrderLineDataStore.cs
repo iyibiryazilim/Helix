@@ -21,7 +21,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByFicheCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByFicheCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -70,7 +70,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByFicheIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByFicheIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

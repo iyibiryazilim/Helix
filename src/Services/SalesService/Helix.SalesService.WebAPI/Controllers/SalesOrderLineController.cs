@@ -117,7 +117,7 @@ public class SalesOrderLineController : ControllerBase
 
 	}
 	[HttpGet("Fiche/Code/{code}&{includeWaiting}")]
-	public async Task<DataResult<SalesOrderLine>> GetByFicheCode(bool includeWaiting = false, string code, [FromQuery] string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
+	public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetByFicheCode(string code, bool includeWaiting = false,  [FromQuery] string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
 	{
 		DataResult<IEnumerable<SalesOrderLine>> result = new();
 		switch (orderBy)
@@ -217,10 +217,103 @@ public class SalesOrderLineController : ControllerBase
 	}
 
 	[HttpGet("Fiche/Id/{id:int}")]
-	public async Task<DataResult<SalesOrderLine>> GetByFicheId(int id)
+	public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetByFicheId(int id, bool includeWaiting = false,  [FromQuery] string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
 	{
-		var result = await _salesOrderLineService.GetSalesOrderLineByIdAsync(id);
-		return result;
+		DataResult<IEnumerable<SalesOrderLine>> result = new();
+		switch (orderBy)
+		{
+
+			case "customernamedesc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerNameDesc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerNameDesc, page, pageSize);
+				return result;
+			case "customernameasc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerNameAsc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerNameAsc, page, pageSize);
+				return result;
+			case "customercodedesc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerCodeDesc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerCodeDesc, page, pageSize);
+				return result;
+			case "customercodeasc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerCodeAsc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.CustomerCodeAsc, page, pageSize);
+				return result;
+			case "productnamedesc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductNameDesc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductNameDesc, page, pageSize);
+				return result;
+			case "productnameasc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductNameAsc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductNameAsc, page, pageSize);
+				return result;
+			case "productcodedesc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductCodeDesc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductCodeDesc, page, pageSize);
+				return result;
+			case "productcodeasc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductCodeAsc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.ProductCodeAsc, page, pageSize);
+				return result;
+			case "duedateasc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.DueDateAsc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.DueDateAsc, page, pageSize);
+				return result;
+			case "duedatedesc":
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.DueDateDesc, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, SalesOrderLineOrderBy.DueDateDesc, page, pageSize);
+				return result;
+			default:
+				if (includeWaiting)
+				{
+					result = await _salesOrderLineService.GetWaitingSalesOrderLineByFicheIdAsync(id, search, orderBy, page, pageSize);
+					return result;
+				}
+				result = await _salesOrderLineService.GetSalesOrderLineByFicheIdAsync(id, search, orderBy, page, pageSize);
+				return result;
+
+		}
+
 	}
 
 	[HttpGet("Current/Id/{id:int}&{includeWaiting}")]
