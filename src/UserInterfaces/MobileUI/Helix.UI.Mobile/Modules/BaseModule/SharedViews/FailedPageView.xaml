@@ -6,11 +6,33 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
-             x:DataType="viewModel:FailedPageViewModel">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:DataType="viewModel:FailedPageViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.PresentationMode="ModalAnimated" 
+             BackgroundColor="{StaticResource WhiteSmoke}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding StartAnimationCommand}" />
+    </ContentPage.Behaviors>
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <ImageButton Grid.Row="0"
+                 Command="{Binding CloseButtonHandlerCommand}"
+                 HeightRequest="25"
+                 WidthRequest="25"
+                 Aspect="AspectFit"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center">
+            <ImageButton.Source>
+                <FontImageSource FontFamily="FAS"
+                             Color="{StaticResource Danger}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Xmark}" />
+            </ImageButton.Source>
+        </ImageButton>
+        <Image x:Name="failedGif" 
+           Grid.Row="1"
+           Source="failed.gif" 
+           VerticalOptions="Center" 
+           HorizontalOptions="Center" 
+           IsAnimationPlaying="{Binding IsAnimationStart}" />
+
+    </Grid>
 </ContentPage>

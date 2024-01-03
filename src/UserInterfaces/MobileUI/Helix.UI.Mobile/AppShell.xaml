@@ -349,7 +349,7 @@
 
         </FlyoutItem.Icon>
         <ShellContent Title="Hızlı Üretim"
-                      ContentTemplate="{DataTemplate sharedViews:SuccessPageView}" />
+                      ContentTemplate="{DataTemplate sharedViews:FailedPageView}" />
     </FlyoutItem>
 
     <!--<FlyoutItem Title="Devir">

@@ -13,24 +13,30 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 public partial class SuccessPageViewModel : BaseViewModel
 {
 	[ObservableProperty]
-	bool isAnimationStart;
+	bool isAnimationStart = false;
+
+	public Command StartAnimationCommand { get; }
 	public SuccessPageViewModel()
 	{
+		
 		IsAnimationStart = false;
+		StartAnimationCommand = new Command(async () => await StartAnimationAsync());
 	}
 
-	[RelayCommand]
-	public void StartAnimationHandler()
+	public async Task StartAnimationAsync()
 	{
+		await Task.Delay(50);
 		IsAnimationStart = true;
 	}
 
+	[RelayCommand]
 	public async Task CloseButtonHandlerAsync()
 	{
 		try
 		{
 			IsBusy = true;
-			await Shell.Current.GoToAsync("..");
+			//await Shell.Current.GoToAsync("..");
+			Application.Current.MainPage = new AppShell();
 		}
 		catch (Exception ex)
 		{
