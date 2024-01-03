@@ -2,6 +2,7 @@
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -26,9 +27,41 @@ public partial class InCountingTransactionOperationViewModel :BaseViewModel
     {
         await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}", new Dictionary<string, object>
         {
-            ["ViewType"] = 12
+            ["ViewType"] = 50
         });
     }
+
+   
+    [RelayCommand]
+    async Task GoToOperationForm()
+    {
+        await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationFormView)}");
+    }
+
+    [RelayCommand]
+    async Task GetBack()
+    {
+        if (Items.Count == 0)
+            await Shell.Current.GoToAsync("..");
+        else
+        {
+            bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+
+            if (answer)
+            {
+                await Shell.Current.GoToAsync("..");
+                Items.Clear();
+            }
+            else
+            {
+
+            }
+
+        }
+    }
+
+
+
     [RelayCommand]
     async Task RemoveItemAsync(ProductModel item)
     {

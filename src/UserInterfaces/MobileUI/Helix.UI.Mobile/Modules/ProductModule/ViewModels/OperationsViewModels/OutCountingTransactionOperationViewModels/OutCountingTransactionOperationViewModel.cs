@@ -2,6 +2,7 @@
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -22,11 +23,44 @@ public partial class OutCountingTransactionOperationViewModel: BaseViewModel
     [RelayCommand]
     async Task GoToSharedProductList()
     {
-        await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}", new Dictionary<string, object>
-        {
-            ["ViewType"] = 51
-        });
+
+            await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}", new Dictionary<string, object>
+            {
+                ["ViewType"] = 51,
+            });
+       
+       
     }
+    [RelayCommand]
+    async Task GoToOperationForm()
+    {
+        await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationFormView)}");
+    }
+
+
+    [RelayCommand]
+    public async Task GetBack()
+    {
+        if (Items.Count == 0)
+            await Shell.Current.GoToAsync("..");
+        else
+        {
+            bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+
+            if (answer)
+            {
+                await Shell.Current.GoToAsync("..");
+                Items.Clear();
+            }
+            else
+            {
+
+            }
+
+        }
+    }
+
+
     [RelayCommand]
     async Task RemoveItemAsync(ProductModel item)
     {

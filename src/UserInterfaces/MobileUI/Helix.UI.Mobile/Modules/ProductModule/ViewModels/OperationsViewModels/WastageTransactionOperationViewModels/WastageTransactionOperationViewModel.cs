@@ -2,6 +2,7 @@
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -27,6 +28,35 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
             ["ViewType"] = 11
         });
     }
+
+    [RelayCommand]
+    async Task GetBack()
+    {
+        if (Items.Count == 0)
+            await Shell.Current.GoToAsync("..");
+        else
+        {
+            bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+
+            if (answer)
+            {
+                await Shell.Current.GoToAsync("..");
+                Items.Clear();
+            }
+            else
+            {
+
+            }
+
+        }
+    }
+
+    [RelayCommand]
+    async Task GoToOperationForm()
+    {
+        await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationFormView)}");
+    }
+
     [RelayCommand]
     async Task RemoveItemAsync(ProductModel item)
     {
