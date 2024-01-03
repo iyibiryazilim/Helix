@@ -62,7 +62,8 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(CurrentPurchaseReturnListView), typeof(CurrentPurchaseReturnListView));
 		Routing.RegisterRoute(nameof(CurrentSalesReturnListView), typeof(CurrentSalesReturnListView));
 		Routing.RegisterRoute(nameof(SupplierDetailView), typeof(SupplierDetailView));
-
+        Routing.RegisterRoute(nameof(SuccessPageView), typeof(SuccessPageView));
+        Routing.RegisterRoute(nameof(FailedPageView), typeof(FailedPageView));
 
         Routing.RegisterRoute(nameof(ConsumableTransactionOperationFormView), typeof(ConsumableTransactionOperationFormView));
 

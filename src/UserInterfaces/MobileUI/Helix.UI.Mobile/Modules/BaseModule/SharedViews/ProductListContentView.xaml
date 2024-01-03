@@ -72,7 +72,7 @@
                                     Padding="5"
                                     HeightRequest="35"
                                     WidthRequest="120">
-                               
+
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10,10,10,10" />
                                 </Border.StrokeShape>
@@ -139,9 +139,9 @@
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}"></TapGestureRecognizer>
 
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="auto,*,auto">
-                                    <Border Grid.Column="0"
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="auto,*,auto">
+                                        <Border Grid.Column="0"
                                             StrokeShape="RoundRectangle 10"
                                             WidthRequest="75"
                                             HorizontalOptions="Start"
@@ -175,18 +175,18 @@
 
 
 
-                                    </VerticalStackLayout>
-                                    <Image VerticalOptions="Center"
+                                        </VerticalStackLayout>
+                                        <Image VerticalOptions="Center"
                                            Grid.Column="2"
                                            WidthRequest="15"
                                            HeightRequest="15">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="FAS"
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="FAS"
                                                              Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
                                                              Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                                        </Image.Source>
-                                    </Image>
-                                </Grid>
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
 
 
                                 </Border>
@@ -196,7 +196,7 @@
                     </CollectionView>
                 </Grid>
             </RefreshView>
-
+            <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" Grid.Row="2" />
         </Grid>
     </Border>
 
