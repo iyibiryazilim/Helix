@@ -4,6 +4,7 @@ using Helix.SalesService.Domain.AggregateModels;
 using Helix.SalesService.Domain.Dtos;
 using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Domain.Models;
+using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.SalesService.WebAPI.Controllers;
@@ -20,10 +21,40 @@ public class WholeSalesDispatchTransactionController : ControllerBase
 		_eventBus = eventBus;
     }
 	[HttpGet]
-	public async Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetAll()
+	public async Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetAll([FromQuery] string search = "", string orderBy = WholeSalesDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
-		var result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync();
-		return result;
+		DataResult<IEnumerable<WholeSalesDispatchTransaction>> result = new();
+		switch (orderBy)
+		{
+
+			case "customernamedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.CustomerNameDesc, page, pageSize);
+				return result;
+			case "customernameasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.CustomerNameAsc, page, pageSize);
+				return result;
+			case "customercodedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+				return result;
+			case "customercodeasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+				return result;
+			case "nettotalasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.NetTotalAsc, page, pageSize);
+				return result;
+			case "nettotaldesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.NetTotalDesc, page, pageSize);
+				return result;
+			case "dateasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.DateAsc, page, pageSize);
+				return result;
+			case "datedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, WholeSalesDispatchOrderBy.DateDesc, page, pageSize);
+				return result;
+			default:
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsAsync(search, orderBy, page, pageSize);
+				return result;
+		}
 	}
 
 	[HttpGet("Id/{id:int}")]
@@ -41,17 +72,77 @@ public class WholeSalesDispatchTransactionController : ControllerBase
 	}
 
 	[HttpGet("Current/Id/{id:int}")]
-	public async Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetByCurrentId(int id)
+	public async Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetByCurrentId(int id, [FromQuery] string search = "", string orderBy = WholeSalesDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
-		var result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id);
-		return result;
+		DataResult<IEnumerable<WholeSalesDispatchTransaction>> result = new();
+		switch (orderBy)
+		{
+
+			case "customernamedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.CustomerNameDesc, page, pageSize);
+				return result;
+			case "customernameasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.CustomerNameAsc, page, pageSize);
+				return result;
+			case "customercodedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+				return result;
+			case "customercodeasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+				return result;
+			case "nettotalasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.NetTotalAsc, page, pageSize);
+				return result;
+			case "nettotaldesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.NetTotalDesc, page, pageSize);
+				return result;
+			case "dateasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.DateAsc, page, pageSize);
+				return result;
+			case "datedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, WholeSalesDispatchOrderBy.DateDesc, page, pageSize);
+				return result;
+			default:
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentIdAsync(id, search, orderBy, page, pageSize);
+				return result;
+		}
 	}
 
 	[HttpGet("Current/Code/{code}")]
-	public async Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetByCurrentCode(string code)
+	public async Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetByCurrentCode(string code, [FromQuery] string search = "", string orderBy = WholeSalesDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
-		var result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code);
-		return result;
+		DataResult<IEnumerable<WholeSalesDispatchTransaction>> result = new();
+		switch (orderBy)
+		{
+
+			case "customernamedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.CustomerNameDesc, page, pageSize);
+				return result;
+			case "customernameasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.CustomerNameAsc, page, pageSize);
+				return result;
+			case "customercodedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+				return result;
+			case "customercodeasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+				return result;
+			case "nettotalasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.NetTotalAsc, page, pageSize);
+				return result;
+			case "nettotaldesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.NetTotalDesc, page, pageSize);
+				return result;
+			case "dateasc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.DateAsc, page, pageSize);
+				return result;
+			case "datedesc":
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, WholeSalesDispatchOrderBy.DateDesc, page, pageSize);
+				return result;
+			default:
+				result = await _wholeSalesDispatchTransactionService.GetWholeSalesDispatchTransactionsByCurrentCodeAsync(code, search, orderBy, page, pageSize);
+				return result;
+		}
 	}
 	[HttpPost]
 	public async Task WholeSalesDispatchTransactionInsert([FromBody] WholeSalesDispatchTransactionDto wholeSalesDispatchTransactionDto)

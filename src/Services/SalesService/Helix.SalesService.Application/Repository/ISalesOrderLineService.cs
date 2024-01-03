@@ -5,16 +5,20 @@ namespace Helix.SalesService.Application.Repository;
 
 public interface ISalesOrderLineService
 {
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrderLinesAsync();
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrderLinesAsync();
-	public Task<DataResult<SalesOrderLine>> GetSalesOrderLineByIdAsync(int id);
-	public Task<DataResult<SalesOrderLine>> GetSalesOrderLineByCode(string code);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByCurrentIdAsync(int id);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentIdAsync(int id);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByCurrentCodeAsync(string code);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentCodeAsync(string code);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByProductIdAsync(int id);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByProductIdAsync(int id);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByProductCodeAsync(string code);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByProductCodeAsync(string code);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrderLinesAsync(string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrderLinesAsync(string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrderLineByFicheIdAsync(int id, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrderLineByFicheIdAsync(int id, string search, string orderBy, int page, int pageSize);
+
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrderLineFicheByCodeAsync(string code, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrderLineFicheByCodeAsync(string code, string search, string orderBy, int page, int pageSize);
+
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByCurrentIdAsync(int id, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentIdAsync(int id, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByCurrentCodeAsync(string code, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentCodeAsync(string code, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByProductIdAsync(int id, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByProductIdAsync(int id, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByProductCodeAsync(string code, string search, string orderBy, int page, int pageSize);
+	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByProductCodeAsync(string code, string search, string orderBy, int page, int pageSize);
 }

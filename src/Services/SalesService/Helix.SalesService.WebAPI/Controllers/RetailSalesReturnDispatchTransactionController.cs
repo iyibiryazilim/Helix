@@ -4,6 +4,7 @@ using Helix.SalesService.Domain.AggregateModels;
 using Helix.SalesService.Domain.Dtos;
 using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Domain.Models;
+using Helix.SalesService.Infrastructure.Helper.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.SalesService.WebAPI.Controllers;
@@ -20,10 +21,40 @@ public class RetailSalesReturnDispatchTransactionController : ControllerBase
 		_eventBus = eventBus;
 	}
 	[HttpGet]
-	public async Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>>> GetAll()
+	public async Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>>> GetAll([FromQuery] string search = "", string orderBy = RetailSalesReturnDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
-		var result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync();
-		return result;
+		DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>> result = new();
+		switch (orderBy)
+		{
+
+			case "customernamedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync( search, RetailSalesReturnDispatchOrderBy.CustomerNameDesc, page, pageSize);
+				return result;
+			case "customernameasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync(search, RetailSalesReturnDispatchOrderBy.CustomerNameAsc, page, pageSize);
+				return result;
+			case "customercodedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync(search, RetailSalesReturnDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+				return result;
+			case "customercodeasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync(search, RetailSalesReturnDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+				return result;
+			case "nettotalasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync(search, RetailSalesReturnDispatchOrderBy.NetTotalAsc, page, pageSize);
+				return result;
+			case "nettotaldesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync(search, RetailSalesReturnDispatchOrderBy.NetTotalDesc, page, pageSize);
+				return result;
+			case "dateasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync(search, RetailSalesReturnDispatchOrderBy.DateAsc, page, pageSize);
+				return result;
+			case "datedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync(search, RetailSalesReturnDispatchOrderBy.DateDesc, page, pageSize);
+				return result;
+			default:
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsAsync( search, orderBy, page, pageSize);
+				return result;
+		}
 	}
 
 	[HttpGet("Id/{id:int}")]
@@ -41,17 +72,77 @@ public class RetailSalesReturnDispatchTransactionController : ControllerBase
 	}
 
 	[HttpGet("Current/Id/{id:int}")]
-	public async Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>>> GetByCurrentId(int id)
+	public async Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>>> GetByCurrentId(int id, [FromQuery] string search = "", string orderBy = RetailSalesReturnDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
-		var result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id);
-		return result;
+		DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>> result = new();
+		switch (orderBy)
+		{
+
+			case "customernamedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id,search, RetailSalesReturnDispatchOrderBy.CustomerNameDesc, page, pageSize);
+				return result;
+			case "customernameasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, RetailSalesReturnDispatchOrderBy.CustomerNameAsc, page, pageSize);
+				return result;
+			case "customercodedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, RetailSalesReturnDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+				return result;
+			case "customercodeasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, RetailSalesReturnDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+				return result;
+			case "nettotalasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, RetailSalesReturnDispatchOrderBy.NetTotalAsc, page, pageSize);
+				return result;
+			case "nettotaldesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, RetailSalesReturnDispatchOrderBy.NetTotalDesc, page, pageSize);
+				return result;
+			case "dateasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, RetailSalesReturnDispatchOrderBy.DateAsc, page, pageSize);
+				return result;
+			case "datedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, RetailSalesReturnDispatchOrderBy.DateDesc, page, pageSize);
+				return result;
+			default:
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentIdAsync(id, search, orderBy, page, pageSize);
+				return result;
+		}
 	}
 
 	[HttpGet("Current/Code/{code}")]
-	public async Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>>> GetByCurrentCode(string code)
+	public async Task<DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>>> GetByCurrentCode(string code, [FromQuery] string search = "", string orderBy = RetailSalesReturnDispatchOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
-		var result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code);
-		return result;
+		DataResult<IEnumerable<RetailSalesReturnDispatchTransaction>> result = new();
+		switch (orderBy)
+		{
+
+			case "customernamedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code,search, RetailSalesReturnDispatchOrderBy.CustomerNameDesc, page, pageSize);
+				return result;
+			case "customernameasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, RetailSalesReturnDispatchOrderBy.CustomerNameAsc, page, pageSize);
+				return result;
+			case "customercodedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, RetailSalesReturnDispatchOrderBy.CustomerCodeDesc, page, pageSize);
+				return result;
+			case "customercodeasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, RetailSalesReturnDispatchOrderBy.CustomerCodeAsc, page, pageSize);
+				return result;
+			case "nettotalasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, RetailSalesReturnDispatchOrderBy.NetTotalAsc, page, pageSize);
+				return result;
+			case "nettotaldesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, RetailSalesReturnDispatchOrderBy.NetTotalDesc, page, pageSize);
+				return result;
+			case "dateasc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, RetailSalesReturnDispatchOrderBy.DateAsc, page, pageSize);
+				return result;
+			case "datedesc":
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, RetailSalesReturnDispatchOrderBy.DateDesc, page, pageSize);
+				return result;
+			default:
+				result = await _retailSalesReturnDispatchTransactionService.GetRetailSalesReturnDispatchTransactionsByCurrentCodeAsync(code, search, orderBy, page, pageSize);
+				return result;
+		}
 	}
 	[HttpPost]
 	public async Task RetailSalesReturnDispatchTransactionInsert([FromBody] RetailSalesReturnDispatchTransactionDto retailSalesReturnDispatchTransactionDto)

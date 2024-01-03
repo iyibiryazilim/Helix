@@ -8,49 +8,15 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 		{
 		}
 
-		public string GetSalesOrderLineQuery() =>
-			@$"SELECT
-			[ReferenceId] = ORFLINE.LOGICALREF,
-			[Date] = ORFICHE.DATE_,
-			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
-			[TransactionType] = ORFICHE.TRCODE,
-			[Description] = ORFLINE.LINEEXP,
-			[UnitPrice] = ORFLINE.PRICE,
-			[VatRate] = ORFLINE.VAT,
-			[ProductReferenceId] = ORFLINE.STOCKREF,
-			[ProductCode] = ITEMS.CODE,
-			[ProductName] = ITEMS.NAME,
-			[WarehouseNumber] = WHOUSE.NR,
-			[WarehouseName] = WHOUSE.NAME,
-			[CurrentReferenceId] = CLCARD.LOGICALREF,
-			[CurrentCode] = CLCARD.CODE,
-			[CurrentName] = CLCARD.DEFINITION_,
-			[SubUnitsetCode] = SUBUNITSET.CODE,
-			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
-			[UnitsetCode] = UNITSET.CODE,
-			[UnitsetReferenceId] = UNITSET.LOGICALREF,
-			[Quantity] = ORFLINE.AMOUNT,
-			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
-			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
-			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
-			
-			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
-			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
-			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
-			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1";
+		public string GetSalesOrderLineQuery(string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
 
-		public string GetWaitingSalesOrderLineQuery() =>
-			@$"SELECT
+			string query = @$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -71,7 +37,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -80,14 +47,23 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0";
+			WHERE ORFLINE.TRCODE = 1 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
 
-		public string GetSalesOrderLineByCodeQuery(string code) =>
-			@$"SELECT
+			return query;
+		}
+			
+
+		public string GetWaitingSalesOrderLineQuery(string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -108,7 +84,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -117,13 +94,23 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND ORFICHE.FICHENO = '{code}' ";
-		public string GetSalesOrderLineByIdQuery(int id) =>
-			@$"SELECT
+			WHERE ORFLINE.TRCODE = 1 AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+
+			return query;
+		}
+			
+
+		public string GetSalesOrderLineByFicheCodeQuery(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -144,7 +131,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -153,88 +141,160 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND ORFICHE.LOGICALREF = {id} ";
+			WHERE ORFLINE.TRCODE = 1 AND ORFICHE.FICHENO = '{code}' AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+
+			return query;
+		}
+		public string GetWaitingSalesOrderLineByFicheCodeQuery(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
+			[ReferenceId] = ORFLINE.LOGICALREF,
+			[Date] = ORFICHE.DATE_,
+			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
+			[OrderCode] = ORFICHE.FICHENO,
+			[TransactionType] = ORFICHE.TRCODE,
+			[Description] = ORFLINE.LINEEXP,
+			[UnitPrice] = ORFLINE.PRICE,
+			[VatRate] = ORFLINE.VAT,
+			[ProductReferenceId] = ORFLINE.STOCKREF,
+			[ProductCode] = ITEMS.CODE,
+			[ProductName] = ITEMS.NAME,
+			[WarehouseNumber] = WHOUSE.NR,
+			[WarehouseName] = WHOUSE.NAME,
+			[CurrentReferenceId] = CLCARD.LOGICALREF,
+			[CurrentCode] = CLCARD.CODE,
+			[CurrentName] = CLCARD.DEFINITION_,
+			[SubUnitsetCode] = SUBUNITSET.CODE,
+			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
+			[UnitsetCode] = UNITSET.CODE,
+			[UnitsetReferenceId] = UNITSET.LOGICALREF,
+			[Quantity] = ORFLINE.AMOUNT,
+			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
+			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
+			[DueDate] = ORFLINE.DUEDATE,
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
+			
+			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
+			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
+			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
+			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
+			WHERE ORFLINE.TRCODE = 1 AND ORFICHE.FICHENO = '{code}' AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+
+			return query;
+		}
+
+
+
+		public string GetSalesOrderLineByFicheIdQuery(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
+			[ReferenceId] = ORFLINE.LOGICALREF,
+			[Date] = ORFICHE.DATE_,
+			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
+			[OrderCode] = ORFICHE.FICHENO,
+			[TransactionType] = ORFICHE.TRCODE,
+			[Description] = ORFLINE.LINEEXP,
+			[UnitPrice] = ORFLINE.PRICE,
+			[VatRate] = ORFLINE.VAT,
+			[ProductReferenceId] = ORFLINE.STOCKREF,
+			[ProductCode] = ITEMS.CODE,
+			[ProductName] = ITEMS.NAME,
+			[WarehouseNumber] = WHOUSE.NR,
+			[WarehouseName] = WHOUSE.NAME,
+			[CurrentReferenceId] = CLCARD.LOGICALREF,
+			[CurrentCode] = CLCARD.CODE,
+			[CurrentName] = CLCARD.DEFINITION_,
+			[SubUnitsetCode] = SUBUNITSET.CODE,
+			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
+			[UnitsetCode] = UNITSET.CODE,
+			[UnitsetReferenceId] = UNITSET.LOGICALREF,
+			[Quantity] = ORFLINE.AMOUNT,
+			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
+			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
+			[DueDate] = ORFLINE.DUEDATE,
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
+			
+			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
+			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
+			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
+			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
+			WHERE ORFLINE.TRCODE = 1 AND ORFICHE.LOGICALREF = {id} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetWaitingSalesOrderLineByFicheIdQuery(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
+			[ReferenceId] = ORFLINE.LOGICALREF,
+			[Date] = ORFICHE.DATE_,
+			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
+			[OrderCode] = ORFICHE.FICHENO,
+			[TransactionType] = ORFICHE.TRCODE,
+			[Description] = ORFLINE.LINEEXP,
+			[UnitPrice] = ORFLINE.PRICE,
+			[VatRate] = ORFLINE.VAT,
+			[ProductReferenceId] = ORFLINE.STOCKREF,
+			[ProductCode] = ITEMS.CODE,
+			[ProductName] = ITEMS.NAME,
+			[WarehouseNumber] = WHOUSE.NR,
+			[WarehouseName] = WHOUSE.NAME,
+			[CurrentReferenceId] = CLCARD.LOGICALREF,
+			[CurrentCode] = CLCARD.CODE,
+			[CurrentName] = CLCARD.DEFINITION_,
+			[SubUnitsetCode] = SUBUNITSET.CODE,
+			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
+			[UnitsetCode] = UNITSET.CODE,
+			[UnitsetReferenceId] = UNITSET.LOGICALREF,
+			[Quantity] = ORFLINE.AMOUNT,
+			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
+			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
+			[DueDate] = ORFLINE.DUEDATE,
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
+			
+			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
+			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
+			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
+			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
+			WHERE ORFLINE.TRCODE = 1 AND ORFICHE.LOGICALREF = {id} AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+
 
 		#region Current Filter
-		public string GetSalesOrderLineByCurrentIdQuery(int id) =>
-			@$"SELECT
-			[ReferenceId] = ORFLINE.LOGICALREF,
-			[Date] = ORFICHE.DATE_,
-			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
-			[TransactionType] = ORFICHE.TRCODE,
-			[Description] = ORFLINE.LINEEXP,
-			[UnitPrice] = ORFLINE.PRICE,
-			[VatRate] = ORFLINE.VAT,
-			[ProductReferenceId] = ORFLINE.STOCKREF,
-			[ProductCode] = ITEMS.CODE,
-			[ProductName] = ITEMS.NAME,
-			[WarehouseNumber] = WHOUSE.NR,
-			[WarehouseName] = WHOUSE.NAME,
-			[CurrentReferenceId] = CLCARD.LOGICALREF,
-			[CurrentCode] = CLCARD.CODE,
-			[CurrentName] = CLCARD.DEFINITION_,
-			[SubUnitsetCode] = SUBUNITSET.CODE,
-			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
-			[UnitsetCode] = UNITSET.CODE,
-			[UnitsetReferenceId] = UNITSET.LOGICALREF,
-			[Quantity] = ORFLINE.AMOUNT,
-			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
-			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
-			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
-			
-			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
-			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
-			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
-			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND CLCARD.LOGICALREF = {id} ";
-		public string GetWaitingSalesOrderLineByCurrentIdQuery(int id) =>
-			@$"SELECT
-			[ReferenceId] = ORFLINE.LOGICALREF,
-			[Date] = ORFICHE.DATE_,
-			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
-			[TransactionType] = ORFICHE.TRCODE,
-			[Description] = ORFLINE.LINEEXP,
-			[UnitPrice] = ORFLINE.PRICE,
-			[VatRate] = ORFLINE.VAT,
-			[ProductReferenceId] = ORFLINE.STOCKREF,
-			[ProductCode] = ITEMS.CODE,
-			[ProductName] = ITEMS.NAME,
-			[WarehouseNumber] = WHOUSE.NR,
-			[WarehouseName] = WHOUSE.NAME,
-			[CurrentReferenceId] = CLCARD.LOGICALREF,
-			[CurrentCode] = CLCARD.CODE,
-			[CurrentName] = CLCARD.DEFINITION_,
-			[SubUnitsetCode] = SUBUNITSET.CODE,
-			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
-			[UnitsetCode] = UNITSET.CODE,
-			[UnitsetReferenceId] = UNITSET.LOGICALREF,
-			[Quantity] = ORFLINE.AMOUNT,
-			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
-			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
-			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
-			
-			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
-			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
-			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
-			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
-			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND CLCARD.LOGICALREF = {id} AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 ";
+		public string GetSalesOrderLineByCurrentIdQuery(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20){
 
-		public string GetSalesOrderLineByCurrentCodeQuery(string code) =>
-			@$"SELECT
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -255,7 +315,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -264,13 +325,20 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND CLCARD.CODE = '{code}' ";
-		public string GetWaitingSalesOrderLineByCurrentCodeQuery(string code) =>
-			@$"SELECT
+			WHERE ORFLINE.TRCODE = 1 AND CLCARD.LOGICALREF = {id} AND (ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetWaitingSalesOrderLineByCurrentIdQuery(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -291,7 +359,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -300,16 +369,116 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND CLCARD.CODE = '{code}' AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 ";
+			WHERE ORFLINE.TRCODE = 1 AND CLCARD.LOGICALREF = {id} AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 AND (ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+
+			return query;
+		}
+			
+
+		public string GetSalesOrderLineByCurrentCodeQuery(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
+			[ReferenceId] = ORFLINE.LOGICALREF,
+			[Date] = ORFICHE.DATE_,
+			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
+			[OrderCode] = ORFICHE.FICHENO,
+			[TransactionType] = ORFICHE.TRCODE,
+			[Description] = ORFLINE.LINEEXP,
+			[UnitPrice] = ORFLINE.PRICE,
+			[VatRate] = ORFLINE.VAT,
+			[ProductReferenceId] = ORFLINE.STOCKREF,
+			[ProductCode] = ITEMS.CODE,
+			[ProductName] = ITEMS.NAME,
+			[WarehouseNumber] = WHOUSE.NR,
+			[WarehouseName] = WHOUSE.NAME,
+			[CurrentReferenceId] = CLCARD.LOGICALREF,
+			[CurrentCode] = CLCARD.CODE,
+			[CurrentName] = CLCARD.DEFINITION_,
+			[SubUnitsetCode] = SUBUNITSET.CODE,
+			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
+			[UnitsetCode] = UNITSET.CODE,
+			[UnitsetReferenceId] = UNITSET.LOGICALREF,
+			[Quantity] = ORFLINE.AMOUNT,
+			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
+			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
+			[DueDate] = ORFLINE.DUEDATE,
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
+			
+			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
+			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
+			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
+			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
+			WHERE ORFLINE.TRCODE = 1 AND CLCARD.CODE = '{code}' AND (ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+
+			return query;
+		}
+			
+		public string GetWaitingSalesOrderLineByCurrentCodeQuery(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
+			[ReferenceId] = ORFLINE.LOGICALREF,
+			[Date] = ORFICHE.DATE_,
+			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
+			[OrderCode] = ORFICHE.FICHENO,
+			[TransactionType] = ORFICHE.TRCODE,
+			[Description] = ORFLINE.LINEEXP,
+			[UnitPrice] = ORFLINE.PRICE,
+			[VatRate] = ORFLINE.VAT,
+			[ProductReferenceId] = ORFLINE.STOCKREF,
+			[ProductCode] = ITEMS.CODE,
+			[ProductName] = ITEMS.NAME,
+			[WarehouseNumber] = WHOUSE.NR,
+			[WarehouseName] = WHOUSE.NAME,
+			[CurrentReferenceId] = CLCARD.LOGICALREF,
+			[CurrentCode] = CLCARD.CODE,
+			[CurrentName] = CLCARD.DEFINITION_,
+			[SubUnitsetCode] = SUBUNITSET.CODE,
+			[SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
+			[UnitsetCode] = UNITSET.CODE,
+			[UnitsetReferenceId] = UNITSET.LOGICALREF,
+			[Quantity] = ORFLINE.AMOUNT,
+			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
+			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
+			[DueDate] = ORFLINE.DUEDATE,
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
+			
+			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
+			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON ORFLINE.STOCKREF = ITEMS.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON ORFICHE.CLIENTREF = CLCARD.LOGICALREF
+			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
+			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
+			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
+			WHERE ORFLINE.TRCODE = 1 AND CLCARD.CODE = '{code}' AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 AND (ITEMS.NAME LIKE '%{search}%' OR ITEMS.CODE LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
 		#endregion
 
 		#region Product Filter
-		public string GetSalesOrderLineByProductIdQuery(int id) =>
-			@$"SELECT
+		public string GetSalesOrderLineByProductIdQuery(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = @$"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -330,7 +499,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -339,13 +509,22 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND ITEMS.LOGICALREF = {id} ";
-		public string GetWaitingSalesOrderLineByProductIdQuery(int id) =>
-			@$"SELECT
+			WHERE ORFLINE.TRCODE = 1 AND ITEMS.LOGICALREF = {id} AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+
+			return query;
+		}
+			
+		public string GetWaitingSalesOrderLineByProductIdQuery(int id, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -366,7 +545,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -375,13 +555,20 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND ITEMS.LOGICALREF = {id} AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 ";
-		public string GetSalesOrderLineByProductCodeQuery(string code) =>
-			@$"SELECT
+			WHERE ORFLINE.TRCODE = 1 AND ITEMS.LOGICALREF = {id} AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetSalesOrderLineByProductCodeQuery(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20)
+		{
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -402,7 +589,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -411,13 +599,20 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND ITEMS.CODE = '{code}' ";
-		public string GetWaitingSalesOrderLineByProductCodeQuery(string code) =>
-			@$"SELECT
+			WHERE ORFLINE.TRCODE = 1 AND ITEMS.CODE = '{code}' AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
+		public string GetWaitingSalesOrderLineByProductCodeQuery(string code, string search, string orderBy, int currentPage = 0, int pageSize = 20){
+
+			int currentIndex = pageSize * currentPage;
+
+			string query = $@"SELECT
 			[ReferenceId] = ORFLINE.LOGICALREF,
 			[Date] = ORFICHE.DATE_,
 			[Time] = dbo.LG_INTTOTIME(ORFICHE.TIME_),
-			[Code] = ORFICHE.FICHENO,
+			[OrderCode] = ORFICHE.FICHENO,
 			[TransactionType] = ORFICHE.TRCODE,
 			[Description] = ORFLINE.LINEEXP,
 			[UnitPrice] = ORFLINE.PRICE,
@@ -438,7 +633,8 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			[ShippedQuantity] = ORFLINE.SHIPPEDAMOUNT,
 			[WaitingQuantity] = (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT),
 			[DueDate] = ORFLINE.DUEDATE,
-			[NetTotal] = ORFLINE.LINENET
+			[NetTotal] = ORFLINE.LINENET,
+			[VatRate] = ORFLINE.VAT
 			
 			FROM LG_00{FirmNumber}_0{PeriodNumber}_ORFLINE AS ORFLINE
 			LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_ORFICHE AS ORFICHE ON ORFLINE.ORDFICHEREF = ORFICHE.LOGICALREF
@@ -447,7 +643,26 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON ORFLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
 			LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON ORFLINE.USREF = UNITSET.LOGICALREF
 			LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON ORFLINE.SOURCEINDEX = WHOUSE.NR AND WHOUSE.FIRMNR = {FirmNumber}
-			WHERE ORFLINE.TRCODE = 1 AND ITEMS.CODE = '{code}' AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 ";
+			WHERE ORFLINE.TRCODE = 1 AND ITEMS.CODE = '{code}' AND (ORFLINE.AMOUNT - ORFLINE.SHIPPEDAMOUNT) > 0 AND ORFLINE.CLOSED = 0 AND (CLCARD.CODE LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR ORFICHE.FICHENO LIKE '%{search}%')
+			{orderBy}
+			OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+			return query;
+		}
 		#endregion
+	}
+
+	public class SalesOrderLineOrderBy
+	{
+		public const string CustomerCodeAsc = "ORDER BY CLCARD.CODE ASC";
+		public const string CustomerCodeDesc = "ORDER BY CLCARD.CODE DESC";
+		public const string CustomerNameAsc = "ORDER BY CLCARD.DEFINITION_ ASC";
+		public const string CustomerNameDesc = "ORDER BY CLCARD.DEFINITION_ DESC";
+		public const string ProductCodeAsc = "ORDER BY ITEMS.CODE ASC";
+		public const string ProductCodeDesc = "ORDER BY ITEMS.CODE DESC";
+		public const string ProductNameAsc = "ORDER BY ITEMS.NAME ASC";
+		public const string ProductNameDesc = "ORDER BY ITEMS.NAME DESC";
+		public const string DueDateDesc = "ORDER BY ORFLINE.DUEDATE DESC";
+		public const string DueDateAsc = "ORDER BY ORFLINE.DUEDATE ASC";
+
 	}
 }
