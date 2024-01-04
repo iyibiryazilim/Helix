@@ -9,16 +9,17 @@
              x:DataType="viewModel:DispatchBySalesOrderFicheViewModel"
              xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
+             Shell.TabBarIsVisible="False"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetOrdersCommand}" />
     </ContentPage.Behaviors>
-    <sharedView:WaitingOrderContentView 
-
-                                  
-                                  WaitingOrderList="{Binding Items}"
-                                  IsBusy="{Binding IsBusy}"
-                                  
-                                  IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderContentView>
+    <sharedView:WaitingOrderContentView LoadMoreCommand="{Binding LoadMoreCommand}"
+                                        ReloadCommand="{Binding ReloadCommand}"
+                                        SearchCommand="{Binding SortCommand}"
+                                        SortCommand="{Binding SortCommand}"
+                                        WaitingOrderList="{Binding Items}"
+                                        IsBusy="{Binding IsBusy}"
+                                        IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderContentView>
 </ContentPage>
