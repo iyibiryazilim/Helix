@@ -317,6 +317,7 @@ namespace Helix.UI.Mobile
 		{
 			mauiAppBuilder.Services.AddTransient<ISupplierService, SupplierDataStore>();
 			mauiAppBuilder.Services.AddTransient<IPurchaseOrderLineService, PurchaseOrderLineDataStore>();
+			mauiAppBuilder.Services.AddTransient<IPurchaseOrderService, PurchaseOrderDataStore>();
 			mauiAppBuilder.Services.AddTransient<ISupplierTransactionLineService, SupplierTransactionLineDataStore>();
 			mauiAppBuilder.Services.AddTransient<ISupplierTransactionService, SupplierTransactionDataStore>();
 

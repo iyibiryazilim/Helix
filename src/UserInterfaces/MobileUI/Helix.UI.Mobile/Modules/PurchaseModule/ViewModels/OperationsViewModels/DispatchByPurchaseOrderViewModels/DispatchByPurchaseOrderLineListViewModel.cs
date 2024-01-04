@@ -12,7 +12,6 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
 	[QueryProperty(nameof(WaitingOrder), nameof(WaitingOrder))]
-
 	public partial class DispatchByPurchaseOrderLineListViewModel : BaseViewModel
     {
 		IPurchaseOrderLineService _purchaseOrderLineService;
