@@ -305,6 +305,12 @@
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderSupplierView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\PurchaseDispatchViews\PurchaseDispatchFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\PurchaseDispatchViews\PurchaseDispatchListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\PurchaseOperationView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

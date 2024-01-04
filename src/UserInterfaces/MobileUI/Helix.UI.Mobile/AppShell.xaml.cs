@@ -9,6 +9,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransac
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -64,6 +65,21 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(CurrentPurchaseReturnListView), typeof(CurrentPurchaseReturnListView));
 		Routing.RegisterRoute(nameof(CurrentSalesReturnListView), typeof(CurrentSalesReturnListView));
 		Routing.RegisterRoute(nameof(SupplierDetailView), typeof(SupplierDetailView));
+        Routing.RegisterRoute(nameof(SuccessPageView), typeof(SuccessPageView));
+        Routing.RegisterRoute(nameof(FailedPageView), typeof(FailedPageView));
+
+        Routing.RegisterRoute(nameof(ConsumableTransactionOperationFormView), typeof(ConsumableTransactionOperationFormView));
+
+        Routing.RegisterRoute(nameof(ProductTransactionOperationFormContentView), typeof(ProductTransactionOperationFormContentView));
+        Routing.RegisterRoute(nameof(ProductionTransactionOperationFormView), typeof(ProductionTransactionOperationFormView));
+        Routing.RegisterRoute(nameof(InCountingTransactionOperationFormView), typeof(InCountingTransactionOperationFormView));
+        Routing.RegisterRoute(nameof(OutCountingTransactionOperationFormView), typeof(OutCountingTransactionOperationFormView));
+        Routing.RegisterRoute(nameof(WastageTransactionOperationFormView), typeof(WastageTransactionOperationFormView));
+        Routing.RegisterRoute(nameof(SalesDispatchListView), typeof(SalesDispatchListView));
+        Routing.RegisterRoute(nameof(SalesDispatchFormView), typeof(SalesDispatchFormView));
+		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSupplierView), typeof(DispatchByPurchaseOrderSupplierView));
+        Routing.RegisterRoute(nameof(PurchaseDispatchListView), typeof(PurchaseDispatchListView));
+        Routing.RegisterRoute(nameof(PurchaseDispatchFormView), typeof(PurchaseDispatchFormView));
 		Routing.RegisterRoute(nameof(SuccessPageView), typeof(SuccessPageView));
 		Routing.RegisterRoute(nameof(FailedPageView), typeof(FailedPageView));
 		Routing.RegisterRoute(nameof(ConsumableTransactionOperationFormView), typeof(ConsumableTransactionOperationFormView));

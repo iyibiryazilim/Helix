@@ -9,6 +9,7 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCo
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -126,7 +127,6 @@ public partial class SharedProductListViewModel :BaseViewModel
                             SubUnitsetReferenceId = product.SubUnitsetReferenceId,
                             UnitsetReferenceId = product.UnitsetReferenceId,
                             StockQuantity = product.StockQuantity,
-                           
                             Quantity = 1
 
                         };
@@ -249,6 +249,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
 							UnitsetReferenceId = product.UnitsetReferenceId,
+                            StockQuantity = product.StockQuantity,
 							Quantity = 1
 
 						};
@@ -258,6 +259,36 @@ public partial class SharedProductListViewModel :BaseViewModel
 
 				}
 				break;
+            case 1:
+                var purchaseDispatchService = _serviceProvider.GetService<PurchaseDispatchListViewModel>();
+                foreach (var product in SelectedProducts)
+                {
+					if (purchaseDispatchService.Items.ToList().Exists(x => x.Code == product.Code))
+                    {
+						purchaseDispatchService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+
+					}
+					else
+                    {
+						var model = new ProductModel
+                        {
+							ReferenceId = product.ReferenceId,
+							Code = product.Code,
+							Name = product.Name,
+							UnitsetCode = product.UnitsetCode,
+							SubUnitsetCode = product.SubUnitsetCode,
+							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
+							UnitsetReferenceId = product.UnitsetReferenceId,
+							StockQuantity = product.StockQuantity,
+							Quantity = 1
+
+						};
+						product.IsSelected = false;
+						purchaseDispatchService.Items.Add(model);
+					}
+				}
+                break;
+
 
             default:
                 break;

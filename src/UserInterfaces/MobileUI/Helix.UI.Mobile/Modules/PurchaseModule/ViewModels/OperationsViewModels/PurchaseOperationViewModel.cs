@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
+using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 {
@@ -17,5 +19,25 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         {
 			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSupplierView)}");
 		}
+
+        [RelayCommand]
+        async Task GoToPurchaseDispatchListViewAsync()
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+                await Shell.Current.GoToAsync($"{nameof(PurchaseDispatchListView)}");
+            }
+            catch(Exception ex) {
+                Debug.WriteLine(ex.Message);
+            }
+
+            finally
+            {
+				IsBusy = false;
+			}
+        }
 	}
 }
