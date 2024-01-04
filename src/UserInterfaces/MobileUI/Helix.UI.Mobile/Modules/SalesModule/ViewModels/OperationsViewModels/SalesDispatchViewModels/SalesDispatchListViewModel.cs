@@ -161,23 +161,24 @@ public partial class SalesDispatchListViewModel : BaseViewModel
 	[RelayCommand]
 	public async Task GetBackAsync()
 	{
-		if(Items.Count == 0)
-			await Shell.Current.GoToAsync("..");
-
 		try
 		{
 			IsBusy = true;
 
-			bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
-			if(answer)
-			{
+			if (Items.Count == 0)
+
 				await Shell.Current.GoToAsync("..");
-				Items.Clear();
+			else
+			{
+				bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+				if (answer)
+				{
+					await Shell.Current.GoToAsync("..");
+					Items.Clear();
+				}
 			}
-
-
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
