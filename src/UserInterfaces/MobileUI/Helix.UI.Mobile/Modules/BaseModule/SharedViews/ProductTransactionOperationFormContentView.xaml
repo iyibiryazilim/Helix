@@ -4,6 +4,7 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductTransactionOperationFormContentView"
              x:Name="this"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels">
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
@@ -20,7 +21,7 @@
                 <Label Text="Fiş Türü"
                        FontSize="Medium" />
                 <Border StrokeShape="RoundRectangle 15">
-                    <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}" IsEnabled="False"/>
+                    <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}" PlaceholderColor="Black" IsEnabled="False"/>
                 </Border>
             </VerticalStackLayout>
 
@@ -53,9 +54,10 @@
                        FontSize="Medium" />
                 <Border StrokeShape="RoundRectangle 15">
                     <Picker x:Name="pickerWarehouse"
-                            Title="Seçiniz.."
+                            Title="Seçiniz.."        
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
+                            SelectedItem="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.SelectedWarehouse}"
                              />
 
                 </Border>
@@ -119,7 +121,7 @@
 
             <Button Grid.Row="7"
                     Margin="10,70"
-                    Text="Kaydet"></Button>
+                    Text="Kaydet" Command="{Binding Source={x:Reference this},Path=GoToSuccessPageViewCommand}" ></Button>
 
 
         </Grid>

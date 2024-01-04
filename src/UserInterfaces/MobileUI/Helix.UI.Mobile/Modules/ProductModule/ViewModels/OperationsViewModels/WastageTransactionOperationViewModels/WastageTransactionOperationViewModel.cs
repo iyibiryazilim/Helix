@@ -2,6 +2,8 @@
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -54,7 +56,19 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToOperationForm()
     {
-        await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationFormView)}");
+        if (Items.Any())
+        {
+            
+            await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationFormView)}", new Dictionary<string, object>
+            {
+                [nameof(ProductModel)] = Items
+            });
+        }
+
+        else
+        {
+            await Shell.Current.DisplayAlert("Uyarı ", $"Ürün seçmediniz", "Kapat");
+        }
     }
 
     [RelayCommand]

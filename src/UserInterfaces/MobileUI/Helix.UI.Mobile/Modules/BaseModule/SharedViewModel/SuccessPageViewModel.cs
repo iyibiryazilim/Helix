@@ -9,13 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
-
+[QueryProperty(nameof(GroupType), nameof(GroupType))]
 public partial class SuccessPageViewModel : BaseViewModel
 {
 	[ObservableProperty]
 	bool isAnimationStart = false;
+    [ObservableProperty]
+    public int groupType;
 
-	public Command StartAnimationCommand { get; }
+    public Command StartAnimationCommand { get; }
 	public SuccessPageViewModel()
 	{
 		
@@ -36,7 +38,16 @@ public partial class SuccessPageViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			//await Shell.Current.GoToAsync("..");
-			Application.Current.MainPage = new AppShell();
+			switch (GroupType)
+			{
+				case 3:
+                    await Shell.Current.GoToAsync("../../..");
+                    break;
+					
+				default:
+					break;
+			}
+			//Application.Current.MainPage = new AppShell();
 		}
 		catch (Exception ex)
 		{
