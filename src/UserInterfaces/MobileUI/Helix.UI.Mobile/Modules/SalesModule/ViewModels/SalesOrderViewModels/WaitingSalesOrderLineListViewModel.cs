@@ -53,11 +53,11 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 			IsRefreshing = true;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-			var result = await _salesOrderLineService.GetObjects(httpClient,true);
-			foreach (SalesOrderLine item in result.Data)
-			{
-				Items.Add(item);
-			}
+			//var result = await _salesOrderLineService.GetObjects(httpClient,true);
+			//foreach (SalesOrderLine item in result.Data)
+			//{
+			//	Items.Add(item);
+			//}
 
 
 		}

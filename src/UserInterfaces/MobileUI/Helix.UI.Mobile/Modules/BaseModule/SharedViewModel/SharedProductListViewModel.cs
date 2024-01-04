@@ -104,13 +104,14 @@ public partial class SharedProductListViewModel :BaseViewModel
 
                 }
                 break;
+                //InCounting//Sayım fazlası işlemleri
             case 50:
                 var inCountingService = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
                 foreach (var product in SelectedProducts)
                 {
                     if (inCountingService.Items.ToList().Exists(x => x.Code == product.Code))
                     {
-                        inCountingService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+                        inCountingService.Items.ToList().First(x => x.Code == product.Code).Quantity += 1;
 
                     }
                     else
@@ -124,6 +125,8 @@ public partial class SharedProductListViewModel :BaseViewModel
                             SubUnitsetCode = product.SubUnitsetCode,
                             SubUnitsetReferenceId = product.SubUnitsetReferenceId,
                             UnitsetReferenceId = product.UnitsetReferenceId,
+                            StockQuantity = product.StockQuantity,
+                           
                             Quantity = 1
 
                         };
@@ -133,13 +136,14 @@ public partial class SharedProductListViewModel :BaseViewModel
 
                 }
                 break;
+                //OutCounting//Sayım Fazlası İşlemleri
             case 51:
                 var outCountingService = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
                 foreach (var product in SelectedProducts)
                 {
                     if (outCountingService.Items.ToList().Exists(x => x.Code == product.Code))
                     {
-                        outCountingService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+                        outCountingService.Items.ToList().First(x => x.Code == product.Code).Quantity += 1;
 
                     }
                     else
@@ -153,6 +157,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                             SubUnitsetCode = product.SubUnitsetCode,
                             SubUnitsetReferenceId = product.SubUnitsetReferenceId,
                             UnitsetReferenceId = product.UnitsetReferenceId,
+                            StockQuantity = product.StockQuantity,
                             Quantity = 1
 
                         };
@@ -162,13 +167,14 @@ public partial class SharedProductListViewModel :BaseViewModel
 
                 }
                 break;
+                //ProductionTransaction//Üretimden Giriş işlemleri
             case 13:
                 var productionTransactionService = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
                 foreach (var product in SelectedProducts)
                 {
                     if (productionTransactionService.Items.ToList().Exists(x => x.Code == product.Code))
                     {
-                        productionTransactionService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+                        productionTransactionService.Items.ToList().First(x => x.Code == product.Code).Quantity += 1;
 
                     }
                     else
@@ -182,6 +188,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                             SubUnitsetCode = product.SubUnitsetCode,
                             SubUnitsetReferenceId = product.SubUnitsetReferenceId,
                             UnitsetReferenceId = product.UnitsetReferenceId,
+                            StockQuantity = product.StockQuantity,
                             Quantity = 1
 
                         };
@@ -191,13 +198,14 @@ public partial class SharedProductListViewModel :BaseViewModel
 
                 }
                 break;
+                //WastageTransaction//Fire İşlemleri
             case 11:
                 var wastageTransactionService = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
                 foreach (var product in SelectedProducts)
                 {
                     if (wastageTransactionService.Items.ToList().Exists(x => x.Code == product.Code))
                     {
-                        wastageTransactionService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+                        wastageTransactionService.Items.ToList().First(x => x.Code == product.Code).Quantity += 1;
 
                     }
                     else
@@ -211,6 +219,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                             SubUnitsetCode = product.SubUnitsetCode,
                             SubUnitsetReferenceId = product.SubUnitsetReferenceId,
                             UnitsetReferenceId = product.UnitsetReferenceId,
+                            StockQuantity = product.StockQuantity,
                             Quantity = 1
 
                         };
@@ -253,7 +262,7 @@ public partial class SharedProductListViewModel :BaseViewModel
             default:
                 break;
         }
-   
+        await Task.Delay(200);
         await Shell.Current.GoToAsync("..");
     }
 
@@ -266,7 +275,7 @@ public partial class SharedProductListViewModel :BaseViewModel
             return;
         try
         {
-            await Task.Delay(500);
+            await Task.Delay(700);
             await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 
 
@@ -330,7 +339,7 @@ public partial class SharedProductListViewModel :BaseViewModel
             {
                 foreach (Product item in result.Data)
                 {
-                    await Task.Delay(50);
+                    await Task.Delay(100);
                     Items.Add(item);
                 }
             }

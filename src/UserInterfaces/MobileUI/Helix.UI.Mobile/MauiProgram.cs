@@ -20,8 +20,8 @@ using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionFormViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
-using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationFormViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationFormViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
@@ -42,10 +42,12 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
@@ -77,7 +79,7 @@ using The49.Maui.BottomSheet;
 
 namespace Helix.UI.Mobile
 {
-	public static class MauiProgram
+    public static class MauiProgram
 	{
 		public static MauiApp CreateMauiApp()
 		{
@@ -145,14 +147,20 @@ namespace Helix.UI.Mobile
             Microsoft.Maui.Handlers.TimePickerHandler.Mapper.AppendToMapping(nameof(TimePicker), (handler, view) =>
             {
 #if ANDROID
-                handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                handler.PlatformView.BackgroundTintList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #endif
             });
 
             Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping(nameof(DatePicker), (handler, view) =>
             {
 #if ANDROID
-                handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                handler.PlatformView.BackgroundTintList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping(nameof(Picker), (handler, view) =>
+            {
+#if ANDROID
+                handler.PlatformView.BackgroundTintList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #endif
             });
 
@@ -259,6 +267,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ICustomerTransactionLineService, CustomerTransactionLineDataStore>();
 			mauiAppBuilder.Services.AddTransient<ICustomerTransactionService, CustomerTransactionDataStore>();
 			mauiAppBuilder.Services.AddTransient<ISalesOrderLineService, SalesOrderLineLineDataStore>();
+			mauiAppBuilder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
+
 
 			return mauiAppBuilder;
 		}
@@ -272,6 +282,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<PurchasePanelViews>();
 			mauiAppBuilder.Services.AddTransient<PurchaseOperationView>();
 			mauiAppBuilder.Services.AddTransient<SupplierDetailView>();
+			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSupplierView>();
+
 
 
 
@@ -285,6 +297,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<PurchasePanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchaseOperationViewModel>();
 			mauiAppBuilder.Services.AddTransient<SupplierDetailViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSupplierViewModel>();
+
 
 
 

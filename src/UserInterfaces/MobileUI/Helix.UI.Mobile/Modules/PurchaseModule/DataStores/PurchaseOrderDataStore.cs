@@ -131,9 +131,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjects(HttpClient httpClient)
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjects(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
+			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl+ $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<PurchaseOrder>> dataResult = new DataResult<IEnumerable<PurchaseOrder>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
@@ -192,9 +192,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code)
+		
+
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, string Code, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}");
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<PurchaseOrder>> dataResult = new DataResult<IEnumerable<PurchaseOrder>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
@@ -253,9 +255,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId)
+		 
+
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentId(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int id, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{ReferenceId}");
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{id}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<PurchaseOrder>> dataResult = new DataResult<IEnumerable<PurchaseOrder>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
@@ -313,5 +317,16 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				return dataResult;
 			}
 		}
+	}
+	public enum PurchaseOrderOrderBy
+	{
+		nettotaldesc,
+		nettotalasc,
+		currentcodedesc,
+		currentcodeasc,
+		currentnamedesc,
+		currentnameasc,
+		dateasc,
+		datedesc
 	}
 }

@@ -16,7 +16,9 @@
                                         Command="{Binding GetWarehouseCommand}" />
     </ContentPage.Behaviors>
     <sharedViews:ProductTransactionOperationFormContentView  WarehouseList="{Binding WarehouseItems}"
-                                                             TransactionTypeName="{Binding TransactionTypeName}">
+                                                             TransactionTypeName="{Binding TransactionTypeName}"
+                                                             ProductTransactionFormModel="{Binding ProductTransactionFormModel}"
+                                                             GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}">
 
     </sharedViews:ProductTransactionOperationFormContentView>
 

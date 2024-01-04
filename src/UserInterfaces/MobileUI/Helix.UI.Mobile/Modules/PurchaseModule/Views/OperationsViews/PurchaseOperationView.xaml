@@ -5,7 +5,8 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:DataType="viewModel:PurchaseOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseOperationView"
-             Title="{Binding Title}" BackgroundColor="{StaticResource Primary}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
             Padding="5,20,5,10">
@@ -14,8 +15,6 @@
         </Border.StrokeShape>
         <VerticalStackLayout Padding="20"
                              Spacing="25">
-
-
             <Grid RowDefinitions="Auto,Auto"
                   RowSpacing="15">
                 <Label Text="Kabul İşlemleri"
@@ -34,9 +33,7 @@
                             <Label Text="Mal Kabul İşlemleri"
                                    VerticalOptions="Center"
                                    FontSize="16"
-                                   FontAttributes="Bold">
-
-                            </Label>
+                                   FontAttributes="Bold"></Label>
                             <Image Grid.Column="1"
                                    HorizontalOptions="Center"
                                    HeightRequest="15">
@@ -64,9 +61,7 @@
                             <Label Text="Siparişe Bağlı Mal Kabul İşlemleri"
                                    VerticalOptions="Center"
                                    FontSize="16"
-                                   FontAttributes="Bold">
-
-                            </Label>
+                                   FontAttributes="Bold"></Label>
                             <Image Grid.Column="1"
                                    HorizontalOptions="Center"
                                    HeightRequest="15">
@@ -82,6 +77,9 @@
                                     Radius="40"
                                     Opacity="0.1" />
                         </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToDispatchByOrderCommand}" />
+                        </Border.GestureRecognizers>
                     </Border>
                     <Border Grid.Row="2"
                             Padding="10"
@@ -94,9 +92,7 @@
                             <Label Text="Sipariş Satırına Bağlı Mal Kabul İşlemleri"
                                    VerticalOptions="Center"
                                    FontSize="16"
-                                   FontAttributes="Bold">
-
-                            </Label>
+                                   FontAttributes="Bold"></Label>
                             <Image Grid.Column="1"
                                    HorizontalOptions="Center"
                                    HeightRequest="15">
@@ -113,10 +109,8 @@
                                     Opacity="0.1" />
                         </Border.Shadow>
                     </Border>
-
                 </Grid>
             </Grid>
-
         </VerticalStackLayout>
     </Border>
 </ContentPage>

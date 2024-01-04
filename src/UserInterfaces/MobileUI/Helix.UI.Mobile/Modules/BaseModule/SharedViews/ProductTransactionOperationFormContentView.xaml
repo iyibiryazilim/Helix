@@ -4,6 +4,7 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ProductTransactionOperationFormContentView"
              x:Name="this"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels">
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
@@ -19,8 +20,8 @@
                                  Padding="7">
                 <Label Text="Fiş Türü"
                        FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 15">
-                    <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}" IsEnabled="False"/>
+                <Border StrokeShape="RoundRectangle 13">
+                    <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}" PlaceholderColor="Black" IsEnabled="False"/>
                 </Border>
             </VerticalStackLayout>
 
@@ -32,14 +33,14 @@
                 <VerticalStackLayout Grid.Column="0">
                     <Label Text="Tarih"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 15">
+                    <Border StrokeShape="RoundRectangle 13">
                         <DatePicker />
                     </Border>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1">
                     <Label Text="Saat"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 15">
+                    <Border StrokeShape="RoundRectangle 13">
                         <TimePicker  />
                     </Border>
                 </VerticalStackLayout>
@@ -51,11 +52,12 @@
                                  Padding="7">
                 <Label Text="Ambar"
                        FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 15">
+                <Border StrokeShape="RoundRectangle 13">
                     <Picker x:Name="pickerWarehouse"
-                            Title="Seçiniz.."
+                            Title="Seçiniz.."        
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
+                            SelectedItem="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.SelectedWarehouse}"
                              />
 
                 </Border>
@@ -66,7 +68,7 @@
                                  Padding="7">
                 <Label Text="Belge Kodu"
                        FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 15">
+                <Border StrokeShape="RoundRectangle 13">
                     <Entry Placeholder="  Belge Kodu Giriniz" />
 
                 </Border>
@@ -77,7 +79,7 @@
                                  Padding="7">
                 <Label Text="Özel Kod"
                        FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 15">
+                <Border StrokeShape="RoundRectangle 13">
                     <Grid ColumnDefinitions="85*,15*">
                         <Entry Grid.Column="0"
                                Placeholder="  Özel Kod Giriniz" />
@@ -102,7 +104,7 @@
                                  Padding="7">
                 <Label Text="Doküman İzleme No"
                        FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 15">
+                <Border StrokeShape="RoundRectangle 13">
                     <Entry Placeholder="  Doküman İzleme No Giriniz" />
                 </Border>
             </VerticalStackLayout>
@@ -112,14 +114,14 @@
                                  Padding="7">
                 <Label Text="Açıklama"
                        FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 15">
+                <Border StrokeShape="RoundRectangle 13">
                     <Entry Placeholder="  Açıklama" />
                 </Border>
             </VerticalStackLayout>
 
             <Button Grid.Row="7"
                     Margin="10,70"
-                    Text="Kaydet"></Button>
+                    Text="Kaydet" Command="{Binding Source={x:Reference this},Path=GoToSuccessPageViewCommand}" ></Button>
 
 
         </Grid>

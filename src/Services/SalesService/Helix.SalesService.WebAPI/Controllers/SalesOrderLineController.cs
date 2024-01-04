@@ -216,7 +216,7 @@ public class SalesOrderLineController : ControllerBase
 
 	}
 
-	[HttpGet("Fiche/Id/{id:int}")]
+	[HttpGet("Fiche/Id/{id:int}&{includeWaiting}")]
 	public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetByFicheId(int id, bool includeWaiting = false,  [FromQuery] string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
 	{
 		DataResult<IEnumerable<SalesOrderLine>> result = new();
