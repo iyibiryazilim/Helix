@@ -71,7 +71,7 @@ public partial class ProductDetailOutputTransactionListViewModel : BaseViewModel
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 
 			CurrentPage++;
-			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "2,3", SearchText, OrderBy, CurrentPage, PageSize);
+			var result = await _productTransactionLineService.GetOutputTransactionLinesByProductId(httpClient, Product.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{
 				foreach (var item in result.Data)
@@ -110,7 +110,7 @@ public partial class ProductDetailOutputTransactionListViewModel : BaseViewModel
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage = 0;
 
-			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "2,3", SearchText, OrderBy, CurrentPage, PageSize);
+			var result = await _productTransactionLineService.GetOutputTransactionLinesByProductId(httpClient, Product.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{
 				ProductOutputTransactionListItems.Clear();
