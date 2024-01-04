@@ -2,8 +2,7 @@
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
-	public partial class DispatchByPurchaseOrderSupplierViewModel : BaseViewModel
-	{
-      
-	}
+	public partial class DispatchByPurchaseOrderFicheViewModel : BaseViewModel
+    {
+    }
 }
