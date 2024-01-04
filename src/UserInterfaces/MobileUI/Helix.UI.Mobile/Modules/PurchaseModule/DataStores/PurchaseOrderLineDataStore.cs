@@ -9,10 +9,10 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 	{
 		public string postUrl = $"gateway/purchase/" + nameof(PurchaseOrderLine);
 
-		public async Task<DataResult<PurchaseOrderLine>> GetWaitingOrderByCode(HttpClient httpClient,string search, PurchaseOrderLineOrderBy orderBy, string Code,int page,int pageSize)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrderByCode(HttpClient httpClient,string search, PurchaseOrderLineOrderBy orderBy, string Code,int page,int pageSize)
 		{
 			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Code/{Code}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
-			DataResult<PurchaseOrderLine> dataResult = new DataResult<PurchaseOrderLine>();
+			DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var data = await responseMessage.Content.ReadAsStringAsync();
@@ -20,7 +20,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				{
 					if (!string.IsNullOrEmpty(data))
 					{
-						var result = JsonSerializer.Deserialize<DataResult<PurchaseOrderLine>>(data, new JsonSerializerOptions
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
 						{
 							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 						});
@@ -33,7 +33,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 					}
 					else
 					{
-						var result = JsonSerializer.Deserialize<DataResult<PurchaseOrderLine>>(data, new JsonSerializerOptions
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
 						{
 							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 						});
@@ -47,7 +47,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseOrderLine>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});
@@ -70,10 +70,10 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		public async Task<DataResult<PurchaseOrderLine>> GetWaitingOrderById(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId, int page, int pageSize)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrderById(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId, int page, int pageSize)
 		{
 			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Id/{ReferenceId}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
-			DataResult<PurchaseOrderLine> dataResult = new DataResult<PurchaseOrderLine>();
+			DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var data = await responseMessage.Content.ReadAsStringAsync();
@@ -81,7 +81,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				{
 					if (!string.IsNullOrEmpty(data))
 					{
-						var result = JsonSerializer.Deserialize<DataResult<PurchaseOrderLine>>(data, new JsonSerializerOptions
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
 						{
 							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 						});
@@ -94,7 +94,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 					}
 					else
 					{
-						var result = JsonSerializer.Deserialize<DataResult<PurchaseOrderLine>>(data, new JsonSerializerOptions
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
 						{
 							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 						});
@@ -108,7 +108,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<PurchaseOrderLine>>(data, new JsonSerializerOptions
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
 					{
 						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 					});

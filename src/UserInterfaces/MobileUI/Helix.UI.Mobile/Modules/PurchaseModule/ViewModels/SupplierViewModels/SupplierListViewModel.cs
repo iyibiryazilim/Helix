@@ -47,9 +47,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 			try
 			{
 				await Task.Delay(500);
-				//await MainThread.InvokeOnMainThreadAsync(ReloadAsync());
-				await ReloadAsync();
-
+				await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
+ 
 			}
 			catch (Exception ex)
 			{

@@ -9,7 +9,7 @@
              x:Name="this">
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
-            Margin="0,30,0,0">
+            Margin="0,10,0,0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
@@ -59,48 +59,104 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="baseModel:WaitingOrderLine">
-                            <SwipeView>
+                            <SwipeView Padding="5,0,5,0">
                                 <SwipeView.LeftItems>
                                     <SwipeItems Mode="Execute">
                                         <SwipeItem BackgroundColor="{StaticResource Success}"
                                                    Command="{Binding Source={x:Reference this}, Path=BindingContext.ToggleSelectionCommand}"
                                                    CommandParameter="{Binding .}"
-                                                   Text=" Müşteri Seç" />
+                                                   Text="Satır Seç" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
-                                <Border StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="White"
-                                        Padding="5"
-                                        Margin="10,0,10,0"
-                                        HeightRequest="85">
-                                    <Border.Triggers>
-                                        <DataTrigger Binding="{Binding IsSelected}"
-                                                     TargetType="Border"
-                                                     Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{StaticResource Primary}" />
-                                        </DataTrigger>
-                                    </Border.Triggers>
-                                    <Grid ColumnDefinitions="Auto,*"
-                                          ColumnSpacing="5">
-                                        <Border Grid.Column="0"
+                                <toolkit:Expander x:Name="expander">
+                                    <toolkit:Expander.Header>
+                                        <Border BackgroundColor="White"
                                                 StrokeShape="RoundRectangle 10"
-                                                WidthRequest="75"
-                                                HorizontalOptions="Center"
-                                                Padding="10"
-                                                StrokeThickness="0">
-                                            
+                                                Padding="10">
+                                            <Grid ColumnDefinitions="Auto,Auto,*,Auto"
+                                                  ColumnSpacing="10"
+                                                  Padding="0,0,10,0">
+                                                <VerticalStackLayout Grid.Column="1"
+                                                                     Spacing="4"
+                                                                     Padding="10">
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="Medium"
+                                                           HorizontalOptions="Center"
+                                                           TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding DueDate, StringFormat='{0:dd}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="Default"
+                                                           HorizontalOptions="Center"
+                                                           TextColor="{StaticResource Gray400}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding DueDate, StringFormat='{0:MM.yyyy}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="2"
+                                                                     VerticalOptions="Center"
+                                                                     Spacing="5">
+                                                    <Label Text="{Binding ProductCode}"
+                                                           FontAttributes="Bold"></Label>
+                                                    <Label Text="{Binding ProductName}"
+                                                           FontSize="12"></Label>
+                                                    <Label TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding  Quantity, StringFormat='{0:N2} '}"
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text="{Binding SubUnitsetCode}"
+                                                                      FontAttributes="Bold" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </VerticalStackLayout>
+                                                <Image Grid.Column="3"
+                                                       HorizontalOptions="Center"
+                                                       HeightRequest="15"
+                                                       Margin="0,0,10,0">
+                                                    <Image.Source>
+                                                        <FontImageSource FontFamily="FAS"
+                                                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"></FontImageSource>
+                                                    </Image.Source>
+                                                    <Image.Triggers>
+                                                        <DataTrigger TargetType="Image"
+                                                                     Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                                                     Value="True">
+                                                            <Setter Property="Rotation"
+                                                                    Value="180"></Setter>
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                            </Grid>
                                         </Border>
-                                        <VerticalStackLayout Grid.Column="1"
-                                                             Padding="5"
-                                                             Spacing="5"
-                                                             HorizontalOptions="Start"
-                                                             VerticalOptions="Center">
-                                            <Label TextColor="{StaticResource Primary}"
-                                                   Text="{Binding OrderCode}"></Label>
-                                         </VerticalStackLayout>
-                                    </Grid>
-                                </Border>
+                                    </toolkit:Expander.Header>
+                                    <toolkit:Expander.Content>
+                                        <VerticalStackLayout Margin="20,10,5,0"
+                                                             Spacing="4">
+                                            <VerticalStackLayout Spacing="4">
+                                                <Label Text="Fiş Numarası"
+                                                       TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding OrderCode}" />
+                                                <BoxView WidthRequest="0.1" />
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Spacing="4">
+                                                <Label Text="Ambar Adı"
+                                                       TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding WarehouseName}" />
+                                                <BoxView WidthRequest="0.1" />
+                                            </VerticalStackLayout>
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander.Content>
+                                </toolkit:Expander>
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
