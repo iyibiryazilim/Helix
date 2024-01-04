@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.WarehouseTransactionContentView"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             x:DataType="viewModel:WarehouseTransactionContentViewModel"
+             x:Name="this"
+             BackgroundColor="{StaticResource Primary}">
+    <Grid RowDefinitions="Auto, *"
+          Padding="0, 20, 0, 0">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto, *"
+              ColumnSpacing="18"
+              Padding="18,0">
+            <Grid Grid.Column="0">
+                <ImageButton Aspect="AspectFit" 
+                             HeightRequest="20" 
+                             WidthRequest="20">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="FAS"
+                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowLeft}"
+                         Color="{StaticResource White}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+            <Label Grid.Column="1" Text="{Binding Title}" TextColor="White" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Start" />
+        </Grid>
+        <Border Grid.Row="1"
+                Margin="0,30,0,0"
+                BackgroundColor="{StaticResource WhiteSmoke}"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20, 20, 0, 0" />
+            </Border.StrokeShape>
+            <Grid BackgroundColor="Transparent"
+                  RowDefinitions="Auto, *"
+                  RowSpacing="10">
+                <Grid Grid.Row="0">
+                    <Border StrokeShape="RoundRectangle 20">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Grid Grid.Column="0">
+                                <SearchBar x:Name="searchBar"
+                                           Placeholder="Arama yap">
+                                    <SearchBar.Behaviors>
+                                        <toolkit:EventToCommandBehavior EventName="TextChanged" />
+                                    </SearchBar.Behaviors>
+                                </SearchBar>
+                            </Grid>
+                            <Grid Grid.Column="1"
+                                  Padding="0, 0, 20, 0">
+                                <ImageButton Aspect="AspectFit"
+                                             HeightRequest="25"
+                                             WidthRequest="25">
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="FAS"
+                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                                         Color="{StaticResource Primary}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+                
+            </Grid>
+            
+            
+        </Border>
+        
+    </Grid>
+    
+</ContentView>
