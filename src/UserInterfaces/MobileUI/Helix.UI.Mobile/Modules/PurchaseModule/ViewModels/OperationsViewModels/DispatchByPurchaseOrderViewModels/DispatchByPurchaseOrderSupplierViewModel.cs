@@ -1,42 +1,47 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
-using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
-using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
-using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
+
+namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
-	public partial class SupplierListViewModel : BaseViewModel
+	public partial class DispatchByPurchaseOrderSupplierViewModel : BaseViewModel
 	{
+        IPurchaseOrderLineService _purchaseOrderLineService;
 		IHttpClientService _httpClientService;
-		private readonly ISupplierService _supplierService;
-		//Lists
-		public ObservableCollection<Current> Items { get; } = new();
-		//Commands
-		public Command GetSupplierCommand { get; }
+
+		public ObservableCollection<WaitingOrderLine> Items { get; } = new();
+
+		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
-		//Properties
+
 		[ObservableProperty]
 		string searchText = string.Empty;
 		[ObservableProperty]
-		SupplierOrderBy orderBy = SupplierOrderBy.nameasc;
+		PurchaseOrderLineOrderBy orderBy = PurchaseOrderLineOrderBy.dateasc;
 		[ObservableProperty]
 		int currentPage = 0;
 		[ObservableProperty]
 		int pageSize = 20;
+		[ObservableProperty]
+		WaitingOrder waitingOrder;
 
-		public SupplierListViewModel(IHttpClientService httpClientService, ISupplierService supplierService)
-		{
+		public DispatchByPurchaseOrderSupplierViewModel(IPurchaseOrderLineService purchaseOrderLineService,IHttpClientService httpClientService)
+        {
+            Title = "Tedarikçi Seçimi";
+
+            _purchaseOrderLineService = purchaseOrderLineService;
 			_httpClientService = httpClientService;
-			_supplierService = supplierService;
-			GetSupplierCommand = new Command(async () => await LoadData());
+
+			GetDataCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+
 
 		}
 
@@ -48,7 +53,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 			{
 				await Task.Delay(500);
 				await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
- 
+
 			}
 			catch (Exception ex)
 			{
@@ -101,13 +106,14 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				CurrentPage++;
-				var result = await _supplierService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+				var result = await _purchaseOrderLineService.GetWaitingOrderByCode(httpClient, SearchText, OrderBy, WaitingOrder.Code, CurrentPage, PageSize);
 				if (result.Data.Any())
 				{
-					foreach (Supplier item in result.Data)
+					foreach (var item in result.Data)
 					{
 						await Task.Delay(50);
-						Items.Add(item);
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+						Items.Add(obj);
 					}
 				}
 				else
@@ -132,7 +138,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 		[RelayCommand]
 		async Task ReloadAsync()
 		{
-			if(IsBusy)
+			if (IsBusy)
 				return;
 			try
 			{
@@ -141,14 +147,15 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				CurrentPage = 0;
-				var result = await _supplierService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+				var result = await _purchaseOrderLineService.GetWaitingOrderByCode(httpClient, SearchText, OrderBy, WaitingOrder.Code, CurrentPage, PageSize); 
 				if (result.Data.Any())
 				{
 					Items.Clear();
-					foreach (Supplier item in result.Data)
+					foreach (var item in result.Data)
 					{
-						await Task.Delay(100);
-						Items.Add(item);
+						await Task.Delay(50);
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+						Items.Add(obj);
 					}
 				}
 			}
@@ -163,35 +170,36 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 				IsRefreshing = false;
 			}
 		}
+
 		[RelayCommand]
 		async Task SortAsync()
 		{
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Malzeme Kodu A-Z", "Malzeme Kodu Z-A", "Malzeme Ad A-Z", "Malzeme Ad Z-A");
 				if (!string.IsNullOrEmpty(response))
 				{
 					CurrentPage = 0;
 					await Task.Delay(100);
 					switch (response)
 					{
-						case "Kod A-Z":
-							OrderBy = SupplierOrderBy.codeasc;
+						case "Malzeme Kodu A-Z":
+							OrderBy = PurchaseOrderLineOrderBy.productcodeasc;
 							await ReloadAsync();
 							break;
-						case "Kod Z-A":
-							OrderBy = SupplierOrderBy.codedesc;
+						case "Malzeme Kodu Z-A":
+							OrderBy = PurchaseOrderLineOrderBy.productcodedesc;
 							await ReloadAsync();
 							break;
-						case "Ad A-Z":
-							OrderBy = SupplierOrderBy.nameasc;
+						case "Malzeme Ad A-Z":
+							OrderBy = PurchaseOrderLineOrderBy.productnameasc;
 							await ReloadAsync();
 							break;
-						case "Ad Z-A":
-							OrderBy = SupplierOrderBy.namedesc;
+						case "Malzeme Ad Z-A":
+							OrderBy = PurchaseOrderLineOrderBy.productnamedesc;
 							await ReloadAsync();
-							break;
+							break; 
 						default:
 							await ReloadAsync();
 							break;
@@ -208,23 +216,6 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 			{
 				IsBusy = false;
 				IsRefreshing = false;
-			}
-		}
-
-		[RelayCommand]
-		async Task GoToDetailAsync(Current current)
-		{
-			try
-			{
-				await Task.Delay(500);
-				await Shell.Current.GoToAsync($"{nameof(SupplierDetailView)}", new Dictionary<string, object>
-				{
-					[nameof(Current)] = current
-				});
-			}
-			catch (Exception ex)
-			{
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
 	}
