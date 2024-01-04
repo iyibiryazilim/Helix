@@ -12,6 +12,9 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPur
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
+using Microsoft.Maui.Hosting;
+
 
 namespace Helix.UI.Mobile;
 
@@ -71,7 +74,10 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(InCountingTransactionOperationFormView), typeof(InCountingTransactionOperationFormView));
         Routing.RegisterRoute(nameof(OutCountingTransactionOperationFormView), typeof(OutCountingTransactionOperationFormView));
         Routing.RegisterRoute(nameof(WastageTransactionOperationFormView), typeof(WastageTransactionOperationFormView));
-		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSupplierView), typeof(DispatchByPurchaseOrderSupplierView));
+        Routing.RegisterRoute(nameof(SalesDispatchListView), typeof(SalesDispatchListView));
+        Routing.RegisterRoute(nameof(SalesDispatchFormView), typeof(SalesDispatchFormView));
+		    Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSupplierView), typeof(DispatchByPurchaseOrderSupplierView));
+
 
 
 

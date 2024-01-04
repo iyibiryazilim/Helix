@@ -46,7 +46,6 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
             await Shell.Current.DisplayAlert("Uyarı ", $"Ürün seçmediniz", "Kapat");
         }
 
-        
     }
 
     [RelayCommand]

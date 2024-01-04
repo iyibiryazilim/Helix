@@ -10,9 +10,7 @@
              Shell.NavBarIsVisible="False"
              Shell.PresentationMode="ModalAnimated" 
              BackgroundColor="{StaticResource White}">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding StartAnimationCommand}" />
-    </ContentPage.Behaviors>
+    
     <Grid RowDefinitions="Auto, *, Auto" Padding="10" RowSpacing="20">
         <ImageButton Grid.Row="0"
              Command="{Binding CloseButtonHandlerCommand}"
@@ -29,21 +27,32 @@
         </ImageButton>
 
 
-        <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="StartAndExpand">
-            <Image x:Name="failedGif"   
-               Source="page_success.gif" 
+        <VerticalStackLayout Grid.Row="1" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center" 
+                             Spacing="200" 
+                             >
+            <Image HeightRequest="100" Aspect="AspectFit">
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="{StaticResource Success}"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.CircleCheck}"/>
+                </Image.Source>
+            </Image>
+            <!--<Image x:Name="successGif"   
+               Source="page_success.gif"
                VerticalOptions="Center" 
                HorizontalOptions="Center" 
                HeightRequest="500"
                Aspect="AspectFill"
-               IsAnimationPlaying="{Binding IsAnimationStart}" />
-            <!--<Label Text="İşlem Başarısız"
+               IsAnimationPlaying="{Binding IsAnimationStart}" />-->
+            <Label Text="İşlem Başarılı"
                FontSize="Title"
                HorizontalOptions="Center"
-               TextColor="{StaticResource Danger}"
-               FontAttributes="Bold"/>-->
+               TextColor="{StaticResource Success}"
+               FontAttributes="Bold"/>
         </VerticalStackLayout>
-        <Button Grid.Row="2" Text="Çıkış Yap" BackgroundColor="#32BD6D" Command="{Binding CloseButtonHandlerCommand}" />
+        <Button Grid.Row="2" Text="Çıkış Yap" BackgroundColor="{StaticResource Success}" Command="{Binding CloseButtonHandlerCommand}" />
 
     </Grid>
 </ContentPage>

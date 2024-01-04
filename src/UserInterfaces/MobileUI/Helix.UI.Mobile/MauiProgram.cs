@@ -63,12 +63,14 @@ using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.Views.BasketViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
@@ -229,6 +231,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSummaryView>();
 			mauiAppBuilder.Services.AddTransient<CustomerFastOperationBottomSheetView>();
+			mauiAppBuilder.Services.AddTransient<SalesDispatchListView>();
+			mauiAppBuilder.Services.AddTransient<SalesDispatchFormView>();
 
 
 
@@ -249,6 +253,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSummaryViewModel>();
 			mauiAppBuilder.Services.AddTransient<CustomerFastOperationBottomSheetViewModel>();
+			mauiAppBuilder.Services.AddScoped<SalesDispatchListViewModel>();
+			mauiAppBuilder.Services.AddTransient<SalesDispatchFormViewModel>();
 
 
 

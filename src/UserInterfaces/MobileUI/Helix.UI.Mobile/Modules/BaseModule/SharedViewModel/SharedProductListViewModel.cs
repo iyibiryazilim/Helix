@@ -9,6 +9,7 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCo
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -228,6 +229,35 @@ public partial class SharedProductListViewModel :BaseViewModel
 
                 }
                 break;
+            case 7:
+                var salesDispatchService = _serviceProvider.GetService<SalesDispatchListViewModel>();
+				foreach (var product in SelectedProducts)
+                {
+					if (salesDispatchService.Items.ToList().Exists(x => x.Code == product.Code))
+                    {
+						salesDispatchService.Items.ToList().First(x => x.Code == product.Code).StockQuantity += 1;
+
+					}
+					else
+                    {
+						var model = new ProductModel
+                        {
+							ReferenceId = product.ReferenceId,
+							Code = product.Code,
+							Name = product.Name,
+							UnitsetCode = product.UnitsetCode,
+							SubUnitsetCode = product.SubUnitsetCode,
+							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
+							UnitsetReferenceId = product.UnitsetReferenceId,
+							Quantity = 1
+
+						};
+						product.IsSelected = false;
+						salesDispatchService.Items.Add(model);
+					}
+
+				}
+				break;
 
             default:
                 break;
