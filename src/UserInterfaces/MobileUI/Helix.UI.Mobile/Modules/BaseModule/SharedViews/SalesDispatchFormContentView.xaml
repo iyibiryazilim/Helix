@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.SalesDispatchFormContentView"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             x:Name="this"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"  
+             BackgroundColor="{StaticResource Primary}" >
+    <Border  Grid.Row="0"
+             BackgroundColor="{StaticResource WhiteSmoke}"
+             StrokeThickness="0"
+             Padding="5,20,5,10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="*,Auto">
+            <ScrollView>
+                <Grid  Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                       BackgroundColor="{StaticResource WhiteSmoke}">
+
+                    <!-- İrsaliye Türü -->
+
+                    <VerticalStackLayout Grid.Row="0"
+                                         Padding="7">
+                        <Label Text="İrsaliye Türü"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerDispatch"
+                                    Title="Seçiniz.." />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Tarih ve Saat -->
+                    <Grid Grid.Row="1"
+                          Grid.ColumnDefinitions="50*,50*"
+                          Padding="7"
+                          ColumnSpacing="5">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Tarih"
+                                   FontSize="Medium" />
+                            <Border StrokeShape="RoundRectangle 13">
+                                <DatePicker />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Saat"
+                                   FontSize="Medium" />
+                            <Border StrokeShape="RoundRectangle 13">
+                                <TimePicker />
+                            </Border>
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                    <!-- Müşteri -->
+                    <VerticalStackLayout Grid.Row="2"
+                                         Padding="7">
+                        <Label Text="Müşteri Adı"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerCustomer"
+                                    Title="Seçiniz.." />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Sevk Adresi -->
+                    <VerticalStackLayout Grid.Row="3"
+                                         Padding="7">
+                        <Label Text="Sevk Adresi"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerSales"
+                                    Title="Seçiniz.." />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Ambar -->
+                    <VerticalStackLayout Grid.Row="4"
+                                         Padding="7">
+                        <Label Text="Ambar"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerWarehouse"
+                                    Title="Seçiniz.." />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Taşıyıcı -->
+                    <VerticalStackLayout Grid.Row="5"
+                                         Padding="7">
+                        <Label Text="Taşıyıcı Adı"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerCarrier"
+                                    Title="Seçiniz.." />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Şoför -->
+                    <VerticalStackLayout Grid.Row="6"
+                                         Padding="7">
+                        <Label Text="Şoför Adı"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="  Şoför Adı" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Özel Kod -->
+                    <VerticalStackLayout Grid.Row="7"
+                                         Padding="7">
+                        <Label Text="Özel Kod"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Grid ColumnDefinitions="85*,15*">
+                                <Entry Grid.Column="0"
+                                       Placeholder="  Özel Kod Giriniz" />
+                                <ImageButton Grid.Column="1"
+                                             BackgroundColor="Transparent"
+                                             Aspect="AspectFit"
+                                             HeightRequest="22"
+                                             WidthRequest="22">
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="FAS"
+                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
+                                                         Color="{StaticResource DarkPrimary}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Açıklama -->
+                    <VerticalStackLayout Grid.Row="8"
+                                         Padding="7">
+                        <Label Text="Açıklama"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="  Açıklama" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Grid>
+            </ScrollView>
+            <Grid Grid.Row="1">
+                <Button Margin="5"
+                        Text="Kaydet"></Button>
+            </Grid>
+
+        </Grid>
+
+    </Border>
+
+
+
+</ContentView>
