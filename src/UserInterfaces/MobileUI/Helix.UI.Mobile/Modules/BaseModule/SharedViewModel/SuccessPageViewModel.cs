@@ -37,17 +37,19 @@ public partial class SuccessPageViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			//await Shell.Current.GoToAsync("..");
 			switch (GroupType)
 			{
 				case 3:
-                    await Shell.Current.GoToAsync("../../..");
+
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+
                     break;
 					
 				default:
 					break;
 			}
-			//Application.Current.MainPage = new AppShell();
 		}
 		catch (Exception ex)
 		{

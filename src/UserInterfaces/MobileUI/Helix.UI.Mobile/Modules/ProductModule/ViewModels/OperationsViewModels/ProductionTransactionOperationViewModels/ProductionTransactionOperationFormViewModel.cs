@@ -27,6 +27,9 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         string transactionTypeName;
 
         [ObservableProperty]
+        ProductTransactionFormModel productTransactionFormModel;
+
+        [ObservableProperty]
         string searchText = string.Empty;
         [ObservableProperty]
         ProductOrderBy orderBy = ProductOrderBy.nameasc;
@@ -80,7 +83,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [RelayCommand]
         async Task GoToSuccessPageView()
         {
-            await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}");
+            await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+            {
+                ["GroupType"] = 3
+            });
         }
 
 

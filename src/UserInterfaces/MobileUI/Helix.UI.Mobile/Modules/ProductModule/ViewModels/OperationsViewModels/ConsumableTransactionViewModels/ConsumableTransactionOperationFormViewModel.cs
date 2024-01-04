@@ -24,7 +24,7 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
     string transactionTypeName;
 
     [ObservableProperty]
-    ProductTransactionFormModel productTransactionFormModel;
+    ProductTransactionFormModel productTransactionFormModel= new();
 
     [ObservableProperty]
     string searchText = string.Empty;

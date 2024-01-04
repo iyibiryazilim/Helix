@@ -94,8 +94,12 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
 
         if (Items.Any())
         {
-           await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationFormView)}");
            
+            await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationFormView)}", new Dictionary<string, object>
+            {
+                [nameof(ProductModel)] = Items
+            });
+
         }
 
         else
