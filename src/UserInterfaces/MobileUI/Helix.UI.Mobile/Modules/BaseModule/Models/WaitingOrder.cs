@@ -50,5 +50,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		short? status;
 		[ObservableProperty]
 		bool isSelected;
+
+		
 	}
 }
