@@ -4,6 +4,7 @@ using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -38,7 +39,11 @@ public partial class InCountingTransactionOperationViewModel :BaseViewModel
     {
         if (Items.Any())
         {
-            await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationFormView)}");
+            
+            await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationFormView)}", new Dictionary<string, object>
+            {
+                [nameof(ProductModel)] = Items
+            });
         }
 
         else

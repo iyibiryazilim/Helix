@@ -21,7 +21,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="Auto,70*,10*"
+        <Grid RowDefinitions="Auto,70*,Auto"
               RowSpacing="10">
             <Grid Grid.Row="0">
                 <Border StrokeShape="RoundRectangle 20">
@@ -209,8 +209,8 @@
 
 
             <Button Grid.Row="2"
-                    Margin="20"
-                    
+                   
+                     Margin="5"
                     Text="İleri"
                     Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToOperationFormCommand}">
                 
