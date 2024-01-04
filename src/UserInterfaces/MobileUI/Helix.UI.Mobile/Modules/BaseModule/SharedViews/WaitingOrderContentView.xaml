@@ -23,7 +23,7 @@
                                        x:Name="searchBar">
                                 <SearchBar.Behaviors>
                                     <toolkit:EventToCommandBehavior EventName="TextChanged"
-                                                                    Command="{Binding Source={x:Reference this},Path=.,Mode=TwoWay}"
+                                                                    Command="{Binding Source={x:Reference this},Path=SearchCommand,Mode=TwoWay}"
                                                                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
                                 </SearchBar.Behaviors>
                             </SearchBar>
@@ -33,7 +33,7 @@
                             <ImageButton Aspect="AspectFit"
                                          HeightRequest="25"
                                          WidthRequest="25"
-                                         Command="{Binding Source={x:Reference this},Path=SearchCommand}">
+                                         Command="{Binding Source={x:Reference this},Path=SortCommand}">
                                 <ImageButton.Source>
                                     <FontImageSource FontFamily="FAS"
                                                      Color="{StaticResource Primary}"
@@ -44,65 +44,56 @@
                     </Grid>
                 </Border>
             </Grid>
-           
-                <CollectionView  Grid.Row="1" ItemsSource="{Binding Source={x:Reference this},Path= WaitingOrderList}"
-                                RemainingItemsThreshold="10"
-                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}"
-                                EmptyView="Veri yok...">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"
-                                           ItemSpacing="5" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="baseModel:WaitingOrder">
-                            <SwipeView>
-                                <SwipeView.LeftItems>
-                                    <SwipeItems Mode="Execute">
-                                        <SwipeItem BackgroundColor="{StaticResource Success}"
-                                                   Command="{Binding Source={x:Reference this}, Path=.}"
-                                                   CommandParameter="{Binding .}"
-                                                   Text=" Müşteri Seç" />
-                                    </SwipeItems>
-                                </SwipeView.LeftItems>
-                                <Border StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="White"
-                                        Padding="5"
-                                        Margin="10,0,10,0"
-                                        HeightRequest="85">
-                                    <Border.Triggers>
-                                        <DataTrigger Binding="{Binding IsSelected}"
-                                                     TargetType="Border"
-                                                     Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{StaticResource Primary}" />
-                                        </DataTrigger>
-                                    </Border.Triggers>
-                                    <Grid ColumnDefinitions="Auto,*"
-                                          ColumnSpacing="5">
-                                        <Border Grid.Column="0"
-                                                StrokeShape="RoundRectangle 10"
-                                                WidthRequest="75"
-                                                HorizontalOptions="Center"
-                                                Padding="10"
-                                                StrokeThickness="0">
-                                           
-                                        </Border>
-                                        <VerticalStackLayout Grid.Column="1"
-                                                             Padding="5"
-                                                             Spacing="5"
-                                                             HorizontalOptions="Start"
-                                                             VerticalOptions="Center">
-                                            <Label TextColor="{StaticResource Primary}"
-                                                   Text="{Binding Code}"></Label>
-                                            <Label Text="{Binding TransactionTypeName}"></Label>
-                                        </VerticalStackLayout>
-                                    </Grid>
-                                </Border>
-                            </SwipeView>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-       
+            <CollectionView  Grid.Row="1"
+                             ItemsSource="{Binding Source={x:Reference this},Path= WaitingOrderList}"
+                             RemainingItemsThreshold="10"
+                             RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}"
+                             EmptyView="Veri yok...">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="baseModel:WaitingOrder">
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem BackgroundColor="{StaticResource Success}"
+                                               Command="{Binding Source={x:Reference this}, Path=BindingContext.ToggleSelectionCommand}"
+                                               CommandParameter="{Binding .}"
+                                               Text=" Müşteri Seç" />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Border StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="White"
+                                    Padding="5"
+                                    Margin="10,0,10,0"
+                                    HeightRequest="85">
+                                <Border.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected}"
+                                                 TargetType="Border"
+                                                 Value="True">
+                                        <Setter Property="BackgroundColor"
+                                                Value="{StaticResource Primary}" />
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="5"> 
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         Padding="5"
+                                                         Spacing="5"
+                                                         HorizontalOptions="Start"
+                                                         VerticalOptions="Center">
+                                        <Label TextColor="{StaticResource Primary}"
+                                               Text="{Binding Code}"></Label>
+                                        <Label Text="{Binding TransactionTypeName}"></Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Grid Grid.Row="2">
                 <Button Text="İleri"
                         Margin="10,10,10,20"
