@@ -8,9 +8,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores;
 public class SalesOrderDataStore : ISalesOrderService
 {
 	string postUrl = $"/gateway/sales/" + nameof(SalesOrder);
-	public async Task<DataResult<IEnumerable<SalesOrder>>> GetObjects(HttpClient httpClient)
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetObjects(HttpClient httpClient,string search, SalesOrderOrderBy orderBy, int page, int pageSize)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
+		HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl+ $"?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 		DataResult<IEnumerable<SalesOrder>> dataResult = new DataResult<IEnumerable<SalesOrder>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
@@ -188,9 +188,9 @@ public class SalesOrderDataStore : ISalesOrderService
 			return dataResult;
 		}
 	}
-	public async Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code)
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code, string search, SalesOrderOrderBy orderBy, int page, int pageSize)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}");
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 		DataResult<IEnumerable<SalesOrder>> dataResult = new DataResult<IEnumerable<SalesOrder>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
@@ -248,9 +248,9 @@ public class SalesOrderDataStore : ISalesOrderService
 			return dataResult;
 		}
 	}
-	public async Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId)
+	public async Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId, string search, SalesOrderOrderBy orderBy, int page, int pageSize)
 	{
-		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{ReferenceId}");
+		HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{ReferenceId}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 		DataResult<IEnumerable<SalesOrder>> dataResult = new DataResult<IEnumerable<SalesOrder>>();
 		if (responseMessage.IsSuccessStatusCode)
 		{
@@ -309,5 +309,15 @@ public class SalesOrderDataStore : ISalesOrderService
 		}
 	}
 
-	
+	public enum SalesOrderOrderBy
+	{
+		customernamedesc,
+		customernameasc,
+		customercodedesc,
+		customercodeasc,
+		nettotalasc,
+		nettotaldesc,
+		dateasc,
+		datedesc,
+	}
 }
