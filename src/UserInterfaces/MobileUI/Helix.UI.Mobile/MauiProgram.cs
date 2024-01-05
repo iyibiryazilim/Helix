@@ -42,12 +42,14 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderLineViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews;
@@ -296,6 +298,9 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderFormView>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSummaryView>();
+			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSummaryView>();
+			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineLineListView>();
+			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSupplierView>();
 
 
 
@@ -311,14 +316,14 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<PurchaseOperationViewModel>();
 			mauiAppBuilder.Services.AddTransient<SupplierDetailViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSupplierViewModel>();
-
 			mauiAppBuilder.Services.AddScoped<PurchaseDispatchListViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchaseDispatchFormViewModel>();
-
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderFicheViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSummaryViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSupplierViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineLineListViewModel>();
 
 
 

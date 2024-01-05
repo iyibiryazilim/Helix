@@ -111,6 +111,9 @@
                                     Radius="40"
                                     Opacity="0.1" />
                         </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToDispatchByOrderLineCommand}" />
+                        </Border.GestureRecognizers>
                     </Border>
                 </Grid>
             </Grid>

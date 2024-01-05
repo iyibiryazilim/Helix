@@ -8,6 +8,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderLineViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
@@ -67,9 +68,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(SupplierDetailView), typeof(SupplierDetailView));
         Routing.RegisterRoute(nameof(SuccessPageView), typeof(SuccessPageView));
         Routing.RegisterRoute(nameof(FailedPageView), typeof(FailedPageView));
-
         Routing.RegisterRoute(nameof(ConsumableTransactionOperationFormView), typeof(ConsumableTransactionOperationFormView));
-
         Routing.RegisterRoute(nameof(ProductTransactionOperationFormContentView), typeof(ProductTransactionOperationFormContentView));
         Routing.RegisterRoute(nameof(ProductionTransactionOperationFormView), typeof(ProductionTransactionOperationFormView));
         Routing.RegisterRoute(nameof(InCountingTransactionOperationFormView), typeof(InCountingTransactionOperationFormView));
@@ -97,6 +96,9 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSummaryView), typeof(DispatchByPurchaseOrderSummaryView));
 		Routing.RegisterRoute(nameof(WarehouseTransactionContentView), typeof(WarehouseTransactionContentView));
 		Routing.RegisterRoute(nameof(SalesOrderLineContentView), typeof(SalesOrderLineContentView));
+		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineLineListView), typeof(DispatchByPurchaseOrderLineLineListView));
+		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineSupplierView), typeof(DispatchByPurchaseOrderLineSupplierView));
+
 	}
 }
 

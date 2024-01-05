@@ -14,7 +14,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 		{
 			try
 			{
-				HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Code/{Code}?search={search}&includeWaiting=false&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+				HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Code/{Code}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 				DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
 				if (responseMessage.IsSuccessStatusCode)
 				{

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderLineViews.DispatchByPurchaseOrderLineLineListView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels"
+             x:DataType="viewModel:DispatchByPurchaseOrderLineLineListViewModel"
+             Title="{Binding Title}"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetDataCommand}" />
+    </ContentPage.Behaviors>
+    <sharedView:WaitingOrderLineContentView SearchCommand="{Binding SearchCommand}"
+                                            IsBusy="{Binding IsBusy}"
+                                            IsRefreshing="{Binding IsRefreshing}"
+                                            ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                            WaitingOrderLineList="{Binding Result}"
+                                            GoToNextCommand="{Binding GoToSummaryCommand}"
+                                            SortCommand="{Binding SortCommand}" />
+</ContentPage>

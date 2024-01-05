@@ -46,7 +46,7 @@
                 </Border>
             </Grid>
             <RefreshView Grid.Row="1"
-                         IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing}"
+                         IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing,Mode=OneWay}"
                          Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= WaitingOrderLineList}"
