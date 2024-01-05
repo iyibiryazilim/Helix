@@ -18,8 +18,10 @@ public class MappingProfile : Profile
 		CreateMap<WaitingOrderLine, SalesOrderLine>().ReverseMap();
 		CreateMap<WaitingOrder, SalesOrder>().ReverseMap();
 		CreateMap<WaitingOrder, PurchaseOrder>().ReverseMap();
+        CreateMap<Current, Customer>().ReverseMap();
 
 
-	}
+
+    }
 }
 

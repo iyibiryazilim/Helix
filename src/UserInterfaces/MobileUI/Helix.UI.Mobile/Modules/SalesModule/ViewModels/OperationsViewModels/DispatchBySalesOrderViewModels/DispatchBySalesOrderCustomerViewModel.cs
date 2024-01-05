@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
@@ -20,6 +21,8 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
     private readonly ICustomerService _customerService;
     //Lists
     public ObservableCollection<Current> Items { get; } = new();
+    public ObservableCollection<Current> Results { get; } = new();
+
 
     [ObservableProperty]
 	Current selectedCustomer;
@@ -36,11 +39,11 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
     [ObservableProperty]
     int currentPage = 0;
     [ObservableProperty]
-    int pageSize = 20;
+    int pageSize = 5000;
 
     public DispatchBySalesOrderCustomerViewModel(IHttpClientService httpClientService, ICustomerService customerService)
     {
-        Title = "Siparişe Bağlı Sevk İşlemleri";
+        Title = "Müşteri Listesi";
         _httpClientService = httpClientService;
         _customerService = customerService;
         GetCustomersCommand = new Command(async () => await LoadData());
@@ -54,8 +57,38 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
         try
         {
             await Task.Delay(500);
-            //await MainThread.InvokeOnMainThreadAsync(ReloadAsync());
-            await ReloadAsync();
+            await MainThread.InvokeOnMainThreadAsync(GetCustomersAsync);
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+
+        }
+    }
+    async Task GetCustomersAsync()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
+            IsRefreshing = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+            foreach (Current item in result.Data)
+            {
+                Items.Add(item);
+                Results.Add(item);
+            }
+
 
         }
         catch (Exception ex)
@@ -66,6 +99,7 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+            IsRefreshing = false;
         }
     }
     public async Task PerformSearchAsync(string text)
@@ -79,63 +113,34 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
                 if (text.Length >= 3)
                 {
                     SearchText = text;
-                    await ReloadAsync();
+                    Results.Clear();
+                    foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
+                    {
+                        Results.Add(item);
+                    }
                 }
             }
             else
             {
                 SearchText = string.Empty;
-                await ReloadAsync();
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-        }
-        finally
-        {
-            IsBusy = false;
-        }
-    }
-
-    [RelayCommand]
-    async Task LoadMoreAsync()
-    {
-        if (IsBusy)
-            return;
-        try
-        {
-            IsBusy = true;
-            var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-            CurrentPage++;
-            var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-            if (result.Data.Any())
-            {
-                foreach (Customer item in result.Data)
+                Results.Clear();
+                foreach (var item in Items)
                 {
-                    await Task.Delay(50);
-                    Items.Add(item);
+                    Results.Add(item);
                 }
             }
-            else
-            {
-                CurrentPage--;
-            }
-
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-
         }
         finally
         {
             IsBusy = false;
-            IsRefreshing = false;
         }
     }
+
+
 
     [RelayCommand]
     async Task ReloadAsync()
@@ -146,25 +151,16 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
         {
             IsBusy = true;
             IsRefreshing = true;
-			IsRefreshing = false;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-            CurrentPage = 0;
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-            if (result.Data.Any())
+            foreach (Current item in result.Data)
             {
-                Items.Clear();
-                foreach (Customer item in result.Data)
-                {
-                    await Task.Delay(100);
-                    if (item.ReferenceId == SelectedCustomer.ReferenceId)
-                        item.IsSelected = true;
-
-                    Items.Add(item);
-                }
+                Items.Add(item);
+                Results.Add(item);
             }
+
+
         }
         catch (Exception ex)
         {
@@ -177,6 +173,7 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
             IsRefreshing = false;
         }
     }
+
     [RelayCommand]
     async Task SortAsync()
     {
@@ -191,20 +188,32 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
                 switch (response)
                 {
                     case "Kod A-Z":
-                        OrderBy = CustomerOrderBy.codeasc;
-                        await ReloadAsync();
+                        Results.Clear();
+                        foreach (var item in Items.OrderBy(x => x.Code).ToList())
+                        {
+                            Results.Add(item);
+                        }
                         break;
                     case "Kod Z-A":
-                        OrderBy = CustomerOrderBy.codedesc;
-                        await ReloadAsync();
+                        Results.Clear();
+                        foreach (var item in Items.OrderByDescending(x => x.Code).ToList())
+                        {
+                            Results.Add(item);
+                        }
                         break;
                     case "Ad A-Z":
-                        OrderBy = CustomerOrderBy.nameasc;
-                        await ReloadAsync();
+                        Results.Clear();
+                        foreach (var item in Items.OrderBy(x => x.Name).ToList())
+                        {
+                            Results.Add(item);
+                        }
                         break;
                     case "Ad Z-A":
-                        OrderBy = CustomerOrderBy.namedesc;
-                        await ReloadAsync();
+                        Results.Clear();
+                        foreach (var item in Items.OrderByDescending(x => x.Name).ToList())
+                        {
+                            Results.Add(item);
+                        }
                         break;
                     default:
                         await ReloadAsync();
@@ -216,7 +225,7 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+            await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {
@@ -228,7 +237,10 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToSalesOrderFiche()
     {
-        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}");
+        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}", new Dictionary<string, object>
+        {
+            ["Current"] = SelectedCustomer
+        }) ;
     }
 
 	[RelayCommand]

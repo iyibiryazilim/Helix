@@ -6,15 +6,21 @@
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
-             Title="{Binding Title}">
-    <Grid RowDefinitions="Auto,*,Auto">
-        <Grid Grid.Row="2">
-            <Button Text="İleri"
-                    Margin="10,10,10,20"
-                    Command="{Binding GoToSalesOrderSummaryCommand}">
-                
-            </Button>
-        </Grid>
-        
-    </Grid>
+             xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels"
+             x:DataType="viewModel:DispatchBySalesOrderLineListViewModel"
+             Title="{Binding Title}"
+             Shell.TabBarIsVisible="False" BackgroundColor="{StaticResource Primary}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetOrderLinesCommand}" />
+    </ContentPage.Behaviors>
+    <sharedView:WaitingOrderLineContentView ReloadCommand="{Binding ReloadCommand}"
+                                        SearchCommand="{Binding SearchCommand}"
+                                        SortCommand="{Binding SortCommand}"
+                                        WaitingOrderLineList="{Binding Results}"
+                                        IsBusy="{Binding IsBusy}"
+                                        GoToNextCommand="{Binding GoToSalesOrderSummaryCommand}"
+                                        ToggleSelectionCommand="{Binding SelectCommand}"
+                                        IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderLineContentView>
 </ContentPage>
