@@ -4,9 +4,7 @@
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.WarehouseTransactionContentView"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             x:DataType="viewModel:WarehouseTransactionContentViewModel"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              x:Name="this"
              BackgroundColor="{StaticResource Primary}">

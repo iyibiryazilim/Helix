@@ -306,7 +306,7 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder PurchaseRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<SupplierListViewModel>();
-			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<PurchaseOrderLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchasePanelViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchaseOperationViewModel>();
 			mauiAppBuilder.Services.AddTransient<SupplierDetailViewModel>();

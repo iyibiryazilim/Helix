@@ -7,14 +7,14 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels
 {
-    public partial class PurchaseOrderLineLineListViewModel : BaseViewModel
+    public partial class PurchaseOrderLineListViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
         private readonly IPurchaseOrderLineService _purchaseOrderLineService;
         public ObservableCollection<PurchaseOrderLine> Items { get; } = new();
         public Command GetTransactionCommand { get; }
 
-        public PurchaseOrderLineLineListViewModel(IHttpClientService httpClientService, IPurchaseOrderLineService purchaseOrderLineService)
+        public PurchaseOrderLineListViewModel(IHttpClientService httpClientService, IPurchaseOrderLineService purchaseOrderLineService)
         {
             _httpClientService = httpClientService;
             _purchaseOrderLineService = purchaseOrderLineService;
