@@ -9,17 +9,19 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels"
              xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:DataType="viewModel:DispatchBySalesOrderCustomerViewModel"
-             Title="{Binding Title}" BackgroundColor="{StaticResource Primary}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetCustomersCommand}" />
     </ContentPage.Behaviors>
-    <sharedView:CurrentSelectView LoadMoreCommand="{Binding LoadMoreCommand}"
+    <sharedView:CurrentSelectView 
                                   ReloadCommand="{Binding ReloadCommand}"
                                   SearchCommand="{Binding SearchCommand}"
                                   SortCommand="{Binding SortCommand}"
                                   GoToNextCommand="{Binding GoToSalesOrderFicheCommand}"
-                                  CurrentList="{Binding Items}"
+                                  CurrentList="{Binding Results}"
                                   IsBusy="{Binding IsBusy}"
                                   ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                   IsRefreshing="{Binding IsRefreshing}"></sharedView:CurrentSelectView>
