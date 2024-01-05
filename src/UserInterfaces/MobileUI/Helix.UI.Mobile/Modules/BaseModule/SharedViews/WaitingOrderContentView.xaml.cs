@@ -59,14 +59,7 @@ public partial class WaitingOrderContentView : ContentView
 		set => SetValue(GoToLineCommandProperty, value);
 
 	}
-
-	public AsyncRelayCommand ToggleSelectionCommand
-	{
-
-		get => GetValue(ToggleSelectionCommandProperty) as AsyncRelayCommand;
-		set => SetValue(ToggleSelectionCommandProperty, value);
-
-	}
+	 
 	public AsyncRelayCommand ReloadCommand
 	{
 

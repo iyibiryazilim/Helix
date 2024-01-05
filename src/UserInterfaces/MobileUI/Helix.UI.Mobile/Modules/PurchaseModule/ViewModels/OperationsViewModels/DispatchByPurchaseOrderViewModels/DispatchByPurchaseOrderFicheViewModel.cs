@@ -215,8 +215,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				await Task.Delay(500);
 				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
 				{
-					[nameof(Current)] = SelectedCurrent
-				});
+ 				});
 			}
 			catch (Exception ex)
 			{
