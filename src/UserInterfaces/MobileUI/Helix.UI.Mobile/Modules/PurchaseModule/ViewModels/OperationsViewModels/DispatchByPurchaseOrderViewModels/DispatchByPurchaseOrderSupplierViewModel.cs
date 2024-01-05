@@ -6,8 +6,6 @@ using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
-using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
-using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -160,8 +158,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					foreach (Supplier item in result.Data)
 					{
 						await Task.Delay(50);
-						if(item.Code == SelectedCurrent.Code)
-							item.IsSelected = true;
+						if (SelectedCurrent != null)
+						{
+							if (item.Code == SelectedCurrent.Code)
+								item.IsSelected = true;
+						}
 
 						Items.Add(item);
 					}

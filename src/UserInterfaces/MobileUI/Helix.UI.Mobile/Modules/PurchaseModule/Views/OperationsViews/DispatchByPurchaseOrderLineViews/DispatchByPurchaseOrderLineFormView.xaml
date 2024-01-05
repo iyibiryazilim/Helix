@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews.DispatchByPurchaseOrderFormView"
+             x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderLineViews.DispatchByPurchaseOrderLineFormView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
@@ -13,4 +13,5 @@
     <sharedViews:PurchaseDispatchOperationFormContentView>
 
     </sharedViews:PurchaseDispatchOperationFormContentView>
+
 </ContentPage>

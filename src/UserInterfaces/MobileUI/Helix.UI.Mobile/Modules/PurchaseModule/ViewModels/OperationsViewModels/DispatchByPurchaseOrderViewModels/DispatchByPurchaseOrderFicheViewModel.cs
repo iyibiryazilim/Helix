@@ -6,6 +6,7 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -30,10 +31,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		[ObservableProperty]
 		int currentPage = 0;
 		[ObservableProperty]
-		int pageSize = 20;
+		int pageSize = 3000;
 
 		//Lists
 		public ObservableCollection<WaitingOrder> Items { get; } = new();
+		public ObservableCollection<WaitingOrder> Result { get; } = new();
+
 		//Commands
 		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
@@ -55,7 +58,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			try
 			{
 				await Task.Delay(500);
-				await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
+				await MainThread.InvokeOnMainThreadAsync(GetPurchaseOrderAsync);
 
 			}
 			catch (Exception ex)
@@ -66,6 +69,38 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			finally
 			{
 				IsBusy = false;
+			}
+		}
+
+		async Task GetPurchaseOrderAsync()
+		{
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+				IsRefreshing = true;
+				var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+				var result = await _purchaseOrderService.GetObjectsByCurrentCode(httpClient, SearchText, OrderBy,Current.Code, CurrentPage, PageSize);
+				foreach (var item in result.Data)
+				{
+					var obj = Mapping.Mapper.Map<WaitingOrder>(item);
+					Items.Add(obj);
+					Result.Add(obj);
+				}
+
+
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+				IsRefreshing = false;
 			}
 		}
 		public async Task PerformSearchAsync(string text)
@@ -79,13 +114,21 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					if (text.Length >= 3)
 					{
 						SearchText = text;
-						await ReloadAsync();
+						Result.Clear();
+						foreach(var item in Items.ToList().Where(x=>x.Code.Contains(SearchText)))
+						{
+							Result.Add(item);
+						}
 					}
 				}
 				else
 				{
 					SearchText = string.Empty;
-					await ReloadAsync();
+					Result.Clear();
+					foreach (var item in Items)
+					{
+						Result.Add(item);
+					}
 				}
 			}
 			catch (Exception ex)
@@ -99,40 +142,16 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		}
 
 		[RelayCommand]
-		async Task ReloadAsync()
+		private void ToggleSelection(WaitingOrder item)
 		{
-			if (IsBusy)
-				return;
-			try
+			item.IsSelected = !item.IsSelected;
+			 
+			if (item.IsSelected)
 			{
-				IsBusy = true;
-				IsRefreshing = true;
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-				CurrentPage = 0;
-				var result = await _purchaseOrderService.GetObjectsByCurrentCode(httpClient, SearchText, OrderBy,Current.Code,CurrentPage, PageSize);
-				if (result.Data.Any())
-				{
-					Items.Clear();
-					foreach (var item in result.Data)
-					{
-						await Task.Delay(50);
-						var obj = Mapping.Mapper.Map<WaitingOrder>(item);
-						Items.Add(obj);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
-				IsRefreshing = false;
-			}
+				Items.Where(x=>x.Code == item.Code).First().IsSelected = item.IsSelected;
+ 			}
 		}
+
 		[RelayCommand]
 		async Task SortAsync()
 		{
@@ -148,14 +167,26 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					{
 						case "Tarih A-Z":
 							OrderBy = PurchaseOrderOrderBy.datedesc;
-							await ReloadAsync();
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.Date))
+							{
+								Result.Add(item);
+							}
 							break;
 						case "Tarih Z-A":
 							OrderBy = PurchaseOrderOrderBy.dateasc;
-							await ReloadAsync();
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderBy(x => x.Date))
+							{
+								Result.Add(item);
+							}
 							break; 
 						default:
-							await ReloadAsync();
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.Date))
+							{
+								Result.Add(item);
+							}
 							break;
 
 					}
@@ -171,6 +202,26 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				IsBusy = false;
 				IsRefreshing = false;
 			}
+		}
+
+		[RelayCommand]
+		async Task GoToLinesAsync()
+		{
+			if (IsBusy)
+				return;
+
+			try
+			{
+				await Task.Delay(500);
+				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
+				{
+ 				});
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+			}
+
 		}
 	}
 }

@@ -20,8 +20,8 @@ using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionFormViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
-using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationFormViewModel;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
@@ -43,11 +43,13 @@ using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
@@ -62,6 +64,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineFormViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
@@ -75,8 +78,6 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
 using The49.Maui.BottomSheet;
-using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
-using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 
 
 namespace Helix.UI.Mobile
@@ -206,6 +207,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<SuccessPageViewModel>();
 			mauiAppBuilder.Services.AddTransient<FailedPageView>();
 			mauiAppBuilder.Services.AddTransient<FailedPageViewModel>();
+		
 
 
 
@@ -235,7 +237,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<CustomerFastOperationBottomSheetView>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchListView>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormView>();
-
+			mauiAppBuilder.Services.AddTransient<SalesDispatchFormContentView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineFormViewModel>();
 
 
 
@@ -257,6 +260,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<CustomerFastOperationBottomSheetViewModel>();
 			mauiAppBuilder.Services.AddScoped<SalesDispatchListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormViewModel>();
+			mauiAppBuilder.Services.AddTransient<SalesDispatchFormContentViewModel>();
+
 
 
 
