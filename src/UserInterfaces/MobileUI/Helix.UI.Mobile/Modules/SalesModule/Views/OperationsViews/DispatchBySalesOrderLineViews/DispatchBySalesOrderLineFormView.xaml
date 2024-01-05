@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineFormView.DispatchBySalesOrderLineFormView"
-             x:Name="this"
+             x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews.DispatchBySalesOrderLineFormView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineFormViewModels"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
+             xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Shell.TabBarIsVisible="False"
              x:DataType="viewModel:DispatchBySalesOrderLineFormViewModel"
-             Title="{Binding Title}"
-             Shell.TabBarIsVisible="False">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetWarehouseCommand}" />
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetCustomerCommand}" />
-    </ContentPage.Behaviors>
-    <sharedViews:SalesDispatchFormContentView WarehouseList="{Binding WarehouseItems}"
-                                              CustomerList="{Binding CustomerItems}">
+             Title="{Binding Title}">
 
-    </sharedViews:SalesDispatchFormContentView>
+   
 </ContentPage>
