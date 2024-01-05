@@ -15,11 +15,13 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetOrdersCommand}" />
     </ContentPage.Behaviors>
-    <sharedView:WaitingOrderContentView LoadMoreCommand="{Binding LoadMoreCommand}"
+    <sharedView:WaitingOrderContentView 
                                         ReloadCommand="{Binding ReloadCommand}"
-                                        SearchCommand="{Binding SortCommand}"
+                                        SearchCommand="{Binding SearchCommand}"
                                         SortCommand="{Binding SortCommand}"
-                                        WaitingOrderList="{Binding Items}"
+                                        WaitingOrderList="{Binding Results}"
                                         IsBusy="{Binding IsBusy}"
+                                        GoToLineCommand="{Binding GoToSalesOrderLineListCommand}"
+                                        SelectCommand="{Binding SelectCommand}"
                                         IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderContentView>
 </ContentPage>
