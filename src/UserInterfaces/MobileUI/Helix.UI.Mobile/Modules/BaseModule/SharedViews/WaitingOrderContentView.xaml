@@ -60,7 +60,7 @@
                 <Label Text="Tümünü Seç" />
             </HorizontalStackLayout>
             <RefreshView Grid.Row="2"
-                         IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing}"
+                         IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing,Mode=OneWay}"
                          Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView  
@@ -110,7 +110,20 @@
                                                             <Span Text="{Binding Date, StringFormat='{0:dd}'}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
-                                                </Label>
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                                              Binding="{Binding IsSelected}"
+                                                                                              Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                                            Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
                                                 <Label FontAttributes="Bold"
                                                        FontSize="Default"
                                                        HorizontalOptions="Center"
@@ -120,18 +133,58 @@
                                                             <Span Text="{Binding Date, StringFormat='{0:MM.yyyy}'}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
-                                                </Label>
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                                              Binding="{Binding IsSelected}"
+                                                                                              Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                                            Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Grid.Column="2"
                                                                  VerticalOptions="Center"
                                                                  Spacing="5">
-                                                <Label Text="{Binding Code}"
-                                                       FontAttributes="Bold"></Label>
-                                                <Label Text="{Binding CurrentCode}"
-                                                       FontSize="12"></Label>
-                                                <Label Text="{Binding CurrentName}"
-                                                       FontSize="12"></Label>
-                                            </VerticalStackLayout>
+                                                <Label Text="{Binding Code}" VerticalOptions="Start"
+                                                       FontAttributes="Bold">
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                                              Binding="{Binding IsSelected}"
+                                                                                              Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                                            Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                    <Label Text="{Binding WarehouseName}" VerticalOptions="Start"
+       FontAttributes="Bold">
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                        Binding="{Binding IsSelected}"
+                                        Value="True">
+                                                                        <Setter Property="TextColor"
+                                      Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+
+                                                </VerticalStackLayout>
                                             <Image Grid.Column="3"
                                                    HorizontalOptions="Center"
                                                    HeightRequest="15"
@@ -159,16 +212,22 @@
                                         <VerticalStackLayout Spacing="4">
                                             <Label Text="Fiş Numarası"
                                                    TextColor="{StaticResource Primary}" />
-                                            <Label Text="{Binding WarehouseName}" />
+                                            <Label Text="{Binding Code}" />
                                             <BoxView WidthRequest="0.1" />
                                         </VerticalStackLayout>
 
     <VerticalStackLayout Spacing="4">
-        <Label Text="Ambar Adı"
+        <Label Text="Açıklama"
                TextColor="{StaticResource Primary}" />
         <Label Text="{Binding Description}" />
-        <BoxView WidthRequest="0.1" />
-    </VerticalStackLayout>
+                                                <Label Text="Döküman İzleme Numarası"
+         TextColor="{StaticResource Primary}" />
+                                                <Label Text="1111111111" />
+                                                <BoxView WidthRequest="0.1" />
+                                                <Label Text="Belge Numarası"
+         TextColor="{StaticResource Primary}" />
+                                                <Label Text="22222222222" />
+                                            </VerticalStackLayout>
     </VerticalStackLayout>
     </toolkit:Expander.Content>
     </toolkit:Expander>
