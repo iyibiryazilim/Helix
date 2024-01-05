@@ -11,5 +11,11 @@ public interface IProductTransactionLineService
 
 	Task<DataResult<IEnumerable<ProductTransactionLine>>> GetTransactionLinesByTransactionType(HttpClient httpClient, string productCode, string transactionType, string search, ProductTransactionLineOrderBy orderBy, int page, int pageSize);
 
+	Task<DataResult<IEnumerable<ProductTransactionLine>>> GetOutputTransactionLinesByProductId(HttpClient httpClient, int id, string search, ProductTransactionLineOrderBy orderBy, int page, int pageSize);
 
+	Task<DataResult<IEnumerable<ProductTransactionLine>>> GetOutputTransactionLinesByProductCode(HttpClient httpClient, string code, string search, ProductTransactionLineOrderBy orderBy, int page, int pageSize);
+
+	Task<DataResult<IEnumerable<ProductTransactionLine>>> GetInputTransactionLinesByProductId(HttpClient httpClient, int id, string search, ProductTransactionLineOrderBy orderBy, int page, int pageSize);
+
+	Task<DataResult<IEnumerable<ProductTransactionLine>>> GetInputTransactionLinesByProductCode(HttpClient httpClient, string code, string search, ProductTransactionLineOrderBy orderBy, int page, int pageSize);
 }

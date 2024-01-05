@@ -145,6 +145,9 @@
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\SalesDispatchFormContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+    <MauiXaml Update="Modules\BaseModule\SharedViews\SalesOrderLineContentView.xaml">
+ 	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\SharedProductListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -155,6 +158,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\WaitingOrderLineContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\WarehouseTransactionContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\Views\CurrentShowMoreBottomSheetView.xaml">
