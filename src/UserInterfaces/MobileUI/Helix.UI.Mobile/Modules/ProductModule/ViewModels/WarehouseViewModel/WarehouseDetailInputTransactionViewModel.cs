@@ -80,19 +80,19 @@ public partial class WarehouseDetailInputTransactionViewModel : BaseViewModel
 				await Task.Delay(100);
 				switch (response)
 				{
-					case "Ad A-Z":
+					case "Tarihe Göre Azalan":
 						OrderBy = WarehouseTransactionOrderBy.DateDesc;
 						await ReloadAsync();
 						break;
-					case "Ad Z-A":
+					case "Tarihe Göre Artan":
 						OrderBy = WarehouseTransactionOrderBy.DateAsc;
 						await ReloadAsync();
 						break;
-					case "Numaraya Göre Artan":
+					case "Miktara Göre Azalan":
 						OrderBy = WarehouseTransactionOrderBy.QuantityDesc;
 						await ReloadAsync();
 						break;
-					case "Numaraya Göre Azalan":
+					case "Miktara Göre Artan":
 						OrderBy = WarehouseTransactionOrderBy.QuantityAsc;
 						await ReloadAsync();
 						break;
@@ -126,11 +126,17 @@ public partial class WarehouseDetailInputTransactionViewModel : BaseViewModel
 			IsRefreshing = true;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
+			CurrentPage = 0;
 			var result = await _warehouseTransactionService.GetInputTransactionByWarehouseReferenceIdAsync(httpClient, Warehouse.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
 
 			if(result.Data.Any())
 			{
 				Items.Clear();
+				foreach(var item in result.Data)
+				{
+					await Task.Delay(100);
+					Items.Add(item);
+				}
 			}
 		}
 		catch (Exception ex)
@@ -155,6 +161,22 @@ public partial class WarehouseDetailInputTransactionViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+
+			var httpClient = _httpClient.GetOrCreateHttpClient();
+			CurrentPage++;
+			var result = await _warehouseTransactionService.GetInputTransactionByWarehouseReferenceIdAsync(httpClient, Warehouse.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
+			if(result.Data.Any())
+			{
+				foreach(var item in result.Data)
+				{
+					await Task.Delay(100);
+					Items.Add(item);
+				}
+			} 
+			else
+			{
+				CurrentPage--;
+			}
 
 		}
 		catch (Exception ex)
