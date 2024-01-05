@@ -23,7 +23,7 @@
                                        x:Name="searchBar">
                                 <SearchBar.Behaviors>
                                     <toolkit:EventToCommandBehavior EventName="TextChanged"
-                                                                    Command="{Binding Source={x:Reference this},Path=.,Mode=TwoWay}"
+                                                                    Command="{Binding Source={x:Reference this},Path=SearchCommand,Mode=TwoWay}"
                                                                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
                                 </SearchBar.Behaviors>
                             </SearchBar>
@@ -33,7 +33,7 @@
                             <ImageButton Aspect="AspectFit"
                                          HeightRequest="25"
                                          WidthRequest="25"
-                                         Command="{Binding Source={x:Reference this},Path=SearchCommand}">
+                                         Command="{Binding Source={x:Reference this},Path=SortCommand}">
                                 <ImageButton.Source>
                                     <FontImageSource FontFamily="FAS"
                                                      Color="{StaticResource Primary}"
@@ -46,8 +46,6 @@
             </Grid>
            
                 <CollectionView  Grid.Row="1" ItemsSource="{Binding Source={x:Reference this},Path= WaitingOrderList}"
-                                RemainingItemsThreshold="10"
-                                RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}"
                                 EmptyView="Veri yok...">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
@@ -59,46 +57,101 @@
                                 <SwipeView.LeftItems>
                                     <SwipeItems Mode="Execute">
                                         <SwipeItem BackgroundColor="{StaticResource Success}"
-                                                   Command="{Binding Source={x:Reference this}, Path=.}"
-                                                   CommandParameter="{Binding .}"
-                                                   Text=" Müşteri Seç" />
+                                               Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectCommand}"
+                                               CommandParameter="{Binding .}"
+                                                   Text="Fiş Seç" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
-                                <Border StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="White"
-                                        Padding="5"
-                                        Margin="10,0,10,0"
-                                        HeightRequest="85">
-                                    <Border.Triggers>
-                                        <DataTrigger Binding="{Binding IsSelected}"
-                                                     TargetType="Border"
-                                                     Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{StaticResource Primary}" />
-                                        </DataTrigger>
-                                    </Border.Triggers>
-                                    <Grid ColumnDefinitions="Auto,*"
-                                          ColumnSpacing="5">
-                                        <Border Grid.Column="0"
-                                                StrokeShape="RoundRectangle 10"
-                                                WidthRequest="75"
-                                                HorizontalOptions="Center"
-                                                Padding="10"
-                                                StrokeThickness="0">
-                                           
-                                        </Border>
-                                        <VerticalStackLayout Grid.Column="1"
-                                                             Padding="5"
-                                                             Spacing="5"
-                                                             HorizontalOptions="Start"
-                                                             VerticalOptions="Center">
-                                            <Label TextColor="{StaticResource Primary}"
-                                                   Text="{Binding Code}"></Label>
-                                            <Label Text="{Binding TransactionTypeName}"></Label>
+                            <toolkit:Expander x:Name="expander">
+                                <toolkit:Expander.Header>
+                                    <Border BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="10">
+                                        <Border.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected}"
+                                                         TargetType="Border"
+                                                         Value="True">
+                                                <Setter Property="BackgroundColor"
+                                                        Value="{StaticResource Primary}" />
+                                            </DataTrigger>
+                                        </Border.Triggers>
+                                        <Grid ColumnDefinitions="Auto,Auto,*,Auto"
+                                              ColumnSpacing="10"
+                                              Padding="0,0,10,0">
+                                            <VerticalStackLayout Grid.Column="1"
+                                                                 Spacing="4"
+                                                                 Padding="10">
+                                                <Label FontAttributes="Bold"
+                                                       FontSize="Medium"
+                                                       HorizontalOptions="Center"
+                                                       TextColor="{StaticResource Primary}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding Date, StringFormat='{0:dd}'}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label FontAttributes="Bold"
+                                                       FontSize="Default"
+                                                       HorizontalOptions="Center"
+                                                       TextColor="{StaticResource Gray400}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding Date, StringFormat='{0:MM.yyyy}'}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Grid.Column="2"
+                                                                 VerticalOptions="Center"
+                                                                 Spacing="5">
+                                                <Label Text="{Binding Code}"
+                                                       FontAttributes="Bold"></Label>
+                                                <Label Text="{Binding CurrentCode}"
+                                                       FontSize="12"></Label>
+                                                <Label Text="{Binding CurrentName}"
+                                                       FontSize="12"></Label>
+                                            </VerticalStackLayout>
+                                            <Image Grid.Column="3"
+                                                   HorizontalOptions="Center"
+                                                   HeightRequest="15"
+                                                   Margin="0,0,10,0">
+                                                <Image.Source>
+                                                    <FontImageSource FontFamily="FAS"
+                                                                     Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"></FontImageSource>
+                                                </Image.Source>
+                                                <Image.Triggers>
+                                                    <DataTrigger TargetType="Image"
+                                                                 Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                                                 Value="True">
+                                                        <Setter Property="Rotation"
+                                                                Value="180"></Setter>
+                                                    </DataTrigger>
+                                                </Image.Triggers>
+                                            </Image>
+                                        </Grid>
+                                    </Border>
+                                </toolkit:Expander.Header>
+                                <toolkit:Expander.Content>
+                                    <VerticalStackLayout Margin="20,10,5,0"
+                                                         Spacing="4">
+                                        <VerticalStackLayout Spacing="4">
+                                            <Label Text="Fiş Numarası"
+                                                   TextColor="{StaticResource Primary}" />
+                                            <Label Text="{Binding WarehouseName}" />
+                                            <BoxView WidthRequest="0.1" />
                                         </VerticalStackLayout>
-                                    </Grid>
-                                </Border>
-                            </SwipeView>
+                                        <VerticalStackLayout Spacing="4">
+                                            <Label Text="Ambar Adı"
+                                                   TextColor="{StaticResource Primary}" />
+                                            <Label Text="{Binding Description}" />
+                                            <BoxView WidthRequest="0.1" />
+                                        </VerticalStackLayout>
+                                    </VerticalStackLayout>
+                                </toolkit:Expander.Content>
+                            </toolkit:Expander>
+                        </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -106,7 +159,7 @@
             <Grid Grid.Row="2">
                 <Button Text="İleri"
                         Margin="10,10,10,20"
-                        Command="{Binding Source={x:Reference this},Path=.}"></Button>
+                        Command="{Binding Source={x:Reference this},Path=GoToLineCommand}"></Button>
             </Grid>
         </Grid>
     </Border>
