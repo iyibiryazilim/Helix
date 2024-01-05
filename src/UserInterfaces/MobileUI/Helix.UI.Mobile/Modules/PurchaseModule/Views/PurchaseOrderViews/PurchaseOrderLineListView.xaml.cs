@@ -4,8 +4,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
 
 public partial class PurchaseOrderLineListView : ContentPage
 {
-	PurchaseOrderLineLineListViewModel _viewModel;
-	public PurchaseOrderLineListView(PurchaseOrderLineLineListViewModel viewModel)
+	PurchaseOrderLineListViewModel _viewModel;
+	public PurchaseOrderLineListView(PurchaseOrderLineListViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = viewModel;

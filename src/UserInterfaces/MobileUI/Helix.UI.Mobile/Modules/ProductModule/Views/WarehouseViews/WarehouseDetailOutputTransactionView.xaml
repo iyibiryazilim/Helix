@@ -6,13 +6,12 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel"
              x:DataType="viewModel:WarehouseDetailOutputTransactionViewModel"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             Title="{Binding Title}"
-             Shell.PresentationMode="ModalAnimated">
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Title}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWarehouseDetailOutputTransactionsCommand}" />
     </ContentPage.Behaviors>
-    <sharedViews:WarehouseTransactionContentView Title="{Binding Title}"
-                                             Items="{Binding Items}"
+    <sharedViews:WarehouseTransactionContentView Items="{Binding Items}"
                                              IsBusy="{Binding IsBusy}"
                                              IsRefreshing="{Binding IsRefreshing}"
                                              GoToBackCommand="{Binding GoToBackCommand}"

@@ -95,6 +95,118 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task LoadMoreAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			IsRefreshing = true;
+
+			var httpClient = _httpClientService.GetOrCreateHttpClient();
+			CurrentPage++;
+			var result = await _salesOrderLineService.GetObjects(httpClient, IncludeWaiting, SearchText, OrderBy, CurrentPage, PageSize);
+			if (result.Data.Any())
+			{
+				foreach (var item in result.Data)
+				{
+					await Task.Delay(100);
+					Items.Add(item);
+				}
+			}
+			else
+			{
+				CurrentPage--;
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Load More Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task SortAsync()
+	{
+		if (IsBusy)
+			return;
+
+		try
+		{
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Müşteri Adı A-Z", "Müşteri Adı Z-A", "Müşteri Kodu A-Z", "Müşteri Kodu Z-A");
+			if (!string.IsNullOrEmpty(response))
+			{
+				CurrentPage = 0;
+				await Task.Delay(100);
+				switch (response)
+				{
+					case "Tarihe Göre Artan":
+						OrderBy = SalesOrdersLineOrderBy.duedateasc;
+						await ReloadAsync();
+						break;
+					case "Tarihe Göre Azalan":
+						OrderBy = SalesOrdersLineOrderBy.duedatedesc;
+						await ReloadAsync();
+						break;
+					case "Ürün Adı A-Z":
+						OrderBy = SalesOrdersLineOrderBy.productnameasc;
+						await ReloadAsync();
+						break;
+					case "Ürün Adı Z-A":
+						OrderBy = SalesOrdersLineOrderBy.productnamedesc;
+						await ReloadAsync();
+						break;
+					case "Ürün Kodu A-Z":
+						OrderBy = SalesOrdersLineOrderBy.productcodeasc;
+						await ReloadAsync();
+						break;
+					case "Ürün Kodu Z-A":
+						OrderBy = SalesOrdersLineOrderBy.productcodedesc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Adı A-Z":
+						OrderBy = SalesOrdersLineOrderBy.customernameasc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Adı Z-A":
+						OrderBy = SalesOrdersLineOrderBy.customernamedesc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Kodu A-Z":
+						OrderBy = SalesOrdersLineOrderBy.customercodeasc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Kodu Z-A":
+						OrderBy = SalesOrdersLineOrderBy.customercodedesc;
+						await ReloadAsync();
+						break;
+
+					default:
+						await ReloadAsync();
+						break;
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Sort Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+
+	}
+
 	async Task PerformSearchAsync(string text)
 	{
 		if (IsBusy)

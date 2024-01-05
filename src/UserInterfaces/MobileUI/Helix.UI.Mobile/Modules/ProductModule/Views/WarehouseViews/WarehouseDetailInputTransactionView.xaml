@@ -5,14 +5,13 @@
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseDetailInputTransactionView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel"
              x:DataType="viewModel:WarehouseDetailInputTransactionViewModel"
-             Title="{Binding Title}"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             Shell.PresentationMode="ModalAnimated">
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Title}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWarehouseDetailInputTransactionsCommand}" />
     </ContentPage.Behaviors>
-    <sharedViews:WarehouseTransactionContentView Title="{Binding Title}"
-                                                 Items="{Binding Items}"
+    <sharedViews:WarehouseTransactionContentView Items="{Binding Items}"
                                                  IsBusy="{Binding IsBusy}"
                                                  IsRefreshing="{Binding IsRefreshing}"
                                                  GoToBackCommand="{Binding GoToBackCommand}"
