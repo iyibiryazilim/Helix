@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -18,6 +19,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		IHttpClientService _httpClientService;
 
 		public ObservableCollection<WaitingOrderLine> Items { get; } = new();
+		public ObservableCollection<WaitingOrderLine> Result { get; } = new();
 
 		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
@@ -31,7 +33,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		[ObservableProperty]
 		int pageSize = 20;
 		[ObservableProperty]
-		WaitingOrder waitingOrder;
+		List<WaitingOrder> waitingOrder;
 
 		public DispatchByPurchaseOrderLineListViewModel(IPurchaseOrderLineService purchaseOrderLineService, IHttpClientService httpClientService)
 		{
@@ -53,7 +55,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			try
 			{
 				await Task.Delay(500);
-				await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
+				await MainThread.InvokeOnMainThreadAsync(GetLinesAsync);
 
 			}
 			catch (Exception ex)
@@ -77,67 +79,45 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					if (text.Length >= 3)
 					{
 						SearchText = text;
-						await ReloadAsync();
+						Result.Clear();
+						foreach (var item in Items.ToList().Where(x => x.ProductCode.Contains(SearchText) || x.ProductName.Contains(SearchText)))
+						{
+							Result.Add(item);
+						}
 					}
 				}
 				else
 				{
 					SearchText = string.Empty;
-					await ReloadAsync();
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
-
-		[RelayCommand]
-		async Task LoadMoreAsync()
-		{
-			if (IsBusy)
-				return;
-			try
-			{
-				IsBusy = true;
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-				CurrentPage++;
-				var result = await _purchaseOrderLineService.GetWaitingOrderByCode(httpClient, SearchText, OrderBy, WaitingOrder.Code, CurrentPage, PageSize);
-				if (result.Data.Any())
-				{
-					foreach (var item in result.Data)
+					Result.Clear();
+					foreach (var item in Items)
 					{
-						await Task.Delay(50);
-						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-						Items.Add(obj);
+						Result.Add(item);
 					}
 				}
-				else
-				{
-					CurrentPage--;
-				}
-
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
-
 			}
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
 			}
 		}
 
 		[RelayCommand]
-		async Task ReloadAsync()
+		private void ToggleSelection(WaitingOrderLine item)
+		{
+			item.IsSelected = !item.IsSelected;
+
+			if (item.IsSelected)
+			{
+				Items.Where(x => x.ReferenceId == item.ReferenceId).First().IsSelected = item.IsSelected;
+			}
+		}
+
+		public async Task GetLinesAsync()
 		{
 			if (IsBusy)
 				return;
@@ -145,18 +125,22 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			{
 				IsBusy = true;
 				IsRefreshing = true;
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
+				IsRefreshing = false;
 
-				CurrentPage = 0;
-				var result = await _purchaseOrderLineService.GetWaitingOrderByCode(httpClient, SearchText, OrderBy, WaitingOrder.Code, CurrentPage, PageSize);
-				if (result.Data.Any())
+				var httpClient = _httpClientService.GetOrCreateHttpClient();
+				if (Items.Any())
 				{
 					Items.Clear();
+					Result.Clear();
+				}
+				foreach (var fiche in WaitingOrder)
+				{
+					var result = await _purchaseOrderLineService.GetWaitingOrderByCode(httpClient, SearchText, OrderBy, fiche.Code, CurrentPage, PageSize);
 					foreach (var item in result.Data)
 					{
-						await Task.Delay(50);
 						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
 						Items.Add(obj);
+						Result.Add(obj);
 					}
 				}
 			}
@@ -168,7 +152,6 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
 			}
 		}
 
@@ -178,31 +161,75 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Malzeme Kodu A-Z", "Malzeme Kodu Z-A", "Malzeme Ad A-Z", "Malzeme Ad Z-A");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarih A-Z", "Tarih Z-A","Malzeme Adı A-Z","Malzeme Adı Z-A", "Malzeme Kodu A-Z", "Malzeme Kodu Z-A", "Miktar A-Z","Miktar Z-A");
 				if (!string.IsNullOrEmpty(response))
 				{
 					CurrentPage = 0;
 					await Task.Delay(100);
 					switch (response)
 					{
+						case "Tarih A-Z":
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.DueDate))
+							{
+								Result.Add(item);
+							}
+							break;
+						case "Tarih Z-A":
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderBy(x => x.DueDate))
+							{
+								Result.Add(item);
+							}
+							break;
+						case "Malzeme Adı A-Z":
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.ProductName))
+							{
+								Result.Add(item);
+							}
+							break;
+						case "Malzeme Adı Z-A":
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderBy(x => x.ProductName))
+							{
+								Result.Add(item);
+							}
+							break;
 						case "Malzeme Kodu A-Z":
-							OrderBy = PurchaseOrderLineOrderBy.productcodeasc;
-							await ReloadAsync();
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.ProductCode))
+							{
+								Result.Add(item);
+							}
 							break;
 						case "Malzeme Kodu Z-A":
-							OrderBy = PurchaseOrderLineOrderBy.productcodedesc;
-							await ReloadAsync();
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderBy(x => x.ProductCode))
+							{
+								Result.Add(item);
+							}
 							break;
-						case "Malzeme Ad A-Z":
-							OrderBy = PurchaseOrderLineOrderBy.productnameasc;
-							await ReloadAsync();
+						case "Miktar A-Z":
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.WaitingQuantity))
+							{
+								Result.Add(item);
+							}
 							break;
-						case "Malzeme Ad Z-A":
-							OrderBy = PurchaseOrderLineOrderBy.productnamedesc;
-							await ReloadAsync();
+						case "Miktar Z-A":
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderBy(x => x.WaitingQuantity))
+							{
+								Result.Add(item);
+							}
 							break;
 						default:
-							await ReloadAsync();
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.DueDate))
+							{
+								Result.Add(item);
+							}
 							break;
 
 					}
@@ -211,13 +238,35 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
 				IsBusy = false;
 				IsRefreshing = false;
 			}
+		}
+
+		[RelayCommand]
+		async Task GoToSummaryAsync()
+		{
+			if (IsBusy)
+				return;
+
+			try
+			{
+				var result = Items.Where(x => x.IsSelected).ToList();
+				await Task.Delay(500);
+				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSummaryView)}", new Dictionary<string, object>
+				{
+					[nameof(WaitingOrderLine)] = result
+				});
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+
 		}
 	}
 }

@@ -80,17 +80,22 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
+
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				var result = await _purchaseOrderService.GetObjectsByCurrentCode(httpClient, SearchText, OrderBy,Current.Code, CurrentPage, PageSize);
+				if (Items.Any())
+				{
+					Items.Clear();
+					Result.Clear();
+				}
 				foreach (var item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrder>(item);
 					Items.Add(obj);
 					Result.Add(obj);
-				}
-
-
+				} 
 			}
 			catch (Exception ex)
 			{
@@ -212,10 +217,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 			try
 			{
+				var result = Items.Where(x=>x.IsSelected).ToList();
 				await Task.Delay(500);
 				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
 				{
- 				});
+					[nameof(WaitingOrder)] = result
+				});
 			}
 			catch (Exception ex)
 			{

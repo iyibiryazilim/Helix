@@ -1,6 +1,7 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
@@ -11,24 +12,40 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 
 		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrderByCode(HttpClient httpClient,string search, PurchaseOrderLineOrderBy orderBy, string Code,int page,int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Code/{Code}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
-			DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
-			if (responseMessage.IsSuccessStatusCode)
+			try
 			{
-				var data = await responseMessage.Content.ReadAsStringAsync();
-				if (data != null)
+				HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Code/{Code}?search={search}&includeWaiting=false&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+				DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
+				if (responseMessage.IsSuccessStatusCode)
 				{
-					if (!string.IsNullOrEmpty(data))
+					var data = await responseMessage.Content.ReadAsStringAsync();
+					if (data != null)
 					{
-						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
+						if (!string.IsNullOrEmpty(data))
 						{
-							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-						});
+							var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
+							{
+								PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+							});
 
-						dataResult.Data = result?.Data;
-						dataResult.IsSuccess = true;
-						dataResult.Message = "success";
-						return dataResult;
+							dataResult.Data = result?.Data;
+							dataResult.IsSuccess = true;
+							dataResult.Message = "success";
+							return dataResult;
+
+						}
+						else
+						{
+							var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
+							{
+								PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+							});
+
+							dataResult.Data = result?.Data;
+							dataResult.IsSuccess = true;
+							dataResult.Message = "empty";
+							return dataResult;
+						}
 
 					}
 					else
@@ -38,41 +55,33 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 						});
 
-						dataResult.Data = result?.Data;
-						dataResult.IsSuccess = true;
-						dataResult.Message = "empty";
+						dataResult.Data = null;
+						dataResult.IsSuccess = false;
+						dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
 						return dataResult;
 					}
+
 
 				}
 				else
 				{
-					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
-					{
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-					});
-
 					dataResult.Data = null;
 					dataResult.IsSuccess = false;
 					dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
-
 					return dataResult;
 				}
-
-
 			}
-			else
+			catch (Exception ex)
 			{
-				dataResult.Data = null;
-				dataResult.IsSuccess = false;
-				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
-				return dataResult;
+				Debug.WriteLine(ex.Message);
+				throw;
 			}
 		}
 
 		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrderById(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Id/{ReferenceId}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Fiche/Id/{ReferenceId}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
