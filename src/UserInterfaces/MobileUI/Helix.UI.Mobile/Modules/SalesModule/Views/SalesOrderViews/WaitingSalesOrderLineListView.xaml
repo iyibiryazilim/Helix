@@ -6,11 +6,17 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:DataType="viewModel:WaitingSalesOrderLineListViewModel"
-             Title="WaitingSalesOrderLineListView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWaitingSalesOrderLinesCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:SalesOrderLineContentView   IsBusy="{Binding IsBusy}"
+                                             IsRefreshing="{Binding IsRefreshing}"
+                                             Items="{Binding Items}"
+                                             SearchCommand="{Binding PerformSearchCommand}"
+                                             ReloadCommand="{Binding ReloadCommand}"
+                                             SortCommand="{Binding SortCommand}"
+                                             LoadMoreCommand="{Binding LoadMoreCommand}"
+                                             Title="{Binding Title}"
+                                             />
 </ContentPage>

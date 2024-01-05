@@ -51,7 +51,7 @@
                 </Border>
             </Grid>
             <RefreshView Grid.Row="1"
-                         IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing}"
+                         IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing,Mode=OneWay}"
                          Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= CurrentList}"
@@ -102,9 +102,69 @@
                                                              Spacing="5"
                                                              HorizontalOptions="Start"
                                                              VerticalOptions="Center">
-                                            <Label TextColor="{StaticResource Primary}"
-                                                   Text="{Binding Name}"></Label>
-                                            <Label Text="{Binding Code}"></Label>
+                                            <Label FontAttributes="Bold"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding Name}">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="TextColor"
+                                                                Value="Black" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                                         Binding="{Binding IsSelected}"
+                                                                         Value="True">
+                                                                <Setter Property="TextColor"
+                                                                        Value="White" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                            <Label Text="{Binding Code}">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="TextColor"
+                                                                Value="Black" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                                         Binding="{Binding IsSelected}"
+                                                                         Value="True">
+                                                                <Setter Property="TextColor"
+                                                                        Value="{StaticResource Warning}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Grid>
+                                                    <Image Aspect="AspectFit"
+                                                           HeightRequest="15"
+                                                           WidthRequest="15">
+                                                        <Image.Source>
+                                                            <FontImageSource FontFamily="FAS"
+                                                                             Color="{StaticResource Warning}"
+                                                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}"></FontImageSource>
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Grid>
+                                                <Label Text="{Binding ReferenceCount}">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="TextColor"
+                                                                    Value="Black" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding IsSelected}"
+                                                                             Value="True">
+                                                                    <Setter Property="TextColor"
+                                                                            Value="{StaticResource Warning}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </HorizontalStackLayout>
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Border>

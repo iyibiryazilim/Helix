@@ -5,7 +5,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 	public partial class WaitingOrder : ObservableObject
 	{
 		[ObservableProperty]
-		int? referenceId;
+		int referenceId;
 		[ObservableProperty]
 		DateTime? date;
 		[ObservableProperty]

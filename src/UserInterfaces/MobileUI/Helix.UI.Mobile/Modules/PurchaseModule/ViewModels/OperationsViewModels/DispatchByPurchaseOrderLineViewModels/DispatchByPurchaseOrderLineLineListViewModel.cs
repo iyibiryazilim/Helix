@@ -4,17 +4,20 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderLineViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
+
+namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels
 {
-	[QueryProperty(nameof(WaitingOrder), nameof(WaitingOrder))]
-	public partial class DispatchByPurchaseOrderLineListViewModel : BaseViewModel
-    {
+	[QueryProperty(nameof(Current), nameof(Current))]
+	public partial class DispatchByPurchaseOrderLineLineListViewModel : BaseViewModel
+	{
 		IPurchaseOrderLineService _purchaseOrderLineService;
 		IHttpClientService _httpClientService;
 
@@ -33,9 +36,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		[ObservableProperty]
 		int pageSize = 20;
 		[ObservableProperty]
-		List<WaitingOrder> waitingOrder;
+		Supplier current;
 
-		public DispatchByPurchaseOrderLineListViewModel(IPurchaseOrderLineService purchaseOrderLineService, IHttpClientService httpClientService)
+		public DispatchByPurchaseOrderLineLineListViewModel(IPurchaseOrderLineService purchaseOrderLineService, IHttpClientService httpClientService)
 		{
 			Title = "Satır Seçimi";
 
@@ -133,15 +136,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					Items.Clear();
 					Result.Clear();
 				}
-				foreach (var fiche in WaitingOrder)
+				var result = await _purchaseOrderLineService.GetWaitingOrdersByCurrentCode(httpClient, SearchText, OrderBy, Current.Code, CurrentPage, PageSize);
+				foreach (var item in result.Data)
 				{
-					var result = await _purchaseOrderLineService.GetWaitingOrderByCode(httpClient, SearchText, OrderBy, fiche.Code, CurrentPage, PageSize);
-					foreach (var item in result.Data)
-					{
-						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-						Items.Add(obj);
-						Result.Add(obj);
-					}
+					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+					Items.Add(obj);
+					Result.Add(obj);
 				}
 			}
 			catch (Exception ex)
@@ -161,7 +161,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarih A-Z", "Tarih Z-A","Malzeme Adı A-Z","Malzeme Adı Z-A", "Malzeme Kodu A-Z", "Malzeme Kodu Z-A", "Miktar A-Z","Miktar Z-A");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarih A-Z", "Tarih Z-A", "Malzeme Adı A-Z", "Malzeme Adı Z-A", "Malzeme Kodu A-Z", "Malzeme Kodu Z-A", "Miktar A-Z", "Miktar Z-A");
 				if (!string.IsNullOrEmpty(response))
 				{
 					CurrentPage = 0;
@@ -257,7 +257,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			{
 				var result = Items.Where(x => x.IsSelected).ToList();
 				await Task.Delay(500);
-				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSummaryView)}", new Dictionary<string, object>
+				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
 				{
 					[nameof(WaitingOrderLine)] = result
 				});

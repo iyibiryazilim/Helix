@@ -13,7 +13,10 @@
                                         Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderContentView WaitingOrderList="{Binding Result}"
+                                        IsBusy="{Binding IsBusy}"
+                                        IsRefreshing="{Binding IsRefreshing}"
                                         SelectCommand="{Binding ToggleSelectionCommand}"
                                         SearchCommand="{Binding SearchCommand}"
+                                        GoToLineCommand="{Binding GoToLinesCommand}"
                                         SortCommand="{Binding SortCommand}"></sharedView:WaitingOrderContentView>
 </ContentPage>
