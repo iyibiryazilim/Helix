@@ -13,6 +13,7 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPur
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Microsoft.Maui.Hosting;
@@ -98,6 +99,10 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(SalesOrderLineContentView), typeof(SalesOrderLineContentView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineLineListView), typeof(DispatchByPurchaseOrderLineLineListView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineSupplierView), typeof(DispatchByPurchaseOrderLineSupplierView));
+		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineCustomerView), typeof(DispatchBySalesOrderLineCustomerView));
+		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineLineListView), typeof(DispatchBySalesOrderLineLineListView));
+		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineFormView), typeof(DispatchBySalesOrderLineFormView));
+		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSummaryView), typeof(DispatchBySalesOrderLineSummaryView));
 
 	}
 }

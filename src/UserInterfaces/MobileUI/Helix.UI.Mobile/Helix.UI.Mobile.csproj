@@ -352,9 +352,6 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\SalesModule\ViewModels\OperationsViewModels\DispatchBySalesOrderLineFormViewModels\DispatchBySalesOrderLineFormViewModel.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\BasketViews\BasketView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -367,7 +364,16 @@
 	  <MauiXaml Update="Modules\SalesModule\Views\CustomerViews\CustomerListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineFormView\DispatchBySalesOrderLineFormView.xaml">
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineCustomerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineSummaryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderCustomerView.xaml">

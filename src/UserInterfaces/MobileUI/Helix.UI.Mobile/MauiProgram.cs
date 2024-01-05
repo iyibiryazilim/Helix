@@ -66,7 +66,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineFormViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
@@ -74,6 +74,7 @@ using Helix.UI.Mobile.Modules.SalesModule.ViewModels.SalesOrderViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.Views.BasketViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
@@ -241,6 +242,10 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormView>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormContentView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineFormViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineCustomerView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineFormView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineListView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSummaryView>();
 
 
 
@@ -263,6 +268,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddScoped<SalesDispatchListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormContentViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineCustomerViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineFormViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSummaryViewModel>();
+
+
 
 
 

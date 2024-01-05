@@ -10,18 +10,19 @@
              xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
              Shell.TabBarIsVisible="False"
-             Title="{Binding Title}">
+             Title="{Binding Title}" BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetOrdersCommand}" />
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderContentView 
-                                        ReloadCommand="{Binding ReloadCommand}"
+                                        ReloadCommand="{Binding GetOrdersCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         SortCommand="{Binding SortCommand}"
                                         WaitingOrderList="{Binding Results}"
                                         IsBusy="{Binding IsBusy}"
                                         GoToLineCommand="{Binding GoToSalesOrderLineListCommand}"
                                         SelectCommand="{Binding SelectCommand}"
+                                        CheckedChangeCommand="{Binding SelectAllCommand}"
                                         IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderContentView>
 </ContentPage>

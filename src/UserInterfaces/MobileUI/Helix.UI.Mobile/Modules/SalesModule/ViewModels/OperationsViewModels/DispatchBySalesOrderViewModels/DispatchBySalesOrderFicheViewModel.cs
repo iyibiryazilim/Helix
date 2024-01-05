@@ -16,6 +16,8 @@ using static Helix.UI.Mobile.Modules.SalesModule.DataStores.SalesOrderDataStore;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 
+[QueryProperty(nameof(Current), nameof(Current))]
+
 public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 {
 	IHttpClientService _httpClientService;
@@ -28,8 +30,10 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 
 	public Command GetOrdersCommand { get; }
 	public Command SearchCommand { get; }
+    public Command SelectAllCommand { get; }
 
-	[ObservableProperty]
+
+    [ObservableProperty]
 	string searchText = string.Empty;
 	[ObservableProperty]
 	SalesOrderOrderBy orderBy = SalesOrderOrderBy.datedesc;
@@ -39,14 +43,15 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 	int pageSize = 20000;
 
 	[ObservableProperty]
-	Current current;
+	Customer current;
 	public DispatchBySalesOrderFicheViewModel(IHttpClientService httpClientService, ISalesOrderService salesOrderService)
 	{
 		_httpClientService = httpClientService;
 		_salesOrderService = salesOrderService;
 		GetOrdersCommand = new Command(async () => await LoadData());
 		SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
-		Title = "Bekleyen Satış Siparişleri";
+        SelectAllCommand =new Command<bool> (async (isSelected) => await SelectAllAsync(isSelected));
+        Title = "Bekleyen Satış Siparişleri";
 	}
 
 	async Task LoadData()
@@ -67,8 +72,10 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		finally
 		{
 			IsBusy = false;
-		}
-	}
+            IsRefreshing = false;
+
+        }
+    }
 	async Task GetSalesOrdersAsync()
 	{
 		if (IsBusy)
@@ -79,7 +86,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			IsRefreshing = true;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-			var result = await _salesOrderService.GetObjects(httpClient,SearchText,OrderBy, CurrentPage,PageSize);
+			var result = await _salesOrderService.GetObjectsByCurrentId(httpClient,Current.ReferenceId,SearchText,OrderBy, CurrentPage,PageSize);
 			foreach (SalesOrder item in result.Data)
 			{
 				var obj = Mapping.Mapper.Map<WaitingOrder>(item);
@@ -150,7 +157,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			CurrentPage = 0;
-			var result = await _salesOrderService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+			var result = await _salesOrderService.GetObjectsByCurrentId(httpClient,Current.ReferenceId ,SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{
 				Items.Clear();
@@ -254,5 +261,24 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		});
     }
 
-  
+
+    public async Task SelectAllAsync(bool isSelected)
+    {
+		if (isSelected)
+		{
+			foreach (var item in Results)
+			{
+				item.IsSelected = true;
+			}
+		}
+		else
+		{
+            foreach (var item in Results)
+            {
+                item.IsSelected = false;
+            }
+        }
+    }
+
+
 }
