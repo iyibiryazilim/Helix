@@ -94,10 +94,11 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
             <Grid Grid.Row="2">
                 <Button Text="İleri"
                         Margin="10,10,10,20"
-                        Command="{Binding Source={x:Reference this},Path=.}"></Button>
+                        Command="{Binding Source={x:Reference this},Path=GoToLineCommand}"></Button>
             </Grid>
         </Grid>
     </Border>

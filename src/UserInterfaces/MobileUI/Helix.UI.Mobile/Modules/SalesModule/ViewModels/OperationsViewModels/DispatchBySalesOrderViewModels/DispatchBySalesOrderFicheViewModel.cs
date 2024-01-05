@@ -3,9 +3,12 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -19,7 +22,12 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 	private readonly ISalesOrderService _salesOrderService;
 
 	public ObservableCollection<WaitingOrder> Items { get; } = new();
+	public ObservableCollection<WaitingOrder> Results { get; } = new();
+	public ObservableCollection<WaitingOrder> SelectedOrders { get; } = new();
+
+
 	public Command GetOrdersCommand { get; }
+	public Command SearchCommand { get; }
 
 	[ObservableProperty]
 	string searchText = string.Empty;
@@ -28,7 +36,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 	[ObservableProperty]
 	int currentPage = 0;
 	[ObservableProperty]
-	int pageSize = 3000;
+	int pageSize = 20000;
 
 	[ObservableProperty]
 	Current current;
@@ -37,6 +45,8 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		_httpClientService = httpClientService;
 		_salesOrderService = salesOrderService;
 		GetOrdersCommand = new Command(async () => await LoadData());
+		SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+		Title = "Bekleyen Satış Siparişleri";
 	}
 
 	async Task LoadData()
@@ -74,6 +84,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			{
 				var obj = Mapping.Mapper.Map<WaitingOrder>(item);
 				Items.Add(obj);
+				Results.Add(obj);
 			}
 
 
@@ -89,44 +100,41 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			IsRefreshing = false;
 		}
 	}
-
-	[RelayCommand]
-	async Task LoadMoreAsync()
+	public async Task PerformSearchAsync(string text)
 	{
 		if (IsBusy)
 			return;
 		try
 		{
-			IsBusy = true;
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-			CurrentPage++;
-			var result = await _salesOrderService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-			if (result.Data.Any())
+			if (!string.IsNullOrEmpty(text))
 			{
-				foreach (var item in result.Data)
+				if (text.Length >= 3)
 				{
-					await Task.Delay(50);
-					var obj = Mapping.Mapper.Map<WaitingOrder>(item);
-					Items.Add(obj);
+					SearchText = text;
+					Results.Clear();
+					foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText)||x.CurrentName.Contains(SearchText) || x.CurrentCode.Contains(SearchText)))
+					{
+						Results.Add(item);
+					}
 				}
 			}
 			else
 			{
-				CurrentPage--;
+				SearchText = string.Empty;
+				Results.Clear();
+				foreach (var item in Items)
+				{
+					Results.Add(item);
+				}
 			}
-
 		}
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
-
 		}
 		finally
 		{
 			IsBusy = false;
-			IsRefreshing = false;
 		}
 	}
 
@@ -148,9 +156,9 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 				Items.Clear();
 				foreach (var item in result.Data)
 				{
-					await Task.Delay(50);
 					var obj = Mapping.Mapper.Map<WaitingOrder>(item);
 					Items.Add(obj);
+					Results.Add(obj);
 				}
 			}
 		}
@@ -172,35 +180,33 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		if (IsBusy) return;
 		try
 		{
-			//string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Malzeme Kodu A-Z", "Malzeme Kodu Z-A", "Malzeme Ad A-Z", "Malzeme Ad Z-A");
-			//if (!string.IsNullOrEmpty(response))
-			//{
-			//	CurrentPage = 0;
-			//	await Task.Delay(100);
-			//	switch (response)
-			//	{
-			//		case "Malzeme Kodu A-Z":
-			//			OrderBy = PurchaseOrderLineOrderBy.productcodeasc;
-			//			await ReloadAsync();
-			//			break;
-			//		case "Malzeme Kodu Z-A":
-			//			OrderBy = PurchaseOrderLineOrderBy.productcodedesc;
-			//			await ReloadAsync();
-			//			break;
-			//		case "Malzeme Ad A-Z":
-			//			OrderBy = PurchaseOrderLineOrderBy.productnameasc;
-			//			await ReloadAsync();
-			//			break;
-			//		case "Malzeme Ad Z-A":
-			//			OrderBy = PurchaseOrderLineOrderBy.productnamedesc;
-			//			await ReloadAsync();
-			//			break;
-			//		default:
-			//			await ReloadAsync();
-			//			break;
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarih Büyükten Küçüğe", "Tarih Küçükten Büyüğe");
+			if (!string.IsNullOrEmpty(response))
+			{
+				CurrentPage = 0;
+				await Task.Delay(100);
+				switch (response)
+				{
+					case "Tarih Büyükten Küçüğe":
+						Results.Clear();
+						foreach (var item in Items.OrderByDescending(x => x.Date).ToList())
+						{
+							Results.Add(item);
+						}
+						break;
+					case "Tarih Küçükten Büyüğe":
+						Results.Clear();
+						foreach (var item in Items.OrderBy(x => x.Date).ToList())
+						{
+							Results.Add(item);
+						}
+						break;
+					default:
+						await ReloadAsync();
+						break;
 
-			//	}
-			//}
+				}
+			}
 		}
 		catch (Exception ex)
 		{
@@ -215,9 +221,37 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 	}
 
 	[RelayCommand]
-    async Task GoToSalesOrderLineList()
+	public async Task SelectAsync(WaitingOrder model)
+	{
+		await Task.Run(() =>
+		{
+			WaitingOrder selectedItem = Results.FirstOrDefault(x => x.ReferenceId == model.ReferenceId);
+			if (selectedItem != null)
+			{
+				if (selectedItem.IsSelected)
+				{
+					selectedItem.IsSelected = false;
+					SelectedOrders.Remove(selectedItem);
+
+				}
+				else
+				{
+					selectedItem.IsSelected = true;
+
+					SelectedOrders.Add(selectedItem);
+				}
+			}
+
+		});
+	}
+
+	[RelayCommand]
+    async Task GoToSalesOrderLineListAsync()
     {
-        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineListView)}");
+		await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineListView)}", new Dictionary<string, object>
+		{
+			["SelectedOrders"] = SelectedOrders
+		});
     }
 
   
