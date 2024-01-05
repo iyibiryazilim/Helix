@@ -100,9 +100,7 @@
 	  <Folder Include="Modules\LoginModule\Views\" />
 
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
-	  <Folder Include="Modules\PurchaseModule\ViewModels\OperationsViewModels\DispatchByPurchaseOrderLineViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />
-	  <Folder Include="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\" />
 	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
 	  <Folder Include="Modules\ReturnModule\ViewModels\" />
 	  <Folder Include="Modules\ReturnModule\Views\" />
@@ -295,6 +293,15 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\WarehouseViews\WarehouseDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineSummaryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineSupplierView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderFicheView.xaml">

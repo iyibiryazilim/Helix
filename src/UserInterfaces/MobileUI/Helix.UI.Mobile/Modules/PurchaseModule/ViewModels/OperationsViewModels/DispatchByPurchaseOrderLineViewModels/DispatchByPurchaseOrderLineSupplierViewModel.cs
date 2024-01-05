@@ -6,49 +6,45 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderLineViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
+namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels
 {
-	[QueryProperty(nameof(Current), nameof(Current))]
-	public partial class DispatchByPurchaseOrderFicheViewModel : BaseViewModel
-    {
-
+	public partial class DispatchByPurchaseOrderLineSupplierViewModel : BaseViewModel
+	{
 		IHttpClientService _httpClientService;
-		IPurchaseOrderService _purchaseOrderService;
-
-		[ObservableProperty]
-		Supplier current;
-
+		private readonly ISupplierService _supplierService;
+		//Lists
+		//Commands
+		public Command GetDataCommand { get; }
+		public Command SearchCommand { get; }
 		//Properties
 		[ObservableProperty]
 		string searchText = string.Empty;
 		[ObservableProperty]
-		PurchaseOrderOrderBy orderBy = PurchaseOrderOrderBy.dateasc;
+		SupplierOrderBy orderBy = SupplierOrderBy.nameasc;
 		[ObservableProperty]
 		int currentPage = 0;
 		[ObservableProperty]
 		int pageSize = 3000;
 
 		//Lists
-		public ObservableCollection<WaitingOrder> Items { get; } = new();
-		public ObservableCollection<WaitingOrder> Result { get; } = new();
+		public ObservableCollection<Current> Items { get; } = new();
+		public ObservableCollection<Current> Result { get; } = new();
 
-		//Commands
-		public Command GetDataCommand { get; }
-		public Command SearchCommand { get; }
 
-		public DispatchByPurchaseOrderFicheViewModel(IHttpClientService httpClientService,IPurchaseOrderService purchaseOrderService)
-        {
-			Title = "Fiş Seçimi";
-			_purchaseOrderService = purchaseOrderService;
+		public DispatchByPurchaseOrderLineSupplierViewModel(IHttpClientService httpClientService, ISupplierService supplierService)
+		{
+			Title = "Tedarikçi Seçimi";
 			_httpClientService = httpClientService;
-
+			_supplierService = supplierService;
 			GetDataCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+
 		}
 
 		async Task LoadData()
@@ -58,13 +54,13 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			try
 			{
 				await Task.Delay(500);
-				await MainThread.InvokeOnMainThreadAsync(GetPurchaseOrderAsync);
+				await MainThread.InvokeOnMainThreadAsync(GetSupplierAsync);
 
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -72,7 +68,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			}
 		}
 
-		async Task GetPurchaseOrderAsync()
+		[RelayCommand]
+		async Task GetSupplierAsync()
 		{
 			if (IsBusy)
 				return;
@@ -84,23 +81,23 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				var result = await _purchaseOrderService.GetObjectsByCurrentCode(httpClient, SearchText, OrderBy,Current.Code, CurrentPage, PageSize);
+				var result = await _supplierService.GetObjects(httpClient, "", OrderBy, CurrentPage, PageSize);
 				if (Items.Any())
 				{
 					Items.Clear();
 					Result.Clear();
 				}
+
 				foreach (var item in result.Data)
 				{
-					var obj = Mapping.Mapper.Map<WaitingOrder>(item);
-					Items.Add(obj);
-					Result.Add(obj);
-				} 
+					Items.Add(item);
+					Result.Add(item);
+				}
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -120,7 +117,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					{
 						SearchText = text;
 						Result.Clear();
-						foreach(var item in Items.ToList().Where(x=>x.Code.Contains(SearchText)))
+						foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
 						{
 							Result.Add(item);
 						}
@@ -146,15 +143,19 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			}
 		}
 
+
+
 		[RelayCommand]
-		private void ToggleSelection(WaitingOrder item)
+		async Task ToggleSelectionAsync(Current item)
 		{
-			item.IsSelected = !item.IsSelected;
-			 
-			if (item.IsSelected)
+			// Deselect all items
+			foreach (var currentItem in Items)
 			{
-				Items.Where(x=>x.Code == item.Code).First().IsSelected = item.IsSelected;
- 			}
+				currentItem.IsSelected = false;
+			}
+
+			// Toggle the selection of the provided item
+			item.IsSelected = !item.IsSelected;
 		}
 
 		[RelayCommand]
@@ -163,32 +164,47 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarih A-Z", "Tarih Z-A");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A");
 				if (!string.IsNullOrEmpty(response))
 				{
 					CurrentPage = 0;
 					await Task.Delay(100);
 					switch (response)
 					{
-						case "Tarih A-Z":
-							OrderBy = PurchaseOrderOrderBy.datedesc;
+						case "Kod A-Z":
+							OrderBy = SupplierOrderBy.codeasc;
 							Result.Clear();
-							foreach (var item in Items.ToList().OrderByDescending(x => x.Date))
+							foreach (var item in Items.ToList().OrderBy(x => x.Code))
 							{
 								Result.Add(item);
 							}
 							break;
-						case "Tarih Z-A":
-							OrderBy = PurchaseOrderOrderBy.dateasc;
+						case "Kod Z-A":
+							OrderBy = SupplierOrderBy.codedesc;
 							Result.Clear();
-							foreach (var item in Items.ToList().OrderBy(x => x.Date))
+							foreach (var item in Items.ToList().OrderByDescending(x => x.Code))
 							{
 								Result.Add(item);
 							}
-							break; 
-						default:
+							break;
+						case "Ad A-Z":
+							OrderBy = SupplierOrderBy.nameasc;
 							Result.Clear();
-							foreach (var item in Items.ToList().OrderByDescending(x => x.Date))
+							foreach (var item in Items.ToList().OrderBy(x => x.Name))
+							{
+								Result.Add(item);
+							}
+							break;
+						case "Ad Z-A":
+							OrderBy = SupplierOrderBy.namedesc;
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.Name))
+							{
+								Result.Add(item);
+							}
+							break;
+						default:
+							foreach (var item in Items.ToList().OrderBy(x => x.Name))
 							{
 								Result.Add(item);
 							}
@@ -210,25 +226,32 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		}
 
 		[RelayCommand]
-		async Task GoToLinesAsync()
+		async Task GoToFicheListAsync()
 		{
-			if (IsBusy)
-				return;
-
 			try
 			{
-				var result = Items.Where(x=>x.IsSelected).ToList();
-				await Task.Delay(500);
-				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
+				if (Items.Where(c => c.IsSelected).Any())
 				{
-					[nameof(WaitingOrder)] = result
-				});
+					var result = Items.Where(c => c.IsSelected).First();
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineLineListView)}", new Dictionary<string, object>
+					{
+						[nameof(Current)] = result
+					});
+				}
+				else
+				{
+					await Shell.Current.DisplayAlert("Uyarı", "Tedarikçi Seçiniz", "Tamam");
+
+				}
+
 			}
 			catch (Exception ex)
 			{
 				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
 			}
-
 		}
+
+
 	}
 }
