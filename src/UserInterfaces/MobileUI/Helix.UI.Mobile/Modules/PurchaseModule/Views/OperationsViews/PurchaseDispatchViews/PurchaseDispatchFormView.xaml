@@ -11,7 +11,14 @@
              Title="{Binding Title}"
              Shell.TabBarIsVisible="False"
             >
-    <sharedViews:PurchaseDispatchOperationFormContentView>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetWarehouseCommand}" />
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetSupplierCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:PurchaseDispatchOperationFormContentView WarehouseList="{Binding WarehouseItems}"
+                                                          SupplierList="{Binding SupplierItems}">
         
     </sharedViews:PurchaseDispatchOperationFormContentView>
     

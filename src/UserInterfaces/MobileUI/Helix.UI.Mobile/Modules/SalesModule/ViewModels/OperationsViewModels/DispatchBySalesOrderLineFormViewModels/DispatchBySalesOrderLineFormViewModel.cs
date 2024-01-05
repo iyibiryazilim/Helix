@@ -3,26 +3,35 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
-using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
-using Helix.UI.Mobile.Modules.PurchaseModule.Models;
-using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
+using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
+using Org.Apache.Http.Client;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
 
-namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
+namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineFormViewModels
 {
-    [QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
 
-    public partial class DispatchByPurchaseOrderFormViewModel :BaseViewModel
+    [QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+     
+    
+    public partial class DispatchBySalesOrderLineFormViewModel :BaseViewModel
     {
         IHttpClientService _httpClientService;
         IWarehouseService _warehouseService;
-        ISupplierService _supplierService;
+        ICustomerService _customerService;
 
         public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
-        public ObservableCollection<Supplier> SupplierItems { get; } = new();
+        public ObservableCollection<Customer> CustomerItems { get; } = new();
+
 
 
         [ObservableProperty]
@@ -38,15 +47,15 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         [ObservableProperty]
         WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
         [ObservableProperty]
-        SupplierOrderBy supplierOrderBy = SupplierOrderBy.nameasc;
+        CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
 
-
-        public DispatchByPurchaseOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService)
+        public DispatchBySalesOrderLineFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService)
         {
-            Title = "SAtın Alma Form";
+            Title = "Sevk";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
-            _supplierService= supplierService;
+            _customerService = customerService;
+
         }
 
 
@@ -83,24 +92,23 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
             }
         }
 
-
         [RelayCommand]
-        public async Task GetSupplierAsync()
+        public async Task GetCustomerAsync()
         {
             try
             {
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
                 CurrentPage = 0;
-                var result = await _supplierService.GetObjects(httpClient, SearchText, SupplierOrderBy, CurrentPage, PageSize);
+                var result = await _customerService.GetObjects(httpClient, SearchText, CustomerOrderBy, CurrentPage, PageSize);
 
                 if (result.Data.Any())
                 {
-                    SupplierItems.Clear();
+                    CustomerItems.Clear();
 
                     foreach (var item in result.Data)
                     {
                         await Task.Delay(100);
-                        SupplierItems.Add(item);
+                        CustomerItems.Add(item);
                     }
                 }
 
@@ -116,6 +124,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
             }
 
         }
+
+
 
     }
 }

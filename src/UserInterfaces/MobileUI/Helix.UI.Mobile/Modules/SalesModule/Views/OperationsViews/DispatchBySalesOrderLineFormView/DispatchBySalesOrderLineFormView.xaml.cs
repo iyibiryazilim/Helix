@@ -4,7 +4,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySa
 
 public partial class DispatchBySalesOrderLineFormView : ContentPage
 {
-	DispatchBySalesOrderLineFormViewModel _viewModel;
+    DispatchBySalesOrderLineFormViewModel _viewModel;
     public DispatchBySalesOrderLineFormView(DispatchBySalesOrderLineFormViewModel viewModel)
 	{
 		InitializeComponent();

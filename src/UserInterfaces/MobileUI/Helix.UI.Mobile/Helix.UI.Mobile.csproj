@@ -345,9 +345,6 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\SalesModule\ViewModels\OperationsViewModels\DispatchBySalesOrderLineFormViewModels\DispatchBySalesOrderLineFormViewModel.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\BasketViews\BasketView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
