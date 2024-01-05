@@ -11,7 +11,14 @@
              x:DataType="viewModel:DispatchBySalesOrderFormViewModel"
              Title="{Binding Title}"
              Shell.TabBarIsVisible="False">
-    <sharedViews:SalesDispatchFormContentView>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetWarehouseCommand}" />
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetCustomerCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:SalesDispatchFormContentView WarehouseList="{Binding WarehouseItems}"
+                                              CustomerList="{Binding CustomerItems}">
         
     </sharedViews:SalesDispatchFormContentView>
    

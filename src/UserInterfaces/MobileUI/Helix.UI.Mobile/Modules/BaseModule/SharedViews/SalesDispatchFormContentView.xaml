@@ -60,7 +60,9 @@
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Picker x:Name="pickerCustomer"
-                                    Title="Seçiniz.." />
+                                    Title="Seçiniz.."
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding Source={x:Reference this},Path=CustomerList}" />
 
                         </Border>
                     </VerticalStackLayout>

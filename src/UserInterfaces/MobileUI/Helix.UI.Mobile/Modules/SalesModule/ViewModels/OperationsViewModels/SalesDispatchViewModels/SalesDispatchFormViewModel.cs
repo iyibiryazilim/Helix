@@ -3,6 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
+using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -16,8 +19,10 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 	IHttpClientService _httpClientService;
 	//warehouseService
 	IWarehouseService _warehouseService;
+    ICustomerService _customerService;
 
 	public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
+    public ObservableCollection<Customer> CustomerItems { get; } = new();
 
 
 	[ObservableProperty]
@@ -32,12 +37,17 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     int pageSize = 20;
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
+    [ObservableProperty]
+    CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
 
-    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
+
+
+    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService)
 	{
 		Title = "Sevk Formu";
         _httpClientService = httpClientService;
 		_warehouseService = warehouseService;
+        _customerService = customerService;
 	}
 
 	[RelayCommand]
@@ -73,5 +83,38 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
         }
     }
 
+
+    [RelayCommand]
+    public async Task GetCustomerAsync()
+    {
+        try
+        {
+            var httpClient=_httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _customerService.GetObjects(httpClient, SearchText, CustomerOrderBy, CurrentPage, PageSize);
+
+            if(result.Data.Any())
+            {
+                CustomerItems.Clear();
+
+                foreach(var item in result.Data)
+                {
+                    await Task.Delay(100);
+                    CustomerItems.Add(item);
+                }
+            }
+
+        }
+        catch(Exception ex) 
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error:", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy= false;
+        }
+
+    }
 
 }
