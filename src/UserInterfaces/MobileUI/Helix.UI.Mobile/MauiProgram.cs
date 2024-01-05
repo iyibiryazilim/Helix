@@ -64,6 +64,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineFormViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels;
@@ -237,6 +238,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<SalesDispatchListView>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormView>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchFormContentView>();
+			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineFormViewModel>();
 
 
 
