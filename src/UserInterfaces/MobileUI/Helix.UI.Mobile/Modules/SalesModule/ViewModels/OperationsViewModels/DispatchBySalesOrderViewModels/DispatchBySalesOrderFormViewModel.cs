@@ -42,6 +42,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     [ObservableProperty]
     CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
 
+    [ObservableProperty]
+    SalesFormModel salesFormFormModel = new();
+
 
 
 
@@ -53,6 +56,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
         _customerService = customerService;
        
     }
+
 
     [RelayCommand]
     public async Task GetWarehouseAsync()

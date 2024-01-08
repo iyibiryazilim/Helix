@@ -43,6 +43,9 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
     [ObservableProperty]
     SupplierOrderBy supplierOrderBy = SupplierOrderBy.nameasc;
 
+    [ObservableProperty]
+    PurchaseFormModel purchaseFormFormModel = new();
+
     public PurchaseDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService)
 	{
 		Title = "Mal Kabul Formu";

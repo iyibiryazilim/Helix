@@ -44,6 +44,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
         [ObservableProperty]
         SupplierOrderBy supplierOrderBy = SupplierOrderBy.nameasc;
+
+        [ObservableProperty]
+        PurchaseFormModel purchaseFormFormModel = new();
         public DispatchByPurchaseOrderLineFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService)
         {
             Title = "SAtın Alma line Form";

@@ -40,6 +40,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         [ObservableProperty]
         SupplierOrderBy supplierOrderBy = SupplierOrderBy.nameasc;
 
+        [ObservableProperty]
+        PurchaseFormModel purchaseFormFormModel = new();
+
 
         public DispatchByPurchaseOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService)
         {
