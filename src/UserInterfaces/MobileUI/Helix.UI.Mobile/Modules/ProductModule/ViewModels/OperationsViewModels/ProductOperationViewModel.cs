@@ -4,8 +4,10 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
+using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels;
 
@@ -45,6 +47,28 @@ public partial class ProductOperationViewModel :BaseViewModel
     async Task GoToWastageTransaction()
     {
         await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}");
+    }
+
+    [RelayCommand]
+    async Task GoToWarehouseTransferOperationViewAsync()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
+
+            await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationView)}");
+        }
+        catch(Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+        }
+        finally
+        {
+			IsBusy = false;
+        }
     }
 
 }
