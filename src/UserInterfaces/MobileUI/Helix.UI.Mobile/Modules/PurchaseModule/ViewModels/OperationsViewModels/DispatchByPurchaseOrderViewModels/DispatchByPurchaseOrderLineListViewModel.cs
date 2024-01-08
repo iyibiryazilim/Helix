@@ -23,7 +23,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
-
+		public Command SelectAllCommand { get; }
+ 
 		[ObservableProperty]
 		string searchText = string.Empty;
 		[ObservableProperty]
@@ -44,6 +45,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 			GetDataCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+			SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
 
 
 		}
@@ -276,6 +278,28 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 
+		}
+
+		public async Task SelectAllAsync(bool isSelected)
+		{
+			if (isSelected)
+			{
+				Result.Clear();
+				foreach (var item in Items)
+				{
+					Result.Add(item);
+					item.IsSelected = true;
+				}
+			}
+			else
+			{
+				Result.Clear();
+				foreach (var item in Items)
+				{
+					Result.Add(item);
+					item.IsSelected = false;
+				}
+			}
 		}
 	}
 }

@@ -14,7 +14,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="Auto,*,Auto"
+        <Grid RowDefinitions="Auto,Auto,*,Auto"
               RowSpacing="10"
               BackgroundColor="Transparent">
             <Grid Grid.Row="0">
@@ -46,7 +46,22 @@
                     </Grid>
                 </Border>
             </Grid>
-            <RefreshView Grid.Row="1"
+            <HorizontalStackLayout Grid.Row="1"
+                                   Spacing="10"
+                                   Margin="5">
+                <CheckBox  HeightRequest="18"
+                           WidthRequest="18" 
+                           HorizontalOptions="Start"
+                           x:Name="checkBox">
+                    <CheckBox.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged" 
+                                                        CommandParameter="{Binding IsChecked, Source={x:Reference checkBox}}"
+                                                        Command="{Binding Source={x:Reference this},Path=CheckedChangeCommand,Mode=TwoWay}" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label Text="Tümünü Seç" />
+            </HorizontalStackLayout>
+            <RefreshView Grid.Row="2"
                          IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing,Mode=OneWay}"
                          Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
@@ -244,7 +259,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="3">
                 <Button Text="İleri"
                         Margin="10,10,10,20"
                         Command="{Binding Source={x:Reference this},Path=GoToNextCommand}"></Button>
