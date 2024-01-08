@@ -248,10 +248,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineFormView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSummaryView>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSelectedLineListView>();
 
 
 
-			return mauiAppBuilder;
+
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder SalesRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -274,6 +276,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSummaryViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSelectedLineListViewModel>();
 
 
 
@@ -281,7 +284,7 @@ namespace Helix.UI.Mobile
 
 
 
-			return mauiAppBuilder;
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder SalesRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
