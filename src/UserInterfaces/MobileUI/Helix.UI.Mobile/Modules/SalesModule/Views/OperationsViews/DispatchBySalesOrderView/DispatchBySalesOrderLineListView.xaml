@@ -17,10 +17,10 @@
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderLineContentView ReloadCommand="{Binding ReloadCommand}"
                                         SearchCommand="{Binding SearchCommand}"
-                                        SortCommand="{Binding SortCommand}"
+                                        SortCommand="{Binding }"
                                         WaitingOrderLineList="{Binding Results}"
                                         IsBusy="{Binding IsBusy}"
                                         GoToNextCommand="{Binding GoToSalesOrderSummaryCommand}"
-                                        ToggleSelectionCommand="{Binding SelectCommand}"
+                                        ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                         IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderLineContentView>
 </ContentPage>

@@ -255,12 +255,21 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 			try
 			{
-				var result = Items.Where(x => x.IsSelected).ToList();
-				await Task.Delay(500);
-				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
-				{
-					[nameof(WaitingOrderLine)] = result
-				});
+				//if (Items.Where(x => x.IsSelected).ToList().Any())
+				//{
+					var result = Items.Where(x => x.IsSelected).ToList();
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
+					{
+						[nameof(WaitingOrderLine)] = result
+					});
+				//}
+				//else
+				//{
+				//	await Shell.Current.DisplayAlert("Uyarı", "Satır Seçiniz", "Tamam");
+
+				//}
+
 			}
 			catch (Exception ex)
 			{

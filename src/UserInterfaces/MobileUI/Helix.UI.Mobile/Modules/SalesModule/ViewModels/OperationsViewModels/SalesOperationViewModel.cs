@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -17,6 +18,12 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels
         async Task GoToDispatchBySalesOrderCustomerView()
         {
             await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderCustomerView)}");
+        }
+
+        [RelayCommand]
+        async Task GoToDispatchBySalesOrderLineCustomerView()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineCustomerView)}");
         }
 
         [RelayCommand]

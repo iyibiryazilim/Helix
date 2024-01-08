@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Helpers.MappingHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
@@ -17,6 +19,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 
 		public PurchaseOrderLineListViewModel(IHttpClientService httpClientService, IPurchaseOrderLineService purchaseOrderLineService)
 		{
+			Title = "Satınalma Siparişleri";
 			_httpClientService = httpClientService;
 			_purchaseOrderLineService = purchaseOrderLineService;
 
@@ -24,7 +27,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 			PerformSearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 		}
 
-		public ObservableCollection<PurchaseOrderLine> Items { get; } = new();
+		public ObservableCollection<WaitingOrderLine> Items { get; } = new();
 		public Command GetPurchaseOrderLineItemsCommand { get; }
 		public Command PerformSearchCommand { get; }
 
@@ -78,8 +81,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 					Items.Clear();
 					foreach (var item in result.Data)
 					{
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
 						await Task.Delay(100);
-						Items.Add(item);
+						Items.Add(obj);
 					}
 				}
 			}
@@ -112,8 +116,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 				{
 					foreach (var item in result.Data)
 					{
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
 						await Task.Delay(100);
-						Items.Add(item);
+						Items.Add(obj);
 					}
 				}
 				else

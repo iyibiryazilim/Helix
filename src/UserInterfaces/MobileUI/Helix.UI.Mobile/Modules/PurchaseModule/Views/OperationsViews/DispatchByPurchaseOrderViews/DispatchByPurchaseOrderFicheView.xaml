@@ -15,7 +15,7 @@
     <sharedView:WaitingOrderContentView WaitingOrderList="{Binding Result}"
                                         IsBusy="{Binding IsBusy}"
                                         IsRefreshing="{Binding IsRefreshing}"
-                                        SelectCommand="{Binding ToggleSelectionCommand}"
+                                        CheckedChangeCommand="{Binding SelectAllCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         GoToLineCommand="{Binding GoToLinesCommand}"
                                         SortCommand="{Binding SortCommand}"></sharedView:WaitingOrderContentView>
