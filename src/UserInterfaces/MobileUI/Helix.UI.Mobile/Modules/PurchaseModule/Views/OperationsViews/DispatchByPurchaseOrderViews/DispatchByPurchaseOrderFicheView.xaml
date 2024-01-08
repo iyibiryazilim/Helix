@@ -13,6 +13,7 @@
                                         Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderContentView WaitingOrderList="{Binding Result}"
+                                        ReloadCommand="{Binding GetPurchaseOrderCommand}"
                                         IsBusy="{Binding IsBusy}"
                                         IsRefreshing="{Binding IsRefreshing}"
                                         CheckedChangeCommand="{Binding SelectAllCommand}"

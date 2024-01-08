@@ -76,6 +76,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			}
 		}
 
+		[RelayCommand]
 		async Task GetPurchaseOrderAsync()
 		{
 			if (IsBusy)
