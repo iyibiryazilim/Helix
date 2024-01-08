@@ -100,7 +100,6 @@
 	  <Folder Include="Modules\LoginModule\Views\" />
 
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
-	  <Folder Include="Modules\PurchaseModule\ViewModels\OperationsViewModels\DispatchByPurchaseOrderLineViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\" />
 	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
@@ -161,6 +160,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\WaitingOrderLineContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\WaitingOrderLineSummaryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\WarehouseTransactionContentView.xaml">
