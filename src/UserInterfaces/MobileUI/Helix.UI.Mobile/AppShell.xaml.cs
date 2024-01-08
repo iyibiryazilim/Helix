@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
@@ -104,7 +105,10 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineFormView), typeof(DispatchBySalesOrderLineFormView));
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSummaryView), typeof(DispatchBySalesOrderLineSummaryView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineSummaryView), typeof(DispatchByPurchaseOrderLineSummaryView));
+    Routing.RegisterRoute(nameof(DispatchBySalesOrderSelectedLineListView), typeof(DispatchBySalesOrderSelectedLineListView));
+		Routing.RegisterRoute(nameof(ProductDetailWaitingOrderLineContentView), typeof(ProductDetailWaitingOrderLineContentView));
+		Routing.RegisterRoute(nameof(WarehouseTransferOperationView), typeof(WarehouseTransferOperationView));
 
-	}
+    }
 }
 

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Helpers.MappingHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -15,7 +17,7 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 	IHttpClientService _httpClientService;
 	private readonly ISalesOrderLineService _salesOrderLineService;
 
-	public ObservableCollection<SalesOrderLine> Items { get; } = new();
+	public ObservableCollection<WaitingOrderLine> Items { get; } = new();
 	public Command GetWaitingSalesOrderLinesCommand { get; }
 	public Command PerformSearchCommand { get; }
 	public WaitingSalesOrderLineListViewModel(IHttpClientService httpClientService,ISalesOrderLineService salesOrderLineService)
@@ -79,8 +81,9 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 				Items.Clear();
 				foreach (var item in result.Data)
 				{
+					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
 					await Task.Delay(100);
-					Items.Add(item);
+					Items.Add(obj);
 				}
 				
 			}
@@ -112,8 +115,9 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 			{
 				foreach (var item in result.Data)
 				{
+					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
 					await Task.Delay(100);
-					Items.Add(item);
+					Items.Add(obj);
 				}
 			}
 			else
