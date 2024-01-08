@@ -103,7 +103,8 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineLineListView), typeof(DispatchBySalesOrderLineLineListView));
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineFormView), typeof(DispatchBySalesOrderLineFormView));
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSummaryView), typeof(DispatchBySalesOrderLineSummaryView));
+        Routing.RegisterRoute(nameof(DispatchBySalesOrderSelectedLineListView), typeof(DispatchBySalesOrderSelectedLineListView));
 
-	}
+    }
 }
 

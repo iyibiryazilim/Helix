@@ -83,7 +83,9 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 				foreach (SalesOrderLine item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-					Items.Add(obj);
+                    obj.TempQuantity = (double)item.WaitingQuantity;
+
+                    Items.Add(obj);
 					Results.Add(obj);
 				}
 			}
@@ -159,6 +161,7 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 				foreach (var item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+					obj.TempQuantity = (double)item.WaitingQuantity;
 					Items.Add(obj);
 					Results.Add(obj);
 				}
@@ -223,7 +226,7 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 	}
 
 	[RelayCommand]
-	public async Task SelectAsync(WaitingOrderLine model)
+	public async Task ToggleSelectionAsync(WaitingOrderLine model)
 	{
 		await Task.Run(() =>
 		{
@@ -251,7 +254,10 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 	[RelayCommand]
     async Task GoToSalesOrderSummary()
     {
-        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSummaryView)}");
+        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
+        {
+            ["SelectedOrderLines"] = SelectedOrderLines
+        });
     }
 
 }
