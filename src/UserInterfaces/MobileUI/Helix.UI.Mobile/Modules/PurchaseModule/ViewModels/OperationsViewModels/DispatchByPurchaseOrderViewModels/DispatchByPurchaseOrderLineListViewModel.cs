@@ -117,6 +117,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			}
 		}
 
+		[RelayCommand]
 		public async Task GetLinesAsync()
 		{
 			if (IsBusy)
@@ -255,12 +256,20 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 			try
 			{
-				var result = Items.Where(x => x.IsSelected).ToList();
-				await Task.Delay(500);
-				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSummaryView)}", new Dictionary<string, object>
+				if(Items.Where(x => x.IsSelected).ToList().Any())
 				{
-					[nameof(WaitingOrderLine)] = result
-				});
+					var result = Items.Where(x => x.IsSelected).ToList();
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSummaryView)}", new Dictionary<string, object>
+					{
+						[nameof(WaitingOrderLine)] = result
+					});
+				}
+				else
+				{
+					await Shell.Current.DisplayAlert("Uyarı", "Satır Seçiniz", "Tamam");
+				}
+
 			}
 			catch (Exception ex)
 			{

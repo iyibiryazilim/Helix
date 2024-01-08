@@ -203,7 +203,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 
 		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByCurrentCode(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, string Code, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}?search={search}&includeWaiting=false&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{

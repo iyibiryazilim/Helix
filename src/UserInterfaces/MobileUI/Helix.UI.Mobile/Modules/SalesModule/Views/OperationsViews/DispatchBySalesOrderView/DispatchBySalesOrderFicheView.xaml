@@ -4,25 +4,25 @@
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView.DispatchBySalesOrderFicheView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
-             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"  
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels"
              x:DataType="viewModel:DispatchBySalesOrderFicheViewModel"
              xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
              Shell.TabBarIsVisible="False"
-             Title="{Binding Title}" BackgroundColor="{StaticResource Primary}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetOrdersCommand}" />
     </ContentPage.Behaviors>
-    <sharedView:WaitingOrderContentView 
-                                        ReloadCommand="{Binding GetOrdersCommand}"
+    <sharedView:WaitingOrderContentView ReloadCommand="{Binding GetOrdersCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         SortCommand="{Binding SortCommand}"
                                         WaitingOrderList="{Binding Results}"
                                         IsBusy="{Binding IsBusy}"
+                                        CheckedChangeCommand="{Binding SelectAllCommand}"
                                         GoToLineCommand="{Binding GoToSalesOrderLineListCommand}"
                                         SelectCommand="{Binding SelectCommand}"
-                                        CheckedChangeCommand="{Binding SelectAllCommand}"
-                                        IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderContentView>
+                                         IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderContentView>
 </ContentPage>

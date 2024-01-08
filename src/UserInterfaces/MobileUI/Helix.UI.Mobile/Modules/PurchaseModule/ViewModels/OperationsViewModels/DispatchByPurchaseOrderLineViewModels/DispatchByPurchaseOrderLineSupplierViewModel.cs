@@ -164,7 +164,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A","Referans Sayısı A-Z", "Referans Sayısı Z-A");
 				if (!string.IsNullOrEmpty(response))
 				{
 					CurrentPage = 0;
@@ -199,6 +199,22 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 							OrderBy = SupplierOrderBy.namedesc;
 							Result.Clear();
 							foreach (var item in Items.ToList().OrderByDescending(x => x.Name))
+							{
+								Result.Add(item);
+							}
+							break;
+						case "Referans Sayısı A-Z":
+							OrderBy = SupplierOrderBy.nameasc;
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderBy(x => x.ReferenceCount))
+							{
+								Result.Add(item);
+							}
+							break;
+						case "Referans Sayısı Z-A":
+							OrderBy = SupplierOrderBy.namedesc;
+							Result.Clear();
+							foreach (var item in Items.ToList().OrderByDescending(x => x.ReferenceCount))
 							{
 								Result.Add(item);
 							}
