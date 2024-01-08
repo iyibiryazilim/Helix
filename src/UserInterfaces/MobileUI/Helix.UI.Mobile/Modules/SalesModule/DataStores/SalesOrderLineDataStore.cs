@@ -312,7 +312,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 		}
 		public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByProductCode(HttpClient httpClient, string Code, bool includeWaiting,string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Code/{Code}&{includeWaiting}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Product/Code/{Code}&{includeWaiting}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<SalesOrderLine>> dataResult = new DataResult<IEnumerable<SalesOrderLine>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
@@ -372,7 +372,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 		}
 		public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByProductId(HttpClient httpClient, int ReferenceId, bool includeWaiting, string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{ReferenceId}&{includeWaiting}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Product/Id/{ReferenceId}&{includeWaiting}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<SalesOrderLine>> dataResult = new DataResult<IEnumerable<SalesOrderLine>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{
