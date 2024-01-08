@@ -18,7 +18,7 @@ namespace Helix.UI.Mobile.MVVMHelper
         [ObservableProperty]
         bool isRefreshing;
 
-        //public bool IsNotBusy => !IsBusy;
+        public bool IsNotBusy => !IsBusy;
 
     }
 }
