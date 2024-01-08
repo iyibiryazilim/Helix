@@ -24,6 +24,7 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCo
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
@@ -34,6 +35,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
@@ -393,6 +395,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WastageTransactionOperationFormView>();
 			mauiAppBuilder.Services.AddTransient<ProductTransactionOperationFormContentView>();
 			mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationFormView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationView>();
 
 
 
@@ -436,9 +439,10 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<ProductionTransactionOperationFormViewModel>();
             mauiAppBuilder.Services.AddTransient<WastageTransactionOperationFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationFormViewModel>();
-            
+			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationViewModel>();
 
-            return mauiAppBuilder;
+
+			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{

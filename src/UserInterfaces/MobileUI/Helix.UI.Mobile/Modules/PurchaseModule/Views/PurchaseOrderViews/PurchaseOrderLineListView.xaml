@@ -2,14 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews.PurchaseOrderLineListView"
-             Title="PurchaseOrderLineListView"
+             Title="{Binding Title}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewModels"
              x:DataType="viewModel:PurchaseOrderLineListViewModel"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews">
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Models"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetPurchaseOrderLineItemsCommand}" />
     </ContentPage.Behaviors>
-    
+    <sharedViews:SalesOrderLineContentView IsBusy="{Binding IsBusy}"
+                                           IsRefreshing="{Binding IsRefreshing}"
+                                           LoadMoreCommand="{Binding LoadMoreCommand}"
+                                           ReloadCommand="{Binding ReloadCommand}"
+                                           SearchCommand="{Binding PerformSearchCommand}"
+                                           SortCommand="{Binding SortCommand}"
+                                           Items="{Binding Items}"/>
+
 </ContentPage>
