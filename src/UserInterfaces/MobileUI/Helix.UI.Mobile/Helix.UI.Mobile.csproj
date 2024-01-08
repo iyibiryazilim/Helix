@@ -130,6 +130,9 @@
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\LoadingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductDetailWaitingOrderLineContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductListContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
