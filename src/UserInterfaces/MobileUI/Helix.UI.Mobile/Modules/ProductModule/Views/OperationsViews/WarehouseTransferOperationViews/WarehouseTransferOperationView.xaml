@@ -45,7 +45,7 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Border StrokeShape="RoundRectangle 20">
-                    <Grid ColumnDefinitions="Auto,*">
+                    <Grid ColumnDefinitions="Auto, *, Auto">
                         <Grid Grid.Column="0" Padding="20,0,0,0">
                             <ImageButton Aspect="AspectFit"
                                            HeightRequest="25"
@@ -66,6 +66,18 @@
                                                                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
                                 </SearchBar.Behaviors>
                             </SearchBar>
+                        </Grid>
+                        <Grid Grid.Column="2" Padding="20,0,20,0">
+                            <ImageButton Aspect="AspectFit"
+                                         HeightRequest="25"
+                                         WidthRequest="25"
+                                         Command="{Binding SortCommand}">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FAS"
+                                 Color="{StaticResource Primary}"
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"></FontImageSource>
+                                </ImageButton.Source>
+                            </ImageButton>
                         </Grid>
                     </Grid>
                 </Border>

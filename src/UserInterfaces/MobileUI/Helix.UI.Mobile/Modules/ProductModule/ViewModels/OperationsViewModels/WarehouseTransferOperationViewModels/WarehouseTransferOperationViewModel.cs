@@ -235,6 +235,61 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task SortAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Kod A-Z", "Kod Z-A", "Miktara Göre Artan", "Miktara Göre Azalan");
+			if(!string.IsNullOrEmpty(response))
+			{
+				CurrentPage = 0;
+				await Task.Delay(100);
+				switch(response)
+				{
+					case "Ad A-Z":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.nameasc;
+						await ReloadAsync();
+						break;
+					case "Ad Z-A":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.namedesc;
+						await ReloadAsync();
+						break;
+					case "Kod A-Z":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
+						await ReloadAsync();
+						break;
+					case "Kod Z-A":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codedesc;
+						await ReloadAsync();
+						break;
+					case "Miktara Göre Artan":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantityasc;
+						await ReloadAsync();
+						break;
+					case "Miktara Göre Azalan":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantitydesc;
+						await ReloadAsync();
+						break;
+					default:
+						await ReloadAsync();
+						break;
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Sıralama Hatası", ex.Message, "Tamam");
+		}
+		finally {
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
 	
 	[RelayCommand]
 	public async Task GoToBackAsync()
