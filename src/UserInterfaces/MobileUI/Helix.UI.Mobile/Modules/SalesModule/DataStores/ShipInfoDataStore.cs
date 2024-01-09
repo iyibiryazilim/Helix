@@ -10,14 +10,13 @@ using System.Threading.Tasks;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 {
-    public class CarrierDataStore :ICarrierService
+    public class ShipInfoDataStore : IShipInfoService
     {
-        string postUrl = $"gateway/sales/" + typeof(Carrier).Name;
-
-        public async Task <DataResult<IEnumerable<Carrier>>>GetObjects(HttpClient httpClient)
+        string postUrl = $"gateway/sales/" + nameof(ShipInfo);
+        public async Task<DataResult<IEnumerable<ShipInfo>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId)
         {
-            HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl);
-            DataResult<IEnumerable<Carrier>> dataResult = new DataResult<IEnumerable<Carrier>>();
+            HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{ReferenceId}");
+            DataResult<IEnumerable<ShipInfo>> dataResult = new DataResult<IEnumerable<ShipInfo>>();
             if (responseMessage.IsSuccessStatusCode)
             {
                 var data = await responseMessage.Content.ReadAsStringAsync();
@@ -25,7 +24,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
                 {
                     if (!string.IsNullOrEmpty(data))
                     {
-                        var result = JsonSerializer.Deserialize<DataResult<IEnumerable<Carrier>>>(data, new JsonSerializerOptions
+                        var result = JsonSerializer.Deserialize<DataResult<IEnumerable<ShipInfo>>>(data, new JsonSerializerOptions
                         {
                             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                         });
@@ -38,7 +37,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
                     }
                     else
                     {
-                        var result = JsonSerializer.Deserialize<DataResult<IEnumerable<Carrier>>>(data, new JsonSerializerOptions
+                        var result = JsonSerializer.Deserialize<DataResult<IEnumerable<ShipInfo>>>(data, new JsonSerializerOptions
                         {
                             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                         });
@@ -52,12 +51,12 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
                 }
                 else
                 {
-                    var result = JsonSerializer.Deserialize<DataResult<IEnumerable<Carrier>>>(data, new JsonSerializerOptions
+                    var result = JsonSerializer.Deserialize<DataResult<IEnumerable<ShipInfo>>>(data, new JsonSerializerOptions
                     {
                         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                     });
 
-                    dataResult.Data = Enumerable.Empty<Carrier>();
+                    dataResult.Data = Enumerable.Empty<ShipInfo>();
                     dataResult.IsSuccess = false;
                     dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
 
@@ -68,12 +67,11 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
             }
             else
             {
-                dataResult.Data = Enumerable.Empty<Carrier>();
+                dataResult.Data = Enumerable.Empty<ShipInfo>();
                 dataResult.IsSuccess = false;
                 dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
                 return dataResult;
             }
         }
-
     }
 }

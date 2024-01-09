@@ -23,10 +23,16 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 	IWarehouseService _warehouseService;
     ICustomerService _customerService;
     IServiceProvider _serviceProvider;
+    IDriverService _driverService;
+
 
 
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
     public ObservableCollection<Customer> CustomerItems { get; } = new();
+
+    public ObservableCollection<Driver> DriverItems { get; } = new();
+
+   
 
     [ObservableProperty]
     SalesFormModel salesFormFormModel = new();
@@ -50,12 +56,13 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 
 
 
-    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService)
+    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService)
 	{
 		Title = "Sevk Formu";
         _httpClientService = httpClientService;
 		_warehouseService = warehouseService;
         _customerService = customerService;
+        _driverService = driverService;
 	}
 
 	[RelayCommand]
@@ -90,6 +97,8 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 
         }
     }
+
+
 
 
     [RelayCommand]
