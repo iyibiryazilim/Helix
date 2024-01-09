@@ -11,7 +11,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
 [QueryProperty(nameof(SelectedOrderLines), nameof(SelectedOrderLines))]
 
-public partial class DispatchBySalesOrderSummaryViewModel:BaseViewModel
+public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
 {
     public DispatchBySalesOrderSummaryViewModel()
     {
@@ -77,6 +77,9 @@ public partial class DispatchBySalesOrderSummaryViewModel:BaseViewModel
     [RelayCommand]
     async Task GoToSalesOrderForm()
     {
-        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFormView)}");
+        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFormView)}", new Dictionary<string, object>
+        {
+            ["SelectedOrderLines"] = SelectedOrderLines
+        });
     }
 }

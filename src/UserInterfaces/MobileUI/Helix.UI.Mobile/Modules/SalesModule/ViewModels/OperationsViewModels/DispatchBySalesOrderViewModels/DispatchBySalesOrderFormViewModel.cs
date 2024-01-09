@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
@@ -15,7 +16,8 @@ using System.Diagnostics;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
-[QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+
+[QueryProperty(name: nameof(SelectedOrderLines), queryId: nameof(SelectedOrderLines))]
 public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 {
     IHttpClientService _httpClientService;
@@ -25,18 +27,16 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 	public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
     public ObservableCollection<Customer> CustomerItems { get; } = new();
 
-
-
     [ObservableProperty]
-    ObservableCollection<ProductModel> productModel;
+    ObservableCollection<WaitingOrderLine> selectedOrderLines;
+
+
     [ObservableProperty]
     string searchText = string.Empty;
     [ObservableProperty]
-    ProductOrderBy orderBy = ProductOrderBy.nameasc;
-    [ObservableProperty]
     int currentPage = 0;
     [ObservableProperty]
-    int pageSize = 20;
+    int pageSize = 200000;
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
     [ObservableProperty]

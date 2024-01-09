@@ -22,5 +22,6 @@
                                         IsBusy="{Binding IsBusy}"
                                         GoToNextCommand="{Binding GoToSalesOrderSummaryCommand}"
                                         ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                            CheckedChangeCommand="{Binding SelectAllCommand}"
                                         IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderLineContentView>
 </ContentPage>
