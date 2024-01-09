@@ -58,7 +58,10 @@ builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
 builder.Services.AddTransient<ICustomerTransactionLineService, CustomerTransactionLineDataStore>();
 builder.Services.AddTransient<ICustomerTransactionService, CustomerTransactionDataStore>();
 builder.Services.AddTransient<ISalesOrderLineService, SalesOrderLineDataStore>();
-
+builder.Services.AddTransient<IDriverService, DriverDataStore>();
+builder.Services.AddTransient<ICarrierService, CarrierDataStore>();
+builder.Services.AddTransient<ISpeCodeModelService,SpeCodeDataStore>();
+builder.Services.AddTransient<IShipInfoService, ShipInfoDataStore>();
 
 
 

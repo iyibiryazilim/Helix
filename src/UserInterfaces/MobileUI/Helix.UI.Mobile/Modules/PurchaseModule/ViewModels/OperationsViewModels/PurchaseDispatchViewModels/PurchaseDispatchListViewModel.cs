@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
 
+[QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
 public partial class PurchaseDispatchListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClient;

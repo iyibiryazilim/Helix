@@ -26,7 +26,10 @@
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Picker x:Name="pickerDispatch"
-                                    Title="Seçiniz.." />
+                                    Title="Seçiniz.."
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
+                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedWarehouse}" />
 
                         </Border>
                     </VerticalStackLayout>
@@ -62,7 +65,9 @@
                             <Picker x:Name="pickerCustomer"
                                     Title="Seçiniz.."
                                     ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Reference this},Path=CustomerList}" />
+                                    
+                                    ItemsSource="{Binding Source={x:Reference this},Path=CustomerList}"
+                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedCustomer}" />
 
                         </Border>
                     </VerticalStackLayout>

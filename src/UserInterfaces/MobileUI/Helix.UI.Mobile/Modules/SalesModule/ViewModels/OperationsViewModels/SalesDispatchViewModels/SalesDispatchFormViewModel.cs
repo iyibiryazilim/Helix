@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -20,12 +22,22 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 	//warehouseService
 	IWarehouseService _warehouseService;
     ICustomerService _customerService;
+    IServiceProvider _serviceProvider;
+    IDriverService _driverService;
 
-	public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
+
+
+    public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
     public ObservableCollection<Customer> CustomerItems { get; } = new();
 
+    public ObservableCollection<Driver> DriverItems { get; } = new();
 
-	[ObservableProperty]
+   
+
+    [ObservableProperty]
+    SalesFormModel salesFormFormModel = new();
+
+    [ObservableProperty]
 	ObservableCollection<ProductModel> productModel;
     [ObservableProperty]
     string searchText = string.Empty;
@@ -39,15 +51,18 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
     [ObservableProperty]
     CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
+    [ObservableProperty]
+    public int viewType;
 
 
 
-    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService)
+    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService)
 	{
 		Title = "Sevk Formu";
         _httpClientService = httpClientService;
 		_warehouseService = warehouseService;
         _customerService = customerService;
+        _driverService = driverService;
 	}
 
 	[RelayCommand]
@@ -84,6 +99,8 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     }
 
 
+
+
     [RelayCommand]
     public async Task GetCustomerAsync()
     {
@@ -115,6 +132,12 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
             IsBusy= false;
         }
 
+    }
+
+    public async Task Save()
+    {
+         //Insert İşlemi 
+         //SuccessPage yönmlendirme
     }
 
 }

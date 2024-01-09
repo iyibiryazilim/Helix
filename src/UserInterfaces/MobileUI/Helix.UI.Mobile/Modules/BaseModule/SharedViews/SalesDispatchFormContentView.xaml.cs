@@ -18,10 +18,15 @@ public partial class SalesDispatchFormContentView : ContentView
 
     //command 
     //WarehouseCommand
-    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionOperationFormContentView), null);
+    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
 
     //customerCommand
-    public static readonly BindableProperty GetCustomerCommandProperty = BindableProperty.Create(nameof(GetCustomerCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionOperationFormContentView), null);
+    public static readonly BindableProperty GetCustomerCommandProperty = BindableProperty.Create(nameof(GetCustomerCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+
+
+    //
+    public static readonly BindableProperty SalesFormModelProperty = BindableProperty.Create(nameof(SalesFormModel), typeof(SalesFormModel), typeof(SalesDispatchFormContentView), null);
+
 
 
     //get warehouse
@@ -48,6 +53,13 @@ public partial class SalesDispatchFormContentView : ContentView
     {
         get => GetValue(GetCustomerCommandProperty) as AsyncRelayCommand;
         set => SetValue(GetCustomerCommandProperty, value);
+    }
+
+    //model
+    public SalesFormModel SalesFormModel
+    {
+        get => GetValue(SalesFormModelProperty) as SalesFormModel;
+        set => SetValue(SalesFormModelProperty, value);
     }
     public SalesDispatchFormContentView()
 	{

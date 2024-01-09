@@ -12,15 +12,17 @@ public partial class PurchaseDispatchOperationFormContentView : ContentView
     public static readonly BindableProperty WarehouseListProperty = BindableProperty.Create(nameof(WarehouseList), typeof(ObservableCollection<Warehouse>), typeof(SalesDispatchFormContentView));
 
     //CustomerList
-    public static readonly BindableProperty SupplierListProperty = BindableProperty.Create(nameof(SupplierList), typeof(ObservableCollection<Supplier>), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty SupplierListProperty = BindableProperty.Create(nameof(SupplierList), typeof(ObservableCollection<Supplier>), typeof(PurchaseDispatchOperationFormContentView));
 
 
     //command 
     //WarehouseCommand
-    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionOperationFormContentView), null);
+    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(AsyncRelayCommand), typeof(PurchaseDispatchOperationFormContentView), null);
 
     //customerCommand
-    public static readonly BindableProperty GetSupplierCommandProperty = BindableProperty.Create(nameof(GetSupplierCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionOperationFormContentView), null);
+    public static readonly BindableProperty GetSupplierCommandProperty = BindableProperty.Create(nameof(GetSupplierCommand), typeof(AsyncRelayCommand), typeof(PurchaseDispatchOperationFormContentView), null);
+    //
+    public static readonly BindableProperty PurchaseFormModelProperty = BindableProperty.Create(nameof(PurchaseFormModel), typeof(PurchaseFormModel), typeof(PurchaseDispatchOperationFormContentView), null);
 
 
     //get warehouse
@@ -47,6 +49,12 @@ public partial class PurchaseDispatchOperationFormContentView : ContentView
     {
         get => GetValue(GetSupplierCommandProperty) as AsyncRelayCommand;
         set => SetValue(GetSupplierCommandProperty, value);
+    }
+    //model
+    public PurchaseFormModel PurchaseFormModel
+    {
+        get => GetValue(PurchaseFormModelProperty) as PurchaseFormModel;
+        set => SetValue(PurchaseFormModelProperty, value);
     }
     public PurchaseDispatchOperationFormContentView()
 	{
