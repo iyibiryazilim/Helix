@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.MVVMHelper;
@@ -14,12 +15,14 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	[ObservableProperty]
 	ObservableCollection<WarehouseTotal> warehouseTotal;
 
-	ObservableCollection<WarehouseTotal> Result { get; } = new();
+	public ObservableCollection<WarehouseTotal> Result { get; } = new();
 
 	public Command<string> SearchCommand { get; }
+	public Command GetSelectedItemsCommand { get; }
 
 	public WarehouseTransferOperationSelectedItemsListViewModel()
 	{
+		//Title = "Seçilen Ürünler";
 		SearchCommand = new Command<string>(async (text) => await PerformSearchAsync(text));
 	}
 
@@ -60,6 +63,62 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 		finally
 		{
 			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task SortAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Kod A-Z", "Kod Z-A", "Miktara Göre Artan", "Miktara Göre Azalan");
+			if (!string.IsNullOrEmpty(response))
+			{
+				CurrentPage = 0;
+				await Task.Delay(100);
+				switch (response)
+				{
+					case "Ad A-Z":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.nameasc;
+						
+						break;
+					case "Ad Z-A":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.namedesc;
+						
+						break;
+					case "Kod A-Z":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
+						
+						break;
+					case "Kod Z-A":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codedesc;
+						
+						break;
+					case "Miktara Göre Artan":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantityasc;
+						
+						break;
+					case "Miktara Göre Azalan":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantitydesc;
+						
+						break;
+					default:
+						
+						break;
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Sıralama Hatası", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
 		}
 	}
 }
