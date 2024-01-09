@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Converters;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
@@ -76,6 +77,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 
         }
     }
+	[RelayCommand]
 	async Task GetSalesOrdersAsync()
 	{
 		if (IsBusy)
@@ -84,12 +86,16 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
+
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			var result = await _salesOrderService.GetObjectsByCurrentId(httpClient,Current.ReferenceId,SearchText,OrderBy, CurrentPage,PageSize);
+			Items.Clear();
+			Results.Clear();
 			foreach (SalesOrder item in result.Data)
 			{
-				var obj = Mapping.Mapper.Map<WaitingOrder>(item);
+				var obj = Mapping.Mapper.Map<WaitingOrder>(item);				 
 				Items.Add(obj);
 				Results.Add(obj);
 			}
@@ -161,6 +167,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			if (result.Data.Any())
 			{
 				Items.Clear();
+				Results.Clear();
 				foreach (var item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrder>(item);

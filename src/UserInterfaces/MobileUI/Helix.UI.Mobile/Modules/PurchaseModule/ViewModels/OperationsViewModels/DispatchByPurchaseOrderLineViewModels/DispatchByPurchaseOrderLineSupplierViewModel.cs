@@ -84,14 +84,17 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				var result = await _supplierService.GetObjects(httpClient, "", OrderBy, CurrentPage, PageSize);
 				if (Items.Any())
 				{
-					Items.Clear();
+ 					Items.Clear();
 					Result.Clear();
 				}
 
 				foreach (var item in result.Data)
 				{
-					Items.Add(item);
-					Result.Add(item);
+					if(item.ReferenceCount > 0)
+					{
+						Items.Add(item);
+						Result.Add(item);
+					} 
 				}
 			}
 			catch (Exception ex)

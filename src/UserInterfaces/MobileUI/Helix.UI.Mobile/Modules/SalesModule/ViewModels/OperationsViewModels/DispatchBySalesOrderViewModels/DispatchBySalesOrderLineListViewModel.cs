@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
-using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -16,19 +15,19 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
 [QueryProperty(nameof(SelectedOrders), nameof(SelectedOrders))]
 
-public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
+public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
 	ISalesOrderLineService _salesOrderLineService;
-    public DispatchBySalesOrderLineListViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService)
-    {
+	public DispatchBySalesOrderLineListViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService)
+	{
 		_httpClientService = httpClientService;
 		_salesOrderLineService = salesOrderLineService;
-        Title = "Bekleyen Sipariş Satırları";
+		Title = "Bekleyen Sipariş Satırları";
 		GetOrderLinesCommand = new Command(async () => await LoadData());
 		SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
-        SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
-    }
+		SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
+	}
 
 	[ObservableProperty]
 	string searchText = string.Empty;
@@ -43,9 +42,9 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 	ObservableCollection<WaitingOrder> selectedOrders;
 	public Command GetOrderLinesCommand { get; }
 	public Command SearchCommand { get; }
-    public Command SelectAllCommand { get; }
+	public Command SelectAllCommand { get; }
 
-    public ObservableCollection<WaitingOrderLine> Items { get; } = new();
+	public ObservableCollection<WaitingOrderLine> Items { get; } = new();
 	public ObservableCollection<WaitingOrderLine> Results { get; } = new();
 	public ObservableCollection<WaitingOrderLine> SelectedOrderLines { get; } = new();
 	async Task LoadData()
@@ -69,6 +68,7 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 			IsRefreshing = false;
 		}
 	}
+	[RelayCommand]
 	async Task GetSalesOrdersAsync()
 	{
 		if (IsBusy)
@@ -81,17 +81,19 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 
 			foreach (var order in SelectedOrders)
 			{
-				var result = await _salesOrderLineService.GetObjectByFicheId(httpClient, true,order.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
+				var result = await _salesOrderLineService.GetObjectByFicheId(httpClient, true, order.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
+				Items.Clear();
+				Results.Clear();
 				foreach (SalesOrderLine item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-                    obj.TempQuantity = (double)item.WaitingQuantity;
+					obj.TempQuantity = (double)item.WaitingQuantity;
 
-                    Items.Add(obj);
+					Items.Add(obj);
 					Results.Add(obj);
 				}
 			}
-			
+
 
 
 		}
@@ -145,43 +147,6 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task ReloadAsync()
-	{
-		if (IsBusy)
-			return;
-		try
-		{
-			IsBusy = true;
-			IsRefreshing = true;
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-			CurrentPage = 0;
-			var result = await _salesOrderLineService.GetObjects(httpClient, true,SearchText, OrderBy, CurrentPage, PageSize);
-			if (result.Data.Any())
-			{
-				Items.Clear();
-				foreach (var item in result.Data)
-				{
-					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-					obj.TempQuantity = (double)item.WaitingQuantity;
-					Items.Add(obj);
-					Results.Add(obj);
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-			IsRefreshing = false;
-		}
-	}
-
-	[RelayCommand]
 	async Task SortAsync()
 	{
 		if (IsBusy) return;
@@ -209,7 +174,11 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 						}
 						break;
 					default:
-						await ReloadAsync();
+						Results.Clear();
+						foreach (var item in Items)
+						{
+							Results.Add(item);
+						}
 						break;
 
 				}
@@ -227,29 +196,29 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 		}
 	}
 
-    public async Task SelectAllAsync(bool isSelected)
-    {
-        if (isSelected)
-        {
-            foreach (var item in Results)
-            {
-                item.IsSelected = true;
-                SelectedOrderLines.Add(item);
+	public async Task SelectAllAsync(bool isSelected)
+	{
+		if (isSelected)
+		{
+			foreach (var item in Results)
+			{
+				item.IsSelected = true;
+				SelectedOrderLines.Add(item);
 
-            }
-        }
-        else
-        {
-            foreach (var item in Results)
-            {
-                item.IsSelected = false;
-                SelectedOrderLines.Remove(item);
+			}
+		}
+		else
+		{
+			foreach (var item in Results)
+			{
+				item.IsSelected = false;
+				SelectedOrderLines.Remove(item);
 
-            }
-        }
-    }
+			}
+		}
+	}
 
-    [RelayCommand]
+	[RelayCommand]
 	public async Task ToggleSelectionAsync(WaitingOrderLine model)
 	{
 		await Task.Run(() =>
@@ -277,13 +246,13 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 
 
 	[RelayCommand]
-    async Task GoToSalesOrderSummary()
-    {
-        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
-        {
-            ["SelectedOrderLines"] = SelectedOrderLines
-        });
-		
-    }
+	async Task GoToSalesOrderSummary()
+	{
+		await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
+		{
+			["SelectedOrderLines"] = SelectedOrderLines
+		});
+
+	}
 
 }
