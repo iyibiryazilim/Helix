@@ -146,6 +146,29 @@
                                                             </Style>
                                                         </Label.Style>
                                                     </Label>
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="Default"
+                                                           HorizontalOptions="Center"
+                                                           TextColor="{StaticResource Gray400}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding Time, StringFormat='{0:c}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                                  Binding="{Binding IsSelected}"
+                                                                                  Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                                Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
                                                 </VerticalStackLayout>
                                                 <VerticalStackLayout Grid.Column="2"
                                                                      VerticalOptions="Center"
@@ -167,7 +190,7 @@
                                                             </Style>
                                                         </Label.Style>
                                                     </Label>
-                                                    <Label Text="{Binding WarehouseName}"
+                                                    <Label Text="{Binding ShipCustomerName}"
                                                            VerticalOptions="Start"
                                                            FontAttributes="Bold">
                                                         <Label.Style>
@@ -178,6 +201,23 @@
                                                                                   Value="True">
                                                                         <Setter Property="TextColor"
                                                                                 Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                    <Label Text="{Binding ShipInfoName}"
+                                                           VerticalOptions="Start"
+                                                           FontAttributes="Bold">
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                                  Binding="{Binding IsSelected}"
+                                                                                  Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                                Value="{StaticResource Warning}" />
                                                                         <!-- Multiple Setter elements are allowed -->
                                                                     </DataTrigger>
                                                                 </Style.Triggers>

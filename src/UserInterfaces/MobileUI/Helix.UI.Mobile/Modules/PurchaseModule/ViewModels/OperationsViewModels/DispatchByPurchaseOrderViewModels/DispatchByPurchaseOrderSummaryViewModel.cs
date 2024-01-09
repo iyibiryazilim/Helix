@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -43,8 +45,6 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				IsBusy = false;
 			}
 		}
-
-
 		async Task GetCurrentAsync()
 		{
 			if (IsBusy)
@@ -70,6 +70,16 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				IsBusy = false;
 				IsRefreshing = false;
 			}
+		}
+
+		[RelayCommand]
+		async Task GoToFormAsync()
+		{
+			await Task.Delay(500);
+			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderFormView)}", new Dictionary<string, object>
+			{
+				[nameof(WaitingOrderLine)] = WaitingOrderLine
+			});
 		}
 	}
 }

@@ -16,7 +16,7 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetOrdersCommand}" />
     </ContentPage.Behaviors>
-    <sharedView:WaitingOrderContentView ReloadCommand="{Binding GetOrdersCommand}"
+    <sharedView:WaitingOrderContentView ReloadCommand="{Binding GetSalesOrdersCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         SortCommand="{Binding SortCommand}"
                                         WaitingOrderList="{Binding Results}"
