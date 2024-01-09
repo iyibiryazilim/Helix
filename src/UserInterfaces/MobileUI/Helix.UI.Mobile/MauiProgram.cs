@@ -408,6 +408,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProductTransactionOperationFormContentView>();
 			mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationFormView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationSelectedItemsListView>();
 
 
 
@@ -452,6 +453,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<WastageTransactionOperationFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<InCountingTransactionOperationFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationSelectedItemsListViewModel>();
 
 
 			return mauiAppBuilder;

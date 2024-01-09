@@ -23,12 +23,22 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ICustomerService _customerService;
+    IDriverService _driverService;
+    ICarrierService _carrierService;
+    ISpeCodeService _speCodeService;
 
-	public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
+    public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
     public ObservableCollection<Customer> CustomerItems { get; } = new();
 
     [ObservableProperty]
     ObservableCollection<WaitingOrderLine> selectedOrderLines;
+
+    public ObservableCollection<Driver> DriverItems { get; } = new();
+
+    public ObservableCollection<Carrier> CarrierItems { get; } = new();
+
+    public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
+
 
 
     [ObservableProperty]
@@ -47,15 +57,119 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
 
 
+    [RelayCommand]
+    public async Task GetSpeCodeAsync()
+    {
 
-    public DispatchBySalesOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService)
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _speCodeService.GetObjects(httpClient);
+
+            if (result.Data.Any())
+            {
+                SpeCodeModelItems.Clear();
+
+                foreach (var item in result.Data)
+                {
+                    await Task.Delay(100);
+                    SpeCodeModelItems.Add(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+
+        }
+    }
+
+
+
+    public DispatchBySalesOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService, ICarrierService carrierService, ISpeCodeService speCodeService)
     {
         Title = "Form";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _customerService = customerService;
+        _driverService = driverService;
+        _carrierService = carrierService;
        
     }
+
+    [RelayCommand]
+    public async Task GetDriverAsync()
+    {
+
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _driverService.GetObjects(httpClient);
+
+            if (result.Data.Any())
+            {
+                DriverItems.Clear();
+
+                foreach (var item in result.Data)
+                {
+                    await Task.Delay(100);
+                    DriverItems.Add(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+
+        }
+    }
+
+    [RelayCommand]
+    public async Task GetCarrierAsync()
+    {
+
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _carrierService.GetObjects(httpClient);
+
+            if (result.Data.Any())
+            {
+                DriverItems.Clear();
+
+                foreach (var item in result.Data)
+                {
+                    await Task.Delay(100);
+                    CarrierItems.Add(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+
+        }
+    }
+
+
 
 
     [RelayCommand]

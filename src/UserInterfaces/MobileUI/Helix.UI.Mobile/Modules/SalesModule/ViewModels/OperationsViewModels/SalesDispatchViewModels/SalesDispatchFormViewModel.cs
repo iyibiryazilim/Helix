@@ -24,6 +24,9 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     ICustomerService _customerService;
     IServiceProvider _serviceProvider;
     IDriverService _driverService;
+    ICarrierService _carrierService;
+    ISpeCodeService _speCodeService;
+    IShipInfoService _shipInfoService;
 
 
 
@@ -32,7 +35,12 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 
     public ObservableCollection<Driver> DriverItems { get; } = new();
 
-   
+    public ObservableCollection<Carrier> CarrierItems { get; } = new();
+
+    public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
+
+    public ObservableCollection<ShipInfo> ShipInfoItems { get; } = new();
+
 
     [ObservableProperty]
     SalesFormModel salesFormFormModel = new();
@@ -56,16 +64,124 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 
 
 
-    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService)
+    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService,ICarrierService carrierService, ISpeCodeService speCodeService,IShipInfoService shipInfoService)
 	{
 		Title = "Sevk Formu";
         _httpClientService = httpClientService;
 		_warehouseService = warehouseService;
         _customerService = customerService;
         _driverService = driverService;
+        _carrierService = carrierService;
+        _speCodeService = speCodeService;
+        _shipInfoService = shipInfoService;
+       
 	}
 
-	[RelayCommand]
+
+
+    [RelayCommand]
+    public async Task GetSpeCodeAsync()
+    {
+
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _speCodeService.GetObjects(httpClient);
+
+            if (result.Data.Any())
+            {
+                SpeCodeModelItems.Clear();
+
+                foreach (var item in result.Data)
+                {
+                    await Task.Delay(100);
+                    SpeCodeModelItems.Add(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+
+        }
+    }
+
+
+
+    [RelayCommand]
+    public async Task GetDriverAsync()
+    {
+
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _driverService.GetObjects(httpClient);
+
+            if (result.Data.Any())
+            {
+                DriverItems.Clear();
+
+                foreach (var item in result.Data)
+                {
+                    await Task.Delay(100);
+                    DriverItems.Add(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+
+        }
+    }
+
+    [RelayCommand]
+    public async Task GetCarrierAsync()
+    {
+
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _carrierService.GetObjects(httpClient);
+
+            if (result.Data.Any())
+            {
+                DriverItems.Clear();
+
+                foreach (var item in result.Data)
+                {
+                    await Task.Delay(100);
+                    CarrierItems.Add(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+
+        }
+    }
+
+
+    [RelayCommand]
 	public async Task GetWarehouseAsync()
 	{
 

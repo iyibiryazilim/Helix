@@ -7,7 +7,30 @@
              xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Shell.TabBarIsVisible="False"
              x:DataType="viewModel:DispatchBySalesOrderLineFormViewModel"
+             x:Name="this" 
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="{Binding Title}">
+     <ContentPage.Behaviors>
+     <toolkit:EventToCommandBehavior EventName="Loaded"
+                                     Command="{Binding GetWarehouseCommand}" />
+     <toolkit:EventToCommandBehavior EventName="Loaded"
+                                     Command="{Binding GetCustomerCommand}" />
+     <toolkit:EventToCommandBehavior EventName="Loaded"
+                                     Command="{Binding GetDriverCommand}" />
+     <toolkit:EventToCommandBehavior EventName="Loaded"
+                                     Command="{Binding GetCarrierCommand}" />
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetSpeCod}" />
+    </ContentPage.Behaviors>
+    <sharedViews:SalesDispatchFormContentView WarehouseList="{Binding WarehouseItems}"
+                                              CustomerList="{Binding CustomerItems}"
+                                              DriverList="{Binding DriverItems}"
+                                              CarrierList="{Binding CarrierItems}"
+                                              SpeCodeList="{Binding SpeCodeModelItems}">
 
-   
+    </sharedViews:SalesDispatchFormContentView>
+
+
 </ContentPage>

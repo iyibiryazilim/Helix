@@ -13,7 +13,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 {
     public class DriverDataStore :IDriverService
     {
-        string postUrl = $"/gateway/sales/" + typeof(SalesFormModel).Name;
+        string postUrl = $"/gateway/sales/" + typeof(Driver).Name;
         
 
         public  async Task<DataResult<IEnumerable<Driver>>> GetObjects(HttpClient httpClient)

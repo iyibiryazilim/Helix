@@ -110,7 +110,8 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationView), typeof(WarehouseTransferOperationView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineSelectedLineListView), typeof(DispatchByPurchaseOrderLineSelectedLineListView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSelectedLineListView), typeof(DispatchByPurchaseOrderSelectedLineListView));
-        Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSelectedLineListView), typeof(DispatchBySalesOrderLineSelectedLineListView));
+    Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSelectedLineListView), typeof(DispatchBySalesOrderLineSelectedLineListView));
+		Routing.RegisterRoute(nameof(WarehouseTransferOperationSelectedItemsListView), typeof(WarehouseTransferOperationSelectedItemsListView));
 
 
     }
