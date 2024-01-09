@@ -64,6 +64,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		{
 			await Task.Delay(500);
 			await Task.WhenAll(GetWarehousesAsync(), ReloadAsync());
+			//await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
 			
 		}
 		catch(Exception ex)
@@ -77,7 +78,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
-	[RelayCommand]
+	
 	public async Task GetWarehousesAsync()
 	{
 		//if(IsBusy)

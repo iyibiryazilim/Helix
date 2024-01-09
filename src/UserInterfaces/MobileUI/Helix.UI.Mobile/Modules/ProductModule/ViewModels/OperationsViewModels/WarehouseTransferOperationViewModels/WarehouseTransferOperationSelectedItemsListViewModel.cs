@@ -23,7 +23,9 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	public WarehouseTransferOperationSelectedItemsListViewModel()
 	{
 		Title = "Seçilen Ürünler";
+
 		SearchCommand = new Command<string>(async (text) => await PerformSearchAsync(text));
+		GetSelectedItemsCommand = new Command(async () => await GetSelectedItemsAsync());
 	}
 
 	[ObservableProperty]
@@ -34,6 +36,38 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	int currentPage = 0;
 	[ObservableProperty]
 	int pageSize = 20;
+
+	public async Task GetSelectedItemsAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			IsRefreshing = true;
+
+			if(Result.Count > 0) 
+				Result.Clear();
+
+			foreach (var item in WarehouseTotal)
+			{
+				await Task.Delay(100);
+				Result.Add(item);
+			}
+			
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
 
 	[RelayCommand]
 	async Task RemoveItemAsync(WarehouseTotal item)
@@ -198,6 +232,39 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 		{
 			IsBusy = false;
 			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	public async Task GoToBackAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			if (Result.Count == 0)
+
+				await Shell.Current.GoToAsync("..");
+			else
+			{
+				bool answer = await Shell.Current.DisplayAlert("Uyarı", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+				if (answer)
+				{
+					await Shell.Current.GoToAsync("..");
+					//Result.Clear();
+					//WarehouseTotal.Clear();
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+
+		}
+		finally
+		{
+			IsBusy = false;
 		}
 	}
 }

@@ -10,13 +10,20 @@
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
-             Shell.TabBarIsVisible="False"
-             >
+             Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoToBackCommand}" />
+    </Shell.BackButtonBehavior>
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetSelectedItemsCommand}" />
+    </ContentPage.Behaviors>
     <Border BackgroundColor="{StaticResource WhiteSmoke}" 
         StrokeThickness="0"
         Padding="5,20,5,10">
@@ -44,6 +51,11 @@
                         <Grid Grid.Column="1">
                             <SearchBar Placeholder="Barkod Giriniz"
                                        x:Name="searchBar">
+                                <SearchBar.Behaviors>
+                                    <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                    Command="{Binding SearchCommand}"
+                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                                </SearchBar.Behaviors>
                             </SearchBar>
                         </Grid>
                         <Grid Grid.Column="2" Padding="20,0,20,0">
@@ -62,7 +74,7 @@
             </Grid>
             <Grid Grid.Row="1">
 
-                <CollectionView ItemsSource="{Binding WarehouseTotal}">
+                <CollectionView ItemsSource="{Binding Result}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                                            ItemSpacing="3" />
