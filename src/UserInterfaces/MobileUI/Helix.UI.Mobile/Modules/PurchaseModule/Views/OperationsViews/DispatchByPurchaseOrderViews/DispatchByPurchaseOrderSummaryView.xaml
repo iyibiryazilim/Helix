@@ -4,9 +4,16 @@
              x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews.DispatchByPurchaseOrderSummaryView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels"
              x:DataType="viewModel:DispatchByPurchaseOrderSummaryViewModel"
-             Title="{Binding Title}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Title="{Binding Title}"
              Shell.TabBarIsVisible="False">
-    
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetDataCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:WaitingOrderLineSummaryView Current="{Binding Current}"
+                                             Lines="{Binding WaitingOrderLine}"></sharedViews:WaitingOrderLineSummaryView>
 </ContentPage>
