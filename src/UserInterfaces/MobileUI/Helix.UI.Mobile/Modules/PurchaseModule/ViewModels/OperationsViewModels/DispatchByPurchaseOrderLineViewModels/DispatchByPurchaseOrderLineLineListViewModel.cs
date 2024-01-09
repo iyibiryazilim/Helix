@@ -26,8 +26,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		public ObservableCollection<WaitingOrderLine> SelectedOrderLines { get; } = new();
 
 
+
 		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
+		public Command SelectAllCommand { get; }
+
 
 		[ObservableProperty]
 		string searchText = string.Empty;
@@ -49,8 +52,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 			GetDataCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
-
-
+			SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
 		}
 
 		async Task LoadData()
@@ -257,24 +259,25 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 			try
 			{
-				//if (Items.Where(x => x.IsSelected).ToList().Any())
-				//{
-				var result = Items.Where(x => x.IsSelected).ToList();
-				foreach (var item in Items.Where(x=>x.IsSelected))
+				if (Items.Where(x => x.IsSelected).ToList().Any())
 				{
-					SelectedOrderLines.Add(item);
+					var result = Items.Where(x => x.IsSelected).ToList();
+					SelectedOrderLines.Clear();
+					foreach (var item in Items.Where(x => x.IsSelected))
+					{
+						SelectedOrderLines.Add(item);
+					}
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSelectedLineListView)}", new Dictionary<string, object>
+					{
+						[nameof(WaitingOrderLine)] = SelectedOrderLines
+					});
 				}
-				await Task.Delay(500);
-				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
+				else
 				{
-					[nameof(WaitingOrderLine)] = SelectedOrderLines
-				});
-				//}
-				//else
-				//{
-				//	await Shell.Current.DisplayAlert("Uyarı", "Satır Seçiniz", "Tamam");
+					await Shell.Current.DisplayAlert("Uyarı", "Satır Seçiniz", "Tamam");
 
-				//}
+				}
 
 			}
 			catch (Exception ex)
@@ -283,5 +286,47 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			}
 
 		}
+
+		public async Task SelectAllAsync(bool isSelected)
+		{
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+				await Task.Run(() =>
+				{
+					if (isSelected)
+					{
+						Result.Clear();
+						foreach (var item in Items)
+						{
+							Result.Add(item);
+							item.IsSelected = true;
+						}
+					}
+					else
+					{
+						Result.Clear();
+						foreach (var item in Items)
+						{
+							Result.Add(item);
+							item.IsSelected = false;
+						}
+					}
+				});
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+
+
+		}
+
 	}
 }

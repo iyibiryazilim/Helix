@@ -14,9 +14,10 @@
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderLineContentView SearchCommand="{Binding SearchCommand}"
                                             IsBusy="{Binding IsBusy}"
-                                            IsRefreshing="{Binding IsRefreshing}"
                                             ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                            IsRefreshing="{Binding IsRefreshing}"
                                             WaitingOrderLineList="{Binding Result}"
+                                            CheckedChangeCommand="{Binding SelectAllCommand}"
                                             GoToNextCommand="{Binding GoToSummaryCommand}"
                                             SortCommand="{Binding SortCommand}" />
 </ContentPage>

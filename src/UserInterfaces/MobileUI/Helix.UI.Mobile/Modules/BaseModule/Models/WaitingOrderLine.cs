@@ -76,7 +76,20 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		string currentName;
 		[ObservableProperty]
 		bool isSelected;
-        [ObservableProperty]
-        double tempQuantity;
-    }
+
+
+		private double? tempQuantity;
+
+		public double? TempQuantity
+		{
+			get
+			{
+				tempQuantity = WaitingQuantity;
+				return tempQuantity;
+			}
+			set => SetProperty(ref tempQuantity, value);
+		}
+
+
+	}
 }
