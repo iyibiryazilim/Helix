@@ -23,6 +23,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 		public ObservableCollection<WaitingOrderLine> Items { get; } = new();
 		public ObservableCollection<WaitingOrderLine> Result { get; } = new();
+		public ObservableCollection<WaitingOrderLine> SelectedOrderLines { get; } = new();
+
 
 		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
@@ -257,12 +259,16 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			{
 				//if (Items.Where(x => x.IsSelected).ToList().Any())
 				//{
-					var result = Items.Where(x => x.IsSelected).ToList();
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
-					{
-						[nameof(WaitingOrderLine)] = result
-					});
+				var result = Items.Where(x => x.IsSelected).ToList();
+				foreach (var item in Items.Where(x=>x.IsSelected))
+				{
+					SelectedOrderLines.Add(item);
+				}
+				await Task.Delay(500);
+				await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
+				{
+					[nameof(WaitingOrderLine)] = SelectedOrderLines
+				});
 				//}
 				//else
 				//{

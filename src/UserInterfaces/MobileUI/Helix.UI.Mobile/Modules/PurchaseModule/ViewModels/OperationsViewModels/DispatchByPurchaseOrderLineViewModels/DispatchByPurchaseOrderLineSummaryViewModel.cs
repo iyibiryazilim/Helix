@@ -12,12 +12,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 	public partial class DispatchByPurchaseOrderLineSummaryViewModel : BaseViewModel
     {
 		[ObservableProperty]
-		List<WaitingOrderLine> waitingOrderLine;
+		ObservableCollection<WaitingOrderLine> waitingOrderLine;
 		[ObservableProperty]
 		Current current;
 
-		public ObservableCollection<WaitingOrderLine> Items { get; } = new();
-
+ 
 
 		public Command GetDataCommand { get; }
 
@@ -63,11 +62,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					Name = WaitingOrderLine.First().CurrentName
 				};
 
-				foreach (var item in WaitingOrderLine)
-				{
-					item.IsSelected = false;
-					Items.Add(item);
-				}
+				 
 			}
 			catch (Exception ex)
 			{

@@ -15,5 +15,5 @@
                                         Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
     <sharedViews:WaitingOrderLineSummaryView Current="{Binding Current}"
-                                             Lines="{Binding Items}"></sharedViews:WaitingOrderLineSummaryView>
+                                             Lines="{Binding WaitingOrderLine}"></sharedViews:WaitingOrderLineSummaryView>
 </ContentPage>
