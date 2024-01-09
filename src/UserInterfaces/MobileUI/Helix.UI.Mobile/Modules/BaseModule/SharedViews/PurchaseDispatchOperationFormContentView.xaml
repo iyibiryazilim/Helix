@@ -25,8 +25,8 @@
                         <Label Text="İrsaliye Türü"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Picker x:Name="pickerDispatch"
-                                    Title="Seçiniz.." />
+                            <Entry Placeholder="Mal Alım İrsaliyesi"
+                                   IsReadOnly="True" />
 
                         </Border>
                     </VerticalStackLayout>
