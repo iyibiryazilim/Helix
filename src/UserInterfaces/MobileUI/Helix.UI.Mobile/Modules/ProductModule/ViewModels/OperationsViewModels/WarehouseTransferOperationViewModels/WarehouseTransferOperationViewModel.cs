@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -324,36 +325,36 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
-	//[RelayCommand]
-	//async Task GoToOperationFormAsync()
-	//{
-	//	if (IsBusy)
-	//		return;
+	[RelayCommand]
+	async Task GoToWarehouseTransferOperationSelectedItemsListViewAsync()
+	{
+		if (IsBusy)
+			return;
 
-	//	try
-	//	{
-	//		IsBusy = true;
+		try
+		{
+			IsBusy = true;
 
-	//		if(SelectedItems.Count > 0)
-	//		{
-	//			await Shell.Current.GoToAsync($"{nameof()}", new Dictionary<string, object>
-	//			{
-	//				[nameof(WarehouseTotal)] = SelectedItems
-	//			});
-	//		}
-	//		else
-	//		{
-	//			await Shell.Current.DisplayAlert("Hata", "Form sayfasına gitmek için ürün seçmeniz gerekmektedir", "Tamam");
-	//		}
-	//	}
-	//	catch (Exception ex)
-	//	{
-	//		Debug.WriteLine(ex.Message);
-	//	}
-	//	finally
-	//	{
-	//		IsBusy = false;
-	//	}
-	//}
+			if (SelectedItems.Count > 0)
+			{
+				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationSelectedItemsListView)}", new Dictionary<string, object>
+				{
+					[nameof(WarehouseTotal)] = SelectedItems
+				});
+			}
+			else
+			{
+				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için ürün seçmeniz gerekmektedir", "Tamam");
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex.Message);
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
 
 }
