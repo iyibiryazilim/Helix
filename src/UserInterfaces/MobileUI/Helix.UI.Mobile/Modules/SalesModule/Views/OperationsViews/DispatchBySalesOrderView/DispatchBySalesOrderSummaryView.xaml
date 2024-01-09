@@ -4,18 +4,17 @@
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView.DispatchBySalesOrderSummaryView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels"
+             x:DataType="viewModel:DispatchBySalesOrderSummaryViewModel"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="{Binding Title}"
-             >
-    <Grid RowDefinitions="Auto,*,Auto">
-        <Grid Grid.Row="2">
-            <Button Text="İleri"
-                    Margin="10,10,10,20"
-                    Command="{Binding GoToSalesOrderFormCommand}">
-                
-            </Button>
-        </Grid>
-        
-    </Grid>
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetDataCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:WaitingOrderLineSummaryView Current="{Binding Current}"
+                                             Lines="{Binding SelectedOrderLines}"></sharedViews:WaitingOrderLineSummaryView>
 </ContentPage>
