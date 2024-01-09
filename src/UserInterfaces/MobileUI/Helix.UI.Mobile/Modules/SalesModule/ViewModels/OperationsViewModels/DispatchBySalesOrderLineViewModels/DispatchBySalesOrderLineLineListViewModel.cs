@@ -7,6 +7,7 @@ using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
 using System;
 using System.Collections.Generic;
@@ -252,7 +253,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         [RelayCommand]
         async Task GoToSalesOrderSummary()
         {
-            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineSummaryView)}");
+            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineSelectedLineListView)}", new Dictionary<string, object>
+            {
+                ["SelectedOrderLines"] = SelectedOrderLines
+            });
         }
     }
 }

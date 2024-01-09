@@ -249,6 +249,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSummaryView>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSelectedLineListView>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSelectedLineListView>();
+
 
 
 
@@ -277,6 +279,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSummaryViewModel>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSelectedLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSelectedLineListViewModel>();
+
 
 
 

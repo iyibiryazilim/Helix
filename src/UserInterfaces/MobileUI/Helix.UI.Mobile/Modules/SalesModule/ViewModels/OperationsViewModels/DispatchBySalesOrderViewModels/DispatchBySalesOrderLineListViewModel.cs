@@ -27,7 +27,8 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
         Title = "Bekleyen Sipariş Satırları";
 		GetOrderLinesCommand = new Command(async () => await LoadData());
 		SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
-	}
+        SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
+    }
 
 	[ObservableProperty]
 	string searchText = string.Empty;
@@ -42,8 +43,9 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 	ObservableCollection<WaitingOrder> selectedOrders;
 	public Command GetOrderLinesCommand { get; }
 	public Command SearchCommand { get; }
+    public Command SelectAllCommand { get; }
 
-	public ObservableCollection<WaitingOrderLine> Items { get; } = new();
+    public ObservableCollection<WaitingOrderLine> Items { get; } = new();
 	public ObservableCollection<WaitingOrderLine> Results { get; } = new();
 	public ObservableCollection<WaitingOrderLine> SelectedOrderLines { get; } = new();
 	async Task LoadData()
@@ -225,11 +227,34 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
 		}
 	}
 
-	[RelayCommand]
+    public async Task SelectAllAsync(bool isSelected)
+    {
+        if (isSelected)
+        {
+            foreach (var item in Results)
+            {
+                item.IsSelected = true;
+                SelectedOrderLines.Add(item);
+
+            }
+        }
+        else
+        {
+            foreach (var item in Results)
+            {
+                item.IsSelected = false;
+                SelectedOrderLines.Remove(item);
+
+            }
+        }
+    }
+
+    [RelayCommand]
 	public async Task ToggleSelectionAsync(WaitingOrderLine model)
 	{
 		await Task.Run(() =>
 		{
+
 			WaitingOrderLine selectedItem = Results.FirstOrDefault(x => x.ReferenceId == model.ReferenceId);
 			if (selectedItem != null)
 			{
@@ -258,6 +283,7 @@ public partial class DispatchBySalesOrderLineListViewModel:BaseViewModel
         {
             ["SelectedOrderLines"] = SelectedOrderLines
         });
+		
     }
 
 }
