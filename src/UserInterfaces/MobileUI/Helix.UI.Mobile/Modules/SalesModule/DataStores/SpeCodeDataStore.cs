@@ -7,7 +7,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores;
 
 public class SpeCodeDataStore :ISpeCodeService
 {
-    string postUrl = $"gateway/sales" + typeof(SpeCodeModel).Name;
+    string postUrl = $"gateway/sales/SpeCode"; 
 
     public async Task<DataResult<IEnumerable<SpeCodeModel>>> GetObjects(HttpClient httpClient)
     {

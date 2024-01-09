@@ -15,6 +15,17 @@ public partial class SalesDispatchFormContentView : ContentView
     //CustomerList
     public static readonly BindableProperty CustomerListProperty = BindableProperty.Create(nameof(CustomerList), typeof(ObservableCollection<Customer>), typeof(SalesDispatchFormContentView));
 
+    //DriverList
+    public static readonly BindableProperty DriverListProperty = BindableProperty.Create(nameof(DriverList), typeof(ObservableCollection<Driver>), typeof(SalesDispatchFormContentView));
+
+    //CarrierList
+    public static readonly BindableProperty CarrierListProperty = BindableProperty.Create(nameof(CarrierList), typeof(ObservableCollection<Carrier>), typeof(SalesDispatchFormContentView));
+
+    //SpeCodeList
+    public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(SalesDispatchFormContentView));
+
+
+
 
     //command 
     //WarehouseCommand
@@ -22,6 +33,15 @@ public partial class SalesDispatchFormContentView : ContentView
 
     //customerCommand
     public static readonly BindableProperty GetCustomerCommandProperty = BindableProperty.Create(nameof(GetCustomerCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+
+    //DriverCommand
+    public static readonly BindableProperty GetDriverCommandProperty = BindableProperty.Create(nameof(GetDriverCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+
+    //CarrierCommand
+    public static readonly BindableProperty GetCarrierCommandProperty = BindableProperty.Create(nameof(GetCarrierCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+
+    //SpeCodeCommand
+    public static readonly BindableProperty GetSpeCodeCommandProperty = BindableProperty.Create(nameof(GetSpeCodeCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
 
 
     //
@@ -60,6 +80,47 @@ public partial class SalesDispatchFormContentView : ContentView
     {
         get => GetValue(SalesFormModelProperty) as SalesFormModel;
         set => SetValue(SalesFormModelProperty, value);
+    }
+
+    //get driver
+    public AsyncRelayCommand GetDriverCommand
+    {
+        get => GetValue(GetDriverCommandProperty) as AsyncRelayCommand;
+        set => SetValue(GetDriverCommandProperty, value);
+    }
+
+    //DriverList
+    public ObservableCollection<Driver> DriverList
+    {
+        get => GetValue(DriverListProperty) as ObservableCollection<Driver>;
+        set => SetValue(DriverListProperty, value);
+    }
+
+    //get warehouse
+    public AsyncRelayCommand GetCarrierCommand
+    {
+        get => GetValue(GetCarrierCommandProperty) as AsyncRelayCommand;
+        set => SetValue(GetCarrierCommandProperty, value);
+    }
+
+    //carrierList
+    public ObservableCollection<Carrier> CarrierList
+    {
+        get => GetValue(CarrierListProperty) as ObservableCollection<Carrier>;
+        set => SetValue(CarrierListProperty, value);
+    }
+
+    //get speCode
+    public AsyncRelayCommand GetSpeCodeCommand
+    {
+        get => GetValue(GetSpeCodeCommandProperty) as AsyncRelayCommand;
+        set => SetValue(GetSpeCodeCommandProperty, value);
+    }
+    //SpeCodeList
+    public ObservableCollection<SpeCodeModel> SpeCodeList
+    {
+        get => GetValue(SpeCodeListProperty) as ObservableCollection<SpeCodeModel>;
+        set => SetValue(SpeCodeListProperty, value);
     }
     public SalesDispatchFormContentView()
 	{

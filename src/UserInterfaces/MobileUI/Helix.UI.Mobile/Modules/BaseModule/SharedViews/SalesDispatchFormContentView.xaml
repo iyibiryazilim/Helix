@@ -64,8 +64,7 @@
                         <Border StrokeShape="RoundRectangle 13">
                             <Picker x:Name="pickerCustomer"
                                     Title="Seçiniz.."
-                                    ItemDisplayBinding="{Binding Name}"
-                                    
+                                    ItemDisplayBinding="{Binding Name}" 
                                     ItemsSource="{Binding Source={x:Reference this},Path=CustomerList}"
                                     SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedCustomer}" />
 
@@ -93,7 +92,8 @@
                             <Picker x:Name="pickerWarehouse"
                                     Title="Seçiniz.."
                                     ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}" />
+                                    ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
+                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedWarehouse}"/>
 
                         </Border>
                     </VerticalStackLayout>
@@ -105,7 +105,10 @@
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Picker x:Name="pickerCarrier"
-                                    Title="Seçiniz.." />
+                                    Title="Seçiniz.."
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding Source={x:Reference this},Path=CarrierList}"
+                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedCarrier}" />
 
                         </Border>
                     </VerticalStackLayout>
@@ -116,7 +119,12 @@
                         <Label Text="Şoför Adı"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="  Şoför Adı" />
+                            <Picker x:Name="pickerDriver"
+                                    Title="Seçiniz.."
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding Source={x:Reference this},Path=DriverList}"
+                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedDriver}" />
+
                         </Border>
                     </VerticalStackLayout>
 
@@ -127,8 +135,11 @@
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Grid ColumnDefinitions="85*,15*">
-                                <Entry Grid.Column="0"
-                                       Placeholder="  Özel Kod Giriniz" />
+                                <Picker x:Name="pickerSpeCode"
+                                        Title="Seçiniz.."
+                                        ItemDisplayBinding="{Binding SpeCode}"
+                                        ItemsSource="{Binding Source={x:Reference this},Path=SpeCodeList}"
+                                        SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedSpeCode}" />
                                 <ImageButton Grid.Column="1"
                                              BackgroundColor="Transparent"
                                              Aspect="AspectFit"
