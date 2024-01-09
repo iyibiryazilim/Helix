@@ -256,6 +256,80 @@ public abstract class Order : INotifyPropertyChanged
         }
     }
 
+    int? shipCustomerReferenceId;
+
+    public int? ShipCustomerReferenceId
+    {
+        get => shipCustomerReferenceId;
+        set
+        {
+            if (value != shipCustomerReferenceId)
+            {
+                shipCustomerReferenceId = value;
+                NotifyPropertyChanged(nameof(ShipCustomerReferenceId));
+            }
+        }
+    }
+
+    string? shipCustomerCode;
+    public string? ShipCustomerCode
+    {
+        get => shipCustomerCode;
+        set
+        {
+            shipCustomerCode = value;
+            NotifyPropertyChanged();
+        }
+    }
+
+    string? shipCustomerName;
+    public string? ShipCustomerName
+    {
+        get => shipCustomerName;
+        set
+        {
+            shipCustomerName = value;
+            NotifyPropertyChanged();
+        }
+    }
+
+    int? shipInfoReferenceId;
+
+    public int? ShipInfoReferenceId
+    {
+        get => shipInfoReferenceId;
+        set
+        {
+            if (value != shipInfoReferenceId)
+            {
+                shipInfoReferenceId = value;
+                NotifyPropertyChanged(nameof(ShipInfoReferenceId));
+            }
+        }
+    }
+
+    string? shipInfoCode;
+    public string? ShipInfoCode
+    {
+        get => shipInfoCode;
+        set
+        {
+            shipInfoCode = value;
+            NotifyPropertyChanged();
+        }
+    }
+
+    string? shipInfoName;
+    public string? ShipInfoName
+    {
+        get => shipInfoName;
+        set
+        {
+            shipInfoName = value;
+            NotifyPropertyChanged();
+        }
+    }
+
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
