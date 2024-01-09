@@ -6,24 +6,54 @@
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
              x:DataType="viewModel:WarehouseTransferOperationViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}"
+             >
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
-    <Grid Padding="10" RowDefinitions="Auto">
-        <Border StrokeShape="RoundRectangle 10">
-            <VerticalStackLayout>
-                <Picker x:Name="warehousePicker"
-                        IsEnabled="{Binding IsNotBusy}"
-                        Title="Ambar Seçiniz"
-                        ItemsSource="{Binding WarehouseList}"
-                        ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedWarehouse}" />
-                <Label Text="Seçilen Ambar" />
-                <Label Text="{Binding Source={x:Reference warehousePicker}, Path=SelectedItem.Name}" />
-            </VerticalStackLayout>
-            
-        </Border>
-        
-    </Grid>
+    <Border BackgroundColor="{StaticResource WhiteSmoke}" 
+            StrokeThickness="0"
+            Padding="5,20,5,10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="Auto, Auto, *"
+              RowSpacing="10"
+              BackgroundColor="Transparent">
+            <Grid Grid.Row="0">
+                <Border StrokeShape="RoundRectangle 20"
+                        Padding="15,0">
+                    <Picker x:Name="warehousePicker"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Title="Ambar Seçiniz"
+                            ItemsSource="{Binding WarehouseList}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedWarehouse}" />
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Border StrokeShape="RoundRectangle 20">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Grid Grid.Column="0">
+                            <SearchBar Placeholder="Ara"
+                                       x:Name="searchBar">
+                            </SearchBar>
+                        </Grid>
+                        <Grid Grid.Column="1" Padding="0,0,20,0">
+                            <ImageButton Aspect="AspectFit"
+                                   HeightRequest="25"
+                                   WidthRequest="25">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FAS"
+                                                     Color="{StaticResource Primary}"
+                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"></FontImageSource>
+                                </ImageButton.Source>
+                            </ImageButton>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
 </ContentPage>
