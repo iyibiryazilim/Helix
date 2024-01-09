@@ -123,6 +123,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
+			IsRefreshing = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage++;

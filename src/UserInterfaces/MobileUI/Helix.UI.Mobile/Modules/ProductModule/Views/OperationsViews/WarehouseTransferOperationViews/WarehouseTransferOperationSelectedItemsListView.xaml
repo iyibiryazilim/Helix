@@ -5,10 +5,10 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="WarehouseTransferOperationSelectedItemsListView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
              x:DataType="viewModel:WarehouseTransferOperationSelectedItemsListViewModel"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False"
              >
@@ -73,7 +73,8 @@
                                 <SwipeView.RightItems>
                                     <SwipeItems Mode="Execute">
                                         <SwipeItem BackgroundColor="{StaticResource Primary}"
-                                                   
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=RemoveItemCommand}"
+                                                   CommandParameter="{Binding .}"
                                                    Text="Malzeme Sil" />
                                     </SwipeItems>
                                 </SwipeView.RightItems>
@@ -128,7 +129,9 @@
                                                                      Grid.Row="0"
                                                                      Aspect="AspectFit"
                                                                      HeightRequest="14"
-                                                                     WidthRequest="14">
+                                                                     WidthRequest="14"
+                                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=IncrementQuantityCommand}"
+                                                                     CommandParameter="{Binding .}">
                                                     <ImageButton.Source>
                                                         <FontImageSource FontFamily="FAS"
                                                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
@@ -150,7 +153,9 @@
                                                              BackgroundColor="Transparent"
                                                              Aspect="AspectFit"
                                                              HeightRequest="14"
-                                                             WidthRequest="14">
+                                                             WidthRequest="14"
+                                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=DecrementQuantityCommand}"
+                                                             CommandParameter="{Binding .}">
                                                     <ImageButton.Source>
                                                         <FontImageSource FontFamily="FAS"
                                                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"

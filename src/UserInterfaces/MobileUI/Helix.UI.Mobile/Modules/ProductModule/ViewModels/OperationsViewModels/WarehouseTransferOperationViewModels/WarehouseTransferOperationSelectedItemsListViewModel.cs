@@ -22,7 +22,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 
 	public WarehouseTransferOperationSelectedItemsListViewModel()
 	{
-		//Title = "Seçilen Ürünler";
+		Title = "Seçilen Ürünler";
 		SearchCommand = new Command<string>(async (text) => await PerformSearchAsync(text));
 	}
 
@@ -35,6 +35,85 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	[ObservableProperty]
 	int pageSize = 20;
 
+	[RelayCommand]
+	async Task RemoveItemAsync(WarehouseTotal item)
+	{
+		if(IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			IsRefreshing = true;
+
+			bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.ProductName} adlı ürün çıkartılacaktır. Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
+			if(answer)
+			{
+				WarehouseTotal.Remove(item);
+				Result.Remove(item);
+			}
+
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Ürün Silme Hatası", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
+
+	[RelayCommand]
+	async Task IncrementQuantityAsync(WarehouseTotal item)
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			IsRefreshing = true;
+
+			item.OnHand++;
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Miktar Artırma Hatası", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task DecrementQuantityAsync(WarehouseTotal item)
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			IsRefreshing = true;
+
+			if(item.OnHand > 1)
+				item.OnHand--;
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Miktar Azaltma Hatası", ex.Message, "Tamam");	
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
 
 	public async Task PerformSearchAsync(string text)
 	{
