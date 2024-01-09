@@ -194,31 +194,55 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 				switch (response)
 				{
 					case "Ad A-Z":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.nameasc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderBy(x => x.ProductName).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Ad Z-A":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.namedesc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderByDescending(x => x.ProductName).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Kod A-Z":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderBy(x => x.ProductCode).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Kod Z-A":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codedesc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderByDescending(x => x.ProductCode).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Miktara Göre Artan":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantityasc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderBy(x => x.OnHand).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Miktara Göre Azalan":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantitydesc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderByDescending(x => x.OnHand).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					default:
-						
+						await GetSelectedItemsAsync();
 						break;
 				}
 			}
