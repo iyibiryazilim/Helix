@@ -2,8 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
+using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -18,8 +20,9 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 
 	public ObservableCollection<Warehouse> WarehouseList { get; } = new();
 	public ObservableCollection<WarehouseTotal> Items { get; } = new();
+	public ObservableCollection<WarehouseTotal> SelectedItems { get; } = new();
 	public Command GetDataCommand { get; }
-	public Command<string> PerformSearchCommand { get; }
+	public Command<string> SearchCommand { get; }
 	
 	public WarehouseTransferOperationViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, IWarehouseTotalService warehouseTotalService)
 	{
@@ -28,12 +31,12 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		_warehouseService = warehouseService;
 		_warehouseTotalService = warehouseTotalService;
 
-		GetDataCommand  = new Command(async () => await LoadDataAsync());
+		GetDataCommand  = new Command(async () => await LoadData());
+		SearchCommand = new Command<string>(async (text) => await PerformSearchAsync(text));
 	}
 
 	[ObservableProperty]
-	Warehouse selectedWarehouse;
-
+	WarehouseTotalOrderBy warehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
 	[ObservableProperty]
 	string searchText = string.Empty;
 	[ObservableProperty]
@@ -41,16 +44,27 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 	[ObservableProperty]
 	int pageSize = 20;
 
-	async Task LoadDataAsync()
+	private Warehouse selectedWarehouse;
+
+	public Warehouse SelectedWarehouse
+	{
+		get => selectedWarehouse;
+		set
+		{
+			SetProperty(ref selectedWarehouse, value);
+			Task.Run(async () => await ReloadAsync());
+		}
+	}
+
+	async Task LoadData()
 	{
 		if (IsBusy)
 			return;
 		try
 		{
-			IsBusy = true;
-
 			await Task.Delay(500);
-			await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
+			await Task.WhenAll(GetWarehousesAsync(), ReloadAsync());
+			
 		}
 		catch(Exception ex)
 		{
@@ -75,7 +89,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage = 0;
-			var result = await _warehouseService.GetObjects(httpClient, SearchText, DataStores.WarehouseDataStore.WarehouseOrderBy.numberasc, CurrentPage, 50); // 50 is  PageSize
+			var result = await _warehouseService.GetObjects(httpClient, SearchText, WarehouseDataStore.WarehouseOrderBy.numberasc, CurrentPage, 50); // 50 is  PageSize
 
 			if(result.Data.Any())
 			{
@@ -99,21 +113,38 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
+	
+
 	[RelayCommand]
-	public async Task GetSelectedWarehouseItemsAsync()
+	async Task LoadMoreAsync()
 	{
+		if (IsBusy)
+			return;
 		try
 		{
 			IsBusy = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			CurrentPage = 0;
-			//var result = await _warehouseTotalService.GetWarehouseTotals(httpClient,SelectedWarehouse.Number, "1,2,3,4,10,11,12,13")
+			CurrentPage++;
+			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, SelectedWarehouse.Number, "1,2,3,4,10,11,12,13", SearchText, WarehouseTotalOrderBy, CurrentPage, PageSize);
+
+			if (result.Data.Any())
+			{
+				foreach (var item in result.Data)
+				{
+					await Task.Delay(100);
+					Items.Add(item);
+				}
+			}
+			else
+			{
+				CurrentPage--;
+			}
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
-			Debug.WriteLine(ex.Message);
-			await Shell.Current.DisplayAlert("Hata", "Seçilen ambarın ürünleri getirilirken bir hata oluştu.", "Tamam");
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Veri yükleme hatası: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -122,8 +153,145 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task ReloadAsync()
+	{
+		if (IsBusy) return;
+		try
+		{
+			IsBusy = true;
+			IsRefreshing = true;
 
-	/*
+			var httpClient = _httpClientService.GetOrCreateHttpClient();
+			CurrentPage = 0;
+			if(SelectedWarehouse is not null)
+			{
+				var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, SelectedWarehouse.Number, "1,2,3,4,10,11,12,13", SearchText, WarehouseTotalOrderBy, CurrentPage, PageSize);
+
+				if (result.Data.Any())
+				{
+					Items.Clear();
+
+					foreach (var item in result.Data)
+					{
+						await Task.Delay(100);
+						Items.Add(item);
+					}
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Reload Error:", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	private void ToggleSelection(WarehouseTotal item)
+	{
+		item.IsSelected = !item.IsSelected;
+		if(item.IsSelected)
+		{
+			SelectedItems.Add(item);
+		} else
+		{
+			SelectedItems.Remove(item);
+		}
+	}
+
+	async Task PerformSearchAsync(string text)
+	{
+		if (IsBusy) return;
+
+		try
+		{
+			if (!string.IsNullOrEmpty(text))
+			{
+				if (text.Length >= 3)
+				{
+					SearchText = text;
+					await ReloadAsync();
+				}
+			}
+			else
+			{
+				SearchText = string.Empty;
+				await ReloadAsync();
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Search Error:", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task SortAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Kod A-Z", "Kod Z-A", "Miktara Göre Artan", "Miktara Göre Azalan");
+			if(!string.IsNullOrEmpty(response))
+			{
+				CurrentPage = 0;
+				await Task.Delay(100);
+				switch(response)
+				{
+					case "Ad A-Z":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.nameasc;
+						await ReloadAsync();
+						break;
+					case "Ad Z-A":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.namedesc;
+						await ReloadAsync();
+						break;
+					case "Kod A-Z":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
+						await ReloadAsync();
+						break;
+					case "Kod Z-A":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codedesc;
+						await ReloadAsync();
+						break;
+					case "Miktara Göre Artan":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantityasc;
+						await ReloadAsync();
+						break;
+					case "Miktara Göre Azalan":
+						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantitydesc;
+						await ReloadAsync();
+						break;
+					default:
+						await ReloadAsync();
+						break;
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Sıralama Hatası", ex.Message, "Tamam");
+		}
+		finally {
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
+	
 	[RelayCommand]
 	public async Task GoToBackAsync()
 	{
@@ -131,7 +299,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			if (Items.Count == 0)
+			if (SelectedItems.Count == 0)
 
 				await Shell.Current.GoToAsync("..");
 			else
@@ -140,7 +308,8 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 				if (answer)
 				{
 					await Shell.Current.GoToAsync("..");
-					Items.Clear();
+					WarehouseList.Clear();
+					SelectedItems.Clear();
 				}
 			}
 		}
@@ -157,7 +326,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task GoToOperationFormAsync()
+	async Task GoToWarehouseTransferOperationSelectedItemsListViewAsync()
 	{
 		if (IsBusy)
 			return;
@@ -166,16 +335,16 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			if(Items.Count > 0)
+			if (SelectedItems.Count > 0)
 			{
-				await Shell.Current.GoToAsync($"{nameof()}", new Dictionary<string, object>
+				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationSelectedItemsListView)}", new Dictionary<string, object>
 				{
-					[nameof(ProductModel)] = Items
+					[nameof(WarehouseTotal)] = SelectedItems
 				});
 			}
 			else
 			{
-				await Shell.Current.DisplayAlert("Hata", "Form sayfasına gitmek için ürününüzün bulunması gerekmektedir", "Tamam");
+				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için ürün seçmeniz gerekmektedir", "Tamam");
 			}
 		}
 		catch (Exception ex)
@@ -187,6 +356,5 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
-	*/
 
 }

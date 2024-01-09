@@ -48,5 +48,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 		[ObservableProperty]
 		string? image;
 
+		[ObservableProperty]
+		bool isSelected = false;
+
 	}
 }
