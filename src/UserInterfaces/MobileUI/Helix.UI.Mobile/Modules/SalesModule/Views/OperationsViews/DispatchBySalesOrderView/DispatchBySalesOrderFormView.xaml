@@ -16,9 +16,19 @@
                                         Command="{Binding GetWarehouseCommand}" />
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetCustomerCommand}" />
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetDriverCommand}" />
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetCarrierCommand}" />
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetSpeCodeCommand}" />
     </ContentPage.Behaviors>
     <sharedViews:SalesDispatchFormContentView WarehouseList="{Binding WarehouseItems}"
-                                              CustomerList="{Binding CustomerItems}">
+                                              CustomerList="{Binding CustomerItems}" 
+                                              DriverList="{Binding DriverItems}"
+                                              CarrierList="{Binding CarrierItems}"
+                                              SpeCodeList="{Binding SpeCodeModelItems}"
+                                              >
         
     </sharedViews:SalesDispatchFormContentView>
    

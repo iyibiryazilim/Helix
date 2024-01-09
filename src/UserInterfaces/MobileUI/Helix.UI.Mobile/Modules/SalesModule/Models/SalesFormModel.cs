@@ -44,5 +44,16 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 
         [ObservableProperty]
         string description;
+
+        [ObservableProperty]
+        Driver selectedDriver;
+
+        [ObservableProperty]
+        Carrier selectedCarrier;
+
+        [ObservableProperty]
+        SpeCodeModel selectedSpeCode;
+
+
     }
 }
