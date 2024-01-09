@@ -81,14 +81,6 @@
                                             <Border BackgroundColor="White"
                                                     StrokeShape="RoundRectangle 10"
                                                     Padding="10">
-                                                <Border.Triggers>
-                                                    <DataTrigger Binding="{Binding IsSelected}"
-                                                                 TargetType="Border"
-                                                                 Value="True">
-                                                        <Setter Property="BackgroundColor"
-                                                                Value="{StaticResource Primary}" />
-                                                    </DataTrigger>
-                                                </Border.Triggers>
                                                 <Grid ColumnDefinitions="Auto,Auto,*,Auto"
                                                       ColumnSpacing="10"
                                                       Padding="0,0,10,0">
@@ -104,20 +96,7 @@
                                                                     <Span Text="{Binding DueDate, StringFormat='{0:dd}'}" />
                                                                 </FormattedString>
                                                             </Label.FormattedText>
-                                                            <Label.Style>
-                                                                <Style TargetType="Label">
-                                                                    <Setter Property="TextColor"
-                                                                            Value="Black" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger TargetType="Label"
-                                                                                     Binding="{Binding IsSelected}"
-                                                                                     Value="True">
-                                                                            <Setter Property="TextColor"
-                                                                                    Value="White" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Label.Style>
+                                                             
                                                         </Label>
                                                         <Label FontAttributes="Bold"
                                                                FontSize="Default"
@@ -128,20 +107,7 @@
                                                                     <Span Text="{Binding DueDate, StringFormat='{0:MM.yyyy}'}" />
                                                                 </FormattedString>
                                                             </Label.FormattedText>
-                                                            <Label.Style>
-                                                                <Style TargetType="Label">
-                                                                    <Setter Property="TextColor"
-                                                                            Value="Black" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger TargetType="Label"
-                                                                                     Binding="{Binding IsSelected}"
-                                                                                     Value="True">
-                                                                            <Setter Property="TextColor"
-                                                                                    Value="White" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Label.Style>
+                                                            
                                                         </Label>
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Grid.Column="2"
@@ -149,37 +115,11 @@
                                                                          Spacing="5">
                                                         <Label Text="{Binding ProductCode}"
                                                                FontAttributes="Bold">
-                                                            <Label.Style>
-                                                                <Style TargetType="Label">
-                                                                    <Setter Property="TextColor"
-                                                                            Value="Black" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger TargetType="Label"
-                                                                                     Binding="{Binding IsSelected}"
-                                                                                     Value="True">
-                                                                            <Setter Property="TextColor"
-                                                                                    Value="White" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Label.Style>
+                                                             
                                                         </Label>
                                                         <Label Text="{Binding ProductName}"
                                                                FontSize="12">
-                                                            <Label.Style>
-                                                                <Style TargetType="Label">
-                                                                    <Setter Property="TextColor"
-                                                                            Value="Black" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger TargetType="Label"
-                                                                                     Binding="{Binding IsSelected}"
-                                                                                     Value="True">
-                                                                            <Setter Property="TextColor"
-                                                                                    Value="White" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Label.Style>
+                                                             
                                                         </Label>
                                                         <Label TextColor="{StaticResource Primary}">
                                                             <Label.FormattedText>
@@ -190,20 +130,7 @@
                                                                           FontAttributes="Bold" />
                                                                 </FormattedString>
                                                             </Label.FormattedText>
-                                                            <Label.Style>
-                                                                <Style TargetType="Label">
-                                                                    <Setter Property="TextColor"
-                                                                            Value="Black" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger TargetType="Label"
-                                                                                     Binding="{Binding IsSelected}"
-                                                                                     Value="True">
-                                                                            <Setter Property="TextColor"
-                                                                                    Value="{StaticResource Warning}" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Label.Style>
+                                                            
                                                         </Label>
                                                     </VerticalStackLayout>
                                                     <Image Grid.Column="3"
