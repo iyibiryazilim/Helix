@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -46,7 +47,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			IsBusy = true;
 			IsRefreshing = true;
 
-			if(Result.Count > 0) 
+			if (Result.Count > 0)
 				Result.Clear();
 
 			foreach (var item in WarehouseTotal)
@@ -54,7 +55,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 				await Task.Delay(100);
 				Result.Add(item);
 			}
-			
+
 		}
 		catch (Exception ex)
 		{
@@ -72,7 +73,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	[RelayCommand]
 	async Task RemoveItemAsync(WarehouseTotal item)
 	{
-		if(IsBusy)
+		if (IsBusy)
 			return;
 		try
 		{
@@ -80,14 +81,15 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			IsRefreshing = true;
 
 			bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.ProductName} adlı ürün çıkartılacaktır. Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
-			if(answer)
+			if (answer)
 			{
+				item.IsSelected = false;
 				WarehouseTotal.Remove(item);
 				Result.Remove(item);
 			}
 
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Ürün Silme Hatası", ex.Message, "Tamam");
@@ -112,7 +114,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 
 			item.OnHand++;
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Miktar Artırma Hatası", ex.Message, "Tamam");
@@ -134,13 +136,13 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			IsBusy = true;
 			IsRefreshing = true;
 
-			if(item.OnHand > 1)
+			if (item.OnHand > 1)
 				item.OnHand--;
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Miktar Azaltma Hatası", ex.Message, "Tamam");	
+			await Shell.Current.DisplayAlert("Miktar Azaltma Hatası", ex.Message, "Tamam");
 		}
 		finally
 		{
@@ -155,9 +157,9 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			return;
 		try
 		{
-			if(!string.IsNullOrEmpty(text))
+			if (!string.IsNullOrEmpty(text))
 			{
-				if(text.Length >= 3)
+				if (text.Length >= 3)
 				{
 					SearchText = text;
 					Result.Clear();
@@ -168,7 +170,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 				}
 			}
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Search Error: ", $"{ex.Message}", "Tamam");
@@ -194,31 +196,55 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 				switch (response)
 				{
 					case "Ad A-Z":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.nameasc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderBy(x => x.ProductName).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Ad Z-A":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.namedesc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderByDescending(x => x.ProductName).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Kod A-Z":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderBy(x => x.ProductCode).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Kod Z-A":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.codedesc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderByDescending(x => x.ProductCode).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Miktara Göre Artan":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantityasc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderBy(x => x.OnHand).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					case "Miktara Göre Azalan":
-						WarehouseTotalOrderBy = WarehouseTotalOrderBy.quantitydesc;
-						
+						Result.Clear();
+						foreach (var item in WarehouseTotal.OrderByDescending(x => x.OnHand).ToList())
+						{
+							Result.Add(item);
+						}
 						break;
+
 					default:
-						
+						await GetSelectedItemsAsync();
 						break;
 				}
 			}
@@ -261,6 +287,34 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
 
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	public async Task GoToWarehouseTransferOperationFormViewAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+
+			if(Result.Count < 1)
+			{
+				await Shell.Current.DisplayAlert("Hata", "Seçili bir ürününüz olmadığından dolayı form sayfasına geçiş yapamazsınız", "Tamam");
+			}else
+			{
+				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationFormView)}");
+			}
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
 		}
 		finally
 		{

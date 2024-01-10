@@ -61,7 +61,8 @@
                         <Grid Grid.Column="2" Padding="20,0,20,0">
                             <ImageButton Aspect="AspectFit"
                                         HeightRequest="25"
-                                        WidthRequest="25">
+                                        WidthRequest="25"
+                                         Command="{Binding SortCommand}">
                                 <ImageButton.Source>
                                     <FontImageSource FontFamily="FAS"
                              Color="{StaticResource Primary}"
@@ -185,6 +186,7 @@
             </Grid>
             <Button Grid.Row="3"
                 Text="İleri"
+                    Command="{Binding GoToWarehouseTransferOperationFormViewCommand}"
                 Margin="5"/>
         </Grid>
     </Border>
