@@ -67,4 +67,14 @@ public partial class ProductModel :ObservableObject
 
     [ObservableProperty]
     bool isSelected = false;
+
+    [ObservableProperty]
+    int locationReferenceId;
+
+    [ObservableProperty]
+    string locationCode;
+
+    [ObservableProperty]
+    string locationName;
+
 }

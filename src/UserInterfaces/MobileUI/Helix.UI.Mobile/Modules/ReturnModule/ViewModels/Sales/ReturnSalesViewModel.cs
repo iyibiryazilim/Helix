@@ -8,5 +8,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales
         {
             Title = "Satış İade İşlemleri";
         }
+
     }
 }
