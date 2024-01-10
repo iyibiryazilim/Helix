@@ -186,6 +186,7 @@
             </Grid>
             <Button Grid.Row="3"
                 Text="İleri"
+                    Command="{Binding GoToWarehouseTransferOperationFormViewCommand}"
                 Margin="5"/>
         </Grid>
     </Border>
