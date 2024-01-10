@@ -243,10 +243,18 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToSalesOrderFiche()
     {
-        await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}", new Dictionary<string, object>
+        if(SelectedCustomer is not null)
         {
-            ["Current"] = SelectedCustomer
-        }) ;
+			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}", new Dictionary<string, object>
+			{
+				["Current"] = SelectedCustomer
+			});
+		}
+        else
+        {
+			await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Müşteri seçimi yapmanız gerekmektedir", "Tamam");
+		}
+        
     }
 
 	[RelayCommand]

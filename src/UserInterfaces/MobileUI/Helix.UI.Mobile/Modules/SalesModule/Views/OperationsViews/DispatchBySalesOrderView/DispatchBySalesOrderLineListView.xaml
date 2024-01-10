@@ -17,7 +17,7 @@
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderLineContentView ReloadCommand="{Binding GetSalesOrdersCommand}"
                                         SearchCommand="{Binding SearchCommand}"
-                                        SortCommand="{Binding }"
+                                        SortCommand="{Binding SortCommand}"
                                         WaitingOrderLineList="{Binding Results}"
                                         IsBusy="{Binding IsBusy}"
                                         GoToNextCommand="{Binding GoToSalesOrderSummaryCommand}"
