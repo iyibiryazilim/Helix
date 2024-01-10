@@ -103,8 +103,16 @@
 	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\" />
 	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
-	  <Folder Include="Modules\ReturnModule\ViewModels\" />
-	  <Folder Include="Modules\ReturnModule\Views\" />
+	  <Folder Include="Modules\ReturnModule\ViewModels\Purchases\ReturnByPurchaseDispatchTransactionViewModels\" />
+	  <Folder Include="Modules\ReturnModule\ViewModels\Purchases\ReturnPurchaseViewModels\" />
+	  <Folder Include="Modules\ReturnModule\ViewModels\Purchases\ReturnByPurchaseDispatchTransactionLineViewModels\" />
+	  <Folder Include="Modules\ReturnModule\ViewModels\Sales\SalesReturnDispatchViewModels\" />
+	  <Folder Include="Modules\ReturnModule\ViewModels\Sales\ReturnBySalesDispatchTransactionLineViewModels\" />
+	  <Folder Include="Modules\ReturnModule\Views\Purchases\ReturnPurchaseViews\" />
+	  <Folder Include="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\" />
+	  <Folder Include="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\" />
+	  <Folder Include="Modules\ReturnModule\Views\Sales\ReturnSalesViews\" />
+	  <Folder Include="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -139,6 +147,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductTransactionOperationFormContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\ReturnSelectContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\SalesDispatchFormContentView.xaml">
@@ -369,6 +380,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnPurchasesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionCustomerView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesView.xaml">
