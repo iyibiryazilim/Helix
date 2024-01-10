@@ -39,7 +39,7 @@ public partial class ProductOperationViewModel :BaseViewModel
     [RelayCommand]
     async Task GoToConsumableTransaction()
     {
-        await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationSelectWarehouseView)}");
     }
 
 
