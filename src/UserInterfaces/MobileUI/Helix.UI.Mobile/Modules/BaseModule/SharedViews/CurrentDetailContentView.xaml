@@ -276,6 +276,7 @@
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
                             </ScrollView>
+                            <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
                         </VerticalStackLayout>
                     </Grid>
                 </ScrollView>

@@ -58,6 +58,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels
 		{
 			try
 			{
+				IsBusy = true;
 				Customers.Clear();
 				var result = await _customQueryService.GetObjectsAsync(_httpClientService.GetOrCreateHttpClient(), new CustomerQuery().GetTopCustomers());
 				foreach (var item in result.Data)
@@ -76,6 +77,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels
 				Debug.WriteLine(ex);
 				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
 			}
+			finally
+			{
+				IsBusy = false;
+			}
 
 		}
 
@@ -83,6 +88,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels
 		{
 			try
 			{
+				IsBusy = true;
 				Lines.Clear();
 				var result = await _customQueryService.GetObjectsAsync(_httpClientService.GetOrCreateHttpClient(), new CustomerQuery().GetLastSaleLines());
 				foreach (var item in result.Data)
@@ -96,6 +102,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels
 			{
 				Debug.WriteLine(ex);
 				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 
 		}

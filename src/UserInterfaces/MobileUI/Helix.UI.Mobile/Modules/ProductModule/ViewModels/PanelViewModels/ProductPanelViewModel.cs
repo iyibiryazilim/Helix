@@ -60,6 +60,7 @@ public partial class ProductPanelViewModel :BaseViewModel
 	{
 		try
 		{
+			IsBusy = true;
 			var result = await _customQueryService.GetObjectsAsync(_httpClientService.GetOrCreateHttpClient(), new ProductQuery().GetTopProducts());
 			if (Items.Count>0)
 				Items.Clear();
@@ -79,6 +80,10 @@ public partial class ProductPanelViewModel :BaseViewModel
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
 		}
+		finally
+		{
+			IsBusy = false;
+		}
 
 	}
 
@@ -86,6 +91,7 @@ public partial class ProductPanelViewModel :BaseViewModel
 	{
 		try
 		{
+			IsBusy = true;
 			var result = await _customQueryService.GetObjectsAsync(_httpClientService.GetOrCreateHttpClient(), new ProductQuery().LastTransactionList());
 			if (Lines.Count > 0)
 				Lines.Clear();
@@ -101,6 +107,10 @@ public partial class ProductPanelViewModel :BaseViewModel
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
 		}
 
 	}

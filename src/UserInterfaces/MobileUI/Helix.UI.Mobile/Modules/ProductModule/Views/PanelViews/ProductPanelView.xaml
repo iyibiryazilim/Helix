@@ -8,6 +8,7 @@
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels"
              x:DataType="viewModel:ProductPanelViewModel"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
@@ -35,6 +36,7 @@
                        HeightRequest="200"></Frame>
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="7">
+                    
                     <Label Text="En Çok Ürünler"
                            FontAttributes="Bold">
 
@@ -92,7 +94,7 @@
                     </CollectionView>
 
                 </VerticalStackLayout>
-
+                <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
                 <VerticalStackLayout  Grid.Row="2"
                                       Spacing="7">
                     <Label Text="Son Hareketler"
