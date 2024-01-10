@@ -48,6 +48,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         ProductOrderBy orderBy = ProductOrderBy.nameasc;
         [ObservableProperty]
         int currentPage = 0;
+
+        [ObservableProperty]
+        SalesFormModel salesFormModel= new();
         [ObservableProperty]
         int pageSize = 20;
         [ObservableProperty]
@@ -76,7 +79,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
                 CurrentPage = 0;
                 var result = await _speCodeService.GetObjects(httpClient);
-
+                string action;
                 if (result.Data.Any())
                 {
                     SpeCodeModelItems.Clear();
@@ -86,6 +89,11 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                         await Task.Delay(100);
                         SpeCodeModelItems.Add(item);
                     }
+                    List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
+
+                    action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
+
+                     SalesFormModel.SpeCode= action;
                 }
             }
             catch (Exception ex)

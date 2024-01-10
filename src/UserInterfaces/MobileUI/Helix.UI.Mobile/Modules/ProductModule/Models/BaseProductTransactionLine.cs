@@ -146,8 +146,10 @@ public partial class BaseProductTransactionLine :ObservableObject
     short eDispatchProfileId = default;
     [ObservableProperty]
     short eInvoiceProfileId = default;
+    [ObservableProperty]
+    double? quantity; 
 
-	public Microsoft.Maui.Graphics.Color ListColor
+    public Microsoft.Maui.Graphics.Color ListColor
 	{
 		get
 		{

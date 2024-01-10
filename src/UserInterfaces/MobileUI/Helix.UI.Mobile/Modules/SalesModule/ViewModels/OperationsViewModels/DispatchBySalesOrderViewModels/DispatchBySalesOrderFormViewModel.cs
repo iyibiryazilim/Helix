@@ -57,6 +57,21 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
 
 
+  
+
+
+    public DispatchBySalesOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService, ICarrierService carrierService, ISpeCodeService speCodeService)
+    {
+        Title = "Form";
+        _httpClientService = httpClientService;
+        _warehouseService = warehouseService;
+        _customerService = customerService;
+        _driverService = driverService;
+        _carrierService = carrierService;
+        _speCodeService = speCodeService;
+       
+    }
+
     [RelayCommand]
     public async Task GetSpeCodeAsync()
     {
@@ -92,16 +107,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
 
 
-    public DispatchBySalesOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService, ICarrierService carrierService, ISpeCodeService speCodeService)
-    {
-        Title = "Form";
-        _httpClientService = httpClientService;
-        _warehouseService = warehouseService;
-        _customerService = customerService;
-        _driverService = driverService;
-        _carrierService = carrierService;
-       
-    }
+
 
     [RelayCommand]
     public async Task GetDriverAsync()

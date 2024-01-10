@@ -27,7 +27,7 @@
                                               CustomerList="{Binding CustomerItems}" 
                                               DriverList="{Binding DriverItems}"
                                               CarrierList="{Binding CarrierItems}"
-                                              SpeCodeList="{Binding SpeCodeModelItems}"
+                                              GetSpeCodeCommand="{Binding SpeCodeModelItems}"
                                               >
         
     </sharedViews:SalesDispatchFormContentView>

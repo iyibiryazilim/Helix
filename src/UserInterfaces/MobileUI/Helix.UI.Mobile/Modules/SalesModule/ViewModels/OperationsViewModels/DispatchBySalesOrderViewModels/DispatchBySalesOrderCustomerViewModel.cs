@@ -85,9 +85,12 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
             foreach (Current item in result.Data)
             {
-                Items.Add(item);
-                Results.Add(item);
-            }
+				if (item.ReferenceCount > 0)
+				{
+					Items.Add(item);
+					Results.Add(item);
+				}
+			}
 
 
         }
@@ -156,9 +159,12 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
             foreach (Current item in result.Data)
             {
-                Items.Add(item);
-                Results.Add(item);
-            }
+				if (item.ReferenceCount > 0)
+				{
+					Items.Add(item);
+					Results.Add(item);
+				}
+			}
 
 
         }

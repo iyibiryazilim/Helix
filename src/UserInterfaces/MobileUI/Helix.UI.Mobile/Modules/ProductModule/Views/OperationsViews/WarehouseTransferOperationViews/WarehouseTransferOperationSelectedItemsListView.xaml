@@ -5,18 +5,25 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="WarehouseTransferOperationSelectedItemsListView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
              x:DataType="viewModel:WarehouseTransferOperationSelectedItemsListViewModel"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
-             Shell.TabBarIsVisible="False"
-             >
+             Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoToBackCommand}" />
+    </Shell.BackButtonBehavior>
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetSelectedItemsCommand}" />
+    </ContentPage.Behaviors>
     <Border BackgroundColor="{StaticResource WhiteSmoke}" 
         StrokeThickness="0"
         Padding="5,20,5,10">
@@ -44,12 +51,18 @@
                         <Grid Grid.Column="1">
                             <SearchBar Placeholder="Barkod Giriniz"
                                        x:Name="searchBar">
+                                <SearchBar.Behaviors>
+                                    <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                    Command="{Binding SearchCommand}"
+                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                                </SearchBar.Behaviors>
                             </SearchBar>
                         </Grid>
                         <Grid Grid.Column="2" Padding="20,0,20,0">
                             <ImageButton Aspect="AspectFit"
                                         HeightRequest="25"
-                                        WidthRequest="25">
+                                        WidthRequest="25"
+                                         Command="{Binding SortCommand}">
                                 <ImageButton.Source>
                                     <FontImageSource FontFamily="FAS"
                              Color="{StaticResource Primary}"
@@ -62,7 +75,7 @@
             </Grid>
             <Grid Grid.Row="1">
 
-                <CollectionView ItemsSource="{Binding WarehouseTotal}">
+                <CollectionView ItemsSource="{Binding Result}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                                            ItemSpacing="3" />
@@ -73,7 +86,8 @@
                                 <SwipeView.RightItems>
                                     <SwipeItems Mode="Execute">
                                         <SwipeItem BackgroundColor="{StaticResource Primary}"
-                                                   
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=RemoveItemCommand}"
+                                                   CommandParameter="{Binding .}"
                                                    Text="Malzeme Sil" />
                                     </SwipeItems>
                                 </SwipeView.RightItems>
@@ -128,7 +142,9 @@
                                                                      Grid.Row="0"
                                                                      Aspect="AspectFit"
                                                                      HeightRequest="14"
-                                                                     WidthRequest="14">
+                                                                     WidthRequest="14"
+                                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=IncrementQuantityCommand}"
+                                                                     CommandParameter="{Binding .}">
                                                     <ImageButton.Source>
                                                         <FontImageSource FontFamily="FAS"
                                                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
@@ -150,7 +166,9 @@
                                                              BackgroundColor="Transparent"
                                                              Aspect="AspectFit"
                                                              HeightRequest="14"
-                                                             WidthRequest="14">
+                                                             WidthRequest="14"
+                                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=DecrementQuantityCommand}"
+                                                             CommandParameter="{Binding .}">
                                                     <ImageButton.Source>
                                                         <FontImageSource FontFamily="FAS"
                                                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
@@ -168,6 +186,7 @@
             </Grid>
             <Button Grid.Row="3"
                 Text="İleri"
+                    Command="{Binding GoToWarehouseTransferOperationFormViewCommand}"
                 Margin="5"/>
         </Grid>
     </Border>

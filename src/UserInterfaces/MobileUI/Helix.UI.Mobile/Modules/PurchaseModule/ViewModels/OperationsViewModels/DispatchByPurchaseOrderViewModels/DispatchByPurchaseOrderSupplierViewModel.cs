@@ -89,8 +89,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				
 				foreach (var item in result.Data)
 				{
- 					Items.Add(item);
-					Result.Add(item);
+					if (item.ReferenceCount > 0)
+					{
+						Items.Add(item);
+						Result.Add(item);
+					}
 				}
 			}
 			catch (Exception ex)

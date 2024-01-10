@@ -15,7 +15,7 @@
         </Border.StrokeShape>
         <Grid RowDefinitions="*,Auto">
             <ScrollView>
-                <Grid  Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                <Grid  Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                        BackgroundColor="{StaticResource WhiteSmoke}">
 
                     <!-- İrsaliye Türü -->
@@ -25,11 +25,15 @@
                         <Label Text="İrsaliye Türü"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Picker x:Name="pickerDispatch"
-                                    Title="Seçiniz.."
-                                    ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
-                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedWarehouse}" />
+                            <Picker x:Name="picker"
+                                Title="İrsaliye Türü Seçin">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>Parakende Satış</x:String>
+                                        <x:String>Toptan Satış</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                                </Picker>
 
                         </Border>
                     </VerticalStackLayout>
@@ -56,8 +60,23 @@
 
                     </Grid>
 
-                    <!-- Müşteri -->
+                    <!-- Ambar -->
                     <VerticalStackLayout Grid.Row="2"
+                                         Padding="7">
+                        <Label Text="Ambar"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerWarehouse"
+                                    Title="Seçiniz.."
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
+                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedWarehouse}" />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Müşteri -->
+                    <VerticalStackLayout Grid.Row="3"
                                          Padding="7">
                         <Label Text="Müşteri Adı"
                                FontSize="Medium" />
@@ -71,8 +90,19 @@
                         </Border>
                     </VerticalStackLayout>
 
+                    <!-- Sevk Müşterisi -->
+                    <VerticalStackLayout Grid.Row="4"
+                                         Padding="7">
+                        <Label Text="Sevk Müşterisi"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="  Sevk Müşterisi"
+                                   IsReadOnly="True" />
+                        </Border>
+                    </VerticalStackLayout>
+
                     <!-- Sevk Adresi -->
-                    <VerticalStackLayout Grid.Row="3"
+                    <VerticalStackLayout Grid.Row="5"
                                          Padding="7">
                         <Label Text="Sevk Adresi"
                                FontSize="Medium" />
@@ -83,23 +113,8 @@
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- Ambar -->
-                    <VerticalStackLayout Grid.Row="4"
-                                         Padding="7">
-                        <Label Text="Ambar"
-                               FontSize="Medium" />
-                        <Border StrokeShape="RoundRectangle 13">
-                            <Picker x:Name="pickerWarehouse"
-                                    Title="Seçiniz.."
-                                    ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
-                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedWarehouse}"/>
-
-                        </Border>
-                    </VerticalStackLayout>
-
                     <!-- Taşıyıcı -->
-                    <VerticalStackLayout Grid.Row="5"
+                    <VerticalStackLayout Grid.Row="6"
                                          Padding="7">
                         <Label Text="Taşıyıcı Adı"
                                FontSize="Medium" />
@@ -114,7 +129,7 @@
                     </VerticalStackLayout>
 
                     <!-- Şoför -->
-                    <VerticalStackLayout Grid.Row="6"
+                    <VerticalStackLayout Grid.Row="7"
                                          Padding="7">
                         <Label Text="Şoför Adı"
                                FontSize="Medium" />
@@ -129,35 +144,39 @@
                     </VerticalStackLayout>
 
                     <!-- Özel Kod -->
-                    <VerticalStackLayout Grid.Row="7"
+                    <VerticalStackLayout Grid.Row="8"
                                          Padding="7">
                         <Label Text="Özel Kod"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Grid ColumnDefinitions="85*,15*">
-                                <Picker x:Name="pickerSpeCode"
-                                        Title="Seçiniz.."
-                                        ItemDisplayBinding="{Binding SpeCode}"
-                                        ItemsSource="{Binding Source={x:Reference this},Path=SpeCodeList}"
-                                        SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedSpeCode}" />
+                                <Entry Placeholder="Özel Kod" />
                                 <ImageButton Grid.Column="1"
                                              BackgroundColor="Transparent"
                                              Aspect="AspectFit"
                                              HeightRequest="22"
-                                             WidthRequest="22">
+                                             WidthRequest="22"
+                                             Command="{Binding Source={x:Reference this}, Path=GetSpeCodeCommand}"
+                                             >
+                                    
                                     <ImageButton.Source>
                                         <FontImageSource FontFamily="FAS"
                                                          Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
-                                                         Color="{StaticResource DarkPrimary}" />
+                                                         Color="{StaticResource DarkPrimary}"
+                                                         
+                                                         
+                                                         />
                                     </ImageButton.Source>
+                                   
                                 </ImageButton>
+                  
 
                             </Grid>
                         </Border>
                     </VerticalStackLayout>
 
                     <!-- Açıklama -->
-                    <VerticalStackLayout Grid.Row="8"
+                    <VerticalStackLayout Grid.Row="9"
                                          Padding="7">
                         <Label Text="Açıklama"
                                FontSize="Medium" />

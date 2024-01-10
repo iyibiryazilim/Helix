@@ -50,7 +50,24 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		short? status;
 		[ObservableProperty]
 		bool isSelected;
-
-		
+		[ObservableProperty]
+ 		int? shipCustomerReferenceId;
+		[ObservableProperty]
+		string shipCustomerCode;
+		[ObservableProperty]
+		string shipCustomerName;
+		[ObservableProperty]
+		int shipInfoReferenceId;
+		[ObservableProperty]
+		string shipInfoCode;
+		[ObservableProperty]
+		string shipInfoName; 
 	}
 }
+ 
+ 
+
+ 
+
+ 
+ 
