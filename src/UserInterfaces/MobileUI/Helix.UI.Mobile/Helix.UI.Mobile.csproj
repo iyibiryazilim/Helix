@@ -212,6 +212,9 @@
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\ConsumableTransactionViews\ConsumableTransactionOperationFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\ConsumableTransactionViews\ConsumableTransactionOperationSelectWarehouseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\ConsumableTransactionViews\ConsumableTransactionOperationView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
