@@ -8,6 +8,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -78,12 +79,12 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			IsBusy = true;
 			IsRefreshing = true;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
-
+			Items.Clear();
+			Results.Clear();
 			foreach (var order in SelectedOrders)
 			{
 				var result = await _salesOrderLineService.GetObjectByFicheId(httpClient, true, order.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
-				Items.Clear();
-				Results.Clear();
+				
 				foreach (SalesOrderLine item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
@@ -248,10 +249,16 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	[RelayCommand]
 	async Task GoToSalesOrderSummary()
 	{
-		await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
+		if(SelectedOrderLines.Count > 0)
 		{
-			["SelectedOrderLines"] = SelectedOrderLines
-		});
+			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
+			{
+				["SelectedOrderLines"] = SelectedOrderLines
+			});
+		} 
+		else {
+			await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+		}
 
 	}
 

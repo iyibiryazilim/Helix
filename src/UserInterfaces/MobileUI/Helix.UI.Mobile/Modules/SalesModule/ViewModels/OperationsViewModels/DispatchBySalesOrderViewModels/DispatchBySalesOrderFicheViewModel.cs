@@ -262,10 +262,17 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 	[RelayCommand]
     async Task GoToSalesOrderLineListAsync()
     {
-		await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineListView)}", new Dictionary<string, object>
+		if(SelectedOrders.Count > 0)
 		{
-			["SelectedOrders"] = SelectedOrders
-		});
+			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineListView)}", new Dictionary<string, object>
+			{
+				["SelectedOrders"] = SelectedOrders
+			});
+		} else
+		{
+			await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+		}
+		
     }
 
 
@@ -276,6 +283,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			foreach (var item in Results)
 			{
 				item.IsSelected = true;
+				SelectedOrders.Add(item);
 			}
 		}
 		else
@@ -283,6 +291,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
             foreach (var item in Results)
             {
                 item.IsSelected = false;
+				SelectedOrders.Remove(item);
             }
         }
     }

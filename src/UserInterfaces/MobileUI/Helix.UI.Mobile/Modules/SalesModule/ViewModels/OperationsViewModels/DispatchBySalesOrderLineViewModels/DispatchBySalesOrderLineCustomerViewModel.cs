@@ -244,10 +244,18 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         [RelayCommand]
         async Task GoToSalesOrderLine()
         {
-            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineLineListView)}", new Dictionary<string, object>
+            if(SelectedCustomer is not null)
             {
-                ["Current"] = SelectedCustomer
-            });
+				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineLineListView)}", new Dictionary<string, object>
+				{
+					["Current"] = SelectedCustomer
+				});
+			} 
+            else
+            {
+				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Müşteri seçimi yapmanız gerekmektedir", "Tamam");
+			}
+            
         }
 
         [RelayCommand]

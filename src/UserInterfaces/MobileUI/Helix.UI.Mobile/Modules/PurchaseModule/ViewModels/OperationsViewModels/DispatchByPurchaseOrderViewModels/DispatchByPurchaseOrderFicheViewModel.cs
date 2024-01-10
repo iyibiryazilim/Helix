@@ -89,7 +89,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				var result = await _purchaseOrderService.GetObjectsByCurrentCode(httpClient, SearchText, OrderBy,Current.Code, CurrentPage, PageSize);
+				var result = await _purchaseOrderService.GetObjectsByCurrentCode(httpClient, SearchText, OrderBy, Current.Code, CurrentPage, PageSize);
 				if (Items.Any())
 				{
 					Items.Clear();

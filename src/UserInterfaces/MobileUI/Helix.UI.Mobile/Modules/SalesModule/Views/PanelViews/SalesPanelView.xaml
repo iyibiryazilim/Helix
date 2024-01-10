@@ -36,59 +36,59 @@
                 <Grid Grid.Row="1">
                     <VerticalStackLayout Spacing="5">
                         <Label Text="En Çok Hareket Gören Müşteriler"></Label>
-                        <Grid RowDefinitions="*">
-                            <CollectionView ItemsSource="{Binding Customers}" Grid.Row="0">
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Horizontal"
-                                                       ItemSpacing="10" />
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:Customer">
-                                        <Frame WidthRequest="250">
-                                            <Grid ColumnDefinitions="*,auto"
-                                                  ColumnSpacing="10">
-                                                <Grid Grid.Column="0"
-                                                      RowDefinitions="*,*,*">
-                                                    <Label Grid.Row="0"
-                                                           FontAttributes="Bold"
-                                                           FontSize="15"
-                                                           LineBreakMode="TailTruncation"
-                                                           Text="{Binding Code}" />
-                                                    <Label Grid.Row="1"
-                                                           FontAttributes="Bold"
-                                                           FontSize="10"
-                                                           LineBreakMode="TailTruncation"
-                                                           Text="{Binding Name}" />
-                                                    <Button Grid.Row="2"
-                                                            Padding="0"
-                                                            BackgroundColor="{StaticResource Primary}"
-                                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}"
-                                                            CommandParameter="{Binding .}"
-                                                            CornerRadius="12"
-                                                            FontSize="10"
-                                                            HeightRequest="25"
-                                                            HorizontalOptions="Start"
-                                                            Text="Daha Fazla"
-                                                            VerticalOptions="Center"
-                                                            WidthRequest="80" />
-                                                </Grid>
-                                                <Frame Grid.Column="1"
-                                                       Padding="0"
-                                                       BackgroundColor="White"
-                                                       BorderColor="Transparent"
-                                                       CornerRadius="10"
-                                                       HasShadow="False"
-                                                       HorizontalOptions="End"
-                                                       IsClippedToBounds="True"
-                                                       VerticalOptions="Center">
-                                                    <Image Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
-                                                </Frame>
+                        
+                        <CollectionView ItemsSource="{Binding Customers}" Grid.Row="0">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal"
+                                                    ItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Customer">
+                                    <Frame WidthRequest="250">
+                                        <Grid ColumnDefinitions="*,auto"
+                                                ColumnSpacing="10">
+                                            <Grid Grid.Column="0"
+                                                    RowDefinitions="*,*,*">
+                                                <Label Grid.Row="0"
+                                                        FontAttributes="Bold"
+                                                        FontSize="15"
+                                                        LineBreakMode="TailTruncation"
+                                                        Text="{Binding Code}" />
+                                                <Label Grid.Row="1"
+                                                        FontAttributes="Bold"
+                                                        FontSize="10"
+                                                        LineBreakMode="TailTruncation"
+                                                        Text="{Binding Name}" />
+                                                <Button Grid.Row="2"
+                                                        Padding="0"
+                                                        BackgroundColor="{StaticResource Primary}"
+                                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        CornerRadius="12"
+                                                        FontSize="10"
+                                                        HeightRequest="25"
+                                                        HorizontalOptions="Start"
+                                                        Text="Daha Fazla"
+                                                        VerticalOptions="Center"
+                                                        WidthRequest="80" />
                                             </Grid>
-                                        </Frame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </Grid>
+                                            <Frame Grid.Column="1"
+                                                    Padding="0"
+                                                    BackgroundColor="White"
+                                                    BorderColor="Transparent"
+                                                    CornerRadius="10"
+                                                    HasShadow="False"
+                                                    HorizontalOptions="End"
+                                                    IsClippedToBounds="True"
+                                                    VerticalOptions="Center">
+                                                <Image Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                            </Frame>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        
                     </VerticalStackLayout>
                 </Grid>
                 <Grid Grid.Row="2">

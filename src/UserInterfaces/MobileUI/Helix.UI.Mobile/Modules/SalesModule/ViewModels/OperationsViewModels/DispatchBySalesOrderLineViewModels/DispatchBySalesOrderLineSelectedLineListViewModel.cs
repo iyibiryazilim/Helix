@@ -230,8 +230,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
 
         }
-        [RelayCommand]
 
+        [RelayCommand]
         async Task DeleteQuantity(WaitingOrderLine item)
         {
             if (item.TempQuantity != 1)

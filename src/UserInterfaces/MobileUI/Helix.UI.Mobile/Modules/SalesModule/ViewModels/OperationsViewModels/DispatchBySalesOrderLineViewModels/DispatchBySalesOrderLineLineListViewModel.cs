@@ -31,6 +31,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             Title = "Bekleyen Sipariş Satırları";
             GetOrderLinesCommand = new Command(async () => await LoadData());
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+            SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
         }
 
         [ObservableProperty]
@@ -49,8 +50,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         ObservableCollection<WaitingOrder> selectedOrders;
         public Command GetOrderLinesCommand { get; }
         public Command SearchCommand { get; }
+		public Command SelectAllCommand { get; }
 
-        public ObservableCollection<WaitingOrderLine> Items { get; } = new();
+		public ObservableCollection<WaitingOrderLine> Items { get; } = new();
         public ObservableCollection<WaitingOrderLine> Results { get; } = new();
         public ObservableCollection<WaitingOrderLine> SelectedOrderLines { get; } = new();
         async Task LoadData()
@@ -83,6 +85,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsBusy = true;
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
+                Items.Clear();
+                Results.Clear();
 
                 var result = await _salesOrderLineService.GetObjectsByCurrentId(httpClient,Current.ReferenceId ,true,  SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (SalesOrderLine item in result.Data)
@@ -249,14 +253,44 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             });
         }
 
+		public async Task SelectAllAsync(bool isSelected)
+		{
+			if (isSelected)
+			{
+				foreach (var item in Results)
+				{
+					item.IsSelected = true;
+					SelectedOrderLines.Add(item);
 
-        [RelayCommand]
+				}
+			}
+			else
+			{
+				foreach (var item in Results)
+				{
+					item.IsSelected = false;
+					SelectedOrderLines.Remove(item);
+
+				}
+			}
+		}
+
+
+		[RelayCommand]
         async Task GoToSalesOrderSummary()
         {
-            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineSelectedLineListView)}", new Dictionary<string, object>
+            if(SelectedOrderLines.Count > 0)
             {
-                ["SelectedOrderLines"] = SelectedOrderLines
-            });
+			    await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineSelectedLineListView)}", new Dictionary<string, object>
+				{
+					["SelectedOrderLines"] = SelectedOrderLines
+				});
+			}
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+            }
+           
         }
     }
 }
