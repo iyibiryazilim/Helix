@@ -1,10 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
-using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -12,12 +13,17 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels
 {
+    [QueryProperty(name: nameof(Product), queryId: nameof(Product))]
+
     public partial class ConsumableTransactionOperationSelectWarehouseViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
         private readonly IWarehouseService _warehouseService;
+        ICustomQueryService _customQueryService;
         //Lists
         public ObservableCollection<Warehouse> Items { get; } = new();
+        public ObservableCollection<Warehouse> Results { get; } = new();
+
 
         //Commands
         public Command GetWarehousesCommand { get; }
@@ -27,15 +33,24 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [ObservableProperty]
         string searchText = string.Empty;
         [ObservableProperty]
-        WarehouseOrderBy orderBy = WarehouseOrderBy.nameasc;
+        WarehouseOrderBy orderBy = WarehouseOrderBy.numberasc;
         [ObservableProperty]
         int currentPage = 0;
         [ObservableProperty]
-        int pageSize = 20;
-        public ConsumableTransactionOperationSelectWarehouseViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
+        int pageSize = 1000;
+
+        [ObservableProperty]
+        Warehouse selectedWarehouse;
+
+        [ObservableProperty]
+        Product product;
+
+        public ConsumableTransactionOperationSelectWarehouseViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService,ICustomQueryService customQueryService)
         {
+            Title = "Ambar Listesi";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
+            _customQueryService = customQueryService;
             GetWarehousesCommand = new Command(async () => await LoadData());
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
@@ -48,7 +63,61 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             try
             {
                 await Task.Delay(500);
-                await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
+                await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+                IsRefreshing = false;
+
+            }
+        }
+        async Task GetWarehousesAsync()
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+                IsRefreshing = true;
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+                if (Product!=null)
+                {
+                    var query = new ProductQuery().WarehouseListByProductId(Product.ReferenceId);
+                    var result = await _customQueryService.GetObjectsAsync(httpClient, query);
+                    foreach (WarehouseModel item in result.Data)
+                    {
+                        var warehouse = new Warehouse()
+                        {
+                            Name = item.WarehouseName,
+                            Number = (short)item.WarehouseNumber,
+                            LastTransactionDate = item.LastTransactionDate,
+                            IsSelected = item.IsSelected,
+                            ReferenceId = item.WarehousereferenceId
+
+                        };
+                        Items.Add(warehouse);
+                        Results.Add(warehouse);
+                    }
+                }
+                else
+                {
+                    var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+                    foreach (Warehouse item in result.Data)
+                    {
+                        Items.Add(item);
+                        Results.Add(item);
+                    }
+                }
+                
+
 
             }
             catch (Exception ex)
@@ -59,9 +128,9 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             finally
             {
                 IsBusy = false;
+                IsRefreshing = false;
             }
         }
-
         public async Task PerformSearchAsync(string text)
         {
             if (IsBusy)
@@ -73,60 +142,30 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     if (text.Length >= 3)
                     {
                         SearchText = text;
-                        await ReloadAsync();
+                        Results.Clear();
+                        foreach (var item in Items.ToList().Where(x => x.Name.Contains(SearchText) || x.LastTransactionDate.ToString().Contains(SearchText)))
+                        {
+                            Results.Add(item);
+                        }
                     }
                 }
                 else
                 {
                     SearchText = string.Empty;
-                    await ReloadAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        [RelayCommand]
-        async Task LoadMoreAsync()
-        {
-            if (IsBusy)
-                return;
-            try
-            {
-                IsBusy = true;
-                var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-                CurrentPage++;
-                var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                if (result.Data.Any())
-                {
-                    foreach (Warehouse item in result.Data)
+                    Results.Clear();
+                    foreach (var item in Items)
                     {
-                        Items.Add(item);
+                        Results.Add(item);
                     }
                 }
-                else
-                {
-                    CurrentPage--;
-                }
-
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-
             }
             finally
             {
                 IsBusy = false;
-                IsRefreshing = false;
             }
         }
 
@@ -141,16 +180,14 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                CurrentPage = 0;
                 var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                if (result.Data.Any())
+                foreach (Warehouse item in result.Data)
                 {
-                    Items.Clear();
-                    foreach (Warehouse item in result.Data)
-                    {
-                        Items.Add(item);
-                    }
+                    Items.Add(item);
+                    Results.Add(item);
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -163,6 +200,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 IsRefreshing = false;
             }
         }
+
         [RelayCommand]
         async Task SortAsync()
         {
@@ -177,20 +215,32 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     switch (response)
                     {
                         case "Numara A-Z":
-                            OrderBy = WarehouseOrderBy.numberasc;
-                            await ReloadAsync();
+                            Results.Clear();
+                            foreach (var item in Items.OrderBy(x => x.Number).ToList())
+                            {
+                                Results.Add(item);
+                            }
                             break;
                         case "Numara Z-A":
-                            OrderBy = WarehouseOrderBy.numberdesc;
-                            await ReloadAsync();
+                            Results.Clear();
+                            foreach (var item in Items.OrderByDescending(x => x.Number).ToList())
+                            {
+                                Results.Add(item);
+                            }
                             break;
                         case "Ad A-Z":
-                            OrderBy = WarehouseOrderBy.nameasc;
-                            await ReloadAsync();
+                            Results.Clear();
+                            foreach (var item in Items.OrderBy(x => x.Name).ToList())
+                            {
+                                Results.Add(item);
+                            }
                             break;
                         case "Ad Z-A":
-                            OrderBy = WarehouseOrderBy.namedesc;
-                            await ReloadAsync();
+                            Results.Clear();
+                            foreach (var item in Items.OrderByDescending(x => x.Name).ToList())
+                            {
+                                Results.Add(item);
+                            }
                             break;
                         default:
                             await ReloadAsync();
@@ -202,7 +252,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -212,22 +262,27 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         }
 
         [RelayCommand]
-        async Task GoToDetailAsync(Warehouse warehouse)
+        async Task GoToTransaction()
         {
-            try
+            await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
             {
-                await Task.Delay(500);
-                await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
-                {
-                    [nameof(Warehouse)] = warehouse
-                });
-            }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-            }
+                ["Warehouse"] = SelectedWarehouse
+            });
         }
 
+        [RelayCommand]
+        private void ToggleSelection(Warehouse item)
+        {
+            item.IsSelected = !item.IsSelected;
+            if (SelectedWarehouse != null)
+            {
+                SelectedWarehouse.IsSelected = false;
+            }
+            if (item.IsSelected)
+            {
+                SelectedWarehouse = item;
+            }
+        }
 
     }
 }

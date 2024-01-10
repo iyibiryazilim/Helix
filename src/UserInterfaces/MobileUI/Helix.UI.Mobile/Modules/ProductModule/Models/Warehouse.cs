@@ -26,5 +26,7 @@ public partial class Warehouse :ObservableObject
     string county;
 	[ObservableProperty]
 	DateTime? lastTransactionDate;
+    [ObservableProperty]
+    bool isSelected=false;
 
 }

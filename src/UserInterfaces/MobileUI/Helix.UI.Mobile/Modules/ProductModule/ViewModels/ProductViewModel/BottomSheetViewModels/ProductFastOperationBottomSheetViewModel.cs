@@ -54,7 +54,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationSelectWarehouseView)}", new Dictionary<string, object>
 			{
 				["Product"] = Product
 			});

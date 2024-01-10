@@ -15,6 +15,8 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTran
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
 
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+
 public partial class ConsumableTransactionOperationViewModel : BaseViewModel 
 {
     IHttpClientService _httpClientService;
@@ -32,6 +34,9 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
 
+    [ObservableProperty]
+    Warehouse warehouse;
+
 
     public ConsumableTransactionOperationViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
     {
@@ -43,48 +48,15 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
 
     public ObservableCollection<ProductModel> Items { get; } = new();
 
-    
-    public async Task GetWarehouseAsync()
-    {
-
-        try
-        {
-            var httpClient = _httpClientService.GetOrCreateHttpClient();
-            CurrentPage = 0;
-            var result = await _warehouseService.GetObjects(httpClient, SearchText, WarehouseOrderBy, CurrentPage, PageSize);
-
-            if (result.Data.Any())
-            {
-                WarehouseItems.Clear();
-
-                foreach (var item in result.Data)
-                {
-                    await Task.Delay(100);
-                    WarehouseItems.Add(item);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
-        }
-        finally
-        {
-            IsBusy = false;
-
-        }
-    }
-
-
-
 
     [RelayCommand]
     async Task GoToSharedProductList()
     {
         await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}", new Dictionary<string, object>
         {
-            ["ViewType"] = 12
+            ["ViewType"] = 12,
+            ["Warehouse"]= Warehouse
+
         });
     }
 
