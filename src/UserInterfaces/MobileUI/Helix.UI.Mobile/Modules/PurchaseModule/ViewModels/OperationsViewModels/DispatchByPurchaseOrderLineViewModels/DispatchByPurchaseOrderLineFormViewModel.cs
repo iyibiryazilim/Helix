@@ -39,7 +39,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         [ObservableProperty]
         int currentPage = 0;
         [ObservableProperty]
-        int pageSize = 20;
+        int pageSize = 20000;
         [ObservableProperty]
         WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
         [ObservableProperty]
@@ -49,7 +49,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         PurchaseFormModel purchaseFormFormModel = new();
         public DispatchByPurchaseOrderLineFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService)
         {
-            Title = "SAtın Alma line Form";
+            Title = "Satınalma İrsaliye Formu";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
             _supplierService = supplierService;

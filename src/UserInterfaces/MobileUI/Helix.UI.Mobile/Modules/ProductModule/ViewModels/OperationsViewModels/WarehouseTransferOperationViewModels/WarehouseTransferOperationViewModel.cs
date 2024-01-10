@@ -89,8 +89,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			IsRefreshing = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			CurrentPage = 0;
-			var result = await _warehouseService.GetObjects(httpClient, SearchText, WarehouseDataStore.WarehouseOrderBy.numberasc, CurrentPage, 50); // 50 is  PageSize
+			var result = await _warehouseService.GetObjects(httpClient, SearchText, WarehouseDataStore.WarehouseOrderBy.numberasc, 0, 20000);
 
 			if(result.Data.Any())
 			{
