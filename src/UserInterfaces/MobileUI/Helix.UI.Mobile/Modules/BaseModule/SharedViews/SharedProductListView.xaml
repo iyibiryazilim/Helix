@@ -11,6 +11,10 @@
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetProductsCommand}"
+                                        EventName="Loaded" />
+    </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
@@ -23,8 +27,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid >
-            <Grid RowDefinitions="Auto,*,Auto" RowSpacing="5">
+        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="5">
                 <Grid Grid.Row="0">
                     <Border StrokeShape="RoundRectangle 20">
 
@@ -66,15 +69,14 @@
                     
                     <CollectionView Grid.Row="1"
                                     ItemsSource="{Binding Items}"
-                                    RemainingItemsThreshold="10"
                                     EmptyView="bulunamadı"
-                                    RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                                    >
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical"
                                                ItemSpacing="5" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate  x:DataType="baseModel:Product">
+                            <DataTemplate  x:DataType="baseModel:WarehouseTotal">
                                 <SwipeView>
                                     <SwipeView.LeftItems>
                                         <SwipeItems Mode="Execute">
@@ -112,7 +114,7 @@
                                                              Padding="5"
                                                              Spacing="5"
                                                              HorizontalOptions="Start">
-                                            <Label Text="{Binding Code}"
+                                            <Label Text="{Binding ProductCode}"
                                                    FontSize="Body"
                                                        FontAttributes="Bold">
                                                     <Label.Style>
@@ -131,7 +133,7 @@
                                                     </Label.Style>
                                                 </Label>
                                             
-                                            <Label Text="{Binding Name}"
+                                            <Label Text="{Binding ProductName}"
                                                        FontSize="Caption">
                                                     <Label.Style>
                                                         <Style TargetType="Label">
@@ -165,7 +167,7 @@
                                                     </Label.Style>
                                                     <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{Binding StockQuantity, StringFormat='{0:N2}'}"
+                                                        <Span Text="{Binding OnHand, StringFormat='{0:N2}'}"
                                                               FontAttributes="Bold" />
                                                             <Span Text=" "
                                                                   FontAttributes="Bold" />
@@ -196,7 +198,6 @@
                 </Button>
             </Grid>
 
-        </Grid>
 
 
 

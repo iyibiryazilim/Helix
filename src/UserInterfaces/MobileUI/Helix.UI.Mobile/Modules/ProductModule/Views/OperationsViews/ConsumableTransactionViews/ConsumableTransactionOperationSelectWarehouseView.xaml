@@ -8,7 +8,8 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="{Binding Title}" Shell.TabBarIsVisible="False">
+             Title="{Binding Title}" BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}"
                                         EventName="Loaded" />
@@ -21,7 +22,7 @@
                 <RoundRectangle CornerRadius="20,20,0,0" />
             </Border.StrokeShape>
             <Grid BackgroundColor="Transparent"
-                  RowDefinitions="Auto, *"
+                  RowDefinitions="Auto, *,Auto"
                   RowSpacing="10">
                 <Grid Grid.Row="0">
                     <Border StrokeShape="RoundRectangle 20">
@@ -60,15 +61,22 @@
                              IsRefreshing="{Binding IsRefreshing}"
                              RefreshColor="{StaticResource DarkPrimary}">
 
-                        <CollectionView ItemsSource="{Binding Items}"
-                                        RemainingItemsThreshold="10"
-                                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout ItemSpacing="5"
-                                                   Orientation="Vertical" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="baseModel:Warehouse">
+                    <CollectionView ItemsSource="{Binding Results}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5"
+                                               Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="baseModel:Warehouse">
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems Mode="Execute">
+                                            <SwipeItem BackgroundColor="{StaticResource Success}"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ConsumableTransactionOperationSelectWarehouseViewModel}},Path=ToggleSelectionCommand}"
+                                                       CommandParameter="{Binding .}"
+                                                       Text=" Ambar Seç" />
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
                                     <Border Margin="10,0,10,0"
                                             Padding="10"
                                             BackgroundColor="{StaticResource White}"
@@ -78,6 +86,14 @@
                                             <TapGestureRecognizer CommandParameter="{Binding .}"
                                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ConsumableTransactionOperationSelectWarehouseViewModel}},Path=.}" />
                                         </Border.GestureRecognizers>
+                                        <Border.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected}"
+                                                         TargetType="Border"
+                                                         Value="True">
+                                                <Setter Property="BackgroundColor"
+                                                        Value="{StaticResource Primary}" />
+                                            </DataTrigger>
+                                        </Border.Triggers>
                                         <Grid ColumnDefinitions="Auto, *, Auto">
                                             <Border Grid.Column="0"
                                                     Padding="0,0,10,0"
@@ -86,6 +102,14 @@
                                                                     CornerRadius="50"
                                                                     HorizontalOptions="Start"
                                                                     Text="{Binding Number}" />
+                                                <Border.Triggers>
+                                                    <DataTrigger Binding="{Binding IsSelected}"
+                                                                 TargetType="Border"
+                                                                 Value="True">
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="{StaticResource Primary}" />
+                                                    </DataTrigger>
+                                                </Border.Triggers>
                                             </Border>
                                             <VerticalStackLayout Grid.Column="1"
                                                                  Padding="5"
@@ -95,37 +119,59 @@
                                                        FontSize="Default"
                                                        LineBreakMode="TailTruncation"
                                                        MaxLines="1"
-                                                       Text="{Binding Name}" />
+                                                       Text="{Binding Name}">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="TextColor"
+                                                                    Value="Black" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding IsSelected}"
+                                                                             Value="True">
+                                                                    <Setter Property="TextColor"
+                                                                            Value="White" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
                                                 <Label>
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span FontSize="12"
-                                                                  TextColor="{StaticResource Gray300}"
-                                                                  Text="Son Hareket Tarihi: " />
+                                                                  Text="Son Hareket Tarihi : " />
                                                             <Span FontSize="12"
-                                                                  Text="{Binding LastTransactionDate}"
-                                                                  TextColor="{StaticResource Gray300}" />
+                                                                  Text="{Binding LastTransactionDate}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+
+                                                            <Style.Triggers>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding IsSelected}"
+                                                                             Value="True">
+                                                                    <Setter Property="TextColor"
+                                                                            Value="{StaticResource Warning}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
                                                 </Label>
                                             </VerticalStackLayout>
-                                            <Image VerticalOptions="Center"
-                                                   Grid.Column="2"
-                                                   WidthRequest="15"
-                                                   HeightRequest="15">
-                                                <Image.Source>
-                                                    <FontImageSource FontFamily="FAS"
-                                                                     Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"></FontImageSource>
-                                                </Image.Source>
-                                            </Image>
                                         </Grid>
                                     </Border>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
                 </RefreshView>
+                <Grid Grid.Row="2">
+                    <Button Text="İleri"
+                            Margin="10,10,10,20"
+                            Command="{Binding GoToTransactionCommand}"></Button>
+                </Grid>
             </Grid>
         </Border>
         <sharedViews:LoadingView IsBusy="{Binding IsBusy}" />

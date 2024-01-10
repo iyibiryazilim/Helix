@@ -88,7 +88,34 @@ ORDER BY MaxDate DESC";
 		return query;
 	}
 
-	public void Dispose()
+    public string WarehouseListByProductId(int id)
+    {
+        var query = @$"SELECT
+    [WarehouseReferenceId] = CAPIWHOUSE.LOGICALREF,
+    [WarehouseName] = CAPIWHOUSE.NAME,
+    [WarehouseNumber] = CAPIWHOUSE.NR,
+    [LastTransactionDate] = MAX(STINVTOT.LASTTRDATE),
+    [OnHand] = ISNULL(SUM(STINVTOT.ONHAND), 0)
+FROM
+    LV_00{CompanyNumber}_0{CompanyPeriod}_STINVTOT AS STINVTOT
+    LEFT JOIN LG_00{CompanyNumber}_ITEMS AS ITEMS ON STINVTOT.STOCKREF = ITEMS.LOGICALREF
+    LEFT JOIN LG_00{CompanyNumber}_UNITSETF AS BASEUNITSET ON ITEMS.UNITSETREF = BASEUNITSET.LOGICALREF
+    LEFT JOIN LG_00{CompanyNumber}_UNITSETL AS UNITSET ON UNITSET.UNITSETREF = BASEUNITSET.LOGICALREF AND MAINUNIT = 1
+    LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STINVTOT.INVENNO = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {CompanyNumber}
+WHERE
+
+    ITEMS.CODE<> 'ÿ'
+    AND STINVTOT.INVENNO<> - 1
+    AND ITEMS.LOGICALREF = {id}
+GROUP BY
+    CAPIWHOUSE.LOGICALREF, CAPIWHOUSE.NAME, CAPIWHOUSE.NR
+ORDER BY
+    [WarehouseName];";
+
+        return query;
+    }
+
+    public void Dispose()
 	{
 		GC.SuppressFinalize(this);
 	}
