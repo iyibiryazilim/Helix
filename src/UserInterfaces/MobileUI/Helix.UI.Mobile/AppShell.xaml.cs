@@ -13,6 +13,7 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPur
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -115,6 +116,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineFormView), typeof(DispatchByPurchaseOrderLineFormView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationFormView), typeof(WarehouseTransferOperationFormView));
 		Routing.RegisterRoute(nameof(SupplierFastOperationBottomSheetView), typeof(SupplierFastOperationBottomSheetView));
+		Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionCustomerView),typeof(ReturnBySalesDispatchTransactionCustomerView));
 
 
 	}

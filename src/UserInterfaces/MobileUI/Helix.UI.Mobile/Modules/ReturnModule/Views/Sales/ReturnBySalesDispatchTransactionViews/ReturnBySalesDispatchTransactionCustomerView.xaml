@@ -2,7 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews.ReturnBySalesDispatchTransactionCustomerView"
-             Title="ReturnBySalesDispatchTransactionCustomerView">
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels"
+             x:DataType="viewModel:ReturnBySalesDispatchTransactionCustomerViewModel"
+             xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
     <VerticalStackLayout>
         <Label 
             Text="Welcome to .NET MAUI!"
