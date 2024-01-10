@@ -64,6 +64,8 @@ public partial class Product :ObservableObject
     [ObservableProperty]
     bool isSelected = false;
 
+  
+
 
 
 }

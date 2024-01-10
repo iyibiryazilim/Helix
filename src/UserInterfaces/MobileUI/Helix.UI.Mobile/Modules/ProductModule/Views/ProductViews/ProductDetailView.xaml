@@ -36,7 +36,7 @@
                 HorizontalOptions="Center"
                 IsClippedToBounds="True"
                 VerticalOptions="Center"
-                WidthRequest="85"
+                WidthRequest="85" 
                 ZIndex="3">
                     <Image
                     Aspect="AspectFit"
@@ -230,11 +230,13 @@
                                                                 <VerticalStackLayout Grid.Column="2"
                                                                                  VerticalOptions="Center"
                                                                                  Spacing="5">
-                                                                    <Label Text="{Binding ProductCode}"
+                                                                    <Label Text="{Binding TransactionTypeName}"
                                                                        FontAttributes="Bold"></Label>
-                                                                    <Label Text="{Binding ProductName}"
+                                                                    <Label Text="{Binding WarehouseName}"
                                                                        FontSize="12"></Label>
-                                                                </VerticalStackLayout>
+                                                                        <Label Text="{Binding Quantity }"
+                                                                               FontSize="12"></Label>
+                                                                    </VerticalStackLayout>
                                                                 <Image Grid.Column="3"
                                                                    HorizontalOptions="Center"
                                                                    HeightRequest="15"
