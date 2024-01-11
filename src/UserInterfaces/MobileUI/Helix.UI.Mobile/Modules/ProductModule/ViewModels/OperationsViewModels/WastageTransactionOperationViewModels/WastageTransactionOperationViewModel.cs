@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
@@ -11,6 +12,8 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+
 public partial class WastageTransactionOperationViewModel : BaseViewModel
 {
     IHttpClientService _httpClientService;
@@ -20,6 +23,8 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
         _httpClientService = httpClientService;
 
     }
+    [ObservableProperty]
+    Warehouse warehouse;
     public ObservableCollection<ProductModel> Items { get; } = new();
 
     [RelayCommand]
@@ -27,7 +32,8 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
     {
         await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}", new Dictionary<string, object>
         {
-            ["ViewType"] = 11
+            ["ViewType"] = 11,
+            ["Warehouse"] = Warehouse
         });
     }
 
