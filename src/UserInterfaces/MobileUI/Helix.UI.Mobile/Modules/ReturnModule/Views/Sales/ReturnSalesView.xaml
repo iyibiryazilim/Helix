@@ -85,13 +85,13 @@
                                     Radius="40"
                                     Opacity="0.1" />
                         </Border.Shadow>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ReturnSalesViewModel}},Path=.}" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ReturnSalesViewModel}},Path=GoToReturnBySalesDispatchTransactionCustomerViewCommand}" />
 
-                        </Border.GestureRecognizers>
+                    </Border.GestureRecognizers>
 
-                    </Border>
+                </Border>
                     <Border Grid.Row="2"
                             Padding="10"
                             BackgroundColor="{StaticResource White}"

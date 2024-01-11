@@ -2,21 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews.ReturnBySalesDispatchTransactionCustomerView"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             Title="ReturnBySalesDispatchTransactionCustomerView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels"
              x:DataType="viewModel:ReturnBySalesDispatchTransactionCustomerViewModel"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews">
+             xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetCustomersCommand}" />
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetCustomersCommand}" />
     </ContentPage.Behaviors>
-    <sharedViews:ReturnSelectContentView IsBusy="{Binding IsBusy}"
-                                         IsRefreshing="{Binding IsRefreshing}"
-                                         CurrentList="{Binding Results}"
-                                         SelectedCurrent="{Binding SelectedCustomer}"
-                                         SortCommand="{Binding SortCommand}"
-                                         SearchCommand="{Binding SearchCommand}"
-                                         ReloadCommand="{Binding ReloadCommand}"
-                                         ToggleSelectionCommand="{Binding ToggleSelectionCommand}"/>
+    <sharedView:ReturnSelectContentView ReloadCommand="{Binding ReloadCommand}"
+                                        SearchCommand="{Binding SearchCommand}"
+                                        SortCommand="{Binding SortCommand}"
+                                       
+                                        CurrentList="{Binding Results}"
+                                        IsBusy="{Binding IsBusy}"
+                                        ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                        IsRefreshing="{Binding IsRefreshing}">
+        
+    </sharedView:ReturnSelectContentView>
 </ContentPage>

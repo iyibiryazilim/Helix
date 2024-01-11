@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
@@ -45,7 +46,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [ObservableProperty]
         Product product;
 
-        public ConsumableTransactionOperationSelectWarehouseViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService,ICustomQueryService customQueryService)
+        public ConsumableTransactionOperationSelectWarehouseViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomQueryService customQueryService)
         {
             Title = "Ambar Listesi";
             _httpClientService = httpClientService;
@@ -88,35 +89,13 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                if (Product!=null)
-                {
-                    var query = new ProductQuery().WarehouseListByProductId(Product.ReferenceId);
-                    var result = await _customQueryService.GetObjectsAsync(httpClient, query);
-                    foreach (WarehouseModel item in result.Data)
-                    {
-                        var warehouse = new Warehouse()
-                        {
-                            Name = item.WarehouseName,
-                            Number = (short)item.WarehouseNumber,
-                            LastTransactionDate = item.LastTransactionDate,
-                            IsSelected = item.IsSelected,
-                            ReferenceId = item.WarehousereferenceId
 
-                        };
-                        Items.Add(warehouse);
-                        Results.Add(warehouse);
-                    }
-                }
-                else
+                var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+                foreach (Warehouse item in result.Data)
                 {
-                    var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                    foreach (Warehouse item in result.Data)
-                    {
-                        Items.Add(item);
-                        Results.Add(item);
-                    }
+                    Items.Add(item);
+                    Results.Add(item);
                 }
-                
 
 
             }
