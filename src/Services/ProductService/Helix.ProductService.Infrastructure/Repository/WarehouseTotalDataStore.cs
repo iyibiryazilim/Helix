@@ -5,6 +5,8 @@ using Helix.ProductService.Infrastructure.Helpers.Queries;
 using Helix.ProductService.Infrastructure.Repository.Base;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Helix.ProductService.Infrastructure.Repository
 {
@@ -32,5 +34,23 @@ namespace Helix.ProductService.Infrastructure.Repository
 				throw;
 			}
 		}
-	}
+
+        public async Task<DataResult<IEnumerable<WarehouseTotal>>> GetWarehouseTotalByProductId(int id, string search, string orderBy, int page, int pageSize)
+        {
+            try
+            {
+				var result = await new SqlQueryHelper<WarehouseTotal>().GetObjectsAsync(new WarehouseTotalQuery(_configuraiton).GetWarehouseTotalByProductId(id, search, orderBy, page, pageSize));
+                _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+                throw;
+            }
+
+        }
+    }
 }

@@ -93,11 +93,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Current item in result.Data)
                 {
-                    if (item.ReferenceCount > 0)
-                    {
-                        Items.Add(item);
-                        Results.Add(item);
-                    }
+
+                    Items.Add(item);
+                    Results.Add(item);
+
                 }
 
 
@@ -167,11 +166,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Current item in result.Data)
                 {
-                    if (item.ReferenceCount > 0)
-                    {
-                        Items.Add(item);
-                        Results.Add(item);
-                    }
+
+                    Items.Add(item);
+                    Results.Add(item);
+
                 }
 
 
@@ -248,7 +246,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             }
         }
 
-        
+
 
         [RelayCommand]
         private void ToggleSelection(Current item)

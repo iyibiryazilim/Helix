@@ -15,6 +15,7 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispa
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
@@ -137,8 +138,10 @@ public partial class AppShell : Shell
     Routing.RegisterRoute(nameof(OutCountingTransactionOperationSelectWarehouseView), typeof(OutCountingTransactionOperationSelectWarehouseView));
     Routing.RegisterRoute(nameof(ProductionTransactionOperationSelectWarehouseView), typeof(ProductionTransactionOperationSelectWarehouseView));
     Routing.RegisterRoute(nameof(WastageTransactionOperationSelectWarehouseView), typeof(WastageTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSupplierView), typeof(ReturnByPurchaseDispatchTransactionSupplierView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationTransferredWarehouseListView), typeof(WarehouseTransferOperationTransferredWarehouseListView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationSummaryView), typeof(WarehouseTransferOperationSummaryView));
+
 
 
     }

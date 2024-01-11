@@ -2,11 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
-using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.DataStores;
-using Helix.UI.Mobile.Modules.SalesModule.Services;
-using Helix.UI.Mobile.MVVMHelper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,10 +10,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helix.UI.Mobile.MVVMHelper;
+using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels
 {
-    public partial class ReturnByPurchaseDispatchTransactionCustomerViewModel :BaseViewModel
+    public partial class ReturnByPurchaseDispatchTransactionSupplierViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
         private readonly ISupplierService _supplierService;
@@ -26,8 +24,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
         public ObservableCollection<Current> Results { get; } = new();
 
 
-        //[ObservableProperty]
-        //Current selectedSupplier;
+        [ObservableProperty]
+        Current selectedSupplier;
 
         //Commands
         public Command GetSupplierCommand { get; }
@@ -42,8 +40,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
         int currentPage = 0;
         [ObservableProperty]
         int pageSize = 5000;
-
-        public ReturnByPurchaseDispatchTransactionCustomerViewModel(IHttpClientService httpClientService, ISupplierService supplierService )
+        public ReturnByPurchaseDispatchTransactionSupplierViewModel(IHttpClientService httpClientService, ISupplierService supplierService)
         {
             Title = "Tedarikçi Listesi";
             _httpClientService = httpClientService;
@@ -52,7 +49,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
         }
-
         async Task LoadData()
         {
             if (IsBusy)
@@ -88,11 +84,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                 var result = await _supplierService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Current item in result.Data)
                 {
-                    if (item.ReferenceCount > 0)
-                    {
-                        Items.Add(item);
-                        Results.Add(item);
-                    }
+
+                    Items.Add(item);
+                    Results.Add(item);
+
                 }
 
 
@@ -162,11 +157,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                 var result = await _supplierService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Current item in result.Data)
                 {
-                    if (item.ReferenceCount > 0)
-                    {
-                        Items.Add(item);
-                        Results.Add(item);
-                    }
+                    Items.Add(item);
+                    Results.Add(item);
+
                 }
 
 
@@ -245,20 +238,19 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 
 
-        //[RelayCommand]
-        //private void ToggleSelection(Current item)
-        //{
-        //    item.IsSelected = !item.IsSelected;
-        //    if (SelectedSupplier != null)
-        //    {
-        //        SelectedSupplier.IsSelected = false;
-        //    }
-        //    if (item.IsSelected)
-        //    {
-        //        SelectedSupplier = item;
-        //    }
-        //}
-
+        [RelayCommand]
+        private void ToggleSelection(Current item)
+        {
+            item.IsSelected = !item.IsSelected;
+            if (SelectedSupplier != null)
+            {
+                SelectedSupplier.IsSelected = false;
+            }
+            if (item.IsSelected)
+            {
+                SelectedSupplier = item;
+            }
+        }
 
     }
 }
