@@ -115,6 +115,23 @@ ORDER BY
         return query;
     }
 
+    public string BarcodeAndSubUnitsetsByProductId(int id)
+    {
+        var query = @$"SELECT 
+        [Barcode] = (SELECT BARCODE FROM LG_{CompanyNumber}_UNITBARCODE	WHERE ITEMREF = ITMUNITA.ITEMREF AND ITMUNITAREF = ITMUNITA.LOGICALREF AND UNITLINEREF = ITMUNITA.UNITLINEREF),
+        ITMUNITA.WIDTH AS [Width],
+        ITMUNITA.HEIGHT AS [Height],
+        ITMUNITA.VOLUME_ AS [Volume],
+        ITMUNITA.WEIGHT AS [Weight],
+        UNITSETL.LOGICALREF AS [SubUnitsetReferenceId],
+        UNITSETL.CODE AS [SubUnitsetCode],
+        [IsMainUnitset] = ISNULL((UNITSETL.MAINUNIT),'')
+        FROM LG_{CompanyNumber}_ITMUNITA AS ITMUNITA
+        LEFT JOIN LG_{CompanyNumber}_UNITSETL AS UNITSETL ON ITMUNITA.UNITLINEREF = UNITSETL.LOGICALREF
+        WHERE ITEMREF = {id}";
+
+        return query;
+    }
     public void Dispose()
 	{
 		GC.SuppressFinalize(this);

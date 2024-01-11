@@ -13,6 +13,8 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels
 {
     [QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+    [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+
     public partial class ProductionTransactionOperationFormViewModel: BaseViewModel
     {
         [ObservableProperty]
@@ -39,6 +41,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         int pageSize = 20;
         [ObservableProperty]
         WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
+
+        [ObservableProperty]
+        Warehouse warehouse;
+
         public ProductionTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
         {
             Title = "Üretimden Giriş İşlemleri";

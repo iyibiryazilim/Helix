@@ -11,6 +11,9 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
 
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+[QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+
 public partial class OutCountingTransactionOperationFormViewModel : BaseViewModel
 {
     IHttpClientService _httpClientService;
@@ -23,7 +26,8 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
 
     [ObservableProperty]
     ProductTransactionFormModel productTransactionFormModel;
-
+    [ObservableProperty]
+    ObservableCollection<ProductModel> productModel;
     [ObservableProperty]
     string searchText = string.Empty;
     [ObservableProperty]
@@ -34,6 +38,11 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
     int pageSize = 20;
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
+
+    [ObservableProperty]
+    Warehouse warehouse;
+
+
     public OutCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
     {
         Title = "Sayım Eksikliği İşlemleri";

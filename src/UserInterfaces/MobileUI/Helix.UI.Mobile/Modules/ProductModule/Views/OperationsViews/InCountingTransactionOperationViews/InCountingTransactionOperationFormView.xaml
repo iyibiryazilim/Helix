@@ -18,6 +18,7 @@
     <sharedViews:ProductTransactionOperationFormContentView  WarehouseList="{Binding WarehouseItems}"
                                                              TransactionTypeName="{Binding TransactionTypeName}"
                                                              ProductTransactionFormModel="{Binding ProductTransactionFormModel}"
+                                                             Warehouse="{Binding Warehouse}"
                                                              GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}">
 
     </sharedViews:ProductTransactionOperationFormContentView>
