@@ -264,6 +264,15 @@
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\WarehouseTransferOperationViews\WarehouseTransferOperationSelectedItemsListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\WarehouseTransferOperationViews\WarehouseTransferOperationSummaryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\WarehouseTransferOperationViews\WarehouseTransferOperationTransferredWarehouseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\WarehouseTransferOperationViews\WarehouseTransferOperationWarehouseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\WastageTransactionOperationViews\WastageTransactionOperationFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

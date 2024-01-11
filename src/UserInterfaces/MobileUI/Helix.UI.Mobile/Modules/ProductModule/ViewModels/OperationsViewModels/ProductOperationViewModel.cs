@@ -50,7 +50,7 @@ public partial class ProductOperationViewModel :BaseViewModel
     }
 
     [RelayCommand]
-    async Task GoToWarehouseTransferOperationViewAsync()
+    async Task GoToWarehouseTransferOperationWarehouseListViewAsync()
     {
         if (IsBusy)
             return;
@@ -58,7 +58,7 @@ public partial class ProductOperationViewModel :BaseViewModel
         {
             IsBusy = true;
 
-            await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationView)}");
+            await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationWarehouseListView)}");
         }
         catch(Exception ex)
         {

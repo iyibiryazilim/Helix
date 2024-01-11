@@ -18,8 +18,8 @@
     <sharedView:ReturnSelectContentView ReloadCommand="{Binding ReloadCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         SortCommand="{Binding SortCommand}"
-                                       
                                         CurrentList="{Binding Results}"
+                                        SelectedCurrent="{Binding SelectedCustomer}"
                                         IsBusy="{Binding IsBusy}"
                                         ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                         IsRefreshing="{Binding IsRefreshing}">

@@ -10,11 +10,15 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels;
 
 [QueryProperty(name: nameof(WarehouseTotal), queryId: nameof(WarehouseTotal))]
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 public partial class WarehouseTransferOperationSelectedItemsListViewModel : BaseViewModel
 {
 
 	[ObservableProperty]
 	ObservableCollection<WarehouseTotal> warehouseTotal;
+
+	[ObservableProperty]
+	Warehouse warehouse;
 
 	public ObservableCollection<WarehouseTotal> Result { get; } = new();
 
@@ -295,7 +299,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	}
 
 	[RelayCommand]
-	public async Task GoToWarehouseTransferOperationFormViewAsync()
+	public async Task GoToWarehouseTransferOperationTransferredWarehouseListViewAsync()
 	{
 		if (IsBusy)
 			return;
@@ -305,10 +309,14 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 
 			if(Result.Count < 1)
 			{
-				await Shell.Current.DisplayAlert("Hata", "Seçili bir ürününüz olmadığından dolayı form sayfasına geçiş yapamazsınız", "Tamam");
+				await Shell.Current.DisplayAlert("Hata", "Seçili bir ürününüz olmadığından dolayı sonraki sayfaya geçiş yapamazsınız", "Tamam");
 			}else
 			{
-				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationFormView)}");
+				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationTransferredWarehouseListView)}", new Dictionary<string, object>
+				{
+					[nameof(Warehouse)] = Warehouse,
+					[nameof(WarehouseTotal)] = Result
+				});
 			}
 		}
 		catch(Exception ex)
