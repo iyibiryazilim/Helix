@@ -11,10 +11,18 @@
              Shell.TabBarIsVisible="False"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetCustomersCommand}" />
+    </ContentPage.Behaviors>
+    <sharedView:ReturnSelectContentView ReloadCommand="{Binding ReloadCommand}"
+                                        SearchCommand="{Binding SearchCommand}"
+                                        SortCommand="{Binding SortCommand}"
+                                       
+                                        CurrentList="{Binding Results}"
+                                        IsBusy="{Binding IsBusy}"
+                                        ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                        IsRefreshing="{Binding IsRefreshing}">
+        
+    </sharedView:ReturnSelectContentView>
 </ContentPage>
