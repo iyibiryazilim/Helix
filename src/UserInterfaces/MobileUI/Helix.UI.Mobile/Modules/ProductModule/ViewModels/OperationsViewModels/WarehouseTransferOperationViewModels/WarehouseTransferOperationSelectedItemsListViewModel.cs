@@ -10,11 +10,15 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels;
 
 [QueryProperty(name: nameof(WarehouseTotal), queryId: nameof(WarehouseTotal))]
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 public partial class WarehouseTransferOperationSelectedItemsListViewModel : BaseViewModel
 {
 
 	[ObservableProperty]
 	ObservableCollection<WarehouseTotal> warehouseTotal;
+
+	[ObservableProperty]
+	Warehouse warehouse;
 
 	public ObservableCollection<WarehouseTotal> Result { get; } = new();
 

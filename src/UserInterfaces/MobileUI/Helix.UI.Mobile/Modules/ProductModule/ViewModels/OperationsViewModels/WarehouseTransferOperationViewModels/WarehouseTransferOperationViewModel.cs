@@ -12,13 +12,14 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels;
 
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 public partial class WarehouseTransferOperationViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
 	IWarehouseService _warehouseService;
 	IWarehouseTotalService _warehouseTotalService;
 
-	public ObservableCollection<Warehouse> WarehouseList { get; } = new();
+	
 	public ObservableCollection<WarehouseTotal> Items { get; } = new();
 	public ObservableCollection<WarehouseTotal> SelectedItems { get; } = new();
 	public Command GetDataCommand { get; }
@@ -36,25 +37,15 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 	}
 
 	[ObservableProperty]
+	Warehouse warehouse;
+	[ObservableProperty]
 	WarehouseTotalOrderBy warehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
 	[ObservableProperty]
 	string searchText = string.Empty;
 	[ObservableProperty]
 	int currentPage = 0;
 	[ObservableProperty]
-	int pageSize = 20;
-
-	private Warehouse selectedWarehouse;
-
-	public Warehouse SelectedWarehouse
-	{
-		get => selectedWarehouse;
-		set
-		{
-			SetProperty(ref selectedWarehouse, value);
-			Task.Run(async () => await ReloadAsync());
-		}
-	}
+	int pageSize = 20000;
 
 	async Task LoadData()
 	{
@@ -63,8 +54,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		try
 		{
 			await Task.Delay(500);
-			await Task.WhenAll(GetWarehousesAsync(), ReloadAsync());
-			//await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
+			await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 			
 		}
 		catch(Exception ex)
@@ -78,43 +68,6 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
-	
-	public async Task GetWarehousesAsync()
-	{
-		//if(IsBusy)
-		//	return;
-		try
-		{
-			IsBusy = true;
-			IsRefreshing = true;
-
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			var result = await _warehouseService.GetObjects(httpClient, SearchText, WarehouseDataStore.WarehouseOrderBy.numberasc, 0, 20000);
-
-			if(result.Data.Any())
-			{
-				WarehouseList.Clear();
-				foreach(var item in result.Data)
-				{
-					await Task.Delay(100);
-					WarehouseList.Add(item);
-				}
-			}
-		}
-		catch(Exception ex)
-		{
-			Debug.WriteLine(ex.Message);
-			await Shell.Current.DisplayAlert("Hata", "Ambarlar getirilirken bir hata oluştu.", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-			IsRefreshing = false;
-		}
-	}
-
-	
-
 	[RelayCommand]
 	async Task LoadMoreAsync()
 	{
@@ -127,7 +80,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage++;
-			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, SelectedWarehouse.Number, "1,2,3,4,10,11,12,13", SearchText, WarehouseTotalOrderBy, CurrentPage, PageSize);
+			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, Warehouse.Number, "1,2,3,4,10,11,12,13", SearchText, WarehouseTotalOrderBy, CurrentPage, PageSize);
 
 			if (result.Data.Any())
 			{
@@ -157,34 +110,29 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 	[RelayCommand]
 	async Task ReloadAsync()
 	{
-		if (IsBusy) return;
+		if (IsBusy)
+			return;
 		try
 		{
 			IsBusy = true;
 			IsRefreshing = true;
-
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			CurrentPage = 0;
-			if(SelectedWarehouse is not null)
+
+			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, Warehouse.Number, "1,2,3,4,10,11,12,13", SearchText, WarehouseTotalOrderBy, CurrentPage, PageSize);
+			if(result.Data.Any())
 			{
-				var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, SelectedWarehouse.Number, "1,2,3,4,10,11,12,13", SearchText, WarehouseTotalOrderBy, CurrentPage, PageSize);
-
-				if (result.Data.Any())
+				Items.Clear();
+				foreach (WarehouseTotal item in result.Data)
 				{
-					Items.Clear();
+					Items.Add(item);
 
-					foreach (var item in result.Data)
-					{
-						await Task.Delay(100);
-						Items.Add(item);
-					}
 				}
 			}
 		}
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Reload Error:", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -309,7 +257,6 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 				if (answer)
 				{
 					await Shell.Current.GoToAsync("..");
-					WarehouseList.Clear();
 					SelectedItems.Clear();
 				}
 			}
@@ -340,6 +287,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			{
 				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationSelectedItemsListView)}", new Dictionary<string, object>
 				{
+					[nameof(Warehouse)] = Warehouse,
 					[nameof(WarehouseTotal)] = SelectedItems
 				});
 			}

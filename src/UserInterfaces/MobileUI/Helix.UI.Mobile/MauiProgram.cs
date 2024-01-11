@@ -430,6 +430,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<ProductDetailWarehouseTotalView>();
             mauiAppBuilder.Services.AddTransient<ProductDetailWarehouseParametersView>();
             mauiAppBuilder.Services.AddTransient<ProductDetailSubUnitsetsAndBarcodeView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationWarehouseListView>();
 
 
 
@@ -484,9 +485,10 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<ProductDetailWarehouseTotalViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailWarehouseParametersViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailSubUnitsetsAndBarcodeViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationWarehouseListViewModel>();
 
 
-            return mauiAppBuilder;
+			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{

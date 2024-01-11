@@ -227,7 +227,7 @@
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 5,5,0,0">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GoToWarehouseTransferOperationViewCommand}" />
+                            <TapGestureRecognizer Command="{Binding GoToWarehouseTransferOperationWarehouseListViewCommand}" />
                         </Border.GestureRecognizers>
                     <Grid ColumnDefinitions="90*,10*">
                         <Label Text="Transfer İşlemleri"
