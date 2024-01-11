@@ -1,4 +1,7 @@
-﻿using Helix.UI.Mobile.MVVMHelper;
+﻿using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
+using Helix.UI.Mobile.MVVMHelper;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases
 {
@@ -8,5 +11,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases
         {
 			Title = "Satınalma İade İşlemleri";
 		}
+        [RelayCommand]
+        async Task GoToReturnByPurchaseDispatchTransactionCustomerView()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionSupplierView)}");
+        }
     }
 }

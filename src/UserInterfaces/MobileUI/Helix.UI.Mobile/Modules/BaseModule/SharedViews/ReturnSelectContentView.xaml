@@ -137,35 +137,6 @@
                                                     </Style>
                                                 </Label.Style>
                                             </Label>
-                                            <HorizontalStackLayout Spacing="5">
-                                                <Grid>
-                                                    <Image Aspect="AspectFit"
-                                                           HeightRequest="15"
-                                                           WidthRequest="15">
-                                                        <Image.Source>
-                                                            <FontImageSource FontFamily="FAS"
-                                                                             Color="{StaticResource Warning}"
-                                                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Box}"></FontImageSource>
-                                                        </Image.Source>
-                                                    </Image>
-                                                </Grid>
-                                                <Label Text="{Binding ReferenceCount}">
-                                                    <Label.Style>
-                                                        <Style TargetType="Label">
-                                                            <Setter Property="TextColor"
-                                                                    Value="Black" />
-                                                            <Style.Triggers>
-                                                                <DataTrigger TargetType="Label"
-                                                                             Binding="{Binding IsSelected}"
-                                                                             Value="True">
-                                                                    <Setter Property="TextColor"
-                                                                            Value="{StaticResource Warning}" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Label.Style>
-                                                </Label>
-                                            </HorizontalStackLayout>
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Border>

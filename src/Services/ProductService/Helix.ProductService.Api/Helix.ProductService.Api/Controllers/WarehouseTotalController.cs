@@ -47,5 +47,40 @@ namespace Helix.ProductService.Api.Controllers
 			}
 
 		}
-	}
+
+
+
+        [HttpGet("Warehouse/Id/{id}")]
+        public async Task<DataResult<IEnumerable<WarehouseTotal>>> GetWarehouseTotalByProductId(int id, [FromQuery] string search = "", string orderBy = WarehouseTotalOrderBy.CodeAsc, int page = 0, int pageSize = 20)
+        {
+            DataResult<IEnumerable<WarehouseTotal>> result = new();
+            switch (orderBy)
+            {
+                case "namedesc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id,  search, WarehouseTotalOrderBy.NameDesc, page, pageSize);
+                    return result;
+                case "nameasc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id,  search, WarehouseTotalOrderBy.NameAsc, page, pageSize);
+                    return result;
+                case "codedesc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id,  search, WarehouseTotalOrderBy.CodeDesc, page, pageSize);
+                    return result;
+                case "codeasc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id, search, WarehouseTotalOrderBy.CodeAsc, page, pageSize);
+                    return result;
+                case "quantitydesc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id,  search, WarehouseTotalOrderBy.QuantityDesc, page, pageSize);
+                    return result;
+                case "quantityasc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id,  search, WarehouseTotalOrderBy.QuantityAsc, page, pageSize);
+                    return result;
+                default:
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id,  search, orderBy, page, pageSize);
+                    return result;
+            }
+
+        }
+
+
+    }
 }
