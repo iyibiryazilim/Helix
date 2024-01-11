@@ -60,10 +60,13 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionLineViewModels;
+
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -503,17 +506,21 @@ namespace Helix.UI.Mobile
 		#region ReturnModule
 		public static MauiAppBuilder ReturnRegisterViews(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddSingleton<ReturnPanelView>();
-			mauiAppBuilder.Services.AddSingleton<ReturnPurchasesView>();
-			mauiAppBuilder.Services.AddSingleton<ReturnSalesView>();
+			mauiAppBuilder.Services.AddTransient<ReturnPanelView>();
+			mauiAppBuilder.Services.AddTransient<ReturnPurchasesView>();
+			mauiAppBuilder.Services.AddTransient<ReturnSalesView>();
+			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerView>();
+			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineCustomerView>();
 
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ReturnRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddSingleton<ReturnPanelViewModel>();
-			mauiAppBuilder.Services.AddSingleton<ReturnPurchasesViewModel>();
-			mauiAppBuilder.Services.AddSingleton<ReturnSalesViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnPanelViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnPurchasesViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnSalesViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineCustomerViewModel>();
 
 			return mauiAppBuilder;
 		}
