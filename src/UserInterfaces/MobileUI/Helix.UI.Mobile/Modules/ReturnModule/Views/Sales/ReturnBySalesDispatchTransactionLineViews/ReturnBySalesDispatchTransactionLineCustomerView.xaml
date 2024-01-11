@@ -7,8 +7,19 @@
              Title="ReturnBySalesDispatchTransactionLineCustomerView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionLineViewModels"
              x:DataType="viewModel:ReturnBySalesDispatchTransactionLineCustomerViewModel"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews">
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetCustomersCommand}" />
+    </ContentPage.Behaviors>
     <sharedViews:ReturnSelectContentView IsBusy="{Binding IsBusy}"
                                          IsRefreshing="{Binding IsRefreshing}"
+                                         ReloadCommand="{Binding GetCustomersListCommand}"
+                                         SortCommand="{Binding SortCommand}"
+                                         SearchCommand="{Binding SearchCommand}"
+                                         ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                         CurrentList="{Binding Results}"
+                                         SelectedCurrent="{Binding SelectedCustomer}"
                                          />
 </ContentPage>
