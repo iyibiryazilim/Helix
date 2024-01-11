@@ -21,8 +21,7 @@
                                                             TransactionTypeName="{Binding TransactionTypeName}"
                                                             ProductTransactionFormModel="{Binding ProductTransactionFormModel}"
                                                             GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}"
-                                                            
-                                                            >
+                                                            Warehouse="{Binding Warehouse}">
 
     </sharedViews:ProductTransactionOperationFormContentView>
 </ContentPage>

@@ -12,118 +12,125 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid  Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-               BackgroundColor="{StaticResource WhiteSmoke}">
-
-            <!-- Fiş Türü -->
-            <VerticalStackLayout Grid.Row="0"
-                                 Padding="7">
-                <Label Text="Fiş Türü"
-                       FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 13">
-                    <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}" PlaceholderColor="Black" IsEnabled="False"/>
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Tarih ve Saat -->
-            <Grid Grid.Row="1"
-                  Grid.ColumnDefinitions="50*,50*"
-                  Padding="7"
-                  ColumnSpacing="5">
-                <VerticalStackLayout Grid.Column="0">
-                    <Label Text="Tarih"
+        <Grid RowDefinitions="89*,11*">
+            <ScrollView Grid.Row="0">
+            <Grid Grid.Row="0" Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                   BackgroundColor="{StaticResource WhiteSmoke}">
+                <!-- Fiş Türü -->
+                <VerticalStackLayout Grid.Row="0"
+                                     Padding="7">
+                    <Label Text="Fiş Türü"
                            FontSize="Medium" />
                     <Border StrokeShape="RoundRectangle 13">
-                        <DatePicker />
+                        <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}"
+                               PlaceholderColor="Black"
+                               IsEnabled="False" />
                     </Border>
                 </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="1">
-                    <Label Text="Saat"
+
+                <!-- Tarih ve Saat -->
+                <Grid Grid.Row="1"
+                      Grid.ColumnDefinitions="50*,50*"
+                      Padding="7"
+                      ColumnSpacing="5">
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label Text="Tarih"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <DatePicker />
+                        </Border>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Saat"
+                               FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <TimePicker />
+                        </Border>
+                    </VerticalStackLayout>
+
+                </Grid>
+
+                <!-- Ambar -->
+                <VerticalStackLayout Grid.Row="2"
+                                     Padding="7">
+                    <Label Text="Ambar"
                            FontSize="Medium" />
                     <Border StrokeShape="RoundRectangle 13">
-                        <TimePicker  />
+                        <Entry Placeholder="{Binding Source={x:Reference this},Path=Warehouse.Name}"
+                               PlaceholderColor="Black"
+                               IsEnabled="False" />
                     </Border>
                 </VerticalStackLayout>
+
+                <!-- Belge Kodu -->
+                <VerticalStackLayout Grid.Row="3"
+                                     Padding="7">
+                    <Label Text="Belge Kodu"
+                           FontSize="Medium" />
+                    <Border StrokeShape="RoundRectangle 13">
+                        <Entry Placeholder="  Belge Kodu Giriniz" />
+
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Özel Kod -->
+                <VerticalStackLayout Grid.Row="4"
+                                     Padding="7">
+                    <Label Text="Özel Kod"
+                           FontSize="Medium" />
+                    <Border StrokeShape="RoundRectangle 13">
+                        <Grid ColumnDefinitions="85*,15*">
+                            <Entry Grid.Column="0"
+                                   Placeholder="  Özel Kod Giriniz" />
+                            <ImageButton Grid.Column="1"
+                                         BackgroundColor="Transparent"
+                                         Aspect="AspectFit"
+                                         HeightRequest="22"
+                                         WidthRequest="22">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FAS"
+                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
+                                                     Color="{StaticResource DarkPrimary}" />
+                                </ImageButton.Source>
+                            </ImageButton>
+
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Doküman İzleme No -->
+                <VerticalStackLayout Grid.Row="5"
+                                     Padding="7">
+                    <Label Text="Doküman İzleme No"
+                           FontSize="Medium" />
+                    <Border StrokeShape="RoundRectangle 13">
+                        <Entry Placeholder="  Doküman İzleme No Giriniz" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Açıklama -->
+                <VerticalStackLayout Grid.Row="6"
+                                     Padding="7">
+                    <Label Text="Açıklama"
+                           FontSize="Medium" />
+                    <Border StrokeShape="RoundRectangle 13">
+                        <Entry Placeholder="  Açıklama" />
+                    </Border>
+                </VerticalStackLayout>
+
+
+               
+
+
+
 
             </Grid>
-
-            <!-- Ambar -->
-            <VerticalStackLayout Grid.Row="2"
-                                 Padding="7">
-                <Label Text="Ambar"
-                       FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 13">
-                    <Picker x:Name="pickerWarehouse"
-                            Title="Seçiniz.."        
-                            ItemDisplayBinding="{Binding Name}"
-                            ItemsSource="{Binding Source={x:Reference this},Path=WarehouseList}"
-                            SelectedItem="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.SelectedWarehouse}"
-                             />
-
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Belge Kodu -->
-            <VerticalStackLayout Grid.Row="3"
-                                 Padding="7">
-                <Label Text="Belge Kodu"
-                       FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 13">
-                    <Entry Placeholder="  Belge Kodu Giriniz" />
-
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Özel Kod -->
-            <VerticalStackLayout Grid.Row="4"
-                                 Padding="7">
-                <Label Text="Özel Kod"
-                       FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 13">
-                    <Grid ColumnDefinitions="85*,15*">
-                        <Entry Grid.Column="0"
-                               Placeholder="  Özel Kod Giriniz" />
-                        <ImageButton Grid.Column="1"
-                                     BackgroundColor="Transparent"
-                                     Aspect="AspectFit"
-                                     HeightRequest="22"
-                                     WidthRequest="22">
-                            <ImageButton.Source>
-                                <FontImageSource FontFamily="FAS"
-                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
-                                                 Color="{StaticResource DarkPrimary}" />
-                            </ImageButton.Source>
-                        </ImageButton>
-
-                    </Grid>
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Doküman İzleme No -->
-            <VerticalStackLayout Grid.Row="5"
-                                 Padding="7">
-                <Label Text="Doküman İzleme No"
-                       FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 13">
-                    <Entry Placeholder="  Doküman İzleme No Giriniz" />
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Açıklama -->
-            <VerticalStackLayout Grid.Row="6"
-                                 Padding="7">
-                <Label Text="Açıklama"
-                       FontSize="Medium" />
-                <Border StrokeShape="RoundRectangle 13">
-                    <Entry Placeholder="  Açıklama" />
-                </Border>
-            </VerticalStackLayout>
-
-            <Button Grid.Row="7"
-                    Margin="10,70"
-                    Text="Kaydet" Command="{Binding Source={x:Reference this},Path=GoToSuccessPageViewCommand}" ></Button>
-
-
+            </ScrollView>
+            <Button Grid.Row="1"
+                    Margin="0"
+                    Text="Kaydet"
+                    Command="{Binding Source={x:Reference this},Path=GoToSuccessPageViewCommand}"></Button>
         </Grid>
+        
     </Border>
 </ContentView>

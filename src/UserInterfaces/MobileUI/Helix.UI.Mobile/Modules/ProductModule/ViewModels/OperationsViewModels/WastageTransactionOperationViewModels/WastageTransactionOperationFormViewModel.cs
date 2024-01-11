@@ -11,6 +11,9 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+[QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+
 public partial class WastageTransactionOperationFormViewModel : BaseViewModel
 {
     IHttpClientService _httpClientService;
@@ -20,7 +23,8 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
 
     [ObservableProperty]
     string transactionTypeName;
-
+    [ObservableProperty]
+    ObservableCollection<ProductModel> productModel;
     [ObservableProperty]
     ProductTransactionFormModel productTransactionFormModel;
 
@@ -34,6 +38,10 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
     int pageSize = 20;
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
+
+    [ObservableProperty]
+    Warehouse warehouse;
+
     public WastageTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService )
     {
         Title = "Fire İşlemleri";

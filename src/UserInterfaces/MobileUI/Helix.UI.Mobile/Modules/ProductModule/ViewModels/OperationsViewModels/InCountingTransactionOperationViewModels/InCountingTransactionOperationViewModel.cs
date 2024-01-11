@@ -46,7 +46,8 @@ public partial class InCountingTransactionOperationViewModel :BaseViewModel
             
             await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationFormView)}", new Dictionary<string, object>
             {
-                [nameof(ProductModel)] = Items
+                [nameof(ProductModel)] = Items,
+                ["Warehouse"] = Warehouse
             });
         }
 

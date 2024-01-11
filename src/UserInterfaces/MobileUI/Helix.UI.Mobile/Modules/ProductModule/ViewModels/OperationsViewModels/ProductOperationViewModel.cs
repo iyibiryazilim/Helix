@@ -21,19 +21,19 @@ public partial class ProductOperationViewModel :BaseViewModel
     [RelayCommand]
     async Task GoToInCounting()
     {
-        await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
     async Task GoToOutCounting()
     {
-        await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
     async Task GoToProductionOperation()
     {
-        await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
@@ -46,11 +46,11 @@ public partial class ProductOperationViewModel :BaseViewModel
     [RelayCommand]
     async Task GoToWastageTransaction()
     {
-        await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
-    async Task GoToWarehouseTransferOperationViewAsync()
+    async Task GoToWarehouseTransferOperationWarehouseListViewAsync()
     {
         if (IsBusy)
             return;
@@ -58,7 +58,7 @@ public partial class ProductOperationViewModel :BaseViewModel
         {
             IsBusy = true;
 
-            await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationView)}");
+            await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationWarehouseListView)}");
         }
         catch(Exception ex)
         {

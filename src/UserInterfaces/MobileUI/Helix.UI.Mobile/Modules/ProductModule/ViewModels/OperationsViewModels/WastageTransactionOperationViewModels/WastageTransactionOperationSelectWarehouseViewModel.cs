@@ -238,10 +238,14 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [RelayCommand]
         async Task GoToTransaction()
         {
-            await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}", new Dictionary<string, object>
+            if (SelectedWarehouse == null)
             {
-                ["Warehouse"] = SelectedWarehouse
-            });
+                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}", new Dictionary<string, object> { ["Warehouse"] = SelectedWarehouse });
+            }
         }
 
         [RelayCommand]
