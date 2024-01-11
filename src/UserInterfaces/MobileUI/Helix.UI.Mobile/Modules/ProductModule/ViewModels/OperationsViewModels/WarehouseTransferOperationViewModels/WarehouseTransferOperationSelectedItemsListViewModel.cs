@@ -299,7 +299,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	}
 
 	[RelayCommand]
-	public async Task GoToWarehouseTransferOperationFormViewAsync()
+	public async Task GoToWarehouseTransferOperationTransferredWarehouseListViewAsync()
 	{
 		if (IsBusy)
 			return;
@@ -309,10 +309,14 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 
 			if(Result.Count < 1)
 			{
-				await Shell.Current.DisplayAlert("Hata", "Seçili bir ürününüz olmadığından dolayı form sayfasına geçiş yapamazsınız", "Tamam");
+				await Shell.Current.DisplayAlert("Hata", "Seçili bir ürününüz olmadığından dolayı sonraki sayfaya geçiş yapamazsınız", "Tamam");
 			}else
 			{
-				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationFormView)}");
+				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationTransferredWarehouseListView)}", new Dictionary<string, object>
+				{
+					[nameof(Warehouse)] = Warehouse,
+					[nameof(WarehouseTotal)] = Result
+				});
 			}
 		}
 		catch(Exception ex)

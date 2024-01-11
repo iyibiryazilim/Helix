@@ -137,6 +137,8 @@ public partial class AppShell : Shell
     Routing.RegisterRoute(nameof(OutCountingTransactionOperationSelectWarehouseView), typeof(OutCountingTransactionOperationSelectWarehouseView));
     Routing.RegisterRoute(nameof(ProductionTransactionOperationSelectWarehouseView), typeof(ProductionTransactionOperationSelectWarehouseView));
     Routing.RegisterRoute(nameof(WastageTransactionOperationSelectWarehouseView), typeof(WastageTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(WarehouseTransferOperationTransferredWarehouseListView), typeof(WarehouseTransferOperationTransferredWarehouseListView));
+		Routing.RegisterRoute(nameof(WarehouseTransferOperationSummaryView), typeof(WarehouseTransferOperationSummaryView));
 
 
     }
