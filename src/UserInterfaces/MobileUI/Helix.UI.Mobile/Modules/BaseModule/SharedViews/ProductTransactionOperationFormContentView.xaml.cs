@@ -18,8 +18,8 @@ public partial class ProductTransactionOperationFormContentView : ContentView
     //WarehouseModellist
     public static readonly BindableProperty WarehouseListProperty = BindableProperty.Create(nameof(WarehouseList), typeof(ObservableCollection<Warehouse>), typeof(ProductTransactionOperationFormContentView), null);
 
-    //fiþ adýný getiriyo
     public static readonly BindableProperty TransactionTypeNameProperty = BindableProperty.Create(nameof(TransactionTypeName), typeof(string), typeof(ProductTransactionOperationFormContentView), null);
+    public static readonly BindableProperty WarehouseProperty = BindableProperty.Create(nameof(Warehouse), typeof(Warehouse), typeof(ProductTransactionOperationFormContentView), null);
 
     //ambar adýný seçme
     public static readonly BindableProperty ProductTransactionFormModelProperty = BindableProperty.Create(nameof(ProductTransactionFormModel), typeof(ProductTransactionFormModel), typeof(ProductTransactionOperationFormContentView), null);
@@ -55,6 +55,12 @@ public partial class ProductTransactionOperationFormContentView : ContentView
     {
         get => GetValue(TransactionTypeNameProperty) as string;
         set => SetValue(TransactionTypeNameProperty, value);
+    }
+
+    public Warehouse Warehouse
+    {
+        get => GetValue(WarehouseProperty) as Warehouse;
+        set => SetValue(WarehouseProperty, value);
     }
 
     //warehouse

@@ -7,6 +7,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 using System.Reflection;
@@ -19,7 +20,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 	Product product;
 
 	[RelayCommand]
-	async Task GoToProductionTransactionOperationViewAsync()  // Uretimden Giris İslemleri
+	async Task GoToSubUnitsetsAndBarcodeViewAsync()  // Uretimden Giris İslemleri
 	{
 		if (IsBusy)
 			return;
@@ -28,7 +29,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 			IsBusy = true;
 			Console.WriteLine(Product);
 
-			await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(ProductDetailSubUnitsetsAndBarcodeView)}", new Dictionary<string, object>
 			{
 				["Product"] = Product
 			});

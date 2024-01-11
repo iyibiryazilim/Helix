@@ -64,10 +64,11 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
     {
         if (Items.Any())
         {
-            
+
             await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationFormView)}", new Dictionary<string, object>
             {
-                [nameof(ProductModel)] = Items
+                [nameof(ProductModel)] = Items,
+                ["Warehouse"] = Warehouse
             });
         }
 
@@ -110,16 +111,7 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
     [RelayCommand]
     async Task AddQuantity(ProductModel item)
     {
-        if (item.StockQuantity < item.Quantity)
-        {
-            await Shell.Current.DisplayAlert("Uyarı", "Ekemek istediğiniz miktar stok miktarından stok miktarından fazla", "Kapat");
-        }
-        else
-        {
-            item.Quantity++;
-
-        }
-
+        item.Quantity++;
 
     }
     [RelayCommand]

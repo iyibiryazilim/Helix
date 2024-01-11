@@ -16,6 +16,9 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationFormViewModel;
 
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+[QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+
 public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
 {
     IHttpClientService _httpClientService;
@@ -40,6 +43,10 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
 
+    [ObservableProperty]
+    Warehouse warehouse;
+    [ObservableProperty]
+    ObservableCollection<ProductModel> productModel;
     public InCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
     {
         Title = "Sayım Fazlası İşlemleri";

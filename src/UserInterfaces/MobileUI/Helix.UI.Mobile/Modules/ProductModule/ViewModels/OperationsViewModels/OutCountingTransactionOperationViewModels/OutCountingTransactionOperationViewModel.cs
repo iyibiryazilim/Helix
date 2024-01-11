@@ -46,7 +46,8 @@ public partial class OutCountingTransactionOperationViewModel: BaseViewModel
             
             await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationFormView)}", new Dictionary<string, object>
             {
-                [nameof(ProductModel)] = Items
+                [nameof(ProductModel)] = Items,
+                ["Warehouse"] = Warehouse
             });
         }
 

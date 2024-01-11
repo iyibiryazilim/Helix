@@ -69,7 +69,8 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
            
             await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationFormView)}", new Dictionary<string, object>
             {
-                [nameof(ProductModel)] = Items
+                [nameof(ProductModel)] = Items,
+                ["Warehouse"] = Warehouse
             });
 
         }

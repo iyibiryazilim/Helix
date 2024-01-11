@@ -12,6 +12,9 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionFormViewModels;
 
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+[QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+
 public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
 {
 
@@ -36,6 +39,11 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
     int pageSize = 20;
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
+
+    [ObservableProperty]
+    Warehouse warehouse;
+    [ObservableProperty]
+    ObservableCollection<ProductModel> productModel;
     public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
     {
         Title = "Sarf İşlemleri";

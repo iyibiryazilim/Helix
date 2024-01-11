@@ -118,9 +118,20 @@
                                                             <FormattedString>
                                                                 <Span Text="{Binding StockQuantity, StringFormat='{0:N2} '}"
                                                                       FontAttributes="Bold" />
+                                                                <Span Text=" "
+                                                                      FontAttributes="Bold" />
                                                                 <Span Text="{Binding SubUnitsetCode}"
                                                                       FontAttributes="Bold" />
-
+                                                                <Span Text=" / "
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text="{Binding Quantity, StringFormat='{0:N2}'}"
+                                                                      TextColor="{StaticResource Warning}"
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text=" "
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text="{Binding SubUnitsetCode}"
+                                                                      TextColor="{StaticResource Warning}"
+                                                                      FontAttributes="Bold" />
                                                             </FormattedString>
                                                         </Label.FormattedText>
                                                     </Label>

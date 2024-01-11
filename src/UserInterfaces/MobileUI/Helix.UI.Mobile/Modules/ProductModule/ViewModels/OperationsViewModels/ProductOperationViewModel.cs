@@ -21,19 +21,19 @@ public partial class ProductOperationViewModel :BaseViewModel
     [RelayCommand]
     async Task GoToInCounting()
     {
-        await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(InCountingTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
     async Task GoToOutCounting()
     {
-        await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
     async Task GoToProductionOperation()
     {
-        await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(ProductionTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
@@ -46,7 +46,7 @@ public partial class ProductOperationViewModel :BaseViewModel
     [RelayCommand]
     async Task GoToWastageTransaction()
     {
-        await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}");
+        await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationSelectWarehouseView)}");
     }
 
     [RelayCommand]
