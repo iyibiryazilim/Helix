@@ -7,18 +7,18 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 public partial class ReturnSelectContentView : ContentView
 {
     //Properties
-    public static readonly BindableProperty IsRefreshingProperty = BindableProperty.Create(nameof(IsRefreshing), typeof(bool), typeof(CurrentSelectView), false);
-    public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(CurrentSelectView), false);
-    public static readonly BindableProperty SelectedCurrentProperty = BindableProperty.Create(nameof(SelectedCurrent), typeof(bool), typeof(CurrentSelectView), null);
+    public static readonly BindableProperty IsRefreshingProperty = BindableProperty.Create(nameof(IsRefreshing), typeof(bool), typeof(ReturnSelectContentView), false);
+    public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(ReturnSelectContentView), false);
+    public static readonly BindableProperty SelectedCurrentProperty = BindableProperty.Create(nameof(SelectedCurrent), typeof(bool), typeof(ReturnSelectContentView), null);
     //List
-    public static readonly BindableProperty CurrentListProperty = BindableProperty.Create(nameof(CurrentList), typeof(ObservableCollection<Current>), typeof(CurrentSelectView), null);
+    public static readonly BindableProperty CurrentListProperty = BindableProperty.Create(nameof(CurrentList), typeof(ObservableCollection<Current>), typeof(ReturnSelectContentView), null);
     //Command
-    public static readonly BindableProperty ReloadCommandProperty = BindableProperty.Create(nameof(ReloadCommand), typeof(AsyncRelayCommand), typeof(CurrentSelectView), null);
-    public static readonly BindableProperty LoadMoreCommandProperty = BindableProperty.Create(nameof(LoadMoreCommand), typeof(AsyncRelayCommand), typeof(CurrentSelectView), null);
-    public static readonly BindableProperty SortCommandProperty = BindableProperty.Create(nameof(SortCommand), typeof(AsyncRelayCommand), typeof(CurrentSelectView), null);
-    public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(nameof(SearchCommand), typeof(Command), typeof(CurrentSelectView), null);
-    public static readonly BindableProperty GoToNextCommandProperty = BindableProperty.Create(nameof(GoToNextCommand), typeof(AsyncRelayCommand), typeof(CurrentSelectView), null);
-    public static readonly BindableProperty ToggleSelectionCommandProperty = BindableProperty.Create(nameof(ToggleSelectionCommand), typeof(AsyncRelayCommand), typeof(CurrentSelectView), null);
+    public static readonly BindableProperty ReloadCommandProperty = BindableProperty.Create(nameof(ReloadCommand), typeof(AsyncRelayCommand), typeof(ReturnSelectContentView), null);
+    public static readonly BindableProperty LoadMoreCommandProperty = BindableProperty.Create(nameof(LoadMoreCommand), typeof(AsyncRelayCommand), typeof(ReturnSelectContentView), null);
+    public static readonly BindableProperty SortCommandProperty = BindableProperty.Create(nameof(SortCommand), typeof(AsyncRelayCommand), typeof(ReturnSelectContentView), null);
+    public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(nameof(SearchCommand), typeof(Command), typeof(ReturnSelectContentView), null);
+    public static readonly BindableProperty GoToNextCommandProperty = BindableProperty.Create(nameof(GoToNextCommand), typeof(AsyncRelayCommand), typeof(ReturnSelectContentView), null);
+    public static readonly BindableProperty ToggleSelectionCommandProperty = BindableProperty.Create(nameof(ToggleSelectionCommand), typeof(AsyncRelayCommand), typeof(ReturnSelectContentView), null);
 
 
 
