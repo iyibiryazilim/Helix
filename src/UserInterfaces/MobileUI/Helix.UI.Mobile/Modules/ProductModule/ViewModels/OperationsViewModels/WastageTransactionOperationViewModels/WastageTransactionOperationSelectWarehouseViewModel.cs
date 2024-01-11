@@ -1,22 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
-using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
-using Helix.UI.Mobile.Modules.ProductModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
-using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
 
-namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels
-{
-    [QueryProperty(name: nameof(Product), queryId: nameof(Product))]
 
-    public partial class ConsumableTransactionOperationSelectWarehouseViewModel : BaseViewModel
+namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels
+{
+    public partial class WastageTransactionOperationSelectWarehouseViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
         private readonly IWarehouseService _warehouseService;
@@ -43,10 +40,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [ObservableProperty]
         Warehouse selectedWarehouse;
 
-        [ObservableProperty]
-        Product product;
 
-        public ConsumableTransactionOperationSelectWarehouseViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomQueryService customQueryService)
+        public WastageTransactionOperationSelectWarehouseViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomQueryService customQueryService)
         {
             Title = "Ambar Listesi";
             _httpClientService = httpClientService;
@@ -120,9 +115,9 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 {
                     if (text.Length >= 3)
                     {
-                        SearchText = text;
+                        SearchText = text.ToLower();
                         Results.Clear();
-                        foreach (var item in Items.ToList().Where(x => x.Name.Contains(SearchText) || x.LastTransactionDate.ToString().Contains(SearchText)))
+                        foreach (var item in Items.ToList().Where(x => x.Name.ToLower().Contains(SearchText) || x.LastTransactionDate.ToString().ToLower().Contains(SearchText)))
                         {
                             Results.Add(item);
                         }
@@ -243,7 +238,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [RelayCommand]
         async Task GoToTransaction()
         {
-            await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
+            await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}", new Dictionary<string, object>
             {
                 ["Warehouse"] = SelectedWarehouse
             });
@@ -262,6 +257,5 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 SelectedWarehouse = item;
             }
         }
-
     }
 }

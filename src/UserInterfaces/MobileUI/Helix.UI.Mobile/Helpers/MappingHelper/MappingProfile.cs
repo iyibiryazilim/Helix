@@ -19,6 +19,8 @@ public class MappingProfile : Profile
 		CreateMap<WaitingOrder, SalesOrder>().ReverseMap();
 		CreateMap<WaitingOrder, PurchaseOrder>().ReverseMap();
         CreateMap<Current, Customer>().ReverseMap();
+        CreateMap<WarehouseModel, dynamic>();
+
 
 
 

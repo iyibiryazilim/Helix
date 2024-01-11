@@ -48,11 +48,11 @@
 
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Üretimden Giriş"
+                        <Label Text="Ambar Toplamları"
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Üretim giriş fişi ile stok girişi yapabilirsiniz."
+                        <Label Text="Malzemenin ambar toplamlarını görebilirsiniz."
                                FontSize="12"
                                LineBreakMode="TailTruncation"/>
                     </VerticalStackLayout>
@@ -94,11 +94,11 @@
 
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Sarf İşlemleri"
+                        <Label Text="Ambar Parametreleri"
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Sarf işlemleri ile stok çıkışı yapabilirsiniz."
+                        <Label Text="Malzemenin ambar parametrelerini görebilirsiniz."
                                FontSize="12"
                                LineBreakMode="TailTruncation"/>
                     </VerticalStackLayout>
@@ -140,11 +140,11 @@
 
                     </Image>
                     <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Fire İşlemleri"
+                        <Label Text="Barkodlar/Alt Birimler"
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Fire işlemi ile stok çıkışı yapabilirsiniz."
+                        <Label Text="Malzemenin alt birimlerini ve barkodlarını görebilirsiniz."
                                FontSize="12"
                                LineBreakMode="TailTruncation"/>
                     </VerticalStackLayout>
@@ -160,7 +160,7 @@
                     </Image>
                 </Grid>
             </Frame>
-            <Frame Padding="10"
+            <!--<Frame Padding="10"
                    CornerRadius="10">
 
                 <Frame.GestureRecognizers>
@@ -256,11 +256,11 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
+                --><!--<Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToProductTransferListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
 
-                </Frame.GestureRecognizers>-->
+                </Frame.GestureRecognizers>--><!--
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
@@ -303,11 +303,11 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
+                --><!--<Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToTransactionTransferListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
 
-                </Frame.GestureRecognizers>-->
+                </Frame.GestureRecognizers>--><!--
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
@@ -350,11 +350,11 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
+                --><!--<Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToFastProductionListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
 
-                </Frame.GestureRecognizers>-->
+                </Frame.GestureRecognizers>--><!--
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
@@ -397,11 +397,11 @@
             <Frame Padding="10"
                    CornerRadius="10">
 
-                <!--<Frame.GestureRecognizers>
+                --><!--<Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductFastOperationBottomSheetViewModel}},Path=GoToDevirTransactionListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
 
-                </Frame.GestureRecognizers>-->
+                </Frame.GestureRecognizers>--><!--
                 <Grid ColumnDefinitions="30,*,auto"
                       ColumnSpacing="10">
                     <Image Grid.Column="0"
@@ -440,7 +440,7 @@
                         </Image.Source>
                     </Image>
                 </Grid>
-            </Frame>
+            </Frame>-->
         </VerticalStackLayout>
     </ScrollView>
 </the49:BottomSheet>
