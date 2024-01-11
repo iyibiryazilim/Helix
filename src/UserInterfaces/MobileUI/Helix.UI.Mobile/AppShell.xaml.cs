@@ -13,6 +13,7 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPur
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -111,17 +112,22 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSelectedLineListView), typeof(DispatchByPurchaseOrderSelectedLineListView));
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSelectedLineListView), typeof(DispatchBySalesOrderLineSelectedLineListView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationSelectedItemsListView), typeof(WarehouseTransferOperationSelectedItemsListView));
+    Routing.RegisterRoute(nameof(ConsumableTransactionOperationSelectWarehouseView), typeof(ConsumableTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineFormView), typeof(DispatchByPurchaseOrderLineFormView));
+		Routing.RegisterRoute(nameof(WarehouseTransferOperationFormView), typeof(WarehouseTransferOperationFormView));
+		Routing.RegisterRoute(nameof(SupplierFastOperationBottomSheetView), typeof(SupplierFastOperationBottomSheetView));
+		Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionCustomerView),typeof(ReturnBySalesDispatchTransactionCustomerView));
 		Routing.RegisterRoute(nameof(ConsumableTransactionOperationSelectWarehouseView), typeof(ConsumableTransactionOperationSelectWarehouseView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineFormView), typeof(DispatchByPurchaseOrderLineFormView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationFormView), typeof(WarehouseTransferOperationFormView));
 		Routing.RegisterRoute(nameof(SupplierFastOperationBottomSheetView), typeof(SupplierFastOperationBottomSheetView));
-        Routing.RegisterRoute(nameof(ProductDetailWarehouseTotalView), typeof(ProductDetailWarehouseTotalView));
-        Routing.RegisterRoute(nameof(ProductDetailWarehouseParametersView), typeof(ProductDetailWarehouseParametersView));
-        Routing.RegisterRoute(nameof(ProductDetailSubUnitsetsAndBarcodeView), typeof(ProductDetailSubUnitsetsAndBarcodeView));
-        Routing.RegisterRoute(nameof(InCountingTransactionOperationSelectWarehouseView), typeof(InCountingTransactionOperationSelectWarehouseView));
-        Routing.RegisterRoute(nameof(OutCountingTransactionOperationSelectWarehouseView), typeof(OutCountingTransactionOperationSelectWarehouseView));
-        Routing.RegisterRoute(nameof(ProductionTransactionOperationSelectWarehouseView), typeof(ProductionTransactionOperationSelectWarehouseView));
-        Routing.RegisterRoute(nameof(WastageTransactionOperationSelectWarehouseView), typeof(WastageTransactionOperationSelectWarehouseView));
+    Routing.RegisterRoute(nameof(ProductDetailWarehouseTotalView), typeof(ProductDetailWarehouseTotalView));
+    Routing.RegisterRoute(nameof(ProductDetailWarehouseParametersView), typeof(ProductDetailWarehouseParametersView));
+    Routing.RegisterRoute(nameof(ProductDetailSubUnitsetsAndBarcodeView), typeof(ProductDetailSubUnitsetsAndBarcodeView));
+    Routing.RegisterRoute(nameof(InCountingTransactionOperationSelectWarehouseView), typeof(InCountingTransactionOperationSelectWarehouseView));
+    Routing.RegisterRoute(nameof(OutCountingTransactionOperationSelectWarehouseView), typeof(OutCountingTransactionOperationSelectWarehouseView));
+    Routing.RegisterRoute(nameof(ProductionTransactionOperationSelectWarehouseView), typeof(ProductionTransactionOperationSelectWarehouseView));
+    Routing.RegisterRoute(nameof(WastageTransactionOperationSelectWarehouseView), typeof(WastageTransactionOperationSelectWarehouseView));
 
 
 

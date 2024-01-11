@@ -60,9 +60,11 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
@@ -251,6 +253,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSelectedLineListView>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSelectedLineListView>();
             mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationSelectWarehouseView>();
+			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerView>();
 
 
 
@@ -283,6 +286,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderSelectedLineListViewModel>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSelectedLineListViewModel>();
             mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationSelectWarehouseViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerViewModel>();
 
 
 
