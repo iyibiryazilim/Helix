@@ -7,4 +7,15 @@
         codeasc,
         codedesc
     }
+
+    public enum WarehouseParameterOrderBy
+    {
+        warehousenamedesc,
+        warehousenameasc,
+        warehousenumberdesc,
+        warehousenumberasc,
+        quantityasc,
+        quantitydesc
+
+    }
 }

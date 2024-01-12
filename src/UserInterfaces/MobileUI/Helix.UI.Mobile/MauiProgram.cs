@@ -442,6 +442,8 @@ namespace Helix.UI.Mobile
  			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectView>();
 			mauiAppBuilder.Services.AddTransient<TransferTransactionSummaryView>();
 			mauiAppBuilder.Services.AddTransient<ChangeProductView>();
+			
+			
 
 
 
@@ -514,6 +516,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
+			mauiAppBuilder.Services.AddTransient<IWarehouseParameterService, WarehouseParameterDataStore>();
  
 			
 
