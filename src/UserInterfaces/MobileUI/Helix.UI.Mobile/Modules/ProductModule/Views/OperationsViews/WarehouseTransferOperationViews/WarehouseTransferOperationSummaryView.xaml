@@ -1,112 +1,131 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationSummaryView"
-             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
-             x:DataType="viewModel:WarehouseTransferOperationSummaryViewModel"
-             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
-             BackgroundColor="{StaticResource Primary}"
-             Title="{Binding Title}"
-             Shell.TabBarIsVisible="False"
-             >
+<ContentPage
+    x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationSummaryView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+    xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+    xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
+    Title="{Binding Title}"
+    x:DataType="viewModel:WarehouseTransferOperationSummaryViewModel"
+    BackgroundColor="{StaticResource Primary}"
+    Shell.TabBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <Border BackgroundColor="{StaticResource WhiteSmoke}" 
-        StrokeThickness="0"
-        Padding="5,20,5,10">
+
+    <Border
+        Padding="5,20,5,10"
+        BackgroundColor="{StaticResource WhiteSmoke}"
+        StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="Auto, *, Auto"
-          RowSpacing="10"
-          BackgroundColor="Transparent">
+        <Grid
+            BackgroundColor="Transparent"
+            RowDefinitions="Auto, *, Auto"
+            RowSpacing="10">
             <VerticalStackLayout>
-                <Border Margin="10,0,10,0"
-                        Padding="10"
-                        BackgroundColor="{StaticResource White}"
-                        StrokeShape="RoundRectangle 10">
-                    
+                <Border
+                    Margin="10,0,10,0"
+                    Padding="10"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeShape="RoundRectangle 10">
+
                     <Grid ColumnDefinitions="Auto, *">
-                        <Border Grid.Column="0"
-                                Padding="0,0,10,0"
-                                StrokeThickness="0">
-                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
-                                                CornerRadius="50"
-                                                HorizontalOptions="Start"
-                                                Text="{Binding Warehouse.Number}" />
+                        <Border
+                            Grid.Column="0"
+                            Padding="0,0,10,0"
+                            StrokeThickness="0">
+                            <toolkit:AvatarView
+                                BackgroundColor="#E6E7F6"
+                                CornerRadius="50"
+                                HorizontalOptions="Start"
+                                Text="{Binding Warehouse.Number}" />
                         </Border>
-                        <VerticalStackLayout Grid.Column="1"
-                             Padding="5"
-                             Spacing="5"
-                             VerticalOptions="Center">
-                            <Label FontAttributes="Bold"
-                                   FontSize="Default"
-                                   LineBreakMode="TailTruncation"
-                                   MaxLines="1"
-                                   Text="{Binding Warehouse.Name}" />
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Padding="5"
+                            Spacing="5"
+                            VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Default"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                Text="{Binding Warehouse.Name}" />
                             <Label>
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span FontSize="12"
-                                              TextColor="{StaticResource Gray300}"
-                                              Text="Son Hareket Tarihi: " />
-                                        <Span FontSize="12"
-                              Text="{Binding Warehouse.LastTransactionDate}"
-                              TextColor="{StaticResource Gray300}" />
+                                        <Span
+                                            FontSize="12"
+                                            Text="Son Hareket Tarihi: "
+                                            TextColor="{StaticResource Gray300}" />
+                                        <Span
+                                            FontSize="12"
+                                            Text="{Binding Warehouse.LastTransactionDate}"
+                                            TextColor="{StaticResource Gray300}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
-                <Image VerticalOptions="Center"
-                   WidthRequest="20"
-                   HeightRequest="45">
+                <Image
+                    HeightRequest="45"
+                    VerticalOptions="Center"
+                    WidthRequest="20">
                     <Image.Source>
-                        <FontImageSource FontFamily="FAS"
-                                     Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowDown}"></FontImageSource>
+                        <FontImageSource
+                            FontFamily="FAS"
+                            Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowDown}"
+                            Color="{AppThemeBinding Light={StaticResource Primary},
+                                                    Dark={StaticResource Primary}}" />
                     </Image.Source>
                 </Image>
-                <Border Margin="10,0,10,0"
-                        Padding="10"
-                        BackgroundColor="{StaticResource White}"
-                        StrokeShape="RoundRectangle 10">
+                <Border
+                    Margin="10,0,10,0"
+                    Padding="10"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeShape="RoundRectangle 10">
 
                     <Grid ColumnDefinitions="Auto, *">
-                        <Border Grid.Column="0"
-                                Padding="0,0,10,0"
-                                StrokeThickness="0">
-                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
-                                                CornerRadius="50"
-                                                HorizontalOptions="Start"
-                                                Text="{Binding SelectedWarehouse.Number}" />
+                        <Border
+                            Grid.Column="0"
+                            Padding="0,0,10,0"
+                            StrokeThickness="0">
+                            <toolkit:AvatarView
+                                BackgroundColor="#E6E7F6"
+                                CornerRadius="50"
+                                HorizontalOptions="Start"
+                                Text="{Binding SelectedWarehouse.Number}" />
                         </Border>
-                        <VerticalStackLayout Grid.Column="1"
-                                             Padding="5"
-                                             Spacing="5"
-                                             VerticalOptions="Center">
-                            <Label FontAttributes="Bold"
-                                   FontSize="Default"
-                                   LineBreakMode="TailTruncation"
-                                   MaxLines="1"
-                                   Text="{Binding SelectedWarehouse.Name}" />
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Padding="5"
+                            Spacing="5"
+                            VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Default"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                Text="{Binding SelectedWarehouse.Name}" />
                             <Label>
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span FontSize="12"
-                                              TextColor="{StaticResource Gray300}"
-                                              Text="Son Hareket Tarihi: " />
-                                        <Span FontSize="12"
-                                              Text="{Binding SelectedWarehouse.LastTransactionDate}"
-                                              TextColor="{StaticResource Gray300}" />
+                                        <Span
+                                            FontSize="12"
+                                            Text="Son Hareket Tarihi: "
+                                            TextColor="{StaticResource Gray300}" />
+                                        <Span
+                                            FontSize="12"
+                                            Text="{Binding SelectedWarehouse.LastTransactionDate}"
+                                            TextColor="{StaticResource Gray300}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -115,49 +134,53 @@
                 </Border>
             </VerticalStackLayout>
             <Grid Grid.Row="1" RowDefinitions="Auto, *">
-                <Label Grid.Row="0" 
-                       HorizontalOptions="Center"
-                       FontSize="15"
-                       Text="Transfer Edilen Ürünler"
-                       FontAttributes="Bold"/>
-                <CollectionView Grid.Row="1"
-                                ItemsSource="{Binding WarehouseTotal}">
+                <Label
+                    Grid.Row="0"
+                    FontAttributes="Bold"
+                    FontSize="15"
+                    HorizontalOptions="Center"
+                    Text="Transfer Edilen Ürünler" />
+                <CollectionView Grid.Row="1" ItemsSource="{Binding WarehouseTotal}">
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="3" />
+                        <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:WarehouseTotal">
-                            <Border StrokeShape="RoundRectangle 10"
-                                    BackgroundColor="{StaticResource White}"
-                                    Padding="10,0,10,0"
-                                    Margin="10,0,10,0"
-                                    HeightRequest="85">
+                            <Border
+                                Margin="10,0,10,0"
+                                Padding="10,2,10,2"
+                                BackgroundColor="{StaticResource White}"
+                                StrokeShape="RoundRectangle 10"
+                                ZIndex="999">
 
                                 <Grid ColumnDefinitions="Auto,*">
-                                    <Border Grid.Column="0"
-                                            StrokeShape="RoundRectangle 10"
-                                            WidthRequest="75"
-                                            HorizontalOptions="Start"
-                                            Padding="10"
-                                            StrokeThickness="0">
-                                        <Image Aspect="AspectFit" Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+                                    <Border
+                                        Grid.Column="0"
+                                        Padding="10"
+                                        HorizontalOptions="Start"
+                                        StrokeShape="RoundRectangle 10"
+                                        StrokeThickness="0"
+                                        WidthRequest="75">
+                                        <Image Aspect="AspectFit" Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                     </Border>
-                                    <VerticalStackLayout Grid.Column="1"
-                                                         Padding="5"
-                                                         Spacing="5"
-                                                         HorizontalOptions="Start">
-                                        <Label Text="{Binding ProductCode}"
-                                               FontSize="Body"
-                                               LineBreakMode="TailTruncation"
-                                               FontAttributes="Bold"></Label>
-                                        <Label Text="{Binding ProductName}"
-                                               FontSize="Caption"
-                                               LineBreakMode="TailTruncation"></Label>
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Padding="5"
+                                        HorizontalOptions="Start"
+                                        Spacing="5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Body"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding ProductCode}" />
+                                        <Label
+                                            FontSize="Caption"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding ProductName}" />
                                         <Label TextColor="{StaticResource Primary}">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding OnHand, StringFormat='{0:N2} '}"
-                                                          FontAttributes="Bold" />
+                                                    <Span FontAttributes="Bold" Text="{Binding OnHand, StringFormat='{0:N2} '}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
@@ -166,14 +189,15 @@
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    
+
                 </CollectionView>
 
             </Grid>
-            <Button Grid.Row="2"
-                Text="İleri"
+            <Button
+                Grid.Row="2"
+                Margin="5"
                 Command="{Binding GoToWarehouseTransferOperationViewCommand}"
-                Margin="5"/>
+                Text="İleri" />
         </Grid>
     </Border>
 </ContentPage>

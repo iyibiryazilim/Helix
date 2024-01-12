@@ -49,8 +49,8 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 
 	async Task LoadData()
 	{
-		if (IsBusy)
-			return;
+		//if (IsBusy)
+		//	return;
 		try
 		{
 			await Task.Delay(500);
