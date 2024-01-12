@@ -29,39 +29,83 @@
                             ItemsSource="{Binding TransferTransactionModel.Products}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
-                                       ItemSpacing="3" />
+                                       ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:TransferTransactionProduct">
                         <VerticalStackLayout>
-                            <Border Margin="10,10,10,0"
-                                    Padding="10"
-                                    BackgroundColor="{StaticResource White}"
-                                    StrokeShape="RoundRectangle 10">
-                                <Grid ColumnDefinitions="Auto, *">
-                                    <Border Grid.Column="0"
-                                            Padding="0,0,10,0"
-                                            StrokeThickness="0">
-                                        <toolkit:AvatarView BackgroundColor="#E6E7F6"
-                                                            CornerRadius="50"
-                                                            HorizontalOptions="Start" />
-                                    </Border>
-                                    <VerticalStackLayout Grid.Column="1"
-                                                         Padding="5"
-                                                         Spacing="5"
-                                                         VerticalOptions="Center">
-                                        <Label FontAttributes="Bold"
-                                               FontSize="Default"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="1"
-                                               Text="{Binding ExitProduct.Code}" />
-                                        <Label FontSize="Default"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="1"
-                                               Text="{Binding ExitProduct.Name}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Border>
+                            <Grid RowDefinitions="Auto, Auto">
+                                <Border Margin="5,0,5,0"
+                                        Padding="5"
+                                        BackgroundColor="{StaticResource White}"
+                                        StrokeShape="RoundRectangle 10">
+                                    <Grid ColumnDefinitions=".20*, *"
+                                          ColumnSpacing="5">
+                                        <Border Grid.Column="0"
+                                                Padding="10"
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 10"
+                                                StrokeThickness="0"
+                                                WidthRequest="75">
+                                            <Image Aspect="AspectFit"
+                                                   Source="{Binding ExitProduct.Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="5"
+                                                             HorizontalOptions="Start"
+                                                             Spacing="5">
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="Body"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding ExitProduct.Code}" />
+                                            <Label FontSize="Caption"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding ExitProduct.Name}" />
+                                            <Grid ColumnDefinitions="Auto, Auto"
+                                                  ColumnSpacing="5">
+                                                <Border Grid.Column="0"
+                                                        Padding="10,5"
+                                                        BackgroundColor="{StaticResource Warning}"
+                                                        HorizontalOptions="Start"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        StrokeThickness="0">
+                                                    <Label FontSize="10"
+                                                           TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding ExitProduct.StockQuantity, StringFormat='{0:N2} '}" />
+                                                                <Span Text=" " />
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding ExitProduct.SubUnitsetCode}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </Border>
+                                                <Border Grid.Column="1"
+                                                        Padding="10,5"
+                                                        BackgroundColor="{StaticResource Secondary}"
+                                                        HorizontalOptions="Start"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        StrokeThickness="0">
+                                                    <Label FontSize="10"
+                                                           TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding ExitProduct.OnHand, StringFormat='{0:N2} '}" />
+                                                                <Span Text=" " />
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding ExitProduct.SubUnitsetCode}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </Border>
+                                            </Grid>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </Grid>
                             <Image VerticalOptions="Center"
                                    WidthRequest="20"
                                    HeightRequest="45">
@@ -71,47 +115,149 @@
                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowDown}"></FontImageSource>
                                 </Image.Source>
                             </Image>
-                            <Border Margin="10,0,10,0"
-                                    Padding="10"
-                                    BackgroundColor="{StaticResource White}"
-                                    StrokeShape="RoundRectangle 10">
-                                <Border.Triggers>
-                                    <DataTrigger TargetType="Border"
-                                                 Binding="{Binding EntryProduct}"
-                                                 Value="{x:Null}">
-                                        <!-- Set your alternative view when EntryProduct is null -->
-                                        <Setter Property="Content">
-                                            <Setter.Value>
-                                                <Label Text="EntryProduct is null. Alternative View" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Border.Triggers>
-                                <!--<Grid ColumnDefinitions="Auto, *">
-                                    <Border Grid.Column="0"
-                                            Padding="0,0,10,0"
-                                            StrokeThickness="0">
-                                        <toolkit:AvatarView BackgroundColor="#E6E7F6"
-                                                            CornerRadius="50"
-                                                            HorizontalOptions="Start"
-                                                            Text="test"/>
-                                    </Border>
-                                    <VerticalStackLayout Grid.Column="1"
-                                                         Padding="5"
-                                                         Spacing="5"
-                                                         VerticalOptions="Center">
-                                        <Label FontAttributes="Bold"
-                                               FontSize="Default"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="1"
-                                               Text="{Binding EntryProduct.Code}" />
-                                        <Label FontSize="Default"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="1"
-                                               Text="{Binding EntryProduct.Name}" />
-                                    </VerticalStackLayout>
-                                </Grid>-->
-                            </Border>
+                            <Grid RowDefinitions="Auto, Auto"
+                                  x:Name="EntryProductBorder">
+                                <Grid.Resources>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger TargetType="Grid"
+                                                         Binding="{Binding EntryProductIsNull}"
+                                                         Value="True">
+                                                <Setter Property="IsVisible"
+                                                        Value="False" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Resources>
+                                <Border Margin="5,0,5,0"
+                                        Padding="5"
+                                        BackgroundColor="{StaticResource White}"
+                                        StrokeShape="RoundRectangle 10">
+                                    <Grid ColumnDefinitions=".20*, *"
+                                          ColumnSpacing="5">
+                                        <Border Grid.Column="0"
+                                                Padding="10"
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 10"
+                                                StrokeThickness="0"
+                                                WidthRequest="75">
+                                            <Image Aspect="AspectFit"
+                                                   Source="{Binding EntryProduct.Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="5"
+                                                             HorizontalOptions="Start"
+                                                             Spacing="5">
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="Body"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding EntryProduct.Code}" />
+                                            <Label FontSize="Caption"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding EntryProduct.Name}" />
+                                            <Grid ColumnDefinitions="Auto, Auto"
+                                                  ColumnSpacing="5">
+                                                <Border Grid.Column="0"
+                                                        Padding="10,5"
+                                                        BackgroundColor="{StaticResource Warning}"
+                                                        HorizontalOptions="Start"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        StrokeThickness="0">
+                                                    <Label FontSize="10"
+                                                           TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding EntryProduct.StockQuantity, StringFormat='{0:N2} '}" />
+                                                                <Span Text=" " />
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding EntryProduct.SubUnitsetCode}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </Border>
+                                                <Border Grid.Column="1"
+                                                        Padding="10,5"
+                                                        BackgroundColor="{StaticResource Secondary}"
+                                                        HorizontalOptions="Start"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        StrokeThickness="0">
+                                                    <Label FontSize="10"
+                                                           TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding EntryProduct.OnHand, StringFormat='{0:N2} '}" />
+                                                                <Span Text=" " />
+                                                                <Span FontAttributes="Bold"
+                                                                      Text="{Binding EntryProduct.SubUnitsetCode}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </Border>
+                                            </Grid>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="1"
+                                        Margin="5,-15,12,0"
+                                        Padding="0,0,0,0"
+                                        HorizontalOptions="End"
+                                        StrokeShape="RoundRectangle 5"
+                                        ZIndex="999">
+                                    <Grid Padding="0"
+                                          ColumnDefinitions="Auto, 40, Auto">
+                                        <ImageButton Grid.Column="0"
+                                                     Margin="5"
+                                                     Aspect="AspectFit"
+                                                     BackgroundColor="Transparent"
+                                                     CommandParameter="{Binding .}"
+                                                     HeightRequest="22"
+                                                     VerticalOptions="Center"
+                                                     WidthRequest="28">
+                                            <ImageButton.Source>
+                                                <FontImageSource FontFamily="FAS"
+                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
+                                                                 Color="{StaticResource Primary}" />
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                        <Border Grid.Column="1"
+                                                BackgroundColor="{StaticResource Primary}"
+                                                StrokeThickness="0">
+                                            <Label HorizontalOptions="Center"
+                                                   Text="{Binding EntryProduct.QuantityCounter}"
+                                                   TextColor="{StaticResource White}"
+                                                   VerticalOptions="Center" />
+                                        </Border>
+                                        <ImageButton Grid.Column="2"
+                                                     Margin="5"
+                                                     Aspect="AspectFit"
+                                                     BackgroundColor="Transparent"
+                                                     CommandParameter="{Binding .}"
+                                                     HeightRequest="22"
+                                                     VerticalOptions="Center"
+                                                     WidthRequest="28">
+                                            <ImageButton.Source>
+                                                <FontImageSource FontFamily="FAS"
+                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
+                                                                 Color="{StaticResource Primary}" />
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <Grid>
+                                <Frame BorderColor="{StaticResource Warning}"
+                                       CornerRadius="10"
+                                        Padding="10"
+                                       BackgroundColor="{StaticResource Warning}">
+                                    <Label Text="Virman Yapılacak Malzeme Seçiniz"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource Primary}" />
+                                </Frame>
+                            </Grid>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

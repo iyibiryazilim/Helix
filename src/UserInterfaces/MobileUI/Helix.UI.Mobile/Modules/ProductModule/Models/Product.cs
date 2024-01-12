@@ -64,7 +64,19 @@ public partial class Product :ObservableObject
     [ObservableProperty]
     bool isSelected = false;
 
-  
+	[ObservableProperty]
+	double onHand = default;
+
+	[ObservableProperty]
+	int quantityCounter = 1;
+
+	double tempOnhand;
+	public double TempOnhand
+	{
+		get => OnHand - QuantityCounter;
+		set => SetProperty(ref tempOnhand, value);
+	}
+
 
 
 
