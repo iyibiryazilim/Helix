@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
@@ -117,7 +118,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSelectedLineListView), typeof(DispatchByPurchaseOrderSelectedLineListView));
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSelectedLineListView), typeof(DispatchBySalesOrderLineSelectedLineListView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationSelectedItemsListView), typeof(WarehouseTransferOperationSelectedItemsListView));
-    Routing.RegisterRoute(nameof(ConsumableTransactionOperationSelectWarehouseView), typeof(ConsumableTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(ConsumableTransactionOperationSelectWarehouseView), typeof(ConsumableTransactionOperationSelectWarehouseView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineFormView), typeof(DispatchByPurchaseOrderLineFormView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationFormView), typeof(WarehouseTransferOperationFormView));
 		Routing.RegisterRoute(nameof(SupplierFastOperationBottomSheetView), typeof(SupplierFastOperationBottomSheetView));
@@ -126,24 +127,25 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(ReturnSalesView), typeof(ReturnSalesView));
 		Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionCustomerView), typeof(ReturnBySalesDispatchTransactionCustomerView));
 		Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionLineCustomerView), typeof(ReturnBySalesDispatchTransactionLineCustomerView));
-		Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionCustomerView),typeof(ReturnBySalesDispatchTransactionCustomerView));
+		Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionCustomerView), typeof(ReturnBySalesDispatchTransactionCustomerView));
 		Routing.RegisterRoute(nameof(ConsumableTransactionOperationSelectWarehouseView), typeof(ConsumableTransactionOperationSelectWarehouseView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineFormView), typeof(DispatchByPurchaseOrderLineFormView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationWarehouseListView), typeof(WarehouseTransferOperationWarehouseListView));
 		Routing.RegisterRoute(nameof(SupplierFastOperationBottomSheetView), typeof(SupplierFastOperationBottomSheetView));
-    Routing.RegisterRoute(nameof(ProductDetailWarehouseTotalView), typeof(ProductDetailWarehouseTotalView));
-    Routing.RegisterRoute(nameof(ProductDetailWarehouseParametersView), typeof(ProductDetailWarehouseParametersView));
-    Routing.RegisterRoute(nameof(ProductDetailSubUnitsetsAndBarcodeView), typeof(ProductDetailSubUnitsetsAndBarcodeView));
-    Routing.RegisterRoute(nameof(InCountingTransactionOperationSelectWarehouseView), typeof(InCountingTransactionOperationSelectWarehouseView));
-    Routing.RegisterRoute(nameof(OutCountingTransactionOperationSelectWarehouseView), typeof(OutCountingTransactionOperationSelectWarehouseView));
-    Routing.RegisterRoute(nameof(ProductionTransactionOperationSelectWarehouseView), typeof(ProductionTransactionOperationSelectWarehouseView));
-    Routing.RegisterRoute(nameof(WastageTransactionOperationSelectWarehouseView), typeof(WastageTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(ProductDetailWarehouseTotalView), typeof(ProductDetailWarehouseTotalView));
+		Routing.RegisterRoute(nameof(ProductDetailWarehouseParametersView), typeof(ProductDetailWarehouseParametersView));
+		Routing.RegisterRoute(nameof(ProductDetailSubUnitsetsAndBarcodeView), typeof(ProductDetailSubUnitsetsAndBarcodeView));
+		Routing.RegisterRoute(nameof(InCountingTransactionOperationSelectWarehouseView), typeof(InCountingTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(OutCountingTransactionOperationSelectWarehouseView), typeof(OutCountingTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(ProductionTransactionOperationSelectWarehouseView), typeof(ProductionTransactionOperationSelectWarehouseView));
+		Routing.RegisterRoute(nameof(WastageTransactionOperationSelectWarehouseView), typeof(WastageTransactionOperationSelectWarehouseView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSupplierView), typeof(ReturnByPurchaseDispatchTransactionSupplierView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationTransferredWarehouseListView), typeof(WarehouseTransferOperationTransferredWarehouseListView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationSummaryView), typeof(WarehouseTransferOperationSummaryView));
-
-
-
-    }
-}
-
+		Routing.RegisterRoute(nameof(EntryProductSelectView), typeof(EntryProductSelectView));
+		Routing.RegisterRoute(nameof(ExitProductSelectView), typeof(ExitProductSelectView));
+		Routing.RegisterRoute(nameof(EntryWarehouseSelectView), typeof(EntryWarehouseSelectView));
+		Routing.RegisterRoute(nameof(ExitWarehouseSelectView), typeof(ExitWarehouseSelectView));
+		Routing.RegisterRoute(nameof(TransferTransactionSummaryView), typeof(TransferTransactionSummaryView));
+	}
+} 
