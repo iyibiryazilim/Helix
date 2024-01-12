@@ -8,6 +8,17 @@
         codedesc
     }
 
+    public enum ProductCustomerAndSupplierOrderBy
+    {
+        nameasc,
+        namedesc,
+        codeasc,
+        codedesc,
+        priorityasc,
+        prioritydesc   
+     }
+
+
     public enum WarehouseParameterOrderBy
     {
         warehousenamedesc,
@@ -16,6 +27,7 @@
         warehousenumberasc,
         quantityasc,
         quantitydesc
+
 
     }
 }

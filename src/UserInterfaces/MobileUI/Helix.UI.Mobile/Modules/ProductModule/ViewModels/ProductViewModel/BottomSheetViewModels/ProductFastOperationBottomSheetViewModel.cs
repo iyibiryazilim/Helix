@@ -122,7 +122,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task GoToOutCountingTransactionOperationViewAsync()  // Sayım Eksigi View
+	async Task GoToAlternativeProductsViewAsync()  // Sayım Eksigi View
 	{
 		if (IsBusy)
 			return;
@@ -130,7 +130,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			await Shell.Current.GoToAsync($"{nameof(OutCountingTransactionOperationView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(ProductDetailAlternativeProductListView)}", new Dictionary<string, object>
 			{
 				["Product"] = Product
 			});
@@ -145,8 +145,32 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
+    [RelayCommand]
+    async Task GoToCustomerAndSupplierViewAsync() 
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
 
-	/*
+            await Shell.Current.GoToAsync($"{nameof(ProductDetailCustomerAndSupplierListView)}", new Dictionary<string, object>
+            {
+                ["Product"] = Product
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            await Application.Current.MainPage.DisplayAlert("Error :", ex.Message, "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    /*
 	[RelayCommand]
 	async Task GoToTransferIslemleriViewAsync()  // Transfer İslemleri View
 	{
