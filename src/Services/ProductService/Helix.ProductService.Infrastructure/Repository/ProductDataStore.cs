@@ -72,5 +72,35 @@ namespace Helix.ProductService.Infrastructure.Repository
 
 			}
 		}
-	}
+        public async Task<DataResult<IEnumerable<Product>>> GetAlternativeProductList(int id,string search, string orderBy, int page, int pageSize)
+        {
+            try
+            {
+                var result = await new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetAlternativeProductList(id,search,orderBy, page, pageSize));
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+
+            }
+        }
+        public async Task<DataResult<IEnumerable<ProductCustomerAndSupplier>>> GetCustomerAndSupplierList(int id, string search, string orderBy, int page, int pageSize)
+        {
+            try
+            {
+                var result = await new SqlQueryHelper<ProductCustomerAndSupplier>().GetObjectsAsync(new ProductQuery(_configuraiton).GetCustomerAndSupplierList(id, search, orderBy, page, pageSize));
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.UtcNow.ToLongTimeString());
+                throw;
+
+            }
+        }
+    }
 }
