@@ -76,6 +76,10 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         public const string CodeDesc = "ORDER BY ITEMS.CODE DESC";
         public const string NameAsc = "ORDER BY ITEMS.NAME ASC";
         public const string NameDesc = "ORDER BY ITEMS.NAME DESC";
+        public const string WarehouseNameAsc = "ORDER BY CAPIWHOUSE.NAME ASC";
+        public const string WarehouseNameDesc = "ORDER BY CAPIWHOUSE.NAME DESC";
+        public const string WarehouseNumberAsc = "ORDER BY CAPIWHOUSE.NR ASC";
+        public const string WarehouseNumberDesc = "ORDER BY CAPIWHOUSE.NR DESC";
     }
 }
 

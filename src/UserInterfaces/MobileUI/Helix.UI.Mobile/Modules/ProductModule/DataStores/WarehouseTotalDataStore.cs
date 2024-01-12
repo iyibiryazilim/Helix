@@ -150,6 +150,11 @@ namespace Helix.UI.Mobile.Modules.ProductModule.DataStores
 		codeasc,
 		codedesc,
 		quantityasc,
-		quantitydesc
-	}
+		quantitydesc,
+        warehousenamedesc,
+        warehousenameasc,
+        warehousenumberdesc,
+        warehousenumberasc
+
+    }
 }
