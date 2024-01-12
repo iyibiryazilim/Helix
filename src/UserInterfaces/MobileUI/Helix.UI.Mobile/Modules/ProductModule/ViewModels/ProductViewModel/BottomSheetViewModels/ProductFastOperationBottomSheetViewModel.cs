@@ -47,7 +47,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 
 	
 	[RelayCommand]
-	async Task GoToConsumableTransactionOperationViewAsync()  // Sarf İşlemleri View
+	async Task GoToWarehouseTotalViewAsync()  // Sarf İşlemleri View
 	{
 		if (IsBusy)
 			return;
@@ -55,7 +55,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationSelectWarehouseView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(ProductDetailWarehouseTotalView)}", new Dictionary<string, object>
 			{
 				["Product"] = Product
 			});

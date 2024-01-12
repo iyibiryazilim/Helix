@@ -70,6 +70,9 @@ builder.Services.AddTransient<IProductService, ProductDataStore>();
 builder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
 builder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 builder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
+builder.Services.AddTransient<IWarehouseParameterService, WarehouseParameterDataStore>();
+
+
 
 
 

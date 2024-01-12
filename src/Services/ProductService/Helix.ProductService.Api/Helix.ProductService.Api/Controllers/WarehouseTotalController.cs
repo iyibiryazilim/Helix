@@ -77,6 +77,18 @@ namespace Helix.ProductService.Api.Controllers
                 default:
                     result = await _warehouseTotalService.GetWarehouseTotalByProductId(id,  search, orderBy, page, pageSize);
                     return result;
+                case "warehousenamedesc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id, search, WarehouseTotalOrderBy.WarehouseNameDesc, page, pageSize);
+                    return result;
+                case "warehousenameasc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id, search, WarehouseTotalOrderBy.WarehouseNameAsc, page, pageSize);
+                    return result;
+                case "warehousenumberdesc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id, search, WarehouseTotalOrderBy.WarehouseNumberDesc, page, pageSize);
+                    return result;
+                case "warehousenumberasc":
+                    result = await _warehouseTotalService.GetWarehouseTotalByProductId(id, search, WarehouseTotalOrderBy.WarehouseNumberAsc, page, pageSize);
+                    return result;
             }
 
         }
