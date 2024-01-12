@@ -15,10 +15,10 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 {
 
 	[ObservableProperty]
-	ObservableCollection<WarehouseTotal> warehouseTotal;
+	ObservableCollection<WarehouseTotal> warehouseTotal;  // SelectedItems
 
 	[ObservableProperty]
-	Warehouse warehouse;
+	Warehouse warehouse;   // SelectedWarehouse
 
 	public ObservableCollection<WarehouseTotal> Result { get; } = new();
 
@@ -30,7 +30,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 		Title = "Seçilen Ürünler";
 
 		SearchCommand = new Command<string>(async (text) => await PerformSearchAsync(text));
-		GetSelectedItemsCommand = new Command(async () => await GetSelectedItemsAsync());
+		GetSelectedItemsCommand = new Command(async () => await LoadData());
 	}
 
 	[ObservableProperty]
@@ -41,6 +41,26 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	int currentPage = 0;
 	[ObservableProperty]
 	int pageSize = 20;
+
+	public async Task LoadData()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			await Task.Delay(500);
+			await MainThread.InvokeOnMainThreadAsync(GetSelectedItemsAsync);
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
 
 	public async Task GetSelectedItemsAsync()
 	{
@@ -56,7 +76,6 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 
 			foreach (var item in WarehouseTotal)
 			{
-				await Task.Delay(100);
 				Result.Add(item);
 			}
 
@@ -115,8 +134,10 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 		{
 			IsBusy = true;
 			IsRefreshing = true;
-
-			item.OnHand++;
+			item.QuantityCounter++;
+			//item.OnHand++;
+			item.TempOnhand++;
+			
 		}
 		catch (Exception ex)
 		{
@@ -139,9 +160,15 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			
 
-			if (item.OnHand > 1)
-				item.OnHand--;
+			if (item.QuantityCounter > 1)
+			{
+				item.QuantityCounter--;
+				item.TempOnhand--;
+				
+			}
+				
 		}
 		catch (Exception ex)
 		{
@@ -268,9 +295,10 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 	[RelayCommand]
 	public async Task GoToBackAsync()
 	{
+		if (IsBusy)
+			return;
 		try
 		{
-			IsBusy = true;
 
 			if (Result.Count == 0)
 
@@ -314,8 +342,8 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			{
 				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationTransferredWarehouseListView)}", new Dictionary<string, object>
 				{
-					[nameof(Warehouse)] = Warehouse,
-					[nameof(WarehouseTotal)] = Result
+					[nameof(Warehouse)] = Warehouse,  // Selected Warehouse
+					[nameof(WarehouseTotal)] = Result // Selected Product
 				});
 			}
 		}
