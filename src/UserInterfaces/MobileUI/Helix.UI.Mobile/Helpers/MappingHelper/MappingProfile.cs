@@ -21,11 +21,11 @@ public class MappingProfile : Profile
         CreateMap<Current, Customer>().ReverseMap();
         CreateMap<WarehouseModel, dynamic>();
         CreateMap<BarcodeAndSubUnitset, dynamic>();
+ 
 
 
 
 
-
-    }
+	}
 }
 
