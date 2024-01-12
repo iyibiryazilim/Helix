@@ -438,11 +438,10 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationWarehouseListView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationTransferredWarehouseListView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationSummaryView>();
-			mauiAppBuilder.Services.AddTransient<EntryProductSelectView>();
-			mauiAppBuilder.Services.AddTransient<ExitProductSelectView>();
-			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectView>();
-			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectView>();
+ 			mauiAppBuilder.Services.AddTransient<ExitProductSelectView>();
+ 			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectView>();
 			mauiAppBuilder.Services.AddTransient<TransferTransactionSummaryView>();
+			mauiAppBuilder.Services.AddTransient<ChangeProductView>();
 
 
 
@@ -499,12 +498,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationWarehouseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationTransferredWarehouseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseTransferOperationSummaryViewModel>();
-			mauiAppBuilder.Services.AddTransient<EntryProductSelectViewModel>();
-			mauiAppBuilder.Services.AddTransient<ExitProductSelectViewModel>();
-			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectViewModel>();
-			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectViewModel>();
+ 			mauiAppBuilder.Services.AddTransient<ExitProductSelectViewModel>();
+ 			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectViewModel>();
 			mauiAppBuilder.Services.AddTransient<TransferTransactionSummaryViewModel>();
+			mauiAppBuilder.Services.AddTransient<ChangeProductViewModel>();
 
+			
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
@@ -515,8 +514,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
-
-
+ 
+			
 
 			return mauiAppBuilder;
 		}

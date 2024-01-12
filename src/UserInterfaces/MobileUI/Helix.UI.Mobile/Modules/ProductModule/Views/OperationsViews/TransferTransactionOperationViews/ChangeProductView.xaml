@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews.ChangeProductView"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.TransferTransactionOperationViewModels"
+             x:DataType="viewModel:ChangeProductViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             BackgroundColor="{StaticResource Primary}"
+             Title="{Binding Title}"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+            StrokeThickness="0"
+            Padding="5,20,5,10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="Auto, *, Auto"
+              RowSpacing="10"
+              BackgroundColor="Transparent">
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding TransferTransactionModel.Products}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="3" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TransferTransactionProduct">
+                        <VerticalStackLayout>
+                            <Border Margin="10,10,10,0"
+                                    Padding="10"
+                                    BackgroundColor="{StaticResource White}"
+                                    StrokeShape="RoundRectangle 10">
+                                <Grid ColumnDefinitions="Auto, *">
+                                    <Border Grid.Column="0"
+                                            Padding="0,0,10,0"
+                                            StrokeThickness="0">
+                                        <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                            CornerRadius="50"
+                                                            HorizontalOptions="Start" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         Padding="5"
+                                                         Spacing="5"
+                                                         VerticalOptions="Center">
+                                        <Label FontAttributes="Bold"
+                                               FontSize="Default"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="1"
+                                               Text="{Binding ExitProduct.Code}" />
+                                        <Label FontSize="Default"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="1"
+                                               Text="{Binding ExitProduct.Name}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                            <Image VerticalOptions="Center"
+                                   WidthRequest="20"
+                                   HeightRequest="45">
+                                <Image.Source>
+                                    <FontImageSource FontFamily="FAS"
+                                                     Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowDown}"></FontImageSource>
+                                </Image.Source>
+                            </Image>
+                            <Border Margin="10,0,10,0"
+                                    Padding="10"
+                                    BackgroundColor="{StaticResource White}"
+                                    StrokeShape="RoundRectangle 10">
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border"
+                                                 Binding="{Binding EntryProduct}"
+                                                 Value="{x:Null}">
+                                        <!-- Set your alternative view when EntryProduct is null -->
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <Label Text="EntryProduct is null. Alternative View" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <!--<Grid ColumnDefinitions="Auto, *">
+                                    <Border Grid.Column="0"
+                                            Padding="0,0,10,0"
+                                            StrokeThickness="0">
+                                        <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                            CornerRadius="50"
+                                                            HorizontalOptions="Start"
+                                                            Text="test"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         Padding="5"
+                                                         Spacing="5"
+                                                         VerticalOptions="Center">
+                                        <Label FontAttributes="Bold"
+                                               FontSize="Default"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="1"
+                                               Text="{Binding EntryProduct.Code}" />
+                                        <Label FontSize="Default"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="1"
+                                               Text="{Binding EntryProduct.Name}" />
+                                    </VerticalStackLayout>
+                                </Grid>-->
+                            </Border>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Grid.Row="2"
+                    Text="İleri"
+                    Command="{Binding GoToEntryWarehouseSelectCommand}"
+                    Margin="5" />
+        </Grid>
+    </Border>
+</ContentPage>

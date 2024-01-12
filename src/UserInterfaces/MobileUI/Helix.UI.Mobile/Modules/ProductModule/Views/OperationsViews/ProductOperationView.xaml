@@ -259,7 +259,10 @@
                         Stroke="Transparent"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 0,0,5,5">
-                    <Grid ColumnDefinitions="90*,10*">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToTransferTransactionCommand}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="90*,10*">
                         <Label Text="Virman İşlemleri"
                                VerticalOptions="Center"
                                FontSize="16"

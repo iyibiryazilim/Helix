@@ -4,6 +4,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTran
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductionTransactionOperationViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WastageTransactionOperationViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -71,4 +72,9 @@ public partial class ProductOperationViewModel :BaseViewModel
         }
     }
 
+	[RelayCommand]
+	async Task GoToTransferTransaction()
+	{
+		await Shell.Current.GoToAsync($"{nameof(ExitWarehouseSelectView)}");
+	}
 }

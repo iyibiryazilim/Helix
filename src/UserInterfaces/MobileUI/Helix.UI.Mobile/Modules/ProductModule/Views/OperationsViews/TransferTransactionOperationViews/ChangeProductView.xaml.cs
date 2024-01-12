@@ -2,10 +2,10 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.Tran
 
 namespace Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews;
 
-public partial class EntryProductSelectView : ContentPage
+public partial class ChangeProductView : ContentPage
 {
-	EntryProductSelectViewModel _viewModel;
-	public EntryProductSelectView(EntryProductSelectViewModel viewModel)
+	ChangeProductViewModel _viewModel;
+	public ChangeProductView(ChangeProductViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = viewModel;
