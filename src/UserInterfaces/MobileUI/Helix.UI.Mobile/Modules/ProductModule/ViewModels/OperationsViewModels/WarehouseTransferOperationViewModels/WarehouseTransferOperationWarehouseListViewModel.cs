@@ -40,9 +40,6 @@ public partial class WarehouseTransferOperationWarehouseListViewModel : BaseView
 	[ObservableProperty]
 	Warehouse selectedWarehouse;
 
-	[ObservableProperty]
-	Product product;
-
 	public WarehouseTransferOperationWarehouseListViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
 	{
 		Title = "Ambar Listesi";

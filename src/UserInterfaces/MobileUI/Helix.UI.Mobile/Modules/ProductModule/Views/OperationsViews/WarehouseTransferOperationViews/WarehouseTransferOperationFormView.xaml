@@ -10,10 +10,119 @@
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetItemsCommand}" />
-    </ContentPage.Behaviors>
-   
-    <sharedViews:PurchaseDispatchOperationFormContentView SupplierList="{Binding SupplierList}"
-                                                          WarehouseList="{Binding WarehouseList}"/>
+    
+
+    <Border  Grid.Row="0"
+          BackgroundColor="{StaticResource WhiteSmoke}"
+          StrokeThickness="0"
+          Padding="5,20,5,10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="*,Auto">
+            <ScrollView>
+                <Grid  Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+
+                    <!-- İrsaliye Türü -->
+                    <VerticalStackLayout Grid.Row="0"
+                                      Padding="7">
+                        <Label Text="İrsaliye Türü"
+                            FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="Ambar Transfer"
+                                IsReadOnly="True" />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Tarih ve Saat -->
+                    <Grid Grid.Row="1"
+                       Grid.ColumnDefinitions="50*,50*"
+                       Padding="7"
+                       ColumnSpacing="5">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Tarih"
+                                FontSize="Medium" />
+                            <Border StrokeShape="RoundRectangle 13">
+                                <DatePicker />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Saat"
+                                FontSize="Medium" />
+                            <Border StrokeShape="RoundRectangle 13">
+                                <TimePicker />
+                            </Border>
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                    <!-- Giriş Ambarı -->
+                    <VerticalStackLayout Grid.Row="2"
+                                      Padding="7">
+                        <Label Text="Giriş Ambarı"
+                            FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="{Binding Warehouse.Name}"
+                                   IsReadOnly="True" />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Çıkış Ambarı -->
+                    <VerticalStackLayout Grid.Row="3"
+                                      Padding="7">
+                        <Label Text="Ambar"
+                            FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="{Binding SelectedWarehouse.Name}"
+                                   IsReadOnly="True" />
+
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Özel Kod -->
+                    <VerticalStackLayout Grid.Row="4"
+                                      Padding="7">
+                        <Label Text="Özel Kod"
+                            FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Grid ColumnDefinitions="85*,15*">
+                                <Entry Grid.Column="0"
+                                    Placeholder="  Özel Kod Giriniz" />
+                                <ImageButton Grid.Column="1"
+                                          BackgroundColor="Transparent"
+                                          Aspect="AspectFit"
+                                          HeightRequest="22"
+                                          WidthRequest="22">
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="FAS"
+                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
+                                                      Color="{StaticResource DarkPrimary}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Açıklama -->
+                    <VerticalStackLayout Grid.Row="5"
+                                      Padding="7">
+                        <Label Text="Açıklama"
+                            FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="  Açıklama" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Grid>
+            </ScrollView>
+            <Grid Grid.Row="1">
+                <Button Margin="5"
+                     Text="Kaydet"></Button>
+            </Grid>
+
+        </Grid>
+
+    </Border>
 </ContentPage>

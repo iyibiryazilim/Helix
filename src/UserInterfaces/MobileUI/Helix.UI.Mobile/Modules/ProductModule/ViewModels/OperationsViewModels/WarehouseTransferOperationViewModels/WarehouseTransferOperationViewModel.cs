@@ -37,7 +37,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 	}
 
 	[ObservableProperty]
-	Warehouse warehouse;
+	Warehouse warehouse;  // SelectedWarehouse
 	[ObservableProperty]
 	WarehouseTotalOrderBy warehouseTotalOrderBy = WarehouseTotalOrderBy.codeasc;
 	[ObservableProperty]
@@ -287,8 +287,8 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			{
 				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationSelectedItemsListView)}", new Dictionary<string, object>
 				{
-					[nameof(Warehouse)] = Warehouse,
-					[nameof(WarehouseTotal)] = SelectedItems
+					[nameof(Warehouse)] = Warehouse,   // SelectedWarehouse
+					[nameof(WarehouseTotal)] = SelectedItems    // SelectedItems
 				});
 			}
 			else

@@ -15,10 +15,10 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 {
 
 	[ObservableProperty]
-	ObservableCollection<WarehouseTotal> warehouseTotal;
+	ObservableCollection<WarehouseTotal> warehouseTotal;  // SelectedItems
 
 	[ObservableProperty]
-	Warehouse warehouse;
+	Warehouse warehouse;   // SelectedWarehouse
 
 	public ObservableCollection<WarehouseTotal> Result { get; } = new();
 
@@ -314,8 +314,8 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			{
 				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationTransferredWarehouseListView)}", new Dictionary<string, object>
 				{
-					[nameof(Warehouse)] = Warehouse,
-					[nameof(WarehouseTotal)] = Result
+					[nameof(Warehouse)] = Warehouse,  // Selected Warehouse
+					[nameof(WarehouseTotal)] = Result // Selected Product
 				});
 			}
 		}
