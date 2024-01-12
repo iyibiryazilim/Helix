@@ -24,7 +24,6 @@
               RowSpacing="10">
             <Grid Grid.Row="0">
                 <Border StrokeShape="RoundRectangle 20">
-
                     <Grid ColumnDefinitions=".15*,.70*,.15*">
                         <ImageButton Grid.Column="0"
                                      BackgroundColor="Transparent"
@@ -37,11 +36,7 @@
                                                  Color="{StaticResource DarkPrimary}" />
                             </ImageButton.Source>
                         </ImageButton>
-                        <SearchBar Grid.Column="1">
-
-
-                        </SearchBar>
-
+                        <SearchBar Grid.Column="1"></SearchBar>
                         <ImageButton Grid.Column="2"
                                      BackgroundColor="Transparent"
                                      Aspect="AspectFit"
@@ -54,12 +49,8 @@
                                                  Color="{StaticResource DarkPrimary}" />
                             </ImageButton.Source>
                         </ImageButton>
-
-
                     </Grid>
-
                 </Border>
-
             </Grid>
             <Grid Grid.Row="1">
                 <Grid Grid.Row="1">
@@ -80,12 +71,10 @@
                                                        Text="Malzeme Sil" />
                                         </SwipeItems>
                                     </SwipeView.RightItems>
-
                                     <Border StrokeShape="RoundRectangle 10"
                                             BackgroundColor="{StaticResource White}"
                                             Padding="5"
-                                            Margin="5,0,5,0"
-                                            >
+                                            Margin="5,0,5,0">
                                         <Border.GestureRecognizers>
                                             <TapGestureRecognizer CommandParameter="{Binding .}"
                                                                   Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToDetailCommand}" />
@@ -97,23 +86,23 @@
                                                     HorizontalOptions="Start"
                                                     Padding="10"
                                                     StrokeThickness="0">
-                                                <Image Aspect="AspectFit" VerticalOptions="Start"
+                                                <Image Aspect="AspectFit"
+                                                       VerticalOptions="Start"
                                                        Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
                                             </Border>
-                                            <Grid Grid.Column="1" RowDefinitions="Auto,*" RowSpacing="10" Padding="5" >
-
-                                                <VerticalStackLayout Grid.Row="0" >
-                                                    <Label 
-                                                           Text="{Binding Code}" 
+                                            <Grid Grid.Column="1"
+                                                  RowDefinitions="Auto,*"
+                                                  RowSpacing="10"
+                                                  Padding="5">
+                                                <VerticalStackLayout Grid.Row="0">
+                                                    <Label Text="{Binding Code}"
                                                            FontSize="Body"
                                                            LineBreakMode="TailTruncation"
                                                            FontAttributes="Bold"></Label>
-                                                    <Label 
-                                                           Text="{Binding Name}"
+                                                    <Label Text="{Binding Name}"
                                                            FontSize="Caption"
                                                            LineBreakMode="TailTruncation"></Label>
-                                                    <Label 
-                                                           TextColor="{StaticResource Primary}">
+                                                    <Label TextColor="{StaticResource Primary}">
                                                         <Label.FormattedText>
                                                             <FormattedString>
                                                                 <Span Text="{Binding StockQuantity, StringFormat='{0:N2} '}"
@@ -135,98 +124,63 @@
                                                             </FormattedString>
                                                         </Label.FormattedText>
                                                     </Label>
-
                                                 </VerticalStackLayout>
-                                                
-                                                    <Border Grid.Row="1" Grid.Column="1" HeightRequest="26" WidthRequest="110" HorizontalOptions="End"
-                                                            
-                                                            StrokeShape="RoundRectangle 5">
-                                                        <Grid ColumnDefinitions="*,*,*"  >
-
-                                                            <ImageButton BackgroundColor="Transparent"
-                                                                         Grid.Column="0"
-                                                                         Aspect="AspectFit"
-                                                                         HeightRequest="14"
-                                                                         WidthRequest="14"
-                                                                         CommandParameter="{Binding .}"
-                                                                         Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}">
-                                                                <ImageButton.Source>
-                                                                    <FontImageSource FontFamily="FAS"
-                                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
-                                                                                     Color="{StaticResource Primary}" />
-                                                                </ImageButton.Source>
-                                                            </ImageButton>
-
-
-                                                            <Border Grid.Column="1"
-                                                                    StrokeThickness="0"
-                                                                    BackgroundColor="{StaticResource Primary}">
-                                                                <Label Text="{Binding Quantity}"
-                                                                       VerticalOptions="Center"
-                                                                       HorizontalOptions="Center"
-                                                                       TextColor="{StaticResource White}">
-
-                                                                </Label>
-                                                            </Border>
-
-
-                                                            <ImageButton Grid.Column="2"
-                                                                         BackgroundColor="Transparent"
-                                                                         Aspect="AspectFit"
-                                                                         HeightRequest="14"
-                                                                         WidthRequest="14"
-                                                                         CommandParameter="{Binding .}"
-                                                                         Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}">
-                                                                <ImageButton.Source>
-                                                                    <FontImageSource FontFamily="FAS"
-                                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
-                                                                                     Color="{StaticResource Primary}" />
-                                                                </ImageButton.Source>
-                                                            </ImageButton>
-
-
-
-
-                                                        </Grid>
-
-                                                    </Border>
-                                                
-
-
-
-
-
-
-
-
-
-
-
+                                                <Border Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        HeightRequest="26"
+                                                        WidthRequest="110"
+                                                        HorizontalOptions="End"
+                                                        StrokeShape="RoundRectangle 5">
+                                                    <Grid ColumnDefinitions="*,*,*">
+                                                        <ImageButton BackgroundColor="Transparent"
+                                                                     Grid.Column="0"
+                                                                     Aspect="AspectFit"
+                                                                     HeightRequest="14"
+                                                                     WidthRequest="14"
+                                                                     CommandParameter="{Binding .}"
+                                                                     Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}">
+                                                            <ImageButton.Source>
+                                                                <FontImageSource FontFamily="FAS"
+                                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
+                                                                                 Color="{StaticResource Primary}" />
+                                                            </ImageButton.Source>
+                                                        </ImageButton>
+                                                        <Border Grid.Column="1"
+                                                                StrokeThickness="0"
+                                                                BackgroundColor="{StaticResource Primary}">
+                                                            <Label Text="{Binding Quantity}"
+                                                                   VerticalOptions="Center"
+                                                                   HorizontalOptions="Center"
+                                                                   TextColor="{StaticResource White}"></Label>
+                                                        </Border>
+                                                        <ImageButton Grid.Column="2"
+                                                                     BackgroundColor="Transparent"
+                                                                     Aspect="AspectFit"
+                                                                     HeightRequest="14"
+                                                                     WidthRequest="14"
+                                                                     CommandParameter="{Binding .}"
+                                                                     Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}">
+                                                            <ImageButton.Source>
+                                                                <FontImageSource FontFamily="FAS"
+                                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
+                                                                                 Color="{StaticResource Primary}" />
+                                                            </ImageButton.Source>
+                                                        </ImageButton>
+                                                    </Grid>
+                                                </Border>
                                             </Grid>
                                         </Grid>
-
-
                                     </Border>
                                 </SwipeView>
-
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-
                 </Grid>
-
             </Grid>
-
-
             <Button Grid.Row="2"
                     Margin="5"
                     Text="İleri"
-                    Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToOperationFormCommand}">
-
-            </Button>
-
-
+                    Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToOperationFormCommand}"></Button>
         </Grid>
     </Border>
-
 </ContentView>
