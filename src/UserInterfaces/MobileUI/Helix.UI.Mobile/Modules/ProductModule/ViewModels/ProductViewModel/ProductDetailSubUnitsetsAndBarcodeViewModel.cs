@@ -22,7 +22,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
         ICustomQueryService _customQueryService;
         public ProductDetailSubUnitsetsAndBarcodeViewModel(IHttpClientService httpClientService, ICustomQueryService customQueryService)
         {
-            Title = "Ölçü/Birim/Barkod";
+            Title = "Ölçü / Birim / Barkod";
             _httpClientService = httpClientService;
             _customQueryService = customQueryService;
             GetProductBarcodeCommand = new Command(async () => await LoadData());
@@ -74,7 +74,12 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
                     Items.Clear();
                     foreach (var item in result.Data)
                     {
+                        
                         var obj = Mapping.Mapper.Map<BarcodeAndSubUnitset>(item);
+                        if (obj.Barcode=="{}")
+                        {
+                            obj.Barcode = string.Empty;
+                        }
                         Items.Add(obj);
                     }
                 }
