@@ -17,12 +17,7 @@
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <!--<VerticalStackLayout>
-        <Label Text="{Binding Warehouse.Name}" />
-        <Label Text="{Binding SelectedWarehouse.Name}" />
-        
-    </VerticalStackLayout>-->
-   
+    
     <Border BackgroundColor="{StaticResource WhiteSmoke}" 
         StrokeThickness="0"
         Padding="5,20,5,10">
@@ -177,7 +172,7 @@
             </Grid>
             <Button Grid.Row="2"
                 Text="İleri"
-                    Command="{Binding GoToWarehouseTransferOperationViewCommand}"
+                Command="{Binding GoToWarehouseTransferOperationViewCommand}"
                 Margin="5"/>
         </Grid>
     </Border>
