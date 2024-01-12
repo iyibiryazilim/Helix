@@ -72,7 +72,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task GoToWastageTransactionOperationViewAsync()  // Fire İşlemleri View
+	async Task GoToWarehouseParameterViewAsync()  // Fire İşlemleri View
 	{
 		if (IsBusy)
 			return;
@@ -80,7 +80,7 @@ public partial class ProductFastOperationBottomSheetViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			await Shell.Current.GoToAsync($"{nameof(WastageTransactionOperationView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(ProductDetailWarehouseParametersView)}", new Dictionary<string, object>
 			{
 				["Product"] = Product
 			});
