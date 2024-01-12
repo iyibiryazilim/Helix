@@ -1,55 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationFormView"
-             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
-             x:DataType="viewModel:WarehouseTransferOperationFormViewModel"
-             Title="{Binding Title}"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             BackgroundColor="{StaticResource Primary}"
-             Shell.TabBarIsVisible="False">
-    
+<ContentPage
+    x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationFormView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+    xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
+    Title="{Binding Title}"
+    x:DataType="viewModel:WarehouseTransferOperationFormViewModel"
+    BackgroundColor="{StaticResource Primary}"
+    Shell.TabBarIsVisible="False">
 
-    <Border  Grid.Row="0"
-          BackgroundColor="{StaticResource WhiteSmoke}"
-          StrokeThickness="0"
-          Padding="5,20,5,10">
+
+    <Border
+        Grid.Row="0"
+        Padding="5,20,5,10"
+        BackgroundColor="{StaticResource WhiteSmoke}"
+        StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
         <Grid RowDefinitions="*,Auto">
             <ScrollView>
-                <Grid  Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                <Grid Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
 
-                    <!-- İrsaliye Türü -->
-                    <VerticalStackLayout Grid.Row="0"
-                                      Padding="7">
-                        <Label Text="İrsaliye Türü"
-                            FontSize="Medium" />
+                    <!--  İrsaliye Türü  -->
+                    <VerticalStackLayout Grid.Row="0" Padding="7">
+                        <Label FontSize="Medium" Text="İrsaliye Türü" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="Ambar Transfer"
-                                IsReadOnly="True" />
+                            <Entry IsReadOnly="True" Placeholder="Ambar Transfer" />
 
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- Tarih ve Saat -->
-                    <Grid Grid.Row="1"
-                       Grid.ColumnDefinitions="50*,50*"
-                       Padding="7"
-                       ColumnSpacing="5">
+                    <!--  Tarih ve Saat  -->
+                    <Grid
+                        Grid.Row="1"
+                        Padding="7"
+                        ColumnSpacing="5"
+                        Grid.ColumnDefinitions="50*,50*">
                         <VerticalStackLayout Grid.Column="0">
-                            <Label Text="Tarih"
-                                FontSize="Medium" />
+                            <Label FontSize="Medium" Text="Tarih" />
                             <Border StrokeShape="RoundRectangle 13">
                                 <DatePicker />
                             </Border>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1">
-                            <Label Text="Saat"
-                                FontSize="Medium" />
+                            <Label FontSize="Medium" Text="Saat" />
                             <Border StrokeShape="RoundRectangle 13">
                                 <TimePicker />
                             </Border>
@@ -57,48 +55,41 @@
 
                     </Grid>
 
-                    <!-- Giriş Ambarı -->
-                    <VerticalStackLayout Grid.Row="2"
-                                      Padding="7">
-                        <Label Text="Giriş Ambarı"
-                            FontSize="Medium" />
+                    <!--  Giriş Ambarı  -->
+                    <VerticalStackLayout Grid.Row="2" Padding="7">
+                        <Label FontSize="Medium" Text="Giriş Ambarı" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="{Binding Warehouse.Name}"
-                                   IsReadOnly="True" />
+                            <Entry IsReadOnly="True" Placeholder="{Binding Warehouse.Name}" />
 
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- Çıkış Ambarı -->
-                    <VerticalStackLayout Grid.Row="3"
-                                      Padding="7">
-                        <Label Text="Ambar"
-                            FontSize="Medium" />
+                    <!--  Çıkış Ambarı  -->
+                    <VerticalStackLayout Grid.Row="3" Padding="7">
+                        <Label FontSize="Medium" Text="Çıkış Ambarı" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="{Binding SelectedWarehouse.Name}"
-                                   IsReadOnly="True" />
+                            <Entry IsReadOnly="True" Placeholder="{Binding SelectedWarehouse.Name}" />
 
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- Özel Kod -->
-                    <VerticalStackLayout Grid.Row="4"
-                                      Padding="7">
-                        <Label Text="Özel Kod"
-                            FontSize="Medium" />
+                    <!--  Özel Kod  -->
+                    <VerticalStackLayout Grid.Row="4" Padding="7">
+                        <Label FontSize="Medium" Text="Özel Kod" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Grid ColumnDefinitions="85*,15*">
-                                <Entry Grid.Column="0"
-                                    Placeholder="  Özel Kod Giriniz" />
-                                <ImageButton Grid.Column="1"
-                                          BackgroundColor="Transparent"
-                                          Aspect="AspectFit"
-                                          HeightRequest="22"
-                                          WidthRequest="22">
+                                <Entry Grid.Column="0" Placeholder="  Özel Kod Giriniz" />
+                                <ImageButton
+                                    Grid.Column="1"
+                                    Aspect="AspectFit"
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="22"
+                                    WidthRequest="22">
                                     <ImageButton.Source>
-                                        <FontImageSource FontFamily="FAS"
-                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
-                                                      Color="{StaticResource DarkPrimary}" />
+                                        <FontImageSource
+                                            FontFamily="FAS"
+                                            Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
+                                            Color="{StaticResource DarkPrimary}" />
                                     </ImageButton.Source>
                                 </ImageButton>
 
@@ -106,11 +97,9 @@
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- Açıklama -->
-                    <VerticalStackLayout Grid.Row="5"
-                                      Padding="7">
-                        <Label Text="Açıklama"
-                            FontSize="Medium" />
+                    <!--  Açıklama  -->
+                    <VerticalStackLayout Grid.Row="5" Padding="7">
+                        <Label FontSize="Medium" Text="Açıklama" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="  Açıklama" />
                         </Border>
@@ -118,8 +107,7 @@
                 </Grid>
             </ScrollView>
             <Grid Grid.Row="1">
-                <Button Margin="5"
-                     Text="Kaydet"></Button>
+                <Button Margin="5" Text="Kaydet" />
             </Grid>
 
         </Grid>
