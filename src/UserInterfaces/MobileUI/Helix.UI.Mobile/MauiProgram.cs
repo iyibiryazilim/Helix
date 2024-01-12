@@ -445,10 +445,8 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<ProductDetailAlternativeProductListView>();
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListView>();
 
-
-
-
-
+			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectView>();
+			 
 
 
 
@@ -505,12 +503,16 @@ namespace Helix.UI.Mobile
  			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectViewModel>();
 			mauiAppBuilder.Services.AddTransient<TransferTransactionSummaryViewModel>();
 			mauiAppBuilder.Services.AddTransient<ChangeProductViewModel>();
+
+            mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailAlternativeProductListViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListViewModel>();
 
 
 
-            return mauiAppBuilder;
+            
+			return mauiAppBuilder;
+
 		}
 		public static MauiAppBuilder ProductRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -520,6 +522,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<IProductTransactionLineService, ProductTransactionLineDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
+			mauiAppBuilder.Services.AddTransient<IWarehouseParameterService, WarehouseParameterDataStore>();
  
 			
 

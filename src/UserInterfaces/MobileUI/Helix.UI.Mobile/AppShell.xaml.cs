@@ -32,7 +32,6 @@ public partial class AppShell : Shell
 {
 	public AppShell()
 	{
-
 		InitializeComponent();
 		Routing.RegisterRoute(nameof(ProductListView), typeof(ProductListView));
 		Routing.RegisterRoute(nameof(ProductDetailView), typeof(ProductDetailView));
@@ -142,12 +141,16 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSupplierView), typeof(ReturnByPurchaseDispatchTransactionSupplierView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationTransferredWarehouseListView), typeof(WarehouseTransferOperationTransferredWarehouseListView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationSummaryView), typeof(WarehouseTransferOperationSummaryView));
- 		Routing.RegisterRoute(nameof(ExitProductSelectView), typeof(ExitProductSelectView));
+		Routing.RegisterRoute(nameof(ExitProductSelectView), typeof(ExitProductSelectView));
 		Routing.RegisterRoute(nameof(ChangeProductView), typeof(ChangeProductView));
 		Routing.RegisterRoute(nameof(ExitWarehouseSelectView), typeof(ExitWarehouseSelectView));
 		Routing.RegisterRoute(nameof(TransferTransactionSummaryView), typeof(TransferTransactionSummaryView));
         Routing.RegisterRoute(nameof(ProductDetailAlternativeProductListView), typeof(ProductDetailAlternativeProductListView));
         Routing.RegisterRoute(nameof(ProductDetailCustomerAndSupplierListView), typeof(ProductDetailCustomerAndSupplierListView));
+        Routing.RegisterRoute(nameof(EntryWarehouseSelectView), typeof(EntryWarehouseSelectView));
 
-    }
-} 
+    
+		
+	}
+}
+

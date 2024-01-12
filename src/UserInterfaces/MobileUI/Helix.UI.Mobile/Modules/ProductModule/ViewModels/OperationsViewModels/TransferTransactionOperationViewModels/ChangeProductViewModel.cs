@@ -20,17 +20,17 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [RelayCommand]
 		async Task GoToEntryWarehouseSelect()
 		{
-			if (TransferTransactionModel.Products.Where(x=>x.EntryProduct == null).Any())
-			{
-				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Malzeme seçimi yapmanız gerekmektedir", "Tamam");
-			}
-			else
-			{ 
-				await Shell.Current.GoToAsync($"{nameof(ChangeProductView)}", new Dictionary<string, object>
+			//if (TransferTransactionModel.Products.Where(x=>x.EntryProduct == null).Any())
+			//{
+			//	await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Malzeme seçimi yapmanız gerekmektedir", "Tamam");
+			//}
+			//else
+			//{ 
+				await Shell.Current.GoToAsync($"{nameof(EntryWarehouseSelectView)}", new Dictionary<string, object>
 				{
 					[nameof(TransferTransactionModel)] = TransferTransactionModel
 				});
-			}
+			//}
 		}
 	}
 }
