@@ -3,12 +3,233 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.ProductDetailCustomerAndSupplierListView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              x:DataType="viewModel:ProductDetailCustomerAndSupplierListViewModel"
-             Title="ProductDetailCustomerAndSupplierListView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetCustomerAndSupplierCommand}"
+                                        EventName="Loaded" />
+    </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Border BackgroundColor="{StaticResource White}"
+            StrokeThickness="0"
+            Padding="5,20,5,10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20, 20, 0, 0" />
+        </Border.StrokeShape>
+        <Grid BackgroundColor="Transparent"
+              RowDefinitions="Auto, *"
+              RowSpacing="10">
+            <Grid Grid.Row="0">
+                <Border StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{StaticResource White}"
+                        Padding="10,0,10,0"
+                        Margin="10,0,10,0"
+                        HeightRequest="85">
+
+                    <Grid ColumnDefinitions="auto,*,auto">
+                        <Border Grid.Column="0"
+                                StrokeShape="RoundRectangle 10"
+                                WidthRequest="75"
+                                HeightRequest="82"
+                                HorizontalOptions="Start"
+                                Padding="10"
+                                StrokeThickness="0">
+                            <Image Aspect="AspectFit"
+                                   Source="{Binding Product.Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="5"
+                                             Spacing="5"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="Start">
+                            <Label Text="{Binding Product.Code}"
+                                   FontSize="Body"
+                                   LineBreakMode="TailTruncation"
+                                   FontAttributes="Bold"></Label>
+                            <Label Text="{Binding Product.Name}"
+                                   FontSize="Caption"
+                                   LineBreakMode="TailTruncation"></Label>
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+
+                </Border>
+            </Grid>
+            <StackLayout Grid.Row="1">
+                <CarouselView  VerticalOptions="StartAndExpand"
+                               Margin="0,50,0,0"
+                               Grid.Row="1"
+                               IndicatorView="indicatorView"
+                               Loop="False"
+                               ItemsSource="{Binding Items}"
+                               HorizontalOptions="FillAndExpand">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ProductCustomerAndSupplier">
+                            <Grid RowDefinitions="10*,50*,40*">
+                                <Grid Grid.Row="0"
+                                      Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                    <!-- En -->
+                                    <VerticalStackLayout Grid.Row="0"
+                                                         Padding="7">
+
+                                        <Border StrokeShape="RoundRectangle 5"
+                                                Padding="2">
+                                            <Grid ColumnDefinitions="Auto,Auto,*">
+                                                <Image Grid.Column="0"
+                                                       HeightRequest="17"
+                                                       WidthRequest="17"
+                                                       Margin="10,0,3,0">
+                                                    <Image.Source>
+                                                        <FontImageSource FontFamily="FAS"
+                                                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.RulerHorizontal}"></FontImageSource>
+                                                    </Image.Source>
+
+                                                </Image>
+                                                <Entry Placeholder="Öncelik : "
+                                                       Grid.Column="1"
+                                                       PlaceholderColor="Black"
+                                                       TextColor="{StaticResource Gray500}"
+                                                       IsEnabled="False" />
+
+                                                <Entry Grid.Column="2"
+                                                       Placeholder="{Binding Priority}"
+                                                       PlaceholderColor="{StaticResource Black}"
+                                                       IsEnabled="False" />
+
+                                            </Grid>
+                                            <Border.Shadow>
+                                                <Shadow Brush="{StaticResource Primary}"
+                                                        Radius="40"
+                                                        Opacity="0.1" />
+                                            </Border.Shadow>
+                                        </Border>
+                                    </VerticalStackLayout>
+                                    <!-- Birim -->
+                                    <VerticalStackLayout Grid.Row="1"
+                                                         Padding="7">
+
+                                        <Border StrokeShape="RoundRectangle 5"
+                                                Padding="2">
+                                            <Grid ColumnDefinitions="Auto,Auto,*,Auto">
+                                                <Image Grid.Column="0"
+                                                       HeightRequest="17"
+                                                       WidthRequest="17"
+                                                       Margin="10,0,3,0">
+                                                    <Image.Source>
+                                                        <FontImageSource FontFamily="FAS"
+                                                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.User}"></FontImageSource>
+                                                    </Image.Source>
+
+                                                </Image>
+                                                <Entry Placeholder="Müşteri Kodu Adı : "
+                                                       Grid.Column="1"
+                                                       PlaceholderColor="Black"
+                                                       TextColor="{StaticResource Gray500}"
+                                                       IsEnabled="False" />
+
+                                                <Label TextColor="{StaticResource Primary}" Grid.Column="2">
+                                                   
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding CurrentCode, StringFormat='{0:N2}'}"
+                                                                  FontAttributes="Bold" />
+                                                            <Span Text=" - "
+                                                                  FontAttributes="Bold" />
+                                                            <Span Text="{Binding CurrentName}"
+                                                                  FontAttributes="Bold" />
+
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                    </Label>
+                                                    
+
+                                            </Grid>
+                                            <Border.Shadow>
+                                                <Shadow Brush="{StaticResource Primary}"
+                                                        Radius="40"
+                                                        Opacity="0.1" />
+                                            </Border.Shadow>
+                                        </Border>
+                                    </VerticalStackLayout>
+
+
+                                    <!-- Barkod -->
+                                    <VerticalStackLayout Grid.Row="3"
+                                                         Padding="7">
+
+                                        <Border StrokeShape="RoundRectangle 5"
+                                                Padding="2">
+                                            <Grid ColumnDefinitions="Auto,Auto,*">
+                                                <Image Grid.Column="0"
+                                                       HeightRequest="17"
+                                                       WidthRequest="17"
+                                                       Margin="10,0,3,0">
+                                                    <Image.Source>
+                                                        <FontImageSource FontFamily="FAS"
+                                                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Barcode}"></FontImageSource>
+                                                    </Image.Source>
+
+                                                </Image>
+                                                <Entry Placeholder="Barkod : "
+                                                       Grid.Column="1"
+                                                       PlaceholderColor="Black"
+                                                       TextColor="{StaticResource Gray500}"
+                                                       IsEnabled="False" />
+
+                                                <Entry Grid.Column="2"
+                                                       Placeholder="{Binding Barcode}"
+                                                       PlaceholderColor="{StaticResource Black}"
+                                                       IsEnabled="False" />
+
+                                            </Grid>
+                                            <Border.Shadow>
+                                                <Shadow Brush="{StaticResource Primary}"
+                                                        Radius="40"
+                                                        Opacity="0.1" />
+                                            </Border.Shadow>
+                                        </Border>
+                                    </VerticalStackLayout>
+
+
+
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+
+                </CarouselView>
+                <StackLayout Padding="10">
+                    <IndicatorView x:Name="indicatorView"
+                                   HorizontalOptions="Center"
+                                   IndicatorSize="10"
+                                   VerticalOptions="StartAndExpand"
+                                   IndicatorColor="{StaticResource Secondary}"
+                                   SelectedIndicatorColor="{StaticResource DarkPrimary}"></IndicatorView>
+
+
+                </StackLayout>
+            </StackLayout>
+
+
+
+            <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}"
+                                     Grid.Row="1" />
+        </Grid>
+
+
+    </Border>
 </ContentPage>

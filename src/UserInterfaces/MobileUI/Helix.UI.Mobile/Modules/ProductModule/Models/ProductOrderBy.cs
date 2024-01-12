@@ -7,4 +7,13 @@
         codeasc,
         codedesc
     }
+    public enum ProductCustomerAndSupplierOrderBy
+    {
+        nameasc,
+        namedesc,
+        codeasc,
+        codedesc,
+        priorityasc,
+        prioritydesc
+    }
 }

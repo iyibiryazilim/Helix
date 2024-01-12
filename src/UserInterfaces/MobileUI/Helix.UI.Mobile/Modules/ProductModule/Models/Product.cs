@@ -17,7 +17,7 @@ public partial class Product :ObservableObject
     string groupName;
 
     [ObservableProperty]
-    int cardType;
+    int? cardType;
 
     [ObservableProperty]
     int unitsetReferenceId;
@@ -47,10 +47,10 @@ public partial class Product :ObservableObject
     string speCode;
 
     [ObservableProperty]
-    short trackingType;
+    short? trackingType;
 
     [ObservableProperty]
-    short lockTrackingType;
+    short? lockTrackingType;
 
     [ObservableProperty]
     string image;
