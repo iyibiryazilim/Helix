@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.SharedProductListView"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
-             x:DataType="viewModel:SharedProductListViewModel"
+             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews.EntryProductSelectView"
+             x:Name="this"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.TransferTransactionOperationViewModels"
+             x:DataType="viewModel:EntryProductSelectViewModel"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -57,22 +58,22 @@
             </Grid>
             <RefreshView Grid.Row="1"
                          IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding ReloadCommand}"
+                         Command="{Binding GetProductsCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView Grid.Row="1"
-                                ItemsSource="{Binding Items}"
+                                ItemsSource="{Binding Results}"
                                 EmptyView="bulunamadı">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                                            ItemSpacing="5" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate  x:DataType="baseModel:WarehouseTotal">
+                        <DataTemplate  x:DataType="baseModel:Product">
                             <SwipeView>
                                 <SwipeView.LeftItems>
                                     <SwipeItems Mode="Execute">
                                         <SwipeItem BackgroundColor="{StaticResource Success}"
-                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:SharedProductListViewModel}}, Path=ToggleSelectionCommand}"
+                                                   Command="{Binding Source={x:Reference this}, Path=BindingContext.ToggleSelectionCommand}"
                                                    CommandParameter="{Binding .}"
                                                    Text=" Ürün Seç" />
                                     </SwipeItems>
@@ -103,8 +104,9 @@
                                         <VerticalStackLayout Grid.Column="1"
                                                              Padding="5"
                                                              Spacing="5"
+                                                             VerticalOptions="Center"
                                                              HorizontalOptions="Start">
-                                            <Label Text="{Binding ProductCode}"
+                                            <Label Text="{Binding Code}"
                                                    FontSize="Body"
                                                    FontAttributes="Bold">
                                                 <Label.Style>
@@ -122,7 +124,7 @@
                                                     </Style>
                                                 </Label.Style>
                                             </Label>
-                                            <Label Text="{Binding ProductName}"
+                                            <Label Text="{Binding Name}"
                                                    FontSize="Caption">
                                                 <Label.Style>
                                                     <Style TargetType="Label">
@@ -139,32 +141,7 @@
                                                     </Style>
                                                 </Label.Style>
                                             </Label>
-                                            <Label TextColor="{StaticResource Primary}">
-                                                <Label.Style>
-                                                    <Style TargetType="Label">
-                                                        <Setter Property="TextColor"
-                                                                Value="Black" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger TargetType="Label"
-                                                                         Binding="{Binding IsSelected}"
-                                                                         Value="True">
-                                                                <Setter Property="TextColor"
-                                                                        Value="{StaticResource Warning}" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Label.Style>
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{Binding OnHand, StringFormat='{0:N2}'}"
-                                                              FontAttributes="Bold" />
-                                                        <Span Text=" "
-                                                              FontAttributes="Bold" />
-                                                        <Span Text="{Binding SubUnitsetCode}"
-                                                              FontAttributes="Bold" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
+                                          
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Border>

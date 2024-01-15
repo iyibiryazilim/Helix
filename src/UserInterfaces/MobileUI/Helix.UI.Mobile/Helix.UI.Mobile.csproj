@@ -262,6 +262,9 @@
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\TransferTransactionOperationViews\ChangeProductView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\TransferTransactionOperationViews\EntryProductSelectView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\TransferTransactionOperationViews\EntryWarehouseSelectView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
