@@ -190,7 +190,7 @@
                                             Grid.Column="1"
                                             Command="{Binding GoToWarehouseDetailBottomSheetCommand}"
                                             BackgroundColor="{StaticResource Primary}"
-                                            Text="Ambar Toplamları">
+                                            Text="Hareketler">
                                         </Button>
                                     </Grid>
                                 </VerticalStackLayout>
@@ -281,7 +281,7 @@
                                                             <VerticalStackLayout Spacing="4">
                                                                 <Label Text="Fiş Türü"
                                                                        TextColor="{StaticResource Primary}" />
-                                                                <Label Text="{Binding TransactionType}" />
+                                                                <Label Text="{Binding TransactionTypeName}" />
                                                                 <BoxView  HeightRequest="0.7"
                                                                           Color="{StaticResource Primary}" />
                                                             </VerticalStackLayout>

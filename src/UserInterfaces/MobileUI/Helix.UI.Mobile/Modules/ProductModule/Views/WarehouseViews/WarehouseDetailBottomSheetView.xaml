@@ -49,11 +49,11 @@
 
                         </Image>
                         <VerticalStackLayout Grid.Column="1">
-                            <Label Text="Ürün Listesi"
+                            <Label Text="Ambar Toplamları"
                                    FontSize="16"
                                    HorizontalOptions="Start"
                                    VerticalOptions="Center"></Label>
-                            <Label Text="Ürün bilgileri bulunur."></Label>
+                            <Label Text="Ürün listesi bulunur."></Label>
                         </VerticalStackLayout>
                     <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
                         <Image.Source>
