@@ -87,37 +87,6 @@
                                                    Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
                                                    VerticalOptions="Start" />
                                         </Border>
-                                        <!--<Grid Grid.Column="1"
-                                              Padding="5"
-                                              RowDefinitions="Auto,*"
-                                              RowSpacing="10">
-                                            <VerticalStackLayout Grid.Row="0">
-                                                <Label FontAttributes="Bold"
-                                                       FontSize="Body"
-                                                       LineBreakMode="TailTruncation"
-                                                       Text="{Binding Code}" />
-                                                <Label FontSize="Caption"
-                                                       LineBreakMode="TailTruncation"
-                                                       Text="{Binding Name}" />
-                                                <Label TextColor="{StaticResource Primary}">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span FontAttributes="Bold" Text="{Binding StockQuantity, StringFormat='{0:N2} '}" />
-                                                            <Span FontAttributes="Bold" Text=" " />
-                                                            <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
-                                                            <Span FontAttributes="Bold" Text=" / " />
-                                                            <Span FontAttributes="Bold"
-                                                                  Text="{Binding Quantity, StringFormat='{0:N2}'}"
-                                                                  TextColor="{StaticResource Warning}" />
-                                                            <Span FontAttributes="Bold" Text=" " />
-                                                            <Span FontAttributes="Bold"
-                                                                  Text="{Binding SubUnitsetCode}"
-                                                                  TextColor="{StaticResource Warning}" />
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                            </VerticalStackLayout>
-                                        </Grid>-->
                                         <VerticalStackLayout Grid.Column="1"
                                                              Padding="5"
                                                              HorizontalOptions="Start"
@@ -223,12 +192,9 @@
                                                 </ImageButton.Source>
                                             </ImageButton>
                                         </Border>
-
                                     </Grid>
-
                                 </Border>
                             </Grid>
-
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -200,8 +200,6 @@
                                                          Margin="5"
                                                          Aspect="AspectFit"
                                                          BackgroundColor="Transparent"
-                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=DecrementQuantityCommand}"
-                                                         CommandParameter="{Binding .}"
                                                          HeightRequest="12"
                                                          VerticalOptions="Center"
                                                          WidthRequest="16">

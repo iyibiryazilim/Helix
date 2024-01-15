@@ -13,7 +13,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 	{
 		public DispatchByPurchaseOrderLineSelectedLineListViewModel()
 		{
-			Title = "Satınalma Satırı Düzenleme";
+			Title = "Satınalma Ürünleri Düzenleme";
 			GetOrderLinesCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
