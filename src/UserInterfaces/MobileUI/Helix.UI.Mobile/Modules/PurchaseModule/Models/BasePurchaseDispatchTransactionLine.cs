@@ -10,7 +10,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 		short transactionType;
 		[ObservableProperty]
 		string transactionTypeName;
-		[ObservableProperty]
+        [ObservableProperty]
+        string documentNumber;
+        [ObservableProperty]
+        string documentTrackingNumber;
+        [ObservableProperty]
 		TimeSpan transactionTime;
 		[ObservableProperty]
 		int convertedTime;
