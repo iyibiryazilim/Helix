@@ -31,41 +31,35 @@
               RowDefinitions="Auto, *"
               RowSpacing="10">
             <Grid Grid.Row="0">
-                <Border StrokeShape="RoundRectangle 10"
-                        BackgroundColor="{StaticResource White}"
-                        Padding="10,0,10,0"
-                        Margin="10,0,10,0"
-                        HeightRequest="85">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Border HorizontalOptions="Center"
+                            HeightRequest="82"
+                            WidthRequest="76"
+                            StrokeThickness="0">
+                        
+                   
+                        <Image Aspect="AspectFit"
+                               HorizontalOptions="Center"
+                               Source="{Binding Product.Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1"
+                                         Padding="5"
+                                         Spacing="5"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Start">
+                        <Label Text="{Binding Product.Code}"
+                               FontSize="Title"
+                               HorizontalOptions="Center"
+                               LineBreakMode="TailTruncation"
+                               FontAttributes="Bold"></Label>
+                        <Label Text="{Binding Product.Name}"
+                               FontSize="Subtitle"
+                               HorizontalOptions="Center"
+                               LineBreakMode="TailTruncation"></Label>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+               
 
-                    <Grid ColumnDefinitions="auto,*,auto">
-                        <Border Grid.Column="0"
-                                StrokeShape="RoundRectangle 10"
-                                WidthRequest="75"
-                                HeightRequest="82"
-                                HorizontalOptions="Start"
-                                Padding="10"
-                                StrokeThickness="0">
-                            <Image Aspect="AspectFit"
-                                   Source="{Binding Product.Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
-                        </Border>
-                        <VerticalStackLayout Grid.Column="1"
-                                             Padding="5"
-                                             Spacing="5"
-                                             VerticalOptions="Center"
-                                             HorizontalOptions="Start">
-                            <Label Text="{Binding Product.Code}"
-                                   FontSize="Body"
-                                   LineBreakMode="TailTruncation"
-                                   FontAttributes="Bold"></Label>
-                            <Label Text="{Binding Product.Name}"
-                                   FontSize="Caption"
-                                   LineBreakMode="TailTruncation"></Label>
-                        </VerticalStackLayout>
-
-                    </Grid>
-
-
-                </Border>
             </Grid>
             <StackLayout Grid.Row="1">
                 <CarouselView  VerticalOptions="StartAndExpand"

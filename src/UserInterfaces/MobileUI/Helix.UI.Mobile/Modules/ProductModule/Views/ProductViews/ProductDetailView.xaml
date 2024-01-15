@@ -119,6 +119,17 @@
                                 </Grid>
 
 
+                            <Button
+                            Grid.Row="2"
+                            Padding="0"
+                            BackgroundColor="{StaticResource Success}"
+                            CornerRadius="12"
+                            Command="{Binding OpenFastOperationBottomSheetCommand}"
+                            FontSize="13"
+                            HeightRequest="30"
+                            FontAttributes="Bold"
+                            Text="Daha Fazla"
+                            WidthRequest="120" />
 
                                 <Button Grid.Row="2"
                                         Padding="0"
@@ -163,30 +174,33 @@
 
                                     <VerticalStackLayout Spacing="5">
 
-                                        <Grid ColumnDefinitions="*,*">
-                                            <Label Grid.Column="0"
-                                                   FontAttributes="Bold"
-                                                   FontSize="Subtitle"
-                                                   Text="Son Hareketler"
-                                                   VerticalOptions="Center" />
-                                            <Button Grid.Column="1"
-                                                    Padding="0"
-                                                    BackgroundColor="{StaticResource Primary}"
-                                                    Command="{Binding OpenProductTransactionBottomSheetCommand}"
-                                                    CornerRadius="12"
-                                                    FontSize="13"
-                                                    HeightRequest="30"
-                                                    HorizontalOptions="End"
-                                                    Text="Daha Fazla"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="135" />
-                                        </Grid>
-                                        <Grid>
-                                            <sharedViews:LoadingView IsBusy="{Binding IsBusy}" />
-                                            <CollectionView ItemsSource="{Binding ProductTransactionLines}">
-                                                <CollectionView.ItemTemplate>
-                                                    <DataTemplate x:DataType="baseModel:ProductTransactionLine">
-                                                        <toolkit:Expander x:Name="expander" Margin="0,10,0,0">
+                                    <Grid ColumnDefinitions="*,*">
+                                        <Label
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="Subtitle"
+                                        Text="Son Hareketler"
+                                        VerticalOptions="Center" />
+                                        <Button
+                                        Grid.Column="1"
+                                        Command="{Binding OpenProductTransactionBottomSheetCommand}"
+                                        Padding="0"
+                                        BackgroundColor="{StaticResource Primary}"
+                                        CornerRadius="12"
+                                        FontSize="13"
+                                        HeightRequest="30"
+                                        HorizontalOptions="End"
+                                        Text="Hareketler"
+                                        VerticalOptions="Center"
+                                        WidthRequest="135" />
+                                    </Grid>
+                                    <Grid>
+                                        <sharedViews:LoadingView IsBusy="{Binding IsBusy}" />
+                                        <CollectionView ItemsSource="{Binding ProductTransactionLines}">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate x:DataType="baseModel:ProductTransactionLine">
+                                                    <toolkit:Expander x:Name="expander"
+                                                                      Margin="0,10,0,0">
                                                             <toolkit:Expander.Header>
                                                                 <Border BackgroundColor="White" StrokeShape="RoundRectangle 10">
                                                                     <Grid Padding="0,0,10,0"
@@ -268,16 +282,42 @@
                                                                 </Border>
                                                             </toolkit:Expander.Header>
                                                             <toolkit:Expander.Content>
-                                                                <VerticalStackLayout Margin="20,10,5,0" Spacing="4">
+                                                                <VerticalStackLayout Margin="20,10,5,0"
+                                                                                     Spacing="4">
                                                                     <VerticalStackLayout Spacing="4">
-                                                                        <Label Text="Ambar Numarası" TextColor="{StaticResource Primary}" />
-                                                                        <Label Text="{Binding WarehouseNumber}" />
-                                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                                        <Label Text="Fiş Türü"
+                                                                               TextColor="{StaticResource Primary}" />
+                                                                        <Label Text="{Binding TransactionTypeName}" />
+                                                                        <BoxView  HeightRequest="0.7"
+                                                                                  Color="{StaticResource Primary}" />
                                                                     </VerticalStackLayout>
                                                                     <VerticalStackLayout Spacing="4">
-                                                                        <Label Text="Ambar Adı" TextColor="{StaticResource Primary}" />
-                                                                        <Label Text="{Binding WarehouseName}" />
-                                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                                        <Label Text="Fiş Numarası"
+                                                                               TextColor="{StaticResource Primary}" />
+                                                                        <Label Text="{Binding BaseTransactionCode}" />
+                                                                        <BoxView  HeightRequest="0.7"
+                                                                                  Color="{StaticResource Primary}" />
+                                                                    </VerticalStackLayout>
+                                                                    <VerticalStackLayout Spacing="4">
+                                                                        <Label Text="Müşteri"
+                                                                               TextColor="{StaticResource Primary}" />
+                                                                        <Label Text="{Binding CurrentName}" />
+                                                                        <BoxView  HeightRequest="0.7"
+                                                                                  Color="{StaticResource Primary}" />
+                                                                    </VerticalStackLayout>
+                                                                    <VerticalStackLayout Spacing="4">
+                                                                        <Label Text="Belge Numarası"
+                                                                               TextColor="{StaticResource Primary}" />
+                                                                        <Label Text="{Binding DocumentNumber}" />
+                                                                        <BoxView  HeightRequest="0.7"
+                                                                                  Color="{StaticResource Primary}" />
+                                                                    </VerticalStackLayout>
+                                                                    <VerticalStackLayout Spacing="4">
+                                                                        <Label Text="Döküman İzleme Numarası"
+                                                                               TextColor="{StaticResource Primary}" />
+                                                                        <Label Text="{Binding DocumentTrackingNumber}" />
+                                                                        <BoxView  HeightRequest="0.7"
+                                                                                  Color="{StaticResource Primary}" />
                                                                     </VerticalStackLayout>
                                                                 </VerticalStackLayout>
                                                             </toolkit:Expander.Content>

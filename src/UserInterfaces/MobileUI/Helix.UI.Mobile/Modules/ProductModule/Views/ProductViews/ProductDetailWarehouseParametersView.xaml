@@ -62,100 +62,140 @@
                              IsRefreshing="{Binding IsRefreshing}"
                              RefreshColor="{StaticResource DarkPrimary}">
 
-                    <CollectionView ItemsSource="{Binding Items}">
+                    <CollectionView ItemsSource="{Binding Items}" RemainingItemsThreshold="10" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5"
                                                Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="baseModel:WarehouseParameter">
-                                <Border Margin="10,0,10,0"
-                                        Padding="10"
-                                        BackgroundColor="{StaticResource White}"
-                                        HeightRequest="110"
-                                        StrokeShape="RoundRectangle 10">
+                                <Grid RowDefinitions="Auto, Auto">
+                                    <Border Margin="10,0,10,0"
+                                            Padding="10"
+                                            BackgroundColor="{StaticResource White}"
+                                            HeightRequest="85"
+                                            StrokeShape="RoundRectangle 10">
 
-                                    <Grid ColumnDefinitions="Auto, *, Auto" >
-                                        <Border Grid.Column="0" 
-                                                Padding="0,0,10,0"
-                                                StrokeThickness="0">
-                                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
-                                                                CornerRadius="50"
-                                                                HorizontalOptions="Start"
-                                                                Text="{Binding WarehouseNumber}" />
-                                        </Border>
-                                        <VerticalStackLayout Grid.Column="1" 
-                                                             Padding="5"
-                                                             Spacing="5"
-                                                             VerticalOptions="Center">
-                                            <Label FontAttributes="Bold"
-                                                   FontSize="Default"
-                                                   LineBreakMode="TailTruncation"
-                                                   MaxLines="1"
-                                                   Text="{Binding WarehouseName}" />
-                                            <Grid ColumnDefinitions="*,*,*"
-                                                  ColumnSpacing="5">
-
+                                        <Grid ColumnDefinitions="Auto, *, .25*"
+                                              RowDefinitions="Auto,Auto">
+                                            <HorizontalStackLayout Grid.Row="0">
                                                 <Border Grid.Column="0"
-                                                        StrokeShape="RoundRectangle 5"
-                                                        BackgroundColor="#E6E7F6" StrokeThickness="0">
-                                                    <VerticalStackLayout>
-                                                        <Label Text="{Binding MinLevel}" 
-                                                               HorizontalOptions="Center" TextColor="{StaticResource Success}"></Label>
-                                                        <Label Text="Min"
-                                                               HorizontalOptions="Center"
-                                                               TextColor="{StaticResource Success}"></Label>
-                                                    </VerticalStackLayout>
-                                                </Border>
-                                                <Border Grid.Column="1"
-                                                        StrokeShape="RoundRectangle 5"
-                                                        BackgroundColor="#E6E7F6"
+                                                        Padding="0,0,10,0"
                                                         StrokeThickness="0">
-                                                    <VerticalStackLayout>
-                                                        <Label Text="{Binding SafeLevel}"
-                                                               TextColor="{StaticResource Info}"
-                                                               HorizontalOptions="Center"></Label>
-                                                        <Label Text="Güvenli"
-                                                               HorizontalOptions="Center"
-                                                               TextColor="{StaticResource Info}"></Label>
-                                                    </VerticalStackLayout>
+                                                    <toolkit:AvatarView BackgroundColor="{StaticResource Primary}"
+                                                                        CornerRadius="50"
+                                                                        HorizontalOptions="Start"
+                                                                        Text="{Binding WarehouseNumber}"
+                                                                        TextColor="{StaticResource Warning}" />
                                                 </Border>
-                                                <Border Grid.Column="2"
-                                                        StrokeShape="RoundRectangle 5"
-                                                        BackgroundColor="#E6E7F6"
-                                                        StrokeThickness="0">
-                                                    <VerticalStackLayout>
-                                                        <Label Text="{Binding MaxLevel}"
-                                                               TextColor="{StaticResource Danger}"
-                                                               HorizontalOptions="Center"></Label>
-                                                        <Label Text="Max"
-                                                               TextColor="{StaticResource Danger}"
-                                                               HorizontalOptions="Center"></Label>
-                                                    </VerticalStackLayout>
-                                                </Border>
+                                                <VerticalStackLayout Grid.Column="1"
+                                                                     Padding="5"
+                                                                     Spacing="5"
+                                                                     VerticalOptions="Center">
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="Default"
+                                                           LineBreakMode="TailTruncation"
+                                                           MaxLines="1"
+                                                           Text="{Binding WarehouseName}" />
+
+                                                    <Grid ColumnDefinitions="*, *, *"
+                                                          ColumnSpacing="5"
+                                                          HorizontalOptions="Start">
+
+                                                        <Border Grid.Column="0"
+                                                                Padding="10,5"
+                                                                BackgroundColor="{StaticResource Secondary}"
+                                                                HorizontalOptions="Center"
+                                                                StrokeShape="RoundRectangle 5"
+                                                                StrokeThickness="0">
+                                                            <Label FontSize="10"
+                                                                   TextColor="{StaticResource Primary}"
+                                                                   HorizontalOptions="Center">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span FontAttributes="Bold"
+                                                                              Text="{Binding MinLevel, StringFormat='{0:N2} '}" />
+                                                                        <Span Text=" " />
+                                                                        <!--<Span FontAttributes="Bold"
+Text="Güvenli" />-->
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+
+                                                        </Border>
+                                                        <Border Grid.Column="1"
+                                                                Padding="10,5"
+                                                                BackgroundColor="{StaticResource Secondary}"
+                                                                StrokeShape="RoundRectangle 5"
+                                                                HorizontalOptions="Center"
+                                                                StrokeThickness="0">
+                                                            <Label FontSize="10"
+                                                                   TextColor="{StaticResource Primary}">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span FontAttributes="Bold"
+                                                                              Text="{Binding SafeLevel, StringFormat='{0:N2} '}" />
+                                                                        <Span Text=" " />
+                                                                        <!--<Span FontAttributes="Bold"
+Text="Güvenli" />-->
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </Border>
+                                                        <Border Grid.Column="2"
+                                                                Padding="10,5"
+                                                                BackgroundColor="{StaticResource Secondary}"
+                                                                HorizontalOptions="Center"
+                                                                StrokeShape="RoundRectangle 5"
+                                                                StrokeThickness="0">
+                                                            <Label FontSize="10"
+                                                                   TextColor="{StaticResource Primary}">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span FontAttributes="Bold"
+                                                                              Text="{Binding MaxLevel, StringFormat='{0:N2} '}" />
+                                                                        <Span Text=" " />
+                                                                        <!--<Span FontAttributes="Bold"
+Text="Max" />-->
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </Border>
 
 
-                                            </Grid>
-                                        </VerticalStackLayout>
-                                        <Border Grid.Column="2"
-                                                Padding="0,15,5,0"
-                                                StrokeThickness="0">
-                                            <VerticalStackLayout  >
+                                                    </Grid>
+                                                </VerticalStackLayout>
 
-                                                <toolkit:AvatarView BackgroundColor="#E6E7F6"
-                                                                    CornerRadius="50"
-                                                                    HorizontalOptions="Center"
-                                                                    Text="{Binding StockQuantity}" />
-                                                <Label Text="Stok Miktarı"
-                                                       Padding="3"
-                                                      ></Label>
-                                            </VerticalStackLayout>
-                                            
-                                        </Border>
+                                            </HorizontalStackLayout>
 
 
-                                    </Grid>
-                                </Border>
+
+
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Row="1"
+                                            Grid.Column="1" 
+                                            Margin="5,-16,20,0"
+                                            Padding="5"
+                                            BackgroundColor="{Binding StockColor}"
+                                            HorizontalOptions="End"
+                                            StrokeShape="RoundRectangle 5"
+                                            ZIndex="999">
+                                        <Label TextColor="{StaticResource Primary}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding StockQuantity, StringFormat='{0:N2} '}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding SubUnitsetCode}"
+                                                          FontAttributes="Bold" />
+
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Border>
+                                </Grid>
+                                
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews.ChangeProductView"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.TransferTransactionOperationViewModels"
@@ -116,10 +117,16 @@
                                 </Image.Source>
                             </Image>
                             <Grid RowDefinitions="Auto, Auto"
-                                  x:Name="EntryProductBorder">
+                                   x:Name="EntryProductBorder">
                                 <Grid.Resources>
                                     <Style TargetType="Grid">
                                         <Style.Triggers>
+                                            <DataTrigger TargetType="Grid"
+                                                         Binding="{Binding EntryProductIsNull}"
+                                                         Value="False">
+                                                <Setter Property="IsVisible"
+                                                        Value="True" />
+                                            </DataTrigger>
                                             <DataTrigger TargetType="Grid"
                                                          Binding="{Binding EntryProductIsNull}"
                                                          Value="True">
@@ -187,7 +194,7 @@
                                                         <Label.FormattedText>
                                                             <FormattedString>
                                                                 <Span FontAttributes="Bold"
-                                                                      Text="{Binding EntryProduct.OnHand, StringFormat='{0:N2} '}" />
+                                                                      Text="{Binding EntryProduct.QuantityCounter, StringFormat='{0:N2} '}" />
                                                                 <Span Text=" " />
                                                                 <Span FontAttributes="Bold"
                                                                       Text="{Binding EntryProduct.SubUnitsetCode}" />
@@ -211,6 +218,7 @@
                                                      Margin="5"
                                                      Aspect="AspectFit"
                                                      BackgroundColor="Transparent"
+                                                     Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="22"
                                                      VerticalOptions="Center"
@@ -233,6 +241,7 @@
                                                      Margin="5"
                                                      Aspect="AspectFit"
                                                      BackgroundColor="Transparent"
+                                                     Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="22"
                                                      VerticalOptions="Center"
@@ -246,11 +255,15 @@
                                     </Grid>
                                 </Border>
                             </Grid>
-                            <Grid>
+                            <Grid IsVisible="{Binding EntryProductIsNull}">
                                 <Frame BorderColor="{StaticResource Warning}"
                                        CornerRadius="10"
-                                        Padding="10"
+                                       Padding="10"
                                        BackgroundColor="{StaticResource Warning}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.GoToEntryProductSelectViewCommand}"
+                                                              CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
                                     <Label Text="Virman Yapılacak Malzeme Seçiniz"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"

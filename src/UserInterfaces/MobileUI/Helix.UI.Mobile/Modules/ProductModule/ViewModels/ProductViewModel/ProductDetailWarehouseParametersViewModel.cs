@@ -34,7 +34,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
 
         public ProductDetailWarehouseParametersViewModel(IHttpClientService httpClientService,IWarehouseParameterService warehouseParameterService)
         {
-            Title = "Warehouse Parameter";
+            Title = "Ambar Parametreleri";
             _httpClientService = httpClientService;
             _wareHouseparameterService = warehouseParameterService;
 
@@ -176,5 +176,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
                 IsBusy = false;
             }
         }
+
+
+       
     }
 }

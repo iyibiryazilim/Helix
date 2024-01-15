@@ -28,7 +28,11 @@ public partial class BaseProductTransactionLine :ObservableObject
     short? iOType;
     [ObservableProperty]
     short? transactionType;
-	public string TransactionTypeName
+    [ObservableProperty]
+    string documentNumber;
+    [ObservableProperty]
+    string documentTrackingNumber;
+    public string TransactionTypeName
 	{
 		get
 		{

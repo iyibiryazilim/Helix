@@ -73,7 +73,11 @@ public partial class BaseTransactionLine : ObservableObject
 	int productReferenceId;
 	[ObservableProperty]
 	string productCode;
-	[ObservableProperty]
+    [ObservableProperty]
+    string documentNumber;
+    [ObservableProperty]
+    string documentTrackingNumber;
+    [ObservableProperty]
 	string productName;
 	[ObservableProperty]
 	int? unitsetReferenceId;
