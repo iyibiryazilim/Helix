@@ -84,7 +84,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 
 			if (result.Data.Any())
 			{
-				foreach (var item in result.Data)
+				foreach (var item in result.Data.Where(x => x.OnHand != 0))
 				{
 					await Task.Delay(100);
 					Items.Add(item);
@@ -122,7 +122,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			if(result.Data.Any())
 			{
 				Items.Clear();
-				foreach (WarehouseTotal item in result.Data)
+				foreach (WarehouseTotal item in result.Data.Where(x => x.OnHand != 0))
 				{
 					Items.Add(item);
 
@@ -142,8 +142,13 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	private void ToggleSelection(WarehouseTotal item)
+	async Task ToggleSelection(WarehouseTotal item)
 	{
+		if(item.OnHand < 0)
+		{
+			await Shell.Current.DisplayAlert("Uyarı", "Bu ürünü seçemezsiniz", "Tamam");
+			return;
+		}
 		item.IsSelected = !item.IsSelected;
 		if(item.IsSelected)
 		{
@@ -238,6 +243,51 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			IsBusy = false;
 			IsRefreshing = false;
 		}
+	}
+
+	[RelayCommand]
+	async Task SelectAllAsync(bool isSelected)
+	{
+		try
+		{
+			IsBusy = true;
+
+			if (isSelected)
+			{
+				foreach (var item in Items)
+				{
+					if(item.OnHand > 0)
+					{
+						item.IsSelected = true;
+						SelectedItems.Add(item);
+					}
+					
+				}
+			}
+			else
+			{
+				foreach (var item in Items)
+				{
+					if(item.OnHand > 0)
+					{
+						item.IsSelected = false;
+						SelectedItems.Remove(item);
+					}
+					
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+		
 	}
 
 	
