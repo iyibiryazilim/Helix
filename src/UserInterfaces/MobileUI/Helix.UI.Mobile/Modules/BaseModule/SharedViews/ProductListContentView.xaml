@@ -159,8 +159,8 @@
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span FontAttributes="Bold" Text="{Binding StockQuantity, StringFormat='{0:N2} '}" />
+                                                            <Span Text=" " />
                                                             <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
-
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>

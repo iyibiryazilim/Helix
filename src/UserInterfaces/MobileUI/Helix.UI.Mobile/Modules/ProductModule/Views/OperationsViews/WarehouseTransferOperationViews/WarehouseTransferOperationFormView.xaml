@@ -55,18 +55,18 @@
 
                     </Grid>
 
-                    <!--  Giriş Ambarı  -->
+                    <!--  Çıkış Ambarı  -->
                     <VerticalStackLayout Grid.Row="2" Padding="7">
-                        <Label FontSize="Medium" Text="Giriş Ambarı" />
+                        <Label FontSize="Medium" Text="Çıkış Ambarı" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry IsReadOnly="True" Placeholder="{Binding Warehouse.Name}" />
 
                         </Border>
                     </VerticalStackLayout>
 
-                    <!--  Çıkış Ambarı  -->
+                    <!--  Giriş Ambarı  -->
                     <VerticalStackLayout Grid.Row="3" Padding="7">
-                        <Label FontSize="Medium" Text="Çıkış Ambarı" />
+                        <Label FontSize="Medium" Text="Giriş Ambarı" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry IsReadOnly="True" Placeholder="{Binding SelectedWarehouse.Name}" />
 
