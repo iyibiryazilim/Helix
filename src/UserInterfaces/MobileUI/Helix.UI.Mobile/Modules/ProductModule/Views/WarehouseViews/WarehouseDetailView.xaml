@@ -302,14 +302,14 @@
                                                             <VerticalStackLayout Spacing="4">
                                                                 <Label Text="Belge Numarası"
                                                                        TextColor="{StaticResource Primary}" />
-                                                                <Label Text="11111111111" />
+                                                                <Label Text="{Binding DocumentNumber}" />
                                                                 <BoxView  HeightRequest="0.7"
                                                                           Color="{StaticResource Primary}" />
                                                             </VerticalStackLayout>
                                                             <VerticalStackLayout Spacing="4">
                                                                 <Label Text="Döküman İzleme Numarası"
                                                                        TextColor="{StaticResource Primary}" />
-                                                                <Label Text="11111111111" />
+                                                                <Label Text="{Binding DocumentTrackingNumber}" />
                                                                 <BoxView  HeightRequest="0.7"
                                                                           Color="{StaticResource Primary}" />
                                                             </VerticalStackLayout>

@@ -58,10 +58,8 @@ public partial class ProductListViewModel :BaseViewModel
         try
         {
             await Task.Delay(500);
-           // await Task.WhenAll(MainThread.InvokeOnMainThreadAsync(ReloadAsync), MainThread.InvokeOnMainThreadAsync(GetGroupsAsync));
-           Task t1= ReloadAsync();
-            Task t2 = GetGroupsAsync();
-            await Task.WhenAll(t1, t2);
+
+            await Task.WhenAll(ReloadAsync(),GetGroupsAsync());
 
 
 
@@ -150,6 +148,9 @@ public partial class ProductListViewModel :BaseViewModel
     [RelayCommand]
     public async Task ReloadAsync()
     {
+        if (IsBusy)
+            return; 
+
        
         try
         {
@@ -160,10 +161,11 @@ public partial class ProductListViewModel :BaseViewModel
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             CurrentPage = 0;
+            Items.Clear();
+
             var result = await _productService.GetObjects(httpClient, SearchText, GroupCode, OrderBy, CurrentPage, PageSize);
             if (result.Data.Any())
             {
-                Items.Clear();
                 foreach (Product item in result.Data)
                 {
                     await Task.Delay(100);

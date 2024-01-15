@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
+using Helix.UI.Mobile.Modules.ProductModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
@@ -144,12 +145,12 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 
 	async Task GetWarehouseTransactionAsync()
 	{
-		if (IsBusy) return;
 
 		try
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			var result = await _warehouseTransactionService.GetWarehouseTransactions(httpClient,Warehouse.Number, SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
@@ -176,20 +177,37 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 
 	async Task GetWarehouseDetailCardTypeCount()
 	{
-		var httpClient = _httpClientService.GetOrCreateHttpClient();
-		string query = $@"SELECT ITEMS.CARDTYPE as [CardType] ,COUNT(DISTINCT STOCKREF) as [ReferenceCount] FROM LV_003_01_STINVTOT AS STINVTOT
-                    LEFT JOIN LG_003_ITEMS AS ITEMS ON STINVTOT.STOCKREF = ITEMS.LOGICALREF
-                    WHERE INVENNO={Warehouse.Number} AND ITEMS.CARDTYPE IS NOT NULL
-                    GROUP BY ITEMS.CARDTYPE";
-		var result = await _customQueryService.GetObjectsAsync(httpClient, query);
 
-		if(result.Data.Any()) 
-			WarehouseDetailCardTypeCounts.Clear();
+        try
+        {
+            IsBusy = true;
+            IsRefreshing = true;
+            IsRefreshing = false;
 
-		foreach (var item in result.Data)
-		{
-			var obj = Mapping.Mapper.Map<WarehouseDetailCardTypeCount>(item);
-			WarehouseDetailCardTypeCounts.Add(obj);
-		}
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+			string query = new WarehouseQuery().WarehouseDetailCardTypeCount(Warehouse.Number);
+            var result = await _customQueryService.GetObjectsAsync(httpClient, query);
+
+            if (result.Data.Any())
+                WarehouseDetailCardTypeCounts.Clear();
+
+            foreach (var item in result.Data)
+            {
+                var obj = Mapping.Mapper.Map<WarehouseDetailCardTypeCount>(item);
+                WarehouseDetailCardTypeCounts.Add(obj);
+            }
+        }
+
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Warehouse Error:", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+        }
+        
 	}
 }

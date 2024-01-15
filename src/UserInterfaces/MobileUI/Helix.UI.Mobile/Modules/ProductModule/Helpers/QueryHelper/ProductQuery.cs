@@ -67,7 +67,7 @@ ORDER BY MaxDate DESC";
         [ProductReferenceId] = STLINE.STOCKREF,
         [ProductCode] = ITEMS.CODE,
         [ProductName] = ITEMS.NAME,
-        [SubUnitset] = UNITSET.CODE,
+        [SubUnitsetCode] = UNITSET.CODE,
         [SubUnitsetReferenceId] = UNITSET.LOGICALREF,
         [UnitsetCode] = BASEUNITSET.CODE,
         [UnitsetReferenceId] = BASEUNITSET.LOGICALREF,
