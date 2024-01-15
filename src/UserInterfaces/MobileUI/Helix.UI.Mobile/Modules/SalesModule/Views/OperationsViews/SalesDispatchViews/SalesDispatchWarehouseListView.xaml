@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews.SalesDispatchWarehouseListView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels"
+             x:DataType="viewModel:SalesDispatchWarehouseListViewModel"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}"
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWarehousesCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:WarehouseSelectContentView IsBusy="{Binding IsBusy}"
+                                            IsRefreshing="{Binding IsRefreshing}"
+                                            WarehouseList="{Binding Results}"
+                                            SearchCommand="{Binding SearchCommand}"
+                                            SortCommand="{Binding SortCommand}"
+                                            ReloadCommand="{Binding ReloadCommand}"
+                                            ToggleSelectionCommand="{Binding ToggleSelectionCommand}"/>
+</ContentPage>
