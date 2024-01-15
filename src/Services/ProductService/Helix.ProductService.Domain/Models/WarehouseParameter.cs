@@ -76,6 +76,28 @@ namespace Helix.ProductService.Domain.Models
             }
         }
 
+        int? subUnitsetReferenceId;
+        public int? SubUnitsetReferenceId
+        {
+            get => subUnitsetReferenceId;
+            set
+            {
+                subUnitsetReferenceId = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        string? subUnitsetCode;
+        public string? SubUnitsetCode
+        {
+            get => subUnitsetCode;
+            set
+            {
+                subUnitsetCode = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
