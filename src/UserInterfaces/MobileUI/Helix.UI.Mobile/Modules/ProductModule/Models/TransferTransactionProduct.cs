@@ -8,9 +8,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 		Product entryProduct;
 		[ObservableProperty]
 		Product exitProduct;
-
-		public bool EntryProductIsNull => EntryProduct is null;
- 
-		
-	}
+		[ObservableProperty]
+		bool entryProductIsNull = true;
+ 	}
 }
