@@ -240,6 +240,43 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task SelectAllAsync(bool isSelected)
+	{
+		try
+		{
+			IsBusy = true;
+
+			if (isSelected)
+			{
+				foreach (var item in Items)
+				{
+					item.IsSelected = true;
+					SelectedItems.Add(item);
+				}
+			}
+			else
+			{
+				foreach (var item in Items)
+				{
+					item.IsSelected = false;
+					SelectedItems.Remove(item);
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+		
+	}
+
 	
 	[RelayCommand]
 	public async Task GoToBackAsync()

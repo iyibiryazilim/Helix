@@ -30,7 +30,7 @@
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
         <Grid BackgroundColor="Transparent"
-              RowDefinitions="Auto, *, Auto"
+              RowDefinitions="Auto, Auto, *, Auto"
               RowSpacing="10">
 
             <Grid Grid.Row="0">
@@ -71,8 +71,24 @@
                     </Grid>
                 </Border>
             </Grid>
+            <HorizontalStackLayout Grid.Row="1"
+                                   Spacing="10"
+                                   Margin="5">
+                <CheckBox HeightRequest="18"
+                          WidthRequest="18"
+                          IsChecked="False"
+                          HorizontalOptions="Start"
+                          x:Name="checkBox">
+                    <CheckBox.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged" 
+                                                        Command="{Binding SelectAllCommand, Mode=TwoWay}" 
+                                                        CommandParameter="{Binding IsChecked, Source={x:Reference checkBox}}" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label Text="Tümünü Seç" />
+            </HorizontalStackLayout>
 
-            <RefreshView Grid.Row="1"
+            <RefreshView Grid.Row="2"
                          Command="{Binding ReloadCommand}"
                          IsRefreshing="{Binding IsRefreshing}"
                          RefreshColor="{StaticResource DarkPrimary}">
@@ -174,9 +190,9 @@
                 </CollectionView>
 
             </RefreshView>
-            <sharedViews:LoadingView Grid.Row="1" IsBusy="{Binding IsBusy}" />
+            <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
 
-            <Button Grid.Row="2"
+            <Button Grid.Row="3"
                     Margin="5"
                     Command="{Binding GoToWarehouseTransferOperationSelectedItemsListViewCommand}"
                     Text="İleri" />
