@@ -85,7 +85,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 				if (result.Data.Any())
 				{
 					Items.Clear();
-					foreach (var item in result.Data.Take(3))
+					foreach (var item in result.Data.Take(5))
 					{
 						await Task.Delay(20);
 						Items.Add(item);

@@ -52,7 +52,7 @@
                     <RoundRectangle CornerRadius="60,60,0,0" />
                 </Border.StrokeShape>
                 <ScrollView>
-                    <Grid RowDefinitions="Auto,Auto,Auto,*"
+                    <Grid RowDefinitions="Auto,Auto,*"
                           RowSpacing="5">
                         <VerticalStackLayout Grid.Row="0"
                                              Padding="20,30,20,10"
@@ -69,66 +69,18 @@
                                    HorizontalTextAlignment="Center"
                                    FontAttributes="Bold" />
                         </VerticalStackLayout>
-                        <VerticalStackLayout Grid.Row="1"
-                                             Spacing="10">
-                            <HorizontalStackLayout Padding="10"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   Spacing="50"
-                                                   VerticalOptions="Center">
-                                <VerticalStackLayout Spacing="4">
-                                    <Label FontAttributes="Bold"
-                                           FontSize="Medium"
-                                           HorizontalOptions="CenterAndExpand"
-                                           Text="0"
-                                           TextColor="{StaticResource Success}" />
-                                    <BoxView HeightRequest="0.1" />
-                                    <Label FontSize="Small"
-                                           HorizontalOptions="CenterAndExpand"
-                                           Text="Giriş"
-                                           TextColor="{StaticResource Gray300}" />
-                                </VerticalStackLayout>
-                                <VerticalStackLayout Spacing="4">
-                                    <Label FontAttributes="Bold"
-                                           FontSize="Medium"
-                                           HorizontalOptions="CenterAndExpand"
-                                           Text="0"
-                                           TextColor="{StaticResource Primary}" />
-                                    <BoxView HeightRequest="0.1" />
-                                    <Label FontSize="Small"
-                                           HorizontalOptions="CenterAndExpand"
-                                           Text="Stok"
-                                           TextColor="{StaticResource Gray300}" />
-                                </VerticalStackLayout>
-                                <VerticalStackLayout Spacing="4">
-                                    <Label FontAttributes="Bold"
-                                           FontSize="Medium"
-                                           HorizontalOptions="CenterAndExpand"
-                                           Text="0"
-                                           TextColor="{StaticResource Danger}" />
-                                    <BoxView HeightRequest="0.1" />
-                                    <Label FontSize="Small"
-                                           HorizontalOptions="CenterAndExpand"
-                                           Text="Çıkış"
-                                           TextColor="{StaticResource Gray300}" />
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                            <Button CornerRadius="12"
-                                    Padding="0"
-                                    Margin="5"
-                                    HorizontalOptions="Center"
-                                    WidthRequest="100"
-                                    HeightRequest="30"
-                                    FontSize="13"
-                                    BackgroundColor="{StaticResource Success}"
-                                    Text="Hızlı İşlemler"
-                                    Command="{Binding Source={x:Reference this},Path=OpenFastOperationBottomSheetCommand}"
-                                    FontAttributes="Bold"></Button>
-                        </VerticalStackLayout>
-                        <Frame Grid.Row="2"
-                               BackgroundColor="#EFECFB"
-                               HeightRequest="150"
-                               WidthRequest="350" />
-                        <VerticalStackLayout Grid.Row="3"
+                        <Button Grid.Row="1"
+                                WidthRequest="120"
+                                HeightRequest="30"
+                                Command="{Binding Source={x:Reference this},Path=OpenShowMoreBottomSheetCommand}"
+                                Padding="0"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                CornerRadius="12"
+                                FontSize="13"
+                                BackgroundColor="{StaticResource Primary}"
+                                Text="Daha Fazla"></Button>
+                        <VerticalStackLayout Grid.Row="2"
                                              Padding="10"
                                              Spacing="15">
                             <VerticalStackLayout Spacing="5">
@@ -138,21 +90,11 @@
                                            FontAttributes="Bold"
                                            VerticalOptions="Center"
                                            FontSize="Subtitle" />
-                                    <Button WidthRequest="120"
-                                            HeightRequest="30"
-                                            Command="{Binding Source={x:Reference this},Path=OpenShowMoreBottomSheetCommand}"
-                                            Padding="0"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="End"
-                                            CornerRadius="12"
-                                            FontSize="13"
-                                            Grid.Column="1"
-                                            BackgroundColor="{StaticResource Primary}"
-                                            Text="Daha Fazla"></Button>
                                 </Grid>
                             </VerticalStackLayout>
                             <ScrollView>
-                                <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= TransactionList}" EmptyView="Gösterilecek Hareket Yok..">
+                                <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= TransactionList}"
+                                                EmptyView="Gösterilecek Hareket Yok..">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="sharedModels:CurrentTransactionLine">
                                             <toolkit:Expander x:Name="expander"
