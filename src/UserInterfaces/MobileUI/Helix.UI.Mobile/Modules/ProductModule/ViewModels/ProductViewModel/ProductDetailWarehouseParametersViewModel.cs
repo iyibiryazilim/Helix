@@ -48,7 +48,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
         [ObservableProperty]
         int currentPage = 0;
         [ObservableProperty]
-        int pageSize = 100;
+        int pageSize = 10;
         [ObservableProperty]
         bool includeWaiting = true;
         [ObservableProperty]
@@ -92,7 +92,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
                     Items.Clear();
                     foreach (var item in result.Data)
                     {
-                        await Task.Delay(100);
+                        await Task.Delay(10);
                         Items.Add(item);
                     }
                 }
