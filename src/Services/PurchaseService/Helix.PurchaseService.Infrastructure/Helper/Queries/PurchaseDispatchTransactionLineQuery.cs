@@ -34,6 +34,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
@@ -73,6 +75,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
@@ -109,6 +113,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
@@ -150,6 +156,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
@@ -191,6 +199,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
@@ -232,6 +242,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
@@ -273,6 +285,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
@@ -314,6 +328,8 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
         [WarehouseName] = CAPIWHOUSE.NAME,
 		[CurrentReferenceId] = CLCARD.LOGICALREF,
 		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
 		[CurrentName] = CLCARD.DEFINITION_
         
         FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE

@@ -40,6 +40,27 @@ public class BaseTransactionLine : INotifyPropertyChanged
             NotifyPropertyChanged();
         }
     }
+    string? documentNumber;
+    public string? DocumentNumber
+    {
+        get => documentNumber;
+        set
+        {
+            documentNumber = value;
+            NotifyPropertyChanged();
+        }
+    }
+
+    string? documentTrackingNumber;
+    public string? DocumentTrackingNumber
+    {
+        get => documentTrackingNumber;
+        set
+        {
+            documentTrackingNumber = value;
+            NotifyPropertyChanged();
+        }
+    }
 
     DateTime? transactionDate;
     public DateTime? TransactionDate
