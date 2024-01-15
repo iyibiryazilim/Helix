@@ -72,11 +72,11 @@
                                 <Border Margin="10,0,10,0"
                                         Padding="10"
                                         BackgroundColor="{StaticResource White}"
-                                        HeightRequest="85"
+                                        HeightRequest="110"
                                         StrokeShape="RoundRectangle 10">
 
-                                    <Grid ColumnDefinitions="Auto, *, Auto">
-                                        <Border Grid.Column="0"
+                                    <Grid ColumnDefinitions="Auto, *, Auto" >
+                                        <Border Grid.Column="0" 
                                                 Padding="0,0,10,0"
                                                 StrokeThickness="0">
                                             <toolkit:AvatarView BackgroundColor="#E6E7F6"
@@ -84,7 +84,7 @@
                                                                 HorizontalOptions="Start"
                                                                 Text="{Binding WarehouseNumber}" />
                                         </Border>
-                                        <VerticalStackLayout Grid.Column="1"
+                                        <VerticalStackLayout Grid.Column="1" 
                                                              Padding="5"
                                                              Spacing="5"
                                                              VerticalOptions="Center">
@@ -93,18 +93,66 @@
                                                    LineBreakMode="TailTruncation"
                                                    MaxLines="1"
                                                    Text="{Binding WarehouseName}" />
-                                            <HorizontalStackLayout >
-                                                <Border>
-                                                    <Label></Label>
+                                            <Grid ColumnDefinitions="*,*,*"
+                                                  ColumnSpacing="5">
+
+                                                <Border Grid.Column="0"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        BackgroundColor="#E6E7F6" StrokeThickness="0">
+                                                    <VerticalStackLayout>
+                                                        <Label Text="{Binding MinLevel}" 
+                                                               HorizontalOptions="Center" TextColor="{StaticResource Success}"></Label>
+                                                        <Label Text="Min"
+                                                               HorizontalOptions="Center"
+                                                               TextColor="{StaticResource Success}"></Label>
+                                                    </VerticalStackLayout>
                                                 </Border>
-                                                <Border>
-                                                    <Label></Label>
+                                                <Border Grid.Column="1"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        BackgroundColor="#E6E7F6"
+                                                        StrokeThickness="0">
+                                                    <VerticalStackLayout>
+                                                        <Label Text="{Binding SafeLevel}"
+                                                               TextColor="{StaticResource Info}"
+                                                               HorizontalOptions="Center"></Label>
+                                                        <Label Text="Güvenli"
+                                                               HorizontalOptions="Center"
+                                                               TextColor="{StaticResource Info}"></Label>
+                                                    </VerticalStackLayout>
                                                 </Border>
-                                                <Border>
-                                                    <Label></Label>
+                                                <Border Grid.Column="2"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        BackgroundColor="#E6E7F6"
+                                                        StrokeThickness="0">
+                                                    <VerticalStackLayout>
+                                                        <Label Text="{Binding MaxLevel}"
+                                                               TextColor="{StaticResource Danger}"
+                                                               HorizontalOptions="Center"></Label>
+                                                        <Label Text="Max"
+                                                               TextColor="{StaticResource Danger}"
+                                                               HorizontalOptions="Center"></Label>
+                                                    </VerticalStackLayout>
                                                 </Border>
-                                            </HorizontalStackLayout>
+
+
+                                            </Grid>
                                         </VerticalStackLayout>
+                                        <Border Grid.Column="2"
+                                                Padding="0,15,5,0"
+                                                StrokeThickness="0">
+                                            <VerticalStackLayout  >
+
+                                                <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                                    CornerRadius="50"
+                                                                    HorizontalOptions="Center"
+                                                                    Text="{Binding StockQuantity}" />
+                                                <Label Text="Stok Miktarı"
+                                                       Padding="3"
+                                                      ></Label>
+                                            </VerticalStackLayout>
+                                            
+                                        </Border>
+
 
                                     </Grid>
                                 </Border>

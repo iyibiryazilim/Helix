@@ -27,8 +27,9 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
         [StockQuantity] = ISNULL((SELECT SUM(DISTINCT ONHAND) FROM LV_00{FirmNumber}_0{PeriodNumber}_STINVTOT AS STINVTOT WHERE STINVTOT.STOCKREF = {id} AND STINVTOT.INVENNO = WAREHOUSE.NR),0)
         FROM LG_00{FirmNumber}_INVDEF AS INVDEF
         LEFT JOIN L_CAPIWHOUSE AS WAREHOUSE ON INVDEF.INVENNO = WAREHOUSE.NR AND WAREHOUSE.FIRMNR = {FirmNumber}
+        WHERE ITEMREF = {id} AND (WAREHOUSE.NAME LIKE '%{search}%')
         {orderBy}
-	    OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY;";
+	    OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
             return query;
         }
     }
