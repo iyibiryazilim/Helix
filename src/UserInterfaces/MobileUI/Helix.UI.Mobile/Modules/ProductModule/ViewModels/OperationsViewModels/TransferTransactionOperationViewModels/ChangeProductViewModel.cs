@@ -12,10 +12,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 		[ObservableProperty]
 		TransferTransactionModel transferTransactionModel;
 
-        public ChangeProductViewModel()
-        {
+		public ChangeProductViewModel()
+		{
 			Title = "Malzeme seçimi";
- 
+
 		}
 
 		[RelayCommand]
@@ -30,7 +30,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 
 		async Task DeleteQuantity(TransferTransactionProduct item)
 		{
-			if (item.ChangedQuantity - 1>=0)
+			if (item.ChangedQuantity - 1 >= 0)
 			{
 				item.ChangedQuantity--;
 				item.EntryProduct.StockQuantity--;
@@ -49,12 +49,16 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			});
 		}
 
-        [RelayCommand]
+		[RelayCommand]
 		async Task GoToEntryWarehouseSelect()
 		{
 			if (TransferTransactionModel.Products.Where(x => x.EntryProduct == null).Any())
 			{
 				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Malzeme seçimi yapmanız gerekmektedir", "Tamam");
+			}
+			else if (TransferTransactionModel.Products.Where(x => x.ChangedQuantity == 0).Any())
+			{
+				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için miktar 0'dan farkı olmalı.", "Tamam");
 			}
 			else
 			{

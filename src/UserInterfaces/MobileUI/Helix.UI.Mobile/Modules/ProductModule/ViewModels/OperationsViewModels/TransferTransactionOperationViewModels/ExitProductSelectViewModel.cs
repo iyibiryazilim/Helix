@@ -63,15 +63,18 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 		[RelayCommand]
 		private void ToggleSelection(WarehouseTotal item)
 		{
-			item.IsSelected = !item.IsSelected;
-			if (item.IsSelected)
+			if(item.OnHand > 0)
 			{
-				SelectedProducts.Add(item);
-			}
-			else
-			{
-				SelectedProducts.Remove(item);
-			}
+				item.IsSelected = !item.IsSelected;
+				if (item.IsSelected)
+				{
+					SelectedProducts.Add(item);
+				}
+				else
+				{
+					SelectedProducts.Remove(item);
+				}
+			} 
 		}
 		async Task LoadData()
 		{
@@ -110,8 +113,12 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 				{
 					foreach (WarehouseTotal item in result.Data)
 					{
-						Items.Add(item);
-						Results.Add(item);
+						if(item.OnHand != 0)
+						{
+							Items.Add(item);
+							Results.Add(item);
+						}
+					
 					}
 				}
 

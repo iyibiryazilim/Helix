@@ -28,7 +28,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 		public ObservableCollection<Warehouse> Items { get; } = new();
 		public ObservableCollection<Warehouse> Results { get; } = new();
 
- 
+
 		//Commands
 		public Command GetWarehousesCommand { get; }
 		public Command SearchCommand { get; }
@@ -88,15 +88,12 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 				IsRefreshing = true;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-
 				var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
 				foreach (Warehouse item in result.Data)
 				{
 					Items.Add(item);
 					Results.Add(item);
 				}
-
-
 			}
 			catch (Exception ex)
 			{
