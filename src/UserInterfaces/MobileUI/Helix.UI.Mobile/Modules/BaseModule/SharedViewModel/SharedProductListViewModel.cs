@@ -91,7 +91,7 @@ public partial class SharedProductListViewModel :BaseViewModel
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {
@@ -161,6 +161,7 @@ public partial class SharedProductListViewModel :BaseViewModel
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Search Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {
@@ -181,13 +182,17 @@ public partial class SharedProductListViewModel :BaseViewModel
 
             var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, Warehouse.Number, "1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
 
-            foreach (WarehouseTotal item in result.Data)
+            if(result.Data.Any())
             {
-                Items.Add(item);
-                Results.Add(item);
-            }
+                Items.Clear();
+                Results.Clear();
 
-
+				foreach (WarehouseTotal item in result.Data)
+				{
+					Items.Add(item);
+					Results.Add(item);
+				}
+			}
         }
         catch (Exception ex)
         {

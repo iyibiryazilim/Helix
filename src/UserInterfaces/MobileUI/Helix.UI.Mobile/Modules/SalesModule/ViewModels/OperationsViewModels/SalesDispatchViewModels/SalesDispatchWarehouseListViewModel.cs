@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -54,7 +55,7 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 		try
 		{
 			await Task.Delay(500);
-			await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
+			await MainThread.InvokeOnMainThreadAsync(GetWarehousesListAsync);
 
 		}
 		catch (Exception ex)
@@ -69,7 +70,7 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 
 		}
 	}
-	async Task GetWarehousesAsync()
+	async Task GetWarehousesListAsync()
 	{
 		if (IsBusy)
 			return;
@@ -251,5 +252,34 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 		{
 			SelectedWarehouse = item;
 		}
+	}
+
+	[RelayCommand]
+	async Task GoToSalesDispatchListViewAsync()
+	{
+		if (IsBusy)
+			return;
+
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync($"{nameof(SalesDispatchListView)}", new Dictionary<string, object>
+			{
+				[nameof(Warehouse)] = SelectedWarehouse
+			});
+
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+		
 	}
 }

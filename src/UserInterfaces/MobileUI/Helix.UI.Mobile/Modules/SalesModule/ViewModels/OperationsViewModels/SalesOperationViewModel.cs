@@ -47,5 +47,27 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels
 				IsBusy = false;
 			}
 		}
+
+        [RelayCommand]
+        async Task GoToSalesDispatchWarehouseListViewAsync()
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+
+                await Shell.Current.GoToAsync($"{nameof(SalesDispatchWarehouseListView)}");
+            }
+            catch(Exception ex)
+            {
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

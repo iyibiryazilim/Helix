@@ -7,7 +7,6 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels"
              x:DataType="viewModel:SalesDispatchListViewModel"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             x:Name="this"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False"
              Title="{Binding Title}">
@@ -16,6 +15,9 @@
     </Shell.BackButtonBehavior>
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
                                                GoToOperationFormCommand="{Binding GoToOperationFormCommand}"
+                                               IsBusy="{Binding IsBusy}"
+                                               IsRefreshing="{Binding IsRefreshing}"
+                                               SearchCommand="{Binding SearchCommand}"
                                                ProductModelList="{Binding Items}"
                                                RemoveItemCommand="{Binding RemoveItemCommand}"
                                                DeleteQuantityCommand="{Binding DeleteQuantityCommand}"
