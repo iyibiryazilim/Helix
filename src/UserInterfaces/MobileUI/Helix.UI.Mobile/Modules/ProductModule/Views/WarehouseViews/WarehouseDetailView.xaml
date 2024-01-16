@@ -241,18 +241,24 @@
                                                                            FontAttributes="Bold"></Label>
                                                                     <Label Text="{Binding ProductName}"
                                                                            FontSize="12"></Label>
-                                                                    <Label TextColor="{StaticResource Primary}">
-                                                                        <Label.FormattedText>
-                                                                            <FormattedString>
-                                                                                <Span Text="{Binding  Quantity, StringFormat='{0:N2}'}"
+                                                                    <Border Padding="10,5"
+                                                                            BackgroundColor="{StaticResource Warning}"
+                                                                            HorizontalOptions="Start"
+                                                                            StrokeThickness="0"
+                                                                            StrokeShape="RoundRectangle 5">
+                                                                        <Label TextColor="{StaticResource Primary}" FontSize="10">
+                                                                            <Label.FormattedText>
+                                                                                <FormattedString>
+                                                                                    <Span Text="{Binding  Quantity, StringFormat='{0:N2}'}"
                                                                                       FontAttributes="Bold" />
-                                                                                <Span Text=" "
+                                                                                    <Span Text=" "
                                                                                       FontAttributes="Bold" />
-                                                                                <Span Text="{Binding SubUnitsetCode}"
+                                                                                    <Span Text="{Binding SubUnitsetCode}"
                                                                                       FontAttributes="Bold" />
-                                                                            </FormattedString>
-                                                                        </Label.FormattedText>
-                                                                    </Label>
+                                                                                </FormattedString>
+                                                                            </Label.FormattedText>
+                                                                        </Label>
+                                                                    </Border>
                                                                 </VerticalStackLayout>
                                                                 <Image Grid.Column="3"
                                                                        HorizontalOptions="Center"
@@ -302,14 +308,14 @@
                                                             <VerticalStackLayout Spacing="4">
                                                                 <Label Text="Belge Numarası"
                                                                        TextColor="{StaticResource Primary}" />
-                                                                <Label Text="11111111111" />
+                                                                <Label Text="{Binding DocumentNumber}" />
                                                                 <BoxView  HeightRequest="0.7"
                                                                           Color="{StaticResource Primary}" />
                                                             </VerticalStackLayout>
                                                             <VerticalStackLayout Spacing="4">
                                                                 <Label Text="Döküman İzleme Numarası"
                                                                        TextColor="{StaticResource Primary}" />
-                                                                <Label Text="11111111111" />
+                                                                <Label Text="{Binding DocumentTrackingNumber}" />
                                                                 <BoxView  HeightRequest="0.7"
                                                                           Color="{StaticResource Primary}" />
                                                             </VerticalStackLayout>

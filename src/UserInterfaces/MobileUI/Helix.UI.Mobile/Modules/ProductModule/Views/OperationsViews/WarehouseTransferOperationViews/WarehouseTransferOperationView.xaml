@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationView"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
-    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-    xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
-    xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
-    Title="{Binding Title}"
-    x:DataType="viewModel:WarehouseTransferOperationViewModel"
-    BackgroundColor="{StaticResource Primary}"
-    Shell.TabBarIsVisible="False">
+<ContentPage x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
+             Title="{Binding Title}"
+             x:DataType="viewModel:WarehouseTransferOperationViewModel"
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding GoToBackCommand}" />
     </Shell.BackButtonBehavior>
@@ -24,67 +23,75 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
-    <Border
-        Padding="5,20,5,10"
-        BackgroundColor="{StaticResource WhiteSmoke}"
-        StrokeThickness="0">
+    <Border Padding="5,20,5,10"
+            BackgroundColor="{StaticResource WhiteSmoke}"
+            StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid
-            BackgroundColor="Transparent"
-            RowDefinitions="Auto, *, Auto"
-            RowSpacing="10">
+        <Grid BackgroundColor="Transparent"
+              RowDefinitions="Auto, Auto, *, Auto"
+              RowSpacing="10">
 
             <Grid Grid.Row="0">
                 <Border StrokeShape="RoundRectangle 20">
                     <Grid ColumnDefinitions="Auto, *, Auto">
                         <Grid Grid.Column="0" Padding="20,0,0,0">
-                            <ImageButton
-                                Aspect="AspectFit"
-                                HeightRequest="25"
-                                WidthRequest="25">
+                            <ImageButton Aspect="AspectFit"
+                                         HeightRequest="25"
+                                         WidthRequest="25">
                                 <ImageButton.Source>
-                                    <FontImageSource
-                                        FontFamily="FAS"
-                                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Barcode}"
-                                        Color="{StaticResource Primary}" />
+                                    <FontImageSource FontFamily="FAS"
+                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Barcode}"
+                                                     Color="{StaticResource Primary}" />
                                 </ImageButton.Source>
                             </ImageButton>
                         </Grid>
                         <Grid Grid.Column="1">
                             <SearchBar x:Name="searchBar" Placeholder="Barkod Giriniz">
                                 <SearchBar.Behaviors>
-                                    <toolkit:EventToCommandBehavior
-                                        Command="{Binding SearchCommand}"
-                                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                                        EventName="TextChanged" />
+                                    <toolkit:EventToCommandBehavior Command="{Binding SearchCommand}"
+                                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                                                                    EventName="TextChanged" />
                                 </SearchBar.Behaviors>
                             </SearchBar>
                         </Grid>
                         <Grid Grid.Column="2" Padding="20,0,20,0">
-                            <ImageButton
-                                Aspect="AspectFit"
-                                Command="{Binding SortCommand}"
-                                HeightRequest="25"
-                                WidthRequest="25">
+                            <ImageButton Aspect="AspectFit"
+                                         Command="{Binding SortCommand}"
+                                         HeightRequest="25"
+                                         WidthRequest="25">
                                 <ImageButton.Source>
-                                    <FontImageSource
-                                        FontFamily="FAS"
-                                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
-                                        Color="{StaticResource Primary}" />
+                                    <FontImageSource FontFamily="FAS"
+                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                                     Color="{StaticResource Primary}" />
                                 </ImageButton.Source>
                             </ImageButton>
                         </Grid>
                     </Grid>
                 </Border>
             </Grid>
+            <HorizontalStackLayout Grid.Row="1"
+                                   Spacing="10"
+                                   Margin="5">
+                <CheckBox HeightRequest="18"
+                          WidthRequest="18"
+                          IsChecked="False"
+                          HorizontalOptions="Start"
+                          x:Name="checkBox">
+                    <CheckBox.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged" 
+                                                        Command="{Binding SelectAllCommand, Mode=TwoWay}" 
+                                                        CommandParameter="{Binding IsChecked, Source={x:Reference checkBox}}" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label Text="Tümünü Seç" />
+            </HorizontalStackLayout>
 
-            <RefreshView
-                Grid.Row="1"
-                Command="{Binding ReloadCommand}"
-                IsRefreshing="{Binding IsRefreshing}"
-                RefreshColor="{StaticResource DarkPrimary}">
+            <RefreshView Grid.Row="2"
+                         Command="{Binding ReloadCommand}"
+                         IsRefreshing="{Binding IsRefreshing}"
+                         RefreshColor="{StaticResource DarkPrimary}">
 
                 <CollectionView ItemsSource="{Binding Items}">
                     <CollectionView.ItemsLayout>
@@ -95,99 +102,85 @@
                             <SwipeView Margin="3">
                                 <SwipeView.LeftItems>
                                     <SwipeItems Mode="Execute">
-                                        <SwipeItem
-                                            BackgroundColor="{StaticResource Success}"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationViewModel}}, Path=ToggleSelectionCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Text="Ürün Seç" />
+                                        <SwipeItem BackgroundColor="{StaticResource Success}"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationViewModel}}, Path=ToggleSelectionCommand}"
+                                                   CommandParameter="{Binding .}"
+                                                   Text="Ürün Seç" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
 
-                                <Border
-                                    Margin="5,0,5,0"
-                                    Padding="5"
-                                    BackgroundColor="{StaticResource White}"
-                                    HeightRequest="85"
-                                    StrokeShape="RoundRectangle 10">
+                                <Border Margin="5,0,5,0"
+                                        Padding="5"
+                                        BackgroundColor="{StaticResource White}"
+                                        
+                                        StrokeShape="RoundRectangle 10">
                                     <Border.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding IsSelected}"
-                                            TargetType="Border"
-                                            Value="True">
+                                        <DataTrigger Binding="{Binding IsSelected}"
+                                                     TargetType="Border"
+                                                     Value="True">
                                             <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
                                         </DataTrigger>
                                     </Border.Triggers>
                                     <Grid ColumnDefinitions=".20*,.80*" ColumnSpacing="5">
-                                        <Border
-                                            Grid.Column="0"
-                                            Padding="10"
-                                            HorizontalOptions="Start"
-                                            StrokeShape="RoundRectangle 10"
-                                            StrokeThickness="0"
-                                            WidthRequest="75">
+                                        <Border Grid.Column="0"
+                                                Padding="10"
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 10"
+                                                StrokeThickness="0"
+                                                WidthRequest="75">
                                             <Image Aspect="AspectFit" Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                         </Border>
-                                        <VerticalStackLayout
-                                            Grid.Column="1"
-                                            Padding="5"
-                                            HorizontalOptions="Start"
-                                            Spacing="5">
-                                            <Label
-                                                FontAttributes="Bold"
-                                                FontSize="Body"
-                                                LineBreakMode="TailTruncation"
-                                                Text="{Binding ProductCode}">
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="5"
+                                                             HorizontalOptions="Start"
+                                                             Spacing="5">
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="Body"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding ProductCode}">
                                                 <Label.Style>
                                                     <Style TargetType="Label">
                                                         <Style.Triggers>
-                                                            <DataTrigger
-                                                                Binding="{Binding IsSelected}"
-                                                                TargetType="Label"
-                                                                Value="True">
+                                                            <DataTrigger Binding="{Binding IsSelected}"
+                                                                         TargetType="Label"
+                                                                         Value="True">
                                                                 <Setter Property="TextColor" Value="White" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Label.Style>
                                             </Label>
-                                            <Label
-                                                FontSize="Caption"
-                                                LineBreakMode="TailTruncation"
-                                                Text="{Binding ProductName}">
+                                            <Label FontSize="Caption"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding ProductName}">
                                                 <Label.Style>
                                                     <Style TargetType="Label">
                                                         <Style.Triggers>
-                                                            <DataTrigger
-                                                                Binding="{Binding IsSelected}"
-                                                                TargetType="Label"
-                                                                Value="True">
+                                                            <DataTrigger Binding="{Binding IsSelected}"
+                                                                         TargetType="Label"
+                                                                         Value="True">
                                                                 <Setter Property="TextColor" Value="White" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Label.Style>
                                             </Label>
-                                            <Label TextColor="{StaticResource Primary}">
-                                                <Label.Style>
-                                                    <Style TargetType="Label">
-                                                        <Style.Triggers>
-                                                            <DataTrigger
-                                                                Binding="{Binding IsSelected}"
-                                                                TargetType="Label"
-                                                                Value="True">
-                                                                <Setter Property="TextColor" Value="{StaticResource Warning}" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Label.Style>
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="{Binding OnHand, StringFormat='{0:N2} '}" />
-                                                        <Span Text=" " />
-                                                        <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
+                                            <Border Padding="10,5"
+                                                    BackgroundColor="{StaticResource Warning}"
+                                                    HorizontalOptions="Start"
+                                                    StrokeShape="RoundRectangle 5"
+                                                    StrokeThickness="0">
+                                                <Label TextColor="{StaticResource Primary}" FontSize="10">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontAttributes="Bold" Text="{Binding OnHand, StringFormat='{0:N2} '}" />
+                                                            <Span Text=" " />
+                                                            <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Border>
+
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Border>
@@ -197,13 +190,12 @@
                 </CollectionView>
 
             </RefreshView>
-            <sharedViews:LoadingView Grid.Row="1" IsBusy="{Binding IsBusy}" />
+            <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
 
-            <Button
-                Grid.Row="2"
-                Margin="5"
-                Command="{Binding GoToWarehouseTransferOperationSelectedItemsListViewCommand}"
-                Text="İleri" />
+            <Button Grid.Row="3"
+                    Margin="5"
+                    Command="{Binding GoToWarehouseTransferOperationSelectedItemsListViewCommand}"
+                    Text="İleri" />
         </Grid>
     </Border>
 </ContentPage>

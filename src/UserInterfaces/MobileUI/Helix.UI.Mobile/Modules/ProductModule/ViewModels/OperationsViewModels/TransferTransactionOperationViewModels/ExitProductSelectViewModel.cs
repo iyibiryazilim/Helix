@@ -106,11 +106,15 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, TransferTransactionModel.ExitWarehouse.Number, "1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
-				foreach (WarehouseTotal item in result.Data)
+				if (result.Data.Any())
 				{
-					Items.Add(item);
-					Results.Add(item);
+					foreach (WarehouseTotal item in result.Data)
+					{
+						Items.Add(item);
+						Results.Add(item);
+					}
 				}
+
 
 
 			}
@@ -276,10 +280,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 							Code = item.ProductCode,
 							Name = item.ProductName,
 							UnitsetCode = item.UnitsetCode,
-							UnitsetReferenceId = item.UnitsetReferenceId, 
+							UnitsetReferenceId = item.UnitsetReferenceId,
 							SubUnitsetCode = item.SubUnitsetCode,
 							SubUnitsetReferenceId = item.SubUnitsetReferenceId,
-							OnHand = item.OnHand 
+							OnHand = item.OnHand
 						}
 					});
 				}

@@ -132,8 +132,9 @@ public partial class WarehouseListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+            IsRefreshing = false;
 
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage = 0;
 			var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy,CurrentPage, PageSize);
 

@@ -261,6 +261,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSelectedLineListView>();
             mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationSelectWarehouseView>();
 			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerView>();
+			mauiAppBuilder.Services.AddTransient<SalesDispatchWarehouseListView>();
 
 
 
@@ -294,6 +295,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineSelectedLineListViewModel>();
             mauiAppBuilder.Services.AddTransient<ConsumableTransactionOperationSelectWarehouseViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerViewModel>();
+			mauiAppBuilder.Services.AddTransient<SalesDispatchWarehouseListViewModel>();
 
 
 
@@ -441,10 +443,10 @@ namespace Helix.UI.Mobile
  			mauiAppBuilder.Services.AddTransient<ExitProductSelectView>();
  			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectView>();
 			mauiAppBuilder.Services.AddTransient<TransferTransactionSummaryView>();
-			mauiAppBuilder.Services.AddTransient<ChangeProductView>();
+			mauiAppBuilder.Services.AddScoped<ChangeProductView>();
             mauiAppBuilder.Services.AddTransient<ProductDetailAlternativeProductListView>();
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListView>();
-
+			mauiAppBuilder.Services.AddTransient<EntryProductSelectView>();
 			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectView>();
 			 
 
@@ -502,9 +504,9 @@ namespace Helix.UI.Mobile
  			mauiAppBuilder.Services.AddTransient<ExitProductSelectViewModel>();
  			mauiAppBuilder.Services.AddTransient<ExitWarehouseSelectViewModel>();
 			mauiAppBuilder.Services.AddTransient<TransferTransactionSummaryViewModel>();
-			mauiAppBuilder.Services.AddTransient<ChangeProductViewModel>();
-
-            mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectViewModel>();
+			mauiAppBuilder.Services.AddScoped<ChangeProductViewModel>();
+			mauiAppBuilder.Services.AddTransient<EntryProductSelectViewModel>();
+			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailAlternativeProductListViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListViewModel>();
 

@@ -30,41 +30,32 @@
               RowDefinitions="Auto, *"
               RowSpacing="10">
             <Grid Grid.Row="0">
-                <Border StrokeShape="RoundRectangle 10"
-                        BackgroundColor="{StaticResource White}"
-                        Padding="10,0,10,0"
-                        Margin="10,0,10,0"
-                        HeightRequest="85">
+                  <VerticalStackLayout HorizontalOptions="Center">
+         <Border HorizontalOptions="Center" HeightRequest="82" WidthRequest="76" StrokeThickness="0">
+             
+        
+             <Image Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    Source="{Binding Product.Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+         </Border>
+         <VerticalStackLayout Grid.Column="1"
+                              Padding="5"
+                              Spacing="5"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Start">
+             <Label Text="{Binding Product.Code}"
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    LineBreakMode="TailTruncation"
+                    FontAttributes="Bold"></Label>
+             <Label Text="{Binding Product.Name}"
+                    FontSize="Subtitle"
+                    HorizontalOptions="Center"
+                    LineBreakMode="TailTruncation"></Label>
+         </VerticalStackLayout>
+     </VerticalStackLayout>
+    
 
-                    <Grid ColumnDefinitions="auto,*,auto">
-                        <Border Grid.Column="0"
-                                StrokeShape="RoundRectangle 10"
-                                WidthRequest="75"
-                                HeightRequest="82"
-                                HorizontalOptions="Start"
-                                Padding="10"
-                                StrokeThickness="0">
-                            <Image Aspect="AspectFit"
-                                   Source="{Binding Product.Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
-                        </Border>
-                        <VerticalStackLayout Grid.Column="1"
-                                             Padding="5"
-                                             Spacing="5"
-                                             VerticalOptions="Center"
-                                             HorizontalOptions="Start">
-                            <Label Text="{Binding Product.Code}"
-                                   FontSize="Body"
-                                   LineBreakMode="TailTruncation"
-                                   FontAttributes="Bold"></Label>
-                            <Label Text="{Binding Product.Name}"
-                                   FontSize="Caption"
-                                   LineBreakMode="TailTruncation"></Label>
-                        </VerticalStackLayout>
-
-                    </Grid>
-
-
-                </Border>
             </Grid>
             <StackLayout Grid.Row="1">
                 <CarouselView  VerticalOptions="StartAndExpand"
@@ -79,7 +70,7 @@
                             <Grid RowDefinitions="10*,50*,40*">
                                 <Grid Grid.Row="0"
                                       Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
-                                    <!-- En -->
+                                    <!-- Öncelik -->
                                     <VerticalStackLayout Grid.Row="0"
                                                          Padding="7">
 
@@ -116,7 +107,7 @@
                                             </Border.Shadow>
                                         </Border>
                                     </VerticalStackLayout>
-                                    <!-- Birim -->
+                                    <!-- Müşteri Kodu Adı -->
                                     <VerticalStackLayout Grid.Row="1"
                                                          Padding="7">
 
@@ -134,14 +125,15 @@
                                                     </Image.Source>
 
                                                 </Image>
-                                                <Entry Placeholder="Müşteri Kodu Adı : "
+                                                <Entry Placeholder="Müşteri : "
                                                        Grid.Column="1"
                                                        PlaceholderColor="Black"
                                                        TextColor="{StaticResource Gray500}"
                                                        IsEnabled="False" />
 
-                                                <Label TextColor="{StaticResource Primary}" Grid.Column="2">
-                                                   
+                                                <Label TextColor="{StaticResource Primary}" LineBreakMode="TailTruncation" VerticalOptions="Center"
+                                                       Grid.Column="2">
+
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{Binding CurrentCode, StringFormat='{0:N2}'}"
@@ -153,8 +145,8 @@
 
                                                         </FormattedString>
                                                     </Label.FormattedText>
-                                                    </Label>
-                                                    
+                                                </Label>
+
 
                                             </Grid>
                                             <Border.Shadow>
@@ -164,8 +156,45 @@
                                             </Border.Shadow>
                                         </Border>
                                     </VerticalStackLayout>
+                                    <!-- Müşteri Kodu Adı -->
+                                    <VerticalStackLayout Grid.Row="2"
+                                                         Padding="7">
+
+                                        <Border StrokeShape="RoundRectangle 5"
+                                                Padding="2">
+                                            <Grid ColumnDefinitions="Auto,Auto,*,Auto">
+                                                <Image Grid.Column="0"
+                                                       HeightRequest="17"
+                                                       WidthRequest="17"
+                                                       Margin="10,0,3,0">
+                                                    <Image.Source>
+                                                        <FontImageSource FontFamily="FAS"
+                                                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.User}"></FontImageSource>
+                                                    </Image.Source>
+
+                                                </Image>
+                                                <Entry Placeholder="Kodu: "
+                                                       Grid.Column="1"
+                                                       PlaceholderColor="Black"
+                                                       TextColor="{StaticResource Gray500}"
+                                                       IsEnabled="False" />
+
+                                                <Label TextColor="{StaticResource Primary}" VerticalOptions="Center"
+                                                       Grid.Column="2" Text="{Binding CustomerSupplierCode}" FontAttributes="Bold">
+
+                                                  
+                                                </Label>
 
 
+                                            </Grid>
+                                            <Border.Shadow>
+                                                <Shadow Brush="{StaticResource Primary}"
+                                                        Radius="40"
+                                                        Opacity="0.1" />
+                                            </Border.Shadow>
+                                        </Border>
+                                    </VerticalStackLayout>
                                     <!-- Barkod -->
                                     <VerticalStackLayout Grid.Row="3"
                                                          Padding="7">
