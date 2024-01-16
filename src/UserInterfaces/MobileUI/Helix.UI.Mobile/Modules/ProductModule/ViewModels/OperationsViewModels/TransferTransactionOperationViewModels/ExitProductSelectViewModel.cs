@@ -283,7 +283,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 							UnitsetReferenceId = item.UnitsetReferenceId,
 							SubUnitsetCode = item.SubUnitsetCode,
 							SubUnitsetReferenceId = item.SubUnitsetReferenceId,
-							OnHand = item.OnHand
+							OnHand = item.OnHand,
+							StockQuantity = item.OnHand,
 						}
 					});
 				}

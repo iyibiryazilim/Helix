@@ -21,14 +21,21 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 		[RelayCommand]
 		async Task AddQuantity(TransferTransactionProduct item)
 		{
-			item.EntryProduct.QuantityCounter++; 
+			item.ChangedQuantity++;
+			item.EntryProduct.StockQuantity++;
+			item.ExitProduct.StockQuantity--;
+
 		}
 		[RelayCommand]
 
 		async Task DeleteQuantity(TransferTransactionProduct item)
 		{
-			if (item.EntryProduct.QuantityCounter != 1)
-				item.EntryProduct.QuantityCounter--;
+			if (item.ChangedQuantity - 1>=0)
+			{
+				item.ChangedQuantity--;
+				item.EntryProduct.StockQuantity--;
+				item.ExitProduct.StockQuantity++;
+			}
 
 
 		}
