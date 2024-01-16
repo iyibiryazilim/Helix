@@ -29,7 +29,7 @@ public partial class ProductDetailWarehouseTotalViewModel : BaseViewModel
 
     public ProductDetailWarehouseTotalViewModel(IHttpClientService httpClientService,IWarehouseTotalService warehouseTotalService)
     {
-        Title = "Warehouse Total";
+        Title = "Ambar Toplamları";
         _httpClientService = httpClientService;
         _warehouseTotalService = warehouseTotalService;
 
