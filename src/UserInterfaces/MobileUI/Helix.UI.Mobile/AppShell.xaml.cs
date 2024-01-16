@@ -150,7 +150,9 @@ public partial class AppShell : Shell
     Routing.RegisterRoute(nameof(EntryWarehouseSelectView), typeof(EntryWarehouseSelectView));
 		Routing.RegisterRoute(nameof(SalesDispatchWarehouseListView), typeof(SalesDispatchWarehouseListView));
 		Routing.RegisterRoute(nameof(EntryProductSelectView), typeof(EntryProductSelectView));
+        Routing.RegisterRoute(nameof(DispatchBySalesOrderWarehouseListView), typeof(DispatchBySalesOrderWarehouseListView));
 
-	}
+
+    }
 }
 

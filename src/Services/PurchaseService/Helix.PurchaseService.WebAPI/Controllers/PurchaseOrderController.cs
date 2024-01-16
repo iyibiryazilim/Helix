@@ -103,7 +103,45 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 
 		}
 
-		[HttpGet("Current/Code/{code}")]
+
+        [HttpGet("CurrentAndWarehouse/Id/{id:int}&{number:int}")]
+        public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetByCurrentIdAndWarehouseNumber(int id,int number, [FromQuery] string search = "", string orderBy = "datedesc", int page = 0, int pageSize = 20)
+        {
+            var result = new DataResult<IEnumerable<PurchaseOrder>>();
+            switch (orderBy)
+            {
+                case "currentcodedesc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.CurrentCodeDesc, id, number, page, pageSize);
+                    return result;
+                case "currentcodeasc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.CurrentCodeAsc, id, number, page, pageSize);
+                    return result;
+                case "currentnamedesc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.CurrentNameDesc, id, number, page, pageSize);
+                    return result;
+                case "currentnameasc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.CurrentNameAsc, id, number, page, pageSize);
+                    return result;
+                case "dateasc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.DateAsc, id, number, page, pageSize);
+                    return result;
+                case "datedesc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.DateDesc, id, number, page, pageSize);
+                    return result;
+                case "nettotalasc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.NetTotalDesc, id, number, page, pageSize);
+                    return result;
+                case "nettotaldesc":
+                    result = await _purchaseOrderService.GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, PurchaseOrdersOrderBy.NetTotalAsc, id, number,page, pageSize);
+                    return result;
+                default:
+                    result.Message = "OrderBy wrong text";
+                    return result;
+            }
+
+        }
+
+        [HttpGet("Current/Code/{code}")]
 		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetByCurrentCode(string code, [FromQuery] string search = "", string orderBy = "datedesc", int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<PurchaseOrder>>();

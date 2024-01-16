@@ -10,8 +10,10 @@ namespace Helix.PurchaseService.Application.Services
 		public Task<DataResult<PurchaseOrder>> GetPurchaseOrderById(int id);
 
 		public Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentId(string search, string orderBy, int id, int currentPage, int pageSize);
+        public Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentIdAndWarehouseNumber(string search, string orderBy, int id, int number, int currentPage, int pageSize);
 
-		public Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentCode(string search, string orderBy, string code, int currentPage, int pageSize);
+
+        public Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentCode(string search, string orderBy, string code, int currentPage, int pageSize);
 
 
 	}

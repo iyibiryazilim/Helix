@@ -15,13 +15,16 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Services
 		/// <returns>müşteri/tedarikçi Id'ye göre fişleri getirir </returns>
 		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentId(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int id, int page, int pageSize);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="httpClient"></param>
-		/// <param name="Code">müşteri/tedarikçi kodu</param>
-		/// <returns>müşteri/tedarikçi koduna göre fişleri getirir </returns>
-		Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, string code, int page, int pageSize);
+        Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentIdAndWarehouseNumber(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int id,int WarehouseNumber, int page, int pageSize);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="Code">müşteri/tedarikçi kodu</param>
+        /// <returns>müşteri/tedarikçi koduna göre fişleri getirir </returns>
+        Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, string code, int page, int pageSize);
 		/// <summary>
 		/// 
 		/// </summary>

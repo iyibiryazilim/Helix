@@ -18,6 +18,7 @@ using static Helix.UI.Mobile.Modules.SalesModule.DataStores.SalesOrderDataStore;
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 
 [QueryProperty(nameof(Current), nameof(Current))]
+[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 
 public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 {
@@ -45,7 +46,10 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 
 	[ObservableProperty]
 	Customer current;
-	public DispatchBySalesOrderFicheViewModel(IHttpClientService httpClientService, ISalesOrderService salesOrderService)
+
+    [ObservableProperty]
+    Warehouse warehouse;
+    public DispatchBySalesOrderFicheViewModel(IHttpClientService httpClientService, ISalesOrderService salesOrderService)
 	{
 		_httpClientService = httpClientService;
 		_salesOrderService = salesOrderService;
@@ -90,7 +94,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-			var result = await _salesOrderService.GetObjectsByCurrentId(httpClient,Current.ReferenceId,SearchText,OrderBy, CurrentPage,PageSize);
+			var result = await _salesOrderService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient,Current.ReferenceId,Warehouse.Number,SearchText,OrderBy, CurrentPage,PageSize);
 			Items.Clear();
 			Results.Clear();
 			foreach (SalesOrder item in result.Data)
@@ -163,7 +167,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			CurrentPage = 0;
-			var result = await _salesOrderService.GetObjectsByCurrentId(httpClient,Current.ReferenceId ,SearchText, OrderBy, CurrentPage, PageSize);
+			var result = await _salesOrderService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient,Current.ReferenceId ,Warehouse.Number, SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{
 				Items.Clear();
@@ -266,7 +270,8 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		{
 			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineListView)}", new Dictionary<string, object>
 			{
-				["SelectedOrders"] = SelectedOrders
+				["SelectedOrders"] = SelectedOrders,
+				["Warehouse"] = Warehouse
 			});
 		} else
 		{

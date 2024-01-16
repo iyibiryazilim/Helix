@@ -147,7 +147,7 @@
                                                         </Label.Style>
                                                     </Label>
                                                     <Label FontAttributes="Bold"
-                                                           FontSize="Default"
+                                                           FontSize="Micro"
                                                            HorizontalOptions="Center"
                                                            TextColor="{StaticResource Gray400}">
                                                         <Label.FormattedText>
@@ -259,6 +259,9 @@
                                                 <Label Text="Açıklama"
                                                        TextColor="{StaticResource Primary}" />
                                                 <Label Text="{Binding Description}" />
+                                                <Label Text="Ambar"
+                                                       TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding WarehouseName}" />
                                                 <Label Text="Döküman İzleme Numarası"
                                                        TextColor="{StaticResource Primary}" />
                                                 <Label Text="1111111111" />

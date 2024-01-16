@@ -255,8 +255,6 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		 
-
 		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentId(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int id, int page, int pageSize)
 		{
 			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Current/Id/{id}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
@@ -317,8 +315,69 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				return dataResult;
 			}
 		}
-	}
-	public enum PurchaseOrderOrderBy
+		public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetObjectsByCurrentIdAndWarehouseNumber(HttpClient httpClient, string search, PurchaseOrderOrderBy orderBy, int id,int WarehouseNumber, int page, int pageSize)
+		{
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/CurrentAndWarehouse/Id/{id}&{WarehouseNumber}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			DataResult<IEnumerable<PurchaseOrder>> dataResult = new DataResult<IEnumerable<PurchaseOrder>>();
+			if (responseMessage.IsSuccessStatusCode)
+			{
+				var data = await responseMessage.Content.ReadAsStringAsync();
+				if (data != null)
+				{
+					if (!string.IsNullOrEmpty(data))
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrder>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
+
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "success";
+						return dataResult;
+
+					}
+					else
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrder>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
+
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "empty";
+						return dataResult;
+					}
+
+				}
+				else
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrder>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+
+					dataResult.Data = Enumerable.Empty<PurchaseOrder>();
+					dataResult.IsSuccess = false;
+					dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+					return dataResult;
+				}
+
+
+			}
+			else
+			{
+				dataResult.Data = Enumerable.Empty<PurchaseOrder>();
+				dataResult.IsSuccess = false;
+				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+				return dataResult;
+			}
+		}
+
+    }
+    public enum PurchaseOrderOrderBy
 	{
 		nettotaldesc,
 		nettotalasc,

@@ -72,8 +72,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+                IsRefreshing = false;
 
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
 				CurrentPage = 0;
 				var result = await _purchaseOrderLineService.GetWaitingOrders(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
 				if (result.Data.Any())
