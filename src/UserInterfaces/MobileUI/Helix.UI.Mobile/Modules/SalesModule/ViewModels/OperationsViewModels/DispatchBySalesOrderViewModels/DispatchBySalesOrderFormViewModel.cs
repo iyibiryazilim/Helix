@@ -53,6 +53,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
 
     [ObservableProperty]
+    public string speCode = string.Empty;
+
+    [ObservableProperty]
     SalesFormModel salesFormFormModel = new();
 
 
@@ -96,7 +99,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
                 action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
 
-                
+                SpeCode = action;
+
+
             }
            
         }

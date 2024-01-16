@@ -46,7 +46,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
         public DispatchByPurchaseOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService)
         {
-            Title = "SAtın Alma Form";
+            Title = "Satın Alma Form";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
             _supplierService= supplierService;

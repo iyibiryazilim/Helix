@@ -150,7 +150,7 @@
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Grid ColumnDefinitions="85*,15*">
-                                <Entry Placeholder="Özel Kod" />
+                                <Entry  Text="{Binding SpeCode}" />
                                 <ImageButton Grid.Column="1"
                                              BackgroundColor="Transparent"
                                              Aspect="AspectFit"
@@ -158,6 +158,7 @@
                                              WidthRequest="22"
                                              CommandParameter="{Binding .}"
                                              Command="{Binding Source={x:Reference this}, Path= BindingContext.GetSpeCodeCommand}"
+                                             
                                              >
                                     
                                     <ImageButton.Source>
