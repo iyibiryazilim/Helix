@@ -20,6 +20,7 @@
                                                             ProductTransactionFormModel="{Binding ProductTransactionFormModel}"
                                                             TransactionTypeName="{Binding TransactionTypeName}"
                                                             Warehouse="{Binding Warehouse}"
+                                                            GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
                                                             >
 
     </sharedViews:ProductTransactionOperationFormContentView>

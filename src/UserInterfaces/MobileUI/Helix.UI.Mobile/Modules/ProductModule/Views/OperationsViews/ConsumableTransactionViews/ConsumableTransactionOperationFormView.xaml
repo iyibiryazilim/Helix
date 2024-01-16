@@ -21,7 +21,11 @@
                                                             TransactionTypeName="{Binding TransactionTypeName}"
                                                             ProductTransactionFormModel="{Binding ProductTransactionFormModel}"
                                                             GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}"
-                                                            Warehouse="{Binding Warehouse}">
+                                                            Warehouse="{Binding Warehouse}"
+                                                            GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
+                                                            
+                                                           
+                                                            >
 
     </sharedViews:ProductTransactionOperationFormContentView>
 </ContentPage>
