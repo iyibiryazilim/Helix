@@ -108,7 +108,44 @@ public class SalesOrderController : ControllerBase
 		}
 	}
 
-	[HttpGet("Current/Code/{code}")]
+    [HttpGet("CurrentAndWarehouse/Id/{id:int}&{number:int}")]
+    public async Task<DataResult<IEnumerable<SalesOrder>>> GetByCurrentIdAndWarehouseNumber(int id,int number, [FromQuery] string search = "", string orderBy = SalesOrdersOrderBy.DateDesc, int page = 0, int pageSize = 20)
+    {
+        DataResult<IEnumerable<SalesOrder>> result = new();
+        switch (orderBy)
+        {
+
+            case "customernamedesc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerNameDesc, page, pageSize);
+                return result;
+            case "customernameasc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerNameAsc, page, pageSize);
+                return result;
+            case "customercodedesc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerCodeDesc, page, pageSize);
+                return result;
+            case "customercodeasc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerCodeAsc, page, pageSize);
+                return result;
+            case "nettotalasc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.NetTotalAsc, page, pageSize);
+                return result;
+            case "nettotaldesc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.NetTotalDesc, page, pageSize);
+                return result;
+            case "dateasc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.DateAsc, page, pageSize);
+                return result;
+            case "datedesc":
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.DateDesc, page, pageSize);
+                return result;
+            default:
+                result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id,number, search, orderBy, page, pageSize);
+                return result;
+        }
+    }
+
+    [HttpGet("Current/Code/{code}")]
 	public async Task<DataResult<IEnumerable<SalesOrder>>> GetByCurrentCode(string code, [FromQuery] string search = "", string orderBy = SalesOrdersOrderBy.DateDesc, int page = 0, int pageSize = 20)
 	{
 		DataResult<IEnumerable<SalesOrder>> result = new();

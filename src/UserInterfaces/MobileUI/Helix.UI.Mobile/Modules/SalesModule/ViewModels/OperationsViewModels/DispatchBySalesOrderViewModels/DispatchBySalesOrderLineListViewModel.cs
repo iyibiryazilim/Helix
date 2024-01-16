@@ -84,19 +84,33 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			foreach (var order in SelectedOrders)
 			{
 				var result = await _salesOrderLineService.GetObjectByFicheId(httpClient, true, order.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
-				
+
 				foreach (SalesOrderLine item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
 					obj.TempQuantity = (double)item.WaitingQuantity;
 
 					Items.Add(obj);
-					Results.Add(obj);
+
 				}
 			}
+			var groupingItems = Items.GroupBy(x => x.ProductCode);
+
+			foreach (var item in groupingItems)
+			{
+				string productCode = item.Key;
+
+				double orderQuantity = (double)item.ToList().Sum(x => x.WaitingQuantity);
+
+				WaitingOrderLine waitingOrderLine = new WaitingOrderLine();
+				waitingOrderLine.ProductCode = productCode;
+				waitingOrderLine.WaitingQuantity = orderQuantity;
 
 
+				Results.Add(waitingOrderLine);
 
+
+			}
 		}
 		catch (Exception ex)
 		{

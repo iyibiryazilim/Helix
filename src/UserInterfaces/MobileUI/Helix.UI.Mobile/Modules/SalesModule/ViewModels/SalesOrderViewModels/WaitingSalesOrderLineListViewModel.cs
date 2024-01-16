@@ -72,8 +72,9 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+            IsRefreshing = false;
 
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage = 0;
 			var result = await _salesOrderLineService.GetObjects(httpClient, IncludeWaiting, SearchText, OrderBy, CurrentPage, PageSize);
 			if(result.Data.Any())
