@@ -53,6 +53,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
 
     [ObservableProperty]
+    public string speCode = string.Empty;
+
+    [ObservableProperty]
     SalesFormModel salesFormFormModel = new();
 
 
@@ -75,6 +78,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     [RelayCommand]
     public async Task GetSpeCodeAsync()
     {
+        string action;
 
         try
         {
@@ -88,10 +92,18 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
                 foreach (var item in result.Data)
                 {
-                    await Task.Delay(100);
                     SpeCodeModelItems.Add(item);
                 }
+
+                List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList(); 
+
+                action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
+
+                SpeCode = action;
+
+
             }
+           
         }
         catch (Exception ex)
         {

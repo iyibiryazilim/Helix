@@ -43,7 +43,7 @@
                                 <ImageButton Aspect="AspectFit"
                                              Command="{Binding SortCommand}"
                                              HeightRequest="25"
-                                             WidthRequest="25"> 
+                                             WidthRequest="25">
                                     <ImageButton.Source>
                                         <FontImageSource FontFamily="FAS"
                                                          Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
@@ -61,8 +61,7 @@
                              IsRefreshing="{Binding IsRefreshing}"
                              RefreshColor="{StaticResource DarkPrimary}">
 
-                    <CollectionView ItemsSource="{Binding Items}"
-                                    >
+                    <CollectionView ItemsSource="{Binding Items}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5"
                                                Orientation="Vertical" />
@@ -74,14 +73,15 @@
                                         BackgroundColor="{StaticResource White}"
                                         HeightRequest="85"
                                         StrokeShape="RoundRectangle 10">
-                                   
+
                                     <Grid ColumnDefinitions="Auto, *, Auto">
                                         <Border Grid.Column="0"
                                                 Padding="0,0,10,0"
                                                 StrokeThickness="0">
-                                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                            <toolkit:AvatarView BackgroundColor="{StaticResource Primary}"
                                                                 CornerRadius="50"
                                                                 HorizontalOptions="Start"
+                                                                TextColor="{StaticResource Warning}"
                                                                 Text="{Binding WarehouseNumber}" />
                                         </Border>
                                         <VerticalStackLayout Grid.Column="1"
@@ -93,20 +93,30 @@
                                                    LineBreakMode="TailTruncation"
                                                    MaxLines="1"
                                                    Text="{Binding WarehouseName}" />
-                                            <Label>
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontSize="12"
-                                                              TextColor="{StaticResource Gray300}"
-                                                              Text="{Binding OnHand} " />
-                                                        <Span FontSize="12"
-                                                              Text="{Binding SubUnitsetCode}"
-                                                              TextColor="{StaticResource Gray300}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
+                                            <Border Grid.Column="0"
+                                                    Padding="10,5"
+                                                    BackgroundColor="{StaticResource Warning}"
+                                                    HorizontalOptions="Start"
+                                                    StrokeShape="RoundRectangle 5"
+                                                    StrokeThickness="0">
+                                                <Label FontSize="10"
+                                                       TextColor="{StaticResource Primary}"
+                                                       HorizontalOptions="Center">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontAttributes="Bold"
+                                                                  Text="{Binding OnHand  , StringFormat='{0:N2} '}" />
+                                                            <Span Text=" "></Span>
+                                                            <Span FontAttributes="Bold"
+                                                                  Text="{Binding SubUnitsetCode} " />
+
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                            </Border>
                                         </VerticalStackLayout>
-                                        
+
                                     </Grid>
                                 </Border>
                             </DataTemplate>
