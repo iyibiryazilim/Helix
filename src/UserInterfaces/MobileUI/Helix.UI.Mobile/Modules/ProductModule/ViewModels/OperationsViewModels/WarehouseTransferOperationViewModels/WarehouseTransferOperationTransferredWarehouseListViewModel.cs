@@ -270,16 +270,22 @@ public partial class WarehouseTransferOperationTransferredWarehouseListViewModel
 	}
 
 	[RelayCommand]
-	private void ToggleSelection(Warehouse item)    // Aynı item arka arkaya seçilmiyor
+	private void ToggleSelection(Warehouse item) 
 	{
-		item.IsSelected = !item.IsSelected;
-		if (SelectedWarehouse != null)
+		if (item == SelectedWarehouse)
 		{
 			SelectedWarehouse.IsSelected = false;
+			SelectedWarehouse = null;
 		}
-		if (item.IsSelected)
+		else
 		{
+			if (SelectedWarehouse != null)
+			{
+				SelectedWarehouse.IsSelected = false;
+			}
+
 			SelectedWarehouse = item;
+			SelectedWarehouse.IsSelected = true;
 		}
 	}
 }
