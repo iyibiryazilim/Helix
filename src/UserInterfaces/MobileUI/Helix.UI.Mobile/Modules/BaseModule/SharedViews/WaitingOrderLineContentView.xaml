@@ -190,31 +190,25 @@
                                                             </Style>
                                                         </Label.Style>
                                                     </Label>
-                                                    <Label TextColor="{StaticResource Primary}">
-                                                        <Label.FormattedText>
-                                                            <FormattedString>
-                                                                <Span Text="{Binding  WaitingQuantity, StringFormat='{0:N2} '}"
-                                                                      FontAttributes="Bold" />
-                                                                <Span Text="{Binding SubUnitsetCode}"
-                                                                      FontAttributes="Bold" />
-                                                            </FormattedString>
-                                                        </Label.FormattedText>
-                                                        <Label.Style>
-                                                            <Style TargetType="Label">
-                                                                <Setter Property="TextColor"
-                                                                        Value="Black" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger TargetType="Label"
-                                                                                 Binding="{Binding IsSelected}"
-                                                                                 Value="True">
-                                                                        <Setter Property="TextColor"
-                                                                                Value="{StaticResource Warning}" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Label.Style>
-                                                       
-                                                    </Label>
+                                                    <Border Padding="10,5"
+                                                            BackgroundColor="{StaticResource Warning}"
+                                                            HorizontalOptions="Start"
+                                                            StrokeShape="RoundRectangle 5"
+                                                            StrokeThickness="0">
+                                                        <Label FontSize="10" TextColor="{StaticResource Primary}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding WaitingQuantity, StringFormat='{0:N2}'}"
+                                                                          FontAttributes="Bold" />
+                                                                    <Span Text=" " />
+                                                                    <Span Text="{Binding SubUnitsetCode}" 
+                                                                          FontAttributes="Bold" />
+
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+
+                                                    </Border>
                                                 </VerticalStackLayout>
                                                 <Image Grid.Column="3"
                                                        HorizontalOptions="Center"

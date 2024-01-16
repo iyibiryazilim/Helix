@@ -18,6 +18,7 @@
                                             WarehouseList="{Binding Results}"
                                             SearchCommand="{Binding SearchCommand}"
                                             SortCommand="{Binding SortCommand}"
+                                            GoToNextCommand="{Binding GoToSalesDispatchListViewCommand}"
                                             ReloadCommand="{Binding ReloadCommand}"
                                             ToggleSelectionCommand="{Binding ToggleSelectionCommand}"/>
 </ContentPage>

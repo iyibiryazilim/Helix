@@ -59,7 +59,7 @@
                          Command="{Binding ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView Grid.Row="1"
-                                ItemsSource="{Binding Items}"
+                                ItemsSource="{Binding Results}"
                                 EmptyView="bulunamadı">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
@@ -80,7 +80,8 @@
                                         BackgroundColor="{StaticResource White}"
                                         Padding="5"
                                         Margin="10,0,10,0"
-                                        HeightRequest="90">
+                                        >
+
                                     <Border.Triggers>
                                         <DataTrigger Binding="{Binding IsSelected}"
                                                      TargetType="Border"
@@ -103,7 +104,9 @@
                                                              HorizontalOptions="Start"
                                                              Spacing="5">
                                             <Label FontAttributes="Bold"
-                                                   FontSize="Body" Text="{Binding ProductCode}"
+                                                   FontSize="Body"
+                                                   Text="{Binding ProductCode}"
+
                                                    >
                                                 <Label.Style>
                                                     <Style TargetType="Label">
@@ -183,9 +186,10 @@
                                                                   FontAttributes="Bold" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
+
                                                     
                                                 </Label>
-                                                
+                         
                                             </Border>
                                         </VerticalStackLayout>
                                     </Grid>
