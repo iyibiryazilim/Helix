@@ -58,10 +58,12 @@
             </Grid>
             <RefreshView Grid.Row="1"
                          IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding GetProductsCommand}"
+                         Command="{Binding ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView Grid.Row="1"
-                                ItemsSource="{Binding Results}"
+                                ItemsSource="{Binding Items}"
+                                RemainingItemsThreshold="10"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
                                 EmptyView="bulunamadı">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
@@ -108,7 +110,7 @@
                                                              HorizontalOptions="Start">
                                             <Label Text="{Binding Code}"
                                                    FontSize="Body"
-                                                   LineBreakMode="TailTruncation"                                                   
+                                                   LineBreakMode="TailTruncation"
                                                    FontAttributes="Bold">
                                                 <Label.Style>
                                                     <Style TargetType="Label">
@@ -126,7 +128,7 @@
                                                 </Label.Style>
                                             </Label>
                                             <Label Text="{Binding Name}"
-                                                   LineBreakMode="TailTruncation"                                                   
+                                                   LineBreakMode="TailTruncation"
                                                    FontSize="Caption">
                                                 <Label.Style>
                                                     <Style TargetType="Label">
@@ -143,7 +145,6 @@
                                                     </Style>
                                                 </Label.Style>
                                             </Label>
-                                          
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Border>
