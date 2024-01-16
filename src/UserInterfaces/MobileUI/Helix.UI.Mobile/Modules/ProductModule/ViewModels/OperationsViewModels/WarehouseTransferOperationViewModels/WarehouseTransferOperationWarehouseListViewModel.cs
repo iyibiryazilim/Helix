@@ -261,7 +261,7 @@ public partial class WarehouseTransferOperationWarehouseListViewModel : BaseView
 	}
 
 	[RelayCommand]
-	private void ToggleSelection(Warehouse item)    // Aynı item arka arkaya seçilmiyor
+	private void ToggleSelection(Warehouse item)
 	{
 		if(item == SelectedWarehouse)
 		{
