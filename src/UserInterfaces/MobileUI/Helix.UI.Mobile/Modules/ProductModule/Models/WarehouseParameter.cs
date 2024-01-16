@@ -44,17 +44,18 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 
                 if(StockQuantity>MaxLevel)
                 {
+                    return Microsoft.Maui.Graphics.Color.FromRgba("#01b1fd");
+                }
+                if (StockQuantity == SafeLevel)
+                {
                     return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");
                 }
 
-                if (StockQuantity==SafeLevel)
+                if ((MinLevel < StockQuantity)&& (StockQuantity<SafeLevel))
                 {
                     return Microsoft.Maui.Graphics.Color.FromRgba("#ffd300");
                 }
-                if (StockQuantity == 0)
-                {
-                    return Microsoft.Maui.Graphics.Color.FromRgba("#2B0B98");
-                }
+                
                 else
                 {
                     return Microsoft.Maui.Graphics.Color.FromRgba("#2B0B98");

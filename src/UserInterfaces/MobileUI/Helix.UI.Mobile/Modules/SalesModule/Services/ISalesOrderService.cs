@@ -11,5 +11,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Services
 		Task<DataResult<SalesOrder>> GetObjectByCode(HttpClient httpClient, string Code);
 		Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code, string search, SalesOrderOrderBy orderBy, int page, int pageSize);
 		Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId, string search, SalesOrderOrderBy orderBy, int page, int pageSize);
-	}
+        Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentIdAndWarehouseNumber(HttpClient httpClient, int ReferenceId,int WarehouseNumber, string search, SalesOrderOrderBy orderBy, int page, int pageSize);
+
+    }
 }

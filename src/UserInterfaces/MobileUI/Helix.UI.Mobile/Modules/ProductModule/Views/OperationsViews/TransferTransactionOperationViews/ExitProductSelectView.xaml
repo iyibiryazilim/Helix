@@ -107,6 +107,7 @@
                                                              HorizontalOptions="Start">
                                             <Label Text="{Binding ProductCode}"
                                                    FontSize="Body"
+                                                   LineBreakMode="TailTruncation"
                                                    FontAttributes="Bold">
                                                 <Label.Style>
                                                     <Style TargetType="Label">
@@ -124,6 +125,7 @@
                                                 </Label.Style>
                                             </Label>
                                             <Label Text="{Binding ProductName}"
+                                                   LineBreakMode="TailTruncation"                                                   
                                                    FontSize="Caption">
                                                 <Label.Style>
                                                     <Style TargetType="Label">

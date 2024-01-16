@@ -75,7 +75,22 @@ namespace Helix.Tiger.DataAccess.DataStores
 			} 
 		}
 
-		public async Task<DataResult<PurchaseOrder>> GetPurchaseOrderById(int id)
+        public async Task<DataResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrderByCurrentIdAndWarehouseNumber(string search, string orderBy, int id,int number, int currentPage, int pageSize)
+        {
+            try
+            {
+                var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, orderBy, id,number, currentPage, pageSize));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+                throw;
+            }
+        }
+
+        
+        public async Task<DataResult<PurchaseOrder>> GetPurchaseOrderById(int id)
 		{
 			try
 			{

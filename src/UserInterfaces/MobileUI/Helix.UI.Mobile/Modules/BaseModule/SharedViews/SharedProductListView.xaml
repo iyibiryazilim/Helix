@@ -81,6 +81,7 @@
                                         Padding="5"
                                         Margin="10,0,10,0"
                                         >
+
                                     <Border.Triggers>
                                         <DataTrigger Binding="{Binding IsSelected}"
                                                      TargetType="Border"
@@ -105,6 +106,7 @@
                                             <Label FontAttributes="Bold"
                                                    FontSize="Body"
                                                    Text="{Binding ProductCode}"
+
                                                    >
                                                 <Label.Style>
                                                     <Style TargetType="Label">
@@ -138,22 +140,56 @@
                                                     </Style>
                                                 </Label.Style>
                                             </Label>
-                                            <Border  Padding="10,5"
-                                                     BackgroundColor="{StaticResource Warning}"
-                                                     HorizontalOptions="Start"
-                                                     StrokeShape="RoundRectangle 5"
-                                                     StrokeThickness="0">
-                                                <Label FontSize="10" 
-                                                       TextColor="{StaticResource Primary}">
+                                            <Border Padding="10,5"
+                                                    BackgroundColor="{StaticResource Warning}"
+                                                    HorizontalOptions="Start"
+                                                    StrokeThickness="0"
+                                                    StrokeShape="RoundRectangle 5">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="{StaticResource Warning}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Border"
+                                                                         Binding="{Binding IsSelected}"
+                                                                         Value="True">
+                                                                <Setter Property="BackgroundColor"
+                                                                        Value="{StaticResource Primary}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <Label TextColor="{StaticResource Primary}"
+                                                       FontSize="10">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="TextColor"
+                                                                    Value="Black" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding IsSelected}"
+                                                                             Value="True">
+                                                                    <Setter Property="TextColor"
+                                                                            Value="{StaticResource Warning}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span FontAttributes="Bold" Text="{Binding OnHand,StringFormat='{0:N2}'}" />
-                                                            <Span Text=" " />
+                                                            <Span Text="{Binding  OnHand, StringFormat='{0:N2}'}"
+                                                                  FontAttributes="Bold" />
+                                                            <Span Text=" "
+                                                                  FontAttributes="Bold" />
                                                             <Span Text="{Binding SubUnitsetCode}"
                                                                   FontAttributes="Bold" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
+
+                                                    
                                                 </Label>
+                         
                                             </Border>
                                         </VerticalStackLayout>
                                     </Grid>

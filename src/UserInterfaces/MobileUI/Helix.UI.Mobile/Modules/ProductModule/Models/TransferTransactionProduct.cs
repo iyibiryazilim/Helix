@@ -10,5 +10,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 		Product exitProduct;
 		[ObservableProperty]
 		bool entryProductIsNull = true;
+
+		[ObservableProperty]
+		double changedQuantity;
  	}
 }

@@ -67,6 +67,7 @@
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= WaitingOrderLineList}"
                                 RemainingItemsThreshold="10"
+                                IsGrouped="True"
                                 RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this},Path=LoadMoreCommand}"
                                 EmptyView="Veri yok...">
                     <CollectionView.ItemsLayout>

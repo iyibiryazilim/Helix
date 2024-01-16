@@ -2,11 +2,221 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews.TransferTransactionSummaryView"
-             Title="TransferTransactionSummaryView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.TransferTransactionOperationViewModels"
+             x:DataType="viewModel:TransferTransactionSummaryViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             BackgroundColor="{StaticResource Primary}"
+             Title="{Binding Title}"
+             Shell.TabBarIsVisible="False">
+    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+            StrokeThickness="0"
+            Padding="5,20,5,10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="*,auto"
+              Padding="10">
+            <Grid Grid.Row="0"
+                  RowDefinitions="auto,*,auto"
+                  Padding="0,0,0,10"
+                  RowSpacing="10">
+                <Border Grid.Row="0"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="85"
+                        StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="Auto, *, Auto">
+                        <Border Grid.Column="0"
+                                Padding="0,0,10,0"
+                                StrokeThickness="0">
+                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                CornerRadius="50"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding TransferTransactionModel.ExitWarehouse.Number}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="5"
+                                             Spacing="5"
+                                             VerticalOptions="Center">
+                            <Label FontAttributes="Bold"
+                                   FontSize="Default"
+                                   LineBreakMode="TailTruncation"
+                                   MaxLines="1"
+                                   Text="{Binding TransferTransactionModel.ExitWarehouse.Name}"></Label>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                <CollectionView Grid.Row="1"
+                                ItemsSource="{Binding TransferTransactionModel.Products}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:TransferTransactionProduct">
+                            <Grid ColumnDefinitions="45*,10*,45*"
+                                  ColumnSpacing="10">
+                                <Grid Grid.Column="0"
+                                      RowDefinitions="Auto, Auto"> 
+                                    <Border Padding="5"
+                                            BackgroundColor="{StaticResource White}"
+                                            StrokeShape="RoundRectangle 10">
+                                        <Grid>
+                                            <VerticalStackLayout Grid.Column="1"
+                                                                 Padding="5"
+                                                                 HorizontalOptions="Start"
+                                                                 Spacing="5">
+                                                <Label FontAttributes="Bold"
+                                                       FontSize="Body"
+                                                       LineBreakMode="TailTruncation"
+                                                       Text="{Binding ExitProduct.Code}" />
+                                                <Label FontSize="Caption"
+                                                       LineBreakMode="TailTruncation"
+                                                       Text="{Binding ExitProduct.Name}" />
+                                                <Grid ColumnDefinitions="Auto, Auto"
+                                                      ColumnSpacing="5">
+                                                    <Border Grid.Column="1"
+                                                            Padding="10,5"
+                                                            BackgroundColor="{StaticResource Secondary}"
+                                                            HorizontalOptions="Start"
+                                                            StrokeShape="RoundRectangle 5"
+                                                            StrokeThickness="0">
+                                                        <Label FontSize="10"
+                                                               TextColor="{StaticResource Primary}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding ExitProduct.StockQuantity, StringFormat='{0:N2} '}" />
+                                                                    <Span Text=" " />
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding ExitProduct.SubUnitsetCode}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                    </Border>
+                                                </Grid>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Image Grid.Column="1"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       WidthRequest="20"
+                                       HeightRequest="45">
+                                    <Image.Source>
+                                        <FontImageSource FontFamily="FAS"
+                                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowRight}"></FontImageSource>
+                                    </Image.Source>
+                                </Image>
+                                <Grid Grid.Column="2"
+                                      RowDefinitions="Auto, Auto">
+                                    <Grid.Resources>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="Grid"
+                                                             Binding="{Binding EntryProductIsNull}"
+                                                             Value="False">
+                                                    <Setter Property="IsVisible"
+                                                            Value="True" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Grid"
+                                                             Binding="{Binding EntryProductIsNull}"
+                                                             Value="True">
+                                                    <Setter Property="IsVisible"
+                                                            Value="False" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Border Padding="5"
+                                            BackgroundColor="{StaticResource White}"
+                                            StrokeShape="RoundRectangle 10">
+                                        <Grid>
+                                            <VerticalStackLayout Grid.Column="1"
+                                                                 Padding="5"
+                                                                 HorizontalOptions="Start"
+                                                                 Spacing="5">
+                                                <Label FontAttributes="Bold"
+                                                       FontSize="Body"
+                                                       LineBreakMode="TailTruncation"
+                                                       Text="{Binding EntryProduct.Code}" />
+                                                <Label FontSize="Caption"
+                                                       LineBreakMode="TailTruncation"
+                                                       Text="{Binding EntryProduct.Name}" />
+                                                <Grid ColumnDefinitions="Auto, Auto"
+                                                      ColumnSpacing="5">
+                                                    <Border Grid.Column="1"
+                                                            Padding="10,5"
+                                                            BackgroundColor="{StaticResource Warning}"
+                                                            HorizontalOptions="Start"
+                                                            StrokeShape="RoundRectangle 5"
+                                                            StrokeThickness="0">
+                                                        <Label FontSize="10"
+                                                               TextColor="{StaticResource Primary}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding ChangedQuantity, StringFormat='{0:N2} '}" />
+                                                                    <Span Text=" " />
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding EntryProduct.SubUnitsetCode}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                    </Border>
+                                                </Grid>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Border Grid.Row="2"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="85"
+                        StrokeShape="RoundRectangle 10">
+                    <Border.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected}"
+                                     TargetType="Border"
+                                     Value="True">
+                            <Setter Property="BackgroundColor"
+                                    Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Grid ColumnDefinitions="Auto, *, Auto">
+                        <Border Grid.Column="0"
+                                Padding="0,0,10,0"
+                                StrokeThickness="0">
+                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                CornerRadius="50"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding TransferTransactionModel.EntryWarehouse.Number}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="5"
+                                             Spacing="5"
+                                             VerticalOptions="Center">
+                            <Label FontAttributes="Bold"
+                                   FontSize="Default"
+                                   LineBreakMode="TailTruncation"
+                                   MaxLines="1"
+                                   Text="{Binding TransferTransactionModel.EntryWarehouse.Name}"></Label>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Button Grid.Row="1"
+                    Text="Tamamla"
+                    Command="{Binding PrograssTransferTransactionCommand}"
+                    Margin="5" />
+        </Grid>
+    </Border>
 </ContentPage>
