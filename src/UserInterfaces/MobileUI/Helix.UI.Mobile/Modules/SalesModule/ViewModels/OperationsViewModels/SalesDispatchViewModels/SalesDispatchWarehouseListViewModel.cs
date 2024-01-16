@@ -241,16 +241,22 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	private void ToggleSelection(Warehouse item)    // Aynı item arka arkaya seçilmiyor
+	private void ToggleSelection(Warehouse item)
 	{
-		item.IsSelected = !item.IsSelected;
-		if (SelectedWarehouse != null)
+		if (item == SelectedWarehouse)
 		{
 			SelectedWarehouse.IsSelected = false;
+			SelectedWarehouse = null;
 		}
-		if (item.IsSelected)
+		else
 		{
+			if (SelectedWarehouse != null)
+			{
+				SelectedWarehouse.IsSelected = false;
+			}
+
 			SelectedWarehouse = item;
+			SelectedWarehouse.IsSelected = true;
 		}
 	}
 
@@ -264,10 +270,19 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			await Shell.Current.GoToAsync($"{nameof(SalesDispatchListView)}", new Dictionary<string, object>
+			if(SelectedWarehouse != null)
 			{
-				[nameof(Warehouse)] = SelectedWarehouse
-			});
+				await Shell.Current.GoToAsync($"{nameof(SalesDispatchListView)}", new Dictionary<string, object>
+				{
+					[nameof(Warehouse)] = SelectedWarehouse
+				});
+			}
+			else
+			{
+				await Shell.Current.DisplayAlert("Hata", "Ambar seçimi yapmanız gerekmektedir!", "Tamam");
+			}
+
+			
 
 		}
 		catch(Exception ex)
