@@ -100,7 +100,7 @@
                                         BackgroundColor="{StaticResource White}"
                                         Padding="5"
                                         Margin="10,0,10,0"
-                                        HeightRequest="85">
+                                        HeightRequest="95">
                                     
                                     <Grid ColumnDefinitions=".25*,.75*">
                                         <Border Grid.Column="0"
@@ -123,19 +123,28 @@
                                             <Label Text="{Binding ProductName}"
                                                    FontSize="Caption"
                                                    LineBreakMode="TailTruncation"></Label>
-                                            <Label TextColor="{StaticResource Primary}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{Binding OnHand, StringFormat='{0:N2}'}"
-                                                              FontAttributes="Bold" />
-                                                        <Span Text=" "
-                                                              FontAttributes="Bold" />
-                                                        <Span Text="{Binding SubUnitsetCode}"
-                                                              FontAttributes="Bold" />
+                                            <Border Grid.Column="0"
+                                                    Padding="10,5"
+                                                    BackgroundColor="{StaticResource Warning}"
+                                                    HorizontalOptions="Start"
+                                                    StrokeShape="RoundRectangle 5"
+                                                    StrokeThickness="0">
+                                                <Label FontSize="10"
+                                                       TextColor="{StaticResource Primary}"
+                                                      
+                                                       HorizontalOptions="Center">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontAttributes="Bold"
+                                                                  Text="{Binding OnHand, StringFormat='{0:N2} '}" />
+                                                            
+                                                            <Span  FontAttributes="Bold" Text="{Binding SubUnitsetCode} " />
+                                                  
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
 
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
+                                            </Border>
 
 
 

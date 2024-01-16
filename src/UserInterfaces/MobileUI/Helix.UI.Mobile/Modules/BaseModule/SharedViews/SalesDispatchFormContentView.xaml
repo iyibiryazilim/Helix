@@ -156,7 +156,8 @@
                                              Aspect="AspectFit"
                                              HeightRequest="22"
                                              WidthRequest="22"
-                                             Command="{Binding Source={x:Reference this}, Path=GetSpeCodeCommand}"
+                                             CommandParameter="{Binding .}"
+                                             Command="{Binding Source={x:Reference this}, Path= BindingContext.GetSpeCodeCommand}"
                                              >
                                     
                                     <ImageButton.Source>
