@@ -9,6 +9,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseCountingViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -135,6 +136,27 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 		{
 			Debug.WriteLine(ex.Message);
 			await Application.Current.MainPage.DisplayAlert("Error :", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task GoToWarehouseCountingSelectWarehouseViewAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			await Shell.Current.GoToAsync($"{nameof(WarehouseCountingSelectWarehouseView)}");
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{

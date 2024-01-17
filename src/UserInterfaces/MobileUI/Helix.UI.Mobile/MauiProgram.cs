@@ -31,6 +31,7 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel.BottomSheetViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.WarehouseCountingViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
@@ -43,6 +44,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.BottomSheetViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseCountingViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels;
@@ -445,6 +447,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListView>();
 			mauiAppBuilder.Services.AddTransient<EntryProductSelectView>();
 			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectWarehouseView>();
 			 
 
 
@@ -506,6 +509,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailAlternativeProductListViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectWarehouseViewModel>();
 
 
 
