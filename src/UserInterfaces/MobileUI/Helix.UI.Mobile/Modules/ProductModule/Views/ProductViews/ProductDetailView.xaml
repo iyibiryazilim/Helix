@@ -139,7 +139,7 @@
                                         FontAttributes="Bold"
                                         FontSize="13"
                                         HeightRequest="30"
-                                        Text="Hızlı İşlemler"
+                                        Text="Daha Fazla"
                                         WidthRequest="120" />
 
                                 <!--<CollectionView Grid.Row="3" ItemsSource="{Binding Charts}">

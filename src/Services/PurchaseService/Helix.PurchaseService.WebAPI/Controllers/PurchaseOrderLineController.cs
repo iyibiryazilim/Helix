@@ -394,7 +394,101 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 		 
 		}
 
-		[HttpGet("Current/Code/{code}")]
+        [HttpGet("CurrentAndWarehouse/Id/{id:int}&{warehouseNumber:int}")]
+        public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetByCurrentIdAndWarehouseNumber(int id,int warehouseNumber, [FromQuery] bool includeWaiting = false, string search = "", string orderBy = "datedesc", int page = 0, int pageSize = 20)
+        {
+            var result = new DataResult<IEnumerable<PurchaseOrderLine>>();
+            switch (orderBy)
+            {
+                case "productcodedesc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductCodeDesc, id, warehouseNumber,page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductCodeDesc, id, warehouseNumber, page, pageSize);
+                    return result;
+                case "productcodeasc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductCodeAsc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductCodeAsc, id, warehouseNumber, page, pageSize);
+                    return result;
+
+                case "productnamedesc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductNameDesc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductNameDesc, id, warehouseNumber, page, pageSize);
+                    return result;
+                case "productnameasc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductNameAsc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.ProductNameAsc, id, warehouseNumber, page, pageSize);
+                    return result;
+                case "currentcodedesc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentCodeDesc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentCodeDesc, id, warehouseNumber, page, pageSize);
+                    return result;
+                case "currentcodeasc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentCodeAsc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentCodeAsc, id, warehouseNumber, page, pageSize);
+                    return result;
+                case "currentnamedesc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentNameDesc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentNameDesc, id, warehouseNumber, page, pageSize);
+                    return result;
+                case "currentnameasc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentNameAsc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.CurrentNameAsc, id, warehouseNumber, page, pageSize);
+                    return result;
+                case "dateasc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.DateAsc, id, warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.DateAsc, id,warehouseNumber, page, pageSize);
+                    return result;
+                case "datedesc":
+                    if (includeWaiting)
+                    {
+                        result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.DateDesc, id,warehouseNumber, page, pageSize);
+                        return result;
+                    }
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.DateDesc, id,warehouseNumber, page, pageSize);
+                    return result;
+                default:
+                    result.Message = "OrderBy wrong text";
+                    return result;
+            }
+
+        }
+
+        [HttpGet("Current/Code/{code}")]
 		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetByCurrentCode(string code, [FromQuery] bool includeWaiting = false, string search = "",string orderBy = "datedesc", int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<PurchaseOrderLine>>();

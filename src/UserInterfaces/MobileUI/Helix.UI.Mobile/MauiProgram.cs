@@ -265,6 +265,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerView>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchWarehouseListView>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderWarehouseListView>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineWarehouseListView>();
 
 
 
@@ -301,6 +302,9 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionCustomerViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesDispatchWarehouseListViewModel>();
             mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderWarehouseListViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineWarehouseListViewModel>();
+
+
 
 
             return mauiAppBuilder;
@@ -343,10 +347,14 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSelectedLineListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSelectedLineListView>();
 			mauiAppBuilder.Services.AddTransient<SupplierFastOperationBottomSheetView>();
-			
+            mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderWarehouseListView>();
+            mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineWarehouseListView>();
 
 
-			return mauiAppBuilder;
+
+
+
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder PurchaseRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -368,12 +376,15 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSelectedLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSelectedLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<SupplierFastOperationBottomSheetViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderWarehouseListViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineWarehouseListViewModel>();
 
 
 
 
 
-			return mauiAppBuilder;
+
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder PurchaseRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
@@ -14,7 +15,9 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
 	[QueryProperty(nameof(Current), nameof(Current))]
-	public partial class DispatchByPurchaseOrderFicheViewModel : BaseViewModel
+    [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+
+    public partial class DispatchByPurchaseOrderFicheViewModel : BaseViewModel
     {
 
 		IHttpClientService _httpClientService;
@@ -23,8 +26,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		[ObservableProperty]
 		Supplier current;
 
-		//Properties
-		[ObservableProperty]
+        [ObservableProperty]
+        Warehouse warehouse;
+
+
+        //Properties
+        [ObservableProperty]
 		string searchText = string.Empty;
 		[ObservableProperty]
 		PurchaseOrderOrderBy orderBy = PurchaseOrderOrderBy.dateasc;
@@ -89,7 +96,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				var result = await _purchaseOrderService.GetObjectsByCurrentCode(httpClient, SearchText, OrderBy, Current.Code, CurrentPage, PageSize);
+				var result = await _purchaseOrderService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient, SearchText, OrderBy, Current.ReferenceId,Warehouse.Number, CurrentPage, PageSize);
 				if (Items.Any())
 				{
 					Items.Clear();

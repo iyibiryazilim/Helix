@@ -15,7 +15,9 @@ public interface ISalesOrderLineService
 
 	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByCurrentIdAsync(int id, string search, string orderBy, int page, int pageSize);
 	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentIdAsync(int id, string search, string orderBy, int page, int pageSize);
-	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByCurrentCodeAsync(string code, string search, string orderBy, int page, int pageSize);
+    public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAsync(int id,int warehouseNumber, string search, string orderBy, int page, int pageSize);
+
+    public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByCurrentCodeAsync(string code, string search, string orderBy, int page, int pageSize);
 	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentCodeAsync(string code, string search, string orderBy, int page, int pageSize);
 	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetSalesOrdersByProductIdAsync(int id, string search, string orderBy, int page, int pageSize);
 	public Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByProductIdAsync(int id, string search, string orderBy, int page, int pageSize);

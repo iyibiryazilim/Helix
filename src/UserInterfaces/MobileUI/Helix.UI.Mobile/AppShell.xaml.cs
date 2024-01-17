@@ -147,12 +147,17 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(ExitWarehouseSelectView), typeof(ExitWarehouseSelectView));
 		Routing.RegisterRoute(nameof(TransferTransactionSummaryView), typeof(TransferTransactionSummaryView));
         Routing.RegisterRoute(nameof(ProductDetailAlternativeProductListView), typeof(ProductDetailAlternativeProductListView));
-    Routing.RegisterRoute(nameof(ProductDetailCustomerAndSupplierListView), typeof(ProductDetailCustomerAndSupplierListView));
-    Routing.RegisterRoute(nameof(EntryWarehouseSelectView), typeof(EntryWarehouseSelectView));
+		Routing.RegisterRoute(nameof(ProductDetailCustomerAndSupplierListView), typeof(ProductDetailCustomerAndSupplierListView));
+		Routing.RegisterRoute(nameof(EntryWarehouseSelectView), typeof(EntryWarehouseSelectView));
 		Routing.RegisterRoute(nameof(SalesDispatchWarehouseListView), typeof(SalesDispatchWarehouseListView));
 		Routing.RegisterRoute(nameof(EntryProductSelectView), typeof(EntryProductSelectView));
         Routing.RegisterRoute(nameof(DispatchBySalesOrderWarehouseListView), typeof(DispatchBySalesOrderWarehouseListView));
 		Routing.RegisterRoute(nameof(WarehouseCountingSelectWarehouseView), typeof(WarehouseCountingSelectWarehouseView));
+        Routing.RegisterRoute(nameof(DispatchBySalesOrderLineWarehouseListView), typeof(DispatchBySalesOrderLineWarehouseListView));
+        Routing.RegisterRoute(nameof(DispatchByPurchaseOrderWarehouseListView), typeof(DispatchByPurchaseOrderWarehouseListView));
+        Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineWarehouseListView), typeof(DispatchByPurchaseOrderLineWarehouseListView));
+
+
 
 
     }
