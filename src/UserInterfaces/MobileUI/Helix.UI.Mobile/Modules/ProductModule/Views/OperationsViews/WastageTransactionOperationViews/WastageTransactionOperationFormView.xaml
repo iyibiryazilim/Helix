@@ -17,7 +17,8 @@
     <sharedViews:ProductTransactionOperationFormContentView WarehouseList="{Binding WarehouseItems}"
                                                             TransactionTypeName="{Binding TransactionTypeName}"
                                                             ProductTransactionFormModel="{Binding ProductTransactionFormModel}"
-                                                            GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}">
+                                                            GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}"
+                                                            GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
 
     </sharedViews:ProductTransactionOperationFormContentView>
 </ContentPage>

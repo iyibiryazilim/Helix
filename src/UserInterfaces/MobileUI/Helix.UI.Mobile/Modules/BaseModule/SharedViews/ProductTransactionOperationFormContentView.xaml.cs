@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 using IntelliJ.Lang.Annotations;
 using System.Collections.ObjectModel;
 
@@ -23,6 +24,13 @@ public partial class ProductTransactionOperationFormContentView : ContentView
 
     //ambar adýný seçme
     public static readonly BindableProperty ProductTransactionFormModelProperty = BindableProperty.Create(nameof(ProductTransactionFormModel), typeof(ProductTransactionFormModel), typeof(ProductTransactionOperationFormContentView), null);
+
+    //spe code seçme
+    //SpeCodeList
+    public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(SalesDispatchFormContentView));
+
+    //SpeCodeCommand
+    public static readonly BindableProperty GetSpeCodeCommandProperty = BindableProperty.Create(nameof(GetSpeCodeCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
 
 
 
@@ -68,6 +76,19 @@ public partial class ProductTransactionOperationFormContentView : ContentView
     {
         get => GetValue(ProductTransactionFormModelProperty) as ProductTransactionFormModel;
         set => SetValue(ProductTransactionFormModelProperty, value);
+    }
+
+    //get speCode
+    public AsyncRelayCommand GetSpeCodeCommand
+    {
+        get => GetValue(GetSpeCodeCommandProperty) as AsyncRelayCommand;
+        set => SetValue(GetSpeCodeCommandProperty, value);
+    }
+    //SpeCodeList
+    public ObservableCollection<SpeCodeModel> SpeCodeList
+    {
+        get => GetValue(SpeCodeListProperty) as ObservableCollection<SpeCodeModel>;
+        set => SetValue(SpeCodeListProperty, value);
     }
 
 

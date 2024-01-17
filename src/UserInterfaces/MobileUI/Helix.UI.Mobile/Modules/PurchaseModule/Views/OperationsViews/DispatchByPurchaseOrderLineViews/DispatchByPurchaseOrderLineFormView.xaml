@@ -17,7 +17,8 @@
                                         Command="{Binding GetSupplierCommand}" />
     </ContentPage.Behaviors>
     <sharedViews:PurchaseDispatchOperationFormContentView WarehouseList="{Binding WarehouseItems}"
-                                                          SupplierList="{Binding SupplierItems}">
+                                                          SupplierList="{Binding SupplierItems}"
+                                                          GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
 
     </sharedViews:PurchaseDispatchOperationFormContentView>
 
