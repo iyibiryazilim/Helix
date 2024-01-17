@@ -92,7 +92,7 @@
                                 FontSize="13"
                                 BackgroundColor="{StaticResource Success}"
                                 Text="Sayım"
-                                Command="{Binding GoToWarehouseCountingSelectWarehouseViewCommand}"
+                                Command="{Binding GoToWarehouseCountingListViewCommand}"
                                 FontAttributes="Bold">
 
                         </Button>
