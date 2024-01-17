@@ -25,6 +25,7 @@ public partial class AllProductsListSharedView : ContentView
 	public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(nameof(SearchCommand), typeof(Command), typeof(AllProductsListSharedView), null);
 	public static readonly BindableProperty GoToNextCommandProperty = BindableProperty.Create(nameof(GoToNextCommand), typeof(AsyncRelayCommand), typeof(AllProductsListSharedView), null);
 	public static readonly BindableProperty ToggleSelectionCommandProperty = BindableProperty.Create(nameof(ToggleSelectionCommand), typeof(AsyncRelayCommand), typeof(AllProductsListSharedView), null);
+	public static readonly BindableProperty SelectAllCommandProperty = BindableProperty.Create(nameof(SelectAllCommand), typeof(AsyncRelayCommand), typeof(AllProductsListSharedView), null);
 
 	#endregion
 
@@ -93,6 +94,11 @@ public partial class AllProductsListSharedView : ContentView
 	{
 		get => GetValue(ToggleSelectionCommandProperty) as AsyncRelayCommand;
 		set => SetValue(ToggleSelectionCommandProperty, value);
+	}
+	public AsyncRelayCommand SelectAllCommand
+	{
+		get => GetValue(SelectAllCommandProperty) as AsyncRelayCommand;
+		set => SetValue(SelectAllCommandProperty, value);
 	}
 	#endregion
 

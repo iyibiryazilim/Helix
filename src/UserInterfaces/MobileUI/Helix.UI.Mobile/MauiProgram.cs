@@ -513,7 +513,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<ProductDetailAlternativeProductListViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectWarehouseViewModel>();
-			mauiAppBuilder.Services.AddTransient<WarehouseCountingListViewModel>();
+			mauiAppBuilder.Services.AddScoped<WarehouseCountingListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSummaryViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectProductsViewModel>();
 

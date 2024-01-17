@@ -4,6 +4,7 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseCountingViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -199,6 +200,29 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task GoToWarehouseCountingSelectProductsViewAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+			IsRefreshing = true;
+			
+			await Shell.Current.GoToAsync($"{nameof(WarehouseCountingSelectProductsView)}");
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
 
 
 }

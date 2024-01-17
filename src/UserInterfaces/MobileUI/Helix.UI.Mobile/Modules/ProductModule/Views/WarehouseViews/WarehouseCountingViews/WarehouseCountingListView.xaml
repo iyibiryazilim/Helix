@@ -49,6 +49,7 @@
                                  Aspect="AspectFit"
                                  BackgroundColor="Transparent"
                                  HeightRequest="22"
+                                 Command="{Binding GoToWarehouseCountingSelectProductsViewCommand}"
                                  WidthRequest="22">
                         <ImageButton.Source>
                             <FontImageSource FontFamily="FAS"
