@@ -40,6 +40,9 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	int pageSize = 20000;
 
 	[ObservableProperty]
+    WaitingOrderLineGroup waitingOrderLineGroup = new();
+
+    [ObservableProperty]
 	ObservableCollection<WaitingOrder> selectedOrders;
 	public Command GetOrderLinesCommand { get; }
 	public Command SearchCommand { get; }
@@ -98,16 +101,15 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 
 			foreach (var item in groupingItems)
 			{
+				foreach (var it in item.ToList())
+				{
+					WaitingOrderLineGroup.WaitingOrderLines.Add(it);
+					Results.Add(it);
+				}
 				string productCode = item.Key;
 
-				double orderQuantity = (double)item.ToList().Sum(x => x.WaitingQuantity);
 
-				WaitingOrderLine waitingOrderLine = new WaitingOrderLine();
-				waitingOrderLine.ProductCode = productCode;
-				waitingOrderLine.WaitingQuantity = orderQuantity;
-
-
-				Results.Add(waitingOrderLine);
+				
 
 
 			}
