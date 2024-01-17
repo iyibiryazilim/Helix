@@ -64,7 +64,7 @@ public partial class WarehouseTransferOperationWarehouseListViewModel : BaseView
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -261,16 +261,22 @@ public partial class WarehouseTransferOperationWarehouseListViewModel : BaseView
 	}
 
 	[RelayCommand]
-	private void ToggleSelection(Warehouse item)    // Aynı item arka arkaya seçilmiyor
+	private void ToggleSelection(Warehouse item)
 	{
-		item.IsSelected = !item.IsSelected;
-		if (SelectedWarehouse != null)
+		if(item == SelectedWarehouse)
 		{
 			SelectedWarehouse.IsSelected = false;
+			SelectedWarehouse = null;
 		}
-		if (item.IsSelected)
+		else
 		{
+			if (SelectedWarehouse != null)
+			{
+				SelectedWarehouse.IsSelected = false;
+			}
+
 			SelectedWarehouse = item;
+			SelectedWarehouse.IsSelected = true;
 		}
 	}
 }

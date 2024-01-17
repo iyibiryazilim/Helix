@@ -90,10 +90,9 @@
                                 WidthRequest="100"
                                 HeightRequest="30"
                                 FontSize="13"
-                                Command="{Binding .}"
                                 BackgroundColor="{StaticResource Success}"
                                 Text="Sayım"
-                                
+                                Command="{Binding GoToWarehouseCountingSelectWarehouseViewCommand}"
                                 FontAttributes="Bold">
 
                         </Button>
