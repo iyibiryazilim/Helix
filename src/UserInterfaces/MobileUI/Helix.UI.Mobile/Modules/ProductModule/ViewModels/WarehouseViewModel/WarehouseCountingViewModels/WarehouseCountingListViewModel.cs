@@ -224,5 +224,29 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task GoToNextAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync($"{nameof(WarehouseCountingSummaryView)}", new Dictionary<string, object>
+			{
+				[nameof(SelectedWarehouse)] = SelectedWarehouse,
+				["Results"] = Results
+			});
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
 
 }
