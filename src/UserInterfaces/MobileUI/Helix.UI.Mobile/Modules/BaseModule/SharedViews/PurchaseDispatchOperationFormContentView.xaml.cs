@@ -24,6 +24,12 @@ public partial class PurchaseDispatchOperationFormContentView : ContentView
     //
     public static readonly BindableProperty PurchaseFormModelProperty = BindableProperty.Create(nameof(PurchaseFormModel), typeof(PurchaseFormModel), typeof(PurchaseDispatchOperationFormContentView), null);
 
+    //SpeCodeList
+    public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(SalesDispatchFormContentView));
+
+    //SpeCodeCommand
+    public static readonly BindableProperty GetSpeCodeCommandProperty = BindableProperty.Create(nameof(GetSpeCodeCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+
 
     //get warehouse
     public AsyncRelayCommand GetWarehouseCommand
@@ -56,6 +62,21 @@ public partial class PurchaseDispatchOperationFormContentView : ContentView
         get => GetValue(PurchaseFormModelProperty) as PurchaseFormModel;
         set => SetValue(PurchaseFormModelProperty, value);
     }
+
+    //get speCode
+    public AsyncRelayCommand GetSpeCodeCommand
+    {
+        get => GetValue(GetSpeCodeCommandProperty) as AsyncRelayCommand;
+        set => SetValue(GetSpeCodeCommandProperty, value);
+    }
+    //SpeCodeList
+    public ObservableCollection<SpeCodeModel> SpeCodeList
+    {
+        get => GetValue(SpeCodeListProperty) as ObservableCollection<SpeCodeModel>;
+        set => SetValue(SpeCodeListProperty, value);
+    }
+
+
     public PurchaseDispatchOperationFormContentView()
 	{
 		InitializeComponent();
