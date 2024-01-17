@@ -15,12 +15,16 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPur
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseViewModels;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -153,6 +157,14 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(EntryProductSelectView), typeof(EntryProductSelectView));
         Routing.RegisterRoute(nameof(DispatchBySalesOrderWarehouseListView), typeof(DispatchBySalesOrderWarehouseListView));
 		Routing.RegisterRoute(nameof(WarehouseCountingSelectWarehouseView), typeof(WarehouseCountingSelectWarehouseView));
+        Routing.RegisterRoute(nameof(ReturnPurchaseSelectWarehouseView), typeof(ReturnPurchaseSelectWarehouseView));
+        Routing.RegisterRoute(nameof(ReturnSalesSelectWarehouseView), typeof(ReturnSalesSelectWarehouseView));
+        Routing.RegisterRoute(nameof(ReturnSalesListView), typeof(ReturnSalesListView));
+
+
+
+
+
 
 
     }

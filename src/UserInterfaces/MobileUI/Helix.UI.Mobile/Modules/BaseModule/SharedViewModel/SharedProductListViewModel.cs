@@ -10,6 +10,7 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutC
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -486,9 +487,39 @@ public partial class SharedProductListViewModel :BaseViewModel
 					}
 				}
 				break;
+                //satış iade
+            case 2:
+                var returnSalesService = _serviceProvider.GetService<ReturnSalesListViewModel>();
+                foreach (var product in SelectedProducts)
+                {
+                    if (returnSalesService.Items.ToList().Exists(x => x.Code == product.ProductCode))
+                    {
+                        returnSalesService.Items.ToList().First(x => x.Code == product.ProductCode).StockQuantity += 1;
+
+                    }
+                    else
+                    {
+                        var model = new ProductModel
+                        {
+                            ReferenceId = product.ProductReferenceId,
+                            Code = product.ProductCode,
+                            Name = product.ProductName,
+                            UnitsetCode = product.UnitsetCode,
+                            SubUnitsetCode = product.SubUnitsetCode,
+                            SubUnitsetReferenceId = product.SubUnitsetReferenceId,
+                            UnitsetReferenceId = product.UnitsetReferenceId,
+                            StockQuantity = product.OnHand,
+                            Quantity = 1
+
+                        };
+                        product.IsSelected = false;
+                        returnSalesService.Items.Add(model);
+                    }
+                }
+                break;
 
 
-			default:
+            default:
 				break;
 		}
 		await Task.Delay(200);

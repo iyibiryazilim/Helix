@@ -105,9 +105,7 @@
 	  <Folder Include="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\" />
 	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
 	  <Folder Include="Modules\ReturnModule\ViewModels\Purchases\ReturnByPurchaseDispatchTransactionLineViewModels\" />
-	  <Folder Include="Modules\ReturnModule\ViewModels\Sales\SalesReturnDispatchViewModels\" />
 	  <Folder Include="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\" />
-	  <Folder Include="Modules\ReturnModule\Views\Sales\ReturnSalesViews\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -440,6 +438,9 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnPurchasesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnPurchaseViews\ReturnPurchaseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnPurchaseViews\ReturnPurchaseSelectWarehouseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -450,6 +451,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesViews\ReturnSalesListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesViews\ReturnSalesSelectWarehouseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\BasketViews\BasketView.xaml">
