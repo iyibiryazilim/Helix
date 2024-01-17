@@ -24,12 +24,13 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		_warehouseTotalService = warehouseTotalService;
 
 		GetItemsCommand = new Command(async () => await LoadData());
+		SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
 	}
 
 	#region Commands
 	public Command GetItemsCommand { get; }
-	public Command SearchCommand { get; }
+	public Command<string> SearchCommand { get; }
 	#endregion
 
 	#region Lists
@@ -81,7 +82,6 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
-			Console.WriteLine(SelectedWarehouse);
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage = 0;
@@ -198,6 +198,46 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 			IsBusy = false;
 			IsRefreshing = false;
 		}
+	}
+
+	async Task PerformSearchAsync(string text)
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			if (!string.IsNullOrEmpty(text))
+			{
+				if (text.Length >= 3)
+				{
+					SearchText = text;
+					Results.Clear();
+					foreach (var item in Items.ToList().Where(x => x.ProductCode.Contains(SearchText) || x.ProductName.Contains(SearchText)))
+					{
+						Results.Add(item);
+					}
+				}
+			}
+			else
+			{
+				SearchText = string.Empty;
+				Results.Clear();
+				foreach (var item in Items)
+				{
+					Results.Add(item);
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Search Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+
 	}
 
 	[RelayCommand]
