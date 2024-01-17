@@ -450,6 +450,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectWarehouseView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingListView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSummaryView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectProductsView>();
 			 
 
 
@@ -514,6 +515,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectWarehouseViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSummaryViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectProductsViewModel>();
 
 
 
