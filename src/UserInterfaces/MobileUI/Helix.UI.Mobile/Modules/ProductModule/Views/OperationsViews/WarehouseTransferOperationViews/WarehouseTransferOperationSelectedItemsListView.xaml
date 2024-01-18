@@ -80,10 +80,11 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="baseModel:WarehouseTotal">
-                        <SwipeView Margin="3">
+                        <SwipeView Margin="3" 
+                                   Threshold="200">
                             <SwipeView.RightItems>
                                 <SwipeItems Mode="Execute">
-                                    <SwipeItem BackgroundColor="{StaticResource Primary}"
+                                    <SwipeItem BackgroundColor="{StaticResource Danger}"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=RemoveItemCommand}"
                                                CommandParameter="{Binding .}"
                                                Text="Malzeme Sil" />

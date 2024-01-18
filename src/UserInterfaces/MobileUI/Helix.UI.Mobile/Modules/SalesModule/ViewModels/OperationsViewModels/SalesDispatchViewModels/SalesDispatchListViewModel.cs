@@ -82,6 +82,7 @@ public partial class SalesDispatchListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			Results.Clear();
 
@@ -293,7 +294,7 @@ public partial class SalesDispatchListViewModel : BaseViewModel
 				await Shell.Current.GoToAsync("..");
 			else
 			{
-				bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+				bool answer = await Shell.Current.DisplayAlert("Uyarı", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
 				if (answer)
 				{
 					await Shell.Current.GoToAsync("..");

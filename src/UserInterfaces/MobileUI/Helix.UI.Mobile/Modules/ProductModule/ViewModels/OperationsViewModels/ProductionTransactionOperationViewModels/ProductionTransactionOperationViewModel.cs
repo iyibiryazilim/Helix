@@ -106,8 +106,8 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
             IsBusy = false;
             IsRefreshing = false;
         }
-
     }
+
     [RelayCommand]
     async Task AddQuantity(ProductModel item)
     {
