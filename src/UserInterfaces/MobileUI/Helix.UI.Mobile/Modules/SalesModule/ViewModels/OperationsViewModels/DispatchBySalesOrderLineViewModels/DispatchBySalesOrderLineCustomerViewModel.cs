@@ -246,7 +246,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         {
             if(SelectedCustomer is not null)
             {
-				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineLineListView)}", new Dictionary<string, object>
+				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineWarehouseListView)}", new Dictionary<string, object>
 				{
 					["Current"] = SelectedCustomer
 				});

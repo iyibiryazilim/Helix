@@ -252,7 +252,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				{
 					var result = Items.Where(c => c.IsSelected).First();
 					await Task.Delay(500);
-					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderFicheView)}", new Dictionary<string, object>
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderWarehouseListView)}", new Dictionary<string, object>
 					{
 						[nameof(Current)] = result
 					});

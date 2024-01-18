@@ -53,7 +53,7 @@
                                    FontSize="16"
                                    HorizontalOptions="Start"
                                    VerticalOptions="Center"></Label>
-                            <Label Text="Ürün listesi bulunur."></Label>
+                            <Label Text="Ambar Toplamları bilgisi bulunur."></Label>
                         </VerticalStackLayout>
                     <Image VerticalOptions="Center" Grid.Column="2" WidthRequest="15" HeightRequest="15">
                         <Image.Source>

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -19,6 +20,7 @@ using System.Threading.Tasks;
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels
 {
     [QueryProperty(name: nameof(Current), queryId: nameof(Current))]
+    [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 
     public partial class DispatchBySalesOrderLineLineListViewModel : BaseViewModel
 	{
@@ -45,6 +47,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
         [ObservableProperty]
         Customer current;
+
+        [ObservableProperty]
+        Warehouse warehouse;
 
         [ObservableProperty]
         ObservableCollection<WaitingOrder> selectedOrders;
@@ -88,7 +93,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 Items.Clear();
                 Results.Clear();
 
-                var result = await _salesOrderLineService.GetObjectsByCurrentId(httpClient,Current.ReferenceId ,true,  SearchText, OrderBy, CurrentPage, PageSize);
+                var result = await _salesOrderLineService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient,Current.ReferenceId ,Warehouse.Number,true,  SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (SalesOrderLine item in result.Data)
                 {
                     var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
@@ -158,7 +163,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
                 CurrentPage = 0;
-                var result = await _salesOrderLineService.GetObjects(httpClient, true, SearchText, OrderBy, CurrentPage, PageSize);
+                var result = await _salesOrderLineService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient,Current.ReferenceId,Warehouse.Number, true, SearchText, OrderBy, CurrentPage, PageSize);
                 if (result.Data.Any())
                 {
                     Items.Clear();

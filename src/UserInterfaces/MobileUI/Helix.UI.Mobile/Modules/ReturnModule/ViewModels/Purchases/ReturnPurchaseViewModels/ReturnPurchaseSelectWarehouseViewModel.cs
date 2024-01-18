@@ -4,6 +4,8 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -241,22 +243,22 @@ public partial class ReturnPurchaseSelectWarehouseViewModel :BaseViewModel
         }
     }
 
-    //[RelayCommand]
-    //async Task GoToTransaction()
-    //{
-    //    if (SelectedWarehouse == null)
-    //    {
-    //        await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
-    //    }
-    //    else
-    //    {
-    //        await Shell.Current.GoToAsync($"{nameof(ConsumableTransactionOperationView)}", new Dictionary<string, object>
-    //        {
-    //            ["Warehouse"] = SelectedWarehouse
-    //        });
-    //    }
+    [RelayCommand]
+    async Task GoToTransaction()
+    {
+        if (SelectedWarehouse == null)
+        {
+            await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+        }
+        else
+        {
+            await Shell.Current.GoToAsync($"{nameof(ReturnPurchaseListView)}", new Dictionary<string, object>
+            {
+                ["Warehouse"] = SelectedWarehouse
+            });
+        }
 
-    //}
+    }
 
     [RelayCommand]
     private void ToggleSelection(Warehouse item)

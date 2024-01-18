@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
@@ -16,7 +17,9 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels
 {
 	[QueryProperty(nameof(Current), nameof(Current))]
-	public partial class DispatchByPurchaseOrderLineLineListViewModel : BaseViewModel
+    [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+
+    public partial class DispatchByPurchaseOrderLineLineListViewModel : BaseViewModel
 	{
 		IPurchaseOrderLineService _purchaseOrderLineService;
 		IHttpClientService _httpClientService;
@@ -43,7 +46,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		[ObservableProperty]
 		Supplier current;
 
-		public DispatchByPurchaseOrderLineLineListViewModel(IPurchaseOrderLineService purchaseOrderLineService, IHttpClientService httpClientService)
+        [ObservableProperty]
+        Warehouse warehouse;
+
+
+        public DispatchByPurchaseOrderLineLineListViewModel(IPurchaseOrderLineService purchaseOrderLineService, IHttpClientService httpClientService)
 		{
 			Title = "Satır Seçimi";
 
@@ -140,7 +147,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					Items.Clear();
 					Result.Clear();
 				}
-				var result = await _purchaseOrderLineService.GetWaitingOrdersByCurrentCode(httpClient, SearchText, OrderBy, Current.Code, CurrentPage, PageSize);
+				var result = await _purchaseOrderLineService.GetWaitingOrdersByCurrentIdAndWarehouseNumber(httpClient, SearchText, OrderBy, Current.ReferenceId,Warehouse.Number, CurrentPage, PageSize);
 				foreach (var item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);

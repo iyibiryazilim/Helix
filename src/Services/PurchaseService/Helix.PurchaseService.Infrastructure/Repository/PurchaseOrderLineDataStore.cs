@@ -167,7 +167,22 @@ namespace Helix.Tiger.DataAccess.DataStores
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByFicheCode(string search, string orderBy, string code, int page, int pageSize)
+        public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(string search, string orderBy, int id,int warehouseNumber, int page, int pageSize)
+        {
+            try
+            {
+                var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, orderBy, id,warehouseNumber, page, pageSize));
+                _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+                throw;
+            }
+        }
+
+        public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingPurchaseOrderLineByFicheCode(string search, string orderBy, string code, int page, int pageSize)
 		{
 			try
 			{

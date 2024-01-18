@@ -3,6 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.DataStores;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -15,15 +18,16 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 
 [QueryProperty(nameof(SelectedOrders), nameof(SelectedOrders))]
-
 public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
 	ISalesOrderLineService _salesOrderLineService;
-	public DispatchBySalesOrderLineListViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService)
+	IWarehouseTotalService _warehouseTotalService;
+	public DispatchBySalesOrderLineListViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService, IWarehouseTotalService warehouseTotalService)
 	{
 		_httpClientService = httpClientService;
 		_salesOrderLineService = salesOrderLineService;
+		_warehouseTotalService = warehouseTotalService;
 		Title = "Bekleyen Sipariş Satırları";
 		GetOrderLinesCommand = new Command(async () => await LoadData());
 		SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
@@ -38,19 +42,16 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	int currentPage = 0;
 	[ObservableProperty]
 	int pageSize = 20000;
-
+	public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineGroupList { get; } = new();
+	public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
+	public ObservableCollection<WaitingOrderLineGroup> SelectedWaitingOrderLineGroupList { get; } = new();
+	public ObservableCollection<WaitingOrderLine> Lines { get; } = new();
+	public ObservableCollection<WarehouseTotal> WarehouseTotalList { get; } = new();
 	[ObservableProperty]
-    WaitingOrderLineGroup waitingOrderLineGroup = new();
-
-    [ObservableProperty]
 	ObservableCollection<WaitingOrder> selectedOrders;
 	public Command GetOrderLinesCommand { get; }
 	public Command SearchCommand { get; }
 	public Command SelectAllCommand { get; }
-
-	public ObservableCollection<WaitingOrderLine> Items { get; } = new();
-	public ObservableCollection<WaitingOrderLine> Results { get; } = new();
-	public ObservableCollection<WaitingOrderLine> SelectedOrderLines { get; } = new();
 	async Task LoadData()
 	{
 		if (IsBusy)
@@ -72,6 +73,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			IsRefreshing = false;
 		}
 	}
+
 	[RelayCommand]
 	async Task GetSalesOrdersAsync()
 	{
@@ -82,37 +84,13 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			IsBusy = true;
 			IsRefreshing = true;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			Items.Clear();
-			Results.Clear();
-			foreach (var order in SelectedOrders)
-			{
-				var result = await _salesOrderLineService.GetObjectByFicheId(httpClient, true, order.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
-
-				foreach (SalesOrderLine item in result.Data)
-				{
-					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-					obj.TempQuantity = (double)item.WaitingQuantity;
-
-					Items.Add(obj);
-
-				}
-			}
-			var groupingItems = Items.GroupBy(x => x.ProductCode);
-
-			foreach (var item in groupingItems)
-			{
-				foreach (var it in item.ToList())
-				{
-					WaitingOrderLineGroup.WaitingOrderLines.Add(it);
-					Results.Add(it);
-				}
-				string productCode = item.Key;
 
 
-				
+			await GetWarehouseTotalAsync(httpClient);
+			await GetLinesFromFiche(httpClient);
+			await SetGroupLinesByProduct();
+			await FIFOCalculate();
 
-
-			}
 		}
 		catch (Exception ex)
 		{
@@ -125,6 +103,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			IsRefreshing = false;
 		}
 	}
+
 	public async Task PerformSearchAsync(string text)
 	{
 		if (IsBusy)
@@ -136,20 +115,20 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 				if (text.Length >= 3)
 				{
 					SearchText = text;
-					Results.Clear();
-					foreach (var item in Items.ToList().Where(x => x.OrderCode.Contains(SearchText) || x.ProductCode.Contains(SearchText) || x.ProductName.Contains(SearchText)))
+					Result.Clear();
+					foreach (var item in WaitingOrderLineGroupList.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
 					{
-						Results.Add(item);
+						Result.Add(item);
 					}
 				}
 			}
 			else
 			{
 				SearchText = string.Empty;
-				Results.Clear();
-				foreach (var item in Items)
+				Result.Clear();
+				foreach (var item in WaitingOrderLineGroupList)
 				{
-					Results.Add(item);
+					Result.Add(item);
 				}
 			}
 		}
@@ -174,31 +153,31 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			{
 				CurrentPage = 0;
 				await Task.Delay(100);
-				switch (response)
-				{
-					case "Termin Tarihi Büyükten Küçüğe":
-						Results.Clear();
-						foreach (var item in Items.OrderByDescending(x => x.DueDate).ToList())
-						{
-							Results.Add(item);
-						}
-						break;
-					case "Termin Tarihi Küçükten Büyüğe":
-						Results.Clear();
-						foreach (var item in Items.OrderBy(x => x.DueDate).ToList())
-						{
-							Results.Add(item);
-						}
-						break;
-					default:
-						Results.Clear();
-						foreach (var item in Items)
-						{
-							Results.Add(item);
-						}
-						break;
+				//switch (response)
+				//{
+				//	case "Termin Tarihi Büyükten Küçüğe":
+				//		Result.Clear();
+				//		foreach (var item in WaitingOrderLineGroupList.OrderByDescending(x => x.DueDate).ToList())
+				//		{
+				//			Result.Add(item);
+				//		}
+				//		break;
+				//	case "Termin Tarihi Küçükten Büyüğe":
+				//		Result.Clear();
+				//		foreach (var item in WaitingOrderLineGroupList.OrderBy(x => x.DueDate).ToList())
+				//		{
+				//			Result.Add(item);
+				//		}
+				//		break;
+				//	default:
+				//		Result.Clear();
+				//		foreach (var item in Lines)
+				//		{
+				//			Result.Add(item);
+				//		}
+				//		break;
 
-				}
+				//}
 			}
 		}
 		catch (Exception ex)
@@ -217,62 +196,221 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	{
 		if (isSelected)
 		{
-			foreach (var item in Results)
+			foreach (var item in Result)
 			{
-				item.IsSelected = true;
-				SelectedOrderLines.Add(item);
-
+				if (item.IsEnabled)
+				{
+					item.IsSelected = true;
+					SelectedWaitingOrderLineGroupList.Add(item);
+				}
 			}
 		}
 		else
 		{
-			foreach (var item in Results)
+			foreach (var item in Result)
 			{
 				item.IsSelected = false;
-				SelectedOrderLines.Remove(item);
+				SelectedWaitingOrderLineGroupList.Remove(item);
 
 			}
 		}
 	}
 
 	[RelayCommand]
-	public async Task ToggleSelectionAsync(WaitingOrderLine model)
+	public async Task ToggleSelectionAsync(WaitingOrderLineGroup model)
 	{
-		await Task.Run(() =>
+		var selectedItem = Result.FirstOrDefault(x => x.Code == model.Code);
+		if (selectedItem != null && selectedItem.IsEnabled)
 		{
-
-			WaitingOrderLine selectedItem = Results.FirstOrDefault(x => x.ReferenceId == model.ReferenceId);
-			if (selectedItem != null)
+			if (selectedItem.IsSelected)
 			{
-				if (selectedItem.IsSelected)
-				{
-					selectedItem.IsSelected = false;
-					SelectedOrderLines.Remove(selectedItem);
+				selectedItem.IsSelected = false;
+				SelectedWaitingOrderLineGroupList.Remove(selectedItem);
+			}
+			else
+			{
+				selectedItem.IsSelected = true;
+				SelectedWaitingOrderLineGroupList.Add(selectedItem);
+			}
+		}
+	}
 
+	async Task GetWarehouseTotalAsync(HttpClient httpClient)
+	{
+		try
+		{
+			WarehouseTotalList.Clear();
+
+			var warehouseNumber = SelectedOrders.First().WarehouseNumber;
+
+			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, (int)warehouseNumber, "1,2,3,4,10,11,12,13", "", WarehouseTotalOrderBy.nameasc, 0, 10000);
+			foreach (var item in result.Data)
+			{
+				WarehouseTotalList.Add(item);
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+		}
+	}
+	async Task GetLinesFromFiche(HttpClient httpClient)
+	{
+		try
+		{
+			Lines.Clear();
+
+			foreach (var order in SelectedOrders)
+			{
+				var salesResult = await _salesOrderLineService.GetObjectByFicheId(httpClient, true, order.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
+				if (salesResult.IsSuccess)
+				{
+					foreach (SalesOrderLine item in salesResult.Data)
+					{
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+						obj.TempQuantity = (double)item.WaitingQuantity;
+
+						Lines.Add(obj);
+					}
 				}
 				else
 				{
-					selectedItem.IsSelected = true;
-
-					SelectedOrderLines.Add(selectedItem);
+					Debug.WriteLine(salesResult.Message);
+					await Shell.Current.DisplayAlert("  Error: ", $"{salesResult.Message}", "Tamam");
 				}
-			}
 
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+		}
+	}
+	async Task SetGroupLinesByProduct()
+	{
+		await Task.Run(async () =>
+		{
+
+			try
+			{
+				var groupingLines = Lines.GroupBy(x => x.ProductCode);
+				WaitingOrderLineGroupList.Clear();
+				Result.Clear();
+				foreach (var item in groupingLines)
+				{
+					var product = WarehouseTotalList.Where(x => x.ProductCode == item.Key).FirstOrDefault();
+					if (product != null)
+					{
+						if (product.OnHand != 0)
+						{
+							if (product.OnHand < 0)
+							{
+								WaitingOrderLineGroup model = new();
+								model.Code = item.Key;
+								model.Name = product.ProductName;
+								model.StockQuantity = product.OnHand;
+								model.IsEnabled = false;
+								foreach (var it in item.ToList())
+								{
+									model.WaitingOrderLines.Add(it);
+									if (model.LineQuantity + it.WaitingQuantity > model.StockQuantity)
+									{
+										model.LineQuantity = model.StockQuantity;
+									}
+									else
+									{
+										model.LineQuantity += it.WaitingQuantity;
+									}
+								}
+								WaitingOrderLineGroupList.Add(model);
+								Result.Add(model);
+							}
+							else
+							{
+								WaitingOrderLineGroup model = new();
+								model.Code = item.Key;
+								model.StockQuantity = product.OnHand;
+								model.IsEnabled = true;
+								foreach (var it in item.ToList())
+								{
+									model.WaitingOrderLines.Add(it);
+									if (model.LineQuantity + it.WaitingQuantity > model.StockQuantity)
+									{
+										model.LineQuantity = model.StockQuantity;
+									}
+									else
+									{
+										model.LineQuantity += it.WaitingQuantity;
+									}
+								}
+								WaitingOrderLineGroupList.Add(model);
+								Result.Add(model);
+
+							}
+						}
+					}
+				}
+				Debug.WriteLine("tamanlandı.");
+
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			}
 		});
 	}
-
+	async Task FIFOCalculate()
+	{
+		try
+		{
+			foreach (var item in WaitingOrderLineGroupList)
+			{
+				var tempQuantity = (double?)item.StockQuantity;
+				item.WaitingOrderLines.OrderBy(x => x.DueDate);
+				foreach (var lines in item.WaitingOrderLines)
+				{
+					if (tempQuantity > 0)
+					{
+						if(tempQuantity - lines.WaitingQuantity < 0)
+						{
+							lines.FifoQuantity = tempQuantity;
+							tempQuantity = 0;
+						}
+						else
+						{
+							tempQuantity -= lines.WaitingQuantity;
+							lines.FifoQuantity = lines.WaitingQuantity;
+						}
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+		}
+	}
 
 	[RelayCommand]
 	async Task GoToSalesOrderSummary()
 	{
-		if(SelectedOrderLines.Count > 0)
+		if (SelectedWaitingOrderLineGroupList.Count > 0)
 		{
 			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
 			{
-				["SelectedOrderLines"] = SelectedOrderLines
+				["SelectedOrderLines"] = SelectedWaitingOrderLineGroupList
 			});
-		} 
-		else {
+		}
+		else
+		{
 			await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
 		}
 
