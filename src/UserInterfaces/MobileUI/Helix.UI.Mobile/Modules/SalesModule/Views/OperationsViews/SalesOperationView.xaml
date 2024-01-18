@@ -6,7 +6,7 @@
              x:DataType="viewModel:SalesOperationViewModel"
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesOperationView"
              Title="{Binding Title}" BackgroundColor="{StaticResource Primary}">
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+    <Border BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>
@@ -30,7 +30,9 @@
                             <Label Text="Ürün Toplama"
                                    VerticalOptions="Center"
                                    FontSize="16"
-                                   FontAttributes="Bold">
+                                   FontAttributes="Bold"
+                                   
+                                   >
 
                             </Label>
                             <Image Grid.Column="1"
@@ -48,6 +50,11 @@
                                     Radius="40"
                                     Opacity="0.1" />
                         </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding GoToProcurementByProductViewCommand}" />
+
+                        </Border.GestureRecognizers>
                     </Border>
 
                 </Grid>

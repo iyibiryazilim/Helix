@@ -8,16 +8,13 @@
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:DataType="viewModel:DispatchBySalesOrderLineSelectedLineListViewModel"
-             Title="{Binding Title}" Shell.TabBarIsVisible="False">
+             Title="{Binding Title}"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetOrderLinesCommand}" />
+                                        Command="{Binding GetSalesOrdersCommand}" />
     </ContentPage.Behaviors>
-    <sharedViews:SelectedLineListContentView SelectedLineList="{Binding Results}"
-                                             AddQuantityCommand="{Binding AddQuantityCommand}"
-                                             DeleteQuantityCommand="{Binding DeleteQuantityCommand}"
-                                             RemoveItemCommand="{Binding RemoveItemCommand}"
+    <sharedViews:SelectedLineListContentView SelectedLineList="{Binding Result}"
                                              SearchCommand="{Binding SearchCommand}"
-                                             SortCommand="{Binding SortCommand}"
-                                             GoToSummaryCommand="{Binding GoToSalesOrderSummaryCommand}"></sharedViews:SelectedLineListContentView>
+                                             GoToSummaryCommand="{Binding GoToSummaryCommand}"></sharedViews:SelectedLineListContentView>
 </ContentPage>

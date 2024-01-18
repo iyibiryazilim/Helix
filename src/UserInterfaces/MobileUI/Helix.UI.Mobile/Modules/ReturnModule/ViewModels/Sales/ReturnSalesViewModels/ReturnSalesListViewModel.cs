@@ -76,7 +76,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
             if (Items.Any())
             {
 
-                await Shell.Current.GoToAsync($"{nameof(ReturnSalesListViewModel)}", new Dictionary<string, object>
+                await Shell.Current.GoToAsync($"{nameof(ReturnSalesFormView)}", new Dictionary<string, object>
                 {
                     [nameof(ProductModel)] = Items,
                     ["Warehouse"] = Warehouse

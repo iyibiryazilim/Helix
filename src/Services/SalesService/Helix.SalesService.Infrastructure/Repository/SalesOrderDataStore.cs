@@ -117,5 +117,21 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
             throw;
         }
     }
+    public async Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(int id, int number, int shipInfoReferenceId,string search = "", string orderBy = SalesOrdersOrderBy.DateDesc, int page = 0, int pageSize = 20)
+    {
+        try
+        {
+            var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdAndWarehouseNumberAndShipInfoQuery(id, number,shipInfoReferenceId, search, orderBy, page, pageSize));
+            _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+            throw;
+        }
+    }
 
 }

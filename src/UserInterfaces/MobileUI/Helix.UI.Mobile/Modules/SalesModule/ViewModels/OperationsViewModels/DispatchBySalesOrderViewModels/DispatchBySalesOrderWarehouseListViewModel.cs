@@ -19,7 +19,7 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels
 {
     [QueryProperty(nameof(Current), nameof(Current))]
-
+    [QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
     public partial class DispatchBySalesOrderWarehouseListViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
@@ -49,6 +49,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
         [ObservableProperty]
         Customer current;
+
+        [ObservableProperty]
+        ShipInfo shipInfo;
 
 
         public DispatchBySalesOrderWarehouseListViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomQueryService customQueryService)
@@ -258,7 +261,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}", new Dictionary<string, object>
                 {
                     ["Warehouse"] = SelectedWarehouse,
-                    ["Current"] = Current
+                    ["Current"] = Current,
+                    ["ShipInfo"] = ShipInfo
                 });
             }
 

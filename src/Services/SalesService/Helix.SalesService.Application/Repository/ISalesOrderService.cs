@@ -9,6 +9,7 @@ public interface ISalesOrderService
 	public Task<DataResult<SalesOrder>> GetSalesOrderByCode(string code);
 	public Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAsync(int id, string search, string orderBy, int page, int pageSize);
     public Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(int id,int number, string search, string orderBy, int page, int pageSize);
+    public Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(int id, int number,int shipInfoReferenceId, string search, string orderBy, int page, int pageSize);
 
     public Task<DataResult<IEnumerable<SalesOrder>>> GetSalesOrdersByCurrentCodeAsync(string code, string search, string orderBy, int page, int pageSize);
 

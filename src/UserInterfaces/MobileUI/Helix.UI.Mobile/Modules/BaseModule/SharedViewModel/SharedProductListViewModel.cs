@@ -518,6 +518,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                     }
                 }
                 break;
+                //satın alma iade
             case 6:
                 var returnPurchaseService = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
                 foreach (var product in SelectedProducts)

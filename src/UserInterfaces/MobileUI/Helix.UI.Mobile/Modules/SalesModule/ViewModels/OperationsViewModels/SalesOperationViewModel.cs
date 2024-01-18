@@ -3,6 +3,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 
@@ -18,6 +19,13 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels
         async Task GoToDispatchBySalesOrderCustomerView()
         {
             await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderCustomerView)}");
+        }
+
+        //Ürün Toplama
+        [RelayCommand]
+        async Task GoToProcurementByProductView()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ProcurementByProductView)}");
         }
 
         [RelayCommand]

@@ -9,9 +9,10 @@
              x:DataType="viewModel:SupplierDetailViewModel"
              Title="Tedarikçi Detayı"
              Shell.TabBarIsVisible="False">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding OpenFastOperationBottomSheetCommand}"
-                     IconImageSource="Resources/Images/plus.png" />
+                     IconImageSource="Resources/Images/greenplus.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"

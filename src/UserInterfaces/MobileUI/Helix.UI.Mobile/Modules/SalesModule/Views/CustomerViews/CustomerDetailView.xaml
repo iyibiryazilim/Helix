@@ -9,9 +9,10 @@
              x:DataType="viewModel:CustomerDetailViewModel"
              Title="Müşteri Detayı"
              Shell.TabBarIsVisible="False">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding OpenFastOperationBottomSheetCommand}"
-                     IconImageSource="Resources/Images/plus.png" 
+                     IconImageSource="Resources/Images/greenplus.png" 
                      />
     </ContentPage.ToolbarItems>
     <ContentPage.Behaviors>

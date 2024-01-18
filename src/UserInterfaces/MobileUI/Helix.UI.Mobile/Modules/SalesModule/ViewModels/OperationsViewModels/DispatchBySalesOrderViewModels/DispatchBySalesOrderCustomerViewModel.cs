@@ -245,7 +245,7 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
     {
         if(SelectedCustomer is not null)
         {
-			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderShipInfoListView)}", new Dictionary<string, object>
 			{
 				["Current"] = SelectedCustomer
 			});

@@ -13,6 +13,7 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels
 {
     [QueryProperty(nameof(Current), nameof(Current))]
+    [QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
 
     public partial class DispatchBySalesOrderLineWarehouseListViewModel : BaseViewModel
     {
@@ -42,6 +43,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
         [ObservableProperty]
         Customer current;
+
+        [ObservableProperty]
+        ShipInfo shipInfo;
 
 
         public DispatchBySalesOrderLineWarehouseListViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)

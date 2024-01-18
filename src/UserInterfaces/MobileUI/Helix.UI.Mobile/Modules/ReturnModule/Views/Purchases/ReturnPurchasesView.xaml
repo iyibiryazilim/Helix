@@ -6,7 +6,7 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchasesView"
              Title="{Binding Title}" BackgroundColor="{StaticResource Primary}">
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+    <Border BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>
@@ -28,7 +28,7 @@
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 5,5,0,0">
                     <Grid ColumnDefinitions="90*,10*">
-                        <Label Text="Satınalma İade İşlemleri"
+                        <Label Text="Satın Alma İade İşlemleri"
                                VerticalOptions="Center"
                                FontSize="16"
                                FontAttributes="Bold">

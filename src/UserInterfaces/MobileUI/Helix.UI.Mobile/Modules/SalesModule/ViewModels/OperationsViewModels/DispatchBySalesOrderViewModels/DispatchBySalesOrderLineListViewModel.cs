@@ -18,6 +18,8 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 
 [QueryProperty(nameof(SelectedOrders), nameof(SelectedOrders))]
+[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+
 public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
@@ -42,6 +44,8 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	int currentPage = 0;
 	[ObservableProperty]
 	int pageSize = 20000;
+	[ObservableProperty]
+	Warehouse warehouse;
 	public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineGroupList { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> SelectedWaitingOrderLineGroupList { get; } = new();
@@ -107,29 +111,24 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	public async Task PerformSearchAsync(string text)
 	{
 		if (IsBusy)
+		{
 			return;
+		}
+
 		try
 		{
-			if (!string.IsNullOrEmpty(text))
+			IsBusy = true;
+			SearchText = string.IsNullOrEmpty(text) ? string.Empty : text;
+
+			Result.Clear();
+			IEnumerable<WaitingOrderLineGroup> itemsToSearch = string.IsNullOrEmpty(SearchText)
+				? WaitingOrderLineGroupList
+				: WaitingOrderLineGroupList.Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText));
+
+			foreach (var item in itemsToSearch)
 			{
-				if (text.Length >= 3)
-				{
-					SearchText = text;
-					Result.Clear();
-					foreach (var item in WaitingOrderLineGroupList.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
-					{
-						Result.Add(item);
-					}
-				}
-			}
-			else
-			{
-				SearchText = string.Empty;
-				Result.Clear();
-				foreach (var item in WaitingOrderLineGroupList)
-				{
-					Result.Add(item);
-				}
+				var selectCheck = SelectedWaitingOrderLineGroupList.Where(x => x.Code == item.Code);
+				Result.Add(selectCheck.Any() ? selectCheck.First() : item);
 			}
 		}
 		catch (Exception ex)
@@ -201,6 +200,12 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 				if (item.IsEnabled)
 				{
 					item.IsSelected = true;
+					foreach (var line in item.WaitingOrderLines)
+					{
+						line.IsSelected = true;
+					}
+
+
 					SelectedWaitingOrderLineGroupList.Add(item);
 				}
 			}
@@ -210,6 +215,10 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			foreach (var item in Result)
 			{
 				item.IsSelected = false;
+				foreach (var line in item.WaitingOrderLines)
+				{
+					line.IsSelected = false;
+				}
 				SelectedWaitingOrderLineGroupList.Remove(item);
 
 			}
@@ -225,11 +234,19 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			if (selectedItem.IsSelected)
 			{
 				selectedItem.IsSelected = false;
+				foreach (var line in selectedItem.WaitingOrderLines)
+				{
+					line.IsSelected = false;
+				}
 				SelectedWaitingOrderLineGroupList.Remove(selectedItem);
 			}
 			else
 			{
 				selectedItem.IsSelected = true;
+				foreach (var line in selectedItem.WaitingOrderLines)
+				{
+					line.IsSelected = true;
+				}
 				SelectedWaitingOrderLineGroupList.Add(selectedItem);
 			}
 		}
@@ -241,7 +258,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 		{
 			WarehouseTotalList.Clear();
 
-			var warehouseNumber = SelectedOrders.First().WarehouseNumber;
+			var warehouseNumber = Warehouse.Number;
 
 			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, (int)warehouseNumber, "1,2,3,4,10,11,12,13", "", WarehouseTotalOrderBy.nameasc, 0, 10000);
 			foreach (var item in result.Data)
@@ -308,7 +325,8 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 							if (product.OnHand < 0)
 							{
 								WaitingOrderLineGroup model = new();
-								model.Code = item.Key;
+								model.Code = product.ProductCode;
+								model.SubUnitsetCode = product.SubUnitsetCode;
 								model.Name = product.ProductName;
 								model.StockQuantity = product.OnHand;
 								model.IsEnabled = false;
@@ -330,7 +348,9 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 							else
 							{
 								WaitingOrderLineGroup model = new();
-								model.Code = item.Key;
+								model.Code = product.ProductCode;
+								model.SubUnitsetCode = product.SubUnitsetCode;
+								model.Name = product.ProductName;
 								model.StockQuantity = product.OnHand;
 								model.IsEnabled = true;
 								foreach (var it in item.ToList())
@@ -374,7 +394,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 				{
 					if (tempQuantity > 0)
 					{
-						if(tempQuantity - lines.WaitingQuantity < 0)
+						if (tempQuantity - lines.WaitingQuantity < 0)
 						{
 							lines.FifoQuantity = tempQuantity;
 							tempQuantity = 0;
@@ -406,7 +426,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 		{
 			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
 			{
-				["SelectedOrderLines"] = SelectedWaitingOrderLineGroupList
+				[nameof(SelectedWaitingOrderLineGroupList)] = SelectedWaitingOrderLineGroupList
 			});
 		}
 		else
