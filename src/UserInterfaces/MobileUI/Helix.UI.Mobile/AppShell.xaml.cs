@@ -157,6 +157,9 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(EntryProductSelectView), typeof(EntryProductSelectView));
     Routing.RegisterRoute(nameof(DispatchBySalesOrderWarehouseListView), typeof(DispatchBySalesOrderWarehouseListView));
 		Routing.RegisterRoute(nameof(WarehouseCountingSelectWarehouseView), typeof(WarehouseCountingSelectWarehouseView));
+    Routing.RegisterRoute(nameof(DispatchBySalesOrderLineWarehouseListView), typeof(DispatchBySalesOrderLineWarehouseListView));
+    Routing.RegisterRoute(nameof(DispatchByPurchaseOrderWarehouseListView), typeof(DispatchByPurchaseOrderWarehouseListView));
+    Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineWarehouseListView), typeof(DispatchByPurchaseOrderLineWarehouseListView));
     Routing.RegisterRoute(nameof(ReturnPurchaseSelectWarehouseView), typeof(ReturnPurchaseSelectWarehouseView));
     Routing.RegisterRoute(nameof(ReturnSalesSelectWarehouseView), typeof(ReturnSalesSelectWarehouseView));
     Routing.RegisterRoute(nameof(ReturnSalesListView), typeof(ReturnSalesListView));
@@ -166,6 +169,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(WarehouseCountingSummaryView), typeof(WarehouseCountingSummaryView));
 		Routing.RegisterRoute(nameof(AllProductsListSharedView), typeof(AllProductsListSharedView));
 		Routing.RegisterRoute(nameof(WarehouseCountingSelectProductsView), typeof(WarehouseCountingSelectProductsView));
+
 
 
     }

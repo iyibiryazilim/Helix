@@ -32,6 +32,14 @@ public partial class BaseProductTransactionLine :ObservableObject
     string documentNumber;
     [ObservableProperty]
     string documentTrackingNumber;
+    [ObservableProperty]
+    int unitsetReferenceId;
+    [ObservableProperty]
+    string unitsetCode;
+    [ObservableProperty]
+    int subUnitsetReferenceId;
+    [ObservableProperty]
+    string subUnitsetCode;
     public string TransactionTypeName
 	{
 		get

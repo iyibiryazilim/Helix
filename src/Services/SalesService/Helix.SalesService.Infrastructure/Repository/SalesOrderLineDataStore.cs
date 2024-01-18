@@ -219,7 +219,24 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 		}
 	}
 
-	public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByProductCodeAsync(string code, string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
+	public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAsync(int id, int warehouseNumber,string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
+	{
+		try
+		{
+			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentIdAndWarehouseNumberQuery(id,warehouseNumber, search, orderBy, page, pageSize));
+			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+			return result;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+			throw;
+		}
+	}
+
+    public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetWaitingSalesOrdersByProductCodeAsync(string code, string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
 	{
 		try
 		{

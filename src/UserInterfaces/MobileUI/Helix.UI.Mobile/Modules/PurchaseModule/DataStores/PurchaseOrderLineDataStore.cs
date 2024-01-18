@@ -323,7 +323,68 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 			}
 		}
 
-		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByProductCode(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, string Code, int page, int pageSize)
+		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByCurrentIdAndWarehouseNumber(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId,int WarehouseNumber, int page, int pageSize)
+		{
+			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/CurrentAndWarehouse/Id/{ReferenceId}&{WarehouseNumber}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();
+			if (responseMessage.IsSuccessStatusCode)
+			{
+				var data = await responseMessage.Content.ReadAsStringAsync();
+				if (data != null)
+				{
+					if (!string.IsNullOrEmpty(data))
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
+
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "success";
+						return dataResult;
+
+					}
+					else
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
+
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "empty";
+						return dataResult;
+					}
+
+				}
+				else
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<PurchaseOrderLine>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+
+					dataResult.Data = Enumerable.Empty<PurchaseOrderLine>();
+					dataResult.IsSuccess = false;
+					dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+					return dataResult;
+				}
+
+
+			}
+			else
+			{
+				dataResult.Data = Enumerable.Empty<PurchaseOrderLine>();
+				dataResult.IsSuccess = false;
+				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+				return dataResult;
+			}
+		}
+
+        public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByProductCode(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, string Code, int page, int pageSize)
 		{
 			HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/Product/Code/{Code}?search={search}&includeWaiting=true&orderBy={orderBy}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<PurchaseOrderLine>> dataResult = new DataResult<IEnumerable<PurchaseOrderLine>>();

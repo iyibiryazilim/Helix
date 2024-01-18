@@ -11,7 +11,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Services
 		Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrderById(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId, int page, int pageSize);
 		Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrderByCode(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, string Code, int page, int pageSize);
 		Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByCurrentId(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId, int page, int pageSize);
-		Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByCurrentCode(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, string Code, int page, int pageSize);
+		Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByCurrentIdAndWarehouseNumber(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId,int WarehouseNumber, int page, int pageSize);
+        Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByCurrentCode(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, string Code, int page, int pageSize);
 		Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByProductId(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, int ReferenceId, int page, int pageSize);
 		Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetWaitingOrdersByProductCode(HttpClient httpClient, string search, PurchaseOrderLineOrderBy orderBy, string Code, int page, int pageSize);
 	}
