@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.LoadingView"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:Name="this"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews">
     <AbsoluteLayout AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -11,9 +12,17 @@
                 IsVisible="{Binding Source={x:Reference this}, Path=IsBusy}">
         <ActivityIndicator BindingContext="{x:Reference loadingGif}"
                        IsVisible="False" />
-        <Image x:Name="loadingGif" 
+        <!--<Image x:Name="loadingGif" 
            HeightRequest="200"  
            Source="loading_gif.gif" 
-           IsAnimationPlaying="{Binding Source={x:Reference this}, Path=IsBusy}" />
+           IsAnimationPlaying="{Binding Source={x:Reference this}, Path=IsBusy}" />-->
+        
+        <skia:SKLottieView x:Name="loadingGif"
+               HeightRequest="100"
+               WidthRequest="100"
+               Source="loadingAnimation.json"
+               RepeatMode="Reverse"
+               RepeatCount="-1"
+               IsAnimationEnabled="{Binding Source={x:Reference this}, Path=IsBusy}" />
     </AbsoluteLayout>
 </ContentView>

@@ -7,20 +7,19 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.WarehouseCountingViewModels"
              x:DataType="viewModel:WarehouseCountingSelectWarehouseViewModel"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             Title="WarehouseCountingSelectWarehouseView"
+             Title="{Binding Title}"
              Shell.TabBarIsVisible="False"
              BackgroundColor="{StaticResource Primary}"
              >
-    <!--<ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWarehousesCommand}" />
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWarehousesListCommand}" />
     </ContentPage.Behaviors>
     <sharedViews:WarehouseSelectContentView IsBusy="{Binding IsBusy}"
-                                        IsRefreshing="{Binding IsRefreshing}"
-                                        WarehouseList="{Binding Results}"
-                                        SortCommand="{Binding SortCommand}"
-                                        SearchCommand="{Binding SearchCommand}"
-                                        GoToNextCommand="{Binding GoToWarehouseTransferOperationViewCommand}"
-                                        ReloadCommand="{Binding ReloadCommand}"
-                                        ToggleSelectionCommand="{Binding ToggleSelectionCommand}"/>-->
-    <sharedViews:WarehouseSelectContentView />
+                                            IsRefreshing="{Binding IsRefreshing}"
+                                            WarehouseList="{Binding Results}"
+                                            SortCommand="{Binding SortCommand}"
+                                            SearchCommand="{Binding SearchCommand}"
+                                            ReloadCommand="{Binding ReloadCommand}"
+                                            GoToNextCommand="{Binding GoToWarehouseCountingListViewCommand}"
+                                            ToggleSelectionCommand="{Binding ToggleSelectionCommand}"/>
 </ContentPage>

@@ -93,6 +93,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchVie
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using The49.Maui.BottomSheet;
 
 
@@ -106,6 +107,7 @@ namespace Helix.UI.Mobile
 			builder
 				.UseMauiApp<App>()
 				.UseBottomSheet()
+				.UseSkiaSharp()
 				 .UseMauiCommunityToolkit()
 				.RegisterHttpClientServices()
 				.LoginViews()
@@ -448,6 +450,9 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<EntryProductSelectView>();
 			mauiAppBuilder.Services.AddTransient<EntryWarehouseSelectView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectWarehouseView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingListView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSummaryView>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectProductsView>();
 			 
 
 
@@ -510,6 +515,9 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<ProductDetailAlternativeProductListViewModel>();
             mauiAppBuilder.Services.AddTransient<ProductDetailCustomerAndSupplierListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectWarehouseViewModel>();
+			mauiAppBuilder.Services.AddScoped<WarehouseCountingListViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSummaryViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectProductsViewModel>();
 
 
 
