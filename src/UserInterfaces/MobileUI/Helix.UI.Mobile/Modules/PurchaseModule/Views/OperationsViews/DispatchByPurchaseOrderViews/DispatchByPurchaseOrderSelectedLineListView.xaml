@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels"
+             x:DataType="viewModel:DispatchByPurchaseOrderSelectedLineListViewModel"
              x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews.DispatchByPurchaseOrderSelectedLineListView"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -12,8 +14,6 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetOrderLinesCommand}" />
     </ContentPage.Behaviors>
-    <sharedViews:SelectedLineListContentView GoToSummaryCommand="{Binding GoToSummaryCommand}"
-                                             SearchCommand="{Binding SearchCommand}"
-                                             SortCommand="{Binding SortCommand}"
-                                             SelectedLineList="{Binding Results}"></sharedViews:SelectedLineListContentView>
+    <sharedViews:SelectedLineListContentView GoToSummaryCommand="{Binding GoToSummaryCommand}" 
+                                             SelectedLineList="{Binding Result}"></sharedViews:SelectedLineListContentView>
 </ContentPage>

@@ -43,6 +43,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		//Lists
 		public ObservableCollection<WaitingOrder> Items { get; } = new();
 		public ObservableCollection<WaitingOrder> Result { get; } = new();
+		public ObservableCollection<WaitingOrder> SelectedOrders { get; } = new();
 
 		//Commands
 		public Command GetDataCommand { get; }
@@ -163,12 +164,23 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		{
 			await Task.Run(() =>
 			{
-				item.IsSelected = !item.IsSelected;
-
-				if (item.IsSelected)
+				WaitingOrder selectedItem = Result.FirstOrDefault(x => x.ReferenceId == item.ReferenceId);
+				if (selectedItem != null)
 				{
-					Items.Where(x => x.Code == item.Code).First().IsSelected = item.IsSelected;
+					if (selectedItem.IsSelected)
+					{
+						selectedItem.IsSelected = false;
+						SelectedOrders.Remove(selectedItem);
+
+					}
+					else
+					{
+						selectedItem.IsSelected = true;
+
+						SelectedOrders.Add(selectedItem);
+					}
 				}
+
 			});
 		}
 
@@ -232,13 +244,14 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 			try
 			{
-				if (Items.Where(x => x.IsSelected).ToList().Any())
+				if (SelectedOrders.Count > 0)
 				{
-					var result = Items.Where(x => x.IsSelected).ToList();
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
+					 
+ 					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
 					{
-						[nameof(WaitingOrder)] = result
+						[nameof(SelectedOrders)] = SelectedOrders,
+						["Warehouse"] = Warehouse
+
 					});
 				}
 				else

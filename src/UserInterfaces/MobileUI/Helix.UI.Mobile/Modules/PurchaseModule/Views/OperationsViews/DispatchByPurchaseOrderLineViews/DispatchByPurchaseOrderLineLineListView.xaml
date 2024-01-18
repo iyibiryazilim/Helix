@@ -12,12 +12,11 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
-    <sharedView:WaitingOrderLineContentView SearchCommand="{Binding SearchCommand}"
-                                            IsBusy="{Binding IsBusy}"
-                                            ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
-                                            IsRefreshing="{Binding IsRefreshing}"
+    <sharedView:WaitingOrderLineContentView ReloadCommand="{Binding GetLinesCommand}"
+                                            SearchCommand="{Binding SearchCommand}"
+                                            SortCommand="{Binding SortCommand}"
                                             WaitingOrderLineList="{Binding Result}"
-                                            CheckedChangeCommand="{Binding SelectAllCommand}"
+                                            IsBusy="{Binding IsBusy}"
                                             GoToNextCommand="{Binding GoToSummaryCommand}"
-                                            SortCommand="{Binding SortCommand}" />
+                                            CheckedChangeCommand="{Binding SelectAllCommand}" />
 </ContentPage>
