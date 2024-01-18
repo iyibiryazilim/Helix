@@ -10,7 +10,7 @@
              Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetDataCommand}" />
+                                        Command="{Binding GetLinesCommand}" />
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderLineContentView SearchCommand="{Binding SearchCommand}"
                                             IsBusy="{Binding IsBusy}"

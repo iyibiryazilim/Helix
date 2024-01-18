@@ -18,6 +18,8 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 
 [QueryProperty(nameof(SelectedOrders), nameof(SelectedOrders))]
+[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+
 public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
@@ -42,6 +44,8 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	int currentPage = 0;
 	[ObservableProperty]
 	int pageSize = 20000;
+	[ObservableProperty]
+	Warehouse warehouse;
 	public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineGroupList { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> SelectedWaitingOrderLineGroupList { get; } = new();
@@ -254,7 +258,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 		{
 			WarehouseTotalList.Clear();
 
-			var warehouseNumber = SelectedOrders.First().WarehouseNumber;
+			var warehouseNumber = Warehouse.Number;
 
 			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, (int)warehouseNumber, "1,2,3,4,10,11,12,13", "", WarehouseTotalOrderBy.nameasc, 0, 10000);
 			foreach (var item in result.Data)
@@ -422,7 +426,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 		{
 			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
 			{
-				["SelectedOrderLines"] = SelectedWaitingOrderLineGroupList
+				[nameof(SelectedWaitingOrderLineGroupList)] = SelectedWaitingOrderLineGroupList
 			});
 		}
 		else

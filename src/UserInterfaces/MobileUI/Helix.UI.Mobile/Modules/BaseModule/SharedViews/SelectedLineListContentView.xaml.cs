@@ -7,7 +7,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 public partial class SelectedLineListContentView : ContentView
 {
 
-    public static readonly BindableProperty SelectedLineListProperty = BindableProperty.Create(nameof(SelectedLineList), typeof(ObservableCollection<WaitingOrderLine>), typeof(SelectedLineListContentView), null);
+    public static readonly BindableProperty SelectedLineListProperty = BindableProperty.Create(nameof(SelectedLineList), typeof(ObservableCollection<WaitingOrderLineGroup>), typeof(SelectedLineListContentView), null);
 
 
     //Commands
@@ -30,9 +30,9 @@ public partial class SelectedLineListContentView : ContentView
 
 
     //List
-    public ObservableCollection<WaitingOrderLine> SelectedLineList
+    public ObservableCollection<WaitingOrderLineGroup> SelectedLineList
     {
-        get => GetValue(SelectedLineListProperty) as ObservableCollection<WaitingOrderLine>;
+        get => GetValue(SelectedLineListProperty) as ObservableCollection<WaitingOrderLineGroup>;
         set => SetValue(SelectedLineListProperty, value);
     }
 
