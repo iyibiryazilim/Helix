@@ -169,7 +169,7 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
         item.Quantity--;
         
        
-    }
+    } 
 
 
 

@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 using System.Collections.ObjectModel;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -11,7 +12,7 @@ public partial class WaitingOrderLineContentView : ContentView
 	public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(WaitingOrderLineContentView), false);
 
 	//List
-	public static readonly BindableProperty WaitingOrderLineListProperty = BindableProperty.Create(nameof(WaitingOrderLineList), typeof(ObservableCollection<WaitingOrderLine>), typeof(WaitingOrderLineContentView), null);
+	public static readonly BindableProperty WaitingOrderLineListProperty = BindableProperty.Create(nameof(WaitingOrderLineList), typeof(ObservableCollection<WaitingOrderLineGroup>), typeof(WaitingOrderLineContentView), null);
 	//Command
 	public static readonly BindableProperty ReloadCommandProperty = BindableProperty.Create(nameof(ReloadCommand), typeof(AsyncRelayCommand), typeof(WaitingOrderLineContentView), null);
 	public static readonly BindableProperty LoadMoreCommandProperty = BindableProperty.Create(nameof(LoadMoreCommand), typeof(AsyncRelayCommand), typeof(WaitingOrderLineContentView), null);
@@ -23,9 +24,9 @@ public partial class WaitingOrderLineContentView : ContentView
 
 
 
-	public ObservableCollection<WaitingOrderLine> WaitingOrderLineList
+	public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineList
 	{
-		get => GetValue(WaitingOrderLineListProperty) as ObservableCollection<WaitingOrderLine>;
+		get => GetValue(WaitingOrderLineListProperty) as ObservableCollection<WaitingOrderLineGroup>;
 		set => SetValue(WaitingOrderLineListProperty, value);
 	}
 

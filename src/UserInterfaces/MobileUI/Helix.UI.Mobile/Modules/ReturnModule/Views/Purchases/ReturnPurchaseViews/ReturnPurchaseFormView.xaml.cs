@@ -2,10 +2,10 @@ using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseVi
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 
-public partial class ReturnPurchaseSelectWarehouseView : ContentPage
+public partial class ReturnPurchaseFormView : ContentPage
 {
-	ReturnPurchaseSelectWarehouseViewModel _viewModel;
-    public ReturnPurchaseSelectWarehouseView(ReturnPurchaseSelectWarehouseViewModel viewModel)
+	ReturnPurchaseFormViewModel _viewModel;
+    public ReturnPurchaseFormView(ReturnPurchaseFormViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = viewModel;

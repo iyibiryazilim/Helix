@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.MVVMHelper;
 
@@ -15,6 +16,12 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases
         async Task GoToReturnByPurchaseDispatchTransactionCustomerView()
         {
             await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionSupplierView)}");
+        }
+
+        [RelayCommand]
+        async Task GoToReturnPurchaseSelectWarehouse()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ReturnPurchaseSelectWarehouseView)}");
         }
     }
 }

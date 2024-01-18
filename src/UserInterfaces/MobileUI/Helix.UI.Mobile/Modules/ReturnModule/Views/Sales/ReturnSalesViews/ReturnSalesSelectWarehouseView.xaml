@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews.ReturnPurchaseSelectWarehouseView"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseViewModels"
-             x:DataType="viewModel:ReturnPurchaseSelectWarehouseViewModel"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews" 
+             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews.ReturnSalesSelectWarehouseView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models" 
+             x:DataType="viewModel:ReturnSalesSelectWarehouseViewModel"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
