@@ -1,56 +1,50 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
-using Helix.UI.Mobile.Modules.BaseModule.Models;
-using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels
+namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels
 {
-	public partial class DispatchBySalesOrderLineCustomerViewModel : BaseViewModel
-	{
+    [QueryProperty(nameof(Current), nameof(Current))]
+    public partial class DispatchBySalesOrderShipInfoListViewModel : BaseViewModel
+    {
         IHttpClientService _httpClientService;
-        private readonly ICustomerService _customerService;
+        private readonly IShipInfoService _shipInfoService;
         //Lists
-        public ObservableCollection<Current> Items { get; } = new();
-        public ObservableCollection<Current> Results { get; } = new();
+        public ObservableCollection<ShipInfo> Items { get; } = new();
+        public ObservableCollection<ShipInfo> Results { get; } = new();
 
-
-        [ObservableProperty]
-        Current selectedCustomer;
 
         //Commands
-        public Command GetCustomersCommand { get; }
+        public Command GetShipInfosCommand { get; }
         public Command SearchCommand { get; }
 
         //Properties
         [ObservableProperty]
         string searchText = string.Empty;
-        [ObservableProperty]
-        CustomerOrderBy orderBy = CustomerOrderBy.nameasc;
-        [ObservableProperty]
-        int currentPage = 0;
-        [ObservableProperty]
-        int pageSize = 5000;
 
-        public DispatchBySalesOrderLineCustomerViewModel(IHttpClientService httpClientService, ICustomerService customerService)
+        [ObservableProperty]
+        ShipInfo selectedShipInfo;
+
+        [ObservableProperty]
+        Customer current;
+
+
+        public DispatchBySalesOrderShipInfoListViewModel(IHttpClientService httpClientService, IShipInfoService shipInfoService)
         {
-            Title = "Müşteri Listesi";
+            Title = "Sevk Adresleri";
             _httpClientService = httpClientService;
-            _customerService = customerService;
-            GetCustomersCommand = new Command(async () => await LoadData());
+            _shipInfoService = shipInfoService;
+            GetShipInfosCommand = new Command(async () => await LoadData());
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
         }
+
         async Task LoadData()
         {
             if (IsBusy)
@@ -58,7 +52,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             try
             {
                 await Task.Delay(500);
-                await MainThread.InvokeOnMainThreadAsync(GetCustomersAsync);
+                await MainThread.InvokeOnMainThreadAsync(GetShipInfosAsync);
 
             }
             catch (Exception ex)
@@ -73,7 +67,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
             }
         }
-        async Task GetCustomersAsync()
+        async Task GetShipInfosAsync()
         {
             if (IsBusy)
                 return;
@@ -83,15 +77,22 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                foreach (Current item in result.Data)
+
+                var result = await _shipInfoService.GetObjectsByCurrentId(httpClient,Current.ReferenceId);
+                if(result.Data.Count()==0)
                 {
-					if (item.ReferenceCount > 0)
-					{
-						Items.Add(item);
-						Results.Add(item);
-					}
-				}
+                    await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
+                    {
+                        ["ShipInfo"] = SelectedShipInfo,
+                        ["Current"] = Current
+                    });
+                }
+
+                foreach (ShipInfo item in result.Data)
+                {
+                    Items.Add(item);
+                    Results.Add(item);
+                }
 
 
             }
@@ -118,7 +119,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                     {
                         SearchText = text;
                         Results.Clear();
-                        foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
+                        foreach (var item in Items.ToList().Where(x => x.Name.Contains(SearchText) || x.Code.ToString().Contains(SearchText)))
                         {
                             Results.Add(item);
                         }
@@ -144,8 +145,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             }
         }
 
-
-
         [RelayCommand]
         async Task ReloadAsync()
         {
@@ -157,15 +156,12 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                foreach (Current item in result.Data)
+                var result = await _shipInfoService.GetObjectsByCurrentId(httpClient, Current.ReferenceId);
+                foreach (ShipInfo item in result.Data)
                 {
-					if (item.ReferenceCount > 0)
-					{
-						Items.Add(item);
-						Results.Add(item);
-					}
-				}
+                    Items.Add(item);
+                    Results.Add(item);
+                }
 
 
             }
@@ -187,27 +183,12 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             if (IsBusy) return;
             try
             {
-                string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A");
+                string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Kod A-Z", "Kod Z-A");
                 if (!string.IsNullOrEmpty(response))
                 {
-                    CurrentPage = 0;
                     await Task.Delay(100);
                     switch (response)
                     {
-                        case "Kod A-Z":
-                            Results.Clear();
-                            foreach (var item in Items.OrderBy(x => x.Code).ToList())
-                            {
-                                Results.Add(item);
-                            }
-                            break;
-                        case "Kod Z-A":
-                            Results.Clear();
-                            foreach (var item in Items.OrderByDescending(x => x.Code).ToList())
-                            {
-                                Results.Add(item);
-                            }
-                            break;
                         case "Ad A-Z":
                             Results.Clear();
                             foreach (var item in Items.OrderBy(x => x.Name).ToList())
@@ -218,6 +199,20 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                         case "Ad Z-A":
                             Results.Clear();
                             foreach (var item in Items.OrderByDescending(x => x.Name).ToList())
+                            {
+                                Results.Add(item);
+                            }
+                            break;
+                        case "Kod A-Z":
+                            Results.Clear();
+                            foreach (var item in Items.OrderBy(x => x.Code).ToList())
+                            {
+                                Results.Add(item);
+                            }
+                            break;
+                        case "Kod Z-A":
+                            Results.Clear();
+                            foreach (var item in Items.OrderByDescending(x => x.Code).ToList())
                             {
                                 Results.Add(item);
                             }
@@ -242,33 +237,34 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         }
 
         [RelayCommand]
-        async Task GoToSalesOrderLine()
+        async Task GoToTransaction()
         {
-            if(SelectedCustomer is not null)
+            if (SelectedShipInfo == null)
             {
-				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineShipInfoListView)}", new Dictionary<string, object>
-				{
-					["Current"] = SelectedCustomer
-				});
-			} 
+                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+            }
             else
             {
-				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Müşteri seçimi yapmanız gerekmektedir", "Tamam");
-			}
-            
+                await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
+                {
+                    ["ShipInfo"] = SelectedShipInfo,
+                    ["Current"] = Current
+                });
+            }
+
         }
 
         [RelayCommand]
-        private void ToggleSelection(Current item)
+        private void ToggleSelection(ShipInfo item)
         {
             item.IsSelected = !item.IsSelected;
-            if (SelectedCustomer != null)
+            if (SelectedShipInfo != null)
             {
-                SelectedCustomer.IsSelected = false;
+                SelectedShipInfo.IsSelected = false;
             }
             if (item.IsSelected)
             {
-                SelectedCustomer = item;
+                SelectedShipInfo = item;
             }
         }
     }

@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource WhiteSmoke}"
+            BackgroundColor="{StaticResource White}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
@@ -135,7 +135,9 @@
                                                 HorizontalOptions="Start"
                                                 StrokeShape="RoundRectangle 10"
                                                 StrokeThickness="0"
-                                                WidthRequest="75">
+                                                WidthRequest="73"
+                                                HeightRequest="82"
+                                            >
                                             <Image Aspect="AspectFit"
                                                    Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                         </Border>

@@ -12,6 +12,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Services
 		Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code, bool includeWaiting, string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize);
 		Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId, bool includeWaiting, string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize);
 		Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByCurrentIdAndWarehouseNumber(HttpClient httpClient, int ReferenceId,int WarehouseNumber, bool includeWaiting, string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize);
+        Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByCurrentIdAndWarehouseNumberAndShipInfo(HttpClient httpClient, int ReferenceId, int WarehouseNumber,int ShipInfoReferenceId, bool includeWaiting, string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize);
 
         Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByProductCode(HttpClient httpClient, string Code, bool includeWaiting, string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize);
 		Task<DataResult<IEnumerable<SalesOrderLine>>> GetObjectsByProductId(HttpClient httpClient, int ReferenceId,bool includeWaiting, string search, SalesOrdersLineOrderBy orderBy, int page, int pageSize);

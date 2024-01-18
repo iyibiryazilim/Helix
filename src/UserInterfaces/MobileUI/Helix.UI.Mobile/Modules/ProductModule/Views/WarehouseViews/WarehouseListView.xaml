@@ -15,7 +15,7 @@
                                         EventName="Loaded" />
     </ContentPage.Behaviors>
     <Grid>
-        <Border BackgroundColor="{StaticResource WhiteSmoke}"
+        <Border BackgroundColor="{StaticResource White}"
                 StrokeThickness="0"
                 Padding="5,20,5,10">
             <Border.StrokeShape>

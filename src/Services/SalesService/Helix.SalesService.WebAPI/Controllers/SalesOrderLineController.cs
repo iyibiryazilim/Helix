@@ -515,6 +515,106 @@ public class SalesOrderLineController : ControllerBase
         }
 
     }
+    
+	[HttpGet("CurrentAndWarehouseAndShipInfo/Id/{id:int}&{includeWaiting}&{warehouseNumber:int}&{shipInfoReferenceId:int}")]
+    public async Task<DataResult<IEnumerable<SalesOrderLine>>> GetByCurrentIdAndWarehouseNumberAndShipInfo(int id, int warehouseNumber,int shipInfoReferenceId, bool includeWaiting = false, [FromQuery] string search = "", string orderBy = SalesOrderLineOrderBy.DueDateAsc, int page = 0, int pageSize = 20)
+    {
+        DataResult<IEnumerable<SalesOrderLine>> result = new();
+        switch (orderBy)
+        {
+
+            case "customernamedesc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerNameDesc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerNameDesc, page, pageSize);
+                return result;
+            case "customernameasc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerNameAsc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerNameAsc, page, pageSize);
+                return result;
+            case "customercodedesc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerCodeDesc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerCodeDesc, page, pageSize);
+                return result;
+            case "customercodeasc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerCodeAsc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.CustomerCodeAsc, page, pageSize);
+                return result;
+            case "productnamedesc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductNameDesc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductNameDesc, page, pageSize);
+                return result;
+            case "productnameasc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductNameAsc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductNameAsc, page, pageSize);
+                return result;
+            case "productcodedesc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductCodeDesc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductCodeDesc, page, pageSize);
+                return result;
+            case "productcodeasc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductCodeAsc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.ProductCodeAsc, page, pageSize);
+                return result;
+            case "duedateasc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.DueDateAsc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.DueDateAsc, page, pageSize);
+                return result;
+            case "duedatedesc":
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.DueDateDesc, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, SalesOrderLineOrderBy.DueDateDesc, page, pageSize);
+                return result;
+            default:
+                if (includeWaiting)
+                {
+                    result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, orderBy, page, pageSize);
+                    return result;
+                }
+                result = await _salesOrderLineService.GetWaitingSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, warehouseNumber, shipInfoReferenceId, search, orderBy, page, pageSize);
+                return result;
+
+        }
+
+    }
 
 
     [HttpGet("Current/Code/{code}&{includeWaiting}")]

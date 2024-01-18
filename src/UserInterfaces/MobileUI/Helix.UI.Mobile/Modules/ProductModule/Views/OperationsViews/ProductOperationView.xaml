@@ -7,7 +7,7 @@
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ProductOperationView"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+    <Border BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>

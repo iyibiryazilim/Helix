@@ -17,6 +17,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
 
         [ObservableProperty]
         string name;
+        [ObservableProperty]
+        bool isSelected = false;
 
     }
 }
