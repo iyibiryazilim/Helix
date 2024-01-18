@@ -340,11 +340,13 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 				{
 					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
 					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).TempOnhand += 1;
+					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).QuantityCounter += 1;
 				}
 				if (warehouseCountingListViewModel.Results.ToList().Exists(x => x.ProductCode == item.Code))
 				{
 					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
 					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).TempOnhand += 1;
+					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).QuantityCounter += 1;
 				}
 
 				var model = new WarehouseTotal

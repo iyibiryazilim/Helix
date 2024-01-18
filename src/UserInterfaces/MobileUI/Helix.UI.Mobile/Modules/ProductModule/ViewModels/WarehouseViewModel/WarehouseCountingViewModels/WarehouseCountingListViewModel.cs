@@ -82,6 +82,7 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage = 0;
@@ -121,7 +122,7 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
+			//IsRefreshing = true;
 
 			bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.ProductName} adlı ürün çıkartılacaktır. Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
 			if (answer)
@@ -152,9 +153,11 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
+			//IsRefreshing = true;
+
 			item.QuantityCounter++;
-			item.TempOnhand++;
+			//item.TempOnhand++;
+			item.OnHand++;
 
 		}
 		catch (Exception ex)
@@ -177,13 +180,14 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
+			//IsRefreshing = true;
 
 
 			if (item.QuantityCounter > 1)
 			{
 				item.QuantityCounter--;
-				item.TempOnhand--;
+				//item.TempOnhand--;
+				item.OnHand--;
 
 			}
 
