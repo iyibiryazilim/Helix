@@ -25,15 +25,16 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		{
 			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSupplierView)}");
 		}
+
 		[RelayCommand]
-        async Task GoToPurchaseDispatchListViewAsync()
+        async Task GoToPurchaseDispatchSelectWarehouseViewAsync()
         {
             if (IsBusy)
                 return;
             try
             {
                 IsBusy = true;
-                await Shell.Current.GoToAsync($"{nameof(PurchaseDispatchListView)}");
+                await Shell.Current.GoToAsync($"{nameof(PurchaseDispatchSelectWarehouseView)}");
             }
             catch(Exception ex) {
                 Debug.WriteLine(ex.Message);

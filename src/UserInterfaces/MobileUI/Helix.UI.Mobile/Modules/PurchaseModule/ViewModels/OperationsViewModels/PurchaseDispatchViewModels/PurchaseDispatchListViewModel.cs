@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
@@ -9,7 +10,7 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
 
-[QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 public partial class PurchaseDispatchListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClient;
@@ -20,6 +21,10 @@ public partial class PurchaseDispatchListViewModel : BaseViewModel
 		Title = "Mal Kabul";
 		_httpClient = httpClient;
 	}
+
+	[ObservableProperty]
+	Warehouse warehouse;
+
 
 	[RelayCommand]
 	async Task GoToSharedProductListAsync()
@@ -33,8 +38,10 @@ public partial class PurchaseDispatchListViewModel : BaseViewModel
 
 			await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}", new Dictionary<string, object>
 			{
-				["ViewType"] = 1
+				["ViewType"] = 1,
+				[nameof(Warehouse)] = Warehouse
 			});
+
 		}
 		catch (Exception ex)
 		{
@@ -170,7 +177,7 @@ public partial class PurchaseDispatchListViewModel : BaseViewModel
 				await Shell.Current.GoToAsync("..");
 			else
 			{
-				bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+				bool answer = await Shell.Current.DisplayAlert("Mal Kabul :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
 				if (answer)
 				{
 					await Shell.Current.GoToAsync("..");
