@@ -10,18 +10,18 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels"
              x:DataType="viewModel:DispatchBySalesOrderLineListViewModel"
              Title="{Binding Title}"
-             Shell.TabBarIsVisible="False" BackgroundColor="{StaticResource Primary}">
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetOrderLinesCommand}" />
     </ContentPage.Behaviors>
     <sharedView:WaitingOrderLineContentView ReloadCommand="{Binding GetSalesOrdersCommand}"
-                                        SearchCommand="{Binding SearchCommand}"
-                                        SortCommand="{Binding SortCommand}"
-                                        WaitingOrderLineList="{Binding Results}"
-                                        IsBusy="{Binding IsBusy}"
-                                        GoToNextCommand="{Binding GoToSalesOrderSummaryCommand}"
-                                        ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                            SearchCommand="{Binding SearchCommand}"
+                                            SortCommand="{Binding SortCommand}"
+                                            WaitingOrderLineList="{Binding Result}"
+                                            IsBusy="{Binding IsBusy}"
+                                            GoToNextCommand="{Binding GoToSalesOrderSummaryCommand}"
                                             CheckedChangeCommand="{Binding SelectAllCommand}"
-                                        IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderLineContentView>
+                                            IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderLineContentView>
 </ContentPage>

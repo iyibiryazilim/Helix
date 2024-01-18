@@ -144,14 +144,17 @@ public partial class WarehouseDetailViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task GoToWarehouseCountingSelectWarehouseViewAsync()
+	async Task GoToWarehouseCountingListViewAsync()
 	{
 		if (IsBusy)
 			return;
 		try
 		{
 			IsBusy = true;
-			await Shell.Current.GoToAsync($"{nameof(WarehouseCountingSelectWarehouseView)}");
+			await Shell.Current.GoToAsync($"{nameof(WarehouseCountingListView)}", new Dictionary<string, object>
+			{
+				["SelectedWarehouse"] = Warehouse
+			});
 		}
 		catch(Exception ex)
 		{
