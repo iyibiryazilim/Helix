@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews.ReturnSalesListView"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="this"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models" 
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels"
+             x:DataType="viewModel:ReturnSalesListViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Behaviors>
+        
+    </ContentPage.Behaviors>
+    <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
+                                               WarehouseList="{Binding WarehouseItems}"
+                                               GoToOperationFormCommand="{Binding GoToOperationFormCommand}"
+                                               ProductModelList="{Binding Items}"
+                                               GetBackCommand="{Binding GetBackCommand}"
+                                               RemoveItemCommand="{Binding RemoveItemCommand}"
+                                               AddQuantityCommand="{Binding AddQuantityCommand}"
+                                               DeleteQuantityCommand="{Binding DeleteQuantityCommand}">
+        
+        
+    </sharedViews:ProductTransactionContentView>
+</ContentPage>

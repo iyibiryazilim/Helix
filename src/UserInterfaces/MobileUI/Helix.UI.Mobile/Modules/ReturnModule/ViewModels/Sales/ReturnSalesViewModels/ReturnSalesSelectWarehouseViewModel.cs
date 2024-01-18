@@ -4,21 +4,25 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
-using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews;
-using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
 
-namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseViewModels;
 
-[QueryProperty(name: nameof(Product), queryId: nameof(Product))]
-
-public partial class ReturnPurchaseSelectWarehouseViewModel :BaseViewModel
+namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels
 {
-    IHttpClientService _httpClientService;
+    [QueryProperty(name: nameof(Product), queryId: nameof(Product))]
+
+    public partial class ReturnSalesSelectWarehouseViewModel:BaseViewModel
+    {
+         IHttpClientService _httpClientService;
     private readonly IWarehouseService _warehouseService;
     ICustomQueryService _customQueryService;
 
@@ -48,7 +52,7 @@ public partial class ReturnPurchaseSelectWarehouseViewModel :BaseViewModel
 
 
 
-    public ReturnPurchaseSelectWarehouseViewModel(IHttpClientService httpClientService,IWarehouseService warehouseService,ICustomQueryService customQueryService)
+    public ReturnSalesSelectWarehouseViewModel(IHttpClientService httpClientService,IWarehouseService warehouseService,ICustomQueryService customQueryService)
     {
         Title = "Ambar Listesi";
         _httpClientService = httpClientService;
@@ -251,12 +255,12 @@ public partial class ReturnPurchaseSelectWarehouseViewModel :BaseViewModel
             await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
         }
         else
-        {
-            await Shell.Current.GoToAsync($"{nameof(ReturnPurchaseListView)}", new Dictionary<string, object>
+       {
+           await Shell.Current.GoToAsync($"{nameof(ReturnSalesListView)}", new Dictionary<string, object>
             {
-                ["Warehouse"] = SelectedWarehouse
-            });
-        }
+               ["Warehouse"] = SelectedWarehouse
+           });
+       }
 
     }
 
@@ -274,4 +278,6 @@ public partial class ReturnPurchaseSelectWarehouseViewModel :BaseViewModel
         }
     }
 
+
+    }
 }

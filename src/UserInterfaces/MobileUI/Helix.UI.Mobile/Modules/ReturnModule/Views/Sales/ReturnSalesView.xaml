@@ -52,7 +52,7 @@
                         </Border.Shadow>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ReturnSalesViewModel}},Path=.}" />
+                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ReturnSalesViewModel}},Path=GoToReturnSalesSelectWarehouseCommand}" />
 
                         </Border.GestureRecognizers>
                     </Border>

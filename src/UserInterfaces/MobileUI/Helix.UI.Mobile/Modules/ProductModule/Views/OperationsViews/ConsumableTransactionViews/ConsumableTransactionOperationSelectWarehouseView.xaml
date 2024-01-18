@@ -12,7 +12,7 @@
              Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}"
-                                        EventName="Loaded" />
+                                          EventName="Loaded" />
     </ContentPage.Behaviors>
     <sharedViews:WarehouseSelectContentView WarehouseList="{Binding Results}"
                                         IsRefreshing="{Binding IsRefreshing}"
