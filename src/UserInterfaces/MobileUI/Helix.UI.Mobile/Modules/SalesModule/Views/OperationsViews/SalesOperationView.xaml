@@ -30,7 +30,9 @@
                             <Label Text="Ürün Toplama"
                                    VerticalOptions="Center"
                                    FontSize="16"
-                                   FontAttributes="Bold">
+                                   FontAttributes="Bold"
+                                   
+                                   >
 
                             </Label>
                             <Image Grid.Column="1"
@@ -48,6 +50,11 @@
                                     Radius="40"
                                     Opacity="0.1" />
                         </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding GoToProcurementByProductViewCommand}" />
+
+                        </Border.GestureRecognizers>
                     </Border>
 
                 </Grid>

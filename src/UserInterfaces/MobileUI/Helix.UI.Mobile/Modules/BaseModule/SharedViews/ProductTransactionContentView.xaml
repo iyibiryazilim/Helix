@@ -209,7 +209,7 @@
             </CollectionView>
 
             <Button Grid.Row="2"
-                    Margin="5"
+                    Margin="10,10,10,20"
                     Command="{Binding Source={x:Reference this}, Path=GoToOperationFormCommand}"
                     Text="İleri" />
         </Grid>

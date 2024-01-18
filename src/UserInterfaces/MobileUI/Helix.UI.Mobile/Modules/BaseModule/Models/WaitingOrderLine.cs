@@ -8,9 +8,8 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		int? referenceId;
 		[ObservableProperty]
 		short? transactionType;
-		[ObservableProperty]
-		string transactionTypeName;
-		[ObservableProperty]
+       
+        [ObservableProperty]
 		int? productReferenceId;
 		[ObservableProperty]
 		string productCode;

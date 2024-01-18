@@ -29,6 +29,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.CustomerViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews;
 
 
 namespace Helix.UI.Mobile;
@@ -169,6 +170,19 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(WarehouseCountingSummaryView), typeof(WarehouseCountingSummaryView));
 		Routing.RegisterRoute(nameof(AllProductsListSharedView), typeof(AllProductsListSharedView));
 		Routing.RegisterRoute(nameof(WarehouseCountingSelectProductsView), typeof(WarehouseCountingSelectProductsView));
+		Routing.RegisterRoute(nameof(ReturnSalesFormView), typeof(ReturnSalesFormView));
+		Routing.RegisterRoute(nameof(ReturnPurchaseFormView), typeof(ReturnPurchaseFormView));
+		Routing.RegisterRoute(nameof(SalesProductView), typeof(SalesProductView));
+		Routing.RegisterRoute(nameof(SalesProductByCustomerListView),typeof(SalesProductByCustomerListView));
+        Routing.RegisterRoute(nameof(ProcurementOptionView), typeof(ProcurementOptionView));
+        Routing.RegisterRoute(nameof(ProcurementByCustomerView), typeof(ProcurementByCustomerView));
+        Routing.RegisterRoute(nameof(ProcurementByProductView), typeof(ProcurementByProductView));
+
+
+
+
+
+
 
 
 

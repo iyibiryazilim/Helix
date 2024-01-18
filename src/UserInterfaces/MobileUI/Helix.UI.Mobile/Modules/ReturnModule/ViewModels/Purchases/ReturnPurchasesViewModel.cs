@@ -10,7 +10,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases
 	{
         public ReturnPurchasesViewModel()
         {
-			Title = "Satınalma İade İşlemleri";
+			Title = "Satın Alma İade İşlemleri";
 		}
         [RelayCommand]
         async Task GoToReturnByPurchaseDispatchTransactionCustomerView()

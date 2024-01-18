@@ -54,11 +54,11 @@ public partial class ReturnSalesFormViewModel :BaseViewModel
 
     public ReturnSalesFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService)
     {
-        Title = "Sarf İşlemleri";
+        Title = "Satış İade Fişleri";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
-        TransactionTypeName = "Sarf Fişi";
+        
 
     }
 
