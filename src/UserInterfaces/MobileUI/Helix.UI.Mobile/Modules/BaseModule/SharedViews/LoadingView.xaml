@@ -21,7 +21,7 @@
                HeightRequest="100"
                WidthRequest="100"
                Source="loadingAnimation.json"
-               RepeatMode="Reverse"
+               RepeatMode="Restart"
                RepeatCount="-1"
                IsAnimationEnabled="{Binding Source={x:Reference this}, Path=IsBusy}" />
     </AbsoluteLayout>
