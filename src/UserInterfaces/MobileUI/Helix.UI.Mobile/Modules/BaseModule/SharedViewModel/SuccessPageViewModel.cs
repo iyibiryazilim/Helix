@@ -44,6 +44,7 @@ public partial class SuccessPageViewModel : BaseViewModel
                     await Shell.Current.GoToAsync("..");
                     await Shell.Current.GoToAsync("..");
                     await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
 
                     break;
 					

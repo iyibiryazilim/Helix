@@ -126,7 +126,7 @@
                 </Grid>
             </ScrollView>
             <Grid Grid.Row="1">
-                <Button Margin="5"
+                <Button  Margin="10,10,10,20"
                         Text="Kaydet"></Button>
             </Grid>
 
