@@ -93,6 +93,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchVie
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using The49.Maui.BottomSheet;
 
 
@@ -106,6 +107,7 @@ namespace Helix.UI.Mobile
 			builder
 				.UseMauiApp<App>()
 				.UseBottomSheet()
+				.UseSkiaSharp()
 				 .UseMauiCommunityToolkit()
 				.RegisterHttpClientServices()
 				.LoginViews()
