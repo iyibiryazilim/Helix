@@ -8,8 +8,9 @@
              xmlns:models="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseDetailView"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             Shell.TabBarIsVisible="False"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Shell.TabBarIsVisible="False">
+
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetWarehouseDetailCommand}"
                                         EventName="Loaded" />

@@ -202,9 +202,9 @@
                                                          BackgroundColor="Transparent"
                                                          Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}"
                                                          CommandParameter="{Binding .}"
-                                                         HeightRequest="22"
+                                                         HeightRequest="12"
                                                          VerticalOptions="Center"
-                                                         WidthRequest="28">
+                                                         WidthRequest="18">
                                                 <ImageButton.Source>
                                                     <FontImageSource FontFamily="FAS"
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
@@ -225,9 +225,9 @@
                                                          BackgroundColor="Transparent"
                                                          Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}"
                                                          CommandParameter="{Binding .}"
-                                                         HeightRequest="22"
+                                                         HeightRequest="12"
                                                          VerticalOptions="Center"
-                                                         WidthRequest="28">
+                                                         WidthRequest="16">
                                                 <ImageButton.Source>
                                                     <FontImageSource FontFamily="FAS"
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"

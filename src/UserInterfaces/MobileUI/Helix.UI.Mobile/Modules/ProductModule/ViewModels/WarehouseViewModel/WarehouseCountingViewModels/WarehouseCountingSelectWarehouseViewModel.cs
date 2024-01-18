@@ -80,6 +80,8 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
+
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
@@ -156,6 +158,8 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
+
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);

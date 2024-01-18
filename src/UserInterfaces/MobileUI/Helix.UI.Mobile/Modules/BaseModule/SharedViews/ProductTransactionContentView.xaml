@@ -69,8 +69,8 @@
                         <SwipeView Margin="3" Threshold="200">
                             <SwipeView.RightItems>
                                 <SwipeItems Mode="Execute">
-                                    <SwipeItem BackgroundColor="{StaticResource Primary}"
-                                               Command="{Binding Source={x:Reference this}, Path=RemoveItemCommand}"
+                                    <SwipeItem BackgroundColor="{StaticResource Danger}"
+                                               Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveItemCommand}"
                                                CommandParameter="{Binding .}"
                                                Text="Malzeme Sil" />
                                 </SwipeItems>
@@ -157,7 +157,7 @@
                                                 BackgroundColor="Transparent"
                                                 StrokeThickness="0">
                                             <Border.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=AddQuantityCommand}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}" CommandParameter="{Binding .}" />
                                             </Border.GestureRecognizers>
                                             <ImageButton Margin="5"
                                                          Aspect="AspectFit"
@@ -184,7 +184,7 @@
                                                 BackgroundColor="Transparent"
                                                 StrokeThickness="0">
                                             <Border.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=DeleteQuantityCommand}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}" CommandParameter="{Binding .}" />
                                             </Border.GestureRecognizers>
                                             <ImageButton Grid.Column="2"
                                                          Margin="5"

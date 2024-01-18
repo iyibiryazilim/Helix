@@ -260,15 +260,20 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
 	[RelayCommand]
 	private void ToggleSelection(Current item)
 	{
-		item.IsSelected = !item.IsSelected;
-		if (SelectedCustomer != null)
-		{
+        if (item == SelectedCustomer)
+        {
 			SelectedCustomer.IsSelected = false;
+			SelectedCustomer = null;
 		}
-		if (item.IsSelected)
-		{
- 			SelectedCustomer = item;
-		}	 
+		else
+        {
+			if (SelectedCustomer != null)
+            {
+				SelectedCustomer.IsSelected = false;
+			}
+			SelectedCustomer = item;
+			SelectedCustomer.IsSelected = true;
+		}
 	}
 
 }

@@ -1,24 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
+using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
 
-namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
+namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
 
-public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
+public partial class PurchaseDispatchSelectWarehouseViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
-	private readonly IWarehouseService _warehouseService;
+	IWarehouseService _warehouseService;
 
 	//Lists
 	public ObservableCollection<Warehouse> Items { get; } = new();
 	public ObservableCollection<Warehouse> Results { get; } = new();
+
 
 	//Commands
 	public Command GetWarehousesCommand { get; }
@@ -37,9 +39,9 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 	[ObservableProperty]
 	Warehouse selectedWarehouse;
 
-	public SalesDispatchWarehouseListViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
+	public PurchaseDispatchSelectWarehouseViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
 	{
-		Title = "Ambar Seçimi";
+		Title = "Ambar Listesi";
 		_httpClientService = httpClientService;
 		_warehouseService = warehouseService;
 
@@ -55,11 +57,12 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 		try
 		{
 			await Task.Delay(500);
-			await MainThread.InvokeOnMainThreadAsync(GetWarehousesListAsync);
+			await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
 
 		}
 		catch (Exception ex)
 		{
+			
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
@@ -70,7 +73,7 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 
 		}
 	}
-	async Task GetWarehousesListAsync()
+	async Task GetWarehousesAsync()
 	{
 		if (IsBusy)
 			return;
@@ -78,8 +81,6 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
-			IsRefreshing = false;
-
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
@@ -99,7 +100,7 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -155,8 +156,6 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
-			IsRefreshing = false;
-
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
@@ -245,6 +244,23 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
+	async Task GoToPurchaseDispatchListViewAsync()
+	{
+		if (SelectedWarehouse is not null)
+		{
+			await Shell.Current.GoToAsync($"{nameof(PurchaseDispatchListView)}", new Dictionary<string, object>
+			{
+				[nameof(Warehouse)] = SelectedWarehouse
+			});
+		}
+		else
+		{
+			await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+		}
+
+	}
+
+	[RelayCommand]
 	private void ToggleSelection(Warehouse item)
 	{
 		if (item == SelectedWarehouse)
@@ -262,43 +278,5 @@ public partial class SalesDispatchWarehouseListViewModel : BaseViewModel
 			SelectedWarehouse = item;
 			SelectedWarehouse.IsSelected = true;
 		}
-	}
-
-	[RelayCommand]
-	async Task GoToSalesDispatchListViewAsync()
-	{
-		if (IsBusy)
-			return;
-
-		try
-		{
-			IsBusy = true;
-
-			if(SelectedWarehouse != null)
-			{
-				await Shell.Current.GoToAsync($"{nameof(SalesDispatchListView)}", new Dictionary<string, object>
-				{
-					[nameof(Warehouse)] = SelectedWarehouse
-				});
-			}
-			else
-			{
-				await Shell.Current.DisplayAlert("Hata", "Ambar seçimi yapmanız gerekmektedir!", "Tamam");
-			}
-
-			
-
-		}
-		catch(Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-			IsRefreshing = false;
-		}
-		
 	}
 }

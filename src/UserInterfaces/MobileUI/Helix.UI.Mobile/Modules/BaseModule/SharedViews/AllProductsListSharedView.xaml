@@ -26,7 +26,7 @@
                     <Grid ColumnDefinitions=".85*,.15*">
                         <SearchBar x:Name="searchBar" Grid.Column="0">
                             <SearchBar.Behaviors>
-                                <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this}, Path=SearchCommand}"
+                                <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this}, Path=SearchCommand, Mode=TwoWay}"
                                                                 CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                                                                 EventName="TextChanged" />
                             </SearchBar.Behaviors>
@@ -54,7 +54,7 @@
                           HorizontalOptions="Start"
                           WidthRequest="18">
                     <CheckBox.Behaviors>
-                        <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this},Path=BindingContext.SelectAllCommand, Mode=TwoWay}" 
+                        <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectAllCommand, Mode=TwoWay}"
                                                         CommandParameter="{Binding IsChecked, Source={x:Reference checkBox}}"
                                                         EventName="CheckedChanged" />
                     </CheckBox.Behaviors>
@@ -65,8 +65,7 @@
                          Command="{Binding Source={x:Reference this}, Path=ReloadCommand}"
                          IsRefreshing="{Binding Source={x:Reference this}, Path=IsRefreshing, Mode=OneWay}"
                          RefreshColor="{StaticResource DarkPrimary}">
-                <CollectionView Grid.Row="1"
-                                ItemsSource="{Binding Source={x:Reference this}, Path=ProductList}"
+                <CollectionView ItemsSource="{Binding Source={x:Reference this}, Path=ProductList}"
                                 RemainingItemsThreshold="10"
                                 RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this}, Path=LoadMoreCommand}">
                     <CollectionView.ItemsLayout>

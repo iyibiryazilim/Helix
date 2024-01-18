@@ -52,15 +52,35 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 		bool isSelected = false;
 
 		[ObservableProperty]
-		int quantityCounter = 1;
+		int quantityCounter = 0;
 
 		double tempOnhand;
 
 
 		public double TempOnhand
 		{
-			get => OnHand - QuantityCounter;
+			get => OnHand;
 			set => SetProperty(ref tempOnhand, value);
+		}
+
+		
+		public Microsoft.Maui.Graphics.Color BorderLineColor
+		{
+			get
+			{
+				if (TempOnhand != OnHand)
+				{
+					return Microsoft.Maui.Graphics.Color.FromRgba("#ffd300");
+				}
+				else
+				{
+					return Microsoft.Maui.Graphics.Color.FromRgba("#fff");
+				}
+			}
+			set
+			{
+
+			}
 		}
 	}
 }

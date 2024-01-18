@@ -7,7 +7,6 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels"
              x:DataType="viewModel:PurchaseDispatchListViewModel"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             x:Name="this"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False"
              Title="{Binding Title}">

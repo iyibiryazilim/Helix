@@ -163,7 +163,7 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 
 		}
 		finally
@@ -252,7 +252,7 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -338,13 +338,15 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 			{
 				if(warehouseCountingListViewModel.Items.ToList().Exists(x => x.ProductCode == item.Code))
 				{
-					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
+					//warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
 					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).TempOnhand += 1;
+					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).QuantityCounter += 1;
 				}
 				if (warehouseCountingListViewModel.Results.ToList().Exists(x => x.ProductCode == item.Code))
 				{
-					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
+					//warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
 					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).TempOnhand += 1;
+					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).QuantityCounter += 1;
 				}
 
 				var model = new WarehouseTotal
