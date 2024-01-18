@@ -368,6 +368,66 @@ public class SalesOrderDataStore : ISalesOrderService
             return dataResult;
         }
     }
+    public async Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentIdAndWarehouseNumberAndShipInfo(HttpClient httpClient, int ReferenceId, int WarehouseNumber,int ShipInfoReferenceId, string search, SalesOrderOrderBy orderBy, int page, int pageSize)
+    {
+        HttpResponseMessage responseMessage = await httpClient.GetAsync($"{postUrl}/CurrentAndWarehouseAndShipInfo/Id/{ReferenceId}&{WarehouseNumber}&{ShipInfoReferenceId}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+        DataResult<IEnumerable<SalesOrder>> dataResult = new DataResult<IEnumerable<SalesOrder>>();
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            var data = await responseMessage.Content.ReadAsStringAsync();
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(data))
+                {
+                    var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SalesOrder>>>(data, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    });
+
+                    dataResult.Data = result?.Data;
+                    dataResult.IsSuccess = true;
+                    dataResult.Message = "success";
+                    return dataResult;
+
+                }
+                else
+                {
+                    var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SalesOrder>>>(data, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    });
+
+                    dataResult.Data = result?.Data;
+                    dataResult.IsSuccess = true;
+                    dataResult.Message = "empty";
+                    return dataResult;
+                }
+
+            }
+            else
+            {
+                var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SalesOrder>>>(data, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+                dataResult.Data = Enumerable.Empty<SalesOrder>();
+                dataResult.IsSuccess = false;
+                dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+                return dataResult;
+            }
+
+
+        }
+        else
+        {
+            dataResult.Data = Enumerable.Empty<SalesOrder>();
+            dataResult.IsSuccess = false;
+            dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+            return dataResult;
+        }
+    }
 
 
     public enum SalesOrderOrderBy

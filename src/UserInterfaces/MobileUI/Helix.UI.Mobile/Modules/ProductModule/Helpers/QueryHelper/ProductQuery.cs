@@ -74,6 +74,8 @@ ORDER BY MaxDate DESC";
         [Quantity] = STLINE.AMOUNT,
         [Description] = STLINE.LINEEXP,
         [IOType] = STLINE.IOCODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
         [WarehouseNumber] = CAPIWHOUSE.NR,
         [WarehouseName] = CAPIWHOUSE.NAME
         

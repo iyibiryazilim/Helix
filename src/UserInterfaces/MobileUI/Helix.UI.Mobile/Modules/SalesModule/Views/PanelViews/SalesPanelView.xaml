@@ -21,7 +21,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource WhiteSmoke}"
+            BackgroundColor="{StaticResource White}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
@@ -33,7 +33,7 @@
                 <Frame Grid.Row="0" HeightRequest="200" />
                 <Grid Grid.Row="1">
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="En Çok Hareket Gören Müşteriler" />
+                        <Label Text="En Çok Hareket Gören Müşteriler" FontAttributes="Bold"/>
 
                         <CollectionView Grid.Row="0" ItemsSource="{Binding Customers}">
                             <CollectionView.ItemsLayout>
@@ -88,7 +88,7 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <VerticalStackLayout>
-                        <Label Text="Son Hareketler" />
+                        <Label Text="Son Hareketler" FontAttributes="Bold"/>
                         <Grid RowDefinitions="*">
                             <sharedViews:LoadingView Grid.Row="0" IsBusy="{Binding IsBusy}" />
                             <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Lines}">
@@ -181,32 +181,32 @@
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Fiş Türü" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding TransactionTypeName}" />
-                                                        <BoxView WidthRequest="0.1" />
+                                                        <BoxView HeightRequest="0.7"  Color="{StaticResource Primary}"/>
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Fiş Numarası" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding FicheCode}" />
-                                                        <BoxView WidthRequest="0.1" />
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}"/>
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Ambar Adı" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding WarehouseName}" />
-                                                        <BoxView WidthRequest="0.1" />
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}"/>
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Müşteri" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding CurrentName}" />
-                                                        <BoxView WidthRequest="0.1" />
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}"/>
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Belge Numarası" TextColor="{StaticResource Primary}" />
-                                                        <Label Text="11111111111111111" />
-                                                        <BoxView WidthRequest="0.1" />
+                                                        <Label Text="{Binding DocumentNumber}" />
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Döküman İzleme Numarası" TextColor="{StaticResource Primary}" />
-                                                        <Label Text="11111111111111111" />
-                                                        <BoxView WidthRequest="0.1" />
+                                                        <Label Text="{Binding DocumentTrackingNumber}" />
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                 </VerticalStackLayout>
                                             </toolkit:Expander.Content>

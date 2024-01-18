@@ -56,6 +56,8 @@
         [WarehouseNumber] = CAPIWHOUSE.NR,
         [WarehouseName] = CAPIWHOUSE.NAME,
         [CurrentName] = CLCARD.DEFINITION_,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
         [CurrentCode] = CLCARD.CODE
         FROM LG_{CompanyNumber}_{CompanyPeriod}_STLINE AS STLINE
         LEFT JOIN LG_{CompanyNumber}_{CompanyPeriod}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
