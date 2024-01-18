@@ -15,8 +15,11 @@ using System.Text;
 using System.Threading.Tasks;
 using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
 
+
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels
 {
+    [QueryProperty(name: nameof(Product), queryId: nameof(Product))]
+
     public partial class ReturnSalesSelectWarehouseViewModel:BaseViewModel
     {
          IHttpClientService _httpClientService;

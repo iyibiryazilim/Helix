@@ -160,6 +160,8 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ReturnPurchaseSelectWarehouseView), typeof(ReturnPurchaseSelectWarehouseView));
         Routing.RegisterRoute(nameof(ReturnSalesSelectWarehouseView), typeof(ReturnSalesSelectWarehouseView));
         Routing.RegisterRoute(nameof(ReturnSalesListView), typeof(ReturnSalesListView));
+		Routing.RegisterRoute(nameof(ReturnPurchaseListView), typeof(ReturnPurchaseListView));
+		Routing.RegisterRoute(nameof(ReturnSalesFormView), typeof(ReturnSalesFormView));
 
 
 

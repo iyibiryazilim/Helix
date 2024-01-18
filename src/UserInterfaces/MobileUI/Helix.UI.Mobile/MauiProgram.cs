@@ -549,6 +549,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseSelectWarehouseView>();
 			mauiAppBuilder.Services.AddTransient<ReturnSalesSelectWarehouseView>();
             mauiAppBuilder.Services.AddTransient<ReturnSalesListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnPurchaseListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnSalesFormView>();
 
 
             return mauiAppBuilder;
@@ -564,6 +566,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseSelectWarehouseViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnSalesSelectWarehouseViewModel>();
             mauiAppBuilder.Services.AddTransient<ReturnSalesListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnPurchaseListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnSalesFormViewModel>();
 
 
 

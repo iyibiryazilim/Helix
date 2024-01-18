@@ -4,6 +4,7 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -251,7 +252,7 @@ public partial class ReturnPurchaseSelectWarehouseViewModel :BaseViewModel
         }
         else
         {
-            await Shell.Current.GoToAsync($"{nameof(ReturnSalesSelectWarehouseView)}", new Dictionary<string, object>
+            await Shell.Current.GoToAsync($"{nameof(ReturnPurchaseListView)}", new Dictionary<string, object>
             {
                 ["Warehouse"] = SelectedWarehouse
             });

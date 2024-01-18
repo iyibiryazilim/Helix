@@ -30,6 +30,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
         IWarehouseService _warehouseService;
         //WarehouseService
         public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
+        public ObservableCollection<Warehouse> Results { get; } = new();
+
         [ObservableProperty]
         string searchText = string.Empty;
         [ObservableProperty]
