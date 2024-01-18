@@ -28,7 +28,7 @@
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 5,5,0,0">
                     <Grid ColumnDefinitions="90*,10*">
-                        <Label Text="Satınalma İade İşlemleri"
+                        <Label Text="Satın Alma İade İşlemleri"
                                VerticalOptions="Center"
                                FontSize="16"
                                FontAttributes="Bold">

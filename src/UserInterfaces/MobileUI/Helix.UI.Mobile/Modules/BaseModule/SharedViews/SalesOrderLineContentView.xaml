@@ -141,10 +141,11 @@
                                     <toolkit:Expander.Content>
                                         <VerticalStackLayout Margin="20,10,5,0"
                                                              Spacing="4">
+                                            
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Fiş Türü"
+                                                <Label Text="Fiş Numarası"
                                                                    TextColor="{StaticResource Primary}" />
-                                                <Label Text="{Binding TransactionType}" />
+                                                <Label Text="{Binding OrderCode}" />
                                                 <BoxView  HeightRequest="0.7"
                                                                       Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
@@ -156,34 +157,101 @@
                                                           Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Miktar"
-                                                        TextColor="{StaticResource Primary}" />
-                                                <Label Text="{Binding Quantity}" />
+                                                <Label Text="Ambar"
+                                                       TextColor="{StaticResource Primary}">
+                                                </Label>
+                                                <HorizontalStackLayout>
+                                                    <Label Text="{Binding WarehouseNumber}" />
+                                                    <Label Text=" - "></Label>
+                                                    <Label Text="{Binding WarehouseName}" />
+                                                    
+                                                </HorizontalStackLayout>
                                                 <BoxView  HeightRequest="0.7"
                                                           Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
-                                            <VerticalStackLayout Spacing="4">
+                                            
+
+                                            <Grid ColumnDefinitions="33*,33*,33*"
+                                                  >
+                                                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                                    <Label Text="Miktar"
+                                                           TextColor="{StaticResource Primary}"
+                                                           HorizontalOptions="Start">
+
+                                                    </Label>
+                                                    <Label TextColor="{StaticResource Black}"
+                                                           FontSize="10"
+                                                           HorizontalOptions="Start">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding  Quantity, StringFormat='{0:N2}'}"
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text=" "
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text="{Binding SubUnitsetCode}"
+                                                                      FontAttributes="Bold" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+
+
+                                                    </Label>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="1"
+                                                                     Spacing="5"
+                                                                     HorizontalOptions="Start">
+                                                    <Label Text="Sevk"
+                                                           HorizontalOptions="Start"
+                                                           TextColor="{StaticResource Primary}">
+
+                                                    </Label>
+                                                    <Label TextColor="{StaticResource Black}"
+                                                           HorizontalOptions="Start"
+                                                           FontSize="10">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding  ShippedQuantity, StringFormat='{0:N2}'}"
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text=" "
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text="{Binding SubUnitsetCode}"
+                                                                      FontAttributes="Bold" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+
+
+                                                    </Label>
+                                                </VerticalStackLayout>
+
+                                                <VerticalStackLayout Grid.Column="2"
+                                                                     Spacing="5">
+                                                    <Label Text="Bekleyen"
+                                                           TextColor="{StaticResource Primary}" HorizontalOptions="Start">
+
+                                                    </Label>
+                                                    <Label TextColor="{StaticResource Black}" HorizontalOptions="Start"
+                                                           FontSize="10">
+                                                        <Label.FormattedText >
+                                                            <FormattedString>
+                                                                <Span Text="{Binding  WaitingQuantity, StringFormat='{0:N2}'}"
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text=" "
+                                                                      FontAttributes="Bold" />
+                                                                <Span Text="{Binding SubUnitsetCode}"
+                                                                      FontAttributes="Bold" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+
+
+                                                    </Label>
+                                                  
+                                                </VerticalStackLayout>
                                                 
-                                                <Label Text="Bekleyen Miktar"
-                                                       TextColor="{StaticResource Primary}" />
-                                                <Label Text="{Binding WaitingQuantity}" />
-                                                <BoxView  HeightRequest="0.7"
-                                                          Color="{StaticResource Primary}" />
-                                            </VerticalStackLayout>
-                                            <VerticalStackLayout Spacing="4">
-                                                <Label Text="Ambar Numarası"
-                                                       TextColor="{StaticResource Primary}" />
-                                                <Label Text="{Binding WarehouseNumber}" />
-                                                <BoxView  HeightRequest="0.7"
-                                                          Color="{StaticResource Primary}" />
-                                            </VerticalStackLayout>
-                                            <VerticalStackLayout Spacing="4">
-                                                <Label Text="Ambar Adı"
-                                                       TextColor="{StaticResource Primary}" />
-                                                <Label Text="{Binding WarehouseName}" />
-                                                <BoxView  HeightRequest="0.7"
-                                                          Color="{StaticResource Primary}" />
-                                            </VerticalStackLayout>
+                                            </Grid>
+
+                                            <BoxView  HeightRequest="0.7"
+                                                      Color="{StaticResource Primary}" />
+
+                                           
                                             
                                             
                                             

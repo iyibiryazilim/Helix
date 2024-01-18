@@ -133,7 +133,7 @@
 
             </Grid>
             <Button Grid.Row="2"
-                    Margin="5"
+                    Margin="10,10,10,20"
                     Command="{Binding GoToSuccessPageViewCommand}"
                     Text="İleri" />
         </Grid>
