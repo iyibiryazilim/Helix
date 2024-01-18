@@ -76,7 +76,8 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		string currentName;
 		[ObservableProperty]
 		bool isSelected;
-
+		[ObservableProperty]
+		double? fifoQuantity = 0;
 
 		private double? tempQuantity;
 
