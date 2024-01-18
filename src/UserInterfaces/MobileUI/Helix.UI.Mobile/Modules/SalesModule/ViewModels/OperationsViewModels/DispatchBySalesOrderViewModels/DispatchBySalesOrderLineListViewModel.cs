@@ -107,29 +107,24 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	public async Task PerformSearchAsync(string text)
 	{
 		if (IsBusy)
+		{
 			return;
+		}
+
 		try
 		{
-			if (!string.IsNullOrEmpty(text))
+			IsBusy = true;
+			SearchText = string.IsNullOrEmpty(text) ? string.Empty : text;
+
+			Result.Clear();
+			IEnumerable<WaitingOrderLineGroup> itemsToSearch = string.IsNullOrEmpty(SearchText)
+				? WaitingOrderLineGroupList
+				: WaitingOrderLineGroupList.Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText));
+
+			foreach (var item in itemsToSearch)
 			{
-				if (text.Length >= 3)
-				{
-					SearchText = text;
-					Result.Clear();
-					foreach (var item in WaitingOrderLineGroupList.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
-					{
-						Result.Add(item);
-					}
-				}
-			}
-			else
-			{
-				SearchText = string.Empty;
-				Result.Clear();
-				foreach (var item in WaitingOrderLineGroupList)
-				{
-					Result.Add(item);
-				}
+				var selectCheck = SelectedWaitingOrderLineGroupList.Where(x => x.Code == item.Code);
+				Result.Add(selectCheck.Any() ? selectCheck.First() : item);
 			}
 		}
 		catch (Exception ex)
@@ -201,6 +196,12 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 				if (item.IsEnabled)
 				{
 					item.IsSelected = true;
+					foreach (var line in item.WaitingOrderLines)
+					{
+						line.IsSelected = true;
+					}
+
+
 					SelectedWaitingOrderLineGroupList.Add(item);
 				}
 			}
@@ -210,6 +211,10 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			foreach (var item in Result)
 			{
 				item.IsSelected = false;
+				foreach (var line in item.WaitingOrderLines)
+				{
+					line.IsSelected = false;
+				}
 				SelectedWaitingOrderLineGroupList.Remove(item);
 
 			}
@@ -225,11 +230,19 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 			if (selectedItem.IsSelected)
 			{
 				selectedItem.IsSelected = false;
+				foreach (var line in selectedItem.WaitingOrderLines)
+				{
+					line.IsSelected = false;
+				}
 				SelectedWaitingOrderLineGroupList.Remove(selectedItem);
 			}
 			else
 			{
 				selectedItem.IsSelected = true;
+				foreach (var line in selectedItem.WaitingOrderLines)
+				{
+					line.IsSelected = true;
+				}
 				SelectedWaitingOrderLineGroupList.Add(selectedItem);
 			}
 		}
@@ -308,7 +321,8 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 							if (product.OnHand < 0)
 							{
 								WaitingOrderLineGroup model = new();
-								model.Code = item.Key;
+								model.Code = product.ProductCode;
+								model.SubUnitsetCode = product.SubUnitsetCode;
 								model.Name = product.ProductName;
 								model.StockQuantity = product.OnHand;
 								model.IsEnabled = false;
@@ -330,7 +344,9 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 							else
 							{
 								WaitingOrderLineGroup model = new();
-								model.Code = item.Key;
+								model.Code = product.ProductCode;
+								model.SubUnitsetCode = product.SubUnitsetCode;
+								model.Name = product.ProductName;
 								model.StockQuantity = product.OnHand;
 								model.IsEnabled = true;
 								foreach (var it in item.ToList())
@@ -374,7 +390,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 				{
 					if (tempQuantity > 0)
 					{
-						if(tempQuantity - lines.WaitingQuantity < 0)
+						if (tempQuantity - lines.WaitingQuantity < 0)
 						{
 							lines.FifoQuantity = tempQuantity;
 							tempQuantity = 0;
