@@ -237,6 +237,11 @@ public partial class FastProductionSelectProductListViewModel : BaseViewModel
 	{
 		if (IsBusy)
 			return;
+		if(SelectedProduct is null)
+		{
+			await Shell.Current.DisplayAlert("Hata", "Lütfen bir ürün seçiniz.", "Tamam");
+			return;
+		}
 		try
 		{
 			IsBusy = true;
@@ -265,9 +270,12 @@ public partial class FastProductionSelectProductListViewModel : BaseViewModel
 				fastProductionViewModel.FastProductionList.ToList().First(x => x.ProductCode == SelectedProduct.ProductCode).OnHand += 1;
 			}
 
-
-			await Task.Delay(200);
-			await Shell.Current.GoToAsync("../..");
+			if(SelectedProduct != null)
+			{
+				await Task.Delay(200);
+				await Shell.Current.GoToAsync("../..");
+			}
+			
 
 		}
 		catch (Exception ex)

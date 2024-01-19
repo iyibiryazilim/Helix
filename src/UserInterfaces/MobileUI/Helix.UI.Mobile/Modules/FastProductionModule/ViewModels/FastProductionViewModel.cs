@@ -51,9 +51,54 @@ public partial class FastProductionViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task IncrementQuantityAsync(FastProductionCard item)
+	async Task ProductDecrementQuantityAsync()
 	{
 		
+		try
+		{
+			IsBusy = true;
+
+			SelectedProduct.OnHand--;
+
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Miktar Azaltma Hatası", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task ProductIncrementQuantityAsync()
+	{
+
+		try
+		{
+			IsBusy = true;
+
+			SelectedProduct.OnHand++;
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Miktar Artırma Hatası", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task CardIncrementQuantityAsync(FastProductionCard item)
+	{
+
 		try
 		{
 			IsBusy = true;
@@ -73,9 +118,9 @@ public partial class FastProductionViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	async Task DecrementQuantityAsync(FastProductionCard item)
+	async Task CardDecrementQuantityAsync(FastProductionCard item)
 	{
-		
+
 		try
 		{
 			IsBusy = true;
