@@ -660,11 +660,19 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder FastProductionViews(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<FastProductionView>();
+			mauiAppBuilder.Services.AddTransient<FastProductionAllProductsListView>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectWarehouseListView>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectProductListView>();
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder FastProductionViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddTransient<FastProductionViewModel>();
+			mauiAppBuilder.Services.AddScoped<FastProductionViewModel>();
+			mauiAppBuilder.Services.AddTransient<FastProductionAllProductsListViewModel>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectWarehouseListViewModel>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectProductListViewModel>();
+
 
 			return mauiAppBuilder;
 		}

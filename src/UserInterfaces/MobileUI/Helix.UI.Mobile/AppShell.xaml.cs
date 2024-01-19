@@ -1,6 +1,7 @@
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.BaseModule.Views;
 using Helix.UI.Mobile.Modules.BaseModule.Views.Current;
+using Helix.UI.Mobile.Modules.FastProductionModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
@@ -181,6 +182,10 @@ public partial class AppShell : Shell
     Routing.RegisterRoute(nameof(ProcurementOptionView), typeof(ProcurementOptionView));
     Routing.RegisterRoute(nameof(ProcurementByCustomerView), typeof(ProcurementByCustomerView));
     Routing.RegisterRoute(nameof(ProcurementByProductView), typeof(ProcurementByProductView));
+		Routing.RegisterRoute(nameof(FastProductionAllProductsListView), typeof(FastProductionAllProductsListView));
+		Routing.RegisterRoute(nameof(FastProductionView), typeof(FastProductionView));
+		Routing.RegisterRoute(nameof(FastProductionSelectWarehouseListView), typeof(FastProductionSelectWarehouseListView));
+		Routing.RegisterRoute(nameof(FastProductionSelectProductListView), typeof(FastProductionSelectProductListView));
 
 
 
