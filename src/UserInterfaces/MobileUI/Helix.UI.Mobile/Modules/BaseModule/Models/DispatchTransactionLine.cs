@@ -1,21 +1,21 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
+namespace Helix.UI.Mobile.Modules.BaseModule.Models
 {
-	public partial class BasePurchaseDispatchTransactionLine : ObservableObject
-	{
+	public partial class DispatchTransactionLine : ObservableObject
+    {
 		[ObservableProperty]
 		int referenceId;
 		[ObservableProperty]
 		short transactionType;
 		[ObservableProperty]
 		string transactionTypeName;
-        [ObservableProperty]
-        string documentNumber;
-        [ObservableProperty]
-        string documentTrackingNumber;
-        [ObservableProperty]
-		TimeSpan transactionTime;
+		[ObservableProperty]
+		string documentNumber;
+		[ObservableProperty]
+		string documentTrackingNumber;
+		[ObservableProperty]
+		TimeSpan transactionTime; 
 		[ObservableProperty]
 		DateTime transactionDate;
 		[ObservableProperty]
@@ -78,5 +78,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 		double conversionFactor;
 		[ObservableProperty]
 		double otherConversionFactor;
+		[ObservableProperty]
+		bool isSelected;
+		[ObservableProperty]
+		double tempQuantity = 0;
 	}
 }
