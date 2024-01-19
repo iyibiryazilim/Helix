@@ -459,7 +459,28 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Panel\ReturnPanelView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionFicheView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionSelectedLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionShipInfoListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionSummaryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionSupplierView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionWarehouseListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnPurchasesView.xaml">
