@@ -29,7 +29,8 @@
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
 
-        <Grid RowDefinitions="Auto, *, Auto">
+        <Grid RowDefinitions="Auto, *, Auto"
+              RowSpacing="10">
             <Border Grid.Row="0" StrokeShape="RoundRectangle 20">
                 <Grid ColumnDefinitions=".15*,.70*,.15*">
                     <ImageButton Grid.Column="0"
