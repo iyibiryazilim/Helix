@@ -14,7 +14,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         [RelayCommand]
         async Task GoToProcurementByCustomerView()
         {
-            await Shell.Current.GoToAsync($"{nameof(ProcurementByCustomerView)}");
+            await Shell.Current.GoToAsync($"{nameof(ProcurementSelectWarehouseView)}");
         }
 
        

@@ -1,4 +1,5 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using static Helix.UI.Mobile.Modules.SalesModule.DataStores.SalesOrderDataStore;
 
@@ -13,6 +14,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Services
 		Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId, string search, SalesOrderOrderBy orderBy, int page, int pageSize);
         Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentIdAndWarehouseNumber(HttpClient httpClient, int ReferenceId,int WarehouseNumber, string search, SalesOrderOrderBy orderBy, int page, int pageSize);
         Task<DataResult<IEnumerable<SalesOrder>>> GetObjectsByCurrentIdAndWarehouseNumberAndShipInfo(HttpClient httpClient, int ReferenceId, int WarehouseNumber,int ShipInfoReferenceId, string search, SalesOrderOrderBy orderBy, int page, int pageSize);
-
+      
     }
 }
