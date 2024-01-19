@@ -23,6 +23,9 @@
                                            IsRefreshing="{Binding IsRefreshing}"
                                            IsBusy="{Binding IsBusy}"
                                            OpenShowMoreBottomSheetCommand="{Binding OpenShowMoreBottomSheetCommand}"
+                                           ProductList="{Binding TopProducts}"
+                                           GoToDetailCommand="{Binding GoToDetailCommand}"
+                                           SubTitle="{Binding SubTitle}"
                                            OpenFastOperationBottomSheetCommand="{Binding OpenFastOperationBottomSheetCommand}"
                                            TransactionList="{Binding Items}"></sharedViews:CurrentDetailContentView>
 </ContentPage>

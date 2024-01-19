@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews.ReturnBySalesDispatchTransctionWarehouseListView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels"
+             x:DataType="viewModel:ReturnBySalesDispatchTransactionWarehouseListViewModel"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}"
+                                  EventName="Loaded" />
+    </ContentPage.Behaviors>
+    <sharedViews:WarehouseSelectContentView WarehouseList="{Binding Results}"
+                                      IsRefreshing="{Binding IsRefreshing}"
+                                      IsBusy="{Binding IsBusy}"
+                                      ReloadCommand="{Binding ReloadCommand}"
+                                      SearchCommand="{Binding SearchCommand}"
+                                      ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                      GoToNextCommand="{Binding GoToTransactionCommand}"
+                                      SortCommand="{Binding SortCommand}"></sharedViews:WarehouseSelectContentView>
+</ContentPage>

@@ -20,6 +20,7 @@
                                          SearchCommand="{Binding SearchCommand}"
                                          ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                          CurrentList="{Binding Results}"
+                                         GoToNextCommand="{Binding GoToWarehouseCommand}"
                                          SelectedCurrent="{Binding SelectedCustomer}"
                                          />
 </ContentPage>

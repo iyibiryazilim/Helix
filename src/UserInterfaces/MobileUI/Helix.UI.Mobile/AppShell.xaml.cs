@@ -182,10 +182,22 @@ public partial class AppShell : Shell
     Routing.RegisterRoute(nameof(ProcurementOptionView), typeof(ProcurementOptionView));
     Routing.RegisterRoute(nameof(ProcurementByCustomerView), typeof(ProcurementByCustomerView));
     Routing.RegisterRoute(nameof(ProcurementByProductView), typeof(ProcurementByProductView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransctionWarehouseListView), typeof(ReturnBySalesDispatchTransctionWarehouseListView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionFicheListView), typeof(ReturnBySalesDispatchTransactionFicheListView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionLineListView), typeof(ReturnBySalesDispatchTransactionLineListView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionSelectedLineListView), typeof(ReturnBySalesDispatchTransactionSelectedLineListView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionSummaryView), typeof(ReturnBySalesDispatchTransactionSummaryView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionFormView), typeof(ReturnBySalesDispatchTransactionFormView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionLineWarehouseListView), typeof(ReturnBySalesDispatchTransactionLineWarehouseListView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionLineLineListView), typeof(ReturnBySalesDispatchTransactionLineLineListView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionLineSelectedLineListView), typeof(ReturnBySalesDispatchTransactionLineSelectedLineListView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionLineSummaryView), typeof(ReturnBySalesDispatchTransactionLineSummaryView));
+        Routing.RegisterRoute(nameof(ReturnBySalesDispatchTransactionLineFormView), typeof(ReturnBySalesDispatchTransactionLineFormView));
 		Routing.RegisterRoute(nameof(FastProductionAllProductsListView), typeof(FastProductionAllProductsListView));
 		Routing.RegisterRoute(nameof(FastProductionView), typeof(FastProductionView));
 		Routing.RegisterRoute(nameof(FastProductionSelectWarehouseListView), typeof(FastProductionSelectWarehouseListView));
 		Routing.RegisterRoute(nameof(FastProductionSelectProductListView), typeof(FastProductionSelectProductListView));
+
 
 
 

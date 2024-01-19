@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
@@ -264,7 +266,22 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 
 
 
+        [RelayCommand]
+        async Task GoToWarehouseAsync()
+        {
+            if (SelectedCustomer is not null)
+            {
+                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransctionWarehouseListView)}", new Dictionary<string, object>
+                {
+                    ["Current"] = SelectedCustomer
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Müşteri seçimi yapmanız gerekmektedir", "Tamam");
+            }
 
+        }
 
 
 
