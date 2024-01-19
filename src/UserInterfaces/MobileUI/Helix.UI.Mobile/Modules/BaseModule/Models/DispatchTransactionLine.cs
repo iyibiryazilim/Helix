@@ -15,7 +15,9 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		[ObservableProperty]
 		string documentTrackingNumber;
 		[ObservableProperty]
-		TimeSpan transactionTime;
+		TimeSpan transactionTime; 
+		[ObservableProperty]
+		DateTime transactionDate;
 		[ObservableProperty]
 		int convertedTime;
 		[ObservableProperty]

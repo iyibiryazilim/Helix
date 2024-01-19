@@ -17,6 +17,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
         [ObservableProperty]
 		TimeSpan transactionTime;
 		[ObservableProperty]
+		DateTime transactionDate;
+		[ObservableProperty]
 		int convertedTime;
 		[ObservableProperty]
 		short iOType;
