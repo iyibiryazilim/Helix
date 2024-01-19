@@ -10,20 +10,15 @@
              Shell.TabBarIsVisible="False"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
-             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews.ReturnByPurchaseDispatchTransactionSupplierView"
-             >
+             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews.ReturnByPurchaseDispatchTransactionSupplierView">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetSupplierCommand}" />
     </ContentPage.Behaviors>
-    <sharedView:ReturnSelectContentView ReloadCommand="{Binding ReloadCommand}"
+    <sharedView:ReturnSelectContentView ReloadCommand="{Binding GetSupplierCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         SortCommand="{Binding SortCommand}"
-                                        CurrentList="{Binding Results}"
+                                        CurrentList="{Binding Result}"
                                         IsBusy="{Binding IsBusy}"
-                                       
-                                        IsRefreshing="{Binding IsRefreshing}">
-
-    </sharedView:ReturnSelectContentView>
-
+                                        IsRefreshing="{Binding IsRefreshing}"></sharedView:ReturnSelectContentView>
 </ContentPage>

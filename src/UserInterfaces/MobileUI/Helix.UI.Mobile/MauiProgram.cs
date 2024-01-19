@@ -598,9 +598,18 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseListView>();
 			mauiAppBuilder.Services.AddTransient<ReturnSalesFormView>();
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseFormView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionShipInfoListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionWarehouseListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionFicheView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSelectedLineListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSummaryView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionFormView>();
 
 
-            return mauiAppBuilder;
+
+
+			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ReturnRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -616,10 +625,16 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddScoped<ReturnPurchaseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnSalesFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseFormViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionShipInfoListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionWarehouseListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionFicheViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSelectedLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSummaryViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionFormViewModel>();
 
 
-
-            return mauiAppBuilder;
+			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ReturnRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{

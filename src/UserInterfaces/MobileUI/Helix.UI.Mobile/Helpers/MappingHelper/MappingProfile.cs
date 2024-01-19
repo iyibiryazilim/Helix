@@ -21,11 +21,10 @@ public class MappingProfile : Profile
         CreateMap<Current, Customer>().ReverseMap();
         CreateMap<WarehouseModel, dynamic>();
         CreateMap<BarcodeAndSubUnitset, dynamic>();
- 
-
-
-
-
+		CreateMap<DispatchTransactionLine, PurchaseOrderLine>().ReverseMap();
+		CreateMap<DispatchTransactionLine, SalesOrderLine>().ReverseMap();
+		CreateMap<DispatchTransaction, SalesOrder>().ReverseMap();
+		CreateMap<DispatchTransaction, PurchaseOrder>().ReverseMap(); 
 	}
 }
 
