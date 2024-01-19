@@ -20,10 +20,11 @@ public partial class DispatchTransactionLineContentView : ContentView
 	public static readonly BindableProperty GoToNextCommandProperty = BindableProperty.Create(nameof(GoToNextCommand), typeof(AsyncRelayCommand), typeof(WaitingOrderLineContentView), null);
 	public static readonly BindableProperty ToggleSelectionCommandProperty = BindableProperty.Create(nameof(ToggleSelectionCommand), typeof(AsyncRelayCommand), typeof(WaitingOrderLineContentView), null);
 	public static readonly BindableProperty CheckedChangeCommandProperty = BindableProperty.Create(nameof(CheckedChangeCommand), typeof(Command), typeof(WaitingOrderLineContentView), null);
+    public static readonly BindableProperty SelectCommandProperty = BindableProperty.Create(nameof(SelectCommand), typeof(AsyncRelayCommand), typeof(DispatchTransactionContentView), null);
 
 
 
-	public ObservableCollection<DispatchTransactionLineGroup> DispatchTransactionLineGroupList
+    public ObservableCollection<DispatchTransactionLineGroup> DispatchTransactionLineGroupList
 	{
 		get => GetValue(DispatchTransactionLineGroupListProperty) as ObservableCollection<DispatchTransactionLineGroup>;
 		set => SetValue(DispatchTransactionLineGroupListProperty, value);
@@ -77,7 +78,12 @@ public partial class DispatchTransactionLineContentView : ContentView
 		get => (bool)GetValue(IsBusyProperty);
 		set => SetValue(IsBusyProperty, value);
 	}
-	public DispatchTransactionLineContentView()
+    public AsyncRelayCommand SelectCommand
+    {
+        get => GetValue(SelectCommandProperty) as AsyncRelayCommand;
+        set => SetValue(SelectCommandProperty, value);
+    }
+    public DispatchTransactionLineContentView()
 	{
 		InitializeComponent();
 	}

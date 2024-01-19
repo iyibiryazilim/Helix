@@ -26,7 +26,11 @@ public class MappingProfile : Profile
 		CreateMap<DispatchTransactionLine, PurchaseOrderLine>().ReverseMap();
 		CreateMap<DispatchTransactionLine, SalesOrderLine>().ReverseMap();
 		CreateMap<DispatchTransaction, SalesOrder>().ReverseMap();
-		CreateMap<DispatchTransaction, PurchaseOrder>().ReverseMap(); 
-	}
+		CreateMap<DispatchTransaction, PurchaseOrder>().ReverseMap();
+        CreateMap<DispatchTransaction, CustomerTransaction>().ReverseMap();
+        CreateMap<DispatchTransactionLine, CustomerTransactionLine>().ReverseMap();
+
+
+    }
 }
 

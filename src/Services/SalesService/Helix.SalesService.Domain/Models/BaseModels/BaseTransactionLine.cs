@@ -83,16 +83,7 @@ public class BaseTransactionLine : INotifyPropertyChanged
             NotifyPropertyChanged();
         }
     }
-    int? convertedTime;
-    public int? ConvertedTime
-    {
-        get => convertedTime;
-        set
-        {
-            convertedTime = value;
-            NotifyPropertyChanged();
-        }
-    }
+
     short? iOType;
     public short? IOType
     {
