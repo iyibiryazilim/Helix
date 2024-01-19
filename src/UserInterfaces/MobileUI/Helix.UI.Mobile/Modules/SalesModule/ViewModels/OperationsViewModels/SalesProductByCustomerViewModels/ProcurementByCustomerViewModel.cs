@@ -50,6 +50,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             _httpClientService = httpClientService;
             _salesOrderLineService = salesOrderLineService;
             _warehouseTotalService = warehouseTotalService;
+            CancellationTokenSource cancellationTokenSource=new CancellationTokenSource();
+            
+            LoadProcurementCustomerCommand = new Command(async () =>await LoadProcurementCustomerAsync(cancellationTokenSource.Token));
 
         }
 
@@ -71,22 +74,20 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
                 var groupingData = SalesOrders.GroupBy(x => x.CurrentCode);
 
-                foreach (var item in groupingData)
+                foreach (var item in groupingData)//müşteriler
                 {
                     ProcurementCustomer procurementCustomer = new ProcurementCustomer();
                     procurementCustomer.Customer = new Customer { Code = item.Key };
 
-                    foreach (var order in item.ToList())
+                    foreach (var order in item.ToList())//siparişler
                     {
-                        ProcurementCustomerOrder customerOrder = new ProcurementCustomerOrder() { 
-                        
-                             SalesOrderLine = order,
-                              ProcurementQuantity = 1//hesaplanacak
-
-                        };
+                        ProcurementCustomerOrder customerOrder = new ProcurementCustomerOrder();
+                        customerOrder.SalesOrderLine = order;
+                        //miktar hesaplaacak bölüm
 
                         procurementCustomer.Orders.Add(customerOrder);
                     }
+                    Items.Add(procurementCustomer);
                 }
               
 
