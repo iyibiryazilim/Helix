@@ -301,4 +301,24 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task GoToBackAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			Application.Current.MainPage = new AppShell();
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
 }

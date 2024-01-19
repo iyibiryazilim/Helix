@@ -63,7 +63,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 			set => SetProperty(ref tempOnhand, value);
 		}
 
-		
+
 		public Microsoft.Maui.Graphics.Color BorderLineColor
 		{
 			get

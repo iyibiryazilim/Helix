@@ -41,7 +41,7 @@ public partial class FastProductionSelectWarehouseListViewModel : BaseViewModel
 
 	public FastProductionSelectWarehouseListViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
 	{
-		Title = "Transfer Edilecek Ambar Seçimi";
+		Title = "Ambar Listesi";
 		_httpClientService = httpClientService;
 		_warehouseService = warehouseService;
 

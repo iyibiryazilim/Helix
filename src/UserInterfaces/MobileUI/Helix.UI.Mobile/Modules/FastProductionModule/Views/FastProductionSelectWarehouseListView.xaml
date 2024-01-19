@@ -7,7 +7,7 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.FastProductionModule.ViewModels"
              x:DataType="viewModel:FastProductionSelectWarehouseListViewModel"
              Shell.TabBarIsVisible="False"
-             Title="FastProductionSelectWarehouseListView"
+             Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWarehousesCommand}" />
