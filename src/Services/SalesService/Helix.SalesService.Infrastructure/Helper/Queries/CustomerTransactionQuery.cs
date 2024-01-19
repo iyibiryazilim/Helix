@@ -76,7 +76,41 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
 			return query;
 		}
 
-		public string GetInputTransactionByCurrentCode(string search, string orderBy, string code, int page, int pageSize)
+        public string GetTransactionByTransactionTypeAndWarehouseAsync(string search, string orderBy, int currentId, int warehouseNumber, string TransactionType, int page, int pageSize)
+        {
+            int currentIndex = pageSize * page;
+            string query = @$"SELECT
+            [ReferenceId] = STFICHE.LOGICALREF,
+            [TransactionDate] = STFICHE.DATE_,
+            [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
+            [Code] = STFICHE.FICHENO,
+            [IOType] = STFICHE.IOCODE,
+            [TransactionType] = STFICHE.TRCODE,
+            [WarehouseNumber] = CAPIWHOUSE.NR,
+            [WarehouseName] = CAPIWHOUSE.NAME,
+            [Description] = STFICHE.GENEXP1,
+            [CurrentReferenceId] = CLCARD.LOGICALREF,
+            [CurrentCode] = CLCARD.CODE,
+            [CurrentName] = CLCARD.DEFINITION_,
+            ISNULL(SUM(STLINE.LINENET), 0) AS [NetTotal],
+            COUNT(DISTINCT STLINE.STOCKREF) AS [ReferenceCount]
+        FROM
+            LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
+            LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+            LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
+            LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+        WHERE
+            STFICHE.TRCODE IN ({TransactionType}) AND CLCARD.LOGICALREF = {currentId} AND STFICHE.FICHENO LIKE '%{search}%' AND CAPIWHOUSE.NR = {warehouseNumber}
+        GROUP BY
+            STFICHE.LOGICALREF, STFICHE.FICHENO, STFICHE.DATE_, dbo.LG_INTTOTIME(STFICHE.FTIME), STFICHE.TRCODE, STFICHE.GENEXP1,
+            STFICHE.IOCODE, CAPIWHOUSE.NR, CAPIWHOUSE.NAME, CLCARD.LOGICALREF, CLCARD.CODE, CLCARD.DEFINITION_
+        {orderBy}
+        OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY
+        ";
+            return query;
+        }
+
+        public string GetInputTransactionByCurrentCode(string search, string orderBy, string code, int page, int pageSize)
         {
 			int currentIndex = pageSize * page;
 

@@ -14,18 +14,23 @@ public class MappingProfile : Profile
        
 		CreateMap<WarehouseDetailCardTypeCount, dynamic>();
 		CreateMap<Customer, dynamic>();
-		CreateMap<WaitingOrderLine, PurchaseOrderLine>().ReverseMap();
+        CreateMap<Product, dynamic>();
+
+        CreateMap<WaitingOrderLine, PurchaseOrderLine>().ReverseMap();
 		CreateMap<WaitingOrderLine, SalesOrderLine>().ReverseMap();
 		CreateMap<WaitingOrder, SalesOrder>().ReverseMap();
 		CreateMap<WaitingOrder, PurchaseOrder>().ReverseMap();
         CreateMap<Current, Customer>().ReverseMap();
         CreateMap<WarehouseModel, dynamic>();
         CreateMap<BarcodeAndSubUnitset, dynamic>();
- 
+		CreateMap<DispatchTransactionLine, PurchaseOrderLine>().ReverseMap();
+		CreateMap<DispatchTransactionLine, SalesOrderLine>().ReverseMap();
+		CreateMap<DispatchTransaction, SalesOrder>().ReverseMap();
+		CreateMap<DispatchTransaction, PurchaseOrder>().ReverseMap();
+        CreateMap<DispatchTransaction, CustomerTransaction>().ReverseMap();
+        CreateMap<DispatchTransactionLine, CustomerTransactionLine>().ReverseMap();
 
 
-
-
-	}
+    }
 }
 

@@ -4,22 +4,22 @@
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews.DispatchBySalesOrderLineWarehouseListView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels"
              x:DataType="viewModel:DispatchBySalesOrderLineWarehouseListViewModel"
-            xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-            xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-            xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
-            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-            Shell.TabBarIsVisible="False"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Shell.TabBarIsVisible="False"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}"
-                                      EventName="Loaded" />
+                                        EventName="Loaded" />
     </ContentPage.Behaviors>
     <sharedViews:WarehouseSelectContentView WarehouseList="{Binding Results}"
-                                          IsRefreshing="{Binding IsRefreshing}"
-                                          IsBusy="{Binding IsBusy}"
-                                          ReloadCommand="{Binding ReloadCommand}"
-                                          SearchCommand="{Binding SearchCommand}"
-                                          ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
-                                          GoToNextCommand="{Binding GoToTransactionCommand}"
-                                          SortCommand="{Binding SortCommand}"></sharedViews:WarehouseSelectContentView>
+                                            IsRefreshing="{Binding IsRefreshing}"
+                                            IsBusy="{Binding IsBusy}"
+                                            ReloadCommand="{Binding ReloadCommand}"
+                                            SearchCommand="{Binding SearchCommand}"
+                                            ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                            GoToNextCommand="{Binding GoToTransactionCommand}"
+                                            SortCommand="{Binding SortCommand}"></sharedViews:WarehouseSelectContentView>
 </ContentPage>

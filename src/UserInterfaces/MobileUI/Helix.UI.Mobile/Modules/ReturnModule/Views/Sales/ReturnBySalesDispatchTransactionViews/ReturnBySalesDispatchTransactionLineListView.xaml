@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews.ReturnBySalesDispatchTransactionLineListView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels"
+             x:DataType="viewModel:ReturnBySalesDispatchTransactionLineListViewModel"
+              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                  Command="{Binding GetOrderLinesCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:DispatchTransactionLineContentView ReloadCommand="{Binding GetDispatchTransactionLinesCommand}"
+                                  SearchCommand="{Binding SearchCommand}"
+                                  SortCommand="{Binding SortCommand}"
+                                  DispatchTransactionLineGroupList="{Binding DispatchTransactionLineGroupList}"
+                                  IsBusy="{Binding IsBusy}"
+                                  CheckedChangeCommand="{Binding SelectAllCommand}"
+                                  GoToNextCommand="{Binding GoToSelectedLinesCommand}"
+                                  SelectCommand="{Binding SelectAllCommand}"
+                                   IsRefreshing="{Binding IsRefreshing}"></sharedViews:DispatchTransactionLineContentView>
+</ContentPage>

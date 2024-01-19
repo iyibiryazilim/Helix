@@ -155,9 +155,9 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 			IsBusy = true;
 			//IsRefreshing = true;
 
-			item.QuantityCounter++;
-			item.TempOnhand++;
-			//item.OnHand++;
+			item.QuantityCounter += 1;
+			item.TempOnhand += 1;
+			//item.OnHand += 1;
 
 		}
 		catch (Exception ex)
@@ -185,9 +185,9 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 
 			if (item.QuantityCounter > 0)
 			{
-				item.QuantityCounter--;
-				item.TempOnhand--;
-				//item.OnHand--;
+				item.QuantityCounter -= 1;
+				item.TempOnhand -= 1;
+				//item.OnHand -= 1;
 
 			}
 

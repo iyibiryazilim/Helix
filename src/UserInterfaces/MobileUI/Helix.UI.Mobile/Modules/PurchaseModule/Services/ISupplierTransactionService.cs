@@ -8,7 +8,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Services
 	{
 		public Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, string currentCode, string TransactionType, int page, int pageSize);
 		public Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, int currentId, string TransactionType, int page, int pageSize);
-		public Task<DataResult<IEnumerable<SupplierTransaction>>> GetInputTransactionByCurrentCodeAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, string code, int page, int pageSize);
+		public Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAndWarehouseAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, int currentId,int warehouseNumber, string TransactionType, int page, int pageSize);
+        public Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAndWarehouseAndShipInfoAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, int currentId, int warehouseNumber,int shipInfoReferenceId, string TransactionType, int page, int pageSize);
+        public Task<DataResult<IEnumerable<SupplierTransaction>>> GetInputTransactionByCurrentCodeAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, string code, int page, int pageSize);
 		public Task<DataResult<IEnumerable<SupplierTransaction>>> GetInputTransactionByCurrentIdAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, int id, int page, int pageSize);
 		public Task<DataResult<IEnumerable<SupplierTransaction>>> GetOutputTransactionByCurrentCodeAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, string code, int page, int pageSize);
 		public Task<DataResult<IEnumerable<SupplierTransaction>>> GetOutputTransactionByCurrentIdAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, int id, int page, int pageSize);

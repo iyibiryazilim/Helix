@@ -44,16 +44,6 @@ public abstract class BaseTransaction : INotifyPropertyChanged
         }
     }
 
-    int? convertedTime;
-    public int? ConvertedTime
-    {
-        get => convertedTime;
-        set
-        {
-            convertedTime = value;
-            NotifyPropertyChanged();
-        }
-    }
 
     int? orderReference;
     public int? OrderReference

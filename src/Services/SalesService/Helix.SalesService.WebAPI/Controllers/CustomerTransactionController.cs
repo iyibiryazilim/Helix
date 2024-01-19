@@ -63,7 +63,32 @@ namespace Helix.SalesService.WebAPI.Controllers
 			} 
 		}
 
-		[HttpGet("Current/Code/{currentCode}/All")]
+        [HttpGet("CurrentAndWarehouse/Id/{currentId:int}&{TransactionType}&{warehouseNumber:int}")]
+        public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAndIdAndWarehouseAsync(int currentId, int warehouseNumber, string TransactionType, [FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, int page = 0, int pageSize = 20)
+        {
+            var result = new DataResult<IEnumerable<CustomerTransaction>>();
+            switch (orderBy)
+            {
+
+                case "codedesc":
+                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeDesc, currentId,warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "codeasc":
+                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "dateasc":
+                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.DateAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "datedesc":
+                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.DateDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                default:
+                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+            }
+        }
+
+        [HttpGet("Current/Code/{currentCode}/All")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByCurrentCodeAsync([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, string currentCode = "", int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<CustomerTransaction>>();

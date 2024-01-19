@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.WaitingOrderLineContentView"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.WaitingOrderLineContentView"
              BackgroundColor="{StaticResource Primary}"
              x:Name="this">
     <ContentView.Resources>

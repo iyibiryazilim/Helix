@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews.ReturnBySalesDispatchTransactionFicheListView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels"
+             x:DataType="viewModel:ReturnBySalesDispatchTransactionFicheListViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                      Command="{Binding GetOrdersCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:DispatchTransactionContentView ReloadCommand="{Binding GetSalesDispatchesCommand}"
+                                      SearchCommand="{Binding SearchCommand}"
+                                      SortCommand="{Binding SortCommand}"
+                                      DispatchTransactionList="{Binding Results}"
+                                      IsBusy="{Binding IsBusy}"
+                                      CheckedChangeCommand="{Binding SelectAllCommand}"
+                                      GoToNextCommand="{Binding GoToSalesDispatchLineListCommand}"
+                                      SelectCommand="{Binding SelectCommand}"
+                                       IsRefreshing="{Binding IsRefreshing}"></sharedViews:DispatchTransactionContentView>
+</ContentPage>
