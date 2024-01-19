@@ -63,6 +63,7 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.PurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionLineViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales;
@@ -72,6 +73,7 @@ using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatc
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales;
@@ -605,7 +607,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSelectedLineListView>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSummaryView>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionFormView>();
-
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineShipInfoListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineWarehouseListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineLineListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSelectedLineListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSummaryView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineFormView>();
 
 
 
@@ -632,6 +639,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSelectedLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionSummaryViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionFormViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineShipInfoListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineWarehouseListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSelectedLineListViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSummaryViewModel>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineFormViewModel>();
 
 
 			return mauiAppBuilder;

@@ -19,6 +19,7 @@ using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseVi
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales;
@@ -186,8 +187,13 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineListView), typeof(ReturnByPurchaseDispatchTransactionLineListView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSelectedLineListView), typeof(ReturnByPurchaseDispatchTransactionSelectedLineListView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSummaryView), typeof(ReturnByPurchaseDispatchTransactionSummaryView));
-		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionFormView), typeof(ReturnByPurchaseDispatchTransactionFormView)); 
-	}
-}
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionFormView), typeof(ReturnByPurchaseDispatchTransactionFormView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineShipInfoListView), typeof(ReturnByPurchaseDispatchTransactionLineShipInfoListView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineWarehouseListView), typeof(ReturnByPurchaseDispatchTransactionLineWarehouseListView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineLineListView), typeof(ReturnByPurchaseDispatchTransactionLineLineListView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineSelectedLineListView), typeof(ReturnByPurchaseDispatchTransactionLineSelectedLineListView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineSummaryView), typeof(ReturnByPurchaseDispatchTransactionLineSummaryView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineFormView), typeof(ReturnByPurchaseDispatchTransactionLineFormView));
 
- 
+	}
+} 
