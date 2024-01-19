@@ -1,8 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
-using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.MVVMHelper;
+using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases
 {
@@ -23,5 +24,19 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases
         {
             await Shell.Current.GoToAsync($"{nameof(ReturnPurchaseSelectWarehouseView)}");
         }
-    }
+		[RelayCommand]
+		async Task GoToReturnPurchaseSelectSupplierByLine()
+		{
+			try
+			{
+				await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionLineSupplierView)}");
+
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				throw;
+			}
+		}
+	}
 }
