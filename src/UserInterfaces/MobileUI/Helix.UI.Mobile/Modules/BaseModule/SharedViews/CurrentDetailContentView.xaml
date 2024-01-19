@@ -6,6 +6,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:sharedModels="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter">
@@ -52,7 +53,7 @@
                     <RoundRectangle CornerRadius="60,60,0,0" />
                 </Border.StrokeShape>
                 <ScrollView>
-                    <Grid RowDefinitions="Auto,Auto,*"
+                    <Grid RowDefinitions="Auto,Auto,Auto,*"
                           RowSpacing="5">
                         <VerticalStackLayout Grid.Row="0"
                                              Padding="20,30,20,10"
@@ -72,24 +73,95 @@
                         <Button Grid.Row="1"
                                 WidthRequest="120"
                                 HeightRequest="30"
-                                Command="{Binding Source={x:Reference this},Path=OpenShowMoreBottomSheetCommand}"
+                                Command="{Binding Source={x:Reference this},Path=.}"
                                 Padding="0"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center"
                                 CornerRadius="12"
                                 FontSize="13"
-                                BackgroundColor="{StaticResource Primary}"
+                                BackgroundColor="{StaticResource Success}"
                                 Text="Daha Fazla"></Button>
-                        <VerticalStackLayout Grid.Row="2"
+                        <VerticalStackLayout Grid.Row="2" Padding="10"
+                     Spacing="7">
+
+                            <Label Text="{Binding Source={x:Reference this},Path=BindingContext.SubTitle}" FontAttributes="Bold">
+                                
+                            </Label>
+                            
+                            <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= ProductList}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal"
+                               ItemSpacing="10" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Product">
+                                        <Frame WidthRequest="250">
+                                            <Grid ColumnDefinitions="*,auto"
+                          ColumnSpacing="10">
+                                                <Grid Grid.Column="0"
+                              RowDefinitions="*,*,*">
+                                                    <Label Grid.Row="0"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   LineBreakMode="TailTruncation"
+                                   Text="{Binding Code}" />
+                                                    <Label Grid.Row="1"
+                                   FontAttributes="Bold"
+                                   FontSize="10"
+                                   LineBreakMode="TailTruncation"
+                                   Text="{Binding Name}" />
+                                                    <Button Grid.Row="2"
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource Primary}"
+                                     Command="{Binding Source={x:Reference this},Path=BindingContext.GoToDetailCommand}"
+                                    CommandParameter="{Binding .}"
+                                    CornerRadius="12"
+                                    FontSize="10"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Start"
+                                    Text="Daha Fazla"
+                                    VerticalOptions="Center"
+                                    WidthRequest="80" />
+                                                </Grid>
+                                                <Frame Grid.Column="1"
+                               Padding="0"
+                               BackgroundColor="White"
+                               BorderColor="Transparent"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               HorizontalOptions="End"
+                               IsClippedToBounds="True"
+                               VerticalOptions="Center">
+                                                    <Image Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                                </Frame>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="3"
                                              Padding="10"
-                                             Spacing="15">
-                            <VerticalStackLayout Spacing="5">
+                                             Spacing="0">
+                            <VerticalStackLayout Spacing="2">
                                 <Grid ColumnDefinitions="*,*">
                                     <Label Text="Son Hareketleri"
                                            Grid.Column="0"
                                            FontAttributes="Bold"
                                            VerticalOptions="Center"
                                            FontSize="Subtitle" />
+                                    <Button Grid.Column="1"
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource Primary}"
+                                     Command="{Binding Source={x:Reference this},Path=OpenShowMoreBottomSheetCommand}"
+                                    CornerRadius="12"
+                                    FontSize="13"
+                                    HeightRequest="30"
+                                    HorizontalOptions="End"
+                                    Text="Hareketler"
+                                    VerticalOptions="Center"
+                                    WidthRequest="135" />
                                 </Grid>
                             </VerticalStackLayout>
                             <ScrollView>

@@ -598,6 +598,18 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseListView>();
 			mauiAppBuilder.Services.AddTransient<ReturnSalesFormView>();
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseFormView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransctionWarehouseListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFicheListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSelectedLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSummaryView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFormView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineWarehouseListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSelectedLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSummaryView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineFormView>();
+
 
 
             return mauiAppBuilder;
@@ -616,6 +628,17 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddScoped<ReturnPurchaseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnSalesFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionWarehouseListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFicheListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSelectedLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSummaryViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineWarehouseListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSelectedLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSummaryViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineFormViewModel>();
 
 
 

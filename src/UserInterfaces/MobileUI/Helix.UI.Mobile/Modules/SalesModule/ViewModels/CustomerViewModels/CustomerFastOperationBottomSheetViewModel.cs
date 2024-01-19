@@ -26,7 +26,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
         try
         {
             IsBusy = true;
-            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}", new Dictionary<string, object>
+            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderShipInfoListView)}", new Dictionary<string, object>
             {
                 [nameof(Current)] = Current
             });
@@ -50,7 +50,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
 		try
 		{
 			IsBusy = true;
-			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineLineListView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineShipInfoListView)}", new Dictionary<string, object>
 			{
 				[nameof(Current)] = Current
 			});

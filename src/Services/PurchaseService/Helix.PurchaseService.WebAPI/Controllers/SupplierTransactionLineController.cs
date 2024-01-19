@@ -73,6 +73,69 @@ namespace Helix.PurchaseService.WebAPI.Controllers
             }
 
         }
+
+        [HttpGet("CurrentAndWarehouse/Id/{currentId:int}&{TransactionType}&{warehouseNumber:int}")]
+        public async Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByTransactionTypeAndIdAndWarehouseAsync(int currentId, int warehouseNumber, string TransactionType, [FromQuery] string search = "", string orderBy = SupplierTransactionLineOrderBy.DateAsc, int page = 0, int pageSize = 20)
+        {
+            var result = new DataResult<IEnumerable<SupplierTransactionLine>>();
+            switch (orderBy)
+            {
+                case "namedesc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAsync(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "nameasc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAsync(search, SupplierTransactionLineOrderBy.ProductNameAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "codedesc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAsync(search, SupplierTransactionLineOrderBy.ProductCodeDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "codeasc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAsync(search, SupplierTransactionLineOrderBy.ProductCodeAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "dateasc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAsync(search, SupplierTransactionLineOrderBy.DateAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                case "datedesc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAsync(search, SupplierTransactionLineOrderBy.DateDesc, currentId,warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+                default:
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAsync(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+                    return result;
+            }
+
+        }
+
+        [HttpGet("CurrentAndWarehouseAndShipInfo/Id/{currentId:int}&{TransactionType}&{warehouseNumber:int}&{shipInfoReferenceId:int}")]
+        public async Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByTransactionTypeAndIdAndWarehouseAndShipInfoAsync(int currentId, int warehouseNumber,int shipInfoReferenceId, string TransactionType, [FromQuery] string search = "", string orderBy = SupplierTransactionLineOrderBy.DateAsc, int page = 0, int pageSize = 20)
+        {
+            var result = new DataResult<IEnumerable<SupplierTransactionLine>>();
+            switch (orderBy)
+            {
+                case "namedesc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, warehouseNumber, shipInfoReferenceId, TransactionType, page, pageSize);
+                    return result;
+                case "nameasc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(search, SupplierTransactionLineOrderBy.ProductNameAsc, currentId, warehouseNumber, shipInfoReferenceId, TransactionType, page, pageSize);
+                    return result;
+                case "codedesc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(search, SupplierTransactionLineOrderBy.ProductCodeDesc, currentId, warehouseNumber, shipInfoReferenceId, TransactionType, page, pageSize);
+                    return result;
+                case "codeasc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(search, SupplierTransactionLineOrderBy.ProductCodeAsc, currentId, warehouseNumber, shipInfoReferenceId, TransactionType, page, pageSize);
+                    return result;
+                case "dateasc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(search, SupplierTransactionLineOrderBy.DateAsc, currentId, warehouseNumber, shipInfoReferenceId, TransactionType, page, pageSize);
+                    return result;
+                case "datedesc":
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(search, SupplierTransactionLineOrderBy.DateDesc, currentId, warehouseNumber,shipInfoReferenceId, TransactionType, page, pageSize);
+                    return result;
+                default:
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, warehouseNumber, shipInfoReferenceId, TransactionType, page, pageSize);
+                    return result;
+            }
+
+        }
+
         [HttpGet("Current/Code/{currentCode}/All")]
         public async Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByCurrentCodeAsync([FromQuery] string search = "", string orderBy = SupplierTransactionLineOrderBy.DateAsc, string currentCode = "", int page = 0, int pageSize = 20)
         {

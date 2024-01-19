@@ -496,8 +496,131 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 				return dataResult;
 			}
 		}
-	}
-	public enum SupplierTransactionOrderBy
+	
+		public async Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAndWarehouseAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, int currentId,int warehouseNumber, string TransactionType, int page, int pageSize)
+		{
+			HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl + $"/CurrentAndWarehouse/Id/{currentId}&{warehouseNumber}&{TransactionType}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			DataResult<IEnumerable<SupplierTransaction>> dataResult = new DataResult<IEnumerable<SupplierTransaction>>();
+			if (responseMessage.IsSuccessStatusCode)
+			{
+				var data = await responseMessage.Content.ReadAsStringAsync();
+				if (data != null)
+				{
+					if (!string.IsNullOrEmpty(data))
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SupplierTransaction>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
+
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "success";
+						return dataResult;
+
+					}
+					else
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SupplierTransaction>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
+
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "empty";
+						return dataResult;
+					}
+
+				}
+				else
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SupplierTransaction>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+
+					dataResult.Data = Enumerable.Empty<SupplierTransaction>();
+					dataResult.IsSuccess = false;
+					dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+					return dataResult;
+				}
+
+
+			}
+			else
+			{
+				dataResult.Data = Enumerable.Empty<SupplierTransaction>();
+				dataResult.IsSuccess = false;
+				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+				return dataResult;
+			}
+		}
+        public async Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAndWarehouseAndShipInfoAsync(HttpClient httpClient, string search, SupplierTransactionOrderBy orderBy, int currentId, int warehouseNumber,int shipInfoReferenceId, string TransactionType, int page, int pageSize)
+        {
+            HttpResponseMessage responseMessage = await httpClient.GetAsync(postUrl + $"/CurrentAndWarehouseAndShipInfo/Id/{currentId}&{warehouseNumber}&{TransactionType}&{shipInfoReferenceId}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+            DataResult<IEnumerable<SupplierTransaction>> dataResult = new DataResult<IEnumerable<SupplierTransaction>>();
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var data = await responseMessage.Content.ReadAsStringAsync();
+                if (data != null)
+                {
+                    if (!string.IsNullOrEmpty(data))
+                    {
+                        var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SupplierTransaction>>>(data, new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        });
+
+                        dataResult.Data = result?.Data;
+                        dataResult.IsSuccess = true;
+                        dataResult.Message = "success";
+                        return dataResult;
+
+                    }
+                    else
+                    {
+                        var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SupplierTransaction>>>(data, new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        });
+
+                        dataResult.Data = result?.Data;
+                        dataResult.IsSuccess = true;
+                        dataResult.Message = "empty";
+                        return dataResult;
+                    }
+
+                }
+                else
+                {
+                    var result = JsonSerializer.Deserialize<DataResult<IEnumerable<SupplierTransaction>>>(data, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    });
+
+                    dataResult.Data = Enumerable.Empty<SupplierTransaction>();
+                    dataResult.IsSuccess = false;
+                    dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+                    return dataResult;
+                }
+
+
+            }
+            else
+            {
+                dataResult.Data = Enumerable.Empty<SupplierTransaction>();
+                dataResult.IsSuccess = false;
+                dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+                return dataResult;
+            }
+        }
+
+
+    }
+    public enum SupplierTransactionOrderBy
 	{
 		codedesc,
 		codeasc,
