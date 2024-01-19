@@ -250,6 +250,7 @@ public partial class FastProductionSelectProductListViewModel : BaseViewModel
 				ProductName = SelectedProduct.ProductName,
 				SubUnitsetCode = SelectedProduct.SubUnitsetCode,
 				OnHand = SelectedProduct.OnHand,
+				Image = SelectedProduct.Image,
 				WarehouseReferenceId = SelectedWarehouse.ReferenceId,
 				WarehouseName = SelectedWarehouse.Name,
 				WarehouseNumber = SelectedWarehouse.Number,

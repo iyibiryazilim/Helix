@@ -20,6 +20,9 @@ public partial class FastProductionCard : ObservableObject
 
 	[ObservableProperty]
 	double onHand;
+
+	[ObservableProperty]
+	string image;
 	#endregion
 
 	#region Warehouse field

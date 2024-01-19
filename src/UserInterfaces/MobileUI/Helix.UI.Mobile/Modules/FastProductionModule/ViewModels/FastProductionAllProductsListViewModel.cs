@@ -323,7 +323,8 @@ public partial class FastProductionAllProductsListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			await Shell.Current.GoToAsync("..");
+			//await Shell.Current.GoToAsync("..");
+			Application.Current.MainPage = new AppShell();
 		}
 		catch (Exception ex)
 		{

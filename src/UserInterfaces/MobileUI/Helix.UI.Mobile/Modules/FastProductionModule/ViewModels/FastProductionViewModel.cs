@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.FastProductionModule.Models;
 using Helix.UI.Mobile.Modules.FastProductionModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
@@ -91,6 +92,45 @@ public partial class FastProductionViewModel : BaseViewModel
 		{
 			IsBusy = false;
 			IsRefreshing = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task GoToBackAsync()
+	{
+		try
+		{
+			IsBusy = true;
+			await Shell.Current.GoToAsync("..");
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task GoToSuccessPageViewAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}");
+		}
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
 		}
 	}
 
