@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -31,7 +34,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		ShipInfo selectedShipInfo;
 
 		[ObservableProperty]
-		Customer current;
+		Supplier current;
 
 
 		public ReturnByPurchaseDispatchTransactionShipInfoListViewModel(IHttpClientService httpClientService, IShipInfoService shipInfoService)
@@ -80,10 +83,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				var result = await _shipInfoService.GetObjectsByCurrentId(httpClient, Current.ReferenceId);
 				if (result.Data.Count() == 0)
 				{
-					await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
+					await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionWarehouseListView)}", new Dictionary<string, object>
 					{
 						["ShipInfo"] = SelectedShipInfo,
-						["Current"] = Current
+						[nameof(Current)] = Current
 					});
 				}
 

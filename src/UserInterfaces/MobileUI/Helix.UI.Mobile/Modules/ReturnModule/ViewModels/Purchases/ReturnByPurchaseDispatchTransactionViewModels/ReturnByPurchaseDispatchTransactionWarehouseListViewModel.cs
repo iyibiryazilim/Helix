@@ -4,6 +4,7 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -44,7 +45,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		Warehouse selectedWarehouse;
 
 		[ObservableProperty]
-		Customer current;
+		Supplier current;
 
 		[ObservableProperty]
 		ShipInfo shipInfo;
@@ -248,20 +249,27 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		[RelayCommand]
 		async Task GoToTransaction()
 		{
-			if (SelectedWarehouse == null)
+			try
 			{
-				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
-			}
-			else
-			{
-				await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionFicheView)}", new Dictionary<string, object>
+				if (SelectedWarehouse == null)
 				{
-					["Warehouse"] = SelectedWarehouse,
-					["Current"] = Current,
-					["ShipInfo"] = ShipInfo
-				});
+					await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+				}
+				else
+				{
+					await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionFicheView)}", new Dictionary<string, object>
+					{
+						["Warehouse"] = SelectedWarehouse,
+						[nameof(Current)] = Current,
+						[nameof(ShipInfo)] = ShipInfo
+					});
+				}
 			}
-
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+			}
 		}
 
 		[RelayCommand]

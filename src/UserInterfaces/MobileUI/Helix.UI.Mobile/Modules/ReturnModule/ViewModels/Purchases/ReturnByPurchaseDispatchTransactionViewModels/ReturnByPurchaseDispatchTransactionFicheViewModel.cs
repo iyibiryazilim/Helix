@@ -1,21 +1,17 @@
-﻿using CommunityToolkit.Maui.Converters;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
-using Helix.UI.Mobile.Modules.SalesModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using static Helix.UI.Mobile.Modules.SalesModule.DataStores.SalesOrderDataStore;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels
 {
@@ -48,7 +44,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		int pageSize = 20000;
 
 		[ObservableProperty]
-		Customer current;
+		Supplier current;
 
 		[ObservableProperty]
 		Warehouse warehouse;
@@ -101,15 +97,31 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				var result = await _supplierTransactionService.GetTransactionByCurrentCodeAsync(httpClient, SearchText,OrderBy,Current.Code, CurrentPage, PageSize);
-				Items.Clear();
-				Results.Clear();
-				foreach (var item in result.Data)
+				if (ShipInfo != null)
 				{
-					var obj = Mapping.Mapper.Map<DispatchTransaction>(item);
-					Items.Add(obj);
-					Results.Add(obj);
+					var result = await _supplierTransactionService.GetTransactionByTransactionTypeAndWarehouseAndShipInfoAsync(httpClient, SearchText, OrderBy, Current.ReferenceId, Warehouse.Number, ShipInfo.ReferenceId, "1", CurrentPage, PageSize);
+					Items.Clear();
+					Results.Clear();
+					foreach (var item in result.Data)
+					{
+						var obj = Mapping.Mapper.Map<DispatchTransaction>(item);
+						Items.Add(obj);
+						Results.Add(obj);
+					}
 				}
+				else
+				{
+					var result = await _supplierTransactionService.GetTransactionByTransactionTypeAndWarehouseAsync(httpClient, SearchText, OrderBy, Current.ReferenceId, Warehouse.Number, "1", CurrentPage, PageSize);
+					Items.Clear();
+					Results.Clear();
+					foreach (var item in result.Data)
+					{
+						var obj = Mapping.Mapper.Map<DispatchTransaction>(item);
+						Items.Add(obj);
+						Results.Add(obj);
+					}
+				}
+
 
 
 			}
@@ -288,7 +300,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			}
 
 		}
-
 
 		public async Task SelectAllAsync(bool isSelected)
 		{
