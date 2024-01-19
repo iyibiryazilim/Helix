@@ -66,13 +66,15 @@
 
                         <Border Grid.Row="1"
                                 Padding="0,0,0,0"
+                                HeightRequest="40"
                                 HorizontalOptions="Center"
                                 StrokeShape="RoundRectangle 5"
                                 ZIndex="999">
-                            <Grid Padding="0" ColumnDefinitions="Auto, 40, Auto">
+                            <Grid Padding="0" ColumnDefinitions="Auto, 50, Auto">
                                 <Border Grid.Column="2"
                                         BackgroundColor="Transparent"
-                                        StrokeThickness="0">
+                                        StrokeThickness="0"
+                                        WidthRequest="40">
                                     <ImageButton Margin="5"
                                                  Aspect="AspectFit"
                                                  BackgroundColor="Transparent"
@@ -96,7 +98,8 @@
                                 </Border>
                                 <Border Grid.Column="0"
                                         BackgroundColor="Transparent"
-                                        StrokeThickness="0">
+                                        StrokeThickness="0"
+                                        WidthRequest="40">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}" CommandParameter="{Binding .}" />
                                     </Border.GestureRecognizers>
@@ -166,7 +169,7 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="fastProductionModel:FastProductionCard">
-                                        <Border Padding="5,0" StrokeShape="RoundRectangle 10">
+                                        <Border Padding="5,0,5,8" StrokeShape="RoundRectangle 10">
                                             <Grid RowDefinitions="*, Auto, *">
                                                 <Grid Grid.Row="0" ColumnDefinitions=".20*, *">
 
@@ -177,8 +180,6 @@
                                                                         HorizontalOptions="Start"
                                                                         Text="{Binding WarehouseNumber}" />
 
-
-
                                                     <Label Grid.Column="1"
                                                            FontAttributes="Bold"
                                                            FontSize="Default"
@@ -187,24 +188,25 @@
                                                            Text="{Binding WarehouseName}"
                                                            VerticalOptions="Center" />
                                                 </Grid>
-                                                <Grid Grid.Row="1" BackgroundColor="rED">
-                                                    <Line Grid.Column="0"
-                                                          Stroke="{StaticResource Primary}"
-                                                          StrokeDashArray="2,5"
-                                                          StrokeDashOffset="6"
-                                                          X1="20"
-                                                          X2="20"
+                                                <Grid Grid.Row="1">
+                                                    <Line Stroke="{StaticResource Primary}"
+                                                          StrokeDashArray="2,3"
+                                                          StrokeDashOffset="0"
+                                                          StrokeThickness="2"
+                                                          X1="22"
+                                                          X2="22"
                                                           Y1="0"
                                                           Y2="25" />
                                                 </Grid>
-                                                <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto">
+                                                <Grid Grid.Row="2"
+                                                      Margin="0,2,0,0"
+                                                      ColumnDefinitions="Auto, 200, Auto">
                                                     <Border Grid.Column="0"
                                                             Padding="10"
-                                                            HeightRequest="82"
                                                             HorizontalOptions="Start"
                                                             StrokeShape="RoundRectangle 10"
-                                                            StrokeThickness="0"
-                                                            WidthRequest="73">
+                                                            StrokeThickness="1"
+                                                            WidthRequest="60">
                                                         <Image Aspect="AspectFit" Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                                     </Border>
                                                     <VerticalStackLayout Grid.Column="1"
@@ -235,6 +237,60 @@
                                                         </Border>-->
                                                     </VerticalStackLayout>
                                                 </Grid>
+                                                <Border Grid.Row="2"
+                                                        Padding="0,0,0,0"
+                                                        HeightRequest="30"
+                                                        HorizontalOptions="End"
+                                                        StrokeShape="RoundRectangle 5"
+                                                        VerticalOptions="End"
+                                                        ZIndex="999">
+                                                    <Grid Padding="0" ColumnDefinitions="Auto, 40, Auto">
+                                                        <Border Grid.Column="2"
+                                                                BackgroundColor="Transparent"
+                                                                StrokeThickness="0">
+                                                            <ImageButton Margin="5"
+                                                                         Aspect="AspectFit"
+                                                                         BackgroundColor="Transparent"
+                                                                         HeightRequest="12"
+                                                                         VerticalOptions="Center"
+                                                                         WidthRequest="18">
+                                                                <ImageButton.Source>
+                                                                    <FontImageSource FontFamily="FAS"
+                                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
+                                                                                     Color="{StaticResource Primary}" />
+                                                                </ImageButton.Source>
+                                                            </ImageButton>
+                                                        </Border>
+                                                        <Border Grid.Column="1"
+                                                                BackgroundColor="{StaticResource Primary}"
+                                                                StrokeThickness="0">
+                                                            <Label HorizontalOptions="Center"
+                                                                   Text="{Binding OnHand}"
+                                                                   TextColor="{StaticResource White}"
+                                                                   VerticalOptions="Center" />
+                                                        </Border>
+                                                        <Border Grid.Column="0"
+                                                                BackgroundColor="Transparent"
+                                                                StrokeThickness="0">
+                                                            <Border.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}" CommandParameter="{Binding .}" />
+                                                            </Border.GestureRecognizers>
+                                                            <ImageButton Grid.Column="2"
+                                                                         Margin="5"
+                                                                         Aspect="AspectFit"
+                                                                         BackgroundColor="Transparent"
+                                                                         HeightRequest="12"
+                                                                         VerticalOptions="Center"
+                                                                         WidthRequest="16">
+                                                                <ImageButton.Source>
+                                                                    <FontImageSource FontFamily="FAS"
+                                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
+                                                                                     Color="{StaticResource Primary}" />
+                                                                </ImageButton.Source>
+                                                            </ImageButton>
+                                                        </Border>
+                                                    </Grid>
+                                                </Border>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -245,8 +301,8 @@
 
                         <Button Grid.Row="4"
                                 Margin="10,10,10,20"
-                                Text="Tamam"
                                 Command="{Binding GoToSuccessPageViewCommand}"
+                                Text="Tamam"
                                 VerticalOptions="End" />
                     </Grid>
                 </Border>
