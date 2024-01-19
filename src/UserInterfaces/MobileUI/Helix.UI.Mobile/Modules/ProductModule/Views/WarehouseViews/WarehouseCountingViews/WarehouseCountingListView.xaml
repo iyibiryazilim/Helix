@@ -87,14 +87,14 @@
                                         Padding="0,0,5,0"
                                         BackgroundColor="{StaticResource White}"
                                         StrokeShape="RoundRectangle 10">
-                                    <Grid ColumnDefinitions="Auto, .20*, *" ColumnSpacing="5">
-                                        <Border Grid.Column="0"
+                                    <Grid ColumnDefinitions=".20*, *" ColumnSpacing="5">
+                                        <!--<Border Grid.Column="0"
                                                 Margin="-4"
                                                 BackgroundColor="{Binding BorderLineColor}"
                                                 StrokeShape="RoundRectangle 10,0,0,0"
                                                 StrokeThickness="0"
-                                                WidthRequest="9" />
-                                        <Border Grid.Column="1"
+                                                WidthRequest="9" />-->
+                                        <Border Grid.Column="0"
                                                 Padding="10"
                                                 HorizontalOptions="Start"
                                                 StrokeShape="RoundRectangle 10"
@@ -102,7 +102,7 @@
                                                 WidthRequest="75">
                                             <Image Aspect="AspectFit" Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                         </Border>
-                                        <VerticalStackLayout Grid.Column="2"
+                                        <VerticalStackLayout Grid.Column="1"
                                                              Padding="5"
                                                              HorizontalOptions="Start"
                                                              Spacing="5">
@@ -186,7 +186,7 @@
                                                 BackgroundColor="{StaticResource Primary}"
                                                 StrokeThickness="0">
                                             <Label HorizontalOptions="Center"
-                                                   Text="{Binding TempOnhand}"
+                                                   Text="{Binding TempOnhand, StringFormat='{0:N0}'}"
                                                    TextColor="{StaticResource White}"
                                                    VerticalOptions="Center" />
                                         </Border>

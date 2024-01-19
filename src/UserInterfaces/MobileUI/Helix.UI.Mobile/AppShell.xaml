@@ -341,7 +341,7 @@
 
         </FlyoutItem.Icon>
         <ShellContent Title="Hızlı Üretim"
-                      ContentTemplate="{DataTemplate fastProductionModule:FastProductionView}" />
+                      ContentTemplate="{DataTemplate fastProductionModule:FastProductionAllProductsListView}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Ambar Sayım">
