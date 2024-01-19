@@ -52,7 +52,7 @@
                         </Border.Shadow>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding GoToProcurementByProductViewCommand}" />
+                                                  Command="{Binding GoToProcurementOptionCommand}" />
 
                         </Border.GestureRecognizers>
                     </Border>

@@ -4,7 +4,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.Consumable
 
 public partial class ConsumableTransactionOperationSelectWarehouseView : ContentPage
 {
-	private readonly ConsumableTransactionOperationSelectWarehouseViewModel _viewModel;
+	 ConsumableTransactionOperationSelectWarehouseViewModel _viewModel;
 	public ConsumableTransactionOperationSelectWarehouseView(ConsumableTransactionOperationSelectWarehouseViewModel viewModel)
 	{
 		InitializeComponent();
