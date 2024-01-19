@@ -16,5 +16,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         {
             await Shell.Current.GoToAsync($"{nameof(ProcurementByCustomerView)}");
         }
+
+       
     }
 }
