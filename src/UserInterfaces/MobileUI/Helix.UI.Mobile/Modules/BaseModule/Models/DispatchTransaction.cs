@@ -10,9 +10,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		DateTime? transactionDate;
 		[ObservableProperty]
 		TimeSpan? transactionTime;
-		[ObservableProperty]
-		int? convertedTime;
-		[ObservableProperty]
+        [ObservableProperty]
 		int? orderReferenceId;
 		[ObservableProperty]
 		string code;

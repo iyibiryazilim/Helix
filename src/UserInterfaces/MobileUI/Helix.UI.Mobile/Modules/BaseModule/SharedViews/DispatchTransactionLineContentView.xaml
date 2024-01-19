@@ -313,7 +313,7 @@
                                                                     <VerticalStackLayout Grid.Column="1"
                                                                                          VerticalOptions="Start"
                                                                                          Spacing="10">
-                                                                        <Label Text="{Binding BaseTransactionCode}"
+                                                                        <Label Text="{Binding FicheCode}"
                                                                                FontSize="Body"
                                                                                FontAttributes="Bold">
                                                                             <Label.Style>

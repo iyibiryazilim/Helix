@@ -63,7 +63,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		[ObservableProperty]
 		int baseTransactionReferenceId;
 		[ObservableProperty]
-		string baseTransactionCode;
+		string ficheCode;
 		[ObservableProperty]
 		int currentReferenceId;
 		[ObservableProperty]
