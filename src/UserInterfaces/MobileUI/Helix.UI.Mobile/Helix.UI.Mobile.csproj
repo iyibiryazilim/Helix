@@ -211,6 +211,15 @@
 	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentSalesReturnListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionAllProductsListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionSelectProductListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionSelectWarehouseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
