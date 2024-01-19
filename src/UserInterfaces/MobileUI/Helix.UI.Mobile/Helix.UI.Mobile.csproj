@@ -212,6 +212,15 @@
 	  <MauiXaml Update="Modules\BaseModule\Views\Current\CurrentSalesReturnListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionAllProductsListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionSelectProductListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionSelectWarehouseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 
 	  <MauiXaml Update="Modules\FastProductionModule\Views\FastProductionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
@@ -520,7 +529,40 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineCustomerView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineSelectedLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineSummaryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineWarehouseListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionCustomerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionFicheListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionSelectedLineListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionSummaryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransctionWarehouseListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnSalesView.xaml">

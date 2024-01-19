@@ -21,6 +21,7 @@
                                         CurrentList="{Binding Results}"
                                         SelectedCurrent="{Binding SelectedCustomer}"
                                         IsBusy="{Binding IsBusy}"
+                                        GoToNextCommand="{Binding GoToWarehouseCommand}"
                                         ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                         IsRefreshing="{Binding IsRefreshing}">
         

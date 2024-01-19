@@ -8,7 +8,11 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Services
     {
 		public Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, string currentCode, string TransactionType, int page, int pageSize);
 		public Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, int currentId, string TransactionType, int page, int pageSize);
-		public Task<DataResult<IEnumerable<CustomerTransaction>>> GetInputTransactionByCurrentCodeAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, string code, int page, int pageSize);
+
+        public Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAndWarehouseAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, int currentId,int warehouseNumber ,string TransactionType, int page, int pageSize);
+
+
+        public Task<DataResult<IEnumerable<CustomerTransaction>>> GetInputTransactionByCurrentCodeAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, string code, int page, int pageSize);
 		public Task<DataResult<IEnumerable<CustomerTransaction>>> GetInputTransactionByCurrentIdAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, int id, int page, int pageSize);
 		public Task<DataResult<IEnumerable<CustomerTransaction>>> GetOutputTransactionByCurrentCodeAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, string code, int page, int pageSize);
 		public Task<DataResult<IEnumerable<CustomerTransaction>>> GetOutputTransactionByCurrentIdAsync(HttpClient httpClient, string search, CustomerTransactionOrderBy orderBy, int id, int page, int pageSize);

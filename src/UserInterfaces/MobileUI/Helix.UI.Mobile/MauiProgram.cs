@@ -613,6 +613,18 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSelectedLineListView>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSummaryView>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineFormView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransctionWarehouseListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFicheListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSelectedLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSummaryView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFormView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineWarehouseListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSelectedLineListView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSummaryView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineFormView>();
+
 
 
 
@@ -632,6 +644,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddScoped<ReturnPurchaseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnSalesFormViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnPurchaseFormViewModel>();
+
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionShipInfoListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionWarehouseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionFicheViewModel>();
@@ -645,6 +658,18 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSelectedLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSummaryViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineFormViewModel>();
+
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionWarehouseListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFicheListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSelectedLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionSummaryViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionFormViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineWarehouseListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSelectedLineListViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineSummaryViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineFormViewModel>();
 
 
 			return mauiAppBuilder;
@@ -688,11 +713,19 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder FastProductionViews(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<FastProductionView>();
+			mauiAppBuilder.Services.AddTransient<FastProductionAllProductsListView>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectWarehouseListView>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectProductListView>();
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder FastProductionViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddTransient<FastProductionViewModel>();
+			mauiAppBuilder.Services.AddScoped<FastProductionViewModel>();
+			mauiAppBuilder.Services.AddTransient<FastProductionAllProductsListViewModel>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectWarehouseListViewModel>();
+			mauiAppBuilder.Services.AddTransient<FastProductionSelectProductListViewModel>();
+
 
 			return mauiAppBuilder;
 		}

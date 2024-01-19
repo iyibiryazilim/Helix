@@ -6,6 +6,8 @@ namespace Helix.PurchaseService.Application.Services
     {
         public Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByTransactionTypeAsync(string search, string orderBy, string currentCode, string TransactionType, int page, int pageSize);
         public Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByTransactionTypeAsync(string search, string orderBy, int currentId, string TransactionType, int page, int pageSize);
+        public Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByTransactionTypeAndWarehouseAsync(string search, string orderBy, int currentId,int warehouseNumber, string TransactionType, int page, int pageSize);
+        public Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(string search, string orderBy, int currentId, int warehouseNumber,int shipInfoReferenceId, string TransactionType, int page, int pageSize);
         public Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetInputTransactionLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize);
         public Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetInputTransactionLineByCurrentId(string search, string orderBy, int id, int page, int pageSize);
         public Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetOutputTransactionLineByCurrentCode(string search, string orderBy, string code, int page, int pageSize);

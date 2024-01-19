@@ -92,6 +92,93 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
 		OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
             return query;
         }
+
+        public string GetTransactionLineByTransactionTypeAndWarehouseNumberAsync(string search, string orderBy, int currentId,int warehouseNumber, string TransactionType, int page, int pageSize)
+        {
+            int currentIndex = pageSize * page;
+
+            string query = @$"SELECT
+        [ReferenceId] = STLINE.LOGICALREF,
+        [TransactionDate] = STLINE.DATE_,
+        [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
+		[FicheReferenceId] = STFICHE.LOGICALREF,
+        [FicheCode] = STFICHE.FICHENO,
+        [TransactionType] = STLINE.TRCODE,
+        [ProductReferenceId] = STLINE.STOCKREF,
+        [ProductCode] = ITEMS.CODE,
+        [ProductName] = ITEMS.NAME,
+        [SubUnitsetCode] = SUBUNITSET.CODE,
+        [SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
+        [UnitsetCode] = UNITSET.CODE,
+        [UnitsetReferenceId] = UNITSET.LOGICALREF,
+        [Quantity] = STLINE.AMOUNT,
+        [Description] = STLINE.LINEEXP,
+        [IOType] = STLINE.IOCODE,
+		[UnitPrice] = STLINE.PRICE,
+        [WarehouseNumber] = CAPIWHOUSE.NR,
+        [WarehouseName] = CAPIWHOUSE.NAME,
+		[CurrentReferenceId] = CLCARD.LOGICALREF,
+		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
+		[CurrentName] = CLCARD.DEFINITION_
+        
+        FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
+        LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+        LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON STLINE.STOCKREF = ITEMS.LOGICALREF
+		LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+        LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
+        LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
+		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
+		WHERE STLINE.TRCODE IN ({TransactionType}) AND CLCARD.LOGICALREF= {currentId} 
+        AND (ITEMS.CODE LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR STFICHE.FICHENO LIKE '%{search}%') AND CAPIWHOUSE.NR = {warehouseNumber}
+        {orderBy}
+		OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+            return query;
+        }
+        public string GetTransactionLineByTransactionTypeAndWarehouseNumberAndShipInfoAsync(string search, string orderBy, int currentId, int warehouseNumber,int shipInfoReferenceId, string TransactionType, int page, int pageSize)
+        {
+            int currentIndex = pageSize * page;
+
+            string query = @$"SELECT
+        [ReferenceId] = STLINE.LOGICALREF,
+        [TransactionDate] = STLINE.DATE_,
+        [TransactionTime] = dbo.LG_INTTOTIME(STFICHE.FTIME),
+		[FicheReferenceId] = STFICHE.LOGICALREF,
+        [FicheCode] = STFICHE.FICHENO,
+        [TransactionType] = STLINE.TRCODE,
+        [ProductReferenceId] = STLINE.STOCKREF,
+        [ProductCode] = ITEMS.CODE,
+        [ProductName] = ITEMS.NAME,
+        [SubUnitsetCode] = SUBUNITSET.CODE,
+        [SubUnitsetReferenceId] = SUBUNITSET.LOGICALREF,
+        [UnitsetCode] = UNITSET.CODE,
+        [UnitsetReferenceId] = UNITSET.LOGICALREF,
+        [Quantity] = STLINE.AMOUNT,
+        [Description] = STLINE.LINEEXP,
+        [IOType] = STLINE.IOCODE,
+		[UnitPrice] = STLINE.PRICE,
+        [WarehouseNumber] = CAPIWHOUSE.NR,
+        [WarehouseName] = CAPIWHOUSE.NAME,
+		[CurrentReferenceId] = CLCARD.LOGICALREF,
+		[CurrentCode] = CLCARD.CODE,
+        [DocumentNumber] = STFICHE.DOCODE,
+		[DocumentTrackingNumber] = STFICHE.DOCTRACKINGNR,
+		[CurrentName] = CLCARD.DEFINITION_
+        
+        FROM LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
+        LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+        LEFT JOIN LG_00{FirmNumber}_ITEMS AS ITEMS ON STLINE.STOCKREF = ITEMS.LOGICALREF
+		LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+        LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF = SUBUNITSET.LOGICALREF AND MAINUNIT = 1
+        LEFT JOIN LG_00{FirmNumber}_UNITSETF AS UNITSET ON STLINE.USREF = UNITSET.LOGICALREF
+		LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
+		WHERE STLINE.TRCODE IN ({TransactionType}) AND CLCARD.LOGICALREF= {currentId} 
+        AND (ITEMS.CODE LIKE '%{search}%' OR ITEMS.NAME LIKE '%{search}%' OR STFICHE.FICHENO LIKE '%{search}%') AND CAPIWHOUSE.NR = {warehouseNumber} AND STFICHE.SHIPINFOREF = {shipInfoReferenceId}
+        {orderBy}
+		OFFSET {currentIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY";
+            return query;
+        }
         public string GetInputTransactionLineByCurrentId(string search, string orderBy, int id, int page, int pageSize)
         {
             int currentIndex = pageSize * page;
