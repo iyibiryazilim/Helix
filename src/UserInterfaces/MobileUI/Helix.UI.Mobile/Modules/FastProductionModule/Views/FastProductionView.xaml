@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:fastProductionModel="clr-namespace:Helix.UI.Mobile.Modules.FastProductionModule.Models"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
@@ -121,7 +122,6 @@
                                              Spacing="15">
 
                             <VerticalStackLayout Spacing="5">
-
                                 <Grid ColumnDefinitions="*,*">
                                     <Label Grid.Column="0"
                                            FontAttributes="Bold"
@@ -152,11 +152,42 @@
                                         </ImageButton>
                                     </Border>
                                 </Grid>
-
-
-
                             </VerticalStackLayout>
                         </VerticalStackLayout>
+
+                        <CollectionView Grid.Row="3"
+                                        VerticalOptions="StartAndExpand"
+                                        EmptyView="Herhangi bir hızlı üretim yok"
+                                        ItemsSource="{Binding FastProductionList}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="fastProductionModel:FastProductionCard">
+                                    <Border Padding="5" StrokeShape="RoundRectangle 10">
+                                        <Grid RowDefinitions="*, Auto, *">
+                                            <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
+                                                <Border Grid.Column="0"
+                                                        Padding="0,0,10,0"
+                                                        StrokeThickness="0"
+                                                        StrokeShape="RoundRectangle 50,50,50,50">
+                                                    <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                                        CornerRadius="50"
+                                                                        HorizontalOptions="Start"
+                                                                        Text="{Binding WarehouseNumber}" />
+                                                </Border>
+                                                <Label Grid.Column="1"
+                                                       FontAttributes="Bold"
+                                                       FontSize="Default"
+                                                       LineBreakMode="TailTruncation"
+                                                       MaxLines="1"
+                                                       Text="{Binding WarehouseName}" />
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
                         <Button Grid.Row="4"
                                 Margin="10,10,10,20"
