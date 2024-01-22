@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews.ProductPanelView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.PanelViews.ProductPanelView"
-             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels"
-             x:DataType="viewModel:ProductPanelViewModel"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.PanelViewModels"
              Title="{Binding Title}"
+             x:DataType="viewModel:ProductPanelViewModel"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetProductsCommand}" />
+        <toolkit:EventToCommandBehavior Command="{Binding GetProductsCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -21,38 +20,28 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Border BackgroundColor="{StaticResource White}"
-            StrokeThickness="0"
-            Padding="5,20,5,10">
+    <Border Padding="5,20,5,10"
+            BackgroundColor="{StaticResource White}"
+            StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
         <ScrollView>
 
-            <Grid RowDefinitions="auto,auto,*"
-                  RowSpacing="10"
-                  >
-                <Frame Grid.Row="0"
-                       HeightRequest="200"></Frame>
-                <VerticalStackLayout Grid.Row="1"
-                                     Spacing="7">
-                    
-                    <Label Text="En Çok Ürünler"
-                           FontAttributes="Bold">
+            <Grid RowDefinitions="auto,auto,*" RowSpacing="10">
+                <Frame Grid.Row="0" HeightRequest="200" />
+                <VerticalStackLayout Grid.Row="1" Spacing="7">
 
-                    </Label>
+                    <Label FontAttributes="Bold" Text="En Çok Ürünler" />
                     <CollectionView ItemsSource="{Binding Items}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"
-                                               ItemSpacing="10" />
+                            <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Product">
                                 <Frame WidthRequest="250">
-                                    <Grid ColumnDefinitions="*,auto"
-                                          ColumnSpacing="10">
-                                        <Grid Grid.Column="0"
-                                              RowDefinitions="*,*,*">
+                                    <Grid ColumnDefinitions="*,auto" ColumnSpacing="10">
+                                        <Grid Grid.Column="0" RowDefinitions="*,*,*">
                                             <Label Grid.Row="0"
                                                    FontAttributes="Bold"
                                                    FontSize="15"
@@ -66,7 +55,7 @@
                                             <Button Grid.Row="2"
                                                     Padding="0"
                                                     BackgroundColor="{StaticResource Primary}"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductPanelViewModel}},Path=GoToDetailCommand}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductPanelViewModel}}, Path=GoToDetailCommand}"
                                                     CommandParameter="{Binding .}"
                                                     CornerRadius="12"
                                                     FontSize="10"
@@ -95,32 +84,25 @@
 
                 </VerticalStackLayout>
                 <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
-                <VerticalStackLayout  Grid.Row="2"
-                                      Spacing="7">
-                    <Label Text="Son Hareketler"
-                           FontAttributes="Bold">
-
-                    </Label>
-                    <CollectionView ItemsSource="{Binding Lines}"
-                                    EmptyView="Gösterilecek Hareket Yok..">
+                <VerticalStackLayout Grid.Row="2" Spacing="7">
+                    <Label FontAttributes="Bold" Text="Son Hareketler" />
+                    <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Lines}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:ProductTransactionLine">
-                                <toolkit:Expander x:Name="expander"
-                                                  Margin="0,10,0,0">
+                                <toolkit:Expander x:Name="expander" Margin="0,10,0,0">
                                     <toolkit:Expander.Header>
-                                        <Border BackgroundColor="White"
-                                                StrokeShape="RoundRectangle 10">
-                                            <Grid ColumnDefinitions="Auto,Auto,*,Auto"
-                                                  ColumnSpacing="10"
-                                                  Padding="0,0,10,0">
+                                        <Border BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                            <Grid Padding="0,0,10,0"
+                                                  ColumnDefinitions="Auto,Auto,*,Auto"
+                                                  ColumnSpacing="10">
                                                 <Border Grid.Column="0"
                                                         Margin="-2"
                                                         BackgroundColor="{Binding ListColor}"
-                                                        WidthRequest="9"
-                                                        StrokeShape="RoundRectangle 10,0,0,0"></Border>
+                                                        StrokeShape="RoundRectangle 10,0,0,0"
+                                                        WidthRequest="9" />
                                                 <VerticalStackLayout Grid.Column="1"
-                                                                     Spacing="4"
-                                                                     Padding="10">
+                                                                     Padding="10"
+                                                                     Spacing="4">
                                                     <Label FontAttributes="Bold"
                                                            FontSize="Medium"
                                                            HorizontalOptions="Center"
@@ -148,29 +130,27 @@
                                                            TextColor="{StaticResource Gray400}" />
                                                 </VerticalStackLayout>
                                                 <VerticalStackLayout Grid.Column="2"
-                                                                     VerticalOptions="Center"
-                                                                     Spacing="5">
-                                                    <Label Text="{Binding ProductCode}"
-                                                           FontAttributes="Bold"></Label>
-                                                    <Label Text="{Binding ProductName}"
-                                                           FontSize="12"></Label>
+                                                                     Spacing="5"
+                                                                     VerticalOptions="Center">
+                                                    <Label FontAttributes="Bold" Text="{Binding ProductCode}" />
+                                                    <Label FontSize="12" Text="{Binding ProductName}" />
 
                                                 </VerticalStackLayout>
                                                 <Image Grid.Column="3"
-                                                       HorizontalOptions="Center"
+                                                       Margin="0,0,10,0"
                                                        HeightRequest="15"
-                                                       Margin="0,0,10,0">
+                                                       HorizontalOptions="Center">
                                                     <Image.Source>
                                                         <FontImageSource FontFamily="FAS"
-                                                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"></FontImageSource>
+                                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"
+                                                                         Color="{AppThemeBinding Light={StaticResource Primary},
+                                                                                                 Dark={StaticResource Primary}}" />
                                                     </Image.Source>
                                                     <Image.Triggers>
-                                                        <DataTrigger TargetType="Image"
-                                                                     Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                                        <DataTrigger Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                                                     TargetType="Image"
                                                                      Value="True">
-                                                            <Setter Property="Rotation"
-                                                                    Value="180"></Setter>
+                                                            <Setter Property="Rotation" Value="180" />
                                                         </DataTrigger>
                                                     </Image.Triggers>
                                                 </Image>
@@ -178,49 +158,36 @@
                                         </Border>
                                     </toolkit:Expander.Header>
                                     <toolkit:Expander.Content>
-                                        <VerticalStackLayout Margin="20,10,5,0"
-                      Spacing="4">
+                                        <VerticalStackLayout Margin="20,10,5,0" Spacing="4">
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Fiş Türü"
-                TextColor="{StaticResource Primary}" />
+                                                <Label Text="Fiş Türü" TextColor="{StaticResource Primary}" />
                                                 <Label Text="{Binding TransactionTypeName}" />
-                                                <BoxView  HeightRequest="0.7"
-                   Color="{StaticResource Primary}" />
+                                                <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Fiş Numarası"
-                TextColor="{StaticResource Primary}" />
+                                                <Label Text="Fiş Numarası" TextColor="{StaticResource Primary}" />
                                                 <Label Text="{Binding BaseTransactionCode}" />
-                                                <BoxView  HeightRequest="0.7"
-                   Color="{StaticResource Primary}" />
+                                                <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Ambar"
-TextColor="{StaticResource Primary}" />
+                                                <Label Text="Ambar" TextColor="{StaticResource Primary}" />
                                                 <Label Text="{Binding WarehouseName}" />
-                                                <BoxView  HeightRequest="0.7"
-   Color="{StaticResource Primary}" />
+                                                <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Müşteri"
-                TextColor="{StaticResource Primary}" />
+                                                <Label Text="Müşteri" TextColor="{StaticResource Primary}" />
                                                 <Label Text="{Binding CurrentName}" />
-                                                <BoxView  HeightRequest="0.7"
-                   Color="{StaticResource Primary}" />
+                                                <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Belge Numarası"
-                TextColor="{StaticResource Primary}" />
+                                                <Label Text="Belge Numarası" TextColor="{StaticResource Primary}" />
                                                 <Label Text="{Binding DocumentNumber}" />
-                                                <BoxView  HeightRequest="0.7"
-                   Color="{StaticResource Primary}" />
+                                                <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Spacing="4">
-                                                <Label Text="Döküman İzleme Numarası"
-                TextColor="{StaticResource Primary}" />
+                                                <Label Text="Döküman İzleme Numarası" TextColor="{StaticResource Primary}" />
                                                 <Label Text="{Binding DocumentTrackingNumber}" />
-                                                <BoxView  HeightRequest="0.7"
-                   Color="{StaticResource Primary}" />
+                                                <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                         </VerticalStackLayout>
                                     </toolkit:Expander.Content>
