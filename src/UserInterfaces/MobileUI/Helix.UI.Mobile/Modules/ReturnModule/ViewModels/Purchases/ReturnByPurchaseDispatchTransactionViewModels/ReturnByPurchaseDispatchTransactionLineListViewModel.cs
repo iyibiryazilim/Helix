@@ -66,7 +66,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			try
 			{
 				await Task.Delay(500);
-				await MainThread.InvokeOnMainThreadAsync(GetSalesOrdersAsync);
+				await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 
 			}
 			catch (Exception ex)
@@ -82,7 +82,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		}
 
 		[RelayCommand]
-		async Task GetSalesOrdersAsync()
+		async Task ReloadAsync()
 		{
 			if (IsBusy)
 				return;
@@ -90,6 +90,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
@@ -282,7 +283,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 				foreach (var order in SelectedTransactions)
 				{
-					var salesResult = await _purchaseDispatchTransactionLineService.GetByFicheNo(httpClient,order.Code);
+					var salesResult = await _purchaseDispatchTransactionLineService.GetObjectsByFicheId(httpClient,(int)order.ReferenceId);
 					if (salesResult.IsSuccess)
 					{
 						foreach (var item in salesResult.Data)
@@ -355,8 +356,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 								}
 							}
 						}
-					}
-					Debug.WriteLine("tamanlandı.");
+					} 
 
 				}
 				catch (Exception ex)

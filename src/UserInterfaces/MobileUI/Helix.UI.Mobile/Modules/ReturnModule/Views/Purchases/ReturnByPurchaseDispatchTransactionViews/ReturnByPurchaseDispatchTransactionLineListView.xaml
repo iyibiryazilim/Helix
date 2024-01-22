@@ -2,11 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews.ReturnByPurchaseDispatchTransactionLineListView"
-             Title="ReturnByPurchaseDispatchTransactionLineListView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels"
+             x:DataType="viewModel:ReturnByPurchaseDispatchTransactionLineListViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:baseView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             BackgroundColor="{StaticResource Primary}"
+             Title="{Binding Title}"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetOrderLinesCommand}" />
+    </ContentPage.Behaviors>
+    <baseView:DispatchTransactionLineContentView ReloadCommand="{Binding ReloadCommand}"
+                                                 SearchCommand="{Binding SearchCommand}"
+                                                 SortCommand="{Binding SortCommand}"
+                                                 DispatchTransactionLineGroupList="{Binding Result}"
+                                                 IsBusy="{Binding IsBusy}"
+                                                 GoToNextCommand="{Binding GoToSelectedLinesCommand}"
+                                                 CheckedChangeCommand="{Binding SelectAllCommand}" />
 </ContentPage>
