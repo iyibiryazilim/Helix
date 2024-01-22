@@ -86,13 +86,15 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 var result = await _shipInfoService.GetObjectsByCurrentId(httpClient,Current.ReferenceId);
 				if (result.Data.Count() == 0)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionWarehouseListView)}", new Dictionary<string, object>
+                    await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
                     {
                         ["ShipInfo"] = SelectedShipInfo,
                         ["Current"] = Current
                     });
                 }
 
+                Items.Clear();
+                Results.Clear();
                 foreach (ShipInfo item in result.Data)
                 {
                     Items.Add(item);

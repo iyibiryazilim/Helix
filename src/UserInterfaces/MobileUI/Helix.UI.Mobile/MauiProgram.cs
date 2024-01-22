@@ -191,6 +191,16 @@ namespace Helix.UI.Mobile
 #if ANDROID
 				handler.PlatformView.BackgroundTintList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #endif
+            });
+			Microsoft.Maui.Handlers.SearchBarHandler.Mapper.AppendToMapping(nameof(SearchBar), (handler, view) =>
+			{
+#if ANDROID
+				Android.Widget.LinearLayout linearLayout = handler.PlatformView.GetChildAt(0) as Android.Widget.LinearLayout;
+				linearLayout = linearLayout.GetChildAt(2) as Android.Widget.LinearLayout;
+				linearLayout = linearLayout.GetChildAt(1) as Android.Widget.LinearLayout;
+				linearLayout.Background = null;
+#endif
+
 			});
 
 

@@ -41,9 +41,6 @@ public partial class ProductPanelViewModel :BaseViewModel
 			await Task.Delay(300);
 			await Task.WhenAll(GetTopProductsAsync(), GetLastTransactionsAsync());
 
-
-
-
 		}
 		catch (Exception ex)
 		{
@@ -106,7 +103,7 @@ public partial class ProductPanelViewModel :BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
