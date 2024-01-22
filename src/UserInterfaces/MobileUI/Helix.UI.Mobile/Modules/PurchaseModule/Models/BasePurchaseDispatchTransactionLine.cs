@@ -5,9 +5,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 	public partial class BasePurchaseDispatchTransactionLine : ObservableObject
 	{
 		[ObservableProperty]
-		int referenceId;
+		int? referenceId;
 		[ObservableProperty]
-		short transactionType;
+		short? transactionType;
 		[ObservableProperty]
 		string transactionTypeName;
         [ObservableProperty]
@@ -19,64 +19,64 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 		[ObservableProperty]
 		DateTime transactionDate;
 		[ObservableProperty]
-		int convertedTime;
+		int? convertedTime;
 		[ObservableProperty]
-		short iOType;
+		short? iOType;
 		[ObservableProperty]
-		int productReferenceId;
+		int? productReferenceId;
 		[ObservableProperty]
 		string productCode;
 		[ObservableProperty]
 		string productName;
 		[ObservableProperty]
-		int unitsetReferenceId;
+		int? unitsetReferenceId;
 		[ObservableProperty]
 		string unitsetCode;
 		[ObservableProperty]
-		int subUnitsetReferenceId;
+		int? subUnitsetReferenceId;
 		[ObservableProperty]
 		string subUnitsetCode;
 		[ObservableProperty]
-		double quantity;
+		double? quantity;
 		[ObservableProperty]
-		double unitPrice;
+		double? unitPrice;
 		[ObservableProperty]
-		double vatRate;
+		double? vatRate;
 		[ObservableProperty]
-		int divisionReferenceId;
+		int? divisionReferenceId;
 		[ObservableProperty]
-		short divisionNumber;
+		short? divisionNumber;
 		[ObservableProperty]
 		string divisionCountry;
 		[ObservableProperty]
 		string divisionCity;
 		[ObservableProperty]
-		int warehouseReferenceId;
+		int? warehouseReferenceId;
 		[ObservableProperty]
 		string warehouseName;
 		[ObservableProperty]
-		short warehouseNumber;
+		short? warehouseNumber;
 		[ObservableProperty]
-		int orderReferenceId;
+		int? orderReferenceId;
 		[ObservableProperty]
 		string description;
 		[ObservableProperty]
-		int baseTransactionReferenceId;
+		int? ficheReferenceId;
 		[ObservableProperty]
-		string baseTransactionCode;
+		string ficheCode;
 		[ObservableProperty]
-		int currentReferenceId;
+		int? currentReferenceId;
 		[ObservableProperty]
 		string currentCode;
 		[ObservableProperty]
 		string currentName;
 		[ObservableProperty]
-		int dispatchReferenceId;
+		int? dispatchReferenceId;
 		[ObservableProperty]
 		string speCode;
 		[ObservableProperty]
-		double conversionFactor;
+		double? conversionFactor;
 		[ObservableProperty]
-		double otherConversionFactor;
+		double? otherConversionFactor;
 	}
 }

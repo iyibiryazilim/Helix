@@ -7,6 +7,7 @@ using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -66,7 +67,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			try
 			{
 				await Task.Delay(500);
-				await MainThread.InvokeOnMainThreadAsync(GetSalesOrdersAsync);
+				await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 
 			}
 			catch (Exception ex)
@@ -82,7 +83,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		}
 
 		[RelayCommand]
-		async Task GetSalesOrdersAsync()
+		async Task ReloadAsync()
 		{
 			if (IsBusy)
 				return;
@@ -90,6 +91,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
@@ -282,7 +284,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 				foreach (var order in SelectedTransactions)
 				{
-					var salesResult = await _purchaseDispatchTransactionLineService.GetByFicheNo(httpClient,order.Code);
+					var salesResult = await _purchaseDispatchTransactionLineService.GetObjectsByFicheId(httpClient,(int)order.ReferenceId);
 					if (salesResult.IsSuccess)
 					{
 						foreach (var item in salesResult.Data)
@@ -355,8 +357,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 								}
 							}
 						}
-					}
-					Debug.WriteLine("tamanlandı.");
+					} 
 
 				}
 				catch (Exception ex)
@@ -372,7 +373,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		{
 			if (SelectedDispatchTransactionLineGroupList.Count > 0)
 			{
-				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
+				await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionSelectedLineListView)}", new Dictionary<string, object>
 				{
 					[nameof(SelectedDispatchTransactionLineGroupList)] = SelectedDispatchTransactionLineGroupList
 				});

@@ -137,6 +137,9 @@
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\DispatchTransactionLineContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\DispatchTransactionSummaryContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\FailedPageView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
