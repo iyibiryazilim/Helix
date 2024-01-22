@@ -98,6 +98,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
+
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
@@ -114,8 +116,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
-			}
+ 			}
 		}
 
 		public async Task PerformSearchAsync(string text)
@@ -143,6 +144,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			}
 			catch (Exception ex)
 			{
+				IsBusy = false;
+
 				Debug.WriteLine(ex);
 			}
 			finally
@@ -197,41 +200,57 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
-			}
+ 			}
 		}
 
 		public async Task SelectAllAsync(bool isSelected)
 		{
-			if (isSelected)
+			if (IsBusy)
+				return;
+			try
 			{
-				foreach (var item in Result)
+				IsBusy = true;
+				if (isSelected)
 				{
-					if (item.IsEnabled)
+					foreach (var item in Result)
 					{
-						item.IsSelected = true;
+						if (item.IsEnabled)
+						{
+							item.IsSelected = true;
+							foreach (var line in item.Lines)
+							{
+								line.IsSelected = true;
+							}
+
+
+							SelectedDispatchTransactionLineGroupList.Add(item);
+						}
+					}
+				}
+				else
+				{
+					foreach (var item in Result)
+					{
+						item.IsSelected = false;
 						foreach (var line in item.Lines)
 						{
-							line.IsSelected = true;
+							line.IsSelected = false;
 						}
+						SelectedDispatchTransactionLineGroupList.Remove(item);
 
-
-						SelectedDispatchTransactionLineGroupList.Add(item);
 					}
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				foreach (var item in Result)
-				{
-					item.IsSelected = false;
-					foreach (var line in item.Lines)
-					{
-						line.IsSelected = false;
-					}
-					SelectedDispatchTransactionLineGroupList.Remove(item);
+				Debug.WriteLine(ex);
+				IsBusy = false;
 
-				}
+				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 
