@@ -4,6 +4,7 @@ using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.PanelModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -76,6 +77,32 @@ public partial class PanelViewModel : BaseViewModel
 			}
 		}
 		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task GoToProductDetailViewAsync(Product product)
+	{
+		if (IsBusy)
+			return;
+
+		try
+		{
+			IsBusy = true;
+			await Shell.Current.GoToAsync($"{nameof(ProductDetailView)}", new Dictionary<string, object>
+			{
+				[nameof(Product)] = product
+			});
+
+		}
+		catch(Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");

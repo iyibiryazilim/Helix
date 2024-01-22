@@ -158,11 +158,14 @@
                                                 HeightRequest="25"
                                                 HorizontalOptions="Start"
                                                 Text="Daha Fazla"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProductDetailViewCommand}"
+                                                CommandParameter="{Binding .}"
                                                 VerticalOptions="Center"
                                                 WidthRequest="80" />
                                     </Grid>
                                     <Border Grid.Column="1"
                                             Padding="0"
+                                            StrokeThickness="0"
                                             BackgroundColor="Transparent"
                                             HorizontalOptions="End"
                                             VerticalOptions="Center">
@@ -196,7 +199,7 @@
                         </VerticalStackLayout>
                         <Grid Grid.Column="2"
                               ColumnDefinitions="Auto, Auto, Auto"
-                              ColumnSpacing="0"
+                              ColumnSpacing="-4"
                               RowDefinitions="Auto, Auto">
                             <!--#region Giriş-->
                             <toolkit:AvatarView Grid.Row="0"
