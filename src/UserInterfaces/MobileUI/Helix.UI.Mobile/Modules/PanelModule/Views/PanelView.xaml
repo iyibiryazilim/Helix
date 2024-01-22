@@ -24,7 +24,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="Auto, Auto,*" RowSpacing="10">
+        <Grid RowDefinitions="Auto, Auto,*" RowSpacing="10" Padding="5">
 
             <!--#region User Info-->
             <Grid Grid.Row="0"
@@ -61,8 +61,9 @@
                                  Spacing="7">
                 <!--#region Giriş / Çıkış-->
                 <Label FontAttributes="Bold" Text="Giriş / Çıkış" />
-                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20">
+                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20" Margin="0,0,0,10">
                     <Border Grid.Column="0"
+                            Stroke="{StaticResource Success}"
                             Padding="10"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
@@ -77,6 +78,7 @@
                     </Border>
                     <Border Grid.Column="1"
                             Padding="10"
+                            Stroke="{StaticResource Danger}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
@@ -93,7 +95,7 @@
                 <!--#endregion-->
                 <!--#region Satış / Satınalma-->
                 <Label FontAttributes="Bold" Text="Satış / Satınalma" />
-                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20">
+                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20" Margin="0,0,0,10">
                     <Border Grid.Column="0"
                             Padding="10"
                             StrokeShape="RoundRectangle 10">
@@ -125,7 +127,7 @@
                 <!--#endregion-->
                 <!--#region Bugün İşlem Gören Malzemeler-->
                 <Label FontAttributes="Bold" Text="Bugün İşlem Gören Malzemeler" />
-                <CollectionView ItemsSource="{Binding Products}">
+                <CollectionView ItemsSource="{Binding Products}" Margin="0,0,0,10">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
                     </CollectionView.ItemsLayout>
