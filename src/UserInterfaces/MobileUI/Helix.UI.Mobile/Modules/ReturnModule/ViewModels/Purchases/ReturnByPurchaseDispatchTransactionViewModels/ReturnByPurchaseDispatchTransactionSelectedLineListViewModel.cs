@@ -13,7 +13,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 	public partial class ReturnByPurchaseDispatchTransactionSelectedLineListViewModel : BaseViewModel
 	{
 		[ObservableProperty]
-		ObservableCollection<DispatchTransactionLineGroup> selectedDispatchTransactionLineGroupList;
+		public ObservableCollection<DispatchTransactionLineGroup> selectedDispatchTransactionLineGroupList;
 		public ObservableCollection<DispatchTransactionLineGroup> Result { get; } = new();
 		public ObservableCollection<DispatchTransactionLine> ChangedLineList { get; } = new();
 

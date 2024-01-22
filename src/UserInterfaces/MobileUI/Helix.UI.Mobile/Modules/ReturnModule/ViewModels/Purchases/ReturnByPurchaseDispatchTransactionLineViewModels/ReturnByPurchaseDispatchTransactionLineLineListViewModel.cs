@@ -9,6 +9,7 @@ using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -396,7 +397,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		{
 			if (SelectedDispatchTransactionLineGroupList.Count > 0)
 			{
-				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSelectedLineListView)}", new Dictionary<string, object>
+				await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionLineSelectedLineListView)}", new Dictionary<string, object>
 				{
 					[nameof(SelectedDispatchTransactionLineGroupList)] = SelectedDispatchTransactionLineGroupList
 				});

@@ -102,7 +102,7 @@
                                                             Value="{StaticResource Primary}" />
                                                 </DataTrigger>
                                             </Border.Triggers>
-                                            <Grid ColumnDefinitions="auto,*">
+                                            <Grid ColumnDefinitions="85*,15*">
                                                 <Grid Grid.Column="0"
                                                       ColumnDefinitions="auto, *"
                                                       ColumnSpacing="10">
