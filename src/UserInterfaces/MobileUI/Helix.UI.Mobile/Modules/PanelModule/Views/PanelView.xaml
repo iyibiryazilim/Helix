@@ -1,12 +1,257 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Helix.UI.Mobile.Modules.PanelModule.Views.PanelView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.PanelModule.Views.PanelView"
-             Title="PanelView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PanelModule.ViewModels"
+             Title="{Binding Title}"
+             x:DataType="viewModel:PanelViewModel"
+             BackgroundColor="{StaticResource Primary}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}" EventName="Loaded" />
+    </ContentPage.Behaviors>
+    <Border Padding="5,20,5,10"
+            BackgroundColor="{StaticResource White}"
+            StrokeThickness="0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="Auto, Auto,*" RowSpacing="10">
+
+            <!--#region User Info-->
+            <Grid Grid.Row="0"
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="10">
+                <toolkit:AvatarView Grid.Column="0"
+                                    BackgroundColor="{StaticResource Secondary}"
+                                    CornerRadius="50"
+                                    Text="VS" />
+                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                    <Label Text="Hoşgeldiniz" TextColor="{StaticResource Gray400}" />
+                    <Label FontAttributes="Bold"
+                           Text="Volkan Sunuk"
+                           VerticalOptions="End" />
+                </VerticalStackLayout>
+                <Image Grid.Column="2"
+                       HeightRequest="25"
+                       WidthRequest="25">
+
+                    <Image.Source>
+                        <FontImageSource FontFamily="FAS"
+                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bell}"
+                                         Color="{AppThemeBinding Light={StaticResource Primary},
+                                                                 Dark={StaticResource Primary}}" />
+                    </Image.Source>
+                </Image>
+            </Grid>
+            <BoxView Grid.Row="1"
+                     BackgroundColor="{StaticResource Primary}"
+                     HeightRequest="0.3" />
+            <!--#endregion-->
+            <VerticalStackLayout Grid.Row="2"
+                                 Padding="5"
+                                 Spacing="7">
+                <!--#region Giriş / Çıkış-->
+                <Label FontAttributes="Bold" Text="Giriş / Çıkış" />
+                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20">
+                    <Border Grid.Column="0"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="15" />
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="Bugünkü Giriş Sayısı"
+                                   TextColor="{StaticResource Gray400}" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="1"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="24" />
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="Bugünkü Çıkış Sayısı"
+                                   TextColor="{StaticResource Gray400}" />
+                        </VerticalStackLayout>
+
+                    </Border>
+                </Grid>
+                <!--#endregion-->
+                <!--#region Satış / Satınalma-->
+                <Label FontAttributes="Bold" Text="Satış / Satınalma" />
+                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20">
+                    <Border Grid.Column="0"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="15" />
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="Bekleyen Satış"
+                                   TextColor="{StaticResource Gray400}" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="1"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="24" />
+                            <Label FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Text="Bekleyen Satınalma"
+                                   TextColor="{StaticResource Gray400}" />
+                        </VerticalStackLayout>
+
+                    </Border>
+                </Grid>
+                <!--#endregion-->
+                <!--#region Bugün İşlem Gören Malzemeler-->
+                <Label FontAttributes="Bold" Text="Bugün İşlem Gören Malzemeler" />
+                <CollectionView ItemsSource="{Binding Products}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="baseModel:Product">
+                            <Border Padding="10"
+                                    StrokeShape="RoundRectangle 10"
+                                    WidthRequest="250">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                    <Grid Grid.Column="0"
+                                          RowDefinitions="Auto,Auto,Auto"
+                                          RowSpacing="5">
+                                        <Label Grid.Row="0"
+                                               FontAttributes="Bold"
+                                               FontSize="15"
+                                               LineBreakMode="TailTruncation"
+                                               Text="{Binding Code}" />
+                                        <Label Grid.Row="1"
+                                               FontAttributes="Bold"
+                                               FontSize="10"
+                                               LineBreakMode="TailTruncation"
+                                               Text="{Binding Name}" />
+                                        <Button Grid.Row="2"
+                                                Padding="0"
+                                                BackgroundColor="{StaticResource Primary}"
+                                                CornerRadius="12"
+                                                FontSize="10"
+                                                HeightRequest="25"
+                                                HorizontalOptions="Start"
+                                                Text="Daha Fazla"
+                                                VerticalOptions="Center"
+                                                WidthRequest="80" />
+                                    </Grid>
+                                    <Border Grid.Column="1"
+                                            Padding="0"
+                                            BackgroundColor="Transparent"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Center">
+                                        <Image Aspect="AspectFit"
+                                               Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                               WidthRequest="60" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!--#endregion-->
+                <!--#region Performans Analizi-->
+                <Label FontAttributes="Bold" Text="Performans Analizi" />
+                <Border Padding="10" StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="Auto, * , Auto" ColumnSpacing="10">
+                        <Border Grid.Column="0"
+                                StrokeShape="RoundRectangle 20"
+                                StrokeThickness="0">
+                            <Image Aspect="AspectFit"
+                                   HeightRequest="50"
+                                   Source="user.svg" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                            <Label FontAttributes="Bold" Text="İpek Özkara" />
+                            <Label Grid.Row="1"
+                                   Text="Ürün Toplama"
+                                   TextColor="{StaticResource Gray400}"
+                                   VerticalOptions="End" />
+                        </VerticalStackLayout>
+                        <Grid Grid.Column="2"
+                              ColumnDefinitions="Auto, Auto, Auto"
+                              ColumnSpacing="0"
+                              RowDefinitions="Auto, Auto">
+                            <!--#region Giriş-->
+                            <toolkit:AvatarView Grid.Row="0"
+                                                Grid.Column="0"
+                                                BorderWidth="6"
+                                                BackgroundColor="{StaticResource Secondary}"
+                                                CornerRadius="50"
+                                                Text="7" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   HorizontalOptions="Center"
+                                   Text="Giriş"
+                                   FontSize="Caption"
+                                   TextColor="{StaticResource Gray400}"
+                                   VerticalOptions="Center" />
+                            <!--#endregion-->
+                            <!--#region Çıkış-->
+                            <toolkit:AvatarView Grid.Row="0"
+                                                Grid.Column="1"
+                                                BorderWidth="6"
+                                                BackgroundColor="{StaticResource Secondary}"
+                                                CornerRadius="50"
+                                                Text="12" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   HorizontalOptions="Center"
+                                   Text="Çıkış"
+                                   FontSize="Caption"
+                                   TextColor="{StaticResource Gray400}"
+                                   VerticalOptions="Center" />
+                            <!--#endregion-->
+                            <!--#region Ürün-->
+                            <toolkit:AvatarView Grid.Row="0"
+                                                BorderWidth="6"
+                                                Grid.Column="2"
+                                                BackgroundColor="{StaticResource Secondary}"
+                                                CornerRadius="50"
+                                                Text="9" />
+                            <Label Grid.Row="1"
+                                   FontSize="Caption"
+                                   Grid.Column="2"
+                                   HorizontalOptions="Center"
+                                   Text="Ürün"
+                                   TextColor="{StaticResource Gray400}"
+                                   VerticalOptions="Center" />
+                            <!--#endregion-->
+                        </Grid>
+                    </Grid>
+                </Border>
+                <!--#endregion-->
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+
+
+    </Border>
+
 </ContentPage>
