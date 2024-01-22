@@ -78,18 +78,18 @@
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:FastProductionViewModel}}, Path=ProductIncrementQuantityCommand}" />
                                     </Border.GestureRecognizers>
-                                    <ImageButton Margin="5"
+                                    <Image Margin="5"
                                                  Aspect="AspectFit"
                                                  BackgroundColor="Transparent"
                                                  HeightRequest="12"
                                                  VerticalOptions="Center"
                                                  WidthRequest="18">
-                                        <ImageButton.Source>
+                                        <Image.Source>
                                             <FontImageSource FontFamily="FAS"
                                                              Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
                                                              Color="{StaticResource Primary}" />
-                                        </ImageButton.Source>
-                                    </ImageButton>
+                                        </Image.Source>
+                                    </Image>
                                 </Border>
                                 <Border Grid.Column="1"
                                         BackgroundColor="{StaticResource Primary}"
@@ -106,19 +106,19 @@
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:FastProductionViewModel}}, Path=ProductDecrementQuantityCommand}" />
                                     </Border.GestureRecognizers>
-                                    <ImageButton Grid.Column="2"
+                                    <Image Grid.Column="2"
                                                  Margin="5"
                                                  Aspect="AspectFit"
                                                  BackgroundColor="Transparent"
                                                  HeightRequest="12"
                                                  VerticalOptions="Center"
                                                  WidthRequest="16">
-                                        <ImageButton.Source>
+                                        <Image.Source>
                                             <FontImageSource FontFamily="FAS"
                                                              Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
                                                              Color="{StaticResource Primary}" />
-                                        </ImageButton.Source>
-                                    </ImageButton>
+                                        </Image.Source>
+                                    </Image>
                                 </Border>
                             </Grid>
                         </Border>
@@ -144,18 +144,18 @@
                                         <Border.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding GoToFastProductionSelectWarehouseListCommand}" />
                                         </Border.GestureRecognizers>
-                                        <ImageButton Margin="5"
+                                        <Image Margin="5"
                                                      Aspect="AspectFit"
                                                      BackgroundColor="Transparent"
                                                      HeightRequest="20"
                                                      VerticalOptions="Center"
                                                      WidthRequest="20">
-                                            <ImageButton.Source>
+                                            <Image.Source>
                                                 <FontImageSource FontFamily="FAS"
                                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
                                                                  Color="{StaticResource White}" />
-                                            </ImageButton.Source>
-                                        </ImageButton>
+                                            </Image.Source>
+                                        </Image>
                                     </Border>
                                 </Grid>
                             </VerticalStackLayout>
@@ -231,7 +231,7 @@
                                                             <Label FontSize="10" TextColor="{StaticResource Primary}">
                                                                 <Label.FormattedText>
                                                                     <FormattedString>
-                                                                        <Span FontAttributes="Bold" Text="{Binding , StringFormat='{0:N2} '}" />
+                                                                        <Span FontAttributes="Bold" Text="{Binding OnHand, StringFormat='{0:N2} '}" />
                                                                         <Span Text=" " />
                                                                         <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
                                                                     </FormattedString>
@@ -254,18 +254,18 @@
                                                             <Border.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:FastProductionViewModel}}, Path=CardIncrementQuantityCommand}" CommandParameter="{Binding .}" />
                                                             </Border.GestureRecognizers>
-                                                            <ImageButton Margin="5"
-                                                                         Aspect="AspectFit"
-                                                                         BackgroundColor="Transparent"
-                                                                         HeightRequest="12"
-                                                                         VerticalOptions="Center"
-                                                                         WidthRequest="18">
-                                                                <ImageButton.Source>
+                                                            <Image Margin="5"
+                                                                   Aspect="AspectFit"
+                                                                   BackgroundColor="Transparent"
+                                                                   HeightRequest="12"
+                                                                   VerticalOptions="Center"
+                                                                   WidthRequest="18">
+                                                                <Image.Source>
                                                                     <FontImageSource FontFamily="FAS"
                                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
                                                                                      Color="{StaticResource Primary}" />
-                                                                </ImageButton.Source>
-                                                            </ImageButton>
+                                                                </Image.Source>
+                                                            </Image>
                                                         </Border>
                                                         <Border Grid.Column="1"
                                                                 BackgroundColor="{StaticResource Primary}"
@@ -281,18 +281,18 @@
                                                             <Border.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:FastProductionViewModel}}, Path=CardDecrementQuantityCommand}" CommandParameter="{Binding .}" />
                                                             </Border.GestureRecognizers>
-                                                            <ImageButton Margin="5"
-                                                                         Aspect="AspectFit"
-                                                                         BackgroundColor="Transparent"
-                                                                         HeightRequest="12"
-                                                                         VerticalOptions="Center"
-                                                                         WidthRequest="16">
-                                                                <ImageButton.Source>
+                                                            <Image Margin="5"
+                                                                   Aspect="AspectFit"
+                                                                   BackgroundColor="Transparent"
+                                                                   HeightRequest="12"
+                                                                   VerticalOptions="Center"
+                                                                   WidthRequest="16">
+                                                                <Image.Source>
                                                                     <FontImageSource FontFamily="FAS"
                                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
                                                                                      Color="{StaticResource Primary}" />
-                                                                </ImageButton.Source>
-                                                            </ImageButton>
+                                                                </Image.Source>
+                                                            </Image>
                                                         </Border>
                                                     </Grid>
                                                 </Border>

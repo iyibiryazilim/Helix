@@ -5,6 +5,7 @@
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PanelModule.ViewModels"
              Title="{Binding Title}"
@@ -24,7 +25,9 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
-        <Grid RowDefinitions="Auto, Auto,*" RowSpacing="10" Padding="5">
+        <Grid Padding="5"
+              RowDefinitions="Auto, Auto,*"
+              RowSpacing="10">
 
             <!--#region User Info-->
             <Grid Grid.Row="0"
@@ -35,7 +38,7 @@
                                     CornerRadius="50"
                                     Text="VS" />
                 <VerticalStackLayout Grid.Column="1" Spacing="5">
-                    <Label Text="Hoşgeldiniz" TextColor="{StaticResource Gray400}" />
+                    <Label Text="Hoşgeldiniz" TextColor="{StaticResource Gray400}" FontSize="Default" />
                     <Label FontAttributes="Bold"
                            Text="Volkan Sunuk"
                            VerticalOptions="End" />
@@ -52,50 +55,59 @@
                     </Image.Source>
                 </Image>
             </Grid>
-            <BoxView Grid.Row="1"
-                     BackgroundColor="{StaticResource Primary}"
-                     HeightRequest="0.3" />
             <!--#endregion-->
             <VerticalStackLayout Grid.Row="2"
                                  Padding="5"
                                  Spacing="7">
                 <!--#region Giriş / Çıkış-->
-                <Label FontAttributes="Bold" Text="Giriş / Çıkış" />
-                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20" Margin="0,0,0,10">
+                <Label FontAttributes="Bold"
+                       Text="Giriş / Çıkış"
+                       TextColor="{StaticResource Gray300}" />
+                <Grid Margin="0,0,0,10"
+                      ColumnDefinitions=".50*, .50*"
+                      ColumnSpacing="20">
                     <Border Grid.Column="0"
-                            Stroke="{StaticResource Success}"
                             Padding="10"
+                            BackgroundColor="{StaticResource Success}"
+                            Stroke="{StaticResource Success}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="15" />
-                            <Label FontAttributes="Bold"
+                                   Text="15"
+                                   TextColor="{StaticResource White}" />
+                            <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bugünkü Giriş Sayısı"
-                                   TextColor="{StaticResource Gray400}" />
+                                   TextColor="{StaticResource White}" />
                         </VerticalStackLayout>
                     </Border>
                     <Border Grid.Column="1"
                             Padding="10"
+                            BackgroundColor="{StaticResource Danger}"
                             Stroke="{StaticResource Danger}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="24" />
-                            <Label FontAttributes="Bold"
+                                   Text="24"
+                                   TextColor="{StaticResource White}" />
+                            <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bugünkü Çıkış Sayısı"
-                                   TextColor="{StaticResource Gray400}" />
+                                   TextColor="{StaticResource White}" />
                         </VerticalStackLayout>
 
                     </Border>
                 </Grid>
                 <!--#endregion-->
                 <!--#region Satış / Satınalma-->
-                <Label FontAttributes="Bold" Text="Satış / Satınalma" />
-                <Grid ColumnDefinitions=".50*, .50*" ColumnSpacing="20" Margin="0,0,0,10">
+                <Label FontAttributes="Bold"
+                       Text="Satış / Satınalma"
+                       TextColor="{StaticResource Gray300}" />
+                <Grid Margin="0,0,0,10"
+                      ColumnDefinitions=".50*, .50*"
+                      ColumnSpacing="20">
                     <Border Grid.Column="0"
                             Padding="10"
                             StrokeShape="RoundRectangle 10">
@@ -103,7 +115,7 @@
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Text="15" />
-                            <Label FontAttributes="Bold"
+                            <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satış"
                                    TextColor="{StaticResource Gray400}" />
@@ -116,7 +128,7 @@
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Text="24" />
-                            <Label FontAttributes="Bold"
+                            <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satınalma"
                                    TextColor="{StaticResource Gray400}" />
@@ -126,61 +138,70 @@
                 </Grid>
                 <!--#endregion-->
                 <!--#region Bugün İşlem Gören Malzemeler-->
-                <Label FontAttributes="Bold" Text="Bugün İşlem Gören Malzemeler" />
-                <CollectionView ItemsSource="{Binding Products}" Margin="0,0,0,10">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="baseModel:Product">
-                            <Border Padding="10"
-                                    StrokeShape="RoundRectangle 10"
-                                    WidthRequest="250">
-                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-                                    <Grid Grid.Column="0"
-                                          RowDefinitions="Auto,Auto,Auto"
-                                          RowSpacing="5">
-                                        <Label Grid.Row="0"
-                                               FontAttributes="Bold"
-                                               FontSize="15"
-                                               LineBreakMode="TailTruncation"
-                                               Text="{Binding Code}" />
-                                        <Label Grid.Row="1"
-                                               FontAttributes="Bold"
-                                               FontSize="10"
-                                               LineBreakMode="TailTruncation"
-                                               Text="{Binding Name}" />
-                                        <Button Grid.Row="2"
+                <Grid RowDefinitions="Auto, Auto" RowSpacing="7">
+                    <Label FontAttributes="Bold"
+                           Text="Bugün İşlem Gören Malzemeler"
+                           TextColor="{StaticResource Gray300}" />
+                    <CollectionView Grid.Row="1"
+                                    Margin="0,0,0,10"
+                                    ItemsSource="{Binding Products}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="baseModel:Product">
+                                <Border Padding="10"
+                                        StrokeShape="RoundRectangle 10"
+                                        WidthRequest="250">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                        <Grid Grid.Column="0"
+                                              RowDefinitions="Auto,Auto,Auto"
+                                              RowSpacing="5">
+                                            <Label Grid.Row="0"
+                                                   FontAttributes="Bold"
+                                                   FontSize="15"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding Code}" />
+                                            <Label Grid.Row="1"
+                                                   FontAttributes="Bold"
+                                                   FontSize="10"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding Name}" />
+                                            <Button Grid.Row="2"
+                                                    Padding="0"
+                                                    BackgroundColor="{StaticResource Primary}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProductDetailViewCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    CornerRadius="12"
+                                                    FontSize="10"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="Start"
+                                                    Text="Daha Fazla"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="80" />
+                                        </Grid>
+                                        <Border Grid.Column="1"
                                                 Padding="0"
-                                                BackgroundColor="{StaticResource Primary}"
-                                                CornerRadius="12"
-                                                FontSize="10"
-                                                HeightRequest="25"
-                                                HorizontalOptions="Start"
-                                                Text="Daha Fazla"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProductDetailViewCommand}"
-                                                CommandParameter="{Binding .}"
-                                                VerticalOptions="Center"
-                                                WidthRequest="80" />
+                                                BackgroundColor="Transparent"
+                                                HorizontalOptions="End"
+                                                StrokeThickness="0"
+                                                VerticalOptions="Center">
+                                            <Image Aspect="AspectFit"
+                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                                   WidthRequest="60" />
+                                        </Border>
                                     </Grid>
-                                    <Border Grid.Column="1"
-                                            Padding="0"
-                                            StrokeThickness="0"
-                                            BackgroundColor="Transparent"
-                                            HorizontalOptions="End"
-                                            VerticalOptions="Center">
-                                        <Image Aspect="AspectFit"
-                                               Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
-                                               WidthRequest="60" />
-                                    </Border>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+
                 <!--#endregion-->
                 <!--#region Performans Analizi-->
-                <Label FontAttributes="Bold" Text="Performans Analizi" />
+                <Label FontAttributes="Bold"
+                       Text="Performans Analizi"
+                       TextColor="{StaticResource Gray300}" />
                 <Border Padding="10" StrokeShape="RoundRectangle 10">
                     <Grid ColumnDefinitions="Auto, * , Auto" ColumnSpacing="10">
                         <Border Grid.Column="0"
@@ -190,7 +211,9 @@
                                    HeightRequest="50"
                                    Source="user.svg" />
                         </Border>
-                        <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="5"
+                                             VerticalOptions="Center">
                             <Label FontAttributes="Bold" Text="İpek Özkara" />
                             <Label Grid.Row="1"
                                    Text="Ürün Toplama"
@@ -199,48 +222,54 @@
                         </VerticalStackLayout>
                         <Grid Grid.Column="2"
                               ColumnDefinitions="Auto, Auto, Auto"
-                              ColumnSpacing="-4"
+                              ColumnSpacing="2"
                               RowDefinitions="Auto, Auto">
                             <!--#region Giriş-->
                             <toolkit:AvatarView Grid.Row="0"
                                                 Grid.Column="0"
-                                                BorderWidth="6"
-                                                BackgroundColor="{StaticResource Secondary}"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="{StaticResource Success}"
+                                                BorderWidth="1"
                                                 CornerRadius="50"
-                                                Text="7" />
+                                                Text="7"
+                                                TextColor="{StaticResource Success}" />
                             <Label Grid.Row="1"
                                    Grid.Column="0"
+                                   FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Giriş"
-                                   FontSize="Caption"
                                    TextColor="{StaticResource Gray400}"
                                    VerticalOptions="Center" />
                             <!--#endregion-->
                             <!--#region Çıkış-->
                             <toolkit:AvatarView Grid.Row="0"
                                                 Grid.Column="1"
-                                                BorderWidth="6"
-                                                BackgroundColor="{StaticResource Secondary}"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="{StaticResource Danger}"
+                                                BorderWidth="1"
                                                 CornerRadius="50"
-                                                Text="12" />
+                                                Text="12"
+                                                TextColor="{StaticResource Danger}" />
                             <Label Grid.Row="1"
                                    Grid.Column="1"
+                                   FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Çıkış"
-                                   FontSize="Caption"
                                    TextColor="{StaticResource Gray400}"
                                    VerticalOptions="Center" />
                             <!--#endregion-->
                             <!--#region Ürün-->
                             <toolkit:AvatarView Grid.Row="0"
-                                                BorderWidth="6"
                                                 Grid.Column="2"
-                                                BackgroundColor="{StaticResource Secondary}"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="{StaticResource Warning}"
+                                                BorderWidth="1"
                                                 CornerRadius="50"
-                                                Text="9" />
+                                                Text="9"
+                                                TextColor="{StaticResource Warning}" />
                             <Label Grid.Row="1"
-                                   FontSize="Caption"
                                    Grid.Column="2"
+                                   FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Ürün"
                                    TextColor="{StaticResource Gray400}"

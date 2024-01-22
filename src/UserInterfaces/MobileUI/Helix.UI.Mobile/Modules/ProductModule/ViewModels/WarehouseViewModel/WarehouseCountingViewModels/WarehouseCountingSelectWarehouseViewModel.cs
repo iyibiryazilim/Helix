@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
@@ -308,7 +309,8 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			Application.Current.MainPage = new AppShell();
+			//Application.Current.MainPage = new AppShell();
+			await Shell.Current.GoToAsync($"{nameof(PanelView)}");
 		}
 		catch(Exception ex)
 		{

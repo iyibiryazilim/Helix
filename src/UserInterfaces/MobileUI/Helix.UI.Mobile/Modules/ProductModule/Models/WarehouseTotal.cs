@@ -54,32 +54,34 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 		[ObservableProperty]
 		int quantityCounter = 0;
 
+		[ObservableProperty]
 		double tempOnhand;
 
+		[ObservableProperty]
+		Microsoft.Maui.Graphics.Color borderColor;
 
-		public double TempOnhand
-		{
-			get => OnHand;
-			set => SetProperty(ref tempOnhand, value);
-		}
-
-
-		public Microsoft.Maui.Graphics.Color BorderLineColor
+		public Microsoft.Maui.Graphics.Color BorderColorChanged
 		{
 			get
 			{
-				if (TempOnhand != OnHand)
+
+				if (TempOnhand > OnHand)
 				{
-					return Microsoft.Maui.Graphics.Color.FromRgba("#ffd300");
+					return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");  // Success
+				}
+				else if(TempOnhand == OnHand)
+				{
+					return Microsoft.Maui.Graphics.Color.FromRgba("#00000000");  // Transparent
 				}
 				else
 				{
-					return Microsoft.Maui.Graphics.Color.FromRgba("#fff");
+					return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");  // Danger
 				}
 			}
 			set
 			{
-
+				BorderColor = value;
+				OnPropertyChanged();
 			}
 		}
 	}
