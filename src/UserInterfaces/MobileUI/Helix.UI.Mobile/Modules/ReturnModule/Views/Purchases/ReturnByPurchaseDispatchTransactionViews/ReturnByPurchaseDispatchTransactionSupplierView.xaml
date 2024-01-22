@@ -13,7 +13,7 @@
              x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews.ReturnByPurchaseDispatchTransactionSupplierView">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetSupplierCommand}" />
+                                        Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
     <sharedView:ReturnSelectContentView ReloadCommand="{Binding GetSupplierCommand}"
                                         SearchCommand="{Binding SearchCommand}"
