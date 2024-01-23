@@ -4,15 +4,15 @@ using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels
+namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionLineViewModels
 {
-    public partial class ReturnBySalesDispatchTransactionLineChangeBottomSheetViewModel : BaseViewModel
+    public partial class ReturnBySalesDispatchTransactionLineLineChangeBottomSheetViewModel : BaseViewModel
     {
         [ObservableProperty]
         DispatchTransactionLineGroup lineGroup;
         public ObservableCollection<DispatchTransactionLine> Result { get; } = new();
 
-        public ReturnBySalesDispatchTransactionLineChangeBottomSheetViewModel()
+        public ReturnBySalesDispatchTransactionLineLineChangeBottomSheetViewModel()
         {
             LoadDataCommand = new Command(async () => await LoadData());
 
@@ -62,6 +62,5 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 IsBusy = false;
             }
         }
-
     }
 }

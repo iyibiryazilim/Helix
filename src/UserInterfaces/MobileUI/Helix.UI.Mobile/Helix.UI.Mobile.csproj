@@ -544,6 +544,9 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineLineChangeBottomSheetView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

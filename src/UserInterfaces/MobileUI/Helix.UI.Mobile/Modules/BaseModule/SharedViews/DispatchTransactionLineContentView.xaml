@@ -51,7 +51,7 @@
                     </Grid>
                 </Border>
             </Grid>
-            <RefreshView Grid.Row="2"
+            <RefreshView Grid.Row="1"
                          IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing,Mode=OneWay}"
                          Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
@@ -186,6 +186,7 @@
                                                         </Label.Style>
                                                     </Label>
                                                 </VerticalStackLayout>
+                                                
                                             </Grid>
                                         </VerticalStackLayout>
                                     </Grid>
@@ -201,7 +202,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="2">
                 <Button Text="İleri"
                         Margin="10,10,10,20"
                         Command="{Binding Source={x:Reference this},Path=GoToNextCommand}"></Button>

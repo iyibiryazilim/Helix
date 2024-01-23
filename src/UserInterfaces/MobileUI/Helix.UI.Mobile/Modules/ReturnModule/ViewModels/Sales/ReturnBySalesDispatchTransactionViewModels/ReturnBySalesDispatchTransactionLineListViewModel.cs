@@ -394,7 +394,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 
                 ReturnBySalesDispatchTransactionLineChangeBottomSheetView sheet = new ReturnBySalesDispatchTransactionLineChangeBottomSheetView(viewModel);
 
-                viewModel.DispatchTransactionLineGroupList = group;
+                viewModel.LineGroup = group;
                 await sheet.ShowAsync();
             }
             catch (Exception ex)
