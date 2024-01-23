@@ -21,16 +21,21 @@
               ColumnDefinitions="Auto, *"
               ColumnSpacing="18">
             <Grid Grid.Column="0">
-                <ImageButton Aspect="AspectFit"
-                             Command="{Binding GoToBackCommand}"
-                             HeightRequest="20"
-                             WidthRequest="20">
-                    <ImageButton.Source>
-                        <FontImageSource FontFamily="FAS"
-                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowLeft}"
-                                         Color="{StaticResource White}" />
-                    </ImageButton.Source>
-                </ImageButton>
+                <Border BackgroundColor="Transparent" StrokeThickness="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToBackCommand}" />
+                    </Border.GestureRecognizers>
+                    <Image Aspect="AspectFit"
+                           HeightRequest="20"
+                           WidthRequest="20">
+
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowLeft}"
+                                             Color="{StaticResource White}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
             </Grid>
             <Label Grid.Column="1"
                    FontSize="Title"
@@ -40,16 +45,16 @@
                    VerticalOptions="Center" />
         </Grid>
         <Grid Grid.Row="1">
-            <sharedViews:WarehouseSelectContentView IsBusy="{Binding IsBusy}"
-                                IsRefreshing="{Binding IsRefreshing}"
-                                WarehouseList="{Binding Results}"
-                                SortCommand="{Binding SortCommand}"
-                                SearchCommand="{Binding SearchCommand}"
-                                ReloadCommand="{Binding ReloadCommand}"
-                                GoToNextCommand="{Binding GoToWarehouseCountingListViewCommand}"
-                                ToggleSelectionCommand="{Binding ToggleSelectionCommand}"/>
+            <sharedViews:WarehouseSelectContentView GoToNextCommand="{Binding GoToWarehouseCountingListViewCommand}"
+                                                    IsBusy="{Binding IsBusy}"
+                                                    IsRefreshing="{Binding IsRefreshing}"
+                                                    ReloadCommand="{Binding ReloadCommand}"
+                                                    SearchCommand="{Binding SearchCommand}"
+                                                    SortCommand="{Binding SortCommand}"
+                                                    ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                                    WarehouseList="{Binding Results}" />
         </Grid>
-        
+
     </Grid>
 
 

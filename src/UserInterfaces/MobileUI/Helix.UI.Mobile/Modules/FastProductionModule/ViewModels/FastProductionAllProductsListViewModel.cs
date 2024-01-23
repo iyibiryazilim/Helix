@@ -77,6 +77,7 @@ public partial class FastProductionAllProductsListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			var result = await _productService.GetObjects(httpClient, SearchText, "", OrderBy, CurrentPage, PageSize);
@@ -293,6 +294,7 @@ public partial class FastProductionAllProductsListViewModel : BaseViewModel
 
 			if(SelectedProduct != null)
 			{
+				SelectedProduct.OnHand = 1;
 				await Shell.Current.GoToAsync($"{nameof(FastProductionView)}", new Dictionary<string, object>
 				{
 					[nameof(SelectedProduct)] = SelectedProduct
