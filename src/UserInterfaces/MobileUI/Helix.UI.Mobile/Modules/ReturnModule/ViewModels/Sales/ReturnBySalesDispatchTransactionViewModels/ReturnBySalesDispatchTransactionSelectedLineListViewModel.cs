@@ -87,13 +87,17 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         [RelayCommand]
         public async Task DeleteQuantityAsync(DispatchTransactionLine line)
         {
-            var quantityChange = -1;
+            var quantityChange = 1;
             var group = SelectedDispatchTransactionLineGroupList.FirstOrDefault(x => x.Code == line.ProductCode);
 
-            if (group != null && group.LineQuantity - quantityChange >= 0)
+            if (group != null && group.LineQuantity >= 0)
             {
-                group.LineQuantity -= quantityChange;
-                line.TempQuantity += quantityChange;
+                if (line.TempQuantity!=0)
+                {
+                    group.LineQuantity -= quantityChange;
+                    line.TempQuantity -= quantityChange;
+                }
+                
             }
             else if (group.LineQuantity - quantityChange < 0)
             {
@@ -108,9 +112,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             var quantityChange = 1;
             var group = SelectedDispatchTransactionLineGroupList.FirstOrDefault(x => x.Code == line.ProductCode);
 
-            if (group != null && group.LineQuantity - quantityChange >= 0)
+            if (group != null && group.LineQuantity <= group.StockQuantity)
             {
-                group.LineQuantity -= quantityChange;
+                group.LineQuantity += quantityChange;
                 line.TempQuantity += quantityChange;
             }
             else if (group.LineQuantity - quantityChange < 0)
