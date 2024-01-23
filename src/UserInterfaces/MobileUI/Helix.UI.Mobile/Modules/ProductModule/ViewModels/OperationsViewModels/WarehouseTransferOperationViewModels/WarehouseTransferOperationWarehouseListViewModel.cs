@@ -42,7 +42,7 @@ public partial class WarehouseTransferOperationWarehouseListViewModel : BaseView
 
 	public WarehouseTransferOperationWarehouseListViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService)
 	{
-		Title = "Ambar Listesi";
+		Title = "Çıkış Ambar Listesi";
 		_httpClientService = httpClientService;
 		_warehouseService = warehouseService;
 		

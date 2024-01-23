@@ -3,6 +3,7 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.PanelModule.Helpers.QueryHelper;
+using Helix.UI.Mobile.Modules.PanelModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -24,7 +25,7 @@ public partial class PanelViewModel : BaseViewModel
 		_customQueryService = customQueryService;
 
 		GetDataCommand = new Command(async () => await LoadData());
-	}
+}
 
 	[RelayCommand]
 	public async Task LoadData()

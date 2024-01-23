@@ -52,7 +52,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
         [ObservableProperty]
         bool includeWaiting = true;
         [ObservableProperty]
-        WarehouseParameterOrderBy orderBy = WarehouseParameterOrderBy.warehousenumberdesc;
+        WarehouseParameterOrderBy orderBy = WarehouseParameterOrderBy.warehousenumberasc;
 
         async Task LoadData()
         {
@@ -83,6 +83,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
                 CurrentPage = 0;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
                 var result = await _wareHouseparameterService.GetWarehouseParameterByProductId(httpClient, Product.ReferenceId, SearchText,OrderBy, CurrentPage, PageSize);
@@ -92,7 +93,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
                     Items.Clear();
                     foreach (var item in result.Data)
                     {
-                        await Task.Delay(10);
+                        await Task.Delay(50);
                         Items.Add(item);
                     }
                 }
@@ -117,8 +118,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
             try
             {
                 IsBusy = true;
-                IsRefreshing = true;
-
+               
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
                 CurrentPage++;
                 var result = await _wareHouseparameterService.GetWarehouseParameterByProductId(httpClient, Product.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
@@ -126,8 +126,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
                 {
                     foreach (var item in result.Data)
                     {
-                        await Task.Delay(100);
-                        Items.Add(item);
+						await Task.Delay(100);
+						Items.Add(item);
                     }
                 }
                 else
@@ -157,7 +157,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
                     if (text.Length >= 3)
                     {
                         SearchText = text;
-                        await LoadData();
+                        await ReloadAsync();
                     }
                 }
                 else
@@ -177,7 +177,53 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
             }
         }
 
+		[RelayCommand]
+		public async Task SortAsync()
+		{
+			if (IsBusy) return;
+			try
+			{
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Numaraya Göre Artan", "Numaraya Göre Azalan");
+				if (!string.IsNullOrEmpty(response))
+				{
+					CurrentPage = 0;
+					await Task.Delay(100);
+					switch (response)
+					{
+						case "Ad A-Z":
+							OrderBy = WarehouseParameterOrderBy.warehousenameasc;
+							await ReloadAsync();
+							break;
+						case "Ad Z-A":
+							OrderBy = WarehouseParameterOrderBy.warehousenamedesc;
+							await ReloadAsync();
+							break;
+						case "Numaraya Göre Artan":
+							OrderBy = WarehouseParameterOrderBy.warehousenumberasc;
+							await ReloadAsync();
+							break;
+						case "Numaraya Göre Azalan":
+							OrderBy = WarehouseParameterOrderBy.warehousenumberdesc;
+							await ReloadAsync();
+							break;
+						default:
+							await ReloadAsync();
+							break;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Sort Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+				IsRefreshing = false;
+			}
+		}
 
-       
-    }
+
+	}
 }
