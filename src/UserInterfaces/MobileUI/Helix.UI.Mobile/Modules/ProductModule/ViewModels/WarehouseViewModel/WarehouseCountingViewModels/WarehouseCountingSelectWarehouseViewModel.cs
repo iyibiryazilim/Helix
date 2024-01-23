@@ -309,8 +309,7 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			//Application.Current.MainPage = new AppShell();
-			await Shell.Current.GoToAsync($"{nameof(PanelView)}");
+			Application.Current.MainPage = new AppShell();
 		}
 		catch(Exception ex)
 		{

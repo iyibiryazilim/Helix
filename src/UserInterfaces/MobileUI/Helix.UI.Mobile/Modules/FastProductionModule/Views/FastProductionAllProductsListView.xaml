@@ -46,7 +46,7 @@
                    VerticalOptions="Center" />
         </Grid>
         <Border Grid.Row="1"
-                Margin="0,30,0,0"
+                Margin="0,10,0,0"
                 Padding="5,20,5,10"
                 BackgroundColor="{StaticResource White}"
                 StrokeThickness="0">

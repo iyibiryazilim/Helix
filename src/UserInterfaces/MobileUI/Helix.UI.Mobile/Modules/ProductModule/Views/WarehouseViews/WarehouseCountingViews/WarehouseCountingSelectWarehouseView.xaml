@@ -16,7 +16,7 @@
     </ContentPage.Behaviors>
     <Grid Padding="0,20,0,0" RowDefinitions="Auto, *">
         <Grid Grid.Row="0"
-              Margin="0,0,0,30"
+              Margin="0,0,0,10"
               Padding="18,0"
               ColumnDefinitions="Auto, *"
               ColumnSpacing="18">
