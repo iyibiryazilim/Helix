@@ -35,7 +35,8 @@ public partial class PanelViewModel : BaseViewModel
 		try
 		{
 			await Task.Delay(300);
-			await Task.WhenAll(GetTodayTransactionedProductAsync());
+			//await Task.WhenAll(GetTodayTransactionedProductAsync());
+			await MainThread.InvokeOnMainThreadAsync(GetTodayTransactionedProductAsync);
 		}
 		catch(Exception ex)
 		{
@@ -56,7 +57,7 @@ public partial class PanelViewModel : BaseViewModel
 			IsBusy = true;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
-			var result = await _customQueryService.GetObjectsAsync(httpClient, new PanelQuery().GetTodayInputOutput());
+			var result = await _customQueryService.GetObjectsAsync(httpClient, new PanelQuery().GetTodayTransactionedProducts());
 			
 			if(Products.Count > 0)
 			{
