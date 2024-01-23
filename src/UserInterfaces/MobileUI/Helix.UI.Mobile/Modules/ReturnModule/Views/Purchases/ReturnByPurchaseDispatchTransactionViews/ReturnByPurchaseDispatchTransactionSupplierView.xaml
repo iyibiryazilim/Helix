@@ -20,5 +20,6 @@
                                         SortCommand="{Binding SortCommand}"
                                         CurrentList="{Binding Result}"
                                         GoToNextCommand="{Binding GoToFicheListCommand}"
+                                        IsRefreshing="{Binding IsRefreshing}"                                        
                                         IsBusy="{Binding IsBusy}"></sharedView:ReturnSelectContentView>
 </ContentPage>

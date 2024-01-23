@@ -6,6 +6,7 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel.BottomSheetViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
@@ -24,11 +25,12 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 	[QueryProperty(nameof(Current), nameof(Current))]
 
 	public partial class ReturnByPurchaseDispatchTransactionLineLineListViewModel : BaseViewModel
-    {
+	{
 		IHttpClientService _httpClientService;
 		ISupplierTransactionLineService _purchaseDispatchTransactionLineService;
+		IServiceProvider _serviceProvider;
 		IWarehouseTotalService _warehouseTotalService;
-		public ReturnByPurchaseDispatchTransactionLineLineListViewModel(IHttpClientService httpClientService, ISupplierTransactionLineService purchaseDispatchTransactionLineService, IWarehouseTotalService warehouseTotalService)
+		public ReturnByPurchaseDispatchTransactionLineLineListViewModel(IHttpClientService httpClientService, ISupplierTransactionLineService purchaseDispatchTransactionLineService, IWarehouseTotalService warehouseTotalService, IServiceProvider serviceProvider)
 		{
 			_httpClientService = httpClientService;
 			_purchaseDispatchTransactionLineService = purchaseDispatchTransactionLineService;
@@ -37,6 +39,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			GetTransactionsCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 			SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
+			_serviceProvider = serviceProvider;
 		}
 
 		[ObservableProperty]
@@ -116,43 +119,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			finally
 			{
 				IsBusy = false;
- 			}
-		}
-
-		public async Task PerformSearchAsync(string text)
-		{
-			if (IsBusy)
-			{
-				return;
-			}
-
-			try
-			{
-				IsBusy = true;
-				SearchText = string.IsNullOrEmpty(text) ? string.Empty : text;
-
-				Result.Clear();
-				IEnumerable<DispatchTransactionLineGroup> itemsToSearch = string.IsNullOrEmpty(SearchText)
-					? DispatchTransactionLineGroupList
-					: DispatchTransactionLineGroupList.Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText));
-
-				foreach (var item in itemsToSearch)
-				{
-					var selectCheck = SelectedDispatchTransactionLineGroupList.Where(x => x.Code == item.Code);
-					Result.Add(selectCheck.Any() ? selectCheck.First() : item);
-				}
-			}
-			catch (Exception ex)
-			{
-				IsBusy = false;
-
-				Debug.WriteLine(ex);
-			}
-			finally
-			{
-				IsBusy = false;
 			}
 		}
+
 
 		[RelayCommand]
 		async Task SortAsync()
@@ -200,7 +169,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			finally
 			{
 				IsBusy = false;
- 			}
+			}
 		}
 
 		public async Task SelectAllAsync(bool isSelected)
@@ -253,31 +222,63 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				IsBusy = false;
 			}
 		}
+		public async Task PerformSearchAsync(string text)
+		{
+			if (IsBusy)
+			{
+				return;
+			}
+
+			try
+			{
+				IsBusy = true;
+				SearchText = string.IsNullOrEmpty(text) ? string.Empty : text;
+
+				Result.Clear();
+				IEnumerable<DispatchTransactionLineGroup> itemsToSearch = string.IsNullOrEmpty(SearchText)
+					? DispatchTransactionLineGroupList
+					: DispatchTransactionLineGroupList.Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText));
+
+				foreach (var item in itemsToSearch)
+				{
+					var selectCheck = SelectedDispatchTransactionLineGroupList.Where(x => x.Code == item.Code);
+					Result.Add(selectCheck.Any() ? selectCheck.First() : item);
+				}
+			}
+			catch (Exception ex)
+			{
+				IsBusy = false;
+
+				Debug.WriteLine(ex);
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
 
 		[RelayCommand]
 		public async Task ToggleSelectionAsync(DispatchTransactionLineGroup model)
 		{
-			var selectedItem = Result.FirstOrDefault(x => x.Code == model.Code);
-			if (selectedItem != null && selectedItem.IsEnabled)
+			if (IsBusy)
+				return;
+			try
 			{
-				if (selectedItem.IsSelected)
-				{
-					selectedItem.IsSelected = false;
-					foreach (var line in selectedItem.Lines)
-					{
-						line.IsSelected = false;
-					}
-					SelectedDispatchTransactionLineGroupList.Remove(selectedItem);
-				}
-				else
-				{
-					selectedItem.IsSelected = true;
-					foreach (var line in selectedItem.Lines)
-					{
-						line.IsSelected = true;
-					}
-					SelectedDispatchTransactionLineGroupList.Add(selectedItem);
-				}
+				IsBusy = true;
+
+				ReturnByPurchaseDispatchTransactionLineLineChangeViewModel viewModel = _serviceProvider.GetService<ReturnByPurchaseDispatchTransactionLineLineChangeViewModel>();
+				ReturnByPurchaseDispatchTransactionLineLineChangeBottomSheetView sheet = new(viewModel);
+				viewModel.LineGroup = model;
+				await sheet.ShowAsync();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 
@@ -298,7 +299,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
 		async Task GetLinesAsync(HttpClient httpClient)
@@ -307,9 +308,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			{
 				Lines.Clear();
 
-				if(ShipInfo != null)
+				if (ShipInfo != null)
 				{
-					var salesResult = await _purchaseDispatchTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(httpClient,"",OrderBy,Current.ReferenceId,Warehouse.Number,ShipInfo.ReferenceId,"1",CurrentPage,PageSize);
+					var salesResult = await _purchaseDispatchTransactionLineService.GetTransactionLineByTransactionTypeAndWarehouseAndShipInfoAsync(httpClient, "", OrderBy, Current.ReferenceId, Warehouse.Number, ShipInfo.ReferenceId, "1", CurrentPage, PageSize);
 					if (salesResult.IsSuccess)
 					{
 						foreach (var item in salesResult.Data)
@@ -341,7 +342,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 						await Shell.Current.DisplayAlert("  Error: ", $"{salesResult.Message}", "Tamam");
 					}
 				}
-				
+
 			}
 			catch (Exception ex)
 			{
@@ -411,21 +412,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			});
 		}
 
-		[RelayCommand]
-		async Task GoToSelectedLinesAsync()
-		{
-			if (SelectedDispatchTransactionLineGroupList.Count > 0)
-			{
-				await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionLineSelectedLineListView)}", new Dictionary<string, object>
-				{
-					[nameof(SelectedDispatchTransactionLineGroupList)] = SelectedDispatchTransactionLineGroupList
-				});
-			}
-			else
-			{
-				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
-			}
-
-		}
+		 
 	}
 }

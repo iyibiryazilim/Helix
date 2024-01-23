@@ -29,11 +29,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		IHttpClientService _httpClientService;
 		IPurchaseDispatchTransactionLineService _purchaseDispatchTransactionLineService;
 		IWarehouseTotalService _warehouseTotalService;
-		public ReturnByPurchaseDispatchTransactionLineListViewModel(IHttpClientService httpClientService, IPurchaseDispatchTransactionLineService purchaseDispatchTransactionLineService, IWarehouseTotalService warehouseTotalService)
+		IServiceProvider _serviceProvider;
+		public ReturnByPurchaseDispatchTransactionLineListViewModel(IHttpClientService httpClientService, IPurchaseDispatchTransactionLineService purchaseDispatchTransactionLineService, IWarehouseTotalService warehouseTotalService,IServiceProvider serviceProvider)
 		{
 			_httpClientService = httpClientService;
 			_purchaseDispatchTransactionLineService = purchaseDispatchTransactionLineService;
 			_warehouseTotalService = warehouseTotalService;
+			_serviceProvider = serviceProvider;
 			Title = "İrsaliye Satırları";
 			GetOrderLinesCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
@@ -243,46 +245,28 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		}
 
 		[RelayCommand]
-		public async Task ToggleSelectionAsync(DispatchTransactionLineGroup model)
+		public async Task OpenLineChangeBottomSheetAsync(DispatchTransactionLineGroup model)
 		{
 			if (IsBusy)
 				return;
 			try
 			{
-				var selectedItem = Result.FirstOrDefault(x => x.Code == model.Code);
-				if (selectedItem != null && selectedItem.IsEnabled)
-				{
-					if (selectedItem.IsSelected)
-					{
-						selectedItem.IsSelected = false;
-						foreach (var line in selectedItem.Lines)
-						{
-							line.IsSelected = false;
-						}
-						SelectedDispatchTransactionLineGroupList.Remove(selectedItem);
-					}
-					else
-					{
-						selectedItem.IsSelected = true;
-						foreach (var line in selectedItem.Lines)
-						{
-							line.IsSelected = true;
-						}
-						SelectedDispatchTransactionLineGroupList.Add(selectedItem);
-					}
-				}
+				IsBusy = true;
+
+				ReturnByPurchaseDispatchTransactionLineChangeViewModel viewModel = _serviceProvider.GetService<ReturnByPurchaseDispatchTransactionLineChangeViewModel>();
+				ReturnByPurchaseDispatchTransactionLineChangeBottomSheetView sheet = new(viewModel);
+				viewModel.LineGroup = model;
+				await sheet.ShowAsync();
 			}
 			catch (Exception ex)
 			{
-				IsBusy = false;
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
 				IsBusy = false;
 			}
-		
 		}
 
 		async Task GetWarehouseTotalAsync(HttpClient httpClient)
@@ -397,33 +381,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			});
 		}
 
-		[RelayCommand]
-		async Task GoToSelectedLinesAsync()
-		{
-			if (IsBusy)
-				return;
-			try
-			{
-				if (SelectedDispatchTransactionLineGroupList.Count > 0)
-				{
-					await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionSelectedLineListView)}", new Dictionary<string, object>
-					{
-						[nameof(SelectedDispatchTransactionLineGroupList)] = SelectedDispatchTransactionLineGroupList
-					});
-				}
-				else
-				{
-					await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
-				}
-			}
-			catch (Exception ex)
-			{
-				IsBusy = false;
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
-			}
-			
-
-		}
+		 
 	}
 }
