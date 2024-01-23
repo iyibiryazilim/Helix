@@ -18,6 +18,5 @@
                                                  SortCommand="{Binding SortCommand}"
                                                  DispatchTransactionLineGroupList="{Binding Result}"
                                                  IsBusy="{Binding IsBusy}"
-                                                 GoToNextCommand="{Binding GoToSelectedLinesCommand}"
                                                  CheckedChangeCommand="{Binding SelectAllCommand}" />
 </ContentPage>

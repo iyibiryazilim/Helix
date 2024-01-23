@@ -19,7 +19,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 	[QueryProperty(nameof(Current), nameof(Current))]
 	[QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
 	public partial class ReturnByPurchaseDispatchTransactionLineWarehouseListViewModel : BaseViewModel
-    {
+	{
 		IHttpClientService _httpClientService;
 		private readonly IWarehouseService _warehouseService;
 		ICustomQueryService _customQueryService;
@@ -29,7 +29,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 
 		//Commands
-		public Command GetWarehousesCommand { get; }
+		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
 
 		//Properties
@@ -58,7 +58,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			_httpClientService = httpClientService;
 			_warehouseService = warehouseService;
 			_customQueryService = customQueryService;
-			GetWarehousesCommand = new Command(async () => await LoadData());
+			GetDataCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
 		}
@@ -85,6 +85,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 			}
 		}
+
+		[RelayCommand]
 		async Task GetWarehousesAsync()
 		{
 			if (IsBusy)
@@ -93,22 +95,26 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			{
 				IsBusy = true;
 				IsRefreshing = true;
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-
+				var httpClient = _httpClientService.GetOrCreateHttpClient(); 
 				var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-				foreach (Warehouse item in result.Data)
+				if (result.IsSuccess)
 				{
-					Items.Add(item);
-					Results.Add(item);
+					foreach (Warehouse item in result.Data)
+					{
+						Items.Add(item);
+						Results.Add(item);
+					}
 				}
+				else
+				{
+					await Shell.Current.DisplayAlert(" Error: ", $"{result.Message}", "Tamam");
 
-
+				} 
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -154,39 +160,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				IsBusy = false;
 			}
 		}
-
-		[RelayCommand]
-		async Task ReloadAsync()
-		{
-			if (IsBusy)
-				return;
-			try
-			{
-				IsBusy = true;
-				IsRefreshing = true;
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-				var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-				foreach (Warehouse item in result.Data)
-				{
-					Items.Add(item);
-					Results.Add(item);
-				}
-
-
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
-				IsRefreshing = false;
-			}
-		}
-
+		 
 		[RelayCommand]
 		async Task SortAsync()
 		{
@@ -228,9 +202,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 								Results.Add(item);
 							}
 							break;
-						default:
-							await ReloadAsync();
-							break;
+						 
 
 					}
 				}

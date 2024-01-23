@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
@@ -74,9 +76,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		}
 
 		[RelayCommand]
-		async Task GoToSalesOrderForm()
+		async Task GoToOrderForm()
 		{
-			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFormView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionFormView)}", new Dictionary<string, object>
 			{
 				[nameof(ChangedLineList)] = ChangedLineList
 			});

@@ -69,23 +69,17 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			try
 			{
 				await Task.Delay(500);
-				await MainThread.InvokeOnMainThreadAsync(GetSalesOrdersAsync);
+				await MainThread.InvokeOnMainThreadAsync(GetTransactionsAsync);
 
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
 				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
-				IsRefreshing = false;
-
-			}
+			} 
 		}
 		[RelayCommand]
-		async Task GetSalesOrdersAsync()
+		async Task GetTransactionsAsync()
 		{
 			if (IsBusy)
 				return;
@@ -128,13 +122,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
+				IsBusy = false;
 				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
-			}
+ 			}
 		}
 		public async Task PerformSearchAsync(string text)
 		{
@@ -146,6 +140,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				{
 					if (text.Length >= 3)
 					{
+						IsBusy = true;
 						SearchText = text;
 						Results.Clear();
 						foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText) || x.CurrentName.Contains(SearchText) || x.CurrentCode.Contains(SearchText)))
@@ -156,6 +151,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				}
 				else
 				{
+					IsBusy = true; 
 					SearchText = string.Empty;
 					Results.Clear();
 					foreach (var item in Items)
@@ -166,6 +162,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			}
 			catch (Exception ex)
 			{
+				IsBusy = false;
 				Debug.WriteLine(ex);
 			}
 			finally
@@ -173,44 +170,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				IsBusy = false;
 			}
 		}
-
-		[RelayCommand]
-		async Task ReloadAsync()
-		{
-			if (IsBusy)
-				return;
-			try
-			{
-				IsBusy = true;
-				IsRefreshing = true;
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-				CurrentPage = 0;
-				var result = await _supplierTransactionService.GetTransactionByCurrentCodeAsync(httpClient, SearchText, OrderBy, Current.Code, CurrentPage, PageSize);
-
-				if (result.Data.Any())
-				{
-					Items.Clear();
-					Results.Clear();
-					foreach (var item in result.Data)
-					{
-						var obj = Mapping.Mapper.Map<DispatchTransaction>(item);
-						Items.Add(obj);
-						Results.Add(obj);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
-				IsRefreshing = false;
-			}
-		}
+		 
 
 		[RelayCommand]
 		async Task SortAsync()
@@ -218,6 +178,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			if (IsBusy) return;
 			try
 			{
+				IsBusy = true;
 				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarih Büyükten Küçüğe", "Tarih Küçükten Büyüğe");
 				if (!string.IsNullOrEmpty(response))
 				{
@@ -240,51 +201,64 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 							}
 							break;
 						default:
-							await ReloadAsync();
-							break;
+ 							break;
 
 					}
 				}
 			}
 			catch (Exception ex)
 			{
+				IsBusy = false;
 				Debug.WriteLine(ex);
 				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
-			}
+ 			}
 		}
 
 		[RelayCommand]
 		public async Task SelectAsync(DispatchTransaction model)
 		{
-			await Task.Run(() =>
+			await Task.Run(async() =>
 			{
-				DispatchTransaction selectedItem = Results.FirstOrDefault(x => x.ReferenceId == model.ReferenceId);
-				if (selectedItem != null)
+				try
 				{
-					if (selectedItem.IsSelected)
+					IsBusy = true;
+					DispatchTransaction selectedItem = Results.FirstOrDefault(x => x.ReferenceId == model.ReferenceId);
+					if (selectedItem != null)
 					{
-						selectedItem.IsSelected = false;
-						SelectedTransactions.Remove(selectedItem);
+						if (selectedItem.IsSelected)
+						{
+							selectedItem.IsSelected = false;
+							SelectedTransactions.Remove(selectedItem);
 
-					}
-					else
-					{
-						selectedItem.IsSelected = true;
+						}
+						else
+						{
+							selectedItem.IsSelected = true;
 
-						SelectedTransactions.Add(selectedItem);
+							SelectedTransactions.Add(selectedItem);
+						}
 					}
+				}
+				catch (Exception ex)
+				{
+					await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+					IsBusy = false;
+					throw;
+				}
+				finally
+				{
+					IsBusy = false;
 				}
 
 			});
 		}
 
 		[RelayCommand]
-		async Task GoToSalesOrderLineListAsync()
+		async Task GoToLineListAsync()
 		{
 			if (SelectedTransactions.Count > 0)
 			{
@@ -303,21 +277,36 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 		public async Task SelectAllAsync(bool isSelected)
 		{
-			if (isSelected)
+			if (IsBusy)
+				return;
+			try
 			{
-				foreach (var item in Results)
+				if (isSelected)
 				{
-					item.IsSelected = true;
-					SelectedTransactions.Add(item);
+					foreach (var item in Results)
+					{
+						item.IsSelected = true;
+						SelectedTransactions.Add(item);
+					}
+				}
+				else
+				{
+					foreach (var item in Results)
+					{
+						item.IsSelected = false;
+						SelectedTransactions.Remove(item);
+					}
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				foreach (var item in Results)
-				{
-					item.IsSelected = false;
-					SelectedTransactions.Remove(item);
-				}
+				await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+				IsBusy = false;
+				throw;
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 

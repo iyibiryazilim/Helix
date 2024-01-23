@@ -9,6 +9,7 @@
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Shell.TabBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetShipInfosCommand}"
