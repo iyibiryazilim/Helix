@@ -74,7 +74,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="15"
+                                   Text="{Binding mainPanelModel.TodayInputTransactionFicheCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
@@ -90,7 +90,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="24"
+                                   Text="{Binding mainPanelModel.TodayOutputTransactionFicheCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
@@ -114,7 +114,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="15" />
+                                   Text="{Binding mainPanelModel.WaitingSalesOrderCount}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satış"
@@ -127,7 +127,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="24" />
+                                   Text="{Binding mainPanelModel.WaitingPurchaseOrderCount}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satınalma"
