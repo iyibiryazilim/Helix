@@ -3,50 +3,101 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.DispatchSelectedLineListContentView"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Name="this"
-             BackgroundColor="{StaticResource Primary}">
+             BackgroundColor="White"
+             x:Name="this">
     <ContentView.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource WhiteSmoke}"
-            StrokeThickness="0">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="20,20,0,0" />
-        </Border.StrokeShape>
+    <Grid Padding="10">
         <Grid BackgroundColor="Transparent"
               RowDefinitions="Auto,*,Auto"
               RowSpacing="10">
             <Grid Grid.Row="0">
-                <Border StrokeShape="RoundRectangle 20">
-                    <Grid ColumnDefinitions="*,auto">
-                        <Grid Grid.Column="0">
-                            <SearchBar x:Name="searchBar"
-                                       Placeholder="Ara">
-                                <SearchBar.Behaviors>
-                                    <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this}, Path=SearchCommand, Mode=TwoWay}"
-                                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                                                                    EventName="TextChanged" />
-                                </SearchBar.Behaviors>
-                            </SearchBar>
-                        </Grid>
-                        <Grid Grid.Column="1"
-                              Padding="0,0,20,0">
-                            <ImageButton Aspect="AspectFit"
-                                         Command="{Binding Source={x:Reference this}, Path=SortCommand}"
-                                         HeightRequest="25"
-                                         WidthRequest="25">
-                                <ImageButton.Source>
-                                    <FontImageSource FontFamily="FAS"
-                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
-                                                     Color="{StaticResource Primary}" />
-                                </ImageButton.Source>
-                            </ImageButton>
+                <Border BackgroundColor="White"
+                        StrokeShape="RoundRectangle 20">
+                    <Grid ColumnDefinitions="85*,15*">
+                        <Grid Grid.Column="0"
+                              ColumnDefinitions="auto, *"
+                              ColumnSpacing="10">
+                            <Border Grid.Column="0"
+                                    Padding="10"
+                                    HorizontalOptions="Start"
+                                    StrokeShape="RoundRectangle 10"
+                                    StrokeThickness="0"
+                                    WidthRequest="75">
+                                <Image Aspect="AspectFit"
+                                       Source="{Binding Source={x:Reference this},Path=Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Padding="5"
+                                                 HorizontalOptions="Start"
+                                                 Spacing="5">
+                                <Label FontAttributes="Bold"
+                                       FontSize="Body"
+                                       LineBreakMode="TailTruncation"
+                                       Text="{Binding Source={x:Reference this},Path=Code}"></Label>
+                                <Label FontSize="Caption"
+                                       LineBreakMode="TailTruncation"
+                                       Text="{Binding Source={x:Reference this},Path=Name}"></Label>
+                                <HorizontalStackLayout Spacing="10">
+                                    <VerticalStackLayout Grid.Column="0">
+                                        <Border Padding="10,5"
+                                                BackgroundColor="{StaticResource Warning}"
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 5"
+                                                StrokeThickness="0">
+                                            <Label FontSize="10"
+                                                   TextColor="{StaticResource Primary}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold"
+                                                              Text="{Binding Source={x:Reference this},Path=StockQuantity, StringFormat='{0:N2} '}" />
+                                                        <Span Text=" " />
+                                                        <Span FontAttributes="Bold"
+                                                              Text="{Binding Source={x:Reference this},Path=SubUnitsetCode}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Border>
+                                        <Label HorizontalOptions="Center"
+                                               TextColor="{StaticResource Primary}"
+                                               Text="Miktar"
+                                               VerticalOptions="Center"
+                                               FontSize="Micro"></Label>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="0">
+                                        <Border Padding="10,5"
+                                                BackgroundColor="{StaticResource Secondary}"
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 5"
+                                                StrokeThickness="0">
+                                            <Label FontSize="10"
+                                                   TextColor="{StaticResource Primary}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold"
+                                                              Text="{Binding Source={x:Reference this},Path=TempQuantity, StringFormat='{0:N2} '}" />
+                                                        <Span Text=" " />
+                                                        <Span FontAttributes="Bold"
+                                                              Text="{Binding Source={x:Reference this},Path=SubUnitsetCode}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Border>
+                                        <Label HorizontalOptions="Center"
+                                               TextColor="{StaticResource Primary}"
+                                               Text="Miktar"
+                                               VerticalOptions="Center"
+                                               FontSize="Micro"></Label>
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
                         </Grid>
                     </Grid>
                 </Border>
@@ -58,10 +109,8 @@
                             RemainingItemsThreshold="10">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="baseModel:DispatchTransactionLine">
-                        <Grid Margin="20,0,0,0"
-                              RowDefinitions="auto,auto">
+                        <Grid RowDefinitions="auto,auto">
                             <Border Grid.Row="0"
-                                    Margin="5,0,5,0"
                                     StrokeShape="RoundRectangle 10"
                                     Padding="10">
                                 <Border.Triggers>
@@ -223,7 +272,6 @@
                                                                  Color="{StaticResource Primary}" />
                                             </ImageButton.Source>
                                         </ImageButton>
-
                                     </Border>
                                     <Border Grid.Column="1"
                                             BackgroundColor="{StaticResource Primary}"
@@ -264,8 +312,9 @@
             <Grid Grid.Row="2">
                 <Button Margin="10,10,10,20"
                         Command="{Binding Source={x:Reference this}, Path=GoToNextCommand}"
-                        Text="İleri" />
+                        Text="Kaydet" />
             </Grid>
         </Grid>
-    </Border>
+        <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
+    </Grid>
 </ContentView>
