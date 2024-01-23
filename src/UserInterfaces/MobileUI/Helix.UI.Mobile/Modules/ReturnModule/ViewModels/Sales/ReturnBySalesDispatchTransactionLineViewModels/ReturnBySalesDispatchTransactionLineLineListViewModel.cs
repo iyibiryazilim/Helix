@@ -24,11 +24,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         IHttpClientService _httpClientService;
         ICustomerTransactionLineService _customerTransactionLineService;
         IWarehouseTotalService _warehouseTotalService;
-        public ReturnBySalesDispatchTransactionLineLineListViewModel(IHttpClientService httpClientService, ICustomerTransactionLineService customerTransactionLineService, IWarehouseTotalService warehouseTotalService)
+        IServiceProvider _serviceProvider;
+        public ReturnBySalesDispatchTransactionLineLineListViewModel(IHttpClientService httpClientService, ICustomerTransactionLineService customerTransactionLineService, IWarehouseTotalService warehouseTotalService,IServiceProvider serviceProvider)
         {
             _httpClientService = httpClientService;
             _customerTransactionLineService = customerTransactionLineService;
             _warehouseTotalService = warehouseTotalService;
+            _serviceProvider = serviceProvider;
             Title = "İrsaliye Satırları";
             GetOrderLinesCommand = new Command(async () => await LoadData());
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
@@ -380,6 +382,33 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
             }
 
+        }
+
+        [RelayCommand]
+        async Task OpenBottomSheetAsync(DispatchTransactionLineGroup group)
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+
+                ReturnBySalesDispatchTransactionLineLineChangeBottomSheetViewModel viewModel = _serviceProvider.GetService<ReturnBySalesDispatchTransactionLineLineChangeBottomSheetViewModel>();
+
+                ReturnBySalesDispatchTransactionLineLineChangeBottomSheetView sheet = new ReturnBySalesDispatchTransactionLineLineChangeBottomSheetView(viewModel);
+
+                viewModel.LineGroup = group;
+                await sheet.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error :", ex.Message, "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

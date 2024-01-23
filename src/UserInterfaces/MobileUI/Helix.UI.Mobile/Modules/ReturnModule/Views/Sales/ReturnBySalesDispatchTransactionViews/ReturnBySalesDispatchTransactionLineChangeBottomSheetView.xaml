@@ -8,14 +8,24 @@
              BackgroundColor="White"
              HandleColor="{StaticResource Primary}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels"
              x:DataType="viewModel:ReturnBySalesDispatchTransactionLineChangeBottomSheetViewModel"
-             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-                   
              x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews.ReturnBySalesDispatchTransactionLineChangeBottomSheetView"
              >
 
-    <sharedViews:DispatchSelectedLineListContentView 
-                            LineList="{Binding DispatchTransactionLineGroupList}"
-                            IsRefreshing="{Binding IsRefreshing}"></sharedViews:DispatchSelectedLineListContentView>
+    <the49:BottomSheet.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding LoadDataCommand}"
+                                        EventName="Loaded" />
+    </the49:BottomSheet.Behaviors>
+    <the49:BottomSheet.Detents>
+        <!-- Stop at the height of the screen -->
+        <the49:FullscreenDetent />
+        <!-- Stop at the height of the page content -->
+        <the49:ContentDetent />
+        <!-- Stop at 120dp -->
+        <the49:HeightDetent Height="600" />
+    </the49:BottomSheet.Detents>
+    <sharedViews:DispatchSelectedLineListContentView GroupLine="{Binding LineGroup}"
+                                                    LineList="{Binding Result}"></sharedViews:DispatchSelectedLineListContentView>
 </the49:BottomSheet>

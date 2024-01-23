@@ -185,7 +185,7 @@
                                                         </Label.Style>
                                                     </Label>
                                                 </VerticalStackLayout>
-                                                <VerticalStackLayout>
+      <VerticalStackLayout>
                                                     <Border Padding="10,5"
                                                             BackgroundColor="{StaticResource Secondary}"
                                                             HorizontalOptions="Start"
