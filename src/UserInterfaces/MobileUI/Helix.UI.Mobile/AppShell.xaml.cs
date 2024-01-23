@@ -182,6 +182,7 @@ public partial class AppShell : Shell
     Routing.RegisterRoute(nameof(ProcurementByCustomerView), typeof(ProcurementByCustomerView));
     Routing.RegisterRoute(nameof(ProcurementByProductView), typeof(ProcurementByProductView));
 		Routing.RegisterRoute(nameof(ProcurementSelectWarehouseView), typeof(ProcurementSelectWarehouseView));
+		Routing.RegisterRoute(nameof(ProcurementBottomSheetView), typeof(ProcurementBottomSheetView));
 
 
 

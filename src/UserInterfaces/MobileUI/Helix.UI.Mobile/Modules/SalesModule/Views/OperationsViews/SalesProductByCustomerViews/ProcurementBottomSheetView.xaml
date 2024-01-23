@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+                   xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                   xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+                   xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
+                   HasHandle="True"
+                   HasBackdrop="True"
+                   BackgroundColor="White"
+                   HandleColor="{StaticResource Primary}"
+                   xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels"
+                   x:DataType="viewModel:ProcurementBottomSheetViewModel"
+                   
+                   x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews.ProcurementBottomSheetView">
+    <the49:BottomSheet.Detents>
+        <!-- Stop at the height of the screen -->
+        <the49:FullscreenDetent />
+        <!-- Stop at the height of the page content -->
+        <the49:ContentDetent />
+        <!-- Stop at 120dp -->
+        <the49:HeightDetent Height="400" />
+      
+    </the49:BottomSheet.Detents>
+
+    <the49:BottomSheet.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding LoadOrdersCommand}"
+                                        EventName="Loaded" />
+    </the49:BottomSheet.Behaviors>
+
+    <ScrollView  Padding="20" Margin="0,0,0,20">
+        <Border BackgroundColor="{StaticResource White}"
+                StrokeThickness="0"
+                Padding="5,20,5,10">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20, 20, 0, 0" />
+            </Border.StrokeShape>
+            <Grid BackgroundColor="Transparent"
+                  RowDefinitions="Auto, *"
+                  RowSpacing="10">
+                <Grid Grid.Row="0">
+                    <Border StrokeShape="RoundRectangle 20">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Grid Grid.Column="0">
+                               
+                            </Grid>
+                            <Grid Grid.Column="1"
+                                  Padding="0, 0, 20, 0">
+                                
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+               
+                    <CollectionView ItemsSource="{Binding Items}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="baseModel:ProcurementCustomerOrder">
+                               
+                                        <Border BackgroundColor="White"
+                                                StrokeShape="RoundRectangle 10">
+                                            <Grid ColumnDefinitions="Auto, Auto, *, Auto"
+                                                  ColumnSpacing="10"
+                                                  Padding="0,0,10,0">
+                                                <Border Grid.Column="0"
+                                                        Margin="-2"
+                                                        WidthRequest="9"
+                                                        BackgroundColor="{StaticResource Danger}"
+                                                        StrokeShape="RoundRectangle 10,0,0,0">
+                                                </Border>
+                                                <VerticalStackLayout Grid.Column="1"
+                                                                     Spacing="4"
+                                                                     Padding="10">
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="Medium"
+                                                           HorizontalOptions="Start"
+                                                           TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding SalesOrderLine.DueDate }" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="Default"
+                                                           HorizontalOptions="Center"
+                                                           TextColor="{StaticResource Gray400}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding SalesOrderLine.ProductCode}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="Micro"
+                                                           HorizontalOptions="Center"
+                                                           TextColor="{StaticResource Gray400}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding SalesOrderLine.ProductName}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+
+
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="2"
+                                                                     VerticalOptions="Center"
+                                                                     Spacing="5">
+                                                    <Label Text="xxx"
+                                                           FontAttributes="Bold" />
+                                                    <Label Text="xxx"
+                                                           FontSize="12" />
+                                                </VerticalStackLayout>
+                                               
+                                            </Grid>
+                                        </Border>
+                                   
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                
+                
+            </Grid>
+
+
+        </Border>
+
+    </ScrollView>
+
+</the49:BottomSheet>
