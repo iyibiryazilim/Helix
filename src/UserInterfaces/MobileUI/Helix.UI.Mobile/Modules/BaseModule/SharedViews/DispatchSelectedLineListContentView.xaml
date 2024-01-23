@@ -223,6 +223,7 @@
                                                                  Color="{StaticResource Primary}" />
                                             </ImageButton.Source>
                                         </ImageButton>
+
                                     </Border>
                                     <Border Grid.Column="1"
                                             BackgroundColor="{StaticResource Primary}"

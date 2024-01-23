@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
@@ -35,7 +36,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales
             try
             {
                 IsBusy = true;
-                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionCustomerView)}");
+                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineCustomerView)}");
             }
             catch(Exception ex)
             {

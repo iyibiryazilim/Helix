@@ -642,11 +642,16 @@ namespace Helix.UI.Mobile
  			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSummaryView>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineLineChangeBottomSheetView>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineChangeBottomSheetView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSelectedLineListView>();
+			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSummaryView>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineChangeBottomSheetView>();
 
 
 
 
-			return mauiAppBuilder;
+
+
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ReturnRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -694,9 +699,12 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineSummaryViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineLineChangeViewModel>();
 			mauiAppBuilder.Services.AddTransient<ReturnByPurchaseDispatchTransactionLineChangeViewModel>();
+            mauiAppBuilder.Services.AddTransient<ReturnBySalesDispatchTransactionLineChangeBottomSheetViewModel>();
 
 
-			return mauiAppBuilder;
+
+
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder ReturnRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{

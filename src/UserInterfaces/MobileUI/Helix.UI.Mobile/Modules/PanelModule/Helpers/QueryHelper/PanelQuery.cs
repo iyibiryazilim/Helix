@@ -11,7 +11,7 @@ public class PanelQuery : IDisposable
 	static string CompanyNumber = "003";
 	static string CompanyPeriod = "01";
 
-	public string GetTodayInputOutput()
+	public string GetTodayTransactionedProducts()
 	{
 		string query = $@"WITH BaseQuery AS (
     SELECT
