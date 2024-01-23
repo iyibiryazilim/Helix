@@ -228,7 +228,7 @@
                                                             </Border>
                                                             <Label HorizontalOptions="Center"
                                                                 TextColor="{StaticResource Primary}"
-                                                                Text="Sevkedilebilir"
+                                                                Text="Sevkedilecek"
                                                                 VerticalOptions="Center"
                                                                 FontSize="Micro">
                                                                 <Label.Style>
