@@ -16,6 +16,6 @@
              >
 
     <sharedViews:DispatchSelectedLineListContentView 
-                            SelectedLineList="{Binding DispatchTransactionLineGroupList}"
+                            LineList="{Binding DispatchTransactionLineGroupList}"
                             IsRefreshing="{Binding IsRefreshing}"></sharedViews:DispatchSelectedLineListContentView>
 </the49:BottomSheet>
