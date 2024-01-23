@@ -18,6 +18,8 @@
                                                  SortCommand="{Binding SortCommand}"
                                                  DispatchTransactionLineGroupList="{Binding Result}"
                                                  IsBusy="{Binding IsBusy}"
-                                                 ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
-                                                  CheckedChangeCommand="{Binding SelectAllCommand}" />
+                                                 IsRefreshing="{Binding IsRefreshing}"
+                                                 ToggleSelectionCommand="{Binding OpenBottomSheetCommand}"
+                                                 CheckedChangeCommand="{Binding SelectAllCommand}" 
+                                                 GoToNextCommand="{Binding GoToSummaryCommand}"/>
 </ContentPage>

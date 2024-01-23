@@ -23,5 +23,11 @@
         <the49:HeightDetent Height="600" />
     </the49:BottomSheet.Detents>
     <sharedView:DispatchSelectedLineListContentView GroupLine="{Binding LineGroup}"
+                                                    Code="{Binding LineGroup.Code}"
+                                                    Name="{Binding LineGroup.Name}"
+                                                    StockQuantity="{Binding LineGroup.StockQuantity}"
+                                                    TempQuantity="{Binding LineGroup.LineQuantity}"
+                                                    Image="{Binding LineGroup.Image}"
+                                                    SubUnitsetCode="{Binding LineGroup.SubUnitsetCode}"
                                                     LineList="{Binding Result}"></sharedView:DispatchSelectedLineListContentView>
 </the49:BottomSheet> 
