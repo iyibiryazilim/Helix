@@ -32,7 +32,7 @@
                 <Frame Grid.Row="0" HeightRequest="200" />
                 <VerticalStackLayout Grid.Row="1" Spacing="7">
 
-                    <Label FontAttributes="Bold" Text="En Çok Ürünler" />
+                    <Label FontAttributes="Bold" Text="En Son Hareket Gören Ürünler" />
                     <CollectionView ItemsSource="{Binding Items}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
