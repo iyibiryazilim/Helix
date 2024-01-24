@@ -290,28 +290,38 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				var warehouseNumber = Warehouse.Number;
 
 				var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, (int)warehouseNumber, "1,2,3,4,10,11,12,13", "", WarehouseTotalOrderBy.nameasc, 0, 10000);
-				foreach (var item in result.Data)
+				if (result.IsSuccess)
 				{
-					WarehouseTotalList.Add(item);
+					WarehouseTotalList.Clear(); 
+					foreach (var item in result.Data)
+					{
+						WarehouseTotalList.Add(item);
+					}
 				}
+				else
+				{
+					await Shell.Current.DisplayAlert(" Error: ", $"{result.Message}", "Tamam");
+
+				}
+
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
 		async Task GetLinesFromFiche(HttpClient httpClient)
 		{
 			try
 			{
-				Lines.Clear();
-
+ 
 				foreach (var order in SelectedOrders)
 				{
 					var salesResult = await _purchaseOrderLineService.GetWaitingOrderByCode(httpClient, SearchText, OrderBy,order.Code , CurrentPage, PageSize);
-					if (salesResult.IsSuccess)
+ 					if (salesResult.IsSuccess)
 					{
+						Lines.Clear();
 						foreach (var item in salesResult.Data)
 						{
 							var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);

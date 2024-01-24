@@ -30,7 +30,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 
         //Commands
-        public Command GetWarehousesCommand { get; }
+        public Command GetDataCommand { get; }
         public Command SearchCommand { get; }
 
         //Properties
@@ -55,7 +55,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
             Title = "Ambar Listesi";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
-            GetWarehousesCommand = new Command(async () => await LoadData());
+			GetDataCommand = new Command(async () => await LoadData());
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
         }
@@ -82,6 +82,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
             }
         }
+        [RelayCommand]
         async Task GetWarehousesAsync()
         {
             if (IsBusy)
@@ -96,18 +97,29 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 
                 var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                foreach (Warehouse item in result.Data)
+                if (result.IsSuccess)
                 {
-                    Items.Add(item);
-                    Results.Add(item);
+                    Items.Clear();
+                    Results.Clear();
+					foreach (Warehouse item in result.Data)
+					{
+						Items.Add(item);
+						Results.Add(item);
+					}
                 }
+                else
+                {
+					await Shell.Current.DisplayAlert(" Error: ", $"{result.Message}", "Tamam");
+
+				}
 
 
-            }
+
+			}
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -153,38 +165,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
             }
         }
 
-        [RelayCommand]
-        async Task ReloadAsync()
-        {
-            if (IsBusy)
-                return;
-            try
-            {
-                IsBusy = true;
-                IsRefreshing = true;
-                var httpClient = _httpClientService.GetOrCreateHttpClient();
-
-                var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                foreach (Warehouse item in result.Data)
-                {
-                    Items.Add(item);
-                    Results.Add(item);
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-            }
-            finally
-            {
-                IsBusy = false;
-                IsRefreshing = false;
-            }
-        }
-
+         
         [RelayCommand]
         async Task SortAsync()
         {
@@ -227,8 +208,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
                             }
                             break;
                         default:
-                            await ReloadAsync();
-                            break;
+							Results.Clear();
+							foreach (var item in Items.OrderBy(x => x.Name).ToList())
+							{
+								Results.Add(item);
+							}
+							break;
 
                     }
                 }

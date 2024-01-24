@@ -15,10 +15,10 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
 	[QueryProperty(nameof(Current), nameof(Current))]
-    [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 
-    public partial class DispatchByPurchaseOrderFicheViewModel : BaseViewModel
-    {
+	public partial class DispatchByPurchaseOrderFicheViewModel : BaseViewModel
+	{
 
 		IHttpClientService _httpClientService;
 		IPurchaseOrderService _purchaseOrderService;
@@ -26,12 +26,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		[ObservableProperty]
 		Supplier current;
 
-        [ObservableProperty]
-        Warehouse warehouse;
+		[ObservableProperty]
+		Warehouse warehouse;
 
 
-        //Properties
-        [ObservableProperty]
+		//Properties
+		[ObservableProperty]
 		string searchText = string.Empty;
 		[ObservableProperty]
 		PurchaseOrderOrderBy orderBy = PurchaseOrderOrderBy.dateasc;
@@ -51,8 +51,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		public Command SelectAllCommand { get; }
 
 
-		public DispatchByPurchaseOrderFicheViewModel(IHttpClientService httpClientService,IPurchaseOrderService purchaseOrderService)
-        {
+		public DispatchByPurchaseOrderFicheViewModel(IHttpClientService httpClientService, IPurchaseOrderService purchaseOrderService)
+		{
 			Title = "Fiş Seçimi";
 			_purchaseOrderService = purchaseOrderService;
 			_httpClientService = httpClientService;
@@ -97,23 +97,32 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				var result = await _purchaseOrderService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient, SearchText, OrderBy, Current.ReferenceId,Warehouse.Number, CurrentPage, PageSize);
-				if (Items.Any())
+				var result = await _purchaseOrderService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient, SearchText, OrderBy, Current.ReferenceId, Warehouse.Number, CurrentPage, PageSize);
+				if (result.IsSuccess)
 				{
-					Items.Clear();
-					Result.Clear();
+					if (Items.Any())
+					{
+						Items.Clear();
+						Result.Clear();
+					}
+					foreach (var item in result.Data)
+					{
+						var obj = Mapping.Mapper.Map<WaitingOrder>(item);
+						Items.Add(obj);
+						Result.Add(obj);
+					}
 				}
-				foreach (var item in result.Data)
+				else
 				{
-					var obj = Mapping.Mapper.Map<WaitingOrder>(item);
-					Items.Add(obj);
-					Result.Add(obj);
-				} 
+					await Shell.Current.DisplayAlert("Error: ", $"{result.Message}", "Tamam");
+
+				}
+
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -133,7 +142,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					{
 						SearchText = text;
 						Result.Clear();
-						foreach(var item in Items.ToList().Where(x=>x.Code.Contains(SearchText)))
+						foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText)))
 						{
 							Result.Add(item);
 						}
@@ -212,7 +221,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 							{
 								Result.Add(item);
 							}
-							break; 
+							break;
 						default:
 							Result.Clear();
 							foreach (var item in Items.ToList().OrderByDescending(x => x.Date))
@@ -246,8 +255,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			{
 				if (SelectedOrders.Count > 0)
 				{
-					 
- 					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
+
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineListView)}", new Dictionary<string, object>
 					{
 						[nameof(SelectedOrders)] = SelectedOrders,
 						["Warehouse"] = Warehouse
@@ -276,7 +285,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				{
 					Result.Add(item);
 					item.IsSelected = true;
- 				}
+				}
 			}
 			else
 			{
