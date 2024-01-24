@@ -245,7 +245,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         {
             if (SelectedShipInfo == null)
             {
-                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Sevk adresi seçimi yapmanız gerekmektedir", "Tamam");
             }
             else
             {
