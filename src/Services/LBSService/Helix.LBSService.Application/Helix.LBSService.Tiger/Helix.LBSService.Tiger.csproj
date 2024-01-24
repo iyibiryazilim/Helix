@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <COMReference Include="UnityObjects">
       <WrapperTool>tlbimp</WrapperTool>
@@ -17,13 +15,10 @@
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-
   <ItemGroup>
     <None Include="Models\TigerAPI.Entity.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
-
 </Project>
