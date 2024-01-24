@@ -618,9 +618,70 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 				return dataResult;
 			}
 		}
-	}
+		public async Task<DataResult<IEnumerable<CustomerTransactionLine>>> GetTransactionLineByTransactionTypeAndWarehouseAsync(HttpClient httpclient, string search, CustomerTransactionLineOrderBy orderBy, int currentId,int warehouseNumber,string TransactionType, int page, int pageSize)
+		{
+			HttpResponseMessage responseMessage = await httpclient.GetAsync(postUrl + $"/CurrentAndWarehouse/Id/{currentId}&{TransactionType}&{warehouseNumber}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			DataResult<IEnumerable<CustomerTransactionLine>> dataResult = new DataResult<IEnumerable<CustomerTransactionLine>>();
+			if (responseMessage.IsSuccessStatusCode)
+			{
+				var data = await responseMessage.Content.ReadAsStringAsync();
+				if (data != null)
+				{
+					if (!string.IsNullOrEmpty(data))
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<CustomerTransactionLine>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
 
-	public enum CustomerTransactionLineOrderBy
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "success";
+						return dataResult;
+
+					}
+					else
+					{
+						var result = JsonSerializer.Deserialize<DataResult<IEnumerable<CustomerTransactionLine>>>(data, new JsonSerializerOptions
+						{
+							PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+						});
+
+						dataResult.Data = result?.Data;
+						dataResult.IsSuccess = true;
+						dataResult.Message = "empty";
+						return dataResult;
+					}
+
+				}
+				else
+				{
+					var result = JsonSerializer.Deserialize<DataResult<IEnumerable<CustomerTransactionLine>>>(data, new JsonSerializerOptions
+					{
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+					});
+
+					dataResult.Data = Enumerable.Empty<CustomerTransactionLine>();
+					dataResult.IsSuccess = false;
+					dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+
+					return dataResult;
+				}
+
+
+			}
+			else
+			{
+				dataResult.Data = Enumerable.Empty<CustomerTransactionLine>();
+				dataResult.IsSuccess = false;
+				dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+				return dataResult;
+			}
+		}
+
+    }
+
+    public enum CustomerTransactionLineOrderBy
 	{
 		namedesc,
 		nameasc,

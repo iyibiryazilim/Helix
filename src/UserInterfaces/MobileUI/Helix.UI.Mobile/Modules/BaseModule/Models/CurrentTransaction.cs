@@ -10,18 +10,17 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
         DateTime? transactionDate;
         [ObservableProperty]
         TimeSpan? transactionTime;
+
         [ObservableProperty]
-        int convertedTime;
-        [ObservableProperty]
-        int orderReference;
+        int? orderReference;
         [ObservableProperty]
         string code;
         [ObservableProperty]
-        short groupType;
+        short? groupType;
         [ObservableProperty]
-        short iOType;
+        short? iOType;
         [ObservableProperty]
-        short transactionType;
+        short? transactionType;
 		public string TransactionTypeName
 		{
 			get
@@ -71,21 +70,21 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 			}
 		}
 		[ObservableProperty]
-        int divisionReferenceId;
+        int? divisionReferenceId;
         [ObservableProperty]
-        short divisionNumber;
+        short? divisionNumber;
         [ObservableProperty]
         string divisionCountry;
         [ObservableProperty]
         string divisionCity;
         [ObservableProperty]
-        int warehouseReferenceId;
+        int? warehouseReferenceId;
         [ObservableProperty]
         string warehouseName;
         [ObservableProperty]
-        short warehouseNumber;
+        short? warehouseNumber;
         [ObservableProperty]
-        int currentReferenceId;
+        int? currentReferenceId;
         [ObservableProperty]
         string currentCode;
         [ObservableProperty]
@@ -99,13 +98,13 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
         [ObservableProperty]
         string description;
         [ObservableProperty]
-        short dispatchType;
+        short? dispatchType;
         [ObservableProperty]
-        int carrierReferenceId;
+        int? carrierReferenceId;
         [ObservableProperty]
         string carrierCode;
         [ObservableProperty]
-        int driverReferenceId;
+        int? driverReferenceId;
         [ObservableProperty]
         string driverFirstName;
         [ObservableProperty]
@@ -115,7 +114,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
         [ObservableProperty]
         string plaque;
         [ObservableProperty]
-        int shipInfoReferenceId;
+        int? shipInfoReferenceId;
         [ObservableProperty]
         string shipInfoCode;
         [ObservableProperty]
@@ -123,7 +122,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
         [ObservableProperty]
         string speCode;
         [ObservableProperty]
-        short dispatchStatus;
+        short? dispatchStatus;
         [ObservableProperty]
         short isEDispatch;
         [ObservableProperty]
@@ -131,11 +130,11 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
         [ObservableProperty]
         string docTrackingNumber;
         [ObservableProperty]
-        short isEInvoice;
+        short? isEInvoice;
         [ObservableProperty]
-        short eDispatchProfileId;
+        short? eDispatchProfileId;
         [ObservableProperty]
-        short eInvoiceProfileId;
+        short? eInvoiceProfileId;
 
 		public Microsoft.Maui.Graphics.Color ListColor
 		{

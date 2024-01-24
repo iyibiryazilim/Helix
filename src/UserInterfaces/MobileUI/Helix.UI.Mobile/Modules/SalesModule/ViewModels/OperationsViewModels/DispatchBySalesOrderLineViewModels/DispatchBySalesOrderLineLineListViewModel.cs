@@ -93,7 +93,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 			{
 				IsBusy = true;
 				IsRefreshing = true;
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
+                IsRefreshing = false;
+
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				await GetWarehouseTotalAsync(httpClient);
 				await GetLinesFromFiche(httpClient);

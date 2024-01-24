@@ -227,5 +227,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.SupplierViewModels
 				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
-	}
+
+        
+    }
 }

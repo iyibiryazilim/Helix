@@ -160,5 +160,24 @@ namespace Helix.SalesService.Infrastructure.Repository
 				throw;
 			}
 		}
-	}
+	
+		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAndWarehouseNumberAsync(string search, string orderBy, int currentId,int warehouseNumber, string TransactionType, int page, int pageSize)
+		{
+			try
+			{
+				var result = await new SqlQueryHelper<CustomerTransaction>().GetObjectsAsync(new CustomerTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAndWarehouseAsync(search, orderBy, currentId,warehouseNumber ,TransactionType, page, pageSize));
+				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+				return result;
+
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+				throw;
+			}
+		}
+
+    }
 }

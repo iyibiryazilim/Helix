@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.DispatchTransactionContentView">
+    <Border BackgroundColor="{StaticResource White}"
+         StrokeThickness="0"
+         Padding="5,20,5,10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        <Grid RowDefinitions="Auto,Auto,*,Auto"
+           RowSpacing="10"
+           BackgroundColor="Transparent">
+            <Grid Grid.Row="0">
+                <Border StrokeShape="RoundRectangle 20">
+                    <Grid ColumnDefinitions="*,auto">
+                        <Grid Grid.Column="0">
+                            <SearchBar Placeholder="Ara"
+                                    x:Name="searchBar">
+                                <SearchBar.Behaviors>
+                                    <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                                 Command="{Binding Source={x:Reference this},Path=SearchCommand,Mode=TwoWay}"
+                                                                 CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+                                </SearchBar.Behaviors>
+                            </SearchBar>
+                        </Grid>
+                        <Grid Grid.Column="1"
+                           Padding="0,0,20,0">
+                            <ImageButton Aspect="AspectFit"
+                                      HeightRequest="25"
+                                      WidthRequest="25"
+                                      Command="{Binding Source={x:Reference this},Path=SortCommand}">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FAS"
+                                                  Color="{StaticResource Primary}"
+                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"></FontImageSource>
+                                </ImageButton.Source>
+                            </ImageButton>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+            <HorizontalStackLayout Grid.Row="1"
+                                Spacing="10"
+                                Margin="5">
+                <CheckBox  HeightRequest="18"
+                        WidthRequest="18"
+                        HorizontalOptions="Start"
+                        x:Name="checkBox">
+                    <CheckBox.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged"
+                                                     CommandParameter="{Binding IsChecked, Source={x:Reference checkBox}}"
+                                                     Command="{Binding Source={x:Reference this},Path=CheckedChangeCommand,Mode=TwoWay}" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label Text="Tümünü Seç" />
+            </HorizontalStackLayout>
+            <RefreshView Grid.Row="2"
+                      IsRefreshing="{Binding Source={x:Reference this},Path= IsRefreshing,Mode=OneWay}"
+                      Command="{Binding Source={x:Reference this},Path=ReloadCommand}"
+                      RefreshColor="{StaticResource DarkPrimary}">
+                <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= DispatchTransactionList}"
+                             EmptyView="Veri yok...">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                        ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="baseModel:DispatchTransaction">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem BackgroundColor="{StaticResource Success}"
+                                                Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectCommand}"
+                                                CommandParameter="{Binding .}"
+                                                Text=" Fiş Seç" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <toolkit:Expander x:Name="expander">
+                                    <toolkit:Expander.Header>
+                                        <Border BackgroundColor="White"
+                                             StrokeShape="RoundRectangle 10"
+                                             Padding="10">
+                                            <Border.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected}"
+                                                          TargetType="Border"
+                                                          Value="True">
+                                                    <Setter Property="BackgroundColor"
+                                                         Value="{StaticResource Primary}" />
+                                                </DataTrigger>
+                                            </Border.Triggers>
+                                            <Grid ColumnDefinitions="Auto,Auto,*,Auto"
+                                               ColumnSpacing="10"
+                                               Padding="0,0,10,0">
+                                                <VerticalStackLayout Grid.Column="1"
+                                                                  Spacing="4"
+                                                                  Padding="10">
+                                                    <Label FontAttributes="Bold"
+                                                        FontSize="Medium"
+                                                        HorizontalOptions="Center"
+                                                        TextColor="{StaticResource Primary}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding TransactionDate, StringFormat='{0:dd}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                               Binding="{Binding IsSelected}"
+                                                                               Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                             Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                    <Label FontAttributes="Bold"
+                                                        FontSize="Default"
+                                                        HorizontalOptions="Center"
+                                                        TextColor="{StaticResource Gray400}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding TransactionDate, StringFormat='{0:MM.yyyy}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                               Binding="{Binding IsSelected}"
+                                                                               Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                             Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                    <Label FontAttributes="Bold"
+                                                        FontSize="Micro"
+                                                        HorizontalOptions="Center"
+                                                        TextColor="{StaticResource Gray400}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding TransactionTime, StringFormat='{0:c}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                               Binding="{Binding IsSelected}"
+                                                                               Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                             Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="2"
+                                                                  VerticalOptions="Center"
+                                                                  Spacing="5">
+                                                    <Label Text="{Binding Code}"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold">
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                               Binding="{Binding IsSelected}"
+                                                                               Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                             Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                    <Label Text=""
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold">
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                               Binding="{Binding IsSelected}"
+                                                                               Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                             Value="{StaticResource White}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                    <Label Text="{Binding ShipInfoName}"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold">
+                                                        <Label.Style>
+                                                            <Style TargetType="Label">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger  TargetType="Label"
+                                                                               Binding="{Binding IsSelected}"
+                                                                               Value="True">
+                                                                        <Setter Property="TextColor"
+                                                                             Value="{StaticResource Warning}" />
+                                                                        <!-- Multiple Setter elements are allowed -->
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Label.Style>
+                                                    </Label>
+                                                </VerticalStackLayout>
+                                                <Image Grid.Column="3"
+                                                    HorizontalOptions="Center"
+                                                    HeightRequest="15"
+                                                    Margin="0,0,10,0">
+                                                    <Image.Source>
+                                                        <FontImageSource FontFamily="FAS"
+                                                                      Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"></FontImageSource>
+                                                    </Image.Source>
+                                                    <Image.Triggers>
+                                                        <DataTrigger TargetType="Image"
+                                                                  Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                                                  Value="True">
+                                                            <Setter Property="Rotation"
+                                                                 Value="180"></Setter>
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                            </Grid>
+                                        </Border>
+                                    </toolkit:Expander.Header>
+                                    <toolkit:Expander.Content>
+                                        <VerticalStackLayout Margin="20,10,5,0"
+                                                          Spacing="4">
+                                            <VerticalStackLayout Spacing="4">
+                                                <Label Text="Fiş Türü"
+     TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding TransactionTypeName}" />
+                                                <Label Text="Fiş Numarası"
+                                                    TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding Code}" />
+                                                <BoxView WidthRequest="0.1" />
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Spacing="4">
+                                                <Label Text="Açıklama"
+                                                    TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding Description}" />
+                                                <Label Text="Ambar"
+                                                    TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding WarehouseName}" />
+                                                <Label Text="Döküman İzleme Numarası"
+                                                    TextColor="{StaticResource Primary}" />
+                                                <Label Text="" />
+                                                <BoxView WidthRequest="0.1" />
+                                                <Label Text="Belge Numarası"
+                                                    TextColor="{StaticResource Primary}" />
+                                                <Label Text="{Binding DocTrackingNumber}" />
+                                            </VerticalStackLayout>
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander.Content>
+                                </toolkit:Expander>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Grid Grid.Row="3">
+                <Button Text="İleri"
+                     Margin="10,10,10,20"
+                     Command="{Binding Source={x:Reference this},Path=GoToNextCommand}"></Button>
+            </Grid>
+        </Grid>
+    </Border>
+</ContentView>

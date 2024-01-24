@@ -1,54 +1,57 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
-using Helix.UI.Mobile.Modules.BaseModule.Models;
-using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
-using Helix.UI.Mobile.Modules.PurchaseModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.DataStores;
-using Helix.UI.Mobile.Modules.SalesModule.Services;
+using Helix.UI.Mobile.Modules.BaseModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.MVVMHelper;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore;
 
-namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels
+namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels
 {
-    public partial class ReturnByPurchaseDispatchTransactionCustomerViewModel :BaseViewModel
+    [QueryProperty(nameof(Current), nameof(Current))]
+
+    public partial class ReturnBySalesDispatchTransactionWarehouseListViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
-        private readonly ISupplierService _supplierService;
+        private readonly IWarehouseService _warehouseService;
+        ICustomQueryService _customQueryService;
         //Lists
-        public ObservableCollection<Current> Items { get; } = new();
-        public ObservableCollection<Current> Results { get; } = new();
+        public ObservableCollection<Warehouse> Items { get; } = new();
+        public ObservableCollection<Warehouse> Results { get; } = new();
 
-
-        //[ObservableProperty]
-        //Current selectedSupplier;
 
         //Commands
-        public Command GetSupplierCommand { get; }
+        public Command GetWarehousesCommand { get; }
         public Command SearchCommand { get; }
 
         //Properties
         [ObservableProperty]
         string searchText = string.Empty;
         [ObservableProperty]
-        SupplierOrderBy orderBy = SupplierOrderBy.nameasc;
+        WarehouseOrderBy orderBy = WarehouseOrderBy.numberasc;
         [ObservableProperty]
         int currentPage = 0;
         [ObservableProperty]
-        int pageSize = 5000;
+        int pageSize = 1000;
 
-        public ReturnByPurchaseDispatchTransactionCustomerViewModel(IHttpClientService httpClientService, ISupplierService supplierService )
+        [ObservableProperty]
+        Warehouse selectedWarehouse;
+
+        [ObservableProperty]
+        Customer current;
+
+        public ReturnBySalesDispatchTransactionWarehouseListViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomQueryService customQueryService)
         {
-            Title = "Tedarikçi Listesi";
+            Title = "Ambar Listesi";
             _httpClientService = httpClientService;
-            _supplierService = supplierService;
-            GetSupplierCommand = new Command(async () => await LoadData());
+            _warehouseService = warehouseService;
+            _customQueryService = customQueryService;
+            GetWarehousesCommand = new Command(async () => await LoadData());
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
         }
@@ -60,7 +63,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             try
             {
                 await Task.Delay(500);
-                await MainThread.InvokeOnMainThreadAsync(GetSuppliersAsync);
+                await MainThread.InvokeOnMainThreadAsync(GetWarehousesAsync);
 
             }
             catch (Exception ex)
@@ -75,7 +78,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
             }
         }
-        async Task GetSuppliersAsync()
+        async Task GetWarehousesAsync()
         {
             if (IsBusy)
                 return;
@@ -83,16 +86,16 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
+
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                var result = await _supplierService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                foreach (Current item in result.Data)
+
+                var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+                foreach (Warehouse item in result.Data)
                 {
-                    if (item.ReferenceCount > 0)
-                    {
-                        Items.Add(item);
-                        Results.Add(item);
-                    }
+                    Items.Add(item);
+                    Results.Add(item);
                 }
 
 
@@ -100,7 +103,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -120,7 +123,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                     {
                         SearchText = text;
                         Results.Clear();
-                        foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
+                        foreach (var item in Items.ToList().Where(x => x.Name.Contains(SearchText) || x.LastTransactionDate.ToString().Contains(SearchText)))
                         {
                             Results.Add(item);
                         }
@@ -139,14 +142,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Search Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
                 IsBusy = false;
             }
         }
-
-
 
         [RelayCommand]
         async Task ReloadAsync()
@@ -159,14 +161,11 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                var result = await _supplierService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-                foreach (Current item in result.Data)
+                var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+                foreach (Warehouse item in result.Data)
                 {
-                    if (item.ReferenceCount > 0)
-                    {
-                        Items.Add(item);
-                        Results.Add(item);
-                    }
+                    Items.Add(item);
+                    Results.Add(item);
                 }
 
 
@@ -174,7 +173,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -189,23 +188,23 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             if (IsBusy) return;
             try
             {
-                string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A");
+                string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Numara A-Z", "Numara Z-A", "Ad A-Z", "Ad Z-A");
                 if (!string.IsNullOrEmpty(response))
                 {
                     CurrentPage = 0;
                     await Task.Delay(100);
                     switch (response)
                     {
-                        case "Kod A-Z":
+                        case "Numara A-Z":
                             Results.Clear();
-                            foreach (var item in Items.OrderBy(x => x.Code).ToList())
+                            foreach (var item in Items.OrderBy(x => x.Number).ToList())
                             {
                                 Results.Add(item);
                             }
                             break;
-                        case "Kod Z-A":
+                        case "Numara Z-A":
                             Results.Clear();
-                            foreach (var item in Items.OrderByDescending(x => x.Code).ToList())
+                            foreach (var item in Items.OrderByDescending(x => x.Number).ToList())
                             {
                                 Results.Add(item);
                             }
@@ -243,22 +242,41 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             }
         }
 
+        [RelayCommand]
+        async Task GoToTransaction()
+        {
+            if (SelectedWarehouse == null)
+            {
+                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionFicheListView)}", new Dictionary<string, object>
+                {
+                    ["Warehouse"] = SelectedWarehouse,
+                    ["Current"] = Current,
+                });
+            }
 
+        }
 
-        //[RelayCommand]
-        //private void ToggleSelection(Current item)
-        //{
-        //    item.IsSelected = !item.IsSelected;
-        //    if (SelectedSupplier != null)
-        //    {
-        //        SelectedSupplier.IsSelected = false;
-        //    }
-        //    if (item.IsSelected)
-        //    {
-        //        SelectedSupplier = item;
-        //    }
-        //}
-
-
+        [RelayCommand]
+        private void ToggleSelection(Warehouse item)
+        {
+            if (item == SelectedWarehouse)
+            {
+                SelectedWarehouse.IsSelected = false;
+                SelectedWarehouse = null;
+            }
+            else
+            {
+                if (SelectedWarehouse != null)
+                {
+                    SelectedWarehouse.IsSelected = false;
+                }
+                SelectedWarehouse = item;
+                SelectedWarehouse.IsSelected = true;
+            }
+        }
     }
 }

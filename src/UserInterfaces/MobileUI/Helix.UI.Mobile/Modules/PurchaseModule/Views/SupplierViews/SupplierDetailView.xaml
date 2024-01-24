@@ -21,6 +21,9 @@
     <sharedViews:CurrentDetailContentView  Current="{Binding Current}"
                                            IsRefreshing="{Binding IsRefreshing}"
                                            IsBusy="{Binding IsBusy}"
+                                           ProductList="{Binding TopProducts}"
+                                           GoToDetailCommand="{Binding GoToDetailCommand}"
+                                           SubTitle="{Binding SubTitle}"
                                            OpenShowMoreBottomSheetCommand="{Binding OpenShowMoreBottomSheetCommand}"
                                            OpenFastOperationBottomSheetCommand="{Binding OpenFastOperationBottomSheetCommand}"
                                            TransactionList="{Binding Items}"></sharedViews:CurrentDetailContentView>

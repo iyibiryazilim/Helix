@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
@@ -67,7 +68,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
             }
         }
+
         async Task GetShipInfosAsync()
+
         {
             if (IsBusy)
                 return;
@@ -75,13 +78,15 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
+
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
                 var result = await _shipInfoService.GetObjectsByCurrentId(httpClient,Current.ReferenceId);
-                if(result.Data.Count()==0)
+				if (result.Data.Count() == 0)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
+                    await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionWarehouseListView)}", new Dictionary<string, object>
                     {
                         ["ShipInfo"] = SelectedShipInfo,
                         ["Current"] = Current
@@ -107,6 +112,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsRefreshing = false;
             }
         }
+
         public async Task PerformSearchAsync(string text)
         {
             if (IsBusy)
@@ -245,7 +251,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
+                await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionWarehouseListView)}", new Dictionary<string, object>
                 {
                     ["ShipInfo"] = SelectedShipInfo,
                     ["Current"] = Current

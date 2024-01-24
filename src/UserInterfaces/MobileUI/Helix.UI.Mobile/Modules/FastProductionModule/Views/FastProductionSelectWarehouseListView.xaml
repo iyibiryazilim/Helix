@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.FastProductionModule.Views.FastProductionSelectWarehouseListView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.FastProductionModule.ViewModels"
+             x:DataType="viewModel:FastProductionSelectWarehouseListViewModel"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding GetWarehousesCommand}" />
+    </ContentPage.Behaviors>
+    <sharedViews:WarehouseSelectContentView IsBusy="{Binding IsBusy}"
+                                            IsRefreshing="{Binding IsRefreshing}"
+                                            WarehouseList="{Binding Results}"
+                                            SearchCommand="{Binding SearchCommand}"
+                                            SortCommand="{Binding SortCommand}"
+                                            ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
+                                            ReloadCommand="{Binding ReloadCommand}"
+                                            GoToNextCommand="{Binding GoToFastProductionSelectProductListViewCommand}"/>
+</ContentPage>

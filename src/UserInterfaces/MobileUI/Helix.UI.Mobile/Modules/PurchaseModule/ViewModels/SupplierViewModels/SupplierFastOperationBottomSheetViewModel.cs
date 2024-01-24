@@ -22,7 +22,7 @@ public partial class SupplierFastOperationBottomSheetViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderFicheView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderWarehouseListView)}", new Dictionary<string, object>
 			{
 				[nameof(Current)] = Current
 			});
@@ -45,7 +45,7 @@ public partial class SupplierFastOperationBottomSheetViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineLineListView)}", new Dictionary<string, object>
+			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineWarehouseListView)}", new Dictionary<string, object>
 			{
 				[nameof(Current)] = Current
 			});

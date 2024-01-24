@@ -159,5 +159,40 @@ namespace Helix.PurchaseService.Infrastructure.Repository
                 throw;
             }
         }
+        public async Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAndWarehouseAsync(string search, string orderBy, int currentId, int warehouseNumber,string TransactionType, int page, int pageSize)
+        {
+            try
+            {
+                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAndWarehouseAsync(search, orderBy, currentId, warehouseNumber, TransactionType, page, pageSize));
+                _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+                throw;
+            }
+        }
+        public async Task<DataResult<IEnumerable<SupplierTransaction>>> GetTransactionByTransactionTypeAndWarehouseAndShipInfoAsync(string search, string orderBy, int currentId, int warehouseNumber,int shipInfoReferenceId, string TransactionType, int page, int pageSize)
+        {
+            try
+            {
+                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAndWarehouseAndShipInfoAsync(search, orderBy, currentId, warehouseNumber,shipInfoReferenceId, TransactionType, page, pageSize));
+                _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+
+                throw;
+            }
+        }
+
     }
 }
