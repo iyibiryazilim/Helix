@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                   x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews.ReturnByPurchaseDispatchTransactionLineChangeBottomSheetView"
+                   x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderLineViews.DispatchByPurchaseOrderLineChangeBottomSheetView"
+                   xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels"
+                   x:DataType="viewModel:DispatchByPurchaseOrderLineChangeViewModel"
                    xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
-                   xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels"
-                   x:DataType="viewModel:ReturnByPurchaseDispatchTransactionLineChangeViewModel"
                    xmlns:sharedView="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
                    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                    BackgroundColor="White"
@@ -22,12 +22,12 @@
         <!-- Stop at 120dp -->
         <the49:HeightDetent Height="600" />
     </the49:BottomSheet.Detents>
-    <sharedView:DispatchSelectedLineListContentView GroupLine="{Binding LineGroup}"
+    <sharedView:SelectedLineListContentView          GroupLine="{Binding LineGroup}"
                                                     Code="{Binding LineGroup.Code}"
                                                     Name="{Binding LineGroup.Name}"
                                                     StockQuantity="{Binding LineGroup.StockQuantity}"
                                                     TempQuantity="{Binding LineGroup.LineQuantity}"
                                                     Image="{Binding LineGroup.Image}"
                                                     SubUnitsetCode="{Binding LineGroup.SubUnitsetCode}"
-                                                    LineList="{Binding Result}"></sharedView:DispatchSelectedLineListContentView>
+                                                    LineList="{Binding Result}"></sharedView:SelectedLineListContentView>
 </the49:BottomSheet>

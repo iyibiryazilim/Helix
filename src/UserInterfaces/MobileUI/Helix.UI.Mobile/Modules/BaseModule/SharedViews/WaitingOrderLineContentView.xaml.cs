@@ -19,8 +19,7 @@ public partial class WaitingOrderLineContentView : ContentView
 	public static readonly BindableProperty SortCommandProperty = BindableProperty.Create(nameof(SortCommand), typeof(AsyncRelayCommand), typeof(WaitingOrderLineContentView), null);
 	public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(nameof(SearchCommand), typeof(Command), typeof(WaitingOrderLineContentView), null);
 	public static readonly BindableProperty GoToNextCommandProperty = BindableProperty.Create(nameof(GoToNextCommand), typeof(AsyncRelayCommand), typeof(WaitingOrderLineContentView), null);
-	public static readonly BindableProperty ToggleSelectionCommandProperty = BindableProperty.Create(nameof(ToggleSelectionCommand), typeof(AsyncRelayCommand), typeof(WaitingOrderLineContentView), null); 
-	public static readonly BindableProperty CheckedChangeCommandProperty = BindableProperty.Create(nameof(CheckedChangeCommand), typeof(Command), typeof(WaitingOrderLineContentView), null);
+ 	public static readonly BindableProperty CheckedChangeCommandProperty = BindableProperty.Create(nameof(CheckedChangeCommand), typeof(Command), typeof(WaitingOrderLineContentView), null);
 
 
 
@@ -40,11 +39,7 @@ public partial class WaitingOrderLineContentView : ContentView
 		get => GetValue(ReloadCommandProperty) as AsyncRelayCommand;
 		set => SetValue(ReloadCommandProperty, value);
 	}
-	public AsyncRelayCommand ToggleSelectionCommand
-	{
-		get => GetValue(ToggleSelectionCommandProperty) as AsyncRelayCommand;
-		set => SetValue(ToggleSelectionCommandProperty, value);
-	}
+	 
 	public AsyncRelayCommand GoToNextCommand
 	{
 		get => GetValue(GoToNextCommandProperty) as AsyncRelayCommand;

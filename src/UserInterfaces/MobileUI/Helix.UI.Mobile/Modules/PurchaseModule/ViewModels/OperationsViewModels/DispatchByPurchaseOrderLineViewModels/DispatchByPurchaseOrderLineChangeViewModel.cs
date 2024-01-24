@@ -5,35 +5,34 @@ using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-
-namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels
+namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels
 {
-	public partial class ReturnByPurchaseDispatchTransactionLineChangeViewModel : BaseViewModel
-	{
+	public partial class DispatchByPurchaseOrderLineChangeViewModel : BaseViewModel
+    {
 		[ObservableProperty]
-		DispatchTransactionLineGroup lineGroup;
+		WaitingOrderLineGroup lineGroup;
 
-		public ObservableCollection<DispatchTransactionLine> Result { get; } = new();
+		public ObservableCollection<WaitingOrderLine> Result { get; } = new();
 
-		public ReturnByPurchaseDispatchTransactionLineChangeViewModel()
-		{
+        public DispatchByPurchaseOrderLineChangeViewModel()
+        {
 			LoadDataCommand = new Command(async () => await LoadData());
 
 		}
 		public Command LoadDataCommand { get; }
 
 		[RelayCommand]
-		public async Task DeleteQuantityAsync(DispatchTransactionLine line)
+		public async Task DeleteQuantityAsync(WaitingOrderLine line)
 		{
 			var quantityChange = 1;
 
 			if (LineGroup != null && LineGroup.LineQuantity >= 0)
 			{
-				if (line.TempQuantity != 0)
+				if (line.FifoQuantity != 0)
 				{
 					LineGroup.LineQuantity -= quantityChange;
 
-					line.TempQuantity -= quantityChange;
+					line.FifoQuantity -= quantityChange;
 				}
 
 			}
@@ -45,14 +44,14 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		}
 
 		[RelayCommand]
-		public async Task AddQuantityAsync(DispatchTransactionLine line)
+		public async Task AddQuantityAsync(WaitingOrderLine line)
 		{
 			var quantityChange = 1;
 
-			if (LineGroup != null && LineGroup.LineQuantity + quantityChange <= LineGroup.StockQuantity && line.TempQuantity + quantityChange <= line.Quantity)
+			if (LineGroup != null && LineGroup.LineQuantity + quantityChange <= LineGroup.StockQuantity && line.FifoQuantity + quantityChange <= line.Quantity)
 			{
 				LineGroup.LineQuantity += quantityChange;
-				line.TempQuantity += quantityChange;
+				line.FifoQuantity += quantityChange;
 			}
 
 		}
@@ -84,7 +83,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			try
 			{
 				IsBusy = true;
-				foreach (var item in LineGroup.Lines)
+				foreach (var item in LineGroup.WaitingOrderLines)
 				{
 					Result.Add(item);
 				}
