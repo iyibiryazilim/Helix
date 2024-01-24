@@ -10,12 +10,12 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels
 {
-	[QueryProperty(nameof(WaitingOrderLine), nameof(WaitingOrderLine))]
+	[QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
 
 	public partial class DispatchByPurchaseOrderLineSummaryViewModel : BaseViewModel
     {
 		[ObservableProperty]
-		ObservableCollection<WaitingOrderLine> waitingOrderLine;
+		ObservableCollection<WaitingOrderLine> changedLines;
 		[ObservableProperty]
 		Current current;
 
@@ -59,8 +59,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				IsBusy = true;
 				Current = new Supplier()
 				{
-					Code = WaitingOrderLine.First().CurrentCode,
-					Name = WaitingOrderLine.First().CurrentName
+					Code = ChangedLines.First().CurrentCode,
+					Name = ChangedLines.First().CurrentName
 				};
 
 				 
@@ -82,7 +82,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			await Task.Delay(500);
 			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineFormView)}", new Dictionary<string, object>
 			{
-				[nameof(WaitingOrderLine)] = WaitingOrderLine
+				[nameof(ChangedLines)] = ChangedLines
 			});
 		}
 	}

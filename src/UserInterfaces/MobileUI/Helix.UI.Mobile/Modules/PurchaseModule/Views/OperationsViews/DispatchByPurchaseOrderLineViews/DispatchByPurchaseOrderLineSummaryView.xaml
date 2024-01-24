@@ -16,5 +16,5 @@
     </ContentPage.Behaviors>
     <sharedViews:WaitingOrderLineSummaryView Current="{Binding Current}"
                                              GoToNextCommand="{Binding GoToFormCommand}"
-                                             Lines="{Binding WaitingOrderLine}"></sharedViews:WaitingOrderLineSummaryView>
+                                             Lines="{Binding ChangedLines}"></sharedViews:WaitingOrderLineSummaryView>
 </ContentPage>

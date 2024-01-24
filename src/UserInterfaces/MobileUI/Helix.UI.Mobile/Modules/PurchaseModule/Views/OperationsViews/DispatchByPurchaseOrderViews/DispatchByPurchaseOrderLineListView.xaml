@@ -16,7 +16,6 @@
                                             IsBusy="{Binding IsBusy}"
                                             IsRefreshing="{Binding IsRefreshing}"
                                             ReloadCommand="{Binding GetLinesCommand}"
-                                            ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                             CheckedChangeCommand="{Binding SelectAllCommand}"
                                             WaitingOrderLineList="{Binding Result}"
                                             GoToNextCommand="{Binding GoToSummaryCommand}"
