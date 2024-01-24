@@ -13,10 +13,24 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels"
              x:DataType="viewModel:DispatchBySalesOrderLineLineChangeBottomSheetViewModel"
              >
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <the49:BottomSheet.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding LoadDataCommand}"
+                                     EventName="Loaded" />
+    </the49:BottomSheet.Behaviors>
+    <the49:BottomSheet.Detents>
+        <!-- Stop at the height of the screen -->
+        <the49:FullscreenDetent />
+        <!-- Stop at the height of the page content -->
+        <the49:ContentDetent />
+        <!-- Stop at 120dp -->
+        <the49:HeightDetent Height="600" />
+    </the49:BottomSheet.Detents>
+    <sharedViews:SelectedLineListContentView          GroupLine="{Binding LineGroup}"
+                                                 Code="{Binding LineGroup.Code}"
+                                                 Name="{Binding LineGroup.Name}"
+                                                 StockQuantity="{Binding LineGroup.StockQuantity}"
+                                                 TempQuantity="{Binding LineGroup.LineQuantity}"
+                                                 Image="{Binding LineGroup.Image}"
+                                                 SubUnitsetCode="{Binding LineGroup.SubUnitsetCode}"
+                                                 LineList="{Binding Result}"></sharedViews:SelectedLineListContentView>
 </the49:BottomSheet>

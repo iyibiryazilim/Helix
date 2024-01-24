@@ -23,12 +23,14 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 		IHttpClientService _httpClientService;
 		ISalesOrderLineService _salesOrderLineService;
 		IWarehouseTotalService _warehouseTotalService;
+		IServiceProvider _serviceProvider;
 
-		public DispatchBySalesOrderLineLineListViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService, IWarehouseTotalService warehouseTotalService)
+		public DispatchBySalesOrderLineLineListViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService, IWarehouseTotalService warehouseTotalService, IServiceProvider serviceProvider)
 		{
 			_httpClientService = httpClientService;
 			_salesOrderLineService = salesOrderLineService;
 			_warehouseTotalService = warehouseTotalService;
+			_serviceProvider = serviceProvider;
 
 			Title = "Bekleyen Sipariş Satırları";
 			GetOrderLinesCommand = new Command(async () => await LoadData());
@@ -57,9 +59,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
 		public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
 		public ObservableCollection<WaitingOrderLine> Lines { get; } = new();
+        public ObservableCollection<WaitingOrderLine> ChangedLines { get; } = new();
 
 
-		public Command GetOrderLinesCommand { get; }
+        public Command GetOrderLinesCommand { get; }
 		public Command SearchCommand { get; }
 		public Command SelectAllCommand { get; }
 		async Task LoadData()
@@ -413,29 +416,65 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 			}
 		}
 
-		[RelayCommand]
-		async Task GoToSalesOrderSummary()
-		{
-			try
-			{
-				if (SelectedWaitingOrderLineGroupList.Count(x => x.IsSelected) > 0)
-				{
-					await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineSelectedLineListView)}", new Dictionary<string, object>
-					{
-						[nameof(SelectedWaitingOrderLineGroupList)] = SelectedWaitingOrderLineGroupList
-					});
-				}
-				else
-				{
-					await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
-			}
+        [RelayCommand]
+        public async Task OpenBottomSheetAsync(WaitingOrderLineGroup model)
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
 
-		}
-	}
+                var thisModel = WaitingOrderLineGroupList.Where(x => x.Code == model.Code).FirstOrDefault();
+                DispatchBySalesOrderLineLineChangeBottomSheetViewModel viewModel = _serviceProvider.GetService<DispatchBySalesOrderLineLineChangeBottomSheetViewModel>();
+                DispatchBySalesOrderLineLineChangeBottomSheetView sheet = new(viewModel);
+                viewModel.LineGroup = thisModel;
+                await sheet.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        async Task GoToSummaryAsync()
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                foreach (var item in SelectedWaitingOrderLineGroupList.Where(x => x.IsSelected))
+                {
+                    foreach (var line in item.WaitingOrderLines.Where(x => x.TempQuantity > 0))
+                    {
+                        ChangedLines.Add(line);
+                    }
+                }
+                if (ChangedLines.Any())
+                {
+
+                    await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineSummaryView)}", new Dictionary<string, object>
+                    {
+                        [nameof(ChangedLines)] = ChangedLines
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+            }
+        }
+
+    }
 }
