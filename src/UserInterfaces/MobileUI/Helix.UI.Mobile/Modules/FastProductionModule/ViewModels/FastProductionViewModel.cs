@@ -167,6 +167,8 @@ public partial class FastProductionViewModel : BaseViewModel
 			IsBusy = true;
 
 			await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}");
+			FastProductionList.Clear();
+
 		}
 		catch(Exception ex)
 		{

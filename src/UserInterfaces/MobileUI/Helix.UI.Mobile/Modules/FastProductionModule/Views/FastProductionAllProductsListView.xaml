@@ -27,16 +27,21 @@
               ColumnDefinitions="Auto, *"
               ColumnSpacing="18">
             <Grid Grid.Column="0">
-                <ImageButton Aspect="AspectFit"
-                             Command="{Binding GoToBackCommand}"
-                             HeightRequest="20"
-                             WidthRequest="20">
-                    <ImageButton.Source>
-                        <FontImageSource FontFamily="FAS"
-                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowLeft}"
-                                         Color="{StaticResource White}" />
-                    </ImageButton.Source>
-                </ImageButton>
+                <Border BackgroundColor="Transparent" StrokeThickness="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToBackCommand}" />
+                    </Border.GestureRecognizers>
+                    <Image Aspect="AspectFit"
+                           HeightRequest="20"
+                           WidthRequest="20">
+
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowLeft}"
+                                             Color="{StaticResource White}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
             </Grid>
             <Label Grid.Column="1"
                    FontSize="Title"
@@ -46,9 +51,9 @@
                    VerticalOptions="Center" />
         </Grid>
         <Border Grid.Row="1"
-                Margin="0,30,0,0"
+                Margin="0,10,0,0"
                 Padding="5,20,5,10"
-                BackgroundColor="{StaticResource WhiteSmoke}"
+                BackgroundColor="{StaticResource White}"
                 StrokeThickness="0">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,0,0" />

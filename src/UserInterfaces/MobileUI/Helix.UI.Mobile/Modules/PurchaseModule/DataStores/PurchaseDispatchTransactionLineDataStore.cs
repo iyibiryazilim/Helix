@@ -7,7 +7,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 {
 	public class PurchaseDispatchTransactionLineDataStore : IPurchaseDispatchTransactionLineService
 	{
-		public string postUrl = $"gateway/purchase/" + nameof(PurchaseDispatchTransaction);
+		public string postUrl = $"gateway/purchase/" + nameof(PurchaseDispatchTransactionLine);
 
 		public async Task<DataResult<IEnumerable<PurchaseDispatchTransactionLine>>> GetByFicheNo(HttpClient httpClient, string BaseTransactionCode)
 		{

@@ -151,7 +151,7 @@ public partial class ProductDetailSalesOrderListViewModel : BaseViewModel
 
 		try
 		{
-			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Müşteri Adı A-Z", "Müşteri Adı Z-A", "Müşteri Kodu A-Z", "Müşteri Kodu Z-A");
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A");
 			if (!string.IsNullOrEmpty(response))
 			{
 				CurrentPage = 0;
@@ -182,23 +182,6 @@ public partial class ProductDetailSalesOrderListViewModel : BaseViewModel
 						OrderBy = SalesOrdersLineOrderBy.productcodedesc;
 						await ReloadAsync();
 						break;
-					case "Müşteri Adı A-Z":
-						OrderBy = SalesOrdersLineOrderBy.customernameasc;
-						await ReloadAsync();
-						break;
-					case "Müşteri Adı Z-A":
-						OrderBy = SalesOrdersLineOrderBy.customernamedesc;
-						await ReloadAsync();
-						break;
-					case "Müşteri Kodu A-Z":
-						OrderBy = SalesOrdersLineOrderBy.customercodeasc;
-						await ReloadAsync();
-						break;
-					case "Müşteri Kodu Z-A":
-						OrderBy = SalesOrdersLineOrderBy.customercodedesc;
-						await ReloadAsync();
-						break;
-
 					default:
 						await ReloadAsync();
 						break;

@@ -21,7 +21,7 @@
                                             SortCommand="{Binding SortCommand}"
                                             WaitingOrderLineList="{Binding Result}"
                                             IsBusy="{Binding IsBusy}"
-                                            GoToNextCommand="{Binding GoToSalesOrderSummaryCommand}"
+                                            GoToNextCommand="{Binding GoToSummaryCommand}"
                                             CheckedChangeCommand="{Binding SelectAllCommand}"
                                             IsRefreshing="{Binding IsRefreshing}"></sharedView:WaitingOrderLineContentView>
 </ContentPage>

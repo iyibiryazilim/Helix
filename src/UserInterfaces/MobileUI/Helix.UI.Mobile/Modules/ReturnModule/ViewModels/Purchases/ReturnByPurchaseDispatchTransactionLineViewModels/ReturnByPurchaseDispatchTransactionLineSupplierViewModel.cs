@@ -104,13 +104,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			}
 			catch (Exception ex)
 			{
+				IsRefreshing = false; 
 				Debug.WriteLine(ex);
 				await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
 			}
 		}
 		public async Task PerformSearchAsync(string text)

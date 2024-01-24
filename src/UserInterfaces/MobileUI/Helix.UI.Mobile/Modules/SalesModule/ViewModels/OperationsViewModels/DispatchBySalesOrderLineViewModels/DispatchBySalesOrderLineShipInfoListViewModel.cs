@@ -157,6 +157,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsBusy = true;
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
+                Items.Clear();
+                Results.Clear();
 
                 var result = await _shipInfoService.GetObjectsByCurrentId(httpClient, Current.ReferenceId);
                 foreach (ShipInfo item in result.Data)
@@ -243,7 +245,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         {
             if (SelectedShipInfo == null)
             {
-                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Sevk adresi seçimi yapmanız gerekmektedir", "Tamam");
             }
             else
             {
@@ -259,14 +261,19 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         [RelayCommand]
         private void ToggleSelection(ShipInfo item)
         {
-            item.IsSelected = !item.IsSelected;
-            if (SelectedShipInfo != null)
+            if(item == SelectedShipInfo)
             {
                 SelectedShipInfo.IsSelected = false;
+                SelectedShipInfo = null;
             }
-            if (item.IsSelected)
+            else
             {
+                if(SelectedShipInfo != null)
+                {
+                    SelectedShipInfo.IsSelected = false;
+                }
                 SelectedShipInfo = item;
+                SelectedShipInfo.IsSelected = true;
             }
         }
     }

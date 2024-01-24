@@ -4,11 +4,13 @@
              x:Class="Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews.ReturnBySalesDispatchTransactionLineFormView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionLineViewModels"
              x:DataType="viewModel:ReturnBySalesDispatchTransactionLineFormViewModel"
-             Title="ReturnBySalesDispatchTransactionLineFormView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}"
+             
+             Title="{Binding Title}">
+    <sharedViews:ReturnDispatchTransactionFormContentView 
+                                                       GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
+
+    </sharedViews:ReturnDispatchTransactionFormContentView>
 </ContentPage>

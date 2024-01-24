@@ -90,6 +90,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
+
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
                 var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);

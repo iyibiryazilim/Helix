@@ -246,7 +246,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		{
 			if (SelectedShipInfo == null)
 			{
-				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Ambar seçimi yapmanız gerekmektedir", "Tamam");
+				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Sevk adresi seçimi yapmanız gerekmektedir", "Tamam");
 			}
 			else
 			{
@@ -262,14 +262,19 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		[RelayCommand]
 		private void ToggleSelection(ShipInfo item)
 		{
-			item.IsSelected = !item.IsSelected;
-			if (SelectedShipInfo != null)
+			if(item == SelectedShipInfo)
 			{
 				SelectedShipInfo.IsSelected = false;
+				SelectedShipInfo = null;
 			}
-			if (item.IsSelected)
+			else
 			{
+				if(SelectedShipInfo != null)
+				{
+					SelectedShipInfo.IsSelected = false;
+				}
 				SelectedShipInfo = item;
+				SelectedShipInfo.IsSelected = true;
 			}
 		}
 	}

@@ -82,19 +82,27 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				var result = await _supplierService.GetObjects(httpClient, "", OrderBy, CurrentPage, PageSize);
-				if (Items.Any())
+				if (result.IsSuccess)
 				{
- 					Items.Clear();
-					Result.Clear();
-				}
-
-				foreach (var item in result.Data)
-				{
-					if(item.ReferenceCount > 0)
+					if (Items.Any())
 					{
-						Items.Add(item);
-						Result.Add(item);
-					} 
+						Items.Clear();
+						Result.Clear();
+					}
+
+					foreach (var item in result.Data)
+					{
+						if (item.ReferenceCount > 0)
+						{
+							Items.Add(item);
+							Result.Add(item);
+						}
+					}
+				}
+				else
+				{
+					await Shell.Current.DisplayAlert(" Error: ", $"{result.Message}", "Tamam");
+
 				}
 			}
 			catch (Exception ex)
@@ -167,7 +175,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A","Referans Sayısı A-Z", "Referans Sayısı Z-A");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A", "Referans Sayısı A-Z", "Referans Sayısı Z-A");
 				if (!string.IsNullOrEmpty(response))
 				{
 					CurrentPage = 0;

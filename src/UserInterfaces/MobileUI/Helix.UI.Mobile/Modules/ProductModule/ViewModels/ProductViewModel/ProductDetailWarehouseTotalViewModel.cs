@@ -75,14 +75,30 @@ public partial class ProductDetailWarehouseTotalViewModel : BaseViewModel
         if (IsBusy) return;
         try
         {
-            string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null,  "Miktara Göre Artan", "Miktara Göre Azalan","Kod A-Z", "Kod Z-A","Ad A-Z", "Ad Z-A", "Ambar Numarasına Göre Artan", "Ambar Numarasına Göre Azalan","Ambar Adı A-Z", "Ambar Adı Z-A");
+            string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Ürün Adı A-Z","Ürün Adı Z-A","Miktara Göre Artan", "Miktara Göre Azalan","Ambar Numarasına Göre Artan", "Ambar Numarasına Göre Azalan","Ambar Adı A-Z", "Ambar Adı Z-A");
             if (!string.IsNullOrEmpty(response))
             {
                 CurrentPage = 0;
                 await Task.Delay(100);
                 switch (response)
                 {
-                    case "Miktara Göre Artan":
+                    case "Ürün Kodu A-Z":
+                        OrderBy = WarehouseTotalOrderBy.codeasc;
+                        await ReloadAsync();
+                        break;
+					case "Ürün Kodu Z-A":
+						OrderBy = WarehouseTotalOrderBy.codedesc;
+						await ReloadAsync();
+						break;
+                    case "Ürün Adı A-Z":
+                        OrderBy = WarehouseTotalOrderBy.nameasc;
+						await ReloadAsync();
+						break;
+                    case "Ürün Adı Z-A":
+                        OrderBy = WarehouseTotalOrderBy.namedesc;
+                        await ReloadAsync();
+                        break;
+					case "Miktara Göre Artan":
                         OrderBy = WarehouseTotalOrderBy.quantityasc;
                         await ReloadAsync();
                         break;
@@ -90,20 +106,20 @@ public partial class ProductDetailWarehouseTotalViewModel : BaseViewModel
                         OrderBy = WarehouseTotalOrderBy.quantitydesc;
                         await ReloadAsync();
                         break;
-                    case "Numara A-Z":
+                    case "Ambar Numarasına Göre Artan":
                         OrderBy = WarehouseTotalOrderBy.warehousenumberasc;
                         await ReloadAsync();
                         break;
-                    case "Numara Z-A":
+                    case "Ambar Numarasına Göre Azalan":
+                        OrderBy = WarehouseTotalOrderBy.warehousenumberdesc;
+                        await ReloadAsync();
+                        break;
+                    case "Ambar Adı A-Z":
+                        OrderBy = WarehouseTotalOrderBy.warehousenameasc;
+                        await ReloadAsync();
+                        break;
+                    case "Ambar Adı Z-A":
                         OrderBy = WarehouseTotalOrderBy.warehousenamedesc;
-                        await ReloadAsync();
-                        break;
-                    case "Ad A-Z":
-                        OrderBy = WarehouseTotalOrderBy.nameasc;
-                        await ReloadAsync();
-                        break;
-                    case "Ad Z-A":
-                        OrderBy = WarehouseTotalOrderBy.namedesc;
                         await ReloadAsync();
                         break;
                     default:

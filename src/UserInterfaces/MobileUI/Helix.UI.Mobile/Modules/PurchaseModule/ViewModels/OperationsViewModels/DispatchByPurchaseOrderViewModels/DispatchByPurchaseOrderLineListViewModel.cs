@@ -35,6 +35,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
 		public ObservableCollection<WaitingOrderLineGroup> SelectedWaitingOrderLineGroupList { get; } = new();
 		public ObservableCollection<WaitingOrderLine> Lines { get; } = new();
+		public ObservableCollection<WaitingOrderLine> ChangedLines { get; } = new();
+
 		public ObservableCollection<WarehouseTotal> WarehouseTotalList { get; } = new();
 		[ObservableProperty]
 		ObservableCollection<WaitingOrder> selectedOrders;
@@ -430,7 +432,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			{
 				if (SelectedWaitingOrderLineGroupList.Count > 0)
 				{
-					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSelectedLineListView)}", new Dictionary<string, object>
+					foreach (var item in SelectedWaitingOrderLineGroupList)
+					{
+
+					}
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSummaryView)}", new Dictionary<string, object>
 					{
 						[nameof(SelectedWaitingOrderLineGroupList)] = SelectedWaitingOrderLineGroupList
 					});

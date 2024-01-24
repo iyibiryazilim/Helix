@@ -9,14 +9,15 @@
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Shell.TabBarIsVisible="False"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}"
+        <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}"
                                         EventName="Loaded" />
     </ContentPage.Behaviors>
     <sharedViews:WarehouseSelectContentView WarehouseList="{Binding Results}"
                                             IsBusy="{Binding IsBusy}"
-                                            ReloadCommand="{Binding ReloadCommand}"
+                                            ReloadCommand="{Binding GetWarehousesCommand}"
                                             SearchCommand="{Binding SearchCommand}"
                                             ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                             GoToNextCommand="{Binding GoToTransactionCommand}"

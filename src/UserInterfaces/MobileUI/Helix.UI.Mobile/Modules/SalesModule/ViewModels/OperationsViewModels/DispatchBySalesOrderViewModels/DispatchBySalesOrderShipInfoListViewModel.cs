@@ -8,6 +8,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesO
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Xamarin.Google.Crypto.Tink.Proto;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels
 {
@@ -86,13 +87,15 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 var result = await _shipInfoService.GetObjectsByCurrentId(httpClient,Current.ReferenceId);
 				if (result.Data.Count() == 0)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionWarehouseListView)}", new Dictionary<string, object>
+                    await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
                     {
                         ["ShipInfo"] = SelectedShipInfo,
                         ["Current"] = Current
                     });
                 }
 
+                Items.Clear();
+                Results.Clear();
                 foreach (ShipInfo item in result.Data)
                 {
                     Items.Add(item);
@@ -163,6 +166,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
                 var result = await _shipInfoService.GetObjectsByCurrentId(httpClient, Current.ReferenceId);
+                Items.Clear();
+                Results.Clear();
+
                 foreach (ShipInfo item in result.Data)
                 {
                     Items.Add(item);
@@ -174,7 +180,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -233,7 +239,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -251,7 +257,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionWarehouseListView)}", new Dictionary<string, object>
+                await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderWarehouseListView)}", new Dictionary<string, object>
                 {
                     ["ShipInfo"] = SelectedShipInfo,
                     ["Current"] = Current
@@ -263,15 +269,20 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         [RelayCommand]
         private void ToggleSelection(ShipInfo item)
         {
-            item.IsSelected = !item.IsSelected;
-            if (SelectedShipInfo != null)
+            if(item == SelectedShipInfo)
             {
                 SelectedShipInfo.IsSelected = false;
+                SelectedShipInfo = null;
             }
-            if (item.IsSelected)
+            else
             {
-                SelectedShipInfo = item;
-            }
+                if(SelectedShipInfo != null)
+                {
+                    SelectedShipInfo.IsSelected = false;
+                }
+				SelectedShipInfo = item;
+				SelectedShipInfo.IsSelected = true;
+			}
         }
     }
 }

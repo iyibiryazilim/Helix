@@ -13,12 +13,13 @@
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetSupplierCommand}" />
+                                        Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
     <sharedView:ReturnSelectContentView ReloadCommand="{Binding GetSupplierCommand}"
                                         SearchCommand="{Binding SearchCommand}"
                                         SortCommand="{Binding SortCommand}"
                                         CurrentList="{Binding Result}"
                                         GoToNextCommand="{Binding GoToFicheListCommand}"
+                                        IsRefreshing="{Binding IsRefreshing}"
                                         IsBusy="{Binding IsBusy}"></sharedView:ReturnSelectContentView>
 </ContentPage>

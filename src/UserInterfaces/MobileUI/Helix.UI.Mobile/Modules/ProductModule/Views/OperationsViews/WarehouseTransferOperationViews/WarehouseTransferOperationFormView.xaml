@@ -107,7 +107,7 @@
                 </Grid>
             </ScrollView>
             <Grid Grid.Row="1">
-                <Button Margin="5" Text="Kaydet" />
+                <Button Margin="5" Text="Kaydet" Command="{Binding GoToSuccessPageViewCommand}" />
             </Grid>
 
         </Grid>

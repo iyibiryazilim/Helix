@@ -98,6 +98,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsRefreshing = false;
 
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
+                Items.Clear();
+                Results.Clear();
 
 
                 var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
@@ -168,7 +170,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
+                Items.Clear();
+                Results.Clear();
 
                 var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Warehouse item in result.Data)

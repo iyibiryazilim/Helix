@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.DispatchTransactionSummaryContentView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="this"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:sharedModels="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid RowDefinitions="0.1*,0.9*">
+        <Frame Grid.Row="0"
+               Grid.Column="0"
+               CornerRadius="0"
+               BorderColor="{StaticResource Primary}"
+               HasShadow="False"
+               ZIndex="0"
+               BackgroundColor="{StaticResource Primary}"></Frame>
+        <Frame Grid.Row="0"
+               ZIndex="3"
+               HasShadow="False"
+               Grid.Column="0"
+               BorderColor="Grey"
+               BackgroundColor="White"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               IsClippedToBounds="True"
+               HeightRequest="85"
+               WidthRequest="85"
+               CornerRadius="80"
+               Margin="0,30,0,0">
+            <Image Aspect="AspectFit"
+                   Source="{Binding Source={x:Reference this}, Converter={StaticResource ByteArrayToImageSourceConverter},Path=Current.Image}" />
+        </Frame>
+        <Border Grid.Row="1"
+                ZIndex="2"
+                Grid.Column="0"
+                Margin="-20"
+                Padding="20">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="60,60,0,0" />
+            </Border.StrokeShape>
+            <ScrollView>
+                <Grid RowDefinitions="Auto,*,auto"
+                      RowSpacing="5">
+                    <VerticalStackLayout Grid.Row="0"
+                                         Padding="20,30,20,10"
+                                         Spacing="5">
+                        <Label Text="{Binding Source={x:Reference this},Path=Current.Name}"
+                               FontAttributes="Bold"
+                               FontSize="15"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center"></Label>
+                        <Label Text="{Binding Source={x:Reference this},Path= Current.Code}"
+                               FontSize="20"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                    <ScrollView Grid.Row="1"
+                                Padding="5,0,5,0">
+                        <CollectionView ItemsSource="{Binding Source={x:Reference this},Path= Lines}"
+                                        EmptyView="Gösterilecek Hareket Yok..">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical"
+                                                   ItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="baseModel:DispatchTransactionLine">
+                                    <toolkit:Expander x:Name="expander">
+                                        <toolkit:Expander.Header>
+                                            <Border BackgroundColor="White"
+                                                    StrokeShape="RoundRectangle 10"
+                                                    Padding="10">
+                                                <Grid ColumnDefinitions="Auto,Auto,*,Auto"
+                                                      ColumnSpacing="10"
+                                                      Padding="0,0,10,0">
+                                                    <VerticalStackLayout Grid.Column="1"
+                                                                         Spacing="4"
+                                                                         Padding="10">
+                                                        <Label FontAttributes="Bold"
+                                                               FontSize="Medium"
+                                                               HorizontalOptions="Center"
+                                                               TextColor="{StaticResource Primary}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding TransactionDate, StringFormat='{0:dd}'}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                        <Label FontAttributes="Bold"
+                                                               FontSize="Default"
+                                                               HorizontalOptions="Center"
+                                                               TextColor="{StaticResource Gray400}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding TransactionDate, StringFormat='{0:MM.yyyy}'}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                    </VerticalStackLayout>
+                                                    <VerticalStackLayout Grid.Column="2"
+                                                                         VerticalOptions="Center"
+                                                                         Spacing="5">
+                                                        <Label Text="{Binding ProductCode}"
+                                                               FontAttributes="Bold"></Label>
+                                                        <Label Text="{Binding ProductName}"
+                                                               FontSize="12"></Label>
+                                                        <Label TextColor="{StaticResource Primary}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding  TempQuantity, StringFormat='{0:N2} '}"
+                                                                          FontAttributes="Bold" />
+                                                                    <Span Text="{Binding SubUnitsetCode}"
+                                                                          FontAttributes="Bold" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                    </VerticalStackLayout>
+                                                    <Image Grid.Column="3"
+                                                           HorizontalOptions="Center"
+                                                           HeightRequest="15"
+                                                           Margin="0,0,10,0">
+                                                        <Image.Source>
+                                                            <FontImageSource FontFamily="FAS"
+                                                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"></FontImageSource>
+                                                        </Image.Source>
+                                                        <Image.Triggers>
+                                                            <DataTrigger TargetType="Image"
+                                                                         Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
+                                                                         Value="True">
+                                                                <Setter Property="Rotation"
+                                                                        Value="180"></Setter>
+                                                            </DataTrigger>
+                                                        </Image.Triggers>
+                                                    </Image>
+                                                </Grid>
+                                            </Border>
+                                        </toolkit:Expander.Header>
+                                        <toolkit:Expander.Content>
+                                            <VerticalStackLayout Margin="20,10,5,0"
+                                                                 Spacing="4">
+                                                <VerticalStackLayout Spacing="4">
+                                                    <Label Text="Fiş Numarası"
+                                                           TextColor="{StaticResource Primary}" />
+                                                    <Label Text="{Binding FicheCode}" />
+                                                    <BoxView WidthRequest="0.1" />
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Spacing="4">
+                                                    <Label Text="Ambar Adı"
+                                                           TextColor="{StaticResource Primary}" />
+                                                    <Label Text="{Binding WarehouseName}" />
+                                                    <BoxView WidthRequest="0.1" />
+                                                </VerticalStackLayout>
+                                            </VerticalStackLayout>
+                                        </toolkit:Expander.Content>
+                                    </toolkit:Expander>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ScrollView>
+                    <Grid Grid.Row="2">
+                        <Button Text="İleri"
+                                Margin="10,10,10,20"
+                                Command="{Binding Source={x:Reference this},Path=GoToNextCommand}"></Button>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentView>
