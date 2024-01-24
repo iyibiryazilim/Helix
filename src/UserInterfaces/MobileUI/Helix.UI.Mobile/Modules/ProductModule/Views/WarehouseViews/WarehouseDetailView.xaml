@@ -217,6 +217,7 @@
 
                                                                 </Border>
                                                                 <VerticalStackLayout Grid.Column="1"
+                                                                                     VerticalOptions="Center"
                                                                                      Spacing="4"
                                                                                      Padding="10">
                                                                     <Label FontAttributes="Bold"
@@ -236,6 +237,7 @@
                                                                            TextColor="{StaticResource Gray400}" />
                                                                 </VerticalStackLayout>
                                                                 <VerticalStackLayout Grid.Column="2"
+                                                                                     Padding="0,5,0,5"
                                                                                      VerticalOptions="Center"
                                                                                      Spacing="5">
                                                                     <Label Text="{Binding ProductCode}"
