@@ -74,6 +74,7 @@ public partial class ProductDetailPurchaseOrderListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			CurrentPage = 0;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
@@ -111,7 +112,6 @@ public partial class ProductDetailPurchaseOrderListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage++;

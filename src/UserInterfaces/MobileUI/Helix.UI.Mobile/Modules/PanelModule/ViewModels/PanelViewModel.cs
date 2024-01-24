@@ -104,9 +104,12 @@ public partial class PanelViewModel : BaseViewModel
 
 			if (result.Data.Any())
 			{
-				//MainPanelModel mainPanelModel = new();
-				mainPanelModel.TodayInputTransactionFicheCount = result.Data.Count();
-				
+				foreach (var item in result.Data)
+				{
+					var obj = Mapping.Mapper.Map<MainPanelModel>(item);
+					mainPanelModel.InputCount = obj.InputCount;
+				}
+
 			}
 		}
 		catch (Exception ex)
@@ -131,8 +134,11 @@ public partial class PanelViewModel : BaseViewModel
 
 			if (result.Data.Any())
 			{
-				//MainPanelModel mainPanelModel = new();
-				mainPanelModel.TodayOutputTransactionFicheCount = result.Data.Count();
+				foreach (var item in result.Data)
+				{
+					var obj = Mapping.Mapper.Map<MainPanelModel>(item);
+					mainPanelModel.OutputCount= obj.OutputCount;
+				}
 
 			}
 		}
@@ -157,9 +163,12 @@ public partial class PanelViewModel : BaseViewModel
 
 			if (result.Data.Any())
 			{
-				//MainPanelModel mainPanelModel = new();
-				mainPanelModel.WaitingSalesOrderCount = result.Data.Count();
-
+				foreach (var item in result.Data)
+				{
+					var obj = Mapping.Mapper.Map<MainPanelModel>(item);
+					mainPanelModel.WaitingSalesOrderCount = obj.WaitingSalesOrderCount;
+				}
+				
 			}
 		}
 		catch (Exception ex)
@@ -184,8 +193,11 @@ public partial class PanelViewModel : BaseViewModel
 
 			if (result.Data.Any())
 			{
-				//MainPanelModel mainPanelModel = new();
-				mainPanelModel.WaitingPurchaseOrderCount = result.Data.Count();
+				foreach (var item in result.Data)
+				{
+					var obj = Mapping.Mapper.Map<MainPanelModel>(item);
+					mainPanelModel.WaitingPurchaseOrderCount = obj.WaitingPurchaseOrderCount;
+				}
 			}
 		}
 		catch (Exception ex)

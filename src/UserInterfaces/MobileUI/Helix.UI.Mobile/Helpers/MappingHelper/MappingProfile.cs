@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.PanelModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -15,6 +16,7 @@ public class MappingProfile : Profile
 		CreateMap<WarehouseDetailCardTypeCount, dynamic>();
 		CreateMap<Customer, dynamic>();
         CreateMap<Product, dynamic>();
+		CreateMap<MainPanelModel, dynamic>();
 
         CreateMap<WaitingOrderLine, PurchaseOrderLine>().ReverseMap();
 		CreateMap<WaitingOrderLine, SalesOrderLine>().ReverseMap();

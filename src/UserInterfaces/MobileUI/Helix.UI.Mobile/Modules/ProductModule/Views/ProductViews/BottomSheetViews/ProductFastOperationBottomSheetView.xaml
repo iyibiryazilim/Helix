@@ -191,7 +191,7 @@
                                FontSize="16"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"></Label>
-                        <Label Text="Malzemenin alternatif görebilirsiniz."
+                        <Label Text="Malzemenin alternatif ürünlerini görebilirsiniz."
                                FontSize="12"
                                LineBreakMode="TailTruncation" />
                     </VerticalStackLayout>

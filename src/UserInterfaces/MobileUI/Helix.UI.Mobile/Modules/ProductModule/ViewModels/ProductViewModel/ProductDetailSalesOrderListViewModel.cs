@@ -77,6 +77,7 @@ public partial class ProductDetailSalesOrderListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 			CurrentPage = 0;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			var result = await _salesOrderLineService.GetObjectsByProductId(httpClient, Product.ReferenceId, IncludeWaiting, SearchText, OrderBy, CurrentPage, PageSize);
@@ -112,7 +113,6 @@ public partial class ProductDetailSalesOrderListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage++;
@@ -211,7 +211,7 @@ public partial class ProductDetailSalesOrderListViewModel : BaseViewModel
 				if (text.Length >= 3)
 				{
 					SearchText = text;
-					await LoadData();
+					await ReloadAsync();
 				}
 			}
 			else
