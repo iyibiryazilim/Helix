@@ -5,9 +5,11 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.DispatchTransactionContentView">
-    <Border BackgroundColor="{StaticResource White}"
+    <Grid>
+        <Border BackgroundColor="{StaticResource White}"
          StrokeThickness="0"
          Padding="5,20,5,10">
         <Border.StrokeShape>
@@ -288,4 +290,6 @@
             </Grid>
         </Grid>
     </Border>
+    <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path= IsBusy}" />
+    </Grid>
 </ContentView>

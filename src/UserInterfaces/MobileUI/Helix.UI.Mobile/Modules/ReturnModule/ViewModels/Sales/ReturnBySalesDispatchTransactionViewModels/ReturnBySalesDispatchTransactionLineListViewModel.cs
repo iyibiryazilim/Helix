@@ -6,6 +6,7 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -50,6 +51,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         public ObservableCollection<DispatchTransactionLineGroup> Result { get; } = new();
         public ObservableCollection<DispatchTransactionLineGroup> SelectedDispatchTransactionLineGroupList { get; } = new();
         public ObservableCollection<DispatchTransactionLine> Lines { get; } = new();
+        public ObservableCollection<DispatchTransactionLine> ChangedLineList { get; } = new();
+
         public ObservableCollection<WarehouseTotal> WarehouseTotalList { get; } = new();
         [ObservableProperty]
         ObservableCollection<DispatchTransaction> selectedTransactions;
@@ -87,6 +90,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
+
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
@@ -365,20 +370,28 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         }
 
         [RelayCommand]
-        async Task GoToSelectedLinesAsync()
+        async Task GoToSummaryAsync()
         {
-            if (SelectedDispatchTransactionLineGroupList.Count > 0)
+            try
             {
-                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionSelectedLineListView)}", new Dictionary<string, object>
+
+                ChangedLineList.Clear();
+
+                foreach (var item in DispatchTransactionLineGroupList.SelectMany(item => item.Lines.Where(line => line.TempQuantity > 0)))
                 {
-                    [nameof(SelectedDispatchTransactionLineGroupList)] = SelectedDispatchTransactionLineGroupList
+                    ChangedLineList.Add(item);
+                }
+                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionSummaryView)}", new Dictionary<string, object>
+                {
+                    [nameof(ChangedLineList)] = ChangedLineList
                 });
             }
-            else
+            catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
-            }
 
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+            }
         }
 
         [RelayCommand]

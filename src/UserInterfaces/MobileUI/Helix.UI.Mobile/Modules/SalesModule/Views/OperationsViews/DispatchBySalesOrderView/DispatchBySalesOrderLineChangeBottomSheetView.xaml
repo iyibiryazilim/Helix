@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView.DispatchBySalesOrderLineChangeBottomSheetView"
+              xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+            xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+            HasHandle="True"
+            HasBackdrop="True"
+            BackgroundColor="White"
+            HandleColor="{StaticResource Primary}"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+            xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels"
+                   x:DataType="viewModel:DispatchBySalesOrderLineChangeBottomSheetViewModel"
+            >
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</the49:BottomSheet>

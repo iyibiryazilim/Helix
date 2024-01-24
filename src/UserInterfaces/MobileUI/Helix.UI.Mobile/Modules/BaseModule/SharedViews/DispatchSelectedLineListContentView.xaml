@@ -27,10 +27,11 @@
                               ColumnSpacing="10">
                             <Border Grid.Column="0"
                                     Padding="10"
-                                    HorizontalOptions="Start"
+                                    HorizontalOptions="Center"
                                     StrokeShape="RoundRectangle 10"
                                     StrokeThickness="0"
-                                    WidthRequest="75">
+                                    WidthRequest="73"
+                                    HeightRequest="82">
                                 <Image Aspect="AspectFit"
                                        Source="{Binding Source={x:Reference this},Path=Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                             </Border>
@@ -311,8 +312,9 @@
             </CollectionView>
             <Grid Grid.Row="2">
                 <Button Margin="10,10,10,20"
+                        
                         Command="{Binding Source={x:Reference this}, Path=GoToNextCommand}"
-                        Text="Kaydet" />
+                        Text="Tamam" />
             </Grid>
         </Grid>
         <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />

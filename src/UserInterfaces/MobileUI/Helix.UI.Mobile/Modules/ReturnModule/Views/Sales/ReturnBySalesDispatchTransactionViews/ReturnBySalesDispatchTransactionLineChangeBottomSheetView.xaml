@@ -16,7 +16,7 @@
 
     <the49:BottomSheet.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding LoadDataCommand}"
-                                        EventName="Loaded" />
+                                      EventName="Loaded" />
     </the49:BottomSheet.Behaviors>
     <the49:BottomSheet.Detents>
         <!-- Stop at the height of the screen -->
@@ -27,5 +27,12 @@
         <the49:HeightDetent Height="600" />
     </the49:BottomSheet.Detents>
     <sharedViews:DispatchSelectedLineListContentView GroupLine="{Binding LineGroup}"
-                                                    LineList="{Binding Result}"></sharedViews:DispatchSelectedLineListContentView>
+                                                  Code="{Binding LineGroup.Code}"
+                                                  Name="{Binding LineGroup.Name}"
+                                                  StockQuantity="{Binding LineGroup.StockQuantity}"
+                                                  TempQuantity="{Binding LineGroup.LineQuantity}"
+                                                  Image="{Binding LineGroup.Image}"
+                                                  SubUnitsetCode="{Binding LineGroup.SubUnitsetCode}"
+                                                     
+                                                  LineList="{Binding Result}"></sharedViews:DispatchSelectedLineListContentView>
 </the49:BottomSheet>
