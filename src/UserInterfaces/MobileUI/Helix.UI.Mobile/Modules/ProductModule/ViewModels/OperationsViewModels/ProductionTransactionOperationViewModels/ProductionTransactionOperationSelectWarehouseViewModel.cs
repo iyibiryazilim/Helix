@@ -83,8 +83,11 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             {
                 IsBusy = true;
                 IsRefreshing = true;
-                var httpClient = _httpClientService.GetOrCreateHttpClient();
+                IsRefreshing = false;
 
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+                Items.Clear();
+                Results.Clear();
 
                 var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Warehouse item in result.Data)
@@ -153,9 +156,13 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             {
                 IsBusy = true;
                 IsRefreshing = true;
-                var httpClient = _httpClientService.GetOrCreateHttpClient();
+                IsRefreshing = false;
 
-                var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+				Items.Clear();
+				Results.Clear();
+
+				var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Warehouse item in result.Data)
                 {
                     Items.Add(item);
@@ -252,14 +259,19 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [RelayCommand]
         private void ToggleSelection(Warehouse item)
         {
-            item.IsSelected = !item.IsSelected;
-            if (SelectedWarehouse != null)
+            if(item == SelectedWarehouse)
             {
                 SelectedWarehouse.IsSelected = false;
+                SelectedWarehouse = null;
             }
-            if (item.IsSelected)
+            else
             {
+                if(SelectedWarehouse != null)
+                {
+                    SelectedWarehouse.IsSelected = false;
+                }
                 SelectedWarehouse = item;
+                SelectedWarehouse.IsSelected = true;
             }
         }
     }

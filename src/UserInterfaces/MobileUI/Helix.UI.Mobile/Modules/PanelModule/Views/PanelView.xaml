@@ -74,7 +74,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="15"
+                                   Text="{Binding mainPanelModel.TodayInputTransactionFicheCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
@@ -90,7 +90,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="24"
+                                   Text="{Binding mainPanelModel.TodayOutputTransactionFicheCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
@@ -110,28 +110,32 @@
                       ColumnSpacing="20">
                     <Border Grid.Column="0"
                             Padding="10"
+                            BackgroundColor="{StaticResource Secondary}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="15" />
+                                   TextColor="{StaticResource White}"
+                                   Text="{Binding mainPanelModel.WaitingSalesOrderCount}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satış"
-                                   TextColor="{StaticResource Gray400}" />
+                                   TextColor="{StaticResource White}" />
                         </VerticalStackLayout>
                     </Border>
                     <Border Grid.Column="1"
                             Padding="10"
+                            BackgroundColor="{StaticResource Warning}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="24" />
+                                   TextColor="{StaticResource White}"
+                                   Text="{Binding mainPanelModel.WaitingPurchaseOrderCount}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satınalma"
-                                   TextColor="{StaticResource Gray400}" />
+                                   TextColor="{StaticResource White}" />
                         </VerticalStackLayout>
 
                     </Border>
@@ -279,7 +283,6 @@
                     </Grid>
                 </Border>
                 <!--#endregion-->
-
             </VerticalStackLayout>
 
         </Grid>

@@ -86,8 +86,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
-
+                Items.Clear();
+                Results.Clear();
 
                 var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Warehouse item in result.Data)
@@ -95,8 +97,6 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     Items.Add(item);
                     Results.Add(item);
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -156,7 +156,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
+                Items.Clear();
+                Results.Clear();
 
                 var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
                 foreach (Warehouse item in result.Data)
@@ -164,13 +167,11 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     Items.Add(item);
                     Results.Add(item);
                 }
-
-
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {

@@ -6,10 +6,10 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
             xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
              x:Name="this"
-             
+             BackgroundColor="{StaticResource Primary}"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ShipInfoSelectContentView">
     <Grid>
-        <Border BackgroundColor="{StaticResource WhiteSmoke}"
+        <Border BackgroundColor="{StaticResource White}"
            StrokeThickness="0"
            Padding="5,20,5,10">
             <Border.StrokeShape>

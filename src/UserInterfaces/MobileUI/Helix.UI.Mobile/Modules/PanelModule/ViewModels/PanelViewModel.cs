@@ -1,8 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Android.Security.Identity;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.PanelModule.Helpers.QueryHelper;
+using Helix.UI.Mobile.Modules.PanelModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -17,6 +19,8 @@ public partial class PanelViewModel : BaseViewModel
 
 	public Command GetDataCommand { get; }
 	public ObservableCollection<Product> Products { get; } = new();
+
+	public MainPanelModel mainPanelModel { get; set; }
 	public PanelViewModel(IHttpClientService httpClient, ICustomQueryService customQueryService)
 	{
 		Title = "Ana Panel";
@@ -24,6 +28,7 @@ public partial class PanelViewModel : BaseViewModel
 		_customQueryService = customQueryService;
 
 		GetDataCommand = new Command(async () => await LoadData());
+		mainPanelModel = new MainPanelModel();
 	}
 
 	[RelayCommand]
@@ -35,8 +40,8 @@ public partial class PanelViewModel : BaseViewModel
 		try
 		{
 			await Task.Delay(300);
-			//await Task.WhenAll(GetTodayTransactionedProductAsync());
-			await MainThread.InvokeOnMainThreadAsync(GetTodayTransactionedProductAsync);
+			await Task.WhenAll(GetTodayInputCountValuesAsync(), GetTodayOutputCountValueAsync(), GetWaitingSalesOrderCountValueAsync(), GetWaitingPurchaseOrderCountValueAsync(),GetTodayTransactionedProductAsync());
+			//await MainThread.InvokeOnMainThreadAsync(GetTodayTransactionedProductAsync);
 		}
 		catch(Exception ex)
 		{
@@ -75,6 +80,112 @@ public partial class PanelViewModel : BaseViewModel
 					}
 					Products.Add(obj);
 				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	async Task GetTodayInputCountValuesAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			var httpClient = _httpClient.GetOrCreateHttpClient();
+			var result = await _customQueryService.GetObjectsAsync(httpClient, new PanelQuery().GetTodayInputCountValues());
+
+			if (result.Data.Any())
+			{
+				//MainPanelModel mainPanelModel = new();
+				mainPanelModel.TodayInputTransactionFicheCount = result.Data.Count();
+				
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	async Task GetTodayOutputCountValueAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			var httpClient = _httpClient.GetOrCreateHttpClient();
+			var result = await _customQueryService.GetObjectsAsync(httpClient, new PanelQuery().GetTodayOutputCountValues());
+
+			if (result.Data.Any())
+			{
+				//MainPanelModel mainPanelModel = new();
+				mainPanelModel.TodayOutputTransactionFicheCount = result.Data.Count();
+
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+	async Task GetWaitingSalesOrderCountValueAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			var httpClient = _httpClient.GetOrCreateHttpClient();
+			var result = await _customQueryService.GetObjectsAsync(httpClient, new PanelQuery().GetWaitingSalesOrderCountValues());
+
+			if (result.Data.Any())
+			{
+				//MainPanelModel mainPanelModel = new();
+				mainPanelModel.WaitingSalesOrderCount = result.Data.Count();
+
+			}
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	async Task GetWaitingPurchaseOrderCountValueAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			var httpClient = _httpClient.GetOrCreateHttpClient();
+			var result = await _customQueryService.GetObjectsAsync(httpClient, new PanelQuery().GetWaitingPurchaseOrderCountValues());
+
+			if (result.Data.Any())
+			{
+				//MainPanelModel mainPanelModel = new();
+				mainPanelModel.WaitingPurchaseOrderCount = result.Data.Count();
 			}
 		}
 		catch (Exception ex)

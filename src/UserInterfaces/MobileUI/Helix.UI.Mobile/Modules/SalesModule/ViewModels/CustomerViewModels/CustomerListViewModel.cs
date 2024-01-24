@@ -140,6 +140,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				CurrentPage = 0;
