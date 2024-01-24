@@ -74,7 +74,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="{Binding mainPanelModel.TodayInputTransactionFicheCount}"
+                                   Text="{Binding mainPanelModel.InputCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
@@ -90,7 +90,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="{Binding mainPanelModel.TodayOutputTransactionFicheCount}"
+                                   Text="{Binding mainPanelModel.OutputCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"

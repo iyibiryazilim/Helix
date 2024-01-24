@@ -106,6 +106,8 @@ public partial class ProductDetailInputTransactionListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
+
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage = 0;
 

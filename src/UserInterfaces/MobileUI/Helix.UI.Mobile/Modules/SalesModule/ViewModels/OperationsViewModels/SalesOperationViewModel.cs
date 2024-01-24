@@ -18,20 +18,69 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels
         [RelayCommand]
         async Task GoToDispatchBySalesOrderCustomerView()
         {
-            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderCustomerView)}");
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+
+				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderCustomerView)}");
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
         }
 
         //Ürün Toplama
         [RelayCommand]
         async Task GoToProcurementOption()
         {
-            await Shell.Current.GoToAsync($"{nameof(ProcurementOptionView)}");
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+
+				await Shell.Current.GoToAsync($"{nameof(ProcurementOptionView)}");
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+			
         }
 
         [RelayCommand]
         async Task GoToDispatchBySalesOrderLineCustomerView()
         {
-            await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineCustomerView)}");
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+
+				await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineCustomerView)}");
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
         }
 
         [RelayCommand]
