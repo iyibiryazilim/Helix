@@ -6,7 +6,7 @@
     <VerticalStackLayout VerticalOptions="Center" Padding="10" Spacing="15">
         <Button Text="Müşteriye Göre"
                 CommandParameter="{Binding .}"
-                Command="{Binding GoToProcurementByCustomerViewCommand}">
+                Command="{Binding GoToProcurementByCustomerListViewCommand}">
 
         </Button>
         <Button Text="Ürüne Göre">

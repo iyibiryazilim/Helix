@@ -41,7 +41,6 @@ public partial class ProcurementBottomSheetViewModel :BaseViewModel
             if (Items.Any())
                 Items.Clear();
 
-          //  ProcurementCustomerOrder procurementCustomerOrder = new ProcurementCustomerOrder();
 
             foreach (ProcurementCustomerOrder item in selectedProcurementCustomer.Orders)
             {

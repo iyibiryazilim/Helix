@@ -286,6 +286,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProcurementSelectWarehouseView>();
 			mauiAppBuilder.Services.AddTransient<ProcurementSummaryView>();
 			mauiAppBuilder.Services.AddScoped<ProcurementBottomSheetView>();
+			mauiAppBuilder.Services.AddTransient<ProcurementCustomerListView>();
 			
 
 
@@ -336,6 +337,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ProcurementSelectWarehouseViewModel>();
             mauiAppBuilder.Services.AddTransient<ProcurementSummaryViewModel>();
 			mauiAppBuilder.Services.AddScoped<ProcurementBottomSheetViewModel>();
+			mauiAppBuilder.Services.AddTransient<ProcurementCustomerListViewModel>();
 
 
 

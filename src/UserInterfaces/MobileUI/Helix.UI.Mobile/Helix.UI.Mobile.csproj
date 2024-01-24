@@ -555,6 +555,9 @@
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\SalesProductByCustomerViews\ProcurementByProductView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\SalesProductByCustomerViews\ProcurementCustomerListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\SalesProductByCustomerViews\ProcurementOptionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

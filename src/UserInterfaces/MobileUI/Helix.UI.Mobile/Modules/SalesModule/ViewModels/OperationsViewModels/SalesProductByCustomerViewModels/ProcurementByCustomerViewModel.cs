@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
@@ -18,6 +19,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 {
     [QueryProperty(name: nameof(Product), queryId: nameof(Product))]
     [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+    [QueryProperty(name: nameof(SelectedCustomers), queryId: nameof(SelectedCustomers))]
+
 
     public partial class ProcurementByCustomerViewModel : BaseViewModel
     {
@@ -32,6 +35,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
        // public ObservableCollection<ProcurementCustomerOrder> NonZeroPercentageOrders { get; set; } = new();
 
         public ObservableCollection<ProcurementCustomerOrder> Orders { get; set; } = new ObservableCollection<ProcurementCustomerOrder>();
+
+        //müşteri sayfası
+        [ObservableProperty]
+        public ObservableCollection<Current> selectedCustomers;
 
         private List<WarehouseTotal> WarehouseTotals { get; set; } = new List<WarehouseTotal>();
         private List<SalesOrderLine> SalesOrders { get; set; } = new();
