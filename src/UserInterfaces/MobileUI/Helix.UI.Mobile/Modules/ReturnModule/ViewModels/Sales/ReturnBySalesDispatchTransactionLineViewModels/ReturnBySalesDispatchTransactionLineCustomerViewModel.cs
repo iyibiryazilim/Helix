@@ -85,8 +85,9 @@ public partial class ReturnBySalesDispatchTransactionLineCustomerViewModel : Bas
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+            IsRefreshing = false;
 
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
 			var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{

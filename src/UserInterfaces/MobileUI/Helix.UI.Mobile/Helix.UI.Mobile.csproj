@@ -613,6 +613,9 @@
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineLineChangeBottomSheetView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineSelectedLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -629,6 +632,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderLineChangeBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderLineListView.xaml">

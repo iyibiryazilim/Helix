@@ -20,7 +20,7 @@
                                DispatchTransactionLineGroupList="{Binding DispatchTransactionLineGroupList}"
                                IsBusy="{Binding IsBusy}"
                                CheckedChangeCommand="{Binding SelectAllCommand}"
-                               GoToNextCommand="{Binding GoToSelectedLinesCommand}"
+                               GoToNextCommand="{Binding GoToSummaryCommand}"
                                SelectCommand="{Binding SelectAllCommand}"
                                IsRefreshing="{Binding IsRefreshing}"></sharedViews:DispatchTransactionLineContentView>
 </ContentPage>

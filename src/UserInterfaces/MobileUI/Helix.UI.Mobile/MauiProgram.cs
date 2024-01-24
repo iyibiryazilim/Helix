@@ -288,23 +288,17 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineWarehouseListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderShipInfoListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineShipInfoListView>();
-
 			mauiAppBuilder.Services.AddTransient<SalesProductByCustomerListView>();
 			mauiAppBuilder.Services.AddTransient<ProcurementByCustomerView>();
 			mauiAppBuilder.Services.AddTransient<ProcurementByProductView>();
 			mauiAppBuilder.Services.AddTransient<ProcurementByCustomerView>();
 			mauiAppBuilder.Services.AddTransient<ProcurementOptionView>();
 			mauiAppBuilder.Services.AddTransient<ProcurementSelectWarehouseView>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineChangeBottomSheetView>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineChangeBottomSheetView>();
 
 
-
-
-
-
-
-
-
-			return mauiAppBuilder;
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder SalesRegisterViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
@@ -336,20 +330,20 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineWarehouseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderShipInfoListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineShipInfoListViewModel>();
-
 			mauiAppBuilder.Services.AddTransient<SalesProductViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesProductByCustomerListViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProcurementByProductViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProcurementByCustomerViewModel>();
 			mauiAppBuilder.Services.AddTransient<ProcurementOption>();
 			mauiAppBuilder.Services.AddTransient<ProcurementSelectWarehouseViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineLineChangeBottomSheetViewModel>();
+            mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderLineChangeBottomSheetViewModel>();
 
 
 
 
 
-
-			return mauiAppBuilder;
+            return mauiAppBuilder;
 		}
 		public static MauiAppBuilder SalesRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{

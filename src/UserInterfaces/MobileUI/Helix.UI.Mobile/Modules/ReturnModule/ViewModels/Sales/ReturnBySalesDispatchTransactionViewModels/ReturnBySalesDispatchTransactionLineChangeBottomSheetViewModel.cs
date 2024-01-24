@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -10,6 +11,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
     {
         [ObservableProperty]
         DispatchTransactionLineGroup lineGroup;
+
         public ObservableCollection<DispatchTransactionLine> Result { get; } = new();
 
         public ReturnBySalesDispatchTransactionLineChangeBottomSheetViewModel()
@@ -19,6 +21,40 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         }
         public Command LoadDataCommand { get; }
 
+        [RelayCommand]
+        public async Task DeleteQuantityAsync(DispatchTransactionLine line)
+        {
+            var quantityChange = 1;
+
+            if (LineGroup != null && LineGroup.LineQuantity >= 0)
+            {
+                if (line.TempQuantity != 0)
+                {
+                    LineGroup.LineQuantity -= quantityChange;
+
+                    line.TempQuantity -= quantityChange;
+                }
+
+            }
+            else if (LineGroup.LineQuantity - quantityChange < 0)
+            {
+                LineGroup.LineQuantity = 0;
+
+            }
+        }
+
+        [RelayCommand]
+        public async Task AddQuantityAsync(DispatchTransactionLine line)
+        {
+            var quantityChange = 1;
+
+            if (LineGroup != null && LineGroup.LineQuantity + quantityChange <= LineGroup.StockQuantity && line.TempQuantity + quantityChange <= line.Quantity)
+            {
+                LineGroup.LineQuantity += quantityChange;
+                line.TempQuantity += quantityChange;
+            }
+
+        }
         async Task LoadData()
         {
             if (IsBusy)
@@ -32,7 +68,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Return Sales Dispatch Transaction Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {

@@ -128,4 +128,5 @@ public partial class DispatchSelectedLineListContentView : ContentView
 	{
 		InitializeComponent();
 	}
+
 }

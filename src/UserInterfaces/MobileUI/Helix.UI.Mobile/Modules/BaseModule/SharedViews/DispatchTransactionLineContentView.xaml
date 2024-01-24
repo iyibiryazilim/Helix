@@ -4,15 +4,20 @@
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.DispatchTransactionLineContentView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:converter="clr-namespace:Helix.UI.Mobile.Helpers.ValueConverter"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              BackgroundColor="{StaticResource Primary}"
              x:Name="this">
     <ContentView.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+            <converter:GreaterThanVeriableConverter x:Key="GreaterThanVeriableConverter" Cutoff="0"/>
+
         </ResourceDictionary>
     </ContentView.Resources>
+    <Grid>
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
             Padding="5,20,5,10">
@@ -68,14 +73,7 @@
                                     Padding="5"
                                     BackgroundColor="{StaticResource White}"
                                     StrokeShape="RoundRectangle 10">
-                                <Border.Triggers>
-                                    <DataTrigger Binding="{Binding IsSelected}"
-                                                 TargetType="Border"
-                                                 Value="True">
-                                        <Setter Property="BackgroundColor"
-                                                Value="{StaticResource Primary}" />
-                                    </DataTrigger>
-                                </Border.Triggers>
+
                                 <Grid ColumnDefinitions="85*,15*">
                                     <Grid Grid.Column="0"
                                           ColumnDefinitions="auto, *"
@@ -97,38 +95,26 @@
                                                    FontSize="Body"
                                                    LineBreakMode="TailTruncation"
                                                    Text="{Binding Code}">
-                                                <Label.Style>
-                                                    <Style TargetType="Label">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                    Binding="{Binding LineQuantity, Converter={StaticResource GreaterThanVeriableConverter}}"
+                                                    Value="True">
                                                         <Setter Property="TextColor"
-                                                                Value="Black" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger TargetType="Label"
-                                                                         Binding="{Binding IsSelected}"
-                                                                         Value="True">
-                                                                <Setter Property="TextColor"
-                                                                        Value="White" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Label.Style>
+                                                   Value="{StaticResource White}" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
                                             </Label>
                                             <Label FontSize="Caption"
                                                    LineBreakMode="TailTruncation"
                                                    Text="{Binding Name}">
-                                                <Label.Style>
-                                                    <Style TargetType="Label">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                      Binding="{Binding LineQuantity, Converter={StaticResource GreaterThanVeriableConverter}}"
+                                                      Value="True">
                                                         <Setter Property="TextColor"
-                                                                Value="Black" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger TargetType="Label"
-                                                                         Binding="{Binding IsSelected}"
-                                                                         Value="True">
-                                                                <Setter Property="TextColor"
-                                                                        Value="White" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Label.Style>
+                                                     Value="{StaticResource White}" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
                                             </Label>
                                             <HorizontalStackLayout Spacing="10"  >
                                                 <VerticalStackLayout  >
@@ -169,28 +155,23 @@
                                                            Text="Miktar"
                                                            VerticalOptions="Center"
                                                            FontSize="Micro">
-                                                        <Label.Style>
-                                                            <Style TargetType="Label">
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                                Binding="{Binding LineQuantity, Converter={StaticResource GreaterThanVeriableConverter}}"
+                                                                Value="True">
                                                                 <Setter Property="TextColor"
-                                                                        Value="Black" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger TargetType="Label"
-                                                                                 Binding="{Binding IsSelected}"
-                                                                                 Value="True">
-                                                                        <Setter Property="TextColor"
-                                                                                Value="White" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Label.Style>
+                                                                Value="{StaticResource White}" />
+                                                            </DataTrigger>
+                                                        </Label.Triggers>
                                                     </Label>
                                                 </VerticalStackLayout>
-      <VerticalStackLayout>
+                                                <VerticalStackLayout>
                                                     <Border Padding="10,5"
                                                             BackgroundColor="{StaticResource Secondary}"
                                                             HorizontalOptions="Start"
                                                             StrokeShape="RoundRectangle 5"
                                                             StrokeThickness="0">
+
                                                         <Label FontSize="10"
                                                                TextColor="{StaticResource Primary}">
                                                             <Label.FormattedText>
@@ -223,20 +204,14 @@
                                                            Text="Miktar"
                                                            VerticalOptions="Center"
                                                            FontSize="Micro">
-                                                        <Label.Style>
-                                                            <Style TargetType="Label">
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                             Binding="{Binding LineQuantity, Converter={StaticResource GreaterThanVeriableConverter}}"
+                                                             Value="True">
                                                                 <Setter Property="TextColor"
-                                                                        Value="Black" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger TargetType="Label"
-                                                                                 Binding="{Binding IsSelected}"
-                                                                                 Value="True">
-                                                                        <Setter Property="TextColor"
-                                                                                Value="White" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Label.Style>
+                                                            Value="{StaticResource White}" />
+                                                            </DataTrigger>
+                                                        </Label.Triggers>
                                                     </Label>
                                                 </VerticalStackLayout>
                                             </HorizontalStackLayout>
@@ -247,6 +222,14 @@
                                     <TapGestureRecognizer  CommandParameter="{Binding .}"
                                                            Command="{Binding Source={x:Reference this},Path=BindingContext.OpenBottomSheetCommand}"></TapGestureRecognizer>
                                 </Border.GestureRecognizers>
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border"
+                 Binding="{Binding LineQuantity, Converter={StaticResource GreaterThanVeriableConverter}}"
+                 Value="True">
+                                        <Setter Property="BackgroundColor"
+                Value="{StaticResource Primary}" />
+                                    </DataTrigger>
+                                </Border.Triggers>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -259,4 +242,6 @@
             </Grid>
         </Grid>
     </Border>
+    <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path= IsBusy}" />
+    </Grid>
 </ContentView>
