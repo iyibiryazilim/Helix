@@ -116,6 +116,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, Warehouse.Number, "1,2,3,4,10,11,12,13", SearchText, WarehouseTotalOrderBy, CurrentPage, PageSize);

@@ -26,7 +26,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding GetSelectedItemsCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource WhiteSmoke}"
+            BackgroundColor="{StaticResource White}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
@@ -80,8 +80,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="baseModel:WarehouseTotal">
-                        <SwipeView Margin="3" 
-                                   Threshold="200">
+                        <SwipeView Margin="3" Threshold="200">
                             <SwipeView.RightItems>
                                 <SwipeItems Mode="Execute">
                                     <SwipeItem BackgroundColor="{StaticResource Danger}"
@@ -158,8 +157,10 @@
                                 <Border Grid.Row="1"
                                         Margin="5,-16,12,0"
                                         Padding="0,0,0,0"
+                                        HeightRequest="35"
                                         HorizontalOptions="End"
                                         StrokeShape="RoundRectangle 5"
+                                        WidthRequest="100"
                                         ZIndex="999">
                                     <Grid Padding="0" ColumnDefinitions="Auto, 40, Auto">
                                         <Border Grid.Column="0"
@@ -168,18 +169,18 @@
                                             <Border.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=IncrementQuantityCommand}" CommandParameter="{Binding .}" />
                                             </Border.GestureRecognizers>
-                                            <ImageButton Margin="5"
+                                            <Image Margin="5"
                                                          Aspect="AspectFit"
                                                          BackgroundColor="Transparent"
                                                          HeightRequest="12"
                                                          VerticalOptions="Center"
                                                          WidthRequest="18">
-                                                <ImageButton.Source>
+                                                <Image.Source>
                                                     <FontImageSource FontFamily="FAS"
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
                                                                      Color="{StaticResource Primary}" />
-                                                </ImageButton.Source>
-                                            </ImageButton>
+                                                </Image.Source>
+                                            </Image>
                                         </Border>
 
 
@@ -197,19 +198,19 @@
                                             <Border.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationSelectedItemsListViewModel}}, Path=DecrementQuantityCommand}" CommandParameter="{Binding .}" />
                                             </Border.GestureRecognizers>
-                                            <ImageButton Grid.Column="2"
+                                            <Image Grid.Column="2"
                                                          Margin="5"
                                                          Aspect="AspectFit"
                                                          BackgroundColor="Transparent"
                                                          HeightRequest="12"
                                                          VerticalOptions="Center"
                                                          WidthRequest="16">
-                                                <ImageButton.Source>
+                                                <Image.Source>
                                                     <FontImageSource FontFamily="FAS"
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
                                                                      Color="{StaticResource Primary}" />
-                                                </ImageButton.Source>
-                                            </ImageButton>
+                                                </Image.Source>
+                                            </Image>
                                         </Border>
                                     </Grid>
                                 </Border>
