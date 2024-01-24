@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.Models
 {
@@ -44,5 +45,6 @@ namespace Helix.UI.Mobile.Modules.BaseModule.Models
 		string image;
 		[ObservableProperty]
 		bool isSelected;
-	}
+        
+    }
 }

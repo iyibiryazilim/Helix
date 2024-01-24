@@ -4,6 +4,7 @@
                    xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
                    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
                    HasHandle="True"
+                   xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
                    HasBackdrop="True"
                    BackgroundColor="White"
                    HandleColor="{StaticResource Primary}"

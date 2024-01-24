@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews.ProcurementCustomerListView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels"
+             x:DataType="viewModel:ProcurementCustomerListViewModel"
+             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"   
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
-             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"
-             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels"
-             x:DataType="viewModel:ProcurementByCustomerViewModel"
-             x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews.ProcurementByCustomerView"
              BackgroundColor="{StaticResource Primary}"
-             x:Name="this"
-             Title="{Binding Title}"
-             Shell.TabBarIsVisible="False">
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding  LoadProcurementCustomerCommand}"
+        <toolkit:EventToCommandBehavior Command="{Binding GetCustomersCommand}"
                                         EventName="Loaded" />
     </ContentPage.Behaviors>
-
     <ContentPage.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
@@ -33,12 +31,33 @@
               RowSpacing="5">
             <Grid Grid.Row="0">
                 <Border StrokeShape="RoundRectangle 20">
-
+                    <Grid ColumnDefinitions=".85*,.15*">
+                        <SearchBar x:Name="searchBar"
+                                   Grid.Column="0">
+                            <SearchBar.Behaviors>
+                                <toolkit:EventToCommandBehavior Command="{Binding SearchCommand}"
+                                                                CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                                                                EventName="TextChanged" />
+                            </SearchBar.Behaviors>
+                        </SearchBar>
+                        <ImageButton Grid.Column="2"
+                                     BackgroundColor="Transparent"
+                                     Aspect="AspectFit"
+                                     HeightRequest="22"
+                                     WidthRequest="22"
+                                     Command="{Binding SortCommand}">
+                            <ImageButton.Source>
+                                <FontImageSource FontFamily="FAS"
+                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Sort}"
+                                                 Color="{StaticResource DarkPrimary}" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </Grid>
                 </Border>
             </Grid>
             <RefreshView Grid.Row="1"
                          IsRefreshing="{Binding IsRefreshing}"
-                         
+                         Command="{Binding ReloadCommand}"
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView Grid.Row="1"
                                 ItemsSource="{Binding Items}"
@@ -48,53 +67,47 @@
                                            ItemSpacing="5" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate  x:DataType="baseModel:ProcurementCustomer">
-                            <SwipeView Padding="5,0,5,0">
+                        <DataTemplate  x:DataType="baseModel:Current">
+                            <SwipeView>
                                 <SwipeView.LeftItems>
                                     <SwipeItems Mode="Execute">
-                                        <SwipeItem BackgroundColor="{StaticResource Success}"
-                                                   Text="Satır Seç" />
+                                        <SwipeItem 
+                                                   BackgroundColor="{StaticResource Success}"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProcurementCustomerListViewModel}}, Path=ToggleSelectionCommand}"
+                                                   CommandParameter="{Binding .}"
+                                                   Text=" Müşteri Seç" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
-
                                 <Border StrokeShape="RoundRectangle 10"
                                         BackgroundColor="{StaticResource White}"
                                         Padding="5"
                                         Margin="10,0,10,0">
-                                    <Grid ColumnDefinitions="20*,60*,20*">
+
+                                    <Border.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}"
+                                                     TargetType="Border"
+                                                     Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource Primary}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Grid ColumnDefinitions=".25*,.75*">
                                         <Border Grid.Column="0"
                                                 Padding="10"
                                                 HorizontalOptions="Start"
                                                 StrokeShape="RoundRectangle 10"
                                                 StrokeThickness="0"
                                                 WidthRequest="75">
-                                            <Border.Triggers>
-                                                <DataTrigger Binding="{Binding IsSelected}"
-                                                             TargetType="Border"
-                                                             Value="True">
-                                                    <Setter Property="BackgroundColor"
-                                                            Value="{StaticResource Primary}" />
-                                                </DataTrigger>
-                                            </Border.Triggers>
-                                            <!--<Image Aspect="AspectFit"
-                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />-->
-                                            
+                                            <Image Aspect="AspectFit"
+                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                         </Border>
-
                                         <VerticalStackLayout Grid.Column="1"
                                                              Padding="5"
                                                              HorizontalOptions="Start"
                                                              Spacing="5">
                                             <Label FontAttributes="Bold"
                                                    FontSize="Body"
-                                                   Text="{Binding Customer.Code}"
-                                                   TextColor="Black"
-                                                   LineBreakMode="TailTruncation">
-
-                                            </Label>
-                                            <Label  Text="{Binding Customer.Name}"
-                                                    TextColor="Black"
-                                                    FontSize="Caption">
+                                                   Text="{Binding Name}">
                                                 <Label.Style>
                                                     <Style TargetType="Label">
                                                         <Setter Property="TextColor"
@@ -109,27 +122,27 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Label.Style>
-
+                                            </Label>
+                                            <Label Text="{Binding Code}"
+                                                   FontSize="Caption">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="TextColor"
+                                                                Value="Black" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                                         Binding="{Binding IsSelected}"
+                                                                         Value="True">
+                                                                <Setter Property="TextColor"
+                                                                        Value="White" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
                                             </Label>
                                             
-
                                         </VerticalStackLayout>
-                                        <Label Grid.Column="2">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="%" />
-                                                    <Span Text="{Binding ProcurementRate }" />
-
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-
                                     </Grid>
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProcurementByCustomerViewModel}},Path=OpenProcurementBottomSheetCommand}" />
-
-                                    </Border.GestureRecognizers>
                                 </Border>
                             </SwipeView>
                         </DataTemplate>
@@ -139,10 +152,9 @@
             </RefreshView>
             <Button Grid.Row="2"
                     Margin="10,10,10,20"
-                    
-                    Text="İleri"></Button>
+                    Command="{Binding GoToProcurementWarehouseSelectViewCommand}"
+                    Text="Seç"></Button>
         </Grid>
-
     </Border>
 
 </ContentPage>

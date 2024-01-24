@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
@@ -13,9 +14,9 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels
 {
-    [QueryProperty(name: nameof(Product), queryId: nameof(Product))]
 
-    public partial class ProcurementSelectWarehouseViewModel :BaseViewModel
+    [QueryProperty(name: nameof(SelectedCustomers), queryId: nameof(SelectedCustomers))]
+    public partial class ProcurementSelectWarehouseViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
         private readonly IWarehouseService _warehouseService;
@@ -23,6 +24,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         //Lists
         public ObservableCollection<Warehouse> Items { get; } = new();
         public ObservableCollection<Warehouse> Results { get; } = new();
+
+        [ObservableProperty]
+        public ObservableCollection<Current> selectedCustomers;
 
 
         //Commands
@@ -54,6 +58,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             _customQueryService = customQueryService;
             GetWarehousesCommand = new Command(async () => await LoadData());
             SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+            
 
         }
 
@@ -274,6 +279,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
     }
 
-   
+
 
 }
