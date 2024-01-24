@@ -196,7 +196,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 
 		[RelayCommand]
-		public async Task OpenLineChangeBottomSheetAsync(DispatchTransactionLineGroup model)
+		public async Task OpenBottomSheetAsync(DispatchTransactionLineGroup model)
 		{
 			if (IsBusy)
 				return;
