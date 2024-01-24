@@ -1,11 +1,12 @@
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels;
+using The49.Maui.BottomSheet;
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 
-public partial class DispatchByPurchaseOrderSelectedLineListView : ContentPage
+public partial class DispatchByPurchaseOrderChangeBottomSheetView : BottomSheet
 {
-	DispatchByPurchaseOrderSelectedLineListViewModel _viewModel;
-	public DispatchByPurchaseOrderSelectedLineListView(DispatchByPurchaseOrderSelectedLineListViewModel viewModel)
+	DispatchByPurchaseOrderChangeViewModel _viewModel;
+	public DispatchByPurchaseOrderChangeBottomSheetView(DispatchByPurchaseOrderChangeViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = viewModel;
