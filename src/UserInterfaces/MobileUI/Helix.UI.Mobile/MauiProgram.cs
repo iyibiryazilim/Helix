@@ -380,7 +380,6 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSummaryView>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineLineListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSupplierView>();
-			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSelectedLineListView>();
  			mauiAppBuilder.Services.AddTransient<SupplierFastOperationBottomSheetView>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderWarehouseListView>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineWarehouseListView>();
@@ -411,8 +410,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSupplierViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineLineListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineSummaryViewModel>();
-			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderSelectedLineListViewModel>();
- 			mauiAppBuilder.Services.AddTransient<SupplierFastOperationBottomSheetViewModel>();
+  			mauiAppBuilder.Services.AddTransient<SupplierFastOperationBottomSheetViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderWarehouseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<DispatchByPurchaseOrderLineWarehouseListViewModel>();
 			mauiAppBuilder.Services.AddTransient<PurchaseDispatchSelectWarehouseViewModel>();

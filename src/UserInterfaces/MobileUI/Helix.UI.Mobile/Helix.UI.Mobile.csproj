@@ -430,6 +430,9 @@
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineWarehouseListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderChangeBottomSheetView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderFicheView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -437,9 +440,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderLineListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderSelectedLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderSummaryView.xaml">
