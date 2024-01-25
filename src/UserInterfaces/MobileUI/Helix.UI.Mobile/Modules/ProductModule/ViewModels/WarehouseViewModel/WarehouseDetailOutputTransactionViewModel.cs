@@ -57,7 +57,7 @@ public partial class WarehouseDetailOutputTransactionViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Warehouse Transaction Input Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -124,6 +124,7 @@ public partial class WarehouseDetailOutputTransactionViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage = 0;
@@ -160,7 +161,6 @@ public partial class WarehouseDetailOutputTransactionViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage++;

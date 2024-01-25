@@ -69,6 +69,7 @@
                         </Grid>
                     </Border>
                 </Grid>
+                <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" Grid.Row="1" />
                 <RefreshView Grid.Row="1"
                              Command="{Binding Source={x:Reference this}, Path=ReloadCommand}"
                              IsRefreshing="{Binding Source={x:Reference this}, Path=IsRefreshing, Mode=OneWay}"
@@ -170,7 +171,7 @@
                                         <VerticalStackLayout Margin="20,10,5,0" Spacing="4">
                                             <VerticalStackLayout Spacing="4">
                                                 <Label Text="Fiş Türü" TextColor="{StaticResource Primary}" />
-                                                <Label Text="{Binding TransactionType}" />
+                                                <Label Text="{Binding TransactionTypeName}" />
                                                 <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
                                             <VerticalStackLayout Spacing="4">

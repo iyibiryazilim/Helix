@@ -145,20 +145,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Tarihe Göre Artan", "Tarihe Göre Azalan", "Müşteri Adı A-Z", "Müşteri Adı Z-A", "Müşteri Kodu A-Z", "Müşteri Kodu Z-A");
 
 				CurrentPage = 0;
 				await Task.Delay(100);
 				switch (response)
 				{
-					case "Tarihe Göre Artan":
-						OrderBy = PurchaseOrderLineOrderBy.dateasc;
-						await ReloadAsync();
-						break;
-					case "Tarihe Göre Azalan":
-						OrderBy = PurchaseOrderLineOrderBy.datedesc;
-						await ReloadAsync();
-						break;
 					case "Ürün Adı A-Z":
 						OrderBy = PurchaseOrderLineOrderBy.productnameasc;
 						await ReloadAsync();
@@ -173,6 +165,30 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 						break;
 					case "Ürün Kodu Z-A":
 						OrderBy = PurchaseOrderLineOrderBy.productcodedesc;
+						await ReloadAsync();
+						break;
+					case "Tarihe Göre Artan":
+						OrderBy = PurchaseOrderLineOrderBy.dateasc;
+						await ReloadAsync();
+						break;
+					case "Tarihe Göre Azalan":
+						OrderBy = PurchaseOrderLineOrderBy.datedesc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Adı A-Z":
+						OrderBy = PurchaseOrderLineOrderBy.currentnameasc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Adı Z-A":
+						OrderBy = PurchaseOrderLineOrderBy.currentnamedesc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Kodu A-Z":
+						OrderBy = PurchaseOrderLineOrderBy.currentcodeasc;
+						await ReloadAsync();
+						break;
+					case "Müşteri Kodu Z-A":
+						OrderBy = PurchaseOrderLineOrderBy.currentcodedesc;
 						await ReloadAsync();
 						break;
 					default:
