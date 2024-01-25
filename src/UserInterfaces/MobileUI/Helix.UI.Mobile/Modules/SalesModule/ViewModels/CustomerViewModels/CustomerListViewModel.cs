@@ -145,15 +145,24 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 
 				CurrentPage = 0;
 				var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-				if (result.Data.Any())
+				if(result.IsSuccess)
 				{
-					Items.Clear();
-					foreach (Customer item in result.Data)
+					if (result.Data.Any())
 					{
-						await Task.Delay(100);
-						Items.Add(item);
+						Items.Clear();
+						foreach (Customer item in result.Data)
+						{
+							await Task.Delay(100);
+							Items.Add(item);
+						}
 					}
 				}
+				else
+				{
+					await Shell.Current.DisplayAlert("Customer Error: ", $"{result.Message}", "Tamam");
+
+				}
+
 			}
 			catch (Exception ex)
 			{

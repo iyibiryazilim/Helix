@@ -249,7 +249,7 @@ public partial class ProductListViewModel : BaseViewModel
 			{
 				if (result.Data.Any())
 				{
-					Items.Clear();
+					Groups.Clear();
 					await Task.Delay(200);
 					Groups.Add(new ProductGroup
 					{
@@ -268,13 +268,13 @@ public partial class ProductListViewModel : BaseViewModel
 			else
 			{
 				Debug.WriteLine(result.Message);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{result.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{result.Message}", "Tamam");
 			}
 		}
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{

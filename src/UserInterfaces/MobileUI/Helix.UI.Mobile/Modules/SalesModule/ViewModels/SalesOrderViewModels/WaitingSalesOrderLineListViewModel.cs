@@ -146,7 +146,7 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 
 		try
 		{
-			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Müşteri Adı A-Z", "Müşteri Adı Z-A", "Müşteri Kodu A-Z", "Müşteri Kodu Z-A");
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Tarihe Göre Artan", "Tarihe Göre Azalan", "Müşteri Adı A-Z", "Müşteri Adı Z-A", "Müşteri Kodu A-Z", "Müşteri Kodu Z-A");
 			if (!string.IsNullOrEmpty(response))
 			{
 				CurrentPage = 0;

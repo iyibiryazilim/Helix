@@ -5,10 +5,10 @@ namespace Helix.UI.Mobile.Modules.PanelModule.Models;
 public partial class MainPanelModel : ObservableObject
 {
 	[ObservableProperty]
-	double? todayInputTransactionFicheCount; // Bugünkü Giriş Sayısı
+	double? inputCount; // Bugünkü Giriş Sayısı
 
 	[ObservableProperty]
-	double? todayOutputTransactionFicheCount; // Bugünkü Çıkış Sayısı
+	double? outputCount; // Bugünkü Çıkış Sayısı
 
 	[ObservableProperty]
 	double? waitingSalesOrderCount; // Bekleyen Satış 

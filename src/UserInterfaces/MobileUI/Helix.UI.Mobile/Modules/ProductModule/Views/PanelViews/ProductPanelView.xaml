@@ -67,14 +67,17 @@
                                         </Grid>
                                         <Frame Grid.Column="1"
                                                Padding="0"
-                                               BackgroundColor="White"
+                                               BackgroundColor="Transparent"
                                                BorderColor="Transparent"
                                                CornerRadius="10"
                                                HasShadow="False"
                                                HorizontalOptions="End"
                                                IsClippedToBounds="True"
                                                VerticalOptions="Center">
-                                            <Image Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                            <Image Aspect="AspectFit"
+                                                   HeightRequest="60"
+                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                                   WidthRequest="100" />
                                         </Frame>
                                     </Grid>
                                 </Frame>
@@ -101,9 +104,9 @@
                                                         StrokeShape="RoundRectangle 10,0,0,0"
                                                         WidthRequest="9" />
                                                 <VerticalStackLayout Grid.Column="1"
-                                                                     VerticalOptions="Center"
                                                                      Padding="10"
-                                                                     Spacing="4">
+                                                                     Spacing="4"
+                                                                     VerticalOptions="Center">
                                                     <Label FontAttributes="Bold"
                                                            FontSize="Medium"
                                                            HorizontalOptions="Center"

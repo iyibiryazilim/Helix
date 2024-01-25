@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Security.Identity;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
@@ -85,16 +86,20 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-            foreach (Current item in result.Data)
+            if(result.Data.Any())
             {
-				if (item.ReferenceCount > 0)
+                Items.Clear();
+                Results.Clear();
+
+				foreach (Current item in result.Data)
 				{
-					Items.Add(item);
-					Results.Add(item);
+					if (item.ReferenceCount > 0)
+					{
+						Items.Add(item);
+						Results.Add(item);
+					}
 				}
 			}
-
-
         }
         catch (Exception ex)
         {
@@ -156,24 +161,30 @@ public partial class DispatchBySalesOrderCustomerViewModel : BaseViewModel
         {
             IsBusy = true;
             IsRefreshing = true;
+            IsRefreshing = false;
+
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-            foreach (Current item in result.Data)
+
+            if(result.Data.Any())
             {
-				if (item.ReferenceCount > 0)
+                Items.Clear();
+                Results.Clear();
+				foreach (Current item in result.Data)
 				{
-					Items.Add(item);
-					Results.Add(item);
+					if (item.ReferenceCount > 0)
+					{
+						Items.Add(item);
+						Results.Add(item);
+					}
 				}
 			}
-
-
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {

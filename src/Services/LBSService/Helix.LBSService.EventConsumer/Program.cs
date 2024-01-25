@@ -1,52 +1,51 @@
-﻿using Helix.EventBus.Base;
-using Helix.EventBus.Base.Events;
-using Helix.EventBus.Factory;
-using Helix.LBSService.EventConsumer;
+﻿using Helix.LBSService.EventConsumer.ProductTransaction;
+using Helix.LBSService.EventConsumer.WorkOrder;
 using Helix.LBSService.Tiger.DataStores;
 using Helix.LBSService.Tiger.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Text;
 
-HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
-
-builder.Services.AddSingleton<ILG_WorkOrderService, LG_WorkOrderDataStore>();
-builder.Services.AddSingleton<IUnityApplicationService, UnityApplicationDataStore>();
-
-var serviceProvider = builder.Services.BuildServiceProvider();
-string message = ConsumeEvent(new EventBusConfig{
-	ConnectionRetryCount = 5,
-	SubscriperClientAppName = "ProductionService",
-	DefaultTopicName = "HelixTopicName",
-	EventBusType = EventBusType.RabbitMQ,
-	EventNameSuffix = nameof(IntegrationEvent),
-}, serviceProvider, @event: new StopTransactionForWorkOrderInsertedIntegrationEvent());
-Console.WriteLine(message);
-//Run command as host
-using IHost host = builder.Build();
-await host.RunAsync();
-
-string ConsumeEvent(EventBusConfig config, ServiceProvider serviceProvider, IntegrationEvent @event)
+class Program
 {
-	var result = "";
-	try
+	static async Task Main(string[] args)
 	{
-		var eventBus = EventBusFactory.Create(config, serviceProvider);
-		eventBus.Consume(@event);
-		var consumer = eventBus.GetConsumer();
+		var builder = Host.CreateDefaultBuilder(args);
 
-		consumer.Received += (model, ea) =>
+		builder.ConfigureServices((hostContext, services) =>
 		{
-			var body = ea.Body.ToArray();
-			Console.WriteLine($" [x] Received {Encoding.UTF8.GetString(body)}");
-			result = Encoding.UTF8.GetString(body);
-			eventBus.GetConsumerChannel().BasicAck(ea.DeliveryTag, false);
-		};
+			services.AddSingleton<ILG_WorkOrderService, LG_WorkOrderDataStore>();
+			services.AddSingleton<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
+
+			services.AddSingleton<IUnityApplicationService, UnityApplicationDataStore>();
+
+			// Register multiple consumers
+			services.AddSingleton<WorkOrderStatusChangeConsumer>();
+			services.AddSingleton<StopTransactionForWorkOrderConsumer>(); // Assuming you have a consumer for this
+			services.AddSingleton<WastageTransactionConsumer>();
+			// Add more consumers as needed
+		});
+
+		var host = builder.Build();
+
+		using (var scope = host.Services.CreateScope())
+		{
+			var serviceProvider = scope.ServiceProvider;
+			var workOrderService = serviceProvider.GetRequiredService<ILG_WorkOrderService>();
+			var wastageTransactionService = serviceProvider.GetRequiredService<ILG_WastageTransactionService>();
+
+			// Get and start each consumer
+			var workOrderStatusChangeConsumer = serviceProvider.GetRequiredService<WorkOrderStatusChangeConsumer>();
+			var stopTransactionForWorkOrderConsumer = serviceProvider.GetRequiredService<StopTransactionForWorkOrderConsumer>();
+			var wastageTransactionConsumer = serviceProvider.GetRequiredService<WastageTransactionConsumer>();
+			// Use workOrderService and consumers as needed
+			await Task.WhenAll(
+				workOrderStatusChangeConsumer.ProcessMessagesAsync(),
+				stopTransactionForWorkOrderConsumer.ProcessMessagesAsync(),
+				wastageTransactionConsumer.ProcessMessagesAsync()
+			// Add more consumer tasks as needed
+			);
+		}
+
+		await host.RunAsync();
 	}
-	catch (Exception ex)
-	{
-		Console.WriteLine($"Error setting up consumer: {ex.Message}");
-		throw;
-	}
-	return result;
 }

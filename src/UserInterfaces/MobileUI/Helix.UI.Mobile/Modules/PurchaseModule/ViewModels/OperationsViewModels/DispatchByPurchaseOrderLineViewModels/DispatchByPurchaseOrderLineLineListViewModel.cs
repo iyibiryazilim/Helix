@@ -301,20 +301,38 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		{
 			try
 			{
-				WarehouseTotalList.Clear();
+				IsBusy = true;
+				IsRefreshing = true;
+				IsRefreshing = false;
 
 				var warehouseNumber = Warehouse.Number;
 
 				var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, (int)warehouseNumber, "1,2,3,4,10,11,12,13", "", WarehouseTotalOrderBy.nameasc, 0, 10000);
-				foreach (var item in result.Data)
+				if (result.IsSuccess)
 				{
-					WarehouseTotalList.Add(item);
+					WarehouseTotalList.Clear();
+
+					foreach (var item in result.Data)
+					{
+						WarehouseTotalList.Add(item);
+					}
 				}
+				else
+				{
+					await Shell.Current.DisplayAlert(" Error: ", $"{result.Message}", "Tamam");
+
+				}
+
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+				IsRefreshing = false;
 			}
 		}
 		async Task SetGroupLinesByProduct()
@@ -399,21 +417,32 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			try
 			{
 
-				if (Lines.Any())
-				{
-					Lines.Clear();
-				}
+				
 				var result = await _purchaseOrderLineService.GetWaitingOrdersByCurrentIdAndWarehouseNumber(httpClient, SearchText, OrderBy, Current.ReferenceId, Warehouse.Number, CurrentPage, PageSize);
-				foreach (var item in result.Data)
+				if (result.IsSuccess)
 				{
-					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-					Lines.Add(obj);
+					if (Lines.Any())
+					{
+						Lines.Clear();
+					}
+
+					foreach (var item in result.Data)
+					{
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+						Lines.Add(obj);
+					}
 				}
+				else
+				{
+					await Shell.Current.DisplayAlert(" Error: ", $"{result.Message}", "Tamam");
+
+				}
+
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
 		async Task FIFOCalculate()

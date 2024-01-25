@@ -2,9 +2,9 @@
 {
 	public class CustomerQuery
 	{
-		readonly string CompanyNumber = "003";
+		readonly string CompanyNumber = "008";
 		readonly string CompanyPeriod = "01";
-		readonly string FirmNumber = "3";
+		readonly string FirmNumber = "8";
 
 		public string GetTopCustomers()
 		{
