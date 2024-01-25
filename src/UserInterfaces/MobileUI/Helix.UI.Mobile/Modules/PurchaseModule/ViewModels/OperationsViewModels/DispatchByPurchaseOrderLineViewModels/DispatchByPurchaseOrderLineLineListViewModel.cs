@@ -301,6 +301,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		{
 			try
 			{
+				IsBusy = true;
+				IsRefreshing = true;
+				IsRefreshing = false;
 
 				var warehouseNumber = Warehouse.Number;
 
@@ -325,6 +328,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			{
 				Debug.WriteLine(ex);
 				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+				IsRefreshing = false;
 			}
 		}
 		async Task SetGroupLinesByProduct()
