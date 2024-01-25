@@ -35,7 +35,8 @@
         </Grid>
         <Border Grid.Row="1"
                 Margin="0,30,0,0"
-                BackgroundColor="{StaticResource WhiteSmoke}"
+                Padding="0,0,0,15"
+                BackgroundColor="{StaticResource White}"
                 StrokeThickness="0">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,0,0" />
