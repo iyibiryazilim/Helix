@@ -39,7 +39,7 @@
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20, 20, 0, 0" />
             </Border.StrokeShape>
-            <Grid BackgroundColor="Transparent"
+            <Grid Padding="0,0,0,15"
                   RowDefinitions="Auto, *"
                   RowSpacing="10">
                 <Grid Grid.Row="0">
@@ -69,7 +69,7 @@
                         </Grid>
                     </Border>
                 </Grid>
-                <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" Grid.Row="1" />
+                <sharedViews:LoadingView Grid.Row="1" IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
                 <RefreshView Grid.Row="1"
                              Command="{Binding Source={x:Reference this}, Path=ReloadCommand}"
                              IsRefreshing="{Binding Source={x:Reference this}, Path=IsRefreshing, Mode=OneWay}"
@@ -133,7 +133,7 @@
                                                             HorizontalOptions="Start"
                                                             StrokeShape="RoundRectangle 5"
                                                             StrokeThickness="0">
-                                                        <Label TextColor="{StaticResource Primary}" FontSize="10">
+                                                        <Label FontSize="10" TextColor="{StaticResource Primary}">
                                                             <Label.FormattedText>
                                                                 <FormattedString>
                                                                     <Span FontAttributes="Bold" Text="{Binding Quantity, StringFormat='{0:N2}'}" />

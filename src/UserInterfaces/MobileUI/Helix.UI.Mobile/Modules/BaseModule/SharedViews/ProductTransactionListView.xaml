@@ -42,6 +42,7 @@
             </Border.StrokeShape>
             <Grid BackgroundColor="Transparent"
                   RowDefinitions="Auto, *"
+                  Padding="0,0,0,15"
                   RowSpacing="10">
                 <Grid Grid.Row="0">
                     <Border StrokeShape="RoundRectangle 20">

@@ -66,7 +66,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -83,22 +83,26 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
 				var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-				foreach (Warehouse item in result.Data)
+				if(result.Data.Any())
 				{
-					Items.Add(item);
-					Results.Add(item);
+					Items.Clear();
+					Results.Clear();
+					foreach (Warehouse item in result.Data)
+					{
+						Items.Add(item);
+						Results.Add(item);
+					}
 				}
-
-
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -153,21 +157,25 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
-				foreach (Warehouse item in result.Data)
+				if(result.Data.Any())
 				{
-					Items.Add(item);
-					Results.Add(item);
+					Items.Clear();
+					Results.Clear();
+					foreach (Warehouse item in result.Data)
+					{
+						Items.Add(item);
+						Results.Add(item);
+					}
 				}
-
-
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -227,7 +235,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -257,14 +265,19 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 		[RelayCommand]
 		private void ToggleSelection(Warehouse item)
 		{
-			item.IsSelected = !item.IsSelected;
-			if (SelectedWarehouse != null)
+			if(item == SelectedWarehouse)
 			{
 				SelectedWarehouse.IsSelected = false;
+				SelectedWarehouse = null;
 			}
-			if (item.IsSelected)
+			else
 			{
+				if(SelectedWarehouse != null)
+				{
+					SelectedWarehouse.IsSelected = false;
+				}
 				SelectedWarehouse = item;
+				SelectedWarehouse.IsSelected = true;
 			}
 		}
 	}

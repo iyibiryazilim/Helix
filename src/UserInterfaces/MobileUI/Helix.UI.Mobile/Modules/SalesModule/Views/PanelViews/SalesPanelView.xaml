@@ -33,7 +33,7 @@
                 <Frame Grid.Row="0" HeightRequest="200" />
                 <Grid Grid.Row="1">
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="En Çok Hareket Gören Müşteriler" FontAttributes="Bold"/>
+                        <Label FontAttributes="Bold" Text="En Çok Hareket Gören Müşteriler" />
 
                         <CollectionView Grid.Row="0" ItemsSource="{Binding Customers}">
                             <CollectionView.ItemsLayout>
@@ -42,7 +42,7 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Customer">
                                     <Frame WidthRequest="250">
-                                        <Grid ColumnDefinitions="*,auto" ColumnSpacing="10">
+                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                                             <Grid Grid.Column="0" RowDefinitions="*,*,*">
                                                 <Label Grid.Row="0"
                                                        FontAttributes="Bold"
@@ -69,14 +69,17 @@
                                             </Grid>
                                             <Frame Grid.Column="1"
                                                    Padding="0"
-                                                   BackgroundColor="White"
+                                                   BackgroundColor="Transparent"
                                                    BorderColor="Transparent"
                                                    CornerRadius="10"
                                                    HasShadow="False"
                                                    HorizontalOptions="End"
                                                    IsClippedToBounds="True"
                                                    VerticalOptions="Center">
-                                                <Image Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                                <Image Aspect="AspectFit"
+                                                       HeightRequest="60"
+                                                       Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                                       WidthRequest="100" />
                                             </Frame>
                                         </Grid>
                                     </Frame>
@@ -88,7 +91,7 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <VerticalStackLayout>
-                        <Label Text="Son Hareketler" FontAttributes="Bold"/>
+                        <Label FontAttributes="Bold" Text="Son Hareketler" />
                         <Grid RowDefinitions="*">
                             <sharedViews:LoadingView Grid.Row="0" IsBusy="{Binding IsBusy}" />
                             <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Lines}">
@@ -181,22 +184,22 @@
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Fiş Türü" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding TransactionTypeName}" />
-                                                        <BoxView HeightRequest="0.7"  Color="{StaticResource Primary}"/>
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Fiş Numarası" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding FicheCode}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}"/>
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Ambar Adı" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding WarehouseName}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}"/>
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Müşteri" TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding CurrentName}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}"/>
+                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
                                                         <Label Text="Belge Numarası" TextColor="{StaticResource Primary}" />

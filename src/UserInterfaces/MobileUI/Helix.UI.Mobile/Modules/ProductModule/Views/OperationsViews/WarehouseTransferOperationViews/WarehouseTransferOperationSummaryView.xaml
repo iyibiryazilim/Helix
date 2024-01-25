@@ -161,7 +161,8 @@
                                             <Label TextColor="{StaticResource Primary}" FontSize="10">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="{Binding OnHand, StringFormat='{0:N2} '}" />
+                                                        <Span FontAttributes="Bold" Text="{Binding OnHand, StringFormat='{0:N2}'}" />
+                                                        <Span Text=" " />
                                                         <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>

@@ -70,7 +70,6 @@ public partial class PurchaseDispatchSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = false;
 			IsRefreshing = false;
-
 		}
 	}
 	async Task GetWarehousesAsync()
@@ -81,6 +80,7 @@ public partial class PurchaseDispatchSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 
@@ -156,6 +156,7 @@ public partial class PurchaseDispatchSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			var result = await _warehouseService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
@@ -246,17 +247,35 @@ public partial class PurchaseDispatchSelectWarehouseViewModel : BaseViewModel
 	[RelayCommand]
 	async Task GoToPurchaseDispatchListViewAsync()
 	{
-		if (SelectedWarehouse is not null)
+		if (IsBusy)
+			return;
+
+		try
 		{
-			await Shell.Current.GoToAsync($"{nameof(PurchaseDispatchListView)}", new Dictionary<string, object>
+			IsBusy = true;
+
+			if (SelectedWarehouse is not null)
 			{
-				[nameof(Warehouse)] = SelectedWarehouse
-			});
+				await Shell.Current.GoToAsync($"{nameof(PurchaseDispatchListView)}", new Dictionary<string, object>
+				{
+					[nameof(Warehouse)] = SelectedWarehouse
+				});
+			}
+			else
+			{
+				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+			}
 		}
-		else
+		catch(Exception ex)
 		{
-			await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
+		finally
+		{
+			IsBusy = false;
+		}
+		
 
 	}
 

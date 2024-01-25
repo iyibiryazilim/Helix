@@ -15,6 +15,7 @@
     <sharedView:WaitingOrderLineContentView ReloadCommand="{Binding GetLinesCommand}"
                                             SearchCommand="{Binding SearchCommand}"
                                             SortCommand="{Binding SortCommand}"
+                                            IsRefreshing="{Binding IsRefreshing}"
                                             WaitingOrderLineList="{Binding Result}"
                                             IsBusy="{Binding IsBusy}"
                                             GoToNextCommand="{Binding GoToSummaryCommand}"
