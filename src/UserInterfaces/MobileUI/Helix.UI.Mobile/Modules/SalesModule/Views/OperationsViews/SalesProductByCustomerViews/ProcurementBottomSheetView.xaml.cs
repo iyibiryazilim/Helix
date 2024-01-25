@@ -13,8 +13,8 @@ public partial class ProcurementBottomSheetView : BottomSheet
 
     }
 
-    async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-        await this.DismissAsync();
-    }
+    //async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    //{
+    //    await this.DismissAsync();
+    //}
 }

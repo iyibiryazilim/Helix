@@ -32,7 +32,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
         public ObservableCollection<ProcurementCustomer> Items { get; } = new();
 
-       // public ObservableCollection<ProcurementCustomerOrder> NonZeroPercentageOrders { get; set; } = new();
+        // public ObservableCollection<ProcurementCustomerOrder> NonZeroPercentageOrders { get; set; } = new();
 
         public ObservableCollection<ProcurementCustomerOrder> Orders { get; set; } = new ObservableCollection<ProcurementCustomerOrder>();
 
@@ -70,7 +70,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
 
 
-        public ProcurementByCustomerViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService, IWarehouseTotalService warehouseTotalService,IServiceProvider serviceProvider)
+        public ProcurementByCustomerViewModel(IHttpClientService httpClientService, ISalesOrderLineService salesOrderLineService, IWarehouseTotalService warehouseTotalService, IServiceProvider serviceProvider)
         {
             Title = "Hesaplanan Müşteri Listesi";
             _httpClientService = httpClientService;
@@ -79,7 +79,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             _serviceProvider = serviceProvider;
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-            
+
 
             LoadProcurementCustomerCommand = new Command(async () => await LoadProcurementCustomerAsync(cancellationTokenSource.Token));
 
@@ -108,7 +108,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                     Debug.WriteLine($"SalesOrders Count: {SalesOrders.Count}");
 
 
-                    var groupingData = SalesOrders.Where(x=>x.WaitingQuantity>1).OrderByDescending(x=>x.WaitingQuantity).GroupBy(x => x.CurrentCode);
+                    var groupingData = SalesOrders.Where(x => x.WaitingQuantity > 1).OrderByDescending(x => x.WaitingQuantity).GroupBy(x => x.CurrentCode);
 
                     List<ProcurementCustomer> CacheCustomer = new();
 
@@ -132,27 +132,30 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                             var warehouseTotal = WarehouseTotals.FirstOrDefault(wt => wt.ProductReferenceId == order.ProductReferenceId);
                             if (warehouseTotal != null)
                             {
-                                double availableStock = warehouseTotal.OnHand;
-                                Debug.WriteLine($"Available Stock for ProductReferenceId: {order.ProductReferenceId} - {availableStock}");
+                                double onHand = warehouseTotal.OnHand;
+                                Debug.WriteLine($"On Hand for ProductReferenceId: {order.ProductReferenceId} - {onHand}");
 
-                                // bekleyen siparişleri karşılayan miktarı 
-                                double matchingQuantity = Math.Min(availableStock, order.WaitingQuantity ?? 0);
-                                Debug.WriteLine($"Matching Quantity for ProductReferenceId: {order.ProductReferenceId} - {matchingQuantity}");
+                                double waitingQuantity = order.WaitingQuantity ?? 0;
+                                Debug.WriteLine($"Waiting Quantity for ProductReferenceId: {order.ProductReferenceId} - {waitingQuantity}");
 
-                                // yüzde mikt.
-                                double matchingPercentage = (matchingQuantity / (order.WaitingQuantity ?? 0)) * 100;
-                                Debug.WriteLine($"Matching Percentage for ProductReferenceId: {order.ProductReferenceId} - {matchingPercentage}");
+                                // Karşılanan miktar yüzde olarak hesaplanıyor
+                                double matchingPercentage = (onHand >= waitingQuantity) ? 100: (onHand /waitingQuantity) * 100 ;
+                                Debug.WriteLine($"Matching Percentage for ProductReferenceId: {order.ProductReferenceId} - {matchingPercentage}%");
 
-                                customerOrder.ProcurementQuantity = matchingQuantity;
-                                //customerOrder.ProcurementRate = Math.Round(matchingPercentage, 2);
+                               
 
-                                //ambardaki mikt. karşılayan değer çıkarlıyo
-                                warehouseTotal.OnHand -= matchingQuantity;
+                                //customerOrder.ProcurementQuantity = matchingPercentage;
+                                customerOrder.ProcurementRate = matchingPercentage;
 
-                                //if (matchingPercentage > 0)
-                                //{
-                                //    NonZeroPercentageOrders.Add(customerOrder);
-                                //}
+                                // Bekleyen miktarı stoktan eksilt
+                                if (onHand >= waitingQuantity)
+                                {
+                                    warehouseTotal.OnHand -= waitingQuantity;
+                                }
+
+
+
+
                             }
 
                             procurementCustomer.Orders.Add(customerOrder);
@@ -163,12 +166,20 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
                     }
 
+
                     foreach (var procurementCustomer in CacheCustomer)
-                        procurementCustomer.ProcurementRate = procurementCustomer.Orders.Average(x => x.ProcurementRate);
+                    {
+                        if (procurementCustomer.Orders.Any())
+                            procurementCustomer.ProcurementRate = procurementCustomer.Orders.Average(x => x.ProcurementRate);
+                    }
 
 
-                    foreach (var procurementCustomer in CacheCustomer.OrderByDescending(x => x.ProcurementRate))
+
+                    foreach (var procurementCustomer in CacheCustomer)
+                    {
                         Items.Add(procurementCustomer);
+                    }
+
 
                 }
             }
@@ -185,7 +196,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
 
         [RelayCommand]
-        public  async Task OpenProcurementBottomSheetAsync(ProcurementCustomer procurementCustomerOrder)
+        public async Task OpenProcurementBottomSheetAsync(ProcurementCustomer procurementCustomer)
         {
             if (IsBusy)
                 return;
@@ -194,9 +205,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                 IsBusy = true;
 
                 ProcurementBottomSheetViewModel viewModel = _serviceProvider.GetService<ProcurementBottomSheetViewModel>();
+                viewModel.SelectedProcurementCustomer = procurementCustomer;
 
                 ProcurementBottomSheetView sheet = new ProcurementBottomSheetView(viewModel);
-                viewModel.SelectedProcurementCustomer = procurementCustomerOrder;
+
 
                 await sheet.ShowAsync();
             }
@@ -209,6 +221,12 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             {
                 IsBusy = false;
             }
+        }
+
+        [RelayCommand]
+        async Task GoToProcurementOption()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ProcurementOptionView)}");
         }
 
 
@@ -256,11 +274,17 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                 if (Items.Any())
                     Items.Clear();
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
-                var Result = await _salesOrderLineService.GetObjects(httpClient, true, SearchText, SalesOrderBy, CurrentPage, PageSize);
-                foreach (var item in Result.Data)
+
+                foreach (Current current in SelectedCustomers)
                 {
-                    SalesOrders.Add(item);
+                    var Result = await _salesOrderLineService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient, current.ReferenceId,Warehouse.Number ,true, SearchText, SalesOrderBy, CurrentPage, PageSize);
+                    foreach (var item in Result.Data)
+                    {
+                        SalesOrders.Add(item);
+                    }
+
                 }
+
 
 
             }

@@ -256,7 +256,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             {
                 await Shell.Current.GoToAsync($"{nameof(ProcurementByCustomerView)}", new Dictionary<string, object>
                 {
-                    ["Warehouse"] = SelectedWarehouse
+                    ["Warehouse"] = SelectedWarehouse,
+                    ["SelectedCustomers"] = SelectedCustomers
                 });
             }
 

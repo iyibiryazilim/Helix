@@ -21,8 +21,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
     public ObservableCollection<Current> Items { get; } = new();
     public ObservableCollection<Current> Results { get; } = new();
 
-    [ObservableProperty]
-    public ObservableCollection<Current> selectedCustomers; 
+    //  [ObservableProperty]
+    public ObservableCollection<Current> SelectedCustomers { get; } = new();
 
 
     [ObservableProperty]
@@ -88,11 +88,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
             foreach (Current item in result.Data)
             {
-                if (item.ReferenceCount > 0)
-                {
+
                     Items.Add(item);
                     Results.Add(item);
-                }
+                
             }
 
 
@@ -145,8 +144,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             IsBusy = false;
         }
     }
-
-
 
     [RelayCommand]
     async Task ReloadAsync()
@@ -244,48 +241,60 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
     }
 
 
-    public void ToggleSelection(Current item)
+    //public void ToggleSelection(Current item)
+    //{
+    //    if (SelectedCustomers.Contains(item))
+    //    {
+
+    //        item.IsSelected = false;
+    //        SelectedCustomers.Remove(item);
+    //    }
+    //    else
+    //    {
+
+    //        item.IsSelected = true;
+    //        SelectedCustomers.Add(item);
+    //    }
+    //}
+
+
+
+    [RelayCommand]
+    private void ToggleSelection(Current item)
     {
-        if (SelectedCustomers.Contains(item))
+        item.IsSelected = !item.IsSelected;
+        if (SelectedCustomer != null)
         {
-            
-            item.IsSelected = false;
-            SelectedCustomers.Remove(item);
+            SelectedCustomer.IsSelected = false;
         }
-        else
+        if (item.IsSelected)
         {
-            
-            item.IsSelected = true;
             SelectedCustomers.Add(item);
+
         }
+
+
+
     }
 
 
-    //[RelayCommand]
-    //private void ToggleSelection(Current item)
-    //{
-    //    item.IsSelected = !item.IsSelected;
-    //    if (SelectedCustomer != null)
-    //    {
-    //        SelectedCustomer = item;
-    //    }
-    //    SelectedCustomer = item;
 
-    //}
+
 
     [RelayCommand]
     async Task GoToProcurementWarehouseSelectView()
     {
-        if (SelectedCustomer == null)
-        {
-            await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Müşteri seçimi yapmanız gerekmektedir", "Tamam");
-        }
-        else
+        if (SelectedCustomers.Any())
         {
             await Shell.Current.GoToAsync($"{nameof(ProcurementSelectWarehouseView)}", new Dictionary<string, object>
             {
                 ["SelectedCustomers"] = SelectedCustomers
             });
+        }
+        else
+        {
+            await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Müşteri seçimi yapmanız gerekmektedir", "Tamam");
+
         }
 
     }
