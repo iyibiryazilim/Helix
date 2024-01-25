@@ -14,7 +14,7 @@ namespace Helix.LBSService.EventConsumer.ProductTransaction
 		private readonly ConnectionFactory _factory;
 		private readonly IModel _channel;
 
-		private string _queueName = ""; //gonna change
+		private string _queueName = "ProductService.WastageTransactionIns"; //gonna change
 		private string _exchange = "HelixTopicName";
 
 		public WastageTransactionConsumer(ILG_WastageTransactionService wastageTransactionService)
