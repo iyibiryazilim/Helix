@@ -8,7 +8,7 @@ namespace Helix.UI.Mobile.Modules.PanelModule.Helpers.QueryHelper;
 
 public class PanelQuery : IDisposable
 {
-	static string CompanyNumber = "003";
+	static string CompanyNumber = "008";
 	static string CompanyPeriod = "01";
 
 	public string GetTodayTransactionedProducts()
