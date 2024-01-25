@@ -4,6 +4,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.CurrentSelectView"
              BackgroundColor="{StaticResource Primary}"
@@ -174,6 +175,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
+            <sharedViews:LoadingView Grid.Row="1" IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
             <Grid Grid.Row="2">
                 <Button Text="İleri"
                         Margin="10,10,10,20"

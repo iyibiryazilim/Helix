@@ -190,7 +190,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -277,7 +277,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
         }
         async Task GetLinesFromCustomerAndWarehouse(HttpClient httpClient)
@@ -307,7 +307,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
         }
         async Task SetGroupLinesByProduct()
@@ -361,13 +361,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                             }
                         }
                     }
-                    Debug.WriteLine("tamanlandı.");
+                    Debug.WriteLine("tamamlandı.");
 
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
-                    await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+                    await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
                 }
             });
         }
@@ -377,17 +377,26 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         {
             try
             {
+               
+				ChangedLineList.Clear();
 
-                ChangedLineList.Clear();
+				foreach (var item in DispatchTransactionLineGroupList.SelectMany(item => item.Lines.Where(line => line.TempQuantity > 0)))
+				{
+					ChangedLineList.Add(item);
+				}
 
-                foreach (var item in DispatchTransactionLineGroupList.SelectMany(item => item.Lines.Where(line => line.TempQuantity > 0)))
+                if(ChangedLineList.Count > 0)
                 {
-                    ChangedLineList.Add(item);
-                }
-                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineSummaryView)}", new Dictionary<string, object>
+					await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineSummaryView)}", new Dictionary<string, object>
+					{
+						[nameof(ChangedLineList)] = ChangedLineList
+					});
+				}
+                else
                 {
-                    [nameof(ChangedLineList)] = ChangedLineList
-                });
+					await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
+				}
+				
             }
             catch (Exception ex)
             {
