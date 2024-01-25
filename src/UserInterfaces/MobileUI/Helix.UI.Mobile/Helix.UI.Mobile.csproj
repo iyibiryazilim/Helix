@@ -128,10 +128,16 @@
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentTransactionListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\DispatchSelectedLineListContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\DispatchTransactionContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\DispatchTransactionLineContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\DispatchTransactionSummaryContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\FailedPageView.xaml">
@@ -150,6 +156,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ProductTransactionOperationFormContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\ReturnDispatchTransactionFormContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\ReturnSelectContentView.xaml">
@@ -406,10 +415,10 @@
 	  <MauiXaml Update="Modules\ProductModule\Views\WarehouseViews\WarehouseDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineLineListView.xaml">
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineChangeBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineSelectedLineListView.xaml">
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineSummaryView.xaml">
@@ -421,6 +430,9 @@
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderLineViews\DispatchByPurchaseOrderLineWarehouseListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderChangeBottomSheetView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderFicheView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -428,9 +440,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderLineListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderSelectedLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\PurchaseModule\Views\OperationsViews\DispatchByPurchaseOrderViews\DispatchByPurchaseOrderSummaryView.xaml">
@@ -475,10 +484,10 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\ReturnByPurchaseDispatchTransactionLineFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\ReturnByPurchaseDispatchTransactionLineLineListView.xaml">
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\ReturnByPurchaseDispatchTransactionLineLineChangeBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\ReturnByPurchaseDispatchTransactionLineSelectedLineListView.xaml">
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\ReturnByPurchaseDispatchTransactionLineLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionLineViews\ReturnByPurchaseDispatchTransactionLineShipInfoListView.xaml">
@@ -499,10 +508,10 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionLineListView.xaml">
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionLineChangeBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionSelectedLineListView.xaml">
+	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Purchases\ReturnByPurchaseDispatchTransactionViews\ReturnByPurchaseDispatchTransactionShipInfoListView.xaml">
@@ -535,6 +544,9 @@
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineLineChangeBottomSheetView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionLineViews\ReturnBySalesDispatchTransactionLineLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -554,6 +566,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionLineChangeBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\ReturnModule\Views\Sales\ReturnBySalesDispatchTransactionViews\ReturnBySalesDispatchTransactionLineListView.xaml">
@@ -598,6 +613,9 @@
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineLineChangeBottomSheetView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderLineViews\DispatchBySalesOrderLineSelectedLineListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -614,6 +632,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderLineChangeBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\SalesModule\Views\OperationsViews\DispatchBySalesOrderView\DispatchBySalesOrderLineListView.xaml">

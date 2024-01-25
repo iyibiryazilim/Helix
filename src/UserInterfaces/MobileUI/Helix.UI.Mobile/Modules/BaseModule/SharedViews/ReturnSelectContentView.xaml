@@ -5,6 +5,7 @@
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.ReturnSelectContentView"
              BackgroundColor="{StaticResource Primary}"
              x:Name="this">
@@ -13,6 +14,7 @@
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
+    <Grid>
     <Border BackgroundColor="{StaticResource WhiteSmoke}"
             StrokeThickness="0"
             Padding="5,20,5,10">
@@ -152,4 +154,6 @@
             </Grid>
         </Grid>
     </Border>
+    <sharedViews:LoadingView IsBusy="{Binding Source={x:Reference this}, Path= IsBusy}" />
+    </Grid>
 </ContentView>

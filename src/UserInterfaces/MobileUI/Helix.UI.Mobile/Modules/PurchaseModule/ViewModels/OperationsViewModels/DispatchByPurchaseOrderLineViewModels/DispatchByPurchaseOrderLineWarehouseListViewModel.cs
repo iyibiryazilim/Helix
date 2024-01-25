@@ -266,20 +266,20 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         [RelayCommand]
         private void ToggleSelection(Warehouse item)
         {
-			if (item == SelectedWarehouse)
-			{
-				SelectedWarehouse.IsSelected = false;
-				SelectedWarehouse = null;
-			}
-			else
-			{
-				if (SelectedWarehouse != null)
-				{
-					SelectedWarehouse.IsSelected = false;
-				}
-				SelectedWarehouse = item;
-				SelectedWarehouse.IsSelected = true;
-			}
+			if(item == SelectedWarehouse)
+            {
+                SelectedWarehouse.IsSelected = false;
+                SelectedWarehouse = null;
+            }
+            else
+            {
+                if(SelectedWarehouse != null)
+                {
+                    SelectedWarehouse.IsSelected = false;
+                }
+                SelectedWarehouse = item;
+                SelectedWarehouse.IsSelected = true;
+            }
 		}
     }
 }

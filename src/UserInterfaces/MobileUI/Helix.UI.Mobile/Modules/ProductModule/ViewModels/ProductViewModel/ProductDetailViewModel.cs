@@ -114,8 +114,8 @@ public partial class ProductDetailViewModel : BaseViewModel
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			var query = new ProductQuery().DetailValues(Product.ReferenceId);
 			var result = await _customQueryService.GetObjectAsync(httpClient, query);
-			Console.WriteLine(result.Data);
 			var obj = Mapping.Mapper.Map<ProductDetailValues>(result.Data);
+
 			ProductDetailValues.InputQuantity = obj.InputQuantity;
 			ProductDetailValues.OutputQuantity = obj.OutputQuantity;
 			ProductDetailValues.StockQuantity = obj.StockQuantity;

@@ -27,7 +27,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		IPurchaseOrderLineService _purchaseOrderLineService;
 		IHttpClientService _httpClientService;
 		IWarehouseTotalService _warehouseTotalService;
-
+		IServiceProvider _serviceProvider;
 
 
 		public ObservableCollection<WarehouseTotal> WarehouseTotalList { get; } = new();
@@ -36,6 +36,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 		public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
 		public ObservableCollection<WaitingOrderLine> Lines { get; } = new();
+		public ObservableCollection<WaitingOrderLine> ChangedLines { get; } = new();
 
 		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
@@ -57,14 +58,14 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		Warehouse warehouse;
 
 
-		public DispatchByPurchaseOrderLineLineListViewModel(IPurchaseOrderLineService purchaseOrderLineService, IHttpClientService httpClientService, IWarehouseTotalService warehouseTotalService)
+		public DispatchByPurchaseOrderLineLineListViewModel(IPurchaseOrderLineService purchaseOrderLineService, IHttpClientService httpClientService, IWarehouseTotalService warehouseTotalService, IServiceProvider serviceProvider)
 		{
 			Title = "Satır Seçimi";
 
 			_purchaseOrderLineService = purchaseOrderLineService;
 			_httpClientService = httpClientService;
 			_warehouseTotalService = warehouseTotalService;
-
+			_serviceProvider = serviceProvider;
 
 			GetDataCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
@@ -234,8 +235,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					SelectedWaitingOrderLineGroupList.Add(selectedItem);
 				}
 			}
-		}
-
+		} 
 		public async Task SelectAllAsync(bool isSelected)
 		{
 			if (isSelected)
@@ -270,6 +270,33 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			}
 		}
 
+		[RelayCommand]
+		public async Task OpenBottomSheetAsync(WaitingOrderLineGroup model)
+		{
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+
+				var thisModel = WaitingOrderLineGroupList.Where(x => x.Code == model.Code).FirstOrDefault(); 
+				DispatchByPurchaseOrderLineChangeViewModel viewModel = _serviceProvider.GetService<DispatchByPurchaseOrderLineChangeViewModel>();
+				DispatchByPurchaseOrderLineChangeBottomSheetView sheet = new(viewModel);
+				viewModel.LineGroup = thisModel;
+				await sheet.ShowAsync();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+		//Get Data
 		async Task GetWarehouseTotalAsync(HttpClient httpClient)
 		{
 			try
@@ -434,11 +461,19 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				return;
 			try
 			{
-				if (SelectedWaitingOrderLineGroupList.Count(x => x.IsSelected) > 0)
+				foreach (var item in SelectedWaitingOrderLineGroupList.Where(x => x.IsSelected))
 				{
-					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSelectedLineListView)}", new Dictionary<string, object>
+					foreach (var line in item.WaitingOrderLines.Where(x=>x.TempQuantity > 0))
 					{
-						[nameof(SelectedWaitingOrderLineGroupList)] = SelectedWaitingOrderLineGroupList
+						ChangedLines.Add(line); 
+					}
+				}
+				if (ChangedLines.Any())
+				{
+
+					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
+					{
+						[nameof(ChangedLines)] = ChangedLines
 					});
 				}
 				else

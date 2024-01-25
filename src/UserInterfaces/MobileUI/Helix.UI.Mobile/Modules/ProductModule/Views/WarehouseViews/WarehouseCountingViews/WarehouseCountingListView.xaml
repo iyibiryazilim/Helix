@@ -23,7 +23,7 @@
     </ContentPage.Behaviors>
 
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource WhiteSmoke}"
+            BackgroundColor="{StaticResource White}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
@@ -88,22 +88,23 @@
                                         Padding="0,0,5,0"
                                         BackgroundColor="{StaticResource White}"
                                         StrokeShape="RoundRectangle 10">
-                                    <Grid ColumnDefinitions=".20*, *" ColumnSpacing="5">
-                                        <!--<Border Grid.Column="0"
+                                    <Grid ColumnDefinitions="Auto,.20*, *" ColumnSpacing="5">
+                                        <Border Grid.Column="0"
                                                 Margin="-4"
-                                                BackgroundColor="{Binding BorderLineColor}"
+                                                BackgroundColor="{Binding IndicatorColor}"
                                                 StrokeShape="RoundRectangle 10,0,0,0"
                                                 StrokeThickness="0"
-                                                WidthRequest="9" />-->
-                                        <Border Grid.Column="0"
-                                                Padding="10"
+                                                WidthRequest="9" />
+                                        <Border Grid.Column="1"
+                                                Padding="5"
+                                                MaximumHeightRequest="80"
+                                                MinimumHeightRequest="60"
                                                 HorizontalOptions="Start"
                                                 StrokeShape="RoundRectangle 10"
-                                                StrokeThickness="0"
-                                                WidthRequest="75">
+                                                StrokeThickness="0">
                                             <Image Aspect="AspectFit" Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                         </Border>
-                                        <VerticalStackLayout Grid.Column="1"
+                                        <VerticalStackLayout Grid.Column="2"
                                                              Padding="5"
                                                              HorizontalOptions="Start"
                                                              Spacing="5">
@@ -156,6 +157,8 @@
                                 </Border>
                                 <Border Grid.Row="1"
                                         Margin="5,-16,12,0"
+                                        HeightRequest="35"
+                                        WidthRequest="100"
                                         Padding="0,0,0,0"
                                         HorizontalOptions="End"
                                         StrokeShape="RoundRectangle 5"

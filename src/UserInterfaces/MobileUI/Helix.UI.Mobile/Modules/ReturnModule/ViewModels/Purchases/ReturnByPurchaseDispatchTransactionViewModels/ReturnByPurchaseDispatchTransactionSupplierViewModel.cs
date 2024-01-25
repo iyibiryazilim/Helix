@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels
 {
 	public partial class ReturnByPurchaseDispatchTransactionSupplierViewModel : BaseViewModel
-    {
+	{
 		IHttpClientService _httpClientService;
 		private readonly ISupplierService _supplierService;
 		//Lists
@@ -121,6 +121,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				{
 					if (text.Length >= 3)
 					{
+						IsBusy = true;
 						SearchText = text;
 						Result.Clear();
 						foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText) || x.Name.Contains(SearchText)))
@@ -131,6 +132,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				}
 				else
 				{
+					IsBusy = true; 
 					SearchText = string.Empty;
 					Result.Clear();
 					foreach (var item in Items)
@@ -142,6 +144,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+
 			}
 			finally
 			{
@@ -152,14 +156,29 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		[RelayCommand]
 		async Task ToggleSelectionAsync(Current item)
 		{
-			// Deselect all items
-			foreach (var currentItem in Items)
+			if (IsBusy)
+				return;
+			try
 			{
-				currentItem.IsSelected = false;
-			}
+				IsBusy = true;
+				// Deselect all items
+				foreach (var currentItem in Items)
+				{
+					currentItem.IsSelected = false;
+				}
 
-			// Toggle the selection of the provided item
-			item.IsSelected = !item.IsSelected;
+				// Toggle the selection of the provided item
+				item.IsSelected = !item.IsSelected;
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
 		}
 
 		[RelayCommand]
@@ -168,6 +187,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			if (IsBusy) return;
 			try
 			{
+				IsBusy = true;
 				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A", "Referans Sayısı A-Z", "Referans Sayısı Z-A");
 				if (!string.IsNullOrEmpty(response))
 				{
@@ -241,7 +261,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			finally
 			{
 				IsBusy = false;
-				IsRefreshing = false;
 			}
 		}
 
@@ -250,6 +269,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		{
 			try
 			{
+				IsBusy = true;
 				if (Items.Where(c => c.IsSelected).Any())
 				{
 					var result = Items.Where(c => c.IsSelected).First();
@@ -264,10 +284,15 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 					await Shell.Current.DisplayAlert("Uyarı", "Tedarikçi Seçiniz", "Tamam");
 				}
 
+
 			}
 			catch (Exception ex)
 			{
 				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 

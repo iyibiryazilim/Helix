@@ -16,8 +16,6 @@ using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPur
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.SupplierViews;
-using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseViewModels;
-using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Panel;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
@@ -121,8 +119,6 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderSelectedLineListView), typeof(DispatchBySalesOrderSelectedLineListView));
 		Routing.RegisterRoute(nameof(ProductDetailWaitingOrderLineContentView), typeof(ProductDetailWaitingOrderLineContentView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationView), typeof(WarehouseTransferOperationView));
-		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineSelectedLineListView), typeof(DispatchByPurchaseOrderLineSelectedLineListView));
-		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderSelectedLineListView), typeof(DispatchByPurchaseOrderSelectedLineListView));
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineSelectedLineListView), typeof(DispatchBySalesOrderLineSelectedLineListView));
 		Routing.RegisterRoute(nameof(WarehouseTransferOperationSelectedItemsListView), typeof(WarehouseTransferOperationSelectedItemsListView));
 		Routing.RegisterRoute(nameof(ConsumableTransactionOperationSelectWarehouseView), typeof(ConsumableTransactionOperationSelectWarehouseView));
@@ -177,14 +173,13 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchBySalesOrderLineShipInfoListView), typeof(DispatchBySalesOrderLineShipInfoListView));
 		Routing.RegisterRoute(nameof(ReturnSalesFormView), typeof(ReturnSalesFormView));
 		Routing.RegisterRoute(nameof(ReturnPurchaseFormView), typeof(ReturnPurchaseFormView));
-		Routing.RegisterRoute(nameof(SalesProductByCustomerListView),typeof(SalesProductByCustomerListView));
-    Routing.RegisterRoute(nameof(ProcurementOptionView), typeof(ProcurementOptionView));
-    Routing.RegisterRoute(nameof(ProcurementByCustomerView), typeof(ProcurementByCustomerView));
-    Routing.RegisterRoute(nameof(ProcurementByProductView), typeof(ProcurementByProductView));
+		Routing.RegisterRoute(nameof(SalesProductByCustomerListView), typeof(SalesProductByCustomerListView));
+		Routing.RegisterRoute(nameof(ProcurementOptionView), typeof(ProcurementOptionView));
+		Routing.RegisterRoute(nameof(ProcurementByCustomerView), typeof(ProcurementByCustomerView));
+		Routing.RegisterRoute(nameof(ProcurementByProductView), typeof(ProcurementByProductView));
 		Routing.RegisterRoute(nameof(ProcurementSelectWarehouseView), typeof(ProcurementSelectWarehouseView));
 		Routing.RegisterRoute(nameof(ProcurementBottomSheetView), typeof(ProcurementBottomSheetView));
 		Routing.RegisterRoute(nameof(ProcurementCustomerListView),typeof(ProcurementCustomerListView));	
-
 		Routing.RegisterRoute(nameof(SalesProductView), typeof(SalesProductView));
 		Routing.RegisterRoute(nameof(SalesProductByCustomerListView), typeof(SalesProductByCustomerListView));
 		Routing.RegisterRoute(nameof(ProcurementOptionView), typeof(ProcurementOptionView));
@@ -194,14 +189,12 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionWarehouseListView), typeof(ReturnByPurchaseDispatchTransactionWarehouseListView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionFicheView), typeof(ReturnByPurchaseDispatchTransactionFicheView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineListView), typeof(ReturnByPurchaseDispatchTransactionLineListView));
-		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSelectedLineListView), typeof(ReturnByPurchaseDispatchTransactionSelectedLineListView));
-		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSummaryView), typeof(ReturnByPurchaseDispatchTransactionSummaryView));
+ 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionSummaryView), typeof(ReturnByPurchaseDispatchTransactionSummaryView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionFormView), typeof(ReturnByPurchaseDispatchTransactionFormView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineShipInfoListView), typeof(ReturnByPurchaseDispatchTransactionLineShipInfoListView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineWarehouseListView), typeof(ReturnByPurchaseDispatchTransactionLineWarehouseListView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineLineListView), typeof(ReturnByPurchaseDispatchTransactionLineLineListView));
-		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineSelectedLineListView), typeof(ReturnByPurchaseDispatchTransactionLineSelectedLineListView));
-		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineSummaryView), typeof(ReturnByPurchaseDispatchTransactionLineSummaryView));
+ 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineSummaryView), typeof(ReturnByPurchaseDispatchTransactionLineSummaryView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineFormView), typeof(ReturnByPurchaseDispatchTransactionLineFormView));
 		Routing.RegisterRoute(nameof(SalesProductByCustomerListView), typeof(SalesProductByCustomerListView));
 		Routing.RegisterRoute(nameof(ProcurementOptionView), typeof(ProcurementOptionView));
@@ -226,9 +219,12 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineShipInfoListView), typeof(ReturnByPurchaseDispatchTransactionLineShipInfoListView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineWarehouseListView), typeof(ReturnByPurchaseDispatchTransactionLineWarehouseListView));
 		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineLineListView), typeof(ReturnByPurchaseDispatchTransactionLineLineListView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineLineChangeBottomSheetView), typeof(ReturnByPurchaseDispatchTransactionLineLineChangeBottomSheetView));
+		Routing.RegisterRoute(nameof(ReturnByPurchaseDispatchTransactionLineChangeBottomSheetView), typeof(ReturnByPurchaseDispatchTransactionLineChangeBottomSheetView));
+		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineChangeBottomSheetView), typeof(DispatchByPurchaseOrderLineChangeBottomSheetView));
 		Routing.RegisterRoute(nameof(ProcurementSelectBottomSheetView), typeof(ProcurementSelectBottomSheetView));
 
 
-
+ 
 	}
 }

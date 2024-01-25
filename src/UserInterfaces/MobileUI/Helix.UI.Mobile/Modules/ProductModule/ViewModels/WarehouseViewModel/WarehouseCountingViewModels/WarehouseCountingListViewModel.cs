@@ -95,6 +95,7 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 
 				foreach(var item in result.Data)
 				{
+					item.TempOnhand = item.OnHand;
 					Items.Add(item);
 					Results.Add(item);
 				}

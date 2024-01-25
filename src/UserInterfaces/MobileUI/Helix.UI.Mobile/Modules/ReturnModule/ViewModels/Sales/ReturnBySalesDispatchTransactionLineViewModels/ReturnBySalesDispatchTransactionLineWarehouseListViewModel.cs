@@ -4,8 +4,8 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -251,7 +251,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFicheView)}", new Dictionary<string, object>
+                await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineLineListView)}", new Dictionary<string, object>
                 {
                     ["Warehouse"] = SelectedWarehouse,
                     ["Current"] = Current,

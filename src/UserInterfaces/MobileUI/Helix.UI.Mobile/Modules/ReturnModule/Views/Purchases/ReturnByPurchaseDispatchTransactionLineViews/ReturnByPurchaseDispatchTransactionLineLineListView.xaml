@@ -9,16 +9,17 @@
              BackgroundColor="{StaticResource Primary}"
              Title="{Binding Title}"
              Shell.TabBarIsVisible="False">
-    
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetTransactionsCommand}" />
     </ContentPage.Behaviors>
     <baseView:DispatchTransactionLineContentView ReloadCommand="{Binding GetLinesCommand}"
-                                            SearchCommand="{Binding SearchCommand}"
-                                            SortCommand="{Binding SortCommand}"
-                                            DispatchTransactionLineGroupList="{Binding Result}"
-                                            IsBusy="{Binding IsBusy}"
-                                            GoToNextCommand="{Binding GoToSelectedLinesCommand}"
-                                            CheckedChangeCommand="{Binding SelectAllCommand}" />
+                                                 SearchCommand="{Binding SearchCommand}"
+                                                 SortCommand="{Binding SortCommand}"
+                                                 DispatchTransactionLineGroupList="{Binding Result}"
+                                                 IsBusy="{Binding IsBusy}"
+                                                 IsRefreshing="{Binding IsRefreshing}"
+                                                 ToggleSelectionCommand="{Binding OpenBottomSheetCommand}"
+                                                 CheckedChangeCommand="{Binding SelectAllCommand}" 
+                                                 GoToNextCommand="{Binding GoToSummaryCommand}"/>
 </ContentPage>
