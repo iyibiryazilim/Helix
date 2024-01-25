@@ -13,7 +13,8 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 		private readonly ILG_WorkOrderService _workOrderService;
 		private readonly ConnectionFactory _factory;
 		private readonly IModel _channel;
-
+		private string _queueName = "ProductionService.StopTransactionForWorkOrderInserted";
+		private string _exchange = "HelixTopicName";
 		public StopTransactionForWorkOrderConsumer(ILG_WorkOrderService workOrderService)
 		{
 			_workOrderService = workOrderService;
@@ -25,8 +26,8 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 
 			var connection = _factory.CreateConnection();
 			_channel = connection.CreateModel();
-			_channel.ExchangeDeclare(exchange: "HelixTopicName", type: "direct");
-			_channel.QueueBind("ProductionService.StopTransactionForWorkOrderInserted", exchange: "HelixTopicName", routingKey: "ProductionService.StopTransactionForWorkOrderInserted");
+			_channel.ExchangeDeclare(exchange: _exchange, type: "direct");
+			_channel.QueueBind(_queueName, exchange: _exchange, routingKey: _queueName);
 		}
 
 		public async Task ProcessMessagesAsync()
@@ -44,7 +45,7 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 				StopTransactionForWorkOrderDto dto = new StopTransactionForWorkOrderDto();
 
 				_channel.BasicConsume(
-					queue: "ProductionService.StopTransactionForWorkOrderInserted",
+					queue: _queueName,
 					autoAck: false,
 					consumer: consumer
 				);

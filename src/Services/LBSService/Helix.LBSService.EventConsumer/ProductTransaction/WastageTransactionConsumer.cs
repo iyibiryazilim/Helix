@@ -6,21 +6,23 @@ using RabbitMQ.Client.Events;
 using System.Diagnostics;
 using System.Text;
 
-namespace Helix.LBSService.EventConsumer.WorkOrder
+namespace Helix.LBSService.EventConsumer.ProductTransaction
 {
-	public class WorkOrderStatusChangeConsumer : IDisposable
+	public class WastageTransactionConsumer : IDisposable
 	{
-		private readonly ILG_WorkOrderService _workOrderService;
+		private readonly ILG_WastageTransactionService _wastageTransactionService;
 		private readonly ConnectionFactory _factory;
 		private readonly IModel _channel;
 
-		private string _queueName = "ProductionService.WorkOrderInserted";
+		private string _queueName = ""; //gonna change
 		private string _exchange = "HelixTopicName";
-		public WorkOrderStatusChangeConsumer(ILG_WorkOrderService workOrderService)
-		{
-			_workOrderService = workOrderService;
 
-			_factory = new ConnectionFactory {
+		public WastageTransactionConsumer(ILG_WastageTransactionService wastageTransactionService)
+		{
+			_wastageTransactionService = wastageTransactionService;
+
+			_factory = new ConnectionFactory
+			{
 				Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt")
 			};
 
@@ -42,10 +44,10 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 				Console.WriteLine(" [*] Waiting for messages.");
 
 				var consumer = new EventingBasicConsumer(_channel);
-				WorkOrderChangeStatusDto dto = new WorkOrderChangeStatusDto();
+				WastageTransactionDto dto = new WastageTransactionDto();
 
 				_channel.BasicConsume(
-					queue: "ProductionService.WorkOrderInserted",
+					queue: _queueName,
 					autoAck: false,
 					consumer: consumer
 				);
@@ -57,9 +59,9 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 						var body = ea.Body.ToArray();
 						var message = Encoding.UTF8.GetString(body);
 						Console.WriteLine($" [x] Received {message}");
-						dto = JsonConvert.DeserializeObject<WorkOrderChangeStatusDto>(message);
+						dto = JsonConvert.DeserializeObject<WastageTransactionDto>(message);
 
-						var result = await _workOrderService.InsertWorkOrderStatus(dto);
+						var result = await _wastageTransactionService.Insert(dto);
 
 						if (result.IsSuccess)
 						{
@@ -75,7 +77,7 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 							Console.WriteLine($" [!] Message negatively acknowledged and requeued: {message}");
 						}
 
-  					}
+					}
 					catch (Exception ex)
 					{
 						// Handle specific exceptions or log the error
@@ -101,7 +103,7 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 		{
 			if (_channel.IsOpen)
 				_channel.Close();
-			 
+
 		}
 	}
 }
