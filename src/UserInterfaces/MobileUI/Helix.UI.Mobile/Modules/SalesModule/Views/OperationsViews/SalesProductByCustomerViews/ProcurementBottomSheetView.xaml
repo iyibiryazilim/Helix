@@ -13,22 +13,18 @@
                    x:DataType="viewModel:ProcurementBottomSheetViewModel"
                    
                    x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews.ProcurementBottomSheetView">
-    <the49:BottomSheet.Detents>
-        <!-- Stop at the height of the screen -->
-        <the49:FullscreenDetent />
-        <!-- Stop at the height of the page content -->
-        <the49:ContentDetent />
-        <!-- Stop at 120dp -->
-        <the49:HeightDetent Height="400" />
-      
+    <the49:BottomSheet.Detents>          
+        <the49:FullscreenDetent />         
+        <the49:ContentDetent />      
     </the49:BottomSheet.Detents>
 
     <the49:BottomSheet.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding LoadOrdersCommand}"
+        <toolkit:EventToCommandBehavior Command="{Binding LoadOrderCommand}"
                                         EventName="Loaded" />
     </the49:BottomSheet.Behaviors>
 
-    <ScrollView  Padding="20" Margin="0,0,0,20">
+    <ScrollView  Padding="20"
+                 Margin="0,0,0,20">
         <Border BackgroundColor="{StaticResource White}"
                 StrokeThickness="0"
                 Padding="5,20,5,10">
@@ -76,17 +72,49 @@
                                                          Padding="10">
                                         <Label FontAttributes="Bold"
                                                FontSize="Medium"
-                                               HorizontalOptions="Start"
+                                               HorizontalOptions="Center"
                                                TextColor="{StaticResource Primary}">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="xxx" />
+                                                    <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:dd}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontAttributes="Bold"
+                                               FontSize="Default"
+                                               HorizontalOptions="Center"
+                                               TextColor="{StaticResource Gray400}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:MM/yyyy}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontAttributes="Bold"
+                                               FontSize="Micro"
+                                               HorizontalOptions="Center"
+                                               TextColor="{StaticResource Gray400}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:hh:mm:ss}'}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
 
+
                                     </VerticalStackLayout>
-                                    
+                                    <VerticalStackLayout Grid.Column="2"
+                                                         VerticalOptions="Center"
+                                                         Spacing="5">
+                                        <Label Text="{Binding SalesOrderLine.ProductCode}"
+                                               FontAttributes="Bold" />
+                                        <Label Text="{Binding SalesOrderLine.ProductName}"
+                                               FontSize="12" />
+                                        <Label Text="{Binding ProcurementRate}"
+                                               FontSize="12" />
+
+                                    </VerticalStackLayout>
+
 
 
                                 </Grid>
@@ -103,5 +131,7 @@
         </Border>
 
     </ScrollView>
+
+
 
 </the49:BottomSheet>

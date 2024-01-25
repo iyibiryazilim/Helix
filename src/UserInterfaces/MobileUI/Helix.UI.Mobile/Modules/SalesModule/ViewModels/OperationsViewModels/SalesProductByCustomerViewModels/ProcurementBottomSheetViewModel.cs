@@ -13,10 +13,8 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels;
 
-[QueryProperty(name: nameof(ProcurementCustomer),queryId:nameof(ProcurementCustomer))]
 public partial class ProcurementBottomSheetViewModel :BaseViewModel
 {
-
     public ObservableCollection<ProcurementCustomerOrder> Items { get; } = new();
 
 
@@ -31,7 +29,7 @@ public partial class ProcurementBottomSheetViewModel :BaseViewModel
         LoadOrderCommand = new Command(async () => await LoadOrdersAsync());
     }
 
-    [RelayCommand]
+
     async Task LoadOrdersAsync()
     {
         try
@@ -41,17 +39,20 @@ public partial class ProcurementBottomSheetViewModel :BaseViewModel
             if (Items.Any())
                 Items.Clear();
 
-
-            foreach (ProcurementCustomerOrder item in selectedProcurementCustomer.Orders)
+            if (SelectedProcurementCustomer.Orders.Any())
             {
-                Items.Add(item);
+                foreach (ProcurementCustomerOrder item in SelectedProcurementCustomer.Orders)
+                {
+                    Items.Add(item);
+                }
             }
+            
 
         }
         catch (Exception ex)
         {
 
-            throw;
+            Debug.WriteLine(ex);
         }
 
        

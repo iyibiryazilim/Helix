@@ -12,12 +12,8 @@ public partial class ProcurementCustomerOrder :ObservableObject
     private double procurementQuantity;
 
     [ObservableProperty]
-    public Customer customer=new();
-
-    [ObservableProperty]
     private double procurementRate;
-    [ObservableProperty]
-    string image;
+  
 
   
 
