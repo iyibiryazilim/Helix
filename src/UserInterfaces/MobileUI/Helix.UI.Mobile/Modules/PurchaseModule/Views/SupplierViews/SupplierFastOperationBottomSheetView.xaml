@@ -110,7 +110,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.GoToDispatchByPurchaseOrderWarehouseListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"
@@ -152,7 +152,7 @@
                    Padding="10"
                    BackgroundColor="{StaticResource White}">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.X}"
+                    <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=BindingContext.GoToDispatchByPurchaseOrderLineWarehouseListViewCommand}"
                                           Tapped="TapGestureRecognizer_Tapped" />
                 </Frame.GestureRecognizers>
                 <Grid ColumnDefinitions="30,*,Auto"

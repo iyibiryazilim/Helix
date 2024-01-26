@@ -7,6 +7,7 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Models"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             x:DataType="viewModel:DispatchByPurchaseOrderFormViewModel"
              x:Name="this"
              Title="{Binding Title}"
              Shell.TabBarIsVisible="False">

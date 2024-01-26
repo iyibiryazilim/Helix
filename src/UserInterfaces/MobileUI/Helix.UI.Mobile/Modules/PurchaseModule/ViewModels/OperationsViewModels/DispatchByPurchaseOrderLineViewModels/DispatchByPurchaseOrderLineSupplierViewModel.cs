@@ -18,8 +18,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 	{
 		IHttpClientService _httpClientService;
 		private readonly ISupplierService _supplierService;
-		//Lists
-		//Commands
+		
 		public Command GetDataCommand { get; }
 		public Command SearchCommand { get; }
 		//Properties
@@ -243,7 +242,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -257,6 +256,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		{
 			try
 			{
+				IsBusy = true;
+
 				if (Items.Where(c => c.IsSelected).Any())
 				{
 					var result = Items.Where(c => c.IsSelected).First();
@@ -275,7 +276,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			}
 			catch (Exception ex)
 			{
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 
