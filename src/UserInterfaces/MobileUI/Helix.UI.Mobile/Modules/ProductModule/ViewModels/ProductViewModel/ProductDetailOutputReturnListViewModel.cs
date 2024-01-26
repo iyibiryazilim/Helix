@@ -72,7 +72,7 @@ public partial class ProductDetailOutputReturnListViewModel : BaseViewModel
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 
 			CurrentPage++;
-			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "2,3", SearchText, OrderBy, CurrentPage, PageSize);
+			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "6", SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{
 				foreach (var item in result.Data)
