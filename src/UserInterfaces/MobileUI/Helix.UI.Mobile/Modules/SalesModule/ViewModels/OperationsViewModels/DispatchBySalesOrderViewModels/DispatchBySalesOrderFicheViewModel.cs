@@ -109,7 +109,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -164,6 +164,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 			CurrentPage = 0;
@@ -229,7 +230,7 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{

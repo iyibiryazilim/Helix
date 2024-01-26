@@ -124,6 +124,7 @@ public partial class WarehouseDetailInputTransactionViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage = 0;
@@ -160,7 +161,6 @@ public partial class WarehouseDetailInputTransactionViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			CurrentPage++;

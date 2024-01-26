@@ -4,10 +4,11 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:Name="this"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.WaitingOrderContentView"
              BackgroundColor="{StaticResource Primary}">
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+    <Border BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>
@@ -278,6 +279,8 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
+            <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
+
             <Grid Grid.Row="3">
                 <Button Text="İleri"
                         Margin="10,10,10,20"

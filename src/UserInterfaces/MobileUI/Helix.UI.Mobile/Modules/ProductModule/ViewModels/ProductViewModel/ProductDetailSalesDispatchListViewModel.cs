@@ -46,7 +46,7 @@ public partial class ProductDetailSalesDispatchListViewModel : BaseViewModel
 			return;
 		try
 		{
-			await Task.Delay(1000);
+			await Task.Delay(500);
 			await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 		}
 		catch (Exception ex)
@@ -107,6 +107,7 @@ public partial class ProductDetailSalesDispatchListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 			var httpClient = _httpClient.GetOrCreateHttpClient();
 			
 			CurrentPage = 0;

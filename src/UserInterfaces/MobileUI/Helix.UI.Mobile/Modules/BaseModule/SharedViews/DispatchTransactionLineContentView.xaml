@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <Grid>
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+    <Border BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>
@@ -45,6 +45,8 @@
                             <ImageButton Aspect="AspectFit"
                                          HeightRequest="25"
                                          WidthRequest="25"
+                                         IsEnabled="False"
+                                         IsVisible="False"
                                          Command="{Binding Source={x:Reference this},Path=SortCommand}">
                                 <ImageButton.Source>
                                     <FontImageSource FontFamily="FAS"

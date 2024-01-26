@@ -24,11 +24,11 @@
                     </ImageButton.Source>
                 </ImageButton>
             </Grid>
-            <Label Grid.Column="1" Text="{Binding Title}" TextColor="White" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Start" />
+            <Label Grid.Column="1" Text="{Binding Title}" TextColor="White" FontSize="Large" VerticalOptions="Center" HorizontalOptions="Start" />
         </Grid>
         <Border Grid.Row="1"
             Margin="0,30,0,0" 
-            BackgroundColor="{StaticResource WhiteSmoke}" 
+            BackgroundColor="{StaticResource White}" 
             StrokeThickness="0">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,0,0" />

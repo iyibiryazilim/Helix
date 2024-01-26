@@ -11,13 +11,13 @@
              Shell.TabBarIsVisible="False"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding GetWarehousesCommand}"
+        <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}"
                                    EventName="Loaded" />
     </ContentPage.Behaviors>
     <sharedViews:WarehouseSelectContentView WarehouseList="{Binding Results}"
                                        IsRefreshing="{Binding IsRefreshing}"
                                        IsBusy="{Binding IsBusy}"
-                                       ReloadCommand="{Binding ReloadCommand}"
+                                       ReloadCommand="{Binding GetWarehousesCommand}"
                                        SearchCommand="{Binding SearchCommand}"
                                        ToggleSelectionCommand="{Binding ToggleSelectionCommand}"
                                        GoToNextCommand="{Binding GoToTransactionCommand}"

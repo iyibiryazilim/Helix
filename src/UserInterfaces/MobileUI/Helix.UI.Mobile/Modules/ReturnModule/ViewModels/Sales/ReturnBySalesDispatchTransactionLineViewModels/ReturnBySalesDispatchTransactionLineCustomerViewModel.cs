@@ -219,14 +219,19 @@ public partial class ReturnBySalesDispatchTransactionLineCustomerViewModel : Bas
 	[RelayCommand]
 	private void ToggleSelection(Current item)
 	{
-		item.IsSelected = !item.IsSelected;
-		if (SelectedCustomer != null)
+		if (item == SelectedCustomer)
 		{
 			SelectedCustomer.IsSelected = false;
+			SelectedCustomer = null;
 		}
-		if (item.IsSelected)
+		else
 		{
+			if (SelectedCustomer != null)
+			{
+				SelectedCustomer.IsSelected = false;
+			}
 			SelectedCustomer = item;
+			SelectedCustomer.IsSelected = true;
 		}
 	}
 

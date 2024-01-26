@@ -38,7 +38,9 @@
                                     CornerRadius="50"
                                     Text="VS" />
                 <VerticalStackLayout Grid.Column="1" Spacing="5">
-                    <Label Text="Hoşgeldiniz" TextColor="{StaticResource Gray400}" FontSize="Default" />
+                    <Label FontSize="Default"
+                           Text="Hoşgeldiniz"
+                           TextColor="{StaticResource Gray400}" />
                     <Label FontAttributes="Bold"
                            Text="Volkan Sunuk"
                            VerticalOptions="End" />
@@ -74,7 +76,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="{Binding mainPanelModel.TodayInputTransactionFicheCount}"
+                                   Text="{Binding mainPanelModel.InputCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
@@ -90,7 +92,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   Text="{Binding mainPanelModel.TodayOutputTransactionFicheCount}"
+                                   Text="{Binding mainPanelModel.OutputCount}"
                                    TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
@@ -115,8 +117,8 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   TextColor="{StaticResource White}"
-                                   Text="{Binding mainPanelModel.WaitingSalesOrderCount}" />
+                                   Text="{Binding mainPanelModel.WaitingSalesOrderCount}"
+                                   TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satış"
@@ -130,8 +132,8 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
-                                   TextColor="{StaticResource White}"
-                                   Text="{Binding mainPanelModel.WaitingPurchaseOrderCount}" />
+                                   Text="{Binding mainPanelModel.WaitingPurchaseOrderCount}"
+                                   TextColor="{StaticResource White}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satınalma"
@@ -184,7 +186,7 @@
                                                     VerticalOptions="Center"
                                                     WidthRequest="80" />
                                         </Grid>
-                                        <Border Grid.Column="1"
+                                        <!--<Border Grid.Column="1"
                                                 Padding="0"
                                                 BackgroundColor="Transparent"
                                                 HorizontalOptions="End"
@@ -193,7 +195,21 @@
                                             <Image Aspect="AspectFit"
                                                    Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
                                                    WidthRequest="60" />
-                                        </Border>
+                                        </Border>-->
+                                        <Frame Grid.Column="1"
+                                               Padding="0"
+                                               BackgroundColor="Transparent"
+                                               BorderColor="Transparent"
+                                               CornerRadius="10"
+                                               HasShadow="False"
+                                               HorizontalOptions="End"
+                                               IsClippedToBounds="True"
+                                               VerticalOptions="Center">
+                                            <Image Aspect="AspectFit"
+                                                   HeightRequest="60"
+                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                                   WidthRequest="100" />
+                                        </Frame>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
