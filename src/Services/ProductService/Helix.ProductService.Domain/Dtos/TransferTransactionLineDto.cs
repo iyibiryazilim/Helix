@@ -19,8 +19,6 @@
         string? description,
         int ficheReferenceId,
         string? ficheCode,
-        int? currentReferenceId,
-        string? currentCode,
         string? speCode,
         double conversionFactor,
         double otherConversionFactor)

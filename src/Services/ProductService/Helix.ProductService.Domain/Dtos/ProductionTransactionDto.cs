@@ -2,9 +2,7 @@
 
 public record ProductionTransactionDto(int referenceId,
     DateTime transactionDate,
-    string transactionTime,
-    int convertedTime,
-    int orderReference,
+    TimeSpan transactionTime,
     string code,
     short groupType,
     short iOType,

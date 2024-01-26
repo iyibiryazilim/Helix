@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Helix.ProductService.Domain.Dtos
+﻿namespace Helix.ProductService.Domain.Dtos
 {
     public record InCountingTransactionDto(
    int referenceId,
     DateTime transactionDate,
-    string transactionTime,
-    int convertedTime,
-    int orderReference,
+    TimeSpan transactionTime,
     string code,
     short groupType,
     short iOType,
