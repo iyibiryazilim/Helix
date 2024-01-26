@@ -593,10 +593,15 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransactionDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
 			mauiAppBuilder.Services.AddTransient<IWarehouseParameterService, WarehouseParameterDataStore>();
+			mauiAppBuilder.Services.AddTransient<IWastageTransactionService, WastageTransactionDataStore>();
+			mauiAppBuilder.Services.AddTransient<IConsumableTransactionService, ConsumableTransactionDataStore>();
+            mauiAppBuilder.Services.AddTransient<IProductionTransactionService, ProductionTransactionDataStore>();
+            mauiAppBuilder.Services.AddTransient<IInCountingTransactionService, InCountingTransactionDataStore>();
+            mauiAppBuilder.Services.AddTransient<IOutCountingTransactionService, OutCountingTransactionDataStore>();
 
 
 
-			return mauiAppBuilder;
+            return mauiAppBuilder;
 		}
 		#endregion
 

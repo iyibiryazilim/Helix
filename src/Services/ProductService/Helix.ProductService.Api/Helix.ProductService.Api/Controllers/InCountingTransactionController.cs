@@ -61,7 +61,7 @@ public class InCountingTransactionController : ControllerBase
 	[HttpPost]
 	public async Task InCountingInsert([FromBody] InCountingTransactionDto inCountingtransaction)
 	{
-		_eventBus.Publish(new InCountingTransactionInsertingIntegrationEvent(inCountingtransaction.referenceId, inCountingtransaction.transactionDate, inCountingtransaction.transactionTime, inCountingtransaction.convertedTime, inCountingtransaction.orderReference, inCountingtransaction.code, inCountingtransaction.groupType, inCountingtransaction.iOType, inCountingtransaction.transactionType, inCountingtransaction.warehouseNumber, inCountingtransaction.currentReferenceId, inCountingtransaction.currentCode, inCountingtransaction.description, inCountingtransaction.speCode, inCountingtransaction.doCode, inCountingtransaction.docTrackingNumber, inCountingtransaction.lines));
+		_eventBus.Publish(new InCountingTransactionInsertingIntegrationEvent(inCountingtransaction.referenceId, inCountingtransaction.transactionDate, inCountingtransaction.code, inCountingtransaction.groupType, inCountingtransaction.iOType, inCountingtransaction.transactionType, inCountingtransaction.warehouseNumber, inCountingtransaction.currentReferenceId, inCountingtransaction.currentCode, inCountingtransaction.description, inCountingtransaction.speCode, inCountingtransaction.doCode, inCountingtransaction.docTrackingNumber, inCountingtransaction.lines));
 
     }
 }

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
+using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -25,6 +26,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         IHttpClientService _httpClientService;
         IWarehouseService _warehouseService;
         ISpeCodeService _speCodeService;
+        IProductionTransactionService _productionTransactionService;
         //WarehouseService
         public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
@@ -32,7 +34,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         string transactionTypeName;
 
         [ObservableProperty]
-        ProductTransactionFormModel productTransactionFormModel;
+        ProductTransactionFormModel productTransactionFormModel = new();
 
         [ObservableProperty]
         string searchText = string.Empty;
@@ -54,12 +56,13 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 
         public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-        public ProductionTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService)
+        public ProductionTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IProductionTransactionService productionTransactionService)
         {
             Title = "Üretimden Giriş İşlemleri";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
             _speCodeService = speCodeService;
+            _productionTransactionService = productionTransactionService;
             TransactionTypeName = "Üretimden Giriş Fişi";
         }
 
@@ -141,10 +144,74 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         [RelayCommand]
         async Task GoToSuccessPageView()
         {
-            await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+            try
             {
-                ["GroupType"] = 3
-            });
+                IsBusy = true;
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+                DateTime combinedDateTime = ProductTransactionFormModel.TransactionDate.Date
+                   .AddHours(ProductTransactionFormModel.TransactionTime.Hours)
+                   .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
+                   .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
+
+                var productionTransactionDto = new ProductionTransactionDto()
+                {
+                    WarehouseNumber = Warehouse.Number,
+                    TransactionDate = combinedDateTime,
+                    DoCode = ProductTransactionFormModel.DocumentryNo,
+                    DocTrackingNumber = ProductTransactionFormModel.DocumentryTrackingNo,
+                    IOType = 1,
+                    Description = ProductTransactionFormModel.Description,
+                    TransactionType = 13,
+                    GroupType = 3
+
+                };
+                foreach (var item in ProductModel)
+                {
+
+                    var productionTransactionLineDto = new ProductionTransactionLineDto()
+                    {
+                        IOType = 1,
+                        TransactionType = 13,
+                        TransactionDate = combinedDateTime,
+                        ProductCode = item.Code,
+                        ProductReferenceId = item.ReferenceId,
+                        Quantity = item.Quantity,
+                        SubUnitsetCode = item.SubUnitsetCode,
+                        SubUnitsetReferenceId = item.SubUnitsetReferenceId,
+                        UnitsetCode = item.UnitsetCode,
+                        UnitsetReferenceId = item.UnitsetReferenceId,
+                        WarehouseNumber = Warehouse.Number
+                    };
+                    productionTransactionDto.Lines.Add(productionTransactionLineDto);
+                }
+
+
+                var result = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
+                if (result.IsSuccess)
+                {
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+
         }
 
 

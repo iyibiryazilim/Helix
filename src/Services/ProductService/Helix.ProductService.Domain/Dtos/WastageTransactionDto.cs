@@ -2,7 +2,6 @@
 
 public record WastageTransactionDto(int referenceId,
     DateTime transactionDate,
-    TimeSpan transactionTime,
     string code,
     short groupType,
     short iOType,

@@ -102,7 +102,6 @@
 	  <Folder Include="DataStores\" />
 	  <Folder Include="Modules\LoginModule\ViewModels\" />
 	  <Folder Include="Modules\LoginModule\Views\" />
-	  <Folder Include="Modules\ProductModule\Dtos\" />
 
 	  <Folder Include="Modules\PurchaseModule\Dtos\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />

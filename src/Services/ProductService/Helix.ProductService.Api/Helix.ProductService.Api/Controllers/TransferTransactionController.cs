@@ -60,6 +60,6 @@ public class TransferTransactionController : ControllerBase
 	[HttpPost]
 	public async Task TransferTransactionInsert([FromBody] TransferTransactionDto transferTransactionDto)
 	{
-		_eventbus.Publish(new TransferTransactionInsertingIntegrationEvent(transferTransactionDto.referenceId, transferTransactionDto.transactionDate, transferTransactionDto.transactionTime, transferTransactionDto.convertedTime, transferTransactionDto.orderReference, transferTransactionDto.code, transferTransactionDto.groupType, transferTransactionDto.iOType, transferTransactionDto.transactionType, transferTransactionDto.warehouseNumber, transferTransactionDto.currentReferenceId, transferTransactionDto.currentCode, transferTransactionDto.description, transferTransactionDto.speCode, transferTransactionDto.doCode, transferTransactionDto.docTrackingNumber, transferTransactionDto.lines)); 
+		_eventbus.Publish(new TransferTransactionInsertingIntegrationEvent(transferTransactionDto.referenceId, transferTransactionDto.transactionDate, transferTransactionDto.code, transferTransactionDto.groupType, transferTransactionDto.iOType, transferTransactionDto.transactionType, transferTransactionDto.warehouseNumber, transferTransactionDto.currentReferenceId, transferTransactionDto.currentCode, transferTransactionDto.description, transferTransactionDto.speCode, transferTransactionDto.doCode, transferTransactionDto.docTrackingNumber, transferTransactionDto.lines)); 
 	}
 }
