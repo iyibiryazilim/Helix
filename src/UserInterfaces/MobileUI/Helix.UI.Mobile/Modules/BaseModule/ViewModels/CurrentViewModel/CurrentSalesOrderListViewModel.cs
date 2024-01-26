@@ -77,6 +77,7 @@ public partial class CurrentSalesOrderListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage = 0;
@@ -113,7 +114,6 @@ public partial class CurrentSalesOrderListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage++;
@@ -209,7 +209,7 @@ public partial class CurrentSalesOrderListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Sort Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -241,7 +241,7 @@ public partial class CurrentSalesOrderListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Search Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{

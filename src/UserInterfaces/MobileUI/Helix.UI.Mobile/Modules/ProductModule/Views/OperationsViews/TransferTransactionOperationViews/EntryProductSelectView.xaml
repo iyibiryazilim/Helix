@@ -9,6 +9,7 @@
              xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
@@ -22,7 +23,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Border Grid.Row="1"
-            BackgroundColor="{StaticResource WhiteSmoke}"
+            BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>
@@ -34,6 +35,7 @@
                 <Border StrokeShape="RoundRectangle 20">
                     <Grid ColumnDefinitions=".85*,.15*">
                         <SearchBar x:Name="searchBar"
+                                   Placeholder="Arama yapın..."
                                    Grid.Column="0">
                             <SearchBar.Behaviors>
                                 <toolkit:EventToCommandBehavior Command="{Binding SearchCommand}"
@@ -153,6 +155,8 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
+            <sharedViews:LoadingView IsBusy="{Binding IsBusy}"
+                                     Grid.Row="1"/>
             <Button Grid.Row="2"
                     Margin="5,5,5,5"
                     Command="{Binding SaveCommand}"

@@ -53,14 +53,13 @@ namespace Helix.UI.Mobile.Modules.BaseModule.ViewModels.CurrentViewModel
 			try
 			{
 				await Task.Delay(500);
-				//await MainThread.InvokeOnMainThreadAsync(ReloadAsync());
-				await ReloadAsync();
+				await MainThread.InvokeOnMainThreadAsync(ReloadAsync);
 
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -126,7 +125,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.ViewModels.CurrentViewModel
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 
 			}
 			finally
@@ -143,6 +142,8 @@ namespace Helix.UI.Mobile.Modules.BaseModule.ViewModels.CurrentViewModel
 			try
 			{
 				IsBusy = true;
+				IsRefreshing = true;
+				IsRefreshing = false;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
 				CurrentPage = 0;
@@ -152,7 +153,6 @@ namespace Helix.UI.Mobile.Modules.BaseModule.ViewModels.CurrentViewModel
 					Items.Clear();
 					foreach (var item in result.Data)
 					{
-						await Task.Delay(20);
 						Items.Add(item);
 					}
 				}
@@ -160,7 +160,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.ViewModels.CurrentViewModel
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -216,7 +216,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.ViewModels.CurrentViewModel
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -230,12 +230,16 @@ namespace Helix.UI.Mobile.Modules.BaseModule.ViewModels.CurrentViewModel
 		{
 			try
 			{
-				await Task.Delay(500);
+				IsBusy = true;
 				await Shell.Current.GoToAsync($"..");
 			}
 			catch (Exception ex)
 			{
 				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 	}

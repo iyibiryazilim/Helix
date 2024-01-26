@@ -138,7 +138,8 @@
                                                         <Label TextColor="{StaticResource Primary}" FontSize="10">
                                                             <Label.FormattedText>
                                                                 <FormattedString>
-                                                                    <Span FontAttributes="Bold" Text="{Binding Quantity, StringFormat='{0:N2} '}" />
+                                                                    <Span FontAttributes="Bold" Text="{Binding Quantity, StringFormat='{0:N2}'}" />
+                                                                    <Span Text=" " />
                                                                     <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
                                                                 </FormattedString>
                                                             </Label.FormattedText>
@@ -201,6 +202,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </RefreshView>
+                <sharedViews:LoadingView Grid.Row="1" IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
             </Grid>
         </Border>
     </Grid>

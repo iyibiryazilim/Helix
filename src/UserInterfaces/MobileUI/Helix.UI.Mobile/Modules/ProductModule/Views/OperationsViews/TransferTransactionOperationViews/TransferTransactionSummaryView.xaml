@@ -11,7 +11,7 @@
              BackgroundColor="{StaticResource Primary}"
              Title="{Binding Title}"
              Shell.TabBarIsVisible="False">
-    <Border BackgroundColor="{StaticResource WhiteSmoke}"
+    <Border BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>
