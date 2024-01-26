@@ -9,9 +9,7 @@ namespace Helix.ProductService.Domain.Dtos
     public record TransferTransactionDto(
       int referenceId,
     DateTime transactionDate,
-    string transactionTime,
-    int convertedTime,
-    int orderReference,
+    TimeSpan transactionTime,
     string code,
     short groupType,
     short iOType,
