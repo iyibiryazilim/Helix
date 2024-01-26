@@ -7,8 +7,7 @@
 		public PurchaseDispatchTransactionDto()
 		{
 			base.TransactionType = 1;
-			base.TransactionTypeName = "Satınalma İrsaliyesi";
-			Lines = new List<PurchaseDispatchTransactionLineDto>();
+ 			Lines = new List<PurchaseDispatchTransactionLineDto>();
 		}
 	}
 	public class PurchaseDispatchTransactionLineDto : ProductTransactionLineDto
@@ -18,8 +17,7 @@
 		public PurchaseDispatchTransactionLineDto()
 		{
 			base.TransactionType = (short)1;
-			base.TransactionTypeName = "Satınalma İrsaliyesi";
-			SeriLotTransactions = new List<SeriLotTransactionDto>();
+ 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
 }

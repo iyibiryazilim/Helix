@@ -7,7 +7,8 @@
 		public WastageTransactionDto()
 		{
 			base.TransactionType = 11;
-			base.TransactionTypeName = "Fire Fişi";
+			base.IOType = 4;
+
 			Lines = new List<WastageTransactionLineDto>();
 		}
 	}
@@ -16,7 +17,8 @@
 		public WastageTransactionLineDto()
 		{
 			TransactionType = 11;
-			TransactionTypeName = "Fire Fişi";
+			base.IOType = 4;
+
 		}
 	}
 }

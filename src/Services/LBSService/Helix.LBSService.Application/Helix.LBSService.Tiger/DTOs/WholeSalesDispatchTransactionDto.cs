@@ -7,8 +7,7 @@
 		public WholeSalesDispatchTransactionDto()
 		{
 			base.TransactionType = 8;
-			base.TransactionTypeName = "Toptan Satış İrsaliyesi";
-			Lines = new List<WholeSalesDispatchTransactionLineDto>();
+ 			Lines = new List<WholeSalesDispatchTransactionLineDto>();
 		}
 	}
 	public class WholeSalesDispatchTransactionLineDto : ProductTransactionLineDto
@@ -16,8 +15,7 @@
 		public WholeSalesDispatchTransactionLineDto()
 		{
 			TransactionType = 8;
-			TransactionTypeName = "Toptan Satış İrsaliyesi";
-			SeriLotTransactions = new List<SeriLotTransactionDto>();
+ 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 
 		}
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }

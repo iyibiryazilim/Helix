@@ -8,7 +8,8 @@
 		public TransferTransactionDto()
 		{
 			base.TransactionType = 25;
-			base.TransactionTypeName = "Ambar Fişi";
+			base.IOType = 3;
+
 			Lines = new List<TransferTransactionLineDto>();
 		}
 	}
@@ -19,7 +20,8 @@
 		public TransferTransactionLineDto()
 		{
 			base.TransactionType = (short)25;
-			base.TransactionTypeName = "Ambar Fişi";
+			base.IOType = 3;
+
 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}

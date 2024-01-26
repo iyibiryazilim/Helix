@@ -8,7 +8,8 @@
 		public ProductionTransactionDto()
 		{
 			base.TransactionType = 13;
-			base.TransactionTypeName = "Üretimden Giriş Fişi";
+			base.IOType = 1;
+
 			Lines = new List<ProductionTransactionLineDto>();
 		}
 	}
@@ -19,7 +20,8 @@
 		public ProductionTransactionLineDto()
 		{
 			base.TransactionType = (short)13;
-			base.TransactionTypeName = "Üretimden Giriş Fişi";
+			base.IOType = 1;
+
 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}

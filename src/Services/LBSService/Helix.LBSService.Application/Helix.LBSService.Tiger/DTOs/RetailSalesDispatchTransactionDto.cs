@@ -7,8 +7,7 @@
 		public RetailSalesDispatchTransactionDto()
 		{
 			base.TransactionType = 7;
-			base.TransactionTypeName = "Perakende Satış İrsaliyesi";
-			Lines = new List<RetailSalesDispatchTransactionLineDto>();
+ 			Lines = new List<RetailSalesDispatchTransactionLineDto>();
 		}
 	}
 	public class RetailSalesDispatchTransactionLineDto : ProductTransactionLineDto
@@ -18,8 +17,7 @@
 		public RetailSalesDispatchTransactionLineDto()
 		{
 			base.TransactionType = (short)7;
-			base.TransactionTypeName = "Perakende Satış İrsaliyesi";
-			SeriLotTransactions = new List<SeriLotTransactionDto>();
+ 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
 }

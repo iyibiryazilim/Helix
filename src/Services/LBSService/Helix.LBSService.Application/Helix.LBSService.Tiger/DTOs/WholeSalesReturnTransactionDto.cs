@@ -7,8 +7,7 @@
 		public WholeSalesReturnTransactionDto()
 		{
 			base.TransactionType = 3;
-			base.TransactionTypeName = "Toptan Satış İade İrsaliyesi";
-			Lines = new List<WholeSalesReturnTransactionLineDto>();
+ 			Lines = new List<WholeSalesReturnTransactionLineDto>();
 		}
 	}
 	public class WholeSalesReturnTransactionLineDto : ProductTransactionLineDto
@@ -18,8 +17,7 @@
 		public WholeSalesReturnTransactionLineDto()
 		{
 			base.TransactionType = (short)3;
-			base.TransactionTypeName = "Toptan Satış İade İrsaliyesi";
-			SeriLotTransactions = new List<SeriLotTransactionDto>();
+ 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
 }

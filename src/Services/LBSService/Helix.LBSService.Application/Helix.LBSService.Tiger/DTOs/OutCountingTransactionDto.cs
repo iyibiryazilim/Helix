@@ -8,7 +8,8 @@
 		public OutCountingTransactionDto()
 		{
 			base.TransactionType = 51;
-			base.TransactionTypeName = "Sayım Eksiği Fişi";
+			base.IOType = 4;
+
 			Lines = new List<OutCountingTransactionLineDto>();
 		}
 	}
@@ -19,7 +20,8 @@
 		public OutCountingTransactionLineDto()
 		{
 			base.TransactionType = (short)51;
-			base.TransactionTypeName = "Sayım Eksiği Fişi";
+			base.IOType = 4;
+
 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
