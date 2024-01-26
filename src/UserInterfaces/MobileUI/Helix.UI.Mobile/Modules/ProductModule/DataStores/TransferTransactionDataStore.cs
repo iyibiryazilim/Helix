@@ -1,4 +1,5 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using System;
@@ -290,4 +291,40 @@ public class TransferTransactionDataStore : ITransferTransactionService
 			return dataResult;
 		}
 	}
+
+    public async Task<DataResult<TransferTransactionDto>> InsertObject(HttpClient httpClient, TransferTransactionDto transferTransactionDto)
+    {
+        HttpResponseMessage responseMessage = await httpClient.PostAsync(postUrl, new StringContent(JsonSerializer.Serialize(transferTransactionDto), Encoding.UTF8, "application/json"));
+
+        DataResult<TransferTransactionDto> dataResult = new DataResult<TransferTransactionDto>();
+        dataResult.IsSuccess = responseMessage.IsSuccessStatusCode;
+
+        if (dataResult.IsSuccess)
+        {
+            var data = await responseMessage.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrEmpty(data))
+            {
+                dataResult.Data = null;
+                dataResult.Message = "empty";
+            }
+            else
+            {
+                var result = JsonSerializer.Deserialize<DataResult<TransferTransactionDto>>(data, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+                dataResult.Data = result?.Data;
+                dataResult.Message = "success";
+            }
+        }
+        else
+        {
+            dataResult.Data = null;
+            dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+        }
+
+        return dataResult;
+    }
+
 }

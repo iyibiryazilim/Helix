@@ -5,7 +5,6 @@
         string? documentNumber,
         string? documentTrackingNumber,
         DateTime? transactionDate,
-        TimeSpan? transactionTime,
         short? iOType,
         int productReferenceId,
         string? productCode,

@@ -3,12 +3,10 @@
     public record ConsumableTransactionDto(
     int referenceId,
     DateTime transactionDate,
-    TimeSpan transactionTime,
     string code,
     short groupType,
     short iOType,
     short transactionType,
-    string transactionTypeName,
     int? warehouseNumber,
     int? currentReferenceId,
     string? currentCode,

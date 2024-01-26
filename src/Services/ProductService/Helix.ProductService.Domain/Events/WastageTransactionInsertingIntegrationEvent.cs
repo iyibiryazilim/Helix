@@ -7,7 +7,6 @@ namespace Helix.ProductService.Domain.Events
     {
         public int ReferenceId { get; private set; }
         public DateTime TransactionDate { get; private set; }
-        public int OrderReference { get; private set; }
         public string Code { get; private set; }
         public short GroupType { get; private set; }
         public short IOType { get; private set; }
@@ -22,11 +21,10 @@ namespace Helix.ProductService.Domain.Events
 
         public List<WastageTransactionLineDto> Lines { get; set; }
 
-        public WastageTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, int orderReference, string code, short groupType, short iOType, short transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, List<WastageTransactionLineDto> lines)
+        public WastageTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string code, short groupType, short iOType, short transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, List<WastageTransactionLineDto> lines)
         {
             ReferenceId = referenceId;
             TransactionDate = transactionDate;
-            OrderReference = orderReference;
             Code = code;
             GroupType = groupType;
             IOType = iOType;

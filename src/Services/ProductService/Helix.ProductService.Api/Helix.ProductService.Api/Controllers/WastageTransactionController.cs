@@ -5,6 +5,7 @@ using Helix.ProductService.Domain.Dtos;
 using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 
 namespace Helix.ProductService.Api.Controllers;
@@ -59,6 +60,6 @@ public class WastageTransactionController : ControllerBase
     [HttpPost]
     public async Task WastageTransactionInsert([FromBody] WastageTransactionDto wastageTransactionDto)
     {
-        _eventbus.Publish(new WastageTransactionInsertingIntegrationEvent(wastageTransactionDto.referenceId, wastageTransactionDto.transactionDate, wastageTransactionDto.orderReference, wastageTransactionDto.code, wastageTransactionDto.groupType, wastageTransactionDto.iOType, wastageTransactionDto.transactionType, wastageTransactionDto.warehouseNumber, wastageTransactionDto.currentReferenceId, wastageTransactionDto.currentCode, wastageTransactionDto.description, wastageTransactionDto.speCode, wastageTransactionDto.doCode, wastageTransactionDto.docTrackingNumber, wastageTransactionDto.lines));
+        _eventbus.Publish(new WastageTransactionInsertingIntegrationEvent(wastageTransactionDto.referenceId, wastageTransactionDto.transactionDate, wastageTransactionDto.code, wastageTransactionDto.groupType, wastageTransactionDto.iOType, wastageTransactionDto.transactionType, wastageTransactionDto.warehouseNumber, wastageTransactionDto.currentReferenceId, wastageTransactionDto.currentCode, wastageTransactionDto.description, wastageTransactionDto.speCode, wastageTransactionDto.doCode, wastageTransactionDto.docTrackingNumber, wastageTransactionDto.lines));
     }
 }

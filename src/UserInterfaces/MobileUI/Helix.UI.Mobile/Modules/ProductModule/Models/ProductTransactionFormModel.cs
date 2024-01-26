@@ -12,25 +12,22 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 
 
         [ObservableProperty]
-        DateTime transactionDate;
+        DateTime transactionDate = DateTime.Now;
 
         [ObservableProperty]
-        TimeSpan transactionTime;
+        TimeSpan transactionTime=DateTime.Now.TimeOfDay;
 
         [ObservableProperty]
-        Warehouse selectedWarehouse;
+        string documentryNo = string.Empty;
 
         [ObservableProperty]
-        string documentryNo;
+        string speCode = string.Empty;
 
         [ObservableProperty]
-        string speCode;
+        string documentryTrackingNo = string.Empty; 
 
         [ObservableProperty]
-        string documentryTrackingNo;
-
-        [ObservableProperty]
-        string description;
+        string description = string.Empty;
 
 
 

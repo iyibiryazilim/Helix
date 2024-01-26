@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
+using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -23,6 +24,7 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
+    IConsumableTransactionService _consumableTransactionService;
     //WarehouseService
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
@@ -54,12 +56,13 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService)
+    public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IConsumableTransactionService consumableTransactionService)
     {
         Title = "Sarf İşlemleri";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
+        _consumableTransactionService = consumableTransactionService;
         TransactionTypeName = "Sarf Fişi";
     }
 
@@ -147,10 +150,74 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
     [RelayCommand]
     async Task GoToSuccessPageView()
     {
-        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+        try
         {
-            ["GroupType"] = 3
-        });
+            IsBusy = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            DateTime combinedDateTime = ProductTransactionFormModel.TransactionDate.Date
+               .AddHours(ProductTransactionFormModel.TransactionTime.Hours)
+               .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
+               .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
+
+            var consumableTransactionDto = new ConsumableTransactionDto()
+            {
+                WarehouseNumber = Warehouse.Number,
+                TransactionDate = combinedDateTime,
+                DoCode = ProductTransactionFormModel.DocumentryNo,
+                DocTrackingNumber = ProductTransactionFormModel.DocumentryTrackingNo,
+                IOType = 1,
+                Description = ProductTransactionFormModel.Description,
+                TransactionType = 12,
+                GroupType = 3
+
+            };
+            foreach (var item in ProductModel)
+            {
+
+                var consumableTransactionLineDto = new ConsumableTransactionLineDto()
+                {
+                    IOType = 1,
+                    TransactionType = 12,
+                    TransactionDate = combinedDateTime,
+                    ProductCode = item.Code,
+                    ProductReferenceId = item.ReferenceId,
+                    Quantity = item.Quantity,
+                    SubUnitsetCode = item.SubUnitsetCode,
+                    SubUnitsetReferenceId = item.SubUnitsetReferenceId,
+                    UnitsetCode = item.UnitsetCode,
+                    UnitsetReferenceId = item.UnitsetReferenceId,
+                    WarehouseNumber = Warehouse.Number
+                };
+                consumableTransactionDto.Lines.Add(consumableTransactionLineDto);
+            }
+
+
+            var result = await _consumableTransactionService.InsertObject(httpClient, consumableTransactionDto);
+            if (result.IsSuccess)
+            {
+                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                {
+                    ["GroupType"] = 3
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+
     }
 
 

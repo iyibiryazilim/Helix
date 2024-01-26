@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
+using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -26,6 +27,7 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
+    IInCountingTransactionService _inCountingTransactionService;
     //WarehouseService
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
@@ -33,7 +35,7 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
     string transactionTypeName;
 
     [ObservableProperty]
-    ProductTransactionFormModel productTransactionFormModel;
+    ProductTransactionFormModel productTransactionFormModel = new();
 
     [ObservableProperty]
     string searchText = string.Empty;
@@ -57,12 +59,13 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public InCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService)
+    public InCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IInCountingTransactionService inCountingTransactionService)
     {
         Title = "Sayım Fazlası İşlemleri";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
+        _inCountingTransactionService = inCountingTransactionService;
         TransactionTypeName = "Sayım Fazlası Fişi";
 
     }
@@ -145,10 +148,74 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToSuccessPageView()
     {
-        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+        try
         {
-            ["GroupType"] = 3
-        });
+            IsBusy = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            DateTime combinedDateTime = ProductTransactionFormModel.TransactionDate.Date
+               .AddHours(ProductTransactionFormModel.TransactionTime.Hours)
+               .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
+               .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
+
+            var inCountingTransactionDto = new InCountingTransactionDto()
+            {
+                WarehouseNumber = Warehouse.Number,
+                TransactionDate = combinedDateTime,
+                DoCode = ProductTransactionFormModel.DocumentryNo,
+                DocTrackingNumber = ProductTransactionFormModel.DocumentryTrackingNo,
+                IOType = 1,
+                Description = ProductTransactionFormModel.Description,
+                TransactionType = 50,
+                GroupType = 3
+
+            };
+            foreach (var item in ProductModel)
+            {
+
+                var inCountingTransactionLineDto = new InCountingTransactionLineDto()
+                {
+                    IOType = 1,
+                    TransactionType = 50,
+                    TransactionDate = combinedDateTime,
+                    ProductCode = item.Code,
+                    ProductReferenceId = item.ReferenceId,
+                    Quantity = item.Quantity,
+                    SubUnitsetCode = item.SubUnitsetCode,
+                    SubUnitsetReferenceId = item.SubUnitsetReferenceId,
+                    UnitsetCode = item.UnitsetCode,
+                    UnitsetReferenceId = item.UnitsetReferenceId,
+                    WarehouseNumber = Warehouse.Number
+                };
+                inCountingTransactionDto.Lines.Add(inCountingTransactionLineDto);
+            }
+
+
+            var result = await _inCountingTransactionService.InsertObject(httpClient, inCountingTransactionDto);
+            if (result.IsSuccess)
+            {
+                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                {
+                    ["GroupType"] = 3
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+
     }
 
 

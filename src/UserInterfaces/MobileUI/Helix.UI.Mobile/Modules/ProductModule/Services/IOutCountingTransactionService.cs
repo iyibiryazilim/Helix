@@ -1,4 +1,5 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.Services;
@@ -10,5 +11,6 @@ public interface IOutCountingTransactionService
 	Task<DataResult<OutCountingTransaction>> GetObjectByCode(HttpClient httpClient, string code);
 	Task<DataResult<IEnumerable<OutCountingTransaction>>> GetObjectsByCurrentId(HttpClient httpClient, int id);
 	Task<DataResult<IEnumerable<OutCountingTransaction>>> GetObjectsByCurrentCode(HttpClient httpClient, string code);
-	// insert eklenecek
+    Task<DataResult<OutCountingTransactionDto>> InsertObject(HttpClient httpClient, OutCountingTransactionDto outCountingTransactionDto);
+
 }

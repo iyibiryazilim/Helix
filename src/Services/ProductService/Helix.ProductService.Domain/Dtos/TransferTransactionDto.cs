@@ -14,7 +14,6 @@ namespace Helix.ProductService.Domain.Dtos
     short groupType,
     short iOType,
     short transactionType,
-    string transactionTypeName,
     int? warehouseNumber,
     int? currentReferenceId,
     string? currentCode,

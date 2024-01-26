@@ -7,9 +7,6 @@ namespace Helix.ProductService.Domain.Events
     {
         public int ReferenceId { get; private set; }
         public DateTime TransactionDate { get; private set; }
-        public string TransactionTime { get; private set; }
-        public int ConvertedTime { get; private set; }
-        public int OrderReference { get; private set; }
         public string Code { get; private set; }
         public short GroupType { get; private set; }
         public short IOType { get; private set; }
@@ -24,13 +21,10 @@ namespace Helix.ProductService.Domain.Events
 
         public List<OutCountingTransactionLineDto> Lines { get; set; }
 
-        public OutCountingTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string transactionTime, int convertedTime, int orderReference, string code, short groupType, short iOType, short transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, List<OutCountingTransactionLineDto> lines)
+        public OutCountingTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string code, short groupType, short iOType, short transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, List<OutCountingTransactionLineDto> lines)
         {
             ReferenceId = referenceId;
             TransactionDate = transactionDate;
-            TransactionTime = transactionTime;
-            ConvertedTime = convertedTime;
-            OrderReference = orderReference;
             Code = code;
             GroupType = groupType;
             IOType = iOType;

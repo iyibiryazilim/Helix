@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
+using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -21,6 +22,7 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
+    IWastageTransactionService _wastageTransactionService;
     //WarehouseService
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
@@ -29,7 +31,7 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
     [ObservableProperty]
     ObservableCollection<ProductModel> productModel;
     [ObservableProperty]
-    ProductTransactionFormModel productTransactionFormModel;
+    ProductTransactionFormModel productTransactionFormModel = new();
 
     [ObservableProperty]
     string searchText = string.Empty;
@@ -51,12 +53,13 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public WastageTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService )
+    public WastageTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IWastageTransactionService wastageTransactionService )
     {
         Title = "Fire İşlemleri";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
+        _wastageTransactionService = wastageTransactionService;
         TransactionTypeName = "Fire Fişi";
     }
 
@@ -139,11 +142,76 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToSuccessPageView()
     {
-        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+        try
         {
-            ["GroupType"] = 3
-        });
+            IsBusy = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            DateTime combinedDateTime = ProductTransactionFormModel.TransactionDate.Date
+               .AddHours(ProductTransactionFormModel.TransactionTime.Hours)
+               .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
+               .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
+
+            var wastageTransactionDto = new WastageTransactionDto()
+            {
+                WarehouseNumber = Warehouse.Number,
+                TransactionDate = combinedDateTime,
+                DoCode = ProductTransactionFormModel.DocumentryNo,
+                DocTrackingNumber = ProductTransactionFormModel.DocumentryTrackingNo,
+                IOType = 4,
+                Description = ProductTransactionFormModel.Description,
+                TransactionType = 11,
+                GroupType = 3
+                
+            };
+            foreach (var item in ProductModel)
+            {
+                
+                var wastageTransactionLineDto = new WastageTransactionLineDto()
+                {
+                    IOType = 4,
+                    TransactionType = 11,
+                    TransactionDate = combinedDateTime,
+                    ProductCode = item.Code,
+                    ProductReferenceId = item.ReferenceId,
+                    Quantity = item.Quantity,
+                    SubUnitsetCode = item.SubUnitsetCode,
+                    SubUnitsetReferenceId = item.SubUnitsetReferenceId,
+                    UnitsetCode = item.UnitsetCode,
+                    UnitsetReferenceId = item.UnitsetReferenceId,
+                    WarehouseNumber = Warehouse.Number
+                };
+                wastageTransactionDto.Lines.Add(wastageTransactionLineDto);
+            }
+
+
+            var result = await _wastageTransactionService.InsertObject(httpClient, wastageTransactionDto);
+            if (result.IsSuccess)
+            {
+                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                {
+                    ["GroupType"] = 3
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+            }
+           
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+       
     }
+
 
 
 }

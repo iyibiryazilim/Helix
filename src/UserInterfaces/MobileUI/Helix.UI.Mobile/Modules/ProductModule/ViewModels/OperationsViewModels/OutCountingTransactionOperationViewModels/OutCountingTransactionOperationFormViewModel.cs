@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
+using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -21,6 +22,7 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
+    IOutCountingTransactionService _outCountingTransactionService;
     //WarehouseService
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
@@ -28,7 +30,7 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
     string transactionTypeName;
 
     [ObservableProperty]
-    ProductTransactionFormModel productTransactionFormModel;
+    ProductTransactionFormModel productTransactionFormModel = new();
     [ObservableProperty]
     ObservableCollection<ProductModel> productModel;
     [ObservableProperty]
@@ -51,12 +53,13 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
 
-    public OutCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService)
+    public OutCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService, IOutCountingTransactionService outCountingTransactionService)
     {
         Title = "Sayım Eksikliği İşlemleri";
         _httpClientService= httpClientService;
         _warehouseService= warehouseService;
         _speCodeService= speCodeService;
+        _outCountingTransactionService = outCountingTransactionService;
         transactionTypeName = "Sayım Eksiği Fişi";
 
 
@@ -143,10 +146,74 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
     [RelayCommand]
     async Task GoToSuccessPageView()
     {
-        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+        try
         {
-            ["GroupType"] = 3
-        });
+            IsBusy = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            DateTime combinedDateTime = ProductTransactionFormModel.TransactionDate.Date
+               .AddHours(ProductTransactionFormModel.TransactionTime.Hours)
+               .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
+               .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
+
+            var outCountingTransactionDto = new OutCountingTransactionDto()
+            {
+                WarehouseNumber = Warehouse.Number,
+                TransactionDate = combinedDateTime,
+                DoCode = ProductTransactionFormModel.DocumentryNo,
+                DocTrackingNumber = ProductTransactionFormModel.DocumentryTrackingNo,
+                IOType = 4,
+                Description = ProductTransactionFormModel.Description,
+                TransactionType = 51,
+                GroupType = 3
+
+            };
+            foreach (var item in ProductModel)
+            {
+
+                var outCountingTransactionLineDto = new OutCountingTransactionLineDto()
+                {
+                    IOType = 4,
+                    TransactionType = 51,
+                    TransactionDate = combinedDateTime,
+                    ProductCode = item.Code,
+                    ProductReferenceId = item.ReferenceId,
+                    Quantity = item.Quantity,
+                    SubUnitsetCode = item.SubUnitsetCode,
+                    SubUnitsetReferenceId = item.SubUnitsetReferenceId,
+                    UnitsetCode = item.UnitsetCode,
+                    UnitsetReferenceId = item.UnitsetReferenceId,
+                    WarehouseNumber = Warehouse.Number
+                };
+                outCountingTransactionDto.Lines.Add(outCountingTransactionLineDto);
+            }
+
+
+            var result = await _outCountingTransactionService.InsertObject(httpClient, outCountingTransactionDto);
+            if (result.IsSuccess)
+            {
+                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                {
+                    ["GroupType"] = 3
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+
     }
 
 }
