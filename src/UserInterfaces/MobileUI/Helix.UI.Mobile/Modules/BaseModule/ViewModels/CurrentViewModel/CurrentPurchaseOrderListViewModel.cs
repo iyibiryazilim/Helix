@@ -78,6 +78,7 @@ public partial class CurrentPurchaseOrderListViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage = 0;
@@ -113,7 +114,6 @@ public partial class CurrentPurchaseOrderListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-			IsRefreshing = true;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage++;
@@ -135,7 +135,7 @@ public partial class CurrentPurchaseOrderListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Waiting Order Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -239,12 +239,13 @@ public partial class CurrentPurchaseOrderListViewModel : BaseViewModel
 			return;
 		try
 		{
+			IsBusy = true;
 			await Shell.Current.GoToAsync("..");
 		}
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("GoToBack Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{

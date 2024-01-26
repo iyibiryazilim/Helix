@@ -151,6 +151,9 @@
                     <CollectionView Grid.Row="1"
                                     Margin="0,0,0,10"
                                     ItemsSource="{Binding Products}">
+                        <CollectionView.EmptyView>
+                            <Label Text="Bugün işlem gören herhangi bir malzeme yok." HorizontalOptions="Center" />
+                        </CollectionView.EmptyView>
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>

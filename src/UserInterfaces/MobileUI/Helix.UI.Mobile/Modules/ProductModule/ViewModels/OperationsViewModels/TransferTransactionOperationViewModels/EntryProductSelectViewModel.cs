@@ -64,7 +64,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -190,7 +190,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -229,7 +229,6 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 							await ReloadAsync();
 							break;
 						default:
-							await Shell.Current.DisplayAlert("Customer Error: ", "Yanlış Girdi", "Tamam");
 							await ReloadAsync();
 							break;
 
@@ -239,7 +238,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -281,7 +280,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 
 				if (selectedEntryProduct == null)
 				{
-					LogOrThrowException("No selected entry product found");
+					LogOrThrowException("Herhangi bir ürün seçmediniz!");
 					return;
 				}
 

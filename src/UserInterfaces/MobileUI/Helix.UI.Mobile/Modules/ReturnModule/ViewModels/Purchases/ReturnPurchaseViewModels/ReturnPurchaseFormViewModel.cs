@@ -21,7 +21,7 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
-    //WarehouseService
+    
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
     [ObservableProperty]
@@ -37,16 +37,16 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
     [ObservableProperty]
     int currentPage = 0;
     [ObservableProperty]
-    int pageSize = 20;
+    int pageSize = 99999;
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
 
     [ObservableProperty]
     Warehouse warehouse;
+
     [ObservableProperty]
     ObservableCollection<ProductModel> productModel;
 
-    //speCode
     [ObservableProperty]
     public string speCode = string.Empty;
 
@@ -103,12 +103,6 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
 
         }
     }
-
-
-
-
-
-
 
     [RelayCommand]
     public async Task GetWarehouseAsync()

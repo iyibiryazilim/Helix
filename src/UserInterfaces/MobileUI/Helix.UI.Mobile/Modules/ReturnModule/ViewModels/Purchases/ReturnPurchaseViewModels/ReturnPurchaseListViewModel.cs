@@ -23,9 +23,11 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
     {
         IHttpClientService _httpClientService;
         IWarehouseService _warehouseService;
-        //WarehouseService
+
         public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
-        [ObservableProperty]
+		public ObservableCollection<ProductModel> Items { get; } = new();
+
+		[ObservableProperty]
         string searchText = string.Empty;
         [ObservableProperty]
         ProductOrderBy orderBy = ProductOrderBy.nameasc;
@@ -47,9 +49,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
             _warehouseService = warehouseService;
         }
 
-        public ObservableCollection<ProductModel> Items { get; } = new();
-
-
         [RelayCommand]
         async Task GoToSharedProductList()
         {
@@ -67,22 +66,16 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
 
             if (Items.Any())
             {
-
                 await Shell.Current.GoToAsync($"{nameof(ReturnPurchaseFormView)}", new Dictionary<string, object>
                 {
                     [nameof(ProductModel)] = Items,
                     ["Warehouse"] = Warehouse
                 });
-
             }
-
             else
             {
                 await Shell.Current.DisplayAlert("Uyarı ", $"Ürün seçmediniz", "Kapat");
             }
-
-
-
         }
 
         [RelayCommand]
@@ -94,12 +87,11 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
 
             try
             {
-
                 IsBusy = true;
                 IsRefreshing = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.Name} ürün çıkartılacaktır.Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
+                bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.Name} ürün çıkartılacaktır. Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
                 if (answer)
                     Items.Remove(item);
             }
@@ -123,7 +115,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
                 await Shell.Current.GoToAsync("..");
             else
             {
-                bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+                bool answer = await Shell.Current.DisplayAlert("Uyarı", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
 
                 if (answer)
                 {
@@ -134,7 +126,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
                 {
 
                 }
-
             }
         }
 
@@ -142,7 +133,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
         [RelayCommand]
         async Task AddQuantity(ProductModel item)
         {
-
             item.Quantity++;
 
             //if ( item.StockQuantity< item.Quantity)
@@ -159,8 +149,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
             //    item.Quantity++;
 
             //}
-
-
         }
         [RelayCommand]
 
@@ -168,11 +156,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
         {
             if (item.Quantity != 1)
                 item.Quantity--;
-
-
         }
-
-
-
     }
 }

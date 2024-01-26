@@ -104,7 +104,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -141,7 +141,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
