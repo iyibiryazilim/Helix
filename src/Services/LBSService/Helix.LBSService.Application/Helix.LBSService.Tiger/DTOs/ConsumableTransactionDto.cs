@@ -7,8 +7,8 @@
 		public ConsumableTransactionDto()
 		{
 			base.TransactionType = 12;
-			base.TransactionTypeName = "Sarf Fişi";
-			Lines = new List<ConsumableTransactionLineDto>();
+			base.IOType = 4;
+ 			Lines = new List<ConsumableTransactionLineDto>();
 		}
 	}
 	public class ConsumableTransactionLineDto : ProductTransactionLineDto
@@ -18,7 +18,7 @@
 		public ConsumableTransactionLineDto()
 		{
 			base.TransactionType = (short)12;
-			base.TransactionTypeName = "Sarf Fişi";
+			base.IOType = 4;
 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}

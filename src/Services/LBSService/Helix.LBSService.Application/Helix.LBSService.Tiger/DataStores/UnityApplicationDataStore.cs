@@ -25,11 +25,11 @@ namespace Helix.LBSService.Tiger.DataStores
 			{
 				if (!unity.LoggedIn)
 				{
-					if (unity.Login("LOGO", "LOGO", 3))
+					if (unity.Login("LOGO", "LOGO", 8))
 					{
 						return new UnityResult()
 						{
-							IsSucces = true,
+							IsSuccess = true,
 							Message = "Succes",
 							Data = true
 						};
@@ -38,7 +38,7 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						return new UnityResult()
 						{
-							IsSucces = false,
+							IsSuccess = false,
 							Message = unity.GetLastError().ToString() + ":" + unity.GetLastErrorString().ToString(),
 							Data = false
 						};
@@ -48,8 +48,8 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					return new UnityResult()
 					{
-						IsSucces = true,
-						Message = "Giriş yapılmış halde",
+						IsSuccess = true,
+						Message = "Giriş yapıldı",
 						Data = true
 					};
 				}
@@ -67,14 +67,14 @@ namespace Helix.LBSService.Tiger.DataStores
 					Global.UnityApp.Disconnect();
 					return new UnityResult()
 					{
-						IsSucces = true,
+						IsSuccess = true,
 						Message = "Çıkış Yapıldı",
 						Data = true
 					};
 				}
 				return new UnityResult()
 				{
-					IsSucces = false,
+					IsSuccess = false,
 					Message = unity.GetLastError().ToString() + ":" + unity.GetLastErrorString().ToString(),
 					Data = false
 				};

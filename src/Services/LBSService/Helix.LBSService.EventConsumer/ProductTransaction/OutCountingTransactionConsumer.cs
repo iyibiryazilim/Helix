@@ -3,6 +3,7 @@ using Helix.LBSService.Tiger.Services;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Serilog;
 using System.Diagnostics;
 using System.Text;
 
@@ -14,12 +15,13 @@ namespace Helix.LBSService.EventConsumer.ProductTransaction
 		private readonly ConnectionFactory _factory;
 		private readonly IModel _channel;
 
-		private string _queueName = ""; //gonna change
+		private string _queueName = "ProductService.OutCountingTransactionIns"; //gonna change
 		private string _exchange = "HelixTopicName";
 
 		public OutCountingTransactionConsumer(ILG_OutCountingTransactionService outCountingTransactionService)
 		{
 			_outCountingTransactionService = outCountingTransactionService;
+
 
 			_factory = new ConnectionFactory
 			{
@@ -41,7 +43,7 @@ namespace Helix.LBSService.EventConsumer.ProductTransaction
 		{
 			try
 			{
-				Console.WriteLine(" [*] Waiting for messages.");
+				Log.Information($" [*] {_queueName} Waiting for messages.");
 
 				var consumer = new EventingBasicConsumer(_channel);
 				OutCountingTransactionDto dto = new OutCountingTransactionDto();
@@ -58,7 +60,7 @@ namespace Helix.LBSService.EventConsumer.ProductTransaction
 					{
 						var body = ea.Body.ToArray();
 						var message = Encoding.UTF8.GetString(body);
-						Console.WriteLine($" [x] Received {message}");
+						Log.Information($" [x] Received {message}");
 						dto = JsonConvert.DeserializeObject<OutCountingTransactionDto>(message);
 
 						var result = await _outCountingTransactionService.Insert(dto);
@@ -66,26 +68,26 @@ namespace Helix.LBSService.EventConsumer.ProductTransaction
 						if (result.IsSuccess)
 						{
 							_channel.BasicAck(ea.DeliveryTag, false);
-							Console.WriteLine($" [x] Acknowledged message: {message}");
+							Log.Information($" [x] Acknowledged message: {message}");
 						}
 						else
 						{
-							Console.WriteLine($" [!] Message processing failed: {result.Message}");
+							Log.Error($" [!] Message processing failed: {result.Message}");
 
 							// Optionally, negatively acknowledge the message and request requeue
 							_channel.BasicReject(ea.DeliveryTag, false);
-							Console.WriteLine($" [!] Message negatively acknowledged and requeued: {message}");
+							Log.Error($" [!] Message negatively acknowledged and requeued: {message}");
 						}
 
 					}
 					catch (Exception ex)
 					{
 						// Handle specific exceptions or log the error
-						Console.WriteLine($"Error processing message: {ex.Message}");
+						Log.Error($"Error processing message: {ex.Message}");
 
 						// Optionally, negatively acknowledge the message and request requeue
-						_channel.BasicNack(ea.DeliveryTag, false, true);
-						Console.WriteLine($" [!] Message negatively acknowledged and requeued due to an error.");
+						_channel.BasicReject(ea.DeliveryTag, false);
+						Log.Error($" [!] Message negatively acknowledged and requeued due to an error.");
 					}
 				};
 
@@ -95,7 +97,7 @@ namespace Helix.LBSService.EventConsumer.ProductTransaction
 			catch (Exception ex)
 			{
 				// Handle specific exceptions or log the error
-				Console.WriteLine($"Error in GetMessageFromQueue: {ex.Message}");
+				Log.Error($"Error in GetMessageFromQueue: {ex.Message}");
 			}
 		}
 

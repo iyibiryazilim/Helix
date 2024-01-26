@@ -1,16 +1,17 @@
 ﻿using Helix.LBSService.Tiger.DTOs;
 using Helix.LBSService.Tiger.Helper;
+using Helix.LBSService.Tiger.Helper.ErrorHelper;
 using Helix.LBSService.Tiger.Helper.Mappers;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Models.BaseModel;
 using Helix.LBSService.Tiger.Services;
-using UnityObjects;
+using UnityObjects; 
 
 namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_WastageTransactionDataStore : ILG_WastageTransactionService
 	{
-		IUnityApplicationService _unityApplicationService;
+		IUnityApplicationService _unityApplicationService; 
 
 		public LG_WastageTransactionDataStore(IUnityApplicationService unityApplicationService)
 		{
@@ -131,7 +132,7 @@ namespace Helix.LBSService.Tiger.DataStores
 							else
 							{
 								result.IsSuccess = false;
-								result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
+								result.Message = new ErrorHelper().GetError(items).ToString();
 							}
 						}
 						else

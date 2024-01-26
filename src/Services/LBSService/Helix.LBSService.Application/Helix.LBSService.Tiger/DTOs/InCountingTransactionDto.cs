@@ -7,7 +7,8 @@
 		public InCountingTransactionDto()
 		{
 			base.TransactionType = 50;
-			base.TransactionTypeName = "Sayım Fazlası Fişi";
+			base.IOType = 1;
+
 			Lines = new List<InCountingTransactionLineDto>();
 		}
 	}
@@ -18,7 +19,8 @@
 		public InCountingTransactionLineDto()
 		{
 			base.TransactionType = (short)50;
-			base.TransactionTypeName = "Sayım Fazlası Fişi";
+			base.IOType = 1;
+
 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}

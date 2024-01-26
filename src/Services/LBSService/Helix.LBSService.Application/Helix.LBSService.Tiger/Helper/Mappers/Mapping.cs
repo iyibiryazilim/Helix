@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Helix.LBSService.Tiger.Helper.Profiles;
 
 namespace Helix.LBSService.Tiger.Helper.Mappers
 {
@@ -10,8 +11,8 @@ namespace Helix.LBSService.Tiger.Helper.Mappers
 			{
 				cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
 				cfg.AddProfile<MappingProfile>();
-				//cfg.AddProfile<ConsumableTransactionLineProfile>();
-				//cfg.AddProfile<ConsumableTransactionProfile>();
+				cfg.AddProfile<ConsumableTransactionLineProfile>();
+				cfg.AddProfile<ConsumableTransactionProfile>();
 				//cfg.AddProfile<WholeSalesDispatchTransactionLineProfile>();
 				//cfg.AddProfile<WholeSalesDispatchTransactionProfile>();
 				//cfg.AddProfile<RetailSalesDispatchTransactionLineProfile>();
@@ -24,14 +25,14 @@ namespace Helix.LBSService.Tiger.Helper.Mappers
 				//cfg.AddProfile<PurchaseDispatchTransactionProfile>();
 				//cfg.AddProfile<PurchaseReturnDispatchTransactionLineProfile>();
 				//cfg.AddProfile<PurchaseReturnDispatchTransactionProfile>();
-				//cfg.AddProfile<WastageTransactionProfile>();
-				//cfg.AddProfile<WastageTransactionLineProfile>();
-				//cfg.AddProfile<InCountingTransactionProfile>();
-				//cfg.AddProfile<InCountingTransactionLineProfile>();
-				//cfg.AddProfile<OutCountingTransactionProfile>();
-				//cfg.AddProfile<OutCountingTransactionLineProfile>();
-				//cfg.AddProfile<ProductionTransactionProfile>();
-				//cfg.AddProfile<ProductionTransactionLineProfile>();
+				cfg.AddProfile<WastageTransactionProfile>();
+				cfg.AddProfile<WastageTransactionLineProfile>();
+				cfg.AddProfile<InCountingTransactionProfile>();
+				cfg.AddProfile<InCountingTransactionLineProfile>();
+				cfg.AddProfile<OutCountingTransactionProfile>();
+				cfg.AddProfile<OutCountingTransactionLineProfile>();
+				cfg.AddProfile<ProductionTransactionProfile>();
+				cfg.AddProfile<ProductionTransactionLineProfile>();
 				//cfg.AddProfile<TransferTransactionProfile>();
 				//cfg.AddProfile<TransferTransactionLineProfile>();
 			});

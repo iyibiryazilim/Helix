@@ -7,8 +7,7 @@
 		public PurchaseReturnDispatchTransactionDto()
 		{
 			base.TransactionType = 6;
-			base.TransactionTypeName = "Satınalma İade İrsaliyesi";
-			Lines = new List<PurchaseReturnDispatchTransactionLineDto>();
+ 			Lines = new List<PurchaseReturnDispatchTransactionLineDto>();
 		}
 	}
 	public class PurchaseReturnDispatchTransactionLineDto : ProductTransactionLineDto
@@ -18,8 +17,7 @@
 		public PurchaseReturnDispatchTransactionLineDto()
 		{
 			base.TransactionType = (short)6;
-			base.TransactionTypeName = "Satınalma İade İrsaliyesi";
-			SeriLotTransactions = new List<SeriLotTransactionDto>();
+ 			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
 }
