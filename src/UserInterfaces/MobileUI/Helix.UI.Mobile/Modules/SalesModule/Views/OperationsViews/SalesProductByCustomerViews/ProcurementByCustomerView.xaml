@@ -38,7 +38,6 @@
             </Grid>
             <RefreshView Grid.Row="1"
                          IsRefreshing="{Binding IsRefreshing}"
-                         
                          RefreshColor="{StaticResource DarkPrimary}">
                 <CollectionView Grid.Row="1"
                                 ItemsSource="{Binding Items}"
@@ -53,6 +52,8 @@
                                 <SwipeView.LeftItems>
                                     <SwipeItems Mode="Execute">
                                         <SwipeItem BackgroundColor="{StaticResource Success}"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProcurementByCustomerViewModel}}, Path=ToggleSelectionCommand}"
+                                                   CommandParameter="{Binding .}"
                                                    Text="Satır Seç" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
@@ -61,28 +62,21 @@
                                         BackgroundColor="{StaticResource White}"
                                         Padding="5"
                                         Margin="10,0,10,0">
-                                    <Grid ColumnDefinitions="20*,60*,20*">
+                                    <Grid ColumnDefinitions="25*,40*,30*">
                                         <Border Grid.Column="0"
                                                 Padding="10"
                                                 HorizontalOptions="Start"
                                                 StrokeShape="RoundRectangle 10"
                                                 StrokeThickness="0"
                                                 WidthRequest="75">
-                                            <Border.Triggers>
-                                                <DataTrigger Binding="{Binding IsSelected}"
-                                                             TargetType="Border"
-                                                             Value="True">
-                                                    <Setter Property="BackgroundColor"
-                                                            Value="{StaticResource Primary}" />
-                                                </DataTrigger>
-                                            </Border.Triggers>
-                                            <!--<Image Aspect="AspectFit"
-                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />-->
-                                            
+
+                                            <Image Aspect="AspectFit"
+                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+
                                         </Border>
 
                                         <VerticalStackLayout Grid.Column="1"
-                                                             Padding="5"
+                                                             Padding="7"
                                                              HorizontalOptions="Start"
                                                              Spacing="5">
                                             <Label FontAttributes="Bold"
@@ -90,6 +84,20 @@
                                                    Text="{Binding Customer.Code}"
                                                    TextColor="Black"
                                                    LineBreakMode="TailTruncation">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="TextColor"
+                                                                Value="Black" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                                         Binding="{Binding IsSelected}"
+                                                                         Value="True">
+                                                                <Setter Property="TextColor"
+                                                                        Value="White" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
 
                                             </Label>
                                             <Label  Text="{Binding Customer.Name}"
@@ -111,18 +119,30 @@
                                                 </Label.Style>
 
                                             </Label>
-                                            
+                                            <Border Padding="10,5"
+                                                    BackgroundColor="{StaticResource Warning}"
+                                                    HorizontalOptions="Start"
+                                                    StrokeShape="RoundRectangle 5"
+                                                    StrokeThickness="0">
+                                                <Label TextColor="{StaticResource Primary}"
+                                                       VerticalOptions="Center"
+                                                       FontSize="10">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontAttributes="Bold"
+                                                                  Text="%" />
+                                                            <Span Text=" " />
+                                                            <Span FontAttributes="Bold"
+                                                                  Text="{Binding ProcurementRate}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Border>
+
+
 
                                         </VerticalStackLayout>
-                                        <Label Grid.Column="2">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="%" />
-                                                    <Span Text="{Binding ProcurementRate }" />
 
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
 
                                     </Grid>
                                     <Border.GestureRecognizers>
@@ -130,6 +150,14 @@
                                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProcurementByCustomerViewModel}},Path=OpenProcurementBottomSheetCommand}" />
 
                                     </Border.GestureRecognizers>
+                                    <Border.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}"
+                                                     TargetType="Border"
+                                                     Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource Success}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
                                 </Border>
                             </SwipeView>
                         </DataTemplate>
@@ -139,8 +167,8 @@
             </RefreshView>
             <Button Grid.Row="2"
                     Margin="10,10,10,20"
-                    
-                    Text="İleri"></Button>
+                    Text="İleri"
+                    Command="{Binding GoToNextCommand}"></Button>
         </Grid>
 
     </Border>

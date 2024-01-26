@@ -59,6 +59,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             return;
         try
         {
+            Items.Clear();
+
             await Task.Delay(500);
             await MainThread.InvokeOnMainThreadAsync(GetCustomersAsync);
 
@@ -81,10 +83,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             return;
         try
         {
+            Items.Clear();
             IsBusy = true;
             IsRefreshing = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
-
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
             foreach (Current item in result.Data)
             {
@@ -152,18 +154,19 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             return;
         try
         {
+            Items.Clear();
+
             IsBusy = true;
             IsRefreshing = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
-
             var result = await _customerService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
             foreach (Current item in result.Data)
             {
-                if (item.ReferenceCount > 0)
-                {
+                
+                
                     Items.Add(item);
                     Results.Add(item);
-                }
+                
             }
 
 
@@ -276,8 +279,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
 
     }
-
-
 
 
 

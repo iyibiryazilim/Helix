@@ -219,7 +219,7 @@
                                                     </Image.Source>
 
                                                 </Image>
-                                                <Entry Placeholder="Boy : "
+                                                <Entry Placeholder="Yükseklik : "
                                                        Grid.Column="1"
                                                        PlaceholderColor="Black"
                                                        TextColor="{StaticResource Gray500}"

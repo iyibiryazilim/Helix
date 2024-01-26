@@ -25,7 +25,7 @@
 
     <ScrollView  Padding="20"
                  Margin="0,0,0,20">
-        <Border BackgroundColor="{StaticResource White}"
+        <Border BackgroundColor="{StaticResource White}" 
                 StrokeThickness="0"
                 Padding="5,20,5,10">
             <Border.StrokeShape>
@@ -35,7 +35,8 @@
                   RowDefinitions="Auto, *"
                   RowSpacing="10">
                 <Grid Grid.Row="0">
-                    <Border StrokeShape="RoundRectangle 20">
+                    <Border StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0">
                         <Grid ColumnDefinitions="*, Auto">
                             <Grid Grid.Column="0">
 
@@ -57,14 +58,14 @@
                         <DataTemplate x:DataType="baseModel:ProcurementCustomerOrder">
 
                             <Border BackgroundColor="White"
-                                    StrokeShape="RoundRectangle 10">
+                                    StrokeShape="RoundRectangle 10" >
                                 <Grid ColumnDefinitions="Auto, Auto, *, Auto"
                                       ColumnSpacing="10"
                                       Padding="0,0,10,0">
                                     <Border Grid.Column="0"
                                             Margin="-2"
                                             WidthRequest="9"
-                                            BackgroundColor="{StaticResource Danger}"
+                                            BackgroundColor="{StaticResource Primary}"
                                             StrokeShape="RoundRectangle 10,0,0,0">
                                     </Border>
                                     <VerticalStackLayout Grid.Column="1"
@@ -105,15 +106,33 @@
                                     </VerticalStackLayout>
                                     <VerticalStackLayout Grid.Column="2"
                                                          VerticalOptions="Center"
+                                                         Padding="5"
                                                          Spacing="5">
                                         <Label Text="{Binding SalesOrderLine.ProductCode}"
                                                FontAttributes="Bold" />
                                         <Label Text="{Binding SalesOrderLine.ProductName}"
                                                FontSize="12" />
-                                        <Label Text="{Binding ProcurementRate}"
-                                               FontSize="12" />
-
+                                   
                                     </VerticalStackLayout>
+                                    <Border Padding="10,5" Grid.Column="3" Margin="30"
+                                            BackgroundColor="{StaticResource Warning}"
+                                            HorizontalOptions="Start"
+                                            StrokeShape="RoundRectangle 5"
+                                            StrokeThickness="0">
+                                        <Label TextColor="{StaticResource Primary}" VerticalOptions="Center"
+                                               FontSize="10">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold"
+                                                          Text="%" />
+                                                    <Span Text=" " />
+                                                    <Span FontAttributes="Bold"
+                                                          Text="{Binding ProcurementRate}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Border>
+
 
 
 

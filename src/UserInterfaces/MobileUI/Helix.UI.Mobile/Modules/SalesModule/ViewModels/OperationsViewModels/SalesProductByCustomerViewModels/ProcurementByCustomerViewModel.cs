@@ -2,12 +2,14 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
+using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -122,6 +124,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 
                         foreach (var order in customerSalesOrders)//siparişler
                         {
+                            procurementCustomer.Customer.Name = order.CurrentName;
+                            procurementCustomer.Customer.ReferenceId = (int)order.CurrentReferenceId;
                             ProcurementCustomerOrder customerOrder = new ProcurementCustomerOrder();
                             customerOrder.SalesOrderLine = order;
 
@@ -152,8 +156,6 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                                 {
                                     warehouseTotal.OnHand -= waitingQuantity;
                                 }
-
-
 
 
                             }
@@ -224,15 +226,24 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         }
 
         [RelayCommand]
-        async Task GoToProcurementOption()
+        async Task GoToNextAsync()
         {
-            await Shell.Current.GoToAsync($"{nameof(ProcurementOptionView)}");
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineLineListView)}", new Dictionary<string, object>
+                {
+                    ["Warehouse"] = Warehouse,
+                    ["Current"] = SelectedProcurement.Customer
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Procurement  Error", ex.Message, "Tamam");
+            }
         }
-
-
-
-
-
 
         async Task GetWarehouseTotalsAsync()
         {
@@ -275,18 +286,15 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                     Items.Clear();
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-                foreach (Current current in SelectedCustomers)
-                {
-                    var Result = await _salesOrderLineService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient, current.ReferenceId,Warehouse.Number ,true, SearchText, SalesOrderBy, CurrentPage, PageSize);
-                    foreach (var item in Result.Data)
+                    foreach (Current current in SelectedCustomers)
                     {
-                        SalesOrders.Add(item);
+                        var Result = await _salesOrderLineService.GetObjectsByCurrentIdAndWarehouseNumber(httpClient, current.ReferenceId, Warehouse.Number, true, SearchText, SalesOrderBy, CurrentPage, PageSize);
+                        foreach (var item in Result.Data)
+                        {
+                            SalesOrders.Add(item);
+                        }
+
                     }
-
-                }
-
-
-
             }
             catch (Exception ex)
             {
@@ -297,20 +305,19 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         }
 
 
-        [RelayCommand]
 
+        [RelayCommand]
         private void ToggleSelection(ProcurementCustomer item)
         {
             item.IsSelected = !item.IsSelected;
-            if (selectedProcurement != null)
+            if (SelectedProcurement != null)
             {
-                selectedProcurement.IsSelected = false;
+                SelectedProcurement.IsSelected = false;
             }
             if (item.IsSelected)
             {
-                selectedProcurement = item;
+                SelectedProcurement = item;
             }
-
         }
 
 
