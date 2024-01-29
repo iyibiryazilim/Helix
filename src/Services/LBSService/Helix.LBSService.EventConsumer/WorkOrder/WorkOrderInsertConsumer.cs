@@ -1,10 +1,12 @@
-﻿using Helix.LBSService.Tiger.DTOs;
+﻿using Helix.LBSService.EventConsumer.Models;
+using Helix.LBSService.Tiger.DTOs;
 using Helix.LBSService.Tiger.Services;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Serilog;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Text;
 namespace Helix.LBSService.EventConsumer.WorkOrder
 {
@@ -13,17 +15,19 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 		private readonly ILG_WorkOrderService _workOrderService;
 		private readonly ConnectionFactory _factory;
 		private readonly IModel _channel;
+		private readonly HttpClient _httpClient;
 
 		private string _queueName = ""; //gonna change
 		private string _exchange = "HelixTopicName";
 
-		public WorkOrderInsertConsumer(ILG_WorkOrderService workOrderService)
+		public WorkOrderInsertConsumer(ILG_WorkOrderService workOrderService, HttpClient httpClient)
 		{
 			_workOrderService = workOrderService;
+			_httpClient = httpClient;
 
 			_factory = new ConnectionFactory
 			{
-				Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt")
+				Uri = new Uri(ApplicationParameter.RabbitMQAdress)
 			};
 
 			var connection = _factory.CreateConnection();
@@ -36,13 +40,53 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 		{
 			await Task.Run(GetMessageFromQueue);
 		}
+		private async Task<bool> PostDtoToApiAsync(WorkOrdersDto dto)
+		{
+			try
+			{
+				string apiUrl = ApplicationParameter.ApiAdress; // Replace with your actual API endpoint
+
+				string jsonDto = JsonConvert.SerializeObject(dto);
+
+				StringContent content = new StringContent($"{jsonDto}/api/WorkOrder/Insert", Encoding.UTF8, "application/json");
+
+				HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, content);
+
+				if (response.IsSuccessStatusCode)
+				{
+					Log.Information($" [>] Successfully posted DTO to API.");
+					return true;
+				}
+				else
+				{
+					Log.Error($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
+					return false;
+				}
+			}
+			catch (HttpRequestException ex)
+			{
+				Log.Error($"Error in PostDtoToApiAsync: {ex.Message}");
+				// Handle specific HTTP request exception
+				return false;
+			}
+			catch (JsonException ex)
+			{
+				Log.Error($"Error in PostDtoToApiAsync: {ex.Message}");
+				// Handle specific JSON serialization exception
+				return false;
+			}
+			catch (Exception ex)
+			{
+				Log.Error($"Error in PostDtoToApiAsync: {ex.Message}");
+				return false;
+			}
+		}
 
 		private void GetMessageFromQueue()
 		{
 			try
 			{
 				Log.Information($" [*] {_queueName} Waiting for messages.");
-
 
 				var consumer = new EventingBasicConsumer(_channel);
 				WorkOrdersDto dto = new WorkOrdersDto();
@@ -62,43 +106,36 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 						Log.Information($" [x] Received {message}");
 						dto = JsonConvert.DeserializeObject<WorkOrdersDto>(message);
 
-						var result = await _workOrderService.Insert(dto);
+						bool result = await PostDtoToApiAsync(dto);
 
-						if (result.IsSuccess)
+						if (result)
 						{
 							_channel.BasicAck(ea.DeliveryTag, false);
 							Log.Information($" [x] Acknowledged message: {message}");
 						}
 						else
 						{
-							Log.Error($" [!] Message processing failed: {result.Message}");
-
-							// Optionally, negatively acknowledge the message and request requeue
 							_channel.BasicReject(ea.DeliveryTag, false);
+							Log.Error($" [!] Message processing failed: Unable to post DTO to API");
 							Log.Error($" [!] Message negatively acknowledged and requeued: {message}");
 						}
-
 					}
 					catch (Exception ex)
 					{
-						// Handle specific exceptions or log the error
 						Log.Error($"Error processing message: {ex.Message}");
-
-						// Optionally, negatively acknowledge the message and request requeue
 						_channel.BasicReject(ea.DeliveryTag, false);
 						Log.Error($" [!] Message negatively acknowledged and requeued due to an error.");
 					}
 				};
 
 				// Add a mechanism for graceful shutdown if needed
-
 			}
 			catch (Exception ex)
 			{
-				// Handle specific exceptions or log the error
 				Log.Error($"Error in GetMessageFromQueue: {ex.Message}");
 			}
 		}
+	 
 
 		public void Dispose()
 		{

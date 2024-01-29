@@ -1,4 +1,5 @@
-﻿using Helix.LBSService.EventConsumer.ProductTransaction;
+﻿using Helix.LBSService.EventConsumer.Models;
+using Helix.LBSService.EventConsumer.ProductTransaction;
 using Helix.LBSService.EventConsumer.WorkOrder;
 using Helix.LBSService.Tiger.DataStores;
 using Helix.LBSService.Tiger.Services;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System.Data.Common;
 
 class Program
 {
@@ -19,6 +21,11 @@ class Program
 				   .CreateLogger();
 
 		Log.Logger.Information("starting rabbitmq console app...");
+
+		ApplicationParameterModel parameters = configuration.GetSection(nameof(ApplicationParameter)).Get<ApplicationParameterModel>();
+		ApplicationParameter.ApiAdress = parameters.ApiAdress;
+		ApplicationParameter.RabbitMQAdress = parameters.RabbitMQAdress;
+
 
 		builder.ConfigureServices((hostContext, services) =>
 		{
