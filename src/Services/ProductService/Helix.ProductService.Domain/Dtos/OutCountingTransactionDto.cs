@@ -12,7 +12,8 @@
     string description,
     string speCode,
     string doCode,
-    string docTrackingNumber, List<OutCountingTransactionLineDto> lines)
+    string docTrackingNumber,
+    List<OutCountingTransactionLineDto> lines)
     {
     }
 }

@@ -1,4 +1,5 @@
-﻿using Helix.EventBus.Base.Abstractions;
+﻿
+using Helix.EventBus.Base.Abstractions;
 using Helix.SalesService.Domain.Events;
 using Microsoft.Extensions.Logging;
 

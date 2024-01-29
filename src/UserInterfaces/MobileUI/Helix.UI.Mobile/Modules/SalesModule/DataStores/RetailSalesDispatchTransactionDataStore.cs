@@ -1,6 +1,8 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.SalesModule.Dtos;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
+using System.Text;
 using System.Text.Json;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.DataStores;
@@ -308,4 +310,39 @@ public class RetailSalesDispatchTransactionDataStore : IRetailSalesDispatchTrans
 			return dataResult;
 		}
 	}
+
+    public async Task<DataResult<RetailSalesDispatchTransaction>> InsertObject(HttpClient httpClient, RetailSalesDispatchTransactionDto retailSalesDispatchTransactionDto)
+    {
+        HttpResponseMessage responseMessage = await httpClient.PostAsync(postUrl, new StringContent(JsonSerializer.Serialize(retailSalesDispatchTransactionDto), Encoding.UTF8, "application/json"));
+
+        DataResult<RetailSalesDispatchTransaction> dataResult = new DataResult<RetailSalesDispatchTransaction>();
+        dataResult.IsSuccess = responseMessage.IsSuccessStatusCode;
+
+        if (dataResult.IsSuccess)
+        {
+            var data = await responseMessage.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrEmpty(data))
+            {
+                dataResult.Data = null;
+                dataResult.Message = "empty";
+            }
+            else
+            {
+                var result = JsonSerializer.Deserialize<DataResult<RetailSalesDispatchTransaction>>(data, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+                dataResult.Data = result?.Data;
+                dataResult.Message = "success";
+            }
+        }
+        else
+        {
+            dataResult.Data = null;
+            dataResult.Message = await responseMessage.Content.ReadAsStringAsync();
+        }
+
+        return dataResult;
+    }
 }

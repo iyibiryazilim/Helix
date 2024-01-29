@@ -272,7 +272,9 @@ public partial class DispatchBySalesOrderFicheViewModel :BaseViewModel
 			await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineListView)}", new Dictionary<string, object>
 			{
 				["SelectedOrders"] = SelectedOrders,
-				["Warehouse"] = Warehouse
+				["Warehouse"] = Warehouse,
+				["Current"] = Current,
+			
 			});
 		} else
 		{

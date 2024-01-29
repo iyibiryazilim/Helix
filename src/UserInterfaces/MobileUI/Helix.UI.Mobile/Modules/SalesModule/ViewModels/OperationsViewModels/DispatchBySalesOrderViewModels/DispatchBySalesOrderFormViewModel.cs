@@ -6,6 +6,7 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Dtos;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -18,6 +19,9 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 
 [QueryProperty(name: nameof(SelectedOrderLines), queryId: nameof(SelectedOrderLines))]
+[QueryProperty(name: nameof(Current), queryId: nameof(Current))]
+[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+
 public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 {
     IHttpClientService _httpClientService;
@@ -26,7 +30,8 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     IDriverService _driverService;
     ICarrierService _carrierService;
     ISpeCodeService _speCodeService;
-
+    IRetailSalesDispatchTransactionService _retailSalesDispatchTransactionService;
+    IWholeSalesDispatchTransactionService _wholeSalesDispatchTransactionService;
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
     public ObservableCollection<Customer> CustomerItems { get; } = new();
 
@@ -56,14 +61,18 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     public string speCode = string.Empty;
 
     [ObservableProperty]
-    SalesFormModel salesFormFormModel = new();
+    SalesFormModel salesFormModel = new();
+
+    [ObservableProperty]
+    Customer current;
+
+    [ObservableProperty]
+    Warehouse warehouse;
 
 
 
-  
 
-
-    public DispatchBySalesOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService, ICarrierService carrierService, ISpeCodeService speCodeService)
+    public DispatchBySalesOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService, ICarrierService carrierService, ISpeCodeService speCodeService,IRetailSalesDispatchTransactionService retailSalesDispatchTransactionService,IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService)
     {
         Title = "Form";
         _httpClientService = httpClientService;
@@ -72,7 +81,34 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
         _driverService = driverService;
         _carrierService = carrierService;
         _speCodeService = speCodeService;
-       
+        _retailSalesDispatchTransactionService = retailSalesDispatchTransactionService;
+        _wholeSalesDispatchTransactionService = wholeSalesDispatchTransactionService;
+        GetDataCommand = new Command(async () => await LoadData());
+
+
+    }
+    public Command GetDataCommand { get; } 
+
+    async Task LoadData()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            await Task.Delay(500);
+            await Task.WhenAll(GetSpeCodeAsync(), GetCarrierAsync(), GetDriverAsync());
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+        }
     }
 
     [RelayCommand]
@@ -163,11 +199,10 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
             if (result.Data.Any())
             {
-                DriverItems.Clear();
+                CarrierItems.Clear();
 
                 foreach (var item in result.Data)
                 {
-                    await Task.Delay(100);
                     CarrierItems.Add(item);
                 }
             }
@@ -184,7 +219,67 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
         }
     }
 
+    [RelayCommand]
+    async Task SalesDispatchInsert()
+    {
+        try
+        {
+            IsBusy = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+            RetailSalesDispatchTransactionDto retailSalesDispatch = new RetailSalesDispatchTransactionDto();
+            retailSalesDispatch.WarehouseNumber = Warehouse.Number;
+            retailSalesDispatch.CarrierCode = SalesFormModel.SelectedCarrier.Code;
+            retailSalesDispatch.DriverFirstName = SalesFormModel.SelectedDriver.Name;
+            retailSalesDispatch.DriverLastName = SalesFormModel.SelectedDriver.Surname;
+            retailSalesDispatch.IdentityNumber = SalesFormModel.SelectedDriver.IdentityNumber;
+            retailSalesDispatch.Plaque = SalesFormModel.SelectedDriver.PlateNumber;
+            retailSalesDispatch.TransactionDate = SalesFormModel.TransactionDate;
+            //retailSalesDispatch.ShipInfoReferenceId =0;
+            //retailSalesDispatch.ShipInfoCode = "";
+            //retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
+            retailSalesDispatch.Description = SalesFormModel.Description;
+            retailSalesDispatch.CurrentCode = Current.Code;
+            retailSalesDispatch.CurrentReferenceId = Current.ReferenceId;
+
+
+
+            foreach (var item in SelectedOrderLines)
+            {
+                RetailSalesDispatchTransactionLineDto retailSalesDispatchLine = new RetailSalesDispatchTransactionLineDto();
+
+                retailSalesDispatchLine.ProductCode = item.ProductCode;
+                retailSalesDispatchLine.ProductReferenceId = item.ProductReferenceId;
+
+                retailSalesDispatchLine.Quantity = item.Quantity;
+                retailSalesDispatchLine.UnitsetCode = item.UnitsetCode;
+                retailSalesDispatchLine.UnitsetReferenceId = item.UnitsetReferenceId;
+
+                retailSalesDispatchLine.SubUnitsetCode = item.SubUnitsetCode;
+                retailSalesDispatchLine.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
+
+                retailSalesDispatchLine.OrderReferenceId = item.ReferenceId;
+                retailSalesDispatchLine.WarehouseNumber = Warehouse.Number;
+                retailSalesDispatch.Lines.Add(retailSalesDispatchLine);
+            }
+
+            var result =  await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
+            Console.WriteLine(result.Message);
+           // return result;
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Hata", ex.Message.ToString(), "Tamam");
+            //return ex.ToString();
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+    }
 
 
     [RelayCommand]

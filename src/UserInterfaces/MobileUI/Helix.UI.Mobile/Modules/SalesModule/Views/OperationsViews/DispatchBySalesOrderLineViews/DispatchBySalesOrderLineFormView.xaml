@@ -23,8 +23,8 @@
                                      Command="{Binding GetCarrierCommand}" />
         
     </ContentPage.Behaviors>
-    <sharedViews:SalesDispatchFormContentView WarehouseList="{Binding WarehouseItems}"
-                                              CustomerList="{Binding CustomerItems}"
+    <sharedViews:SalesDispatchFormContentView 
+                                              
                                               DriverList="{Binding DriverItems}"
                                               CarrierList="{Binding CarrierItems}"
                                               GetSpeCodeCommand="{Binding GetSpeCodeCommand}">

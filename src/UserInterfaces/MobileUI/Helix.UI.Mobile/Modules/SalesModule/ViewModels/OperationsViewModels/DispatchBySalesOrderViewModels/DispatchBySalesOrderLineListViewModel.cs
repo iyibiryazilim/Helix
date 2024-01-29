@@ -19,6 +19,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
 [QueryProperty(nameof(SelectedOrders), nameof(SelectedOrders))]
 [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+[QueryProperty(nameof(Current), nameof(Current))]
+
 
 public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 {
@@ -48,7 +50,11 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 	int pageSize = 20000;
 	[ObservableProperty]
 	Warehouse warehouse;
-	public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineGroupList { get; } = new();
+
+    [ObservableProperty]
+    Customer current;
+
+    public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineGroupList { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> SelectedWaitingOrderLineGroupList { get; } = new();
 	public ObservableCollection<WaitingOrderLine> Lines { get; } = new();
@@ -470,7 +476,9 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 
                 await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderSummaryView)}", new Dictionary<string, object>
                 {
-                    [nameof(ChangedLines)] = ChangedLines
+                    [nameof(ChangedLines)] = ChangedLines,
+                    ["Warehouse"] = Warehouse,
+                    ["Current"] = Current,
                 });
             }
             else

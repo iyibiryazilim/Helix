@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
@@ -9,7 +10,10 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 
-[QueryProperty(nameof(SelectedOrderLines), nameof(SelectedOrderLines))]
+[QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
+[QueryProperty(nameof(Current), nameof(Current))]
+[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+
 
 public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
 {
@@ -22,10 +26,12 @@ public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
     public Command GetDataCommand { get; }
 
     [ObservableProperty]
-    ObservableCollection<WaitingOrderLine> selectedOrderLines;
+    ObservableCollection<WaitingOrderLine> changedLines;
     [ObservableProperty]
-    Current current;
+    Customer current;
 
+    [ObservableProperty]
+    Warehouse warehouse;
 
     async Task LoadData()
     {
@@ -57,8 +63,8 @@ public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
             IsBusy = true;
             Current = new Customer()
             {
-                Code = SelectedOrderLines.First().CurrentCode,
-                Name = SelectedOrderLines.First().CurrentName
+                Code = ChangedLines.First().CurrentCode,
+                Name = ChangedLines.First().CurrentName
             };
 
         }
@@ -79,7 +85,9 @@ public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
     {
         await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderFormView)}", new Dictionary<string, object>
         {
-            ["SelectedOrderLines"] = SelectedOrderLines
+            ["SelectedOrderLines"] = ChangedLines,
+            ["Warehouse"] = Warehouse,
+            ["Current"] = Current,
         });
     }
 }

@@ -80,6 +80,7 @@ using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTran
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
@@ -365,9 +366,13 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<ICarrierService, CarrierDataStore>();
 			mauiAppBuilder.Services.AddTransient<ISpeCodeService, SpeCodeDataStore>();
 			mauiAppBuilder.Services.AddTransient<IShipInfoService, ShipInfoDataStore>();
+            mauiAppBuilder.Services.AddTransient<IRetailSalesDispatchTransactionService, RetailSalesDispatchTransactionDataStore>();
+            mauiAppBuilder.Services.AddTransient<IWholeSalesDispatchTransactionService, WholeSalesDispatchTransactionDataStore>();
 
 
-			return mauiAppBuilder;
+
+
+            return mauiAppBuilder;
 		}
 		#endregion
 
