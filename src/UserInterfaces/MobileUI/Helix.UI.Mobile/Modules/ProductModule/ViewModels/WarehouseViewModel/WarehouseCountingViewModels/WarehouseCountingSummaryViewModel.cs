@@ -33,7 +33,10 @@ public partial class WarehouseCountingSummaryViewModel : BaseViewModel
 		{
 			IsBusy = true;
 
-			await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}");
+			await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+			{
+				["SuccessMessage"] = "Ambar Sayım Operasyonu Başarıyla Gerçekleştirildi."
+			});
 		}
 		catch(Exception ex)
 		{

@@ -215,7 +215,7 @@ public partial class ProductListViewModel : BaseViewModel
 						await ReloadAsync();
 						break;
 					default:
-						await Shell.Current.DisplayAlert("Customer Error: ", "Yanlış Girdi", "Tamam");
+						await Shell.Current.DisplayAlert("Error: ", "Yanlış Girdi", "Tamam");
 						await ReloadAsync();
 						break;
 
@@ -225,7 +225,7 @@ public partial class ProductListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{

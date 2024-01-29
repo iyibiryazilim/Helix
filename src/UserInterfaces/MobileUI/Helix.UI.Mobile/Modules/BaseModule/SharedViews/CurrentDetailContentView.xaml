@@ -88,7 +88,7 @@
 
                             <Label FontAttributes="Bold" Text="{Binding Source={x:Reference this}, Path=BindingContext.SubTitle}" />
 
-                            <CollectionView ItemsSource="{Binding Source={x:Reference this}, Path=ProductList}">
+                            <CollectionView ItemsSource="{Binding Source={x:Reference this}, Path=ProductList}" EmptyView="Bulunamadı..">
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                                 </CollectionView.ItemsLayout>

@@ -38,7 +38,7 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
     [ObservableProperty]
     int currentPage = 0;
     [ObservableProperty]
-    int pageSize = 20;
+    int pageSize = 99999;
     [ObservableProperty]
     WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
     [ObservableProperty]

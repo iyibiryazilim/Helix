@@ -10,6 +10,7 @@
              x:DataType="viewModel:DispatchByPurchaseOrderFormViewModel"
              x:Name="this"
              Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors> 
         <toolkit:EventToCommandBehavior EventName="Loaded"

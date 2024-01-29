@@ -177,7 +177,7 @@ public partial class PurchaseDispatchListViewModel : BaseViewModel
 				await Shell.Current.GoToAsync("..");
 			else
 			{
-				bool answer = await Shell.Current.DisplayAlert("Mal Kabul :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+				bool answer = await Shell.Current.DisplayAlert("Bilgilendirme", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
 				if (answer)
 				{
 					await Shell.Current.GoToAsync("..");

@@ -5,12 +5,16 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 [QueryProperty(nameof(GroupType), nameof(GroupType))]
+[QueryProperty(nameof(SuccessMessage), nameof(SuccessMessage))]
 public partial class SuccessPageViewModel : BaseViewModel
 {
 	[ObservableProperty]
 	bool isAnimationStart = false;
 	[ObservableProperty]
 	public int groupType;
+
+	[ObservableProperty]
+	public string successMessage;
 
 	public SuccessPageViewModel()
 	{

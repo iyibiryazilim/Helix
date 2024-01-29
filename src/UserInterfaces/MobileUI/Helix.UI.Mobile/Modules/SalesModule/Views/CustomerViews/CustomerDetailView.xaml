@@ -12,7 +12,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding OpenFastOperationBottomSheetCommand}"
-                     IconImageSource="Resources/Images/greenplus.png" 
+                     IconImageSource="Resources/Images/plus.png"
                      />
     </ContentPage.ToolbarItems>
     <ContentPage.Behaviors>
