@@ -14,15 +14,17 @@ namespace Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
 public partial class FastProductionAllProductsListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
+	IServiceProvider _serviceProvider;
 	IProductService _productService;
 
 	public Command<string> SearchCommand { get; }
 	public Command GetItemsCommand { get; }
 
-	public FastProductionAllProductsListViewModel(IHttpClientService httpClientService, IProductService productService)
+	public FastProductionAllProductsListViewModel(IHttpClientService httpClientService, IProductService productService, IServiceProvider serviceProvider)
 	{
 		Title = "Ürün Listesi";
 		_httpClientService = httpClientService;
+		_serviceProvider = serviceProvider;
 		_productService = productService;
 
 		GetItemsCommand = new Command(async () => await LoadData());
@@ -244,7 +246,7 @@ public partial class FastProductionAllProductsListViewModel : BaseViewModel
 						await ReloadAsync();
 						break;
 					default:
-						await Shell.Current.DisplayAlert("Customer Error: ", "Yanlış Girdi", "Tamam");
+						await Shell.Current.DisplayAlert("Error: ", "Yanlış Girdi", "Tamam");
 						await ReloadAsync();
 						break;
 
@@ -291,6 +293,12 @@ public partial class FastProductionAllProductsListViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
+
+			var fastProductionViewModel = _serviceProvider.GetService<FastProductionViewModel>();
+			if(fastProductionViewModel.FastProductionList.Count > 0)
+			{
+				fastProductionViewModel.FastProductionList.Clear();
+			}
 
 			if(SelectedProduct != null)
 			{
