@@ -8,12 +8,15 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-             Title="{Binding Title}" Shell.TabBarIsVisible="False">
+             Title="{Binding Title}" 
+             Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
     <sharedViews:WaitingOrderLineSummaryView Current="{Binding Current}"
+                                             IsBusy="{Binding IsBusy}"
+                                             IsRefreshing="{Binding IsRefreshing}"
                                              GoToNextCommand="{Binding GoToSalesOrderFormCommand}"
                                              Lines="{Binding SelectedOrderLines}"></sharedViews:WaitingOrderLineSummaryView>
 </ContentPage>

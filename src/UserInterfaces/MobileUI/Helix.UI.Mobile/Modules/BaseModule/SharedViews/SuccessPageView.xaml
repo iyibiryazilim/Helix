@@ -13,9 +13,9 @@
              Shell.PresentationMode="ModalAnimated">
 
     <Grid Padding="10"
-          RowDefinitions="Auto, *, Auto"
+          RowDefinitions="*, Auto"
           RowSpacing="20">
-        <ImageButton Grid.Row="0"
+        <!--<ImageButton Grid.Row="0"
                      Aspect="AspectFit"
                      Command="{Binding CloseButtonHandlerCommand}"
                      HeightRequest="25"
@@ -27,12 +27,12 @@
                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.Xmark}"
                                  Color="{StaticResource Danger}" />
             </ImageButton.Source>
-        </ImageButton>
+        </ImageButton>-->
 
 
-        <VerticalStackLayout Grid.Row="1"
+        <VerticalStackLayout Grid.Row="0"
                              HorizontalOptions="Center"
-                             Spacing="200"
+                             Spacing="10"
                              VerticalOptions="Center">
             <!--<Image Aspect="AspectFit" HeightRequest="100">
                 <Image.Source>
@@ -53,10 +53,11 @@
                    Text="İşlem Başarılı"
                    TextColor="{StaticResource Success}" />
         </VerticalStackLayout>
-        <Button Grid.Row="2"
+        <Button Grid.Row="1"
+                Margin="10,10,10,20"
                 BackgroundColor="{StaticResource Success}"
                 Command="{Binding CloseButtonHandlerCommand}"
-                Text="Çıkış Yap" />
+                Text="Tamam" />
 
     </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.IntroductionModule.Views;
 using Helix.UI.Mobile.MVVMHelper;
 
@@ -6,10 +7,17 @@ namespace Helix.UI.Mobile.Modules.LoginModule.ViewModels
 {
 	public partial class LoginViewModel : BaseViewModel
 	{
+		[ObservableProperty]
+		string userName;
+
+		[ObservableProperty]
+		string password;
+
         public LoginViewModel()
         {
             
         }
+
         [RelayCommand]
 		async Task GoToMainPage()
 		{
