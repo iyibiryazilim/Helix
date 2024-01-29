@@ -1,149 +1,31 @@
-﻿using Helix.LBSService.EventConsumer.Models;
+﻿using Helix.LBSService.EventConsumer.Helper;
 using Helix.LBSService.Tiger.DTOs;
-using Helix.LBSService.Tiger.Services;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using Serilog;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Text;
 
 
 namespace Helix.LBSService.EventConsumer.RetailSalesDispatch
 {
 	public class RetailSalesReturnDispatchTransactionConsumer : IDisposable
 	{
-		private readonly ILG_RetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
-		private readonly ConnectionFactory _factory;
-		private readonly IModel _channel;
-		private readonly HttpClient _httpClient;
+		private readonly MessageConsumer<RetailSalesReturnDispatchTransactionDto> _messageConsumer;
 
-		private string _queueName = ""; //gonna change
-		private string _exchange = "HelixTopicName";
-
-		public RetailSalesReturnDispatchTransactionConsumer(ILG_RetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService,HttpClient httpClient)
+		public RetailSalesReturnDispatchTransactionConsumer(IService<RetailSalesReturnDispatchTransactionDto> wholeSalesReturnTransactionService, HttpClient httpClient)
 		{
-			_retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService;
-			_httpClient = httpClient;
-
-			_factory = new ConnectionFactory
-			{
-				Uri = new Uri(ApplicationParameter.RabbitMQAdress)
-			};
-
-			var connection = _factory.CreateConnection();
-			_channel = connection.CreateModel();
-			_channel.ExchangeDeclare(exchange: _exchange, type: "direct");
-			_channel.QueueBind(_queueName, exchange: _exchange, routingKey: _queueName);
+			_messageConsumer = new MessageConsumer<RetailSalesReturnDispatchTransactionDto>(
+				wholeSalesReturnTransactionService,
+				"",
+				"HelixTopicName",
+				httpClient
+			);
 		}
 
 		public async Task ProcessMessagesAsync()
 		{
-			await Task.Run(GetMessageFromQueue);
+			await _messageConsumer.ProcessMessagesAsync();
 		}
-		private async Task<bool> PostDtoToApiAsync(RetailSalesReturnDispatchTransactionDto dto)
-		{
-			try
-			{
-				string apiUrl = ApplicationParameter.ApiAdress; // Replace with your actual API endpoint
-
-				string jsonDto = JsonConvert.SerializeObject(dto);
-
-				StringContent content = new StringContent($"{jsonDto}/api/WorkOrder/Insert", Encoding.UTF8, "application/json");
-
-				HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, content);
-
-				if (response.IsSuccessStatusCode)
-				{
-					Log.Information($" [>] Successfully posted DTO to API.");
-					return true;
-				}
-				else
-				{
-					Log.Error($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
-					return false;
-				}
-			}
-			catch (HttpRequestException ex)
-			{
-				Log.Error($"Error in PostDtoToApiAsync: {ex.Message}");
-				// Handle specific HTTP request exception
-				return false;
-			}
-			catch (JsonException ex)
-			{
-				Log.Error($"Error in PostDtoToApiAsync: {ex.Message}");
-				// Handle specific JSON serialization exception
-				return false;
-			}
-			catch (Exception ex)
-			{
-				Log.Error($"Error in PostDtoToApiAsync: {ex.Message}");
-				return false;
-			}
-		}
-
-		private void GetMessageFromQueue()
-		{
-			try
-			{
-				Log.Information($" [*] {_queueName} Waiting for messages.");
-
-				var consumer = new EventingBasicConsumer(_channel);
-				RetailSalesReturnDispatchTransactionDto dto = new RetailSalesReturnDispatchTransactionDto();
-
-				_channel.BasicConsume(
-					queue: _queueName,
-					autoAck: false,
-					consumer: consumer
-				);
-
-				consumer.Received += async (model, ea) =>
-				{
-					try
-					{
-						var body = ea.Body.ToArray();
-						var message = Encoding.UTF8.GetString(body);
-						Log.Information($" [x] Received {message}");
-						dto = JsonConvert.DeserializeObject<RetailSalesReturnDispatchTransactionDto>(message);
-
-						bool result = await PostDtoToApiAsync(dto);
-
-						if (result)
-						{
-							_channel.BasicAck(ea.DeliveryTag, false);
-							Log.Information($" [x] Acknowledged message: {message}");
-						}
-						else
-						{
-							_channel.BasicReject(ea.DeliveryTag, false);
-							Log.Error($" [!] Message processing failed: Unable to post DTO to API");
-							Log.Error($" [!] Message negatively acknowledged and requeued: {message}");
-						}
-					}
-					catch (Exception ex)
-					{
-						Log.Error($"Error processing message: {ex.Message}");
-						_channel.BasicReject(ea.DeliveryTag, false);
-						Log.Error($" [!] Message negatively acknowledged and requeued due to an error.");
-					}
-				};
-
-				// Add a mechanism for graceful shutdown if needed
-			}
-			catch (Exception ex)
-			{
-				Log.Error($"Error in GetMessageFromQueue: {ex.Message}");
-			}
-		}
-	 
 
 		public void Dispose()
 		{
-			if (_channel.IsOpen)
-				_channel.Close();
-
+			_messageConsumer.Dispose();
 		}
 	}
 }

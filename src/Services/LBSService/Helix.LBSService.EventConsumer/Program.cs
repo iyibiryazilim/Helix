@@ -1,13 +1,16 @@
-﻿using Helix.LBSService.EventConsumer.Models;
+﻿using Helix.LBSService.EventConsumer.Helper;
+using Helix.LBSService.EventConsumer.Models;
 using Helix.LBSService.EventConsumer.ProductTransaction;
+using Helix.LBSService.EventConsumer.RetailSalesDispatch;
+using Helix.LBSService.EventConsumer.Services;
 using Helix.LBSService.EventConsumer.WorkOrder;
 using Helix.LBSService.Tiger.DataStores;
+using Helix.LBSService.Tiger.DTOs;
 using Helix.LBSService.Tiger.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using System.Data.Common;
 
 class Program
 {
@@ -17,7 +20,7 @@ class Program
 		IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 
 		Log.Logger = new LoggerConfiguration()
-				   .ReadFrom.Configuration(configuration) 
+				   .ReadFrom.Configuration(configuration)
 				   .CreateLogger();
 
 		Log.Logger.Information("starting rabbitmq console app...");
@@ -29,14 +32,25 @@ class Program
 
 		builder.ConfigureServices((hostContext, services) =>
 		{
+			services.AddHttpClient();
+
 			// Register services
-			services.AddSingleton<IUnityApplicationService, UnityApplicationDataStore>(); 
+			services.AddSingleton<IUnityApplicationService, UnityApplicationDataStore>();
 			services.AddSingleton<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 			services.AddSingleton<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
 			services.AddSingleton<ILG_InCountingTransactionService, LG_InCountingTransactionDataStore>();
 			services.AddSingleton<ILG_OutCountingTransactionService, LG_OutCountingTransactionDataStore>();
 			services.AddSingleton<ILG_ProductionTransactionService, LG_ProductionTransactionDataStore>();
 			services.AddSingleton<ILG_ConsumableTransactionService, LG_ConsumableTransactionDataStore>();
+
+			//IServices
+			services.AddTransient<IService<WorkOrderChangeStatusDto>, WorkOrderStatusChangeService>();
+			services.AddTransient<IService<WorkOrdersDto>, WorkOrderInsertService>();
+			services.AddTransient<IService<StopTransactionForWorkOrderDto>, StopTransactionForWorkOrderService>();
+			services.AddTransient<IService<WholeSalesReturnTransactionDto>, WholeSalesReturnDispatchTransactionService>();
+			services.AddTransient<IService<WholeSalesDispatchTransactionDto>, WholeSalesDispatchTransactionService>();
+			services.AddTransient<IService<RetailSalesReturnDispatchTransactionDto>, RetailSalesReturnDispatchTransactionService>();
+			services.AddTransient<IService<RetailSalesDispatchTransactionDto>, RetailSalesDispatchTransactionService>();
 
 			// Register consumers
 			services.AddSingleton<WorkOrderStatusChangeConsumer>();
@@ -46,6 +60,7 @@ class Program
 			services.AddSingleton<OutCountingTransactionConsumer>();
 			services.AddSingleton<ProductionTransactionConsumer>();
 			services.AddSingleton<ConsumableTransactionConsumer>();
+			services.AddSingleton<RetailSalesDispatchTransactionConsumer>();
 
 
 
@@ -64,22 +79,8 @@ class Program
 			var inCountingTransactionService = serviceProvider.GetRequiredService<ILG_InCountingTransactionService>();
 			var outCountingTransactionService = serviceProvider.GetRequiredService<ILG_OutCountingTransactionService>();
 			var productionTransactionService = serviceProvider.GetRequiredService<ILG_ProductionTransactionService>();
-			var consumableTransactionService = serviceProvider.GetRequiredService<ILG_ConsumableTransactionService>(); 
+			var consumableTransactionService = serviceProvider.GetRequiredService<ILG_ConsumableTransactionService>();
 			var unityApplicationService = serviceProvider.GetRequiredService<IUnityApplicationService>();
-
-			// Log in with Unity
-			Log.Debug("Unity is logging in");
-			var loginResult = await unityApplicationService.LogIn();
-
-			// Check the login result
-			if (loginResult.IsSuccess)
-			{
-				Log.Information("Unity is logged in");
-			}
-			else
-			{
-				Log.Error(loginResult.Message);
-			}
 
 			var workOrderStatusChangeConsumer = serviceProvider.GetRequiredService<WorkOrderStatusChangeConsumer>();
 			var stopTransactionForWorkOrderConsumer = serviceProvider.GetRequiredService<StopTransactionForWorkOrderConsumer>();
@@ -88,16 +89,19 @@ class Program
 			var productionTransactionConsumer = serviceProvider.GetRequiredService<ProductionTransactionConsumer>();
 			var inCountingTransactionConsumer = serviceProvider.GetRequiredService<InCountingTransactionConsumer>();
 			var outCountingTransactionConsumer = serviceProvider.GetRequiredService<OutCountingTransactionConsumer>();
+			var retailSalesDispatchTransactionConsumer = serviceProvider.GetRequiredService<RetailSalesDispatchTransactionConsumer>();
+			//var retailSalesReturnDispatchTransactionConsumer = serviceProvider.GetRequiredService<RetailSalesReturnDispatchTransactionConsumer>();
 
 
 			await Task.WhenAll(
 			   workOrderStatusChangeConsumer.ProcessMessagesAsync(),
-			   stopTransactionForWorkOrderConsumer.ProcessMessagesAsync(),
+			   // stopTransactionForWorkOrderConsumer.ProcessMessagesAsync(),
 			   wastageTransactionConsumer.ProcessMessagesAsync(),
 			   consumableTransactionConsumer.ProcessMessagesAsync(),
 			   productionTransactionConsumer.ProcessMessagesAsync(),
 			   inCountingTransactionConsumer.ProcessMessagesAsync(),
-			   outCountingTransactionConsumer.ProcessMessagesAsync()
+			   outCountingTransactionConsumer.ProcessMessagesAsync(),
+			   retailSalesDispatchTransactionConsumer.ProcessMessagesAsync()
 		   // Add more consumer tasks as needed
 		   );
 		}
