@@ -126,5 +126,25 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels
 				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 		}
-	}
+
+		async Task GetSalesCountAsync()
+		{
+			try
+			{
+				IsBusy = true;
+
+				var httpClint = _httpClientService.GetOrCreateHttpClient();
+				var result= _customQueryService.GetObjectsAsync(httpClint,new SalesPanelQuery().GetSalesCountAsync());
+
+
+
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
+    }
 }

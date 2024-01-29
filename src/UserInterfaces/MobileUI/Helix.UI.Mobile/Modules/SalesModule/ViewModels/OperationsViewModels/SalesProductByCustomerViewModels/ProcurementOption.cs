@@ -10,13 +10,15 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 {
    public partial class ProcurementOption
     {
+
         //Ürün Toplama
         [RelayCommand]
         async Task GoToProcurementByCustomerListView()
         {
             await Shell.Current.GoToAsync($"{nameof(ProcurementCustomerListView)}");
         }
-
        
+
+
     }
 }

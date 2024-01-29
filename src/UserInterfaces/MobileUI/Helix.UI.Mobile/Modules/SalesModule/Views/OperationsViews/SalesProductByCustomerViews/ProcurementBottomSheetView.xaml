@@ -11,11 +11,10 @@
                    HandleColor="{StaticResource Primary}"
                    xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels"
                    x:DataType="viewModel:ProcurementBottomSheetViewModel"
-                   
                    x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews.ProcurementBottomSheetView">
-    <the49:BottomSheet.Detents>          
-        <the49:FullscreenDetent />         
-        <the49:ContentDetent />      
+    <the49:BottomSheet.Detents>
+        <the49:FullscreenDetent />
+        <the49:ContentDetent />
     </the49:BottomSheet.Detents>
 
     <the49:BottomSheet.Behaviors>
@@ -25,129 +24,163 @@
 
     <ScrollView  Padding="20"
                  Margin="0,0,0,20">
-        <Border BackgroundColor="{StaticResource White}" 
-                StrokeThickness="0"
-                Padding="5,20,5,10">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20, 20, 0, 0" />
-            </Border.StrokeShape>
-            <Grid BackgroundColor="Transparent"
-                  RowDefinitions="Auto, *"
-                  RowSpacing="10">
-                <Grid Grid.Row="0">
-                    <Border StrokeShape="RoundRectangle 20"
-                            StrokeThickness="0">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <Grid Grid.Column="0">
+        <VerticalStackLayout>
+            <Label Text="Hesaplanan Ürünler"
+                   Padding="5"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"></Label>
 
-                            </Grid>
-                            <Grid Grid.Column="1"
-                                  Padding="0, 0, 20, 0">
-
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Grid>
-
-                <CollectionView ItemsSource="{Binding Items}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"
-                                           ItemSpacing="5" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="baseModel:ProcurementCustomerOrder">
-
-                            <Border BackgroundColor="White"
-                                    StrokeShape="RoundRectangle 10" >
-                                <Grid ColumnDefinitions="Auto, Auto, *, Auto"
-                                      ColumnSpacing="10"
-                                      Padding="0,0,10,0">
-                                    <Border Grid.Column="0"
-                                            Margin="-2"
-                                            WidthRequest="9"
-                                            BackgroundColor="{StaticResource Primary}"
-                                            StrokeShape="RoundRectangle 10,0,0,0">
-                                    </Border>
-                                    <VerticalStackLayout Grid.Column="1"
-                                                         Spacing="4"
-                                                         Padding="10">
-                                        <Label FontAttributes="Bold"
-                                               FontSize="Medium"
-                                               HorizontalOptions="Center"
-                                               TextColor="{StaticResource Primary}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:dd}'}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label FontAttributes="Bold"
-                                               FontSize="Default"
-                                               HorizontalOptions="Center"
-                                               TextColor="{StaticResource Gray400}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:MM/yyyy}'}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label FontAttributes="Bold"
-                                               FontSize="Micro"
-                                               HorizontalOptions="Center"
-                                               TextColor="{StaticResource Gray400}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:hh:mm:ss}'}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-
-
-                                    </VerticalStackLayout>
-                                    <VerticalStackLayout Grid.Column="2"
-                                                         VerticalOptions="Center"
-                                                         Padding="5"
-                                                         Spacing="5">
-                                        <Label Text="{Binding SalesOrderLine.ProductCode}"
-                                               FontAttributes="Bold" />
-                                        <Label Text="{Binding SalesOrderLine.ProductName}"
-                                               FontSize="12" />
-                                   
-                                    </VerticalStackLayout>
-                                    <Border Padding="10,5" Grid.Column="3" Margin="30"
-                                            BackgroundColor="{StaticResource Warning}"
-                                            HorizontalOptions="Start"
-                                            StrokeShape="RoundRectangle 5"
-                                            StrokeThickness="0">
-                                        <Label TextColor="{StaticResource Primary}" VerticalOptions="Center"
-                                               FontSize="10">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold"
-                                                          Text="%" />
-                                                    <Span Text=" " />
-                                                    <Span FontAttributes="Bold"
-                                                          Text="{Binding ProcurementRate}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </Border>
-
-
-
+            <Border BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    Padding="5,20,5,10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20, 20, 0, 0" />
+                </Border.StrokeShape>
+                <Grid BackgroundColor="Transparent"
+                      RowDefinitions="Auto, *"
+                      RowSpacing="10">
+                    <Grid Grid.Row="0">
+                        <Border StrokeShape="RoundRectangle 20"
+                                StrokeThickness="0">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Grid Grid.Column="0">
 
                                 </Grid>
-                            </Border>
+                                <Grid Grid.Column="1"
+                                      Padding="0, 0, 20, 0">
 
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <CollectionView ItemsSource="{Binding Items}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="baseModel:ProcurementCustomerOrder">
+
+                                <Border BackgroundColor="White"
+                                        StrokeShape="RoundRectangle 10">
+                                    <Grid ColumnDefinitions="Auto, Auto, *, Auto"
+                                          ColumnSpacing="10"
+                                          Padding="0,0,10,0">
+                                        <Border Grid.Column="0"
+                                                Margin="-2"
+                                                WidthRequest="9"
+                                                BackgroundColor="{StaticResource Primary}"
+                                                StrokeShape="RoundRectangle 10,0,0,0">
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Spacing="4"
+                                                             Padding="10">
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="Medium"
+                                                   HorizontalOptions="Center"
+                                                   TextColor="{StaticResource Primary}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:dd}'}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="Default"
+                                                   HorizontalOptions="Center"
+                                                   TextColor="{StaticResource Gray400}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:MM/yyyy}'}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="Micro"
+                                                   HorizontalOptions="Center"
+                                                   TextColor="{StaticResource Gray400}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding SalesOrderLine.DueDate, StringFormat='{0:hh:mm:ss}'}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
 
 
-            </Grid>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="2"
+                                                             VerticalOptions="Center"
+                                                             Padding="5"
+                                                             Spacing="5">
+                                            <Label Text="{Binding SalesOrderLine.ProductCode}"
+                                                   FontAttributes="Bold" />
+                                            <Label Text="{Binding SalesOrderLine.ProductName}"
+                                                   FontSize="12" />
+                                            <HorizontalStackLayout Spacing="13">
+                                                <VerticalStackLayout>
+                                                    <Label Text="Stok" FontSize="Caption"></Label>
+                                                    <BoxView HeightRequest="0.5"
+                                                             Color="{StaticResource Primary}">
+                                                    </BoxView>
+                                                    <Label Text="{Binding SalesOrderLine.Quantity}"
+                                                           FontSize="Caption"
+                                                           HorizontalOptions="Center" />
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout>
+                                                    <Label Text="Bekleyen"
+                                                           FontSize="Caption"></Label>
+                                                    <BoxView HeightRequest="0.5"
+                                                             Color="{StaticResource Primary}">
+                                                    </BoxView>
+                                                    <Label Text="{Binding SalesOrderLine.WaitingQuantity}"
+                                                           HorizontalOptions="Center"
+                                                           FontSize="Caption" />
+                                                </VerticalStackLayout>
+
+                                               
+                                            </HorizontalStackLayout>
+
+                                        </VerticalStackLayout>
+                                        <Border Padding="10,5"
+                                                Grid.Column="3"
+                                                Margin="30"
+                                                BackgroundColor="{StaticResource Warning}"
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 5"
+                                                StrokeThickness="0">
+                                            <Label TextColor="{StaticResource Primary}"
+                                                   VerticalOptions="Center"
+                                                   FontSize="10">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold"
+                                                              Text="%" />
+                                                        <Span Text=" " />
+                                                        <Span FontAttributes="Bold"
+                                                              Text="{Binding ProcurementRate}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Border>
 
 
-        </Border>
+
+
+                                    </Grid>
+                                </Border>
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+
+                </Grid>
+
+
+            </Border>
+        </VerticalStackLayout>
+
 
     </ScrollView>
 

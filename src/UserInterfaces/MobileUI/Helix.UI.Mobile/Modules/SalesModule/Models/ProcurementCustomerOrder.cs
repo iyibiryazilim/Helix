@@ -9,7 +9,7 @@ public partial class ProcurementCustomerOrder :ObservableObject
     private SalesOrderLine salesOrderLine;
 
     [ObservableProperty]
-    private double procurementQuantity;
+    public double procurementQuantity;
 
     [ObservableProperty]
     private double procurementRate;

@@ -70,36 +70,47 @@
                       ColumnSpacing="20">
                     <Border Grid.Column="0"
                             Padding="10"
-                            BackgroundColor="{StaticResource Success}"
-                            Stroke="{StaticResource Success}"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="{StaticResource Primary}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Text="{Binding mainPanelModel.InputCount}"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Secondary}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bugünkü Giriş Sayısı"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Secondary}" />
                         </VerticalStackLayout>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Primary}" 
+                                    Offset="20,20"
+                                    Radius="20"
+                                    Opacity="0.1" />
+                        </Border.Shadow>
                     </Border>
                     <Border Grid.Column="1"
                             Padding="10"
-                            BackgroundColor="{StaticResource Danger}"
-                            Stroke="{StaticResource Danger}"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="{StaticResource Secondary}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Text="{Binding mainPanelModel.OutputCount}"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Secondary}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bugünkü Çıkış Sayısı"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Secondary}" />
                         </VerticalStackLayout>
-
+                        <Border.Shadow>
+                            <Shadow  Brush="{StaticResource Primary}"
+                                     Offset="20,20"
+                                     Radius="20"
+                                     Opacity="0.1"/>
+                        </Border.Shadow>
                     </Border>
                 </Grid>
                 <!--#endregion-->
@@ -112,33 +123,46 @@
                       ColumnSpacing="20">
                     <Border Grid.Column="0"
                             Padding="10"
-                            BackgroundColor="{StaticResource Secondary}"
+                            BackgroundColor="{StaticResource White}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Text="{Binding mainPanelModel.WaitingSalesOrderCount}"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Primary}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satış"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Primary}" />
                         </VerticalStackLayout>
+                        <Border.Shadow>
+                            <Shadow  Brush="{StaticResource Primary}"
+                                     Offset="20,20"
+                                     Radius="20"
+                                     Opacity="0.1" />
+                        </Border.Shadow>
                     </Border>
+                    
                     <Border Grid.Column="1"
                             Padding="10"
-                            BackgroundColor="{StaticResource Warning}"
+                            BackgroundColor="{StaticResource White}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Text="{Binding mainPanelModel.WaitingPurchaseOrderCount}"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Primary}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Bekleyen Satınalma"
-                                   TextColor="{StaticResource White}" />
+                                   TextColor="{StaticResource Primary}" />
                         </VerticalStackLayout>
+                        <Border.Shadow>
+                            <Shadow  Brush="{StaticResource Primary}"
+                                     Offset="20,20"
+                                     Radius="20"
+                                     Opacity="0.1" />
+                        </Border.Shadow>
 
                     </Border>
                 </Grid>
