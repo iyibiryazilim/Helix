@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helix.UI.Mobile.Modules.ReturnModule.Dtos.BaseDtos;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.Dtos;
 
-public class WholeSalesReturnTransactionLineDto
+public class WholeSalesReturnTransactionLineDto : BaseSalesReturnDispatchTransactionLineDto
 {
 }

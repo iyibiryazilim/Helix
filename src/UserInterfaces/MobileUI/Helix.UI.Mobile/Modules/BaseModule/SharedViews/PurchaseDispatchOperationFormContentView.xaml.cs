@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -8,11 +9,8 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 
 public partial class PurchaseDispatchOperationFormContentView : ContentView
 {
-    //WarehouseList
-    public static readonly BindableProperty WarehouseListProperty = BindableProperty.Create(nameof(WarehouseList), typeof(ObservableCollection<Warehouse>), typeof(SalesDispatchFormContentView));
-
-    //CustomerList
-    public static readonly BindableProperty SupplierListProperty = BindableProperty.Create(nameof(SupplierList), typeof(ObservableCollection<Supplier>), typeof(PurchaseDispatchOperationFormContentView));
+    public static readonly BindableProperty CurrentProperty = BindableProperty.Create(nameof(Current), typeof(Supplier), typeof(PurchaseDispatchOperationFormContentView));
+    public static readonly BindableProperty WarehouseProperty = BindableProperty.Create(nameof(Warehouse), typeof(Warehouse), typeof(PurchaseDispatchOperationFormContentView));
 
 
     //command 
@@ -25,32 +23,32 @@ public partial class PurchaseDispatchOperationFormContentView : ContentView
     public static readonly BindableProperty PurchaseFormModelProperty = BindableProperty.Create(nameof(PurchaseFormModel), typeof(PurchaseFormModel), typeof(PurchaseDispatchOperationFormContentView), null);
 
     //SpeCodeList
-    public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(PurchaseDispatchOperationFormContentView));
 
     //SpeCodeCommand
-    public static readonly BindableProperty GetSpeCodeCommandProperty = BindableProperty.Create(nameof(GetSpeCodeCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty GetSpeCodeCommandProperty = BindableProperty.Create(nameof(GetSpeCodeCommand), typeof(AsyncRelayCommand), typeof(PurchaseDispatchOperationFormContentView), null);
 
+    public static readonly BindableProperty GoToSuccessPageViewCommandProperty = BindableProperty.Create(nameof(GoToSuccessPageViewCommand), typeof(AsyncRelayCommand), typeof(PurchaseDispatchOperationFormContentView), null);
 
     //get warehouse
+
+    public Supplier Current
+    {
+        get => GetValue(CurrentProperty) as Supplier;
+        set => SetValue(CurrentProperty, value);
+    }
+    public Warehouse Warehouse
+    {
+        get => GetValue(WarehouseProperty) as Warehouse;
+        set => SetValue(WarehouseProperty, value);
+    }
+ 
     public AsyncRelayCommand GetWarehouseCommand
     {
         get => GetValue(GetWarehouseCommandProperty) as AsyncRelayCommand;
         set => SetValue(GetWarehouseCommandProperty, value);
     }
-    //warehouseList
-    public ObservableCollection<Warehouse> WarehouseList
-    {
-        get => GetValue(WarehouseListProperty) as ObservableCollection<Warehouse>;
-        set => SetValue(WarehouseListProperty, value);
-    }
 
-    //CustomerList
-    public ObservableCollection<Supplier> SupplierList
-    {
-        get => GetValue(SupplierListProperty) as ObservableCollection<Supplier>;
-        set => SetValue(SupplierListProperty, value);
-    }
-    //get customer
     public AsyncRelayCommand GetSupplierCommand
     {
         get => GetValue(GetSupplierCommandProperty) as AsyncRelayCommand;
@@ -76,7 +74,11 @@ public partial class PurchaseDispatchOperationFormContentView : ContentView
         set => SetValue(SpeCodeListProperty, value);
     }
 
-
+    public AsyncRelayCommand GoToSuccessPageViewCommand
+    {
+        get => GetValue(GoToSuccessPageViewCommandProperty) as AsyncRelayCommand;
+        set => SetValue(GoToSuccessPageViewCommandProperty, value);
+    }
     public PurchaseDispatchOperationFormContentView()
 	{
 		InitializeComponent();

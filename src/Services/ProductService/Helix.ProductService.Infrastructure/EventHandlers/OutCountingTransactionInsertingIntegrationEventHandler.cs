@@ -1,11 +1,6 @@
 ﻿using Helix.EventBus.Base.Abstractions;
 using Helix.ProductService.Domain.Events;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Helix.ProductService.Infrastructure.EventHandlers
 {
@@ -16,10 +11,9 @@ namespace Helix.ProductService.Infrastructure.EventHandlers
         {
             _logger = logger;
         }
-        
         public Task Handle(OutCountingTransactionInsertingIntegrationEvent @event)
         {
-            _logger.LogInformation("incounting transaction inserting started");
+            _logger.LogInformation("outcounting transaction inserting started");
             return Task.CompletedTask;
         }
     }

@@ -7,45 +7,91 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 [QueryProperty(nameof(GroupType), nameof(GroupType))]
 public partial class SuccessPageViewModel : BaseViewModel
 {
-	[ObservableProperty]
-	bool isAnimationStart = false;
-	[ObservableProperty]
-	public int groupType;
+    [ObservableProperty]
+    bool isAnimationStart = false;
+    [ObservableProperty]
+    public int groupType;
 
-	public SuccessPageViewModel()
-	{
+    public SuccessPageViewModel()
+    {
 
-	}
+    }
 
-	[RelayCommand]
-	public async Task CloseButtonHandlerAsync()
-	{
-		try
-		{
-			IsBusy = true;
-			switch (GroupType)
-			{
-				case 3:
+    [RelayCommand]
+    public async Task CloseButtonHandlerAsync()
+    {
+        try
+        {
+            IsBusy = true;
+            switch (GroupType)
+            {
+                case 1:
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    break;
+                case 2:
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    break;
+                case 3:
 
-					await Shell.Current.GoToAsync("..");
-					await Shell.Current.GoToAsync("..");
-					await Shell.Current.GoToAsync("..");
-					await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
 
-					break;
+                    break;
+                case 7:
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
 
-				default:
-					Application.Current.MainPage = new AppShell();
-					break;
-			}
-		}
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex.Message);
-		}
-		finally
-		{
-			IsBusy = false;
-		}
-	}
+                    break;
+                case 8:
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    break;
+                case 10:
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    break;
+                default:
+                    Application.Current.MainPage = new AppShell();
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
 }

@@ -17,8 +17,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 {
 	[QueryProperty(name: nameof(Current), queryId: nameof(Current))]
 	[QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
+    [QueryProperty(name: nameof(ShipInfo), queryId: nameof(ShipInfo))]
 
-	public partial class DispatchBySalesOrderLineLineListViewModel : BaseViewModel
+    public partial class DispatchBySalesOrderLineLineListViewModel : BaseViewModel
 	{
 		IHttpClientService _httpClientService;
 		ISalesOrderLineService _salesOrderLineService;
@@ -52,6 +53,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
 		[ObservableProperty]
 		Warehouse warehouse;
+
+		[ObservableProperty]
+		ShipInfo shipInfo;
 
 		public ObservableCollection<WarehouseTotal> WarehouseTotalList { get; } = new();
 		public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineGroupList { get; } = new();
@@ -461,7 +465,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
                     await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineSummaryView)}", new Dictionary<string, object>
                     {
-                        [nameof(ChangedLines)] = ChangedLines
+                        ["SelectedOrderLines"] = ChangedLines,
+						[nameof(Warehouse)] = Warehouse,
+						[nameof(Current)] = Current,
+						[nameof(ShipInfo)] = ShipInfo
                     });
                 }
                 else

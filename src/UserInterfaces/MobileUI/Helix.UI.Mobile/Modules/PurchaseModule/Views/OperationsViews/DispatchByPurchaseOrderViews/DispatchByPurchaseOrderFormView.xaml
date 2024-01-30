@@ -7,18 +7,16 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Models"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             x:DataType="viewModel:DispatchByPurchaseOrderFormViewModel"
              x:Name="this"
              Title="{Binding Title}"
              Shell.TabBarIsVisible="False">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetWarehouseCommand}" />
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetSupplierCommand}" />
-    </ContentPage.Behaviors>
-    <sharedViews:PurchaseDispatchOperationFormContentView WarehouseList="{Binding WarehouseItems}"
-                                                          SupplierList="{Binding SupplierItems}"
-                                                          GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
+
+    <sharedViews:PurchaseDispatchOperationFormContentView Warehouse="{Binding Warehouse}"
+                                                          Current="{Binding Current}"
+                                                          GoToSuccessPageViewCommand="{Binding PurchaseDispatchInsertCommand}"
+                                                          GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
+                                                          PurchaseFormModel="{Binding PurchaseFormModel}">
 
     </sharedViews:PurchaseDispatchOperationFormContentView>
 </ContentPage>

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -11,6 +13,9 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels
 {
 	[QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))]
+	[QueryProperty(nameof(Current), nameof(Current))]
+	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+	[QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
 	public partial class ReturnByPurchaseDispatchTransactionSummaryViewModel : BaseViewModel
 	{
 		[ObservableProperty]
@@ -25,8 +30,12 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		public Command GetDataCommand { get; }
  
 		[ObservableProperty]
-		Current current;
+		Supplier current;
 
+		[ObservableProperty]
+		Warehouse warehouse;
+		[ObservableProperty]
+		ShipInfo shipInfo;
 
 		async Task LoadData()
 		{
@@ -56,7 +65,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			try
 			{
 				IsBusy = true;
-				Current = new Customer()
+				Current = new Supplier()
 				{
 					Code = ChangedLineList.First().CurrentCode,
 					Name = ChangedLineList.First().CurrentName
@@ -80,7 +89,11 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		{
 			await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionFormView)}", new Dictionary<string, object>
 			{
-				[nameof(ChangedLineList)] = ChangedLineList
+				[nameof(ChangedLineList)] = ChangedLineList,
+				[nameof(Current)] = Current,
+				[nameof(Warehouse)] = Warehouse,
+				[nameof(ShipInfo)] = ShipInfo
+
 			});
 		}
 	}

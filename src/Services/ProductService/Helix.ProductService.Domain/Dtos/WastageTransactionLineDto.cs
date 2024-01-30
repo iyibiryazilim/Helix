@@ -16,8 +16,6 @@
         int warehousereferenceId,
         short? warehouseNumber,
         string? description,
-        int ficheReferenceId,
-        string? ficheCode,
         string? speCode,
         double conversionFactor,
         double otherConversionFactor)

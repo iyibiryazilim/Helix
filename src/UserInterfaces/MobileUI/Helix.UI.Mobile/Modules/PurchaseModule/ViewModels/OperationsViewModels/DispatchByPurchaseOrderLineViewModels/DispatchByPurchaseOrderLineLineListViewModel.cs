@@ -502,7 +502,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
 					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderLineSummaryView)}", new Dictionary<string, object>
 					{
-						[nameof(ChangedLines)] = ChangedLines
+						[nameof(ChangedLines)] = ChangedLines,
+						[nameof(Warehouse)] = Warehouse,
+						[nameof(Current)] = Current
 					});
 				}
 				else

@@ -5,7 +5,6 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchB
 public partial class DispatchByPurchaseOrderFormView : ContentPage
 {
 	DispatchByPurchaseOrderFormViewModel _viewModel;
-    
     public DispatchByPurchaseOrderFormView(DispatchByPurchaseOrderFormViewModel viewModel)
 	{
 		InitializeComponent();
