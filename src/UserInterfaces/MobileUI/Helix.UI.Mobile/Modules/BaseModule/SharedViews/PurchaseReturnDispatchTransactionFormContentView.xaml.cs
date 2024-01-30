@@ -2,18 +2,16 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using System.Collections.ObjectModel;
-
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 
-public partial class SalesDispatchFormContentView : ContentView
-{  //list property
-
-   
-    public static readonly BindableProperty CustomerProperty = BindableProperty.Create(nameof(Customer), typeof(Customer), typeof(SalesDispatchFormContentView));
-    public static readonly BindableProperty WarehouseProperty = BindableProperty.Create(nameof(Warehouse), typeof(Warehouse), typeof(SalesDispatchFormContentView));
-    public static readonly BindableProperty ShipInfoProperty = BindableProperty.Create(nameof(ShipInfo), typeof(ShipInfo), typeof(SalesDispatchFormContentView));
+public partial class PurchaseReturnDispatchTransactionFormContentView : ContentView
+{
+    public static readonly BindableProperty SupplierProperty = BindableProperty.Create(nameof(Supplier), typeof(Supplier), typeof(PurchaseReturnDispatchTransactionFormContentView));
+    public static readonly BindableProperty WarehouseProperty = BindableProperty.Create(nameof(Warehouse), typeof(Warehouse), typeof(PurchaseReturnDispatchTransactionFormContentView));
+    public static readonly BindableProperty ShipInfoProperty = BindableProperty.Create(nameof(ShipInfo), typeof(ShipInfo), typeof(PurchaseReturnDispatchTransactionFormContentView));
 
 
     //DriverList
@@ -24,35 +22,35 @@ public partial class SalesDispatchFormContentView : ContentView
 
     //SpeCodeList
     public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(SalesDispatchFormContentView));
-    public static readonly BindableProperty SelectedTransactionTypeProperty = BindableProperty.Create(nameof(SelectedTransactionType), typeof(string), typeof(SalesDispatchFormContentView),null);
+    public static readonly BindableProperty SelectedTransactionTypeProperty = BindableProperty.Create(nameof(SelectedTransactionType), typeof(string), typeof(SalesDispatchFormContentView), null);
 
 
 
 
     //command 
     //WarehouseCommand
-    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty GetWarehouseCommandProperty = BindableProperty.Create(nameof(GetWarehouseCommand), typeof(AsyncRelayCommand), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
     //customerCommand
-    public static readonly BindableProperty GetCustomerCommandProperty = BindableProperty.Create(nameof(GetCustomerCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty GetCustomerCommandProperty = BindableProperty.Create(nameof(GetCustomerCommand), typeof(AsyncRelayCommand), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
     //DriverCommand
-    public static readonly BindableProperty GetDriverCommandProperty = BindableProperty.Create(nameof(GetDriverCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty GetDriverCommandProperty = BindableProperty.Create(nameof(GetDriverCommand), typeof(AsyncRelayCommand), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
     //CarrierCommand
-    public static readonly BindableProperty GetCarrierCommandProperty = BindableProperty.Create(nameof(GetCarrierCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty GetCarrierCommandProperty = BindableProperty.Create(nameof(GetCarrierCommand), typeof(AsyncRelayCommand), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
     //SpeCodeCommand
-    public static readonly BindableProperty GetSpeCodeCommandProperty = BindableProperty.Create(nameof(GetSpeCodeCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty GetSpeCodeCommandProperty = BindableProperty.Create(nameof(GetSpeCodeCommand), typeof(AsyncRelayCommand), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
 
     //
-    public static readonly BindableProperty SalesFormModelProperty = BindableProperty.Create(nameof(SalesFormModel), typeof(SalesFormModel), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty SalesFormModelProperty = BindableProperty.Create(nameof(SalesFormModel), typeof(SalesFormModel), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
 
-    public static readonly BindableProperty GoToSuccessPageViewCommandProperty = BindableProperty.Create(nameof(GoToSuccessPageViewCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty GoToSuccessPageViewCommandProperty = BindableProperty.Create(nameof(GoToSuccessPageViewCommand), typeof(AsyncRelayCommand), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
-    public static readonly BindableProperty WaitingOrderProperty = BindableProperty.Create(nameof(WaitingOrders), typeof(ObservableCollection<WaitingOrderLine>), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty WaitingOrderProperty = BindableProperty.Create(nameof(WaitingOrders), typeof(ObservableCollection<WaitingOrderLine>), typeof(PurchaseReturnDispatchTransactionFormContentView));
 
     //get warehouse
     public AsyncRelayCommand GetWarehouseCommand
@@ -78,10 +76,10 @@ public partial class SalesDispatchFormContentView : ContentView
     }
 
     //CustomerList
-    public Customer Customer
+    public Supplier Supplier
     {
-        get => GetValue(CustomerProperty) as Customer;
-        set => SetValue(CustomerProperty, value);
+        get => GetValue(SupplierProperty) as Supplier;
+        set => SetValue(SupplierProperty, value);
     }
 
     public ObservableCollection<WaitingOrderLine> WaitingOrders
@@ -149,9 +147,8 @@ public partial class SalesDispatchFormContentView : ContentView
         get => GetValue(GoToSuccessPageViewCommandProperty) as AsyncRelayCommand;
         set => SetValue(GoToSuccessPageViewCommandProperty, value);
     }
-    public SalesDispatchFormContentView()
+    public PurchaseReturnDispatchTransactionFormContentView()
 	{
 		InitializeComponent();
-		
 	}
 }

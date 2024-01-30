@@ -13,8 +13,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 [QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
 [QueryProperty(nameof(Current), nameof(Current))]
 [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
-
-
+[QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
 public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
 {
     public DispatchBySalesOrderSummaryViewModel()
@@ -32,6 +31,9 @@ public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
 
     [ObservableProperty]
     Warehouse warehouse;
+
+    [ObservableProperty]
+    ShipInfo shipInfo;
 
     async Task LoadData()
     {
@@ -88,6 +90,7 @@ public partial class DispatchBySalesOrderSummaryViewModel : BaseViewModel
             ["SelectedOrderLines"] = ChangedLines,
             ["Warehouse"] = Warehouse,
             ["Current"] = Current,
+            ["ShipInfo"] = ShipInfo
         });
     }
 }

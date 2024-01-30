@@ -21,9 +21,11 @@
                                               Customer="{Binding Current}" 
                                               DriverList="{Binding DriverItems}"
                                               CarrierList="{Binding CarrierItems}"
-                                              GoToSuccessPageViewCommand="{Binding SalesDispatchInsertCommand}"
+                                              GoToSuccessPageViewCommand="{Binding InsertCommand}"
                                               GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
                                               SalesFormModel="{Binding SalesFormModel}"
+                                              SelectedTransactionType="{Binding SelectedTransactionType}"
+                                              ShipInfo="{Binding ShipInfo}"
                                               
                                               >
         

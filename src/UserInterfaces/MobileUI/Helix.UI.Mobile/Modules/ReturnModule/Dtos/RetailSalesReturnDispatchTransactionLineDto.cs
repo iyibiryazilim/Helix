@@ -1,5 +1,7 @@
-﻿namespace Helix.UI.Mobile.Modules.ReturnModule.Dtos;
+﻿using Helix.UI.Mobile.Modules.ReturnModule.Dtos.BaseDtos;
 
-public class RetailSalesReturnDispatchTransactionLineDto
+namespace Helix.UI.Mobile.Modules.ReturnModule.Dtos;
+
+public class RetailSalesReturnDispatchTransactionLineDto : BaseSalesReturnDispatchTransactionLineDto
 {
 }

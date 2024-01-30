@@ -1,8 +1,8 @@
-﻿using AndroidX.ConstraintLayout.Core.Widgets.Analyzer;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
@@ -10,7 +10,6 @@ using Helix.UI.Mobile.Modules.SalesModule.Dtos;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
-using Java.Nio.Channels;
 using Kotlin.Properties;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -21,7 +20,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 [QueryProperty(name: nameof(SelectedOrderLines), queryId: nameof(SelectedOrderLines))]
 [QueryProperty(name: nameof(Current), queryId: nameof(Current))]
 [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
-
+[QueryProperty(name: nameof(ShipInfo), queryId: nameof(ShipInfo))]
 public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 {
     IHttpClientService _httpClientService;
@@ -69,6 +68,11 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
     [ObservableProperty]
     Warehouse warehouse;
 
+    [ObservableProperty]
+    string selectedTransactionType;
+
+    [ObservableProperty]
+    ShipInfo shipInfo;
 
 
 
@@ -96,7 +100,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
         try
         {
             await Task.Delay(500);
-            await Task.WhenAll(GetSpeCodeAsync(), GetCarrierAsync(), GetDriverAsync());
+            await Task.WhenAll(GetCarrierAsync(), GetDriverAsync());
 
         }
         catch (Exception ex)
@@ -219,8 +223,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
         }
     }
 
-    [RelayCommand]
-    async Task SalesDispatchInsert()
+    async Task RetailSalesDispatchInsert()
     {
         try
         {
@@ -235,6 +238,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             retailSalesDispatch.IdentityNumber = SalesFormModel.SelectedDriver.IdentityNumber;
             retailSalesDispatch.Plaque = SalesFormModel.SelectedDriver.PlateNumber;
             retailSalesDispatch.TransactionDate = SalesFormModel.TransactionDate;
+            retailSalesDispatch.TransactionType = 7;
             //retailSalesDispatch.ShipInfoReferenceId =0;
             //retailSalesDispatch.ShipInfoCode = "";
             //retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
@@ -250,22 +254,101 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
                 retailSalesDispatchLine.ProductCode = item.ProductCode;
                 retailSalesDispatchLine.ProductReferenceId = item.ProductReferenceId;
-
+                retailSalesDispatchLine.CurrentCode = Current.Code;
+                retailSalesDispatchLine.CurrentReferenceId = Current.ReferenceId;
                 retailSalesDispatchLine.Quantity = item.Quantity;
                 retailSalesDispatchLine.UnitsetCode = item.UnitsetCode;
                 retailSalesDispatchLine.UnitsetReferenceId = item.UnitsetReferenceId;
-
+                retailSalesDispatchLine.TransactionType = 7;
                 retailSalesDispatchLine.SubUnitsetCode = item.SubUnitsetCode;
                 retailSalesDispatchLine.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
-
                 retailSalesDispatchLine.OrderReferenceId = item.ReferenceId;
                 retailSalesDispatchLine.WarehouseNumber = Warehouse.Number;
                 retailSalesDispatch.Lines.Add(retailSalesDispatchLine);
             }
 
             var result =  await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
-            Console.WriteLine(result.Message);
-           // return result;
+            if (result.IsSuccess)
+            {
+                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                {
+                    ["GroupType"] = 7
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Hata", ex.Message.ToString(), "Tamam");
+            //return ex.ToString();
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+    }
+    async Task WholeSalesDispatchInsert()
+    {
+        try
+        {
+            IsBusy = true;
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            WholeSalesDispatchTransactionDto wholeSalesDispatchTransactionDto = new WholeSalesDispatchTransactionDto();
+            wholeSalesDispatchTransactionDto.WarehouseNumber = Warehouse.Number;
+            wholeSalesDispatchTransactionDto.CarrierCode = SalesFormModel.SelectedCarrier.Code;
+            wholeSalesDispatchTransactionDto.DriverFirstName = SalesFormModel.SelectedDriver.Name;
+            wholeSalesDispatchTransactionDto.DriverLastName = SalesFormModel.SelectedDriver.Surname;
+            wholeSalesDispatchTransactionDto.IdentityNumber = SalesFormModel.SelectedDriver.IdentityNumber;
+            wholeSalesDispatchTransactionDto.Plaque = SalesFormModel.SelectedDriver.PlateNumber;
+            wholeSalesDispatchTransactionDto.TransactionDate = SalesFormModel.TransactionDate;
+            wholeSalesDispatchTransactionDto.TransactionType = 8;
+            //retailSalesDispatch.ShipInfoReferenceId =0;
+            //retailSalesDispatch.ShipInfoCode = "";
+            //retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
+            wholeSalesDispatchTransactionDto.Description = SalesFormModel.Description;
+            wholeSalesDispatchTransactionDto.CurrentCode = Current.Code;
+            wholeSalesDispatchTransactionDto.CurrentReferenceId = Current.ReferenceId;
+
+
+
+            foreach (var item in SelectedOrderLines)
+            {
+                WholeSalesDispatchTransactionLineDto wholeSalesDispatchTransactionLineDto = new WholeSalesDispatchTransactionLineDto();
+
+                wholeSalesDispatchTransactionLineDto.ProductCode = item.ProductCode;
+                wholeSalesDispatchTransactionLineDto.ProductReferenceId = item.ProductReferenceId;
+                wholeSalesDispatchTransactionLineDto.CurrentCode = item.CurrentCode;
+                wholeSalesDispatchTransactionLineDto.CurrentReferenceId = item.CurrentReferenceId;
+                wholeSalesDispatchTransactionLineDto.Quantity = item.Quantity;
+                wholeSalesDispatchTransactionLineDto.UnitsetCode = item.UnitsetCode;
+                wholeSalesDispatchTransactionLineDto.UnitsetReferenceId = item.UnitsetReferenceId;
+                wholeSalesDispatchTransactionLineDto.TransactionType = 8;
+                wholeSalesDispatchTransactionLineDto.SubUnitsetCode = item.SubUnitsetCode;
+                wholeSalesDispatchTransactionLineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
+                wholeSalesDispatchTransactionLineDto.OrderReferenceId = item.ReferenceId;
+                wholeSalesDispatchTransactionLineDto.WarehouseNumber = Warehouse.Number;
+                wholeSalesDispatchTransactionDto.Lines.Add(wholeSalesDispatchTransactionLineDto);
+            }
+
+            var result = await _wholeSalesDispatchTransactionService.InsertObject(httpClient, wholeSalesDispatchTransactionDto);
+            if (result.IsSuccess)
+            {
+                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                {
+                    ["GroupType"] = 7
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+            }
 
         }
         catch (Exception ex)
@@ -281,65 +364,32 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
     }
 
-
     [RelayCommand]
-    public async Task GetWarehouseAsync()
+    async Task InsertAsync()
     {
-
+        if (IsBusy)
+            return;
         try
         {
-            var httpClient = _httpClientService.GetOrCreateHttpClient();
-            CurrentPage = 0;
-            var result = await _warehouseService.GetObjects(httpClient, SearchText, WarehouseOrderBy, CurrentPage, PageSize);
-
-            if (result.Data.Any())
+            IsBusy = true;
+            if (SelectedTransactionType==null)
             {
-                WarehouseItems.Clear();
-
-                foreach (var item in result.Data)
-                {
-                    await Task.Delay(100);
-                    WarehouseItems.Add(item);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
-        }
-        finally
-        {
-            IsBusy = false;
-
-        }
-    }
-
-    [RelayCommand]
-    public async Task GetCustomerAsync()
-    {
-        try
-        {
-            var httpClient = _httpClientService.GetOrCreateHttpClient();
-            CurrentPage = 0;
-            var result = await _customerService.GetObjects(httpClient, SearchText, CustomerOrderBy, CurrentPage, PageSize);
-
-            if (result.Data.Any())
-            {
-                CustomerItems.Clear();
-
-                foreach (var item in result.Data)
-                {
-                    await Task.Delay(100);
-                    CustomerItems.Add(item);
-                }
+                await Shell.Current.DisplayAlert("Uyarı", "İrsaliye Türünü Seçiniz", "Tamam");
             }
 
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error:", $"{ex.Message}", "Tamam");
+            switch (SelectedTransactionType)
+            {
+
+                case "Toptan Satış İrsaliyesi":
+                    await WholeSalesDispatchInsert();
+                    break;
+                case "Perakende Satış İrsaliyesi":
+                    await RetailSalesDispatchInsert();
+                    break;
+
+                default:
+                    break;
+            }
         }
         finally
         {
@@ -347,6 +397,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
         }
 
     }
+
 
 
 }

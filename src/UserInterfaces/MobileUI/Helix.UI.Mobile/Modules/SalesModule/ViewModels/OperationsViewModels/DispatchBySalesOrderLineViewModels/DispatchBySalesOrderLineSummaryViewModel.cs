@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderLineViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -15,7 +16,9 @@ using System.Threading.Tasks;
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderLineViewModels
 {
     [QueryProperty(nameof(SelectedOrderLines), nameof(SelectedOrderLines))]
-
+    [QueryProperty(nameof(Current), nameof(Current))]
+    [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+    [QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
     public partial class DispatchBySalesOrderLineSummaryViewModel : BaseViewModel
 	{
         public DispatchBySalesOrderLineSummaryViewModel()
@@ -28,9 +31,13 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         [ObservableProperty]
         ObservableCollection<WaitingOrderLine> selectedOrderLines;
         [ObservableProperty]
-        Current current;
+        Customer current;
 
+        [ObservableProperty]
+        ShipInfo shipInfo;
 
+        [ObservableProperty]
+        Warehouse warehouse;
         async Task LoadData()
         {
             if (IsBusy)
@@ -83,7 +90,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         {
             await Shell.Current.GoToAsync($"{nameof(DispatchBySalesOrderLineFormView)}", new Dictionary<string, object>
             {
-                ["SelectedOrderLines"] = SelectedOrderLines
+                ["SelectedOrderLines"] = SelectedOrderLines,
+                ["Current"] = Current,
+                ["Warehouse"] = Warehouse,
+                ["ShipInfo"] = ShipInfo
             });
         }
     }

@@ -29,7 +29,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		[ObservableProperty]
 		int currentPage = 0;
 		[ObservableProperty]
-		int pageSize = 3000;
+		int pageSize = 10000;
 
 		//Lists
 		public ObservableCollection<Current> Items { get; } = new();

@@ -310,12 +310,11 @@ public class RetailSalesDispatchTransactionDataStore : IRetailSalesDispatchTrans
 			return dataResult;
 		}
 	}
-
-    public async Task<DataResult<RetailSalesDispatchTransaction>> InsertObject(HttpClient httpClient, RetailSalesDispatchTransactionDto retailSalesDispatchTransactionDto)
+    public async Task<DataResult<RetailSalesDispatchTransactionDto>> InsertObject(HttpClient httpClient, RetailSalesDispatchTransactionDto retailSalesDispatchTransactionDto)
     {
         HttpResponseMessage responseMessage = await httpClient.PostAsync(postUrl, new StringContent(JsonSerializer.Serialize(retailSalesDispatchTransactionDto), Encoding.UTF8, "application/json"));
 
-        DataResult<RetailSalesDispatchTransaction> dataResult = new DataResult<RetailSalesDispatchTransaction>();
+        DataResult<RetailSalesDispatchTransactionDto> dataResult = new DataResult<RetailSalesDispatchTransactionDto>();
         dataResult.IsSuccess = responseMessage.IsSuccessStatusCode;
 
         if (dataResult.IsSuccess)
@@ -329,7 +328,7 @@ public class RetailSalesDispatchTransactionDataStore : IRetailSalesDispatchTrans
             }
             else
             {
-                var result = JsonSerializer.Deserialize<DataResult<RetailSalesDispatchTransaction>>(data, new JsonSerializerOptions
+                var result = JsonSerializer.Deserialize<DataResult<RetailSalesDispatchTransactionDto>>(data, new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });

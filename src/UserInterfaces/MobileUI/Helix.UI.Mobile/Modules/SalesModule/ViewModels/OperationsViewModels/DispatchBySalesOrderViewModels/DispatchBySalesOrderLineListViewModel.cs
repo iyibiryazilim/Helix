@@ -20,8 +20,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 [QueryProperty(nameof(SelectedOrders), nameof(SelectedOrders))]
 [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 [QueryProperty(nameof(Current), nameof(Current))]
-
-
+[QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
 public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 {
 	IHttpClientService _httpClientService;
@@ -53,7 +52,8 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
 
     [ObservableProperty]
     Customer current;
-
+    [ObservableProperty]
+    ShipInfo shipInfo;
     public ObservableCollection<WaitingOrderLineGroup> WaitingOrderLineGroupList { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> Result { get; } = new();
 	public ObservableCollection<WaitingOrderLineGroup> SelectedWaitingOrderLineGroupList { get; } = new();
@@ -479,6 +479,7 @@ public partial class DispatchBySalesOrderLineListViewModel : BaseViewModel
                     [nameof(ChangedLines)] = ChangedLines,
                     ["Warehouse"] = Warehouse,
                     ["Current"] = Current,
+					["ShipInfo"] = ShipInfo
                 });
             }
             else

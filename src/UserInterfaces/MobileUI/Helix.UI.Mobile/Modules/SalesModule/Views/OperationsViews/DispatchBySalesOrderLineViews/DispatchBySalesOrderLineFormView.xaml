@@ -13,21 +13,20 @@
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="{Binding Title}">
      <ContentPage.Behaviors>
-     <toolkit:EventToCommandBehavior EventName="Loaded"
-                                     Command="{Binding GetWarehouseCommand}" />
-     <toolkit:EventToCommandBehavior EventName="Loaded"
-                                     Command="{Binding GetCustomerCommand}" />
-     <toolkit:EventToCommandBehavior EventName="Loaded"
-                                     Command="{Binding GetDriverCommand}" />
-     <toolkit:EventToCommandBehavior EventName="Loaded"
-                                     Command="{Binding GetCarrierCommand}" />
-        
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                     Command="{Binding GetDataCommand}" />
+
     </ContentPage.Behaviors>
     <sharedViews:SalesDispatchFormContentView 
-                                              
+                                              Warehouse="{Binding Warehouse}"
+                                              Customer="{Binding Current}" 
                                               DriverList="{Binding DriverItems}"
                                               CarrierList="{Binding CarrierItems}"
-                                              GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
+                                              GoToSuccessPageViewCommand="{Binding InsertCommand}"
+                                              GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
+                                              SalesFormModel="{Binding SalesFormModel}"
+                                              SelectedTransactionType="{Binding SelectedTransactionType}"
+                                              ShipInfo="{Binding ShipInfo}">
 
     </sharedViews:SalesDispatchFormContentView>
 

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -10,13 +11,16 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
 	[QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
-
+	[QueryProperty(nameof(Current), nameof(Current))]
+	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 	public partial class DispatchByPurchaseOrderSummaryViewModel : BaseViewModel
     {
 		[ObservableProperty]
 		ObservableCollection<WaitingOrderLine> changedLines;
 		[ObservableProperty]
-		Current current;      
+		Supplier current;
+		[ObservableProperty]
+		Warehouse warehouse;
         public Command GetDataCommand { get; }
 
 		public DispatchByPurchaseOrderSummaryViewModel()
@@ -78,7 +82,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			await Task.Delay(500);
 			await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderFormView)}", new Dictionary<string, object>
 			{
-				[nameof(ChangedLines)] = ChangedLines
+				[nameof(ChangedLines)] = ChangedLines,
+				[nameof(Warehouse)] = Warehouse,
+				[nameof(Current)] = Current
 			});
 		}
 	}

@@ -11,5 +11,5 @@ public interface IRetailSalesDispatchTransactionService
 	Task<DataResult<RetailSalesDispatchTransaction>> GetObjectByCode(HttpClient httpClient, string Code);
 	Task<DataResult<IEnumerable<RetailSalesDispatchTransaction>>> GetObjectsByCurrentCode(HttpClient httpClient,string Code);
 	Task<DataResult<IEnumerable<RetailSalesDispatchTransaction>>> GetObjectsByCurrentId(HttpClient httpClient,int ReferenceId);
-	Task<DataResult<RetailSalesDispatchTransaction>> InsertObject(HttpClient httpClient, RetailSalesDispatchTransactionDto retailSalesDispatchTransactionDto);
+	Task<DataResult<RetailSalesDispatchTransactionDto>> InsertObject(HttpClient httpClient, RetailSalesDispatchTransactionDto retailSalesDispatchTransactionDto);
 }

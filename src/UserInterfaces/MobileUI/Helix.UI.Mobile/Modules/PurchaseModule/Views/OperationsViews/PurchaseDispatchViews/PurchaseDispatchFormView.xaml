@@ -4,6 +4,7 @@
              x:Class="Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.PurchaseDispatchViews.PurchaseDispatchFormView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderLineViewModels"
+             x:DataType="viewModel:DispatchByPurchaseOrderLineFormViewModel"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Models"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
@@ -11,14 +12,9 @@
              Title="{Binding Title}"
              Shell.TabBarIsVisible="False"
             >
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetWarehouseCommand}" />
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetSupplierCommand}" />
-    </ContentPage.Behaviors>
-    <sharedViews:PurchaseDispatchOperationFormContentView WarehouseList="{Binding WarehouseItems}"
-                                                          SupplierList="{Binding SupplierItems}"
+
+    <sharedViews:PurchaseDispatchOperationFormContentView Warehouse="{Binding .}"
+                                                          Current="{Binding .}"
                                                           GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
         
     </sharedViews:PurchaseDispatchOperationFormContentView>

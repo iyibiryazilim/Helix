@@ -1,55 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.SalesDispatchFormContentView"
-             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              x:Name="this"
-             xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.SalesModule.Models"  
-             BackgroundColor="{StaticResource Primary}" >
+              BackgroundColor="{StaticResource Primary}"
+             x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.PurchaseReturnDispatchTransactionFormContentView">
     <Border  Grid.Row="0"
-             BackgroundColor="{StaticResource WhiteSmoke}"
-             StrokeThickness="0"
-             Padding="5,20,5,10">
+          BackgroundColor="{StaticResource WhiteSmoke}"
+          StrokeThickness="0"
+          Padding="5,20,5,10">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
         <Grid RowDefinitions="*,Auto">
             <ScrollView>
                 <Grid  Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-                       BackgroundColor="{StaticResource WhiteSmoke}">
+                    BackgroundColor="{StaticResource WhiteSmoke}">
 
                     <!-- İrsaliye Türü -->
 
                     <VerticalStackLayout Grid.Row="0"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="İrsaliye Türü"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Picker Title="İrsaliye Türü Seçin" SelectedItem="{Binding SelectedTransactionType}">
-                                    <Picker.Items>
-                                        <x:String>Toptan Satış İrsaliyesi</x:String>
-                                        <x:String>Perakende Satış İrsaliyesi</x:String>
-                                    </Picker.Items>
-                                </Picker>
+                                <Picker.Items>
+                                    <x:String>Satınalma İade İrsaliyesi</x:String>
+                                </Picker.Items>
+                            </Picker>
 
                         </Border>
                     </VerticalStackLayout>
 
                     <!-- Tarih ve Saat -->
                     <Grid Grid.Row="1"
-                          Grid.ColumnDefinitions="50*,50*"
-                          Padding="7"
-                          ColumnSpacing="5">
+                       Grid.ColumnDefinitions="50*,50*"
+                       Padding="7"
+                       ColumnSpacing="5">
                         <VerticalStackLayout Grid.Column="0">
                             <Label Text="Tarih"
-                                   FontSize="Medium" />
+                                FontSize="Medium" />
                             <Border StrokeShape="RoundRectangle 13">
                                 <DatePicker Date="{Binding Source={x:Reference this},Path=SalesFormModel.TransactionDate}"/>
                             </Border>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1">
                             <Label Text="Saat"
-                                   FontSize="Medium" />
+                                FontSize="Medium" />
                             <Border StrokeShape="RoundRectangle 13">
                                 <TimePicker Time="{Binding Source={x:Reference this},Path=SalesFormModel.TransactionTime}"/>
                             </Border>
@@ -59,9 +57,9 @@
 
                     <!-- Ambar -->
                     <VerticalStackLayout Grid.Row="2"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Ambar"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="{Binding Source={x:Reference this},Path=Warehouse.Name}" IsEnabled="False" PlaceholderColor="{StaticResource Black}" />
 
@@ -70,20 +68,20 @@
 
                     <!-- Müşteri -->
                     <VerticalStackLayout Grid.Row="3"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Müşteri Adı"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="{Binding Source={x:Reference this},Path=Customer.Name}" IsEnabled="False" PlaceholderColor="{StaticResource Black}" />
+                            <Entry Placeholder="{Binding Source={x:Reference this},Path=Supplier.Name}" IsEnabled="False" PlaceholderColor="{StaticResource Black}" />
 
                         </Border>
                     </VerticalStackLayout>
 
                     <!-- Sevk Müşterisi -->
                     <VerticalStackLayout Grid.Row="4"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Sevk Müşterisi"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="" IsEnabled="False" />
                         </Border>
@@ -91,9 +89,9 @@
 
                     <!-- Sevk Adresi -->
                     <VerticalStackLayout Grid.Row="5"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Sevk Adresi"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="{Binding Source={x:Reference this},Path=ShipInfo.Name}" IsEnabled="False" PlaceholderColor="{StaticResource Black}" />
 
@@ -102,63 +100,63 @@
 
                     <!-- Taşıyıcı -->
                     <VerticalStackLayout Grid.Row="6"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Taşıyıcı"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Picker x:Name="pickerCarrier"
-                                    Title="Seçiniz.."
-                                    ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Reference this},Path=CarrierList}"
-                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedCarrier}" />
+                                 Title="Seçiniz.."
+                                 ItemDisplayBinding="{Binding Name}"
+                                 ItemsSource="{Binding Source={x:Reference this},Path=CarrierList}"
+                                 SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedCarrier}" />
 
                         </Border>
                     </VerticalStackLayout>
 
                     <!-- Şoför -->
                     <VerticalStackLayout Grid.Row="7"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Şoför"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Picker x:Name="pickerDriver"
-                                    Title="Seçiniz.."
-                                    ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Reference this},Path=DriverList}"
-                                    SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedDriver}" />
+                                 Title="Seçiniz.."
+                                 ItemDisplayBinding="{Binding Name}"
+                                 ItemsSource="{Binding Source={x:Reference this},Path=DriverList}"
+                                 SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.SelectedDriver}" />
 
                         </Border>
                     </VerticalStackLayout>
 
                     <!-- Özel Kod -->
                     <VerticalStackLayout Grid.Row="8"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Özel Kod"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Grid ColumnDefinitions="85*,15*">
                                 <Entry  Text="{Binding SpeCode}" />
                                 <ImageButton Grid.Column="1"
-                                             BackgroundColor="Transparent"
-                                             Aspect="AspectFit"
-                                             HeightRequest="22"
-                                             WidthRequest="22"
-                                             CommandParameter="{Binding .}"
-                                             Command="{Binding Source={x:Reference this}, Path= BindingContext.GetSpeCodeCommand}"
-                                             
-                                             >
-                                    
+                                          BackgroundColor="Transparent"
+                                          Aspect="AspectFit"
+                                          HeightRequest="22"
+                                          WidthRequest="22"
+                                          CommandParameter="{Binding .}"
+                                          Command="{Binding Source={x:Reference this}, Path= BindingContext.GetSpeCodeCommand}"
+                                          
+                                          >
+
                                     <ImageButton.Source>
                                         <FontImageSource FontFamily="FAS"
-                                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
-                                                         Color="{StaticResource DarkPrimary}"
-                                                         
-                                                         
-                                                         />
+                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
+                                                      Color="{StaticResource DarkPrimary}"
+                                                      
+                                                      
+                                                      />
                                     </ImageButton.Source>
-                                   
+
                                 </ImageButton>
-                  
+
 
                             </Grid>
                         </Border>
@@ -166,9 +164,9 @@
 
                     <!-- Açıklama -->
                     <VerticalStackLayout Grid.Row="9"
-                                         Padding="7">
+                                      Padding="7">
                         <Label Text="Açıklama"
-                               FontSize="Medium" />
+                            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="Açıklama" Text="{Binding Source={x:Reference this},Path=SalesFormModel.SpeCode}" />
                         </Border>
@@ -177,13 +175,10 @@
             </ScrollView>
             <Grid Grid.Row="1">
                 <Button Margin="5"
-                        Text="Kaydet" Command="{Binding Source={x:Reference this},Path=GoToSuccessPageViewCommand}"></Button>
+                     Text="Kaydet" Command="{Binding Source={x:Reference this},Path=GoToSuccessPageViewCommand}"></Button>
             </Grid>
 
         </Grid>
 
     </Border>
-
-
-
 </ContentView>
