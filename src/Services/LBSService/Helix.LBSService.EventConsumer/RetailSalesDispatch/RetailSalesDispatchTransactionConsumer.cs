@@ -7,10 +7,10 @@ namespace Helix.LBSService.EventConsumer.RetailSalesDispatch
 	{
 		private readonly MessageConsumer<RetailSalesDispatchTransactionDto> _messageConsumer;
 
-		public RetailSalesDispatchTransactionConsumer(IService<RetailSalesDispatchTransactionDto> wholeSalesReturnTransactionService, HttpClient httpClient)
+		public RetailSalesDispatchTransactionConsumer(IService<RetailSalesDispatchTransactionDto> service, HttpClient httpClient)
 		{
 			_messageConsumer = new MessageConsumer<RetailSalesDispatchTransactionDto>(
-				wholeSalesReturnTransactionService,
+				service,
 				"SalesService.RetailSalesDispatchTransactionIns",
 				"HelixTopicName",
 				httpClient

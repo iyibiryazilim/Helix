@@ -14,10 +14,10 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 	{
 		private readonly MessageConsumer<WorkOrderChangeStatusDto> _messageConsumer;
 
-		public WorkOrderStatusChangeConsumer(IService<WorkOrderChangeStatusDto> wholeSalesReturnTransactionService, HttpClient httpClient)
+		public WorkOrderStatusChangeConsumer(IService<WorkOrderChangeStatusDto> service, HttpClient httpClient)
 		{
 			_messageConsumer = new MessageConsumer<WorkOrderChangeStatusDto>(
-				wholeSalesReturnTransactionService,
+				service,
 				"ProductionService.WorkOrderChangeStatusInserted",
 				"HelixTopicName",
 				httpClient

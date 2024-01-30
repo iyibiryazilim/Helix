@@ -7,10 +7,10 @@ namespace Helix.LBSService.EventConsumer.WorkOrder
 	{
 		private readonly MessageConsumer<StopTransactionForWorkOrderDto> _messageConsumer;
 
-		public StopTransactionForWorkOrderConsumer(IService<StopTransactionForWorkOrderDto> wholeSalesReturnTransactionService, HttpClient httpClient)
+		public StopTransactionForWorkOrderConsumer(IService<StopTransactionForWorkOrderDto> service, HttpClient httpClient)
 		{
 			_messageConsumer = new MessageConsumer<StopTransactionForWorkOrderDto>(
-				wholeSalesReturnTransactionService,
+				service,
 				"ProductionService.StopTransactionForWorkOrderInserted",
 				"HelixTopicName",
 				httpClient
