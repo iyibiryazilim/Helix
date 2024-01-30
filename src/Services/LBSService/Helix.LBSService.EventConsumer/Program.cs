@@ -87,9 +87,13 @@ class Program
 		services.AddSingleton<InCountingTransactionConsumer>();
 		services.AddSingleton<ConsumableTransactionConsumer>();
 		services.AddSingleton<WorkOrderInsertConsumer>();
+		services.AddSingleton<WholeSalesDispatchTransactionConsumer>();
+		services.AddSingleton<WholeSalesReturnDispatchTransactionConsumer>();
 
 		// Add more consumers as needed
 	}
+	
+
 
 	private static async Task ProcessConsumersAsync(IHost host)
 	{

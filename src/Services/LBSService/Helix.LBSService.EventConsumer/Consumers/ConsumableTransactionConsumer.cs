@@ -3,7 +3,7 @@ using Helix.LBSService.Tiger.DTOs;
 
 namespace Helix.LBSService.EventConsumer.Consumers
 {
-    public class ConsumableTransactionConsumer : IDisposable
+	public class ConsumableTransactionConsumer : IDisposable
     {
         private readonly MessageConsumer<ConsumableTransactionDto> _messageConsumer;
 
@@ -11,7 +11,7 @@ namespace Helix.LBSService.EventConsumer.Consumers
         {
             _messageConsumer = new MessageConsumer<ConsumableTransactionDto>(
                 service: service,
-                queueName: "SalesService.RetailSalesDispatchTransactionIns",
+                queueName: "ProductService.ConsumableTransactionIns",
                 exchange: "HelixTopicName",
                 httpClient: httpClient
             );

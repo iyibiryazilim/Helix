@@ -11,7 +11,7 @@ namespace Helix.LBSService.EventConsumer.Consumers
         {
             _messageConsumer = new MessageConsumer<PurchaseDispatchTransactionDto>(
                 service: service,
-                queueName: "SalesService.RetailSalesDispatchTransactionIns",
+                queueName: "PurchaseService.PurchaseDispatchTransactionInserted",
                 exchange: "HelixTopicName",
                 httpClient: httpClient
             );

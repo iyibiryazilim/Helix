@@ -11,7 +11,7 @@ namespace Helix.LBSService.EventConsumer.Consumers
         {
             _messageConsumer = new MessageConsumer<OutCountingTransactionDto>(
                 service: service,
-                queueName: "SalesService.RetailSalesDispatchTransactionIns",
+                queueName: "ProductService.OutCountingTransactionIns",
                 exchange: "HelixTopicName",
                 httpClient: httpClient
             );

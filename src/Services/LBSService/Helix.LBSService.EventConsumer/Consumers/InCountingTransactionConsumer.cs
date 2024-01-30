@@ -1,17 +1,10 @@
 ﻿using Helix.LBSService.EventConsumer.Helper;
-using Helix.LBSService.EventConsumer.Models;
 using Helix.LBSService.Tiger.DTOs;
-using Helix.LBSService.Tiger.Services;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using Serilog;
-using System.Text;
 
 
 namespace Helix.LBSService.EventConsumer.Consumers
 {
-    public class InCountingTransactionConsumer : IDisposable
+	public class InCountingTransactionConsumer : IDisposable
     {
         private readonly MessageConsumer<InCountingTransactionDto> _messageConsumer;
 
@@ -19,7 +12,7 @@ namespace Helix.LBSService.EventConsumer.Consumers
         {
             _messageConsumer = new MessageConsumer<InCountingTransactionDto>(
                 service: service,
-                queueName: "SalesService.RetailSalesDispatchTransactionIns",
+                queueName: "ProductService.OutCountingTransactionIns",
                 exchange: "HelixTopicName",
                 httpClient: httpClient
             );

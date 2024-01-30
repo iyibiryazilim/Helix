@@ -11,7 +11,7 @@ namespace Helix.LBSService.EventConsumer.Consumers
         {
             _messageConsumer = new MessageConsumer<WholeSalesReturnTransactionDto>(
                 service,
-                "SalesService.RetailSalesDispatchTransactionIns",
+				"SalesService.WholeSalesReturnDispatchTransactionIns",
                 "HelixTopicName",
                 httpClient
             );

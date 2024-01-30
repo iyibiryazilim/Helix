@@ -10,7 +10,7 @@ namespace Helix.LBSService.EventConsumer.Consumers
         {
             _messageConsumer = new MessageConsumer<WorkOrdersDto>(
                 service,
-                "",
+				"ProductionService.WorkOrderInserted",
                 "HelixTopicName",
                 httpClient
             );
