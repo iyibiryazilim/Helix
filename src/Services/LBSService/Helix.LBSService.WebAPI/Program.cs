@@ -1,14 +1,33 @@
-using Helix.LBSService.Tiger.DataStores;
-using Helix.LBSService.Tiger.Services;
+using Helix.LBSService.WebAPI.DataStores;
+using Helix.LBSService.WebAPI.Helper;
+using Helix.LBSService.WebAPI.Models;
+using Helix.LBSService.WebAPI.Services;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
-
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
+builder.Services.AddTransient<ILG_ProductionTransactionService, LG_ProductionTransactionDataStore>();
 
 builder.Services.AddControllers();
+
+builder.Configuration.AddJsonFile("appsettings.json");
+ 
+
+LBSParameterModel parameterModel = builder.Configuration.GetSection(nameof(LBSParameter)).Get<LBSParameterModel>();
+LBSParameter.FirmNumber = parameterModel.FirmNumber;
+LBSParameter.IsTiger = parameterModel.IsTiger;
+LBSParameter.Username = parameterModel.Username;
+LBSParameter.Password = parameterModel.Password;
+LBSParameter.DB_DataSource = parameterModel.DB_DataSource;
+LBSParameter.DB_InitialCatalog = parameterModel.DB_InitialCatalog;
+LBSParameter.DB_UserId = parameterModel.DB_UserId;
+LBSParameter.DB_Password = parameterModel.DB_Password;
+
+Debug.WriteLine(LBSParameter.Connection);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +36,11 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
+{
+	app.UseSwagger();
+	app.UseSwaggerUI();
+}
+else
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();

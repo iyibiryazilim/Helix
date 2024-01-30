@@ -1,11 +1,7 @@
-﻿using Helix.LBSService.Tiger.DTOs;
-using Helix.LBSService.Tiger.Models.BaseModel;
-using Helix.LBSService.Tiger.Services;
+﻿using Helix.LBSService.WebAPI.DTOs;
+using Helix.LBSService.WebAPI.Models.BaseModel;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
 
 namespace Helix.LBSService.WebAPI.Controllers
 {
@@ -25,37 +21,9 @@ namespace Helix.LBSService.WebAPI.Controllers
 			return await _workOrderService.Insert(dto);
 		}
 		[HttpPost("StopTransaction")]
-		public async Task<DataResult<WorkOrderDto>> InsertStopTransaction()
+		public async Task<DataResult<WorkOrderDto>> InsertStopTransaction([FromBody] StopTransactionForWorkOrderDto dto)
 		{
-			try
-			{
-				var factory = new ConnectionFactory { Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt") };
-				using var connection = factory.CreateConnection();
-				using var channel = connection.CreateModel();
-				channel.ExchangeDeclare(exchange: "HelixTopicName", type: "direct");
-
-				channel.QueueBind("ProductionService.StopTransactionForWorkOrderInserted", exchange: "HelixTopicName", routingKey: "ProductionService.StopTransactionForWorkOrderInserted");
-
-				Console.WriteLine(" [*] Waiting for messages.");
-
-				var consumer = new EventingBasicConsumer(channel);
-				StopTransactionForWorkOrderDto dto = new StopTransactionForWorkOrderDto();
-				channel.BasicConsume(queue: "ProductionService.StopTransactionForWorkOrderInserted", autoAck: false, consumer: consumer);
-				consumer.Received += (model, ea) =>
-				{
-					var body = ea.Body.ToArray();
-					var message = Encoding.UTF8.GetString(body);
-					Console.WriteLine($" [x] Received {message}");
-					dto = JsonConvert.DeserializeObject<StopTransactionForWorkOrderDto>(message);
-					channel.BasicAck(ea.DeliveryTag, false);
-				};
-				return await _workOrderService.InsertStopTransaction(dto);
-			}
-			catch (Exception)
-			{
-
-				throw;
-			}
+			return await _workOrderService.InsertStopTransaction(dto);
 		}
 		[HttpPost("Status")]
 		public async Task<DataResult<WorkOrderDto>> InsertChangeStatus([FromBody] WorkOrderChangeStatusDto dto)
