@@ -1,15 +1,28 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Helix.UI.Mobile.MVVMHelper;
+using Kotlin.Properties;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels
 {
-   public partial class ProcurementOption
+    public partial class ProcurementOption :BaseViewModel
     {
+
+       
+
+        [ObservableProperty]
+        bool selectCustomer = false;
+
+        [ObservableProperty]
+        bool selectProduct = false;
+
+        public ProcurementOption()
+        {
+            Title = "Seçim Sayfası";
+            
+        }
+
 
         //Ürün Toplama
         [RelayCommand]
@@ -17,7 +30,20 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         {
             await Shell.Current.GoToAsync($"{nameof(ProcurementCustomerListView)}");
         }
-       
+
+        [RelayCommand]
+        async Task SelectCustomerAsync()
+        {
+            SelectCustomer= true;
+            SelectProduct = false;
+        }
+
+        [RelayCommand]
+        async Task SelectProductAsync()
+        {
+            SelectCustomer = false;
+            SelectProduct = true;
+        }
 
 
     }
