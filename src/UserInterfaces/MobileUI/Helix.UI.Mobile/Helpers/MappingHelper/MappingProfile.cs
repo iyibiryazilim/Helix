@@ -19,6 +19,7 @@ public class MappingProfile : Profile
 		CreateMap<MainPanelModel, dynamic>();
 		CreateMap<ProductPanelModel, dynamic>();
 		CreateMap<SalesPanelModel, dynamic>();
+		CreateMap<PurchasePanelModel, dynamic>();
 
         CreateMap<WaitingOrderLine, PurchaseOrderLine>().ReverseMap();
 		CreateMap<WaitingOrderLine, SalesOrderLine>().ReverseMap();

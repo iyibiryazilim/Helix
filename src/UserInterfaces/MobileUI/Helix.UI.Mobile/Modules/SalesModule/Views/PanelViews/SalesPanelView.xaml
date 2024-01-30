@@ -30,7 +30,39 @@
             <Grid Padding="10,0,10,10"
                   RowDefinitions="auto,auto,*"
                   RowSpacing="10">
-                <Frame Grid.Row="0" HeightRequest="200" />
+                <Frame Grid.Row="0"
+                       HeightRequest="100">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <VerticalStackLayout Grid.Column="0"
+                                             Spacing="2">
+                            <Label Text="{Binding salesPanelModel.SalesDispatchCount}"
+                                   HorizontalOptions="Center"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Success}"></Label>
+                            <BoxView HeightRequest="0.5"
+                                     Color="{StaticResource Secondary}"></BoxView>
+                            <Label Text="Satılan Ürün Miktarı"
+                                   FontSize="Caption"
+                                   FontAttributes="Bold"></Label>
+                        </VerticalStackLayout>
+                        <BoxView Grid.Column="1"
+                                 WidthRequest="0.7"></BoxView>
+                        <VerticalStackLayout Grid.Column="2"
+                                             Spacing="2">
+                            <Label Text="{Binding salesPanelModel.PurchaseReturnCount}"
+                                   HorizontalOptions="Center"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Danger}"></Label>
+                            <BoxView HeightRequest="0.5"
+                                     Color="{StaticResource Secondary}"></BoxView>
+                            <Label Text="İade Edilen Ürün Miktarı"
+                                   FontSize="Caption"
+                                   FontAttributes="Bold"></Label>
+                        </VerticalStackLayout>
+                    </Grid>
+
+
+                </Frame>
                 <Grid Grid.Row="1">
                     <VerticalStackLayout Spacing="5">
                         <Label FontAttributes="Bold" Text="En Çok Hareket Gören Müşteriler" />

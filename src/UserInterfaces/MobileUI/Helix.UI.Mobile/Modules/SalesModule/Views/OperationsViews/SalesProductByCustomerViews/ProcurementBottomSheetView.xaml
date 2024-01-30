@@ -28,7 +28,7 @@
             <Label Text="Hesaplanan Ürünler"
                    Padding="5"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center"></Label>
+                   HorizontalOptions="Start"></Label>
 
             <Border BackgroundColor="{StaticResource White}"
                     StrokeThickness="0"
@@ -140,6 +140,14 @@
 
                                                
                                             </HorizontalStackLayout>
+
+                                            <!--<HorizontalStackLayout Spacing="4">
+                                                <Label Text="{Binding SalesOrderLine.WaitingQuantity}" FontSize="13"></Label>
+                                                <Label Text="/"
+                                                       FontSize="18"></Label>
+                                                <Label Text="{Binding SalesOrderLine.Quantity}" FontSize="20" ></Label>
+
+                                            </HorizontalStackLayout>-->
 
                                         </VerticalStackLayout>
                                         <Border Padding="10,5"

@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helix.UI.Mobile.Modules.SalesModule.Models
+namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 {
-    public partial class SalesPanelModel:ObservableObject
+    public partial class PurchasePanelModel :ObservableObject
     {
         [ObservableProperty]
-        double? salesDispatchCount;
+        double? purchaseDispatchCount;
 
         [ObservableProperty]
-        double? purchaseReturnCount;
+        double? salesReturnCount;
 
     }
 }
