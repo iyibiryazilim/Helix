@@ -28,8 +28,28 @@
         </Border.StrokeShape>
         <ScrollView>
 
-            <Grid RowDefinitions="auto,auto,*" RowSpacing="10">
-                <Frame Grid.Row="0" HeightRequest="200" />
+            <Grid RowDefinitions="auto,auto,*" RowSpacing="4">
+                <Frame Grid.Row="0"
+                       HeightRequest="100"
+                       >
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="2" >
+                            <Label Text="{Binding productPanelModel.InputCount}" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{StaticResource Success}"></Label>
+                            <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}"></BoxView>
+                            <Label Text="Bugün Giren Ürün Miktarı" FontSize="Caption" FontAttributes="Bold" ></Label>
+                        </VerticalStackLayout>
+                        <BoxView Grid.Column="1" WidthRequest="0.7"   ></BoxView>
+                        <VerticalStackLayout Grid.Column="2" Spacing="2" >
+                            <Label Text="{Binding productPanelModel.InputCount}" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{StaticResource Danger}"></Label>
+                            <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}" ></BoxView>
+                            <Label Text="Bugün Çıkan Ürün Miktarı" FontSize="Caption" FontAttributes="Bold" ></Label>
+                        </VerticalStackLayout>
+                    </Grid>
+                    
+                    
+                </Frame>
+                      
+                
                 <VerticalStackLayout Grid.Row="1" Spacing="7">
 
                     <Label FontAttributes="Bold" Text="En Son Hareket Gören Ürünler" />

@@ -32,9 +32,7 @@
         <Grid RowDefinitions="Auto,*,Auto"
               RowSpacing="5">
             <Grid Grid.Row="0">
-                <Border StrokeShape="RoundRectangle 20">
-
-                </Border>
+               
             </Grid>
             <RefreshView Grid.Row="1"
                          IsRefreshing="{Binding IsRefreshing}"
@@ -119,6 +117,7 @@
                                                 </Label.Style>
 
                                             </Label>
+                                            
                                             <Border Padding="10,5"
                                                     BackgroundColor="{StaticResource Warning}"
                                                     HorizontalOptions="Start"
@@ -155,7 +154,7 @@
                                                      TargetType="Border"
                                                      Value="True">
                                             <Setter Property="BackgroundColor"
-                                                    Value="{StaticResource Success}" />
+                                                    Value="{StaticResource Primary}" />
                                         </DataTrigger>
                                     </Border.Triggers>
                                 </Border>

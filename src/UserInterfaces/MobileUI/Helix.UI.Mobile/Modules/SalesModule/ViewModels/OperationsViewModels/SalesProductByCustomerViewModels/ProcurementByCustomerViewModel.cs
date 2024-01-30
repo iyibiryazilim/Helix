@@ -126,6 +126,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                         {
                             procurementCustomer.Customer.Name = order.CurrentName;
                             procurementCustomer.Customer.ReferenceId = (int)order.CurrentReferenceId;
+                            
                             ProcurementCustomerOrder customerOrder = new ProcurementCustomerOrder();
                             customerOrder.SalesOrderLine = order;
 

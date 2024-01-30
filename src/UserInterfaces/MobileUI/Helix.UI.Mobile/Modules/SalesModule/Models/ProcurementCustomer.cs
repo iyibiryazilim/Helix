@@ -13,6 +13,8 @@ public partial class ProcurementCustomer:ObservableObject
     string image;
     [ObservableProperty]
     bool isSelected;
+    [ObservableProperty]
+    public double procurementQuantity;
 
     public ObservableCollection<ProcurementCustomerOrder> Orders { get; set; }
     public ProcurementCustomer()
