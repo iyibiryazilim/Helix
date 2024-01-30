@@ -1,4 +1,5 @@
 ﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.SalesModule.Dtos;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.Services
@@ -10,5 +11,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Services
 		Task<DataResult<WholeSalesDispatchTransaction>> GetObjectByCode(HttpClient httpClient, string Code);
 		Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetObjectsByCurrentCode(HttpClient httpClient, string Code);
 		Task<DataResult<IEnumerable<WholeSalesDispatchTransaction>>> GetObjectsByCurrentId(HttpClient httpClient, int ReferenceId);
-	}
+		Task<DataResult<WholeSalesDispatchTransactionDto>> InsertObject(HttpClient httpClient, WholeSalesDispatchTransactionDto wholeSalesDispatchTransactionDto);
+
+    }
 }

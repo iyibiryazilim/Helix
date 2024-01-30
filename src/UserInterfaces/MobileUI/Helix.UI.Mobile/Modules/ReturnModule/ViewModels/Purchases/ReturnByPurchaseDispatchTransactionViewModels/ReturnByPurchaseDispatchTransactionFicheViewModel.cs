@@ -265,7 +265,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionLineListView)}", new Dictionary<string, object>
 				{
 					[nameof(SelectedTransactions)] = SelectedTransactions,
-					[nameof(Warehouse)] = Warehouse
+					[nameof(Warehouse)] = Warehouse,
+					[nameof(ShipInfo)] = ShipInfo,
+					[nameof(Current)] = Current
 				});
 			}
 			else

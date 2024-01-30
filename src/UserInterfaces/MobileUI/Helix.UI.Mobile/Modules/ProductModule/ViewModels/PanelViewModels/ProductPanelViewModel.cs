@@ -19,6 +19,8 @@ public partial class ProductPanelViewModel :BaseViewModel
 	public ObservableCollection<Product> Items { get; } = new();
 	public ObservableCollection<ProductTransactionLine> Lines { get; } = new();
 
+	public ProductPanelModel productPanelModel { get; set; }
+
 	public Command GetProductsCommand { get; }
 
 	public ProductPanelViewModel(ICustomQueryService customQueryService, IHttpClientService httpClientService)
@@ -27,9 +29,11 @@ public partial class ProductPanelViewModel :BaseViewModel
 		_httpClientService = httpClientService;
 		GetProductsCommand = new Command(async () => await LoadData());
 		Title = "Malzeme Paneli";
+        productPanelModel = new ProductPanelModel();
 
 
-	}
+
+    }
 
 	[RelayCommand]
 	public async Task LoadData()
@@ -39,7 +43,7 @@ public partial class ProductPanelViewModel :BaseViewModel
 		try
 		{
 			await Task.Delay(300);
-			await Task.WhenAll(GetTopProductsAsync(), GetLastTransactionsAsync());
+			await Task.WhenAll(GetTodayInputCountValuesAsync(),GetTodayOutputCountValueAsync(),GetTopProductsAsync(), GetLastTransactionsAsync());
 
 		}
 		catch (Exception ex)
@@ -138,4 +142,64 @@ public partial class ProductPanelViewModel :BaseViewModel
 			IsRefreshing = false;
 		}
 	}
+
+    async Task GetTodayInputCountValuesAsync()
+    {
+        try
+        {
+            IsBusy = true;
+
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var result = await _customQueryService.GetObjectsAsync(httpClient, new ProductPanelQuery().GetTodayInputCountValues());
+
+            if (result.Data.Any())
+            {
+                foreach (var item in result.Data)
+                {
+                    var obj = Mapping.Mapper.Map<ProductPanelModel>(item);
+                    productPanelModel.InputCount = obj.InputCount;
+                }
+
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    async Task GetTodayOutputCountValueAsync()
+    {
+        try
+        {
+            IsBusy = true;
+
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var result = await _customQueryService.GetObjectsAsync(httpClient, new ProductPanelQuery().GetTodayOutputCountValues());
+
+            if (result.Data.Any())
+            {
+                foreach (var item in result.Data)
+                {
+                    var obj = Mapping.Mapper.Map<ProductPanelModel>(item);
+                    productPanelModel.OutputCount = obj.OutputCount;
+                }
+
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
 }

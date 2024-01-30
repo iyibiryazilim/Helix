@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews.ProcurementOptionView"
-             Title="ProcurementOptionView">
-    <VerticalStackLayout VerticalOptions="Center" Padding="10" Spacing="15">
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ViewModels.SalesProductByCustomerViewModels"
+             Title="Seçim Sayfası"
+             Shell.TabBarIsVisible="False">
+    <!--<VerticalStackLayout VerticalOptions="Center" Padding="10" Spacing="15">
         <Button Text="Müşteriye Göre"
                 CommandParameter="{Binding .}"
                 Command="{Binding GoToProcurementByCustomerListViewCommand}">
@@ -13,5 +15,32 @@
             
         </Button>
        
+    </VerticalStackLayout>-->
+
+    <VerticalStackLayout  Padding="10" Spacing="15" VerticalOptions="Center">
+        <Border HeightRequest="60" BackgroundColor="{StaticResource Primary}">
+            <Label Text="Müşteriye Göre" TextColor="{StaticResource White}" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,15,0,0"></Label>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,10,10,10" />
+            </Border.StrokeShape>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToProcurementByCustomerListViewCommand}" />
+            </Border.GestureRecognizers>
+            <Border.Shadow>
+                <Shadow Offset="23,23" Brush="{StaticResource Primary}" Opacity="0.2"></Shadow>
+            </Border.Shadow>
+        </Border>
+        <Border HeightRequest="60" BackgroundColor="{StaticResource Primary}" >
+            <Label Text="Ürüne Göre" TextColor="{StaticResource White}" FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,15,0,0" />
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,10,10,10" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Offset="23,23" Brush="{StaticResource Primary}" Opacity="0.2"></Shadow>
+            </Border.Shadow>
+        </Border>
     </VerticalStackLayout>
+    
 </ContentPage>

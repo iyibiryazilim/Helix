@@ -81,6 +81,7 @@
                                 <Border StrokeShape="RoundRectangle 10"
                                         BackgroundColor="{StaticResource White}"
                                         Padding="5"
+                                        HeightRequest="85"
                                         Margin="10,0,10,0">
 
                                     <Border.Triggers>

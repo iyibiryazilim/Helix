@@ -19,13 +19,15 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PanelViewModels
 		public ObservableCollection<Supplier> Suppliers { get; } = new();
 		public ObservableCollection<SupplierTransactionLine> Lines { get; } = new();
 
+		public PurchasePanelModel purchasePanelModel { get; set; }
+
 		public Command GetDataCommand { get; }
 
 		public PurchasePanelViewModel(ICustomQueryService customQueryService, IHttpClientService httpClientService)
 		{
 			_customQueryService = customQueryService;
 			_httpClientService = httpClientService;
-
+			purchasePanelModel=new PurchasePanelModel();
 			GetDataCommand = new Command(async () => await LoadData());
 
 
@@ -41,6 +43,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PanelViewModels
 				//await MainThread.InvokeOnMainThreadAsync(ReloadAsync());
 				await GetTopSuppliersAsync();
 				await GetLastTransactionsAsync();
+				await GetPurchaseReturnCountAsync();
+				await GetSalesReturnCountAsync();
 
 			}
 			catch (Exception ex)
@@ -109,7 +113,77 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PanelViewModels
 
 		}
 
-		[RelayCommand]
+		async Task GetSalesReturnCountAsync()
+		{
+			try
+			{
+				IsBusy = true;
+				
+				var httpClient =_httpClientService.GetOrCreateHttpClient();
+				var result = await _customQueryService.GetObjectsAsync(httpClient, new PurchasePanelQuery().GetSalesReturnCount());
+
+				if (result.Data.Any())
+				{
+					foreach(var item in result.Data)
+					{
+						var obj= Mapping.Mapper.Map<PurchasePanelModel>(item);
+						purchasePanelModel.PurchaseDispatchCount = obj.PurchaseDispatchCount;
+				
+					}
+				}
+
+
+			}
+			catch (Exception ex)
+			{
+
+				await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+
+		}
+
+		async Task GetPurchaseReturnCountAsync()
+		{
+			try
+			{
+				IsBusy = true;
+
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+                var result = await _customQueryService.GetObjectsAsync(httpClient, new PurchasePanelQuery().GetPurchaseReturnCount());
+
+                if (result.Data.Any())
+                {
+                    foreach (var item in result.Data)
+                    {
+                        var obj = Mapping.Mapper.Map<PurchasePanelModel>(item);
+                        purchasePanelModel.SalesReturnCount = obj.SalesReturnCount;
+
+                    }
+                }
+
+
+
+            }
+			catch (Exception ex)
+			{
+
+				await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+
+
+
+
+        [RelayCommand]
 		async Task GoToDetailAsync(Supplier current)
 		{
 			try

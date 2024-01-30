@@ -7,6 +7,7 @@ using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.Views.OperationsViews.DispatchByPurchaseOrderViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -16,7 +17,9 @@ using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
 	[QueryProperty(nameof(SelectedOrders), nameof(SelectedOrders))]
-	[QueryProperty(nameof(Warehouse), nameof(Warehouse))] 
+	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+	[QueryProperty(nameof(Current), nameof(Current))]
+
 	public partial class DispatchByPurchaseOrderLineListViewModel : BaseViewModel
     {
 		IPurchaseOrderLineService _purchaseOrderLineService;
@@ -43,6 +46,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 		ObservableCollection<WaitingOrder> selectedOrders;
 		[ObservableProperty]
 		Warehouse warehouse;
+
+		[ObservableProperty]
+		Supplier current;
 		public Command GetOrderLinesCommand { get; }
 		public Command SearchCommand { get; }
 		public Command SelectAllCommand { get; }
@@ -480,7 +486,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 					}
 					await Shell.Current.GoToAsync($"{nameof(DispatchByPurchaseOrderSummaryView)}", new Dictionary<string, object>
 					{
-						[nameof(ChangedLines)] = ChangedLines
+						[nameof(ChangedLines)] = ChangedLines,
+						[nameof(Warehouse)] = Warehouse,
+						[nameof(Current)] = Current
 					});
 				}
 				else

@@ -37,6 +37,8 @@ eventBus.Subscribe<InCountingTransactionInsertingIntegrationEvent, InCountingTra
 eventBus.Subscribe<ProductionTransactionInsertingIntegrationEvent, ProductionTransactionInsertingIntegrationEventHandler>();
 eventBus.Subscribe<TransferTransactionInsertingIntegrationEvent, TransferTransactionInsertingIntegrationEventHandler>();
 eventBus.Subscribe<WastageTransactionInsertingIntegrationEvent, WastageTransactionInsertingIntegrationEventHandler>();
+eventBus.Subscribe<OutCountingTransactionInsertingIntegrationEvent, OutCountingTransactionInsertingIntegrationEventHandler>();
+
 
 
 

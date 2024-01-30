@@ -15,10 +15,10 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
         string purchaseDispatch;
 
         [ObservableProperty]
-        TimeSpan transactionDate;
+        DateTime transactionDate = DateTime.Now;
 
         [ObservableProperty]
-        TimeSpan transactionTime;
+        TimeSpan transactionTime = DateTime.Now.TimeOfDay;
 
         [ObservableProperty]
         Customer customer;

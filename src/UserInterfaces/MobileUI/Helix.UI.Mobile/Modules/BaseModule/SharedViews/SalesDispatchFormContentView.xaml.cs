@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
@@ -9,11 +10,11 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 public partial class SalesDispatchFormContentView : ContentView
 {  //list property
 
-    //WarehouseList
-	public static readonly BindableProperty WarehouseListProperty = BindableProperty.Create(nameof(WarehouseList),typeof(ObservableCollection<Warehouse>),typeof(SalesDispatchFormContentView));
+   
+    public static readonly BindableProperty CustomerProperty = BindableProperty.Create(nameof(Customer), typeof(Customer), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty WarehouseProperty = BindableProperty.Create(nameof(Warehouse), typeof(Warehouse), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty ShipInfoProperty = BindableProperty.Create(nameof(ShipInfo), typeof(ShipInfo), typeof(SalesDispatchFormContentView));
 
-    //CustomerList
-    public static readonly BindableProperty CustomerListProperty = BindableProperty.Create(nameof(CustomerList), typeof(ObservableCollection<Customer>), typeof(SalesDispatchFormContentView));
 
     //DriverList
     public static readonly BindableProperty DriverListProperty = BindableProperty.Create(nameof(DriverList), typeof(ObservableCollection<Driver>), typeof(SalesDispatchFormContentView));
@@ -23,6 +24,7 @@ public partial class SalesDispatchFormContentView : ContentView
 
     //SpeCodeList
     public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty SelectedTransactionTypeProperty = BindableProperty.Create(nameof(SelectedTransactionType), typeof(string), typeof(SalesDispatchFormContentView),null);
 
 
 
@@ -48,6 +50,9 @@ public partial class SalesDispatchFormContentView : ContentView
     public static readonly BindableProperty SalesFormModelProperty = BindableProperty.Create(nameof(SalesFormModel), typeof(SalesFormModel), typeof(SalesDispatchFormContentView), null);
 
 
+    public static readonly BindableProperty GoToSuccessPageViewCommandProperty = BindableProperty.Create(nameof(GoToSuccessPageViewCommand), typeof(AsyncRelayCommand), typeof(SalesDispatchFormContentView), null);
+
+    public static readonly BindableProperty WaitingOrderProperty = BindableProperty.Create(nameof(WaitingOrders), typeof(ObservableCollection<WaitingOrderLine>), typeof(SalesDispatchFormContentView));
 
     //get warehouse
     public AsyncRelayCommand GetWarehouseCommand
@@ -56,17 +61,33 @@ public partial class SalesDispatchFormContentView : ContentView
         set => SetValue(GetWarehouseCommandProperty, value);
     }
     //warehouseList
-    public ObservableCollection<Warehouse> WarehouseList
+    public Warehouse Warehouse
     {
-        get => GetValue(WarehouseListProperty) as ObservableCollection<Warehouse>;
-        set => SetValue(WarehouseListProperty, value);
+        get => GetValue(WarehouseProperty) as Warehouse;
+        set => SetValue(WarehouseProperty, value);
+    }
+    public ShipInfo ShipInfo
+    {
+        get => GetValue(ShipInfoProperty) as ShipInfo;
+        set => SetValue(ShipInfoProperty, value);
+    }
+    public string SelectedTransactionType
+    {
+        get => GetValue(SelectedTransactionTypeProperty) as string;
+        set => SetValue(SelectedTransactionTypeProperty, value);
     }
 
     //CustomerList
-    public ObservableCollection<Customer> CustomerList
+    public Customer Customer
     {
-        get => GetValue(CustomerListProperty) as ObservableCollection<Customer>;
-        set => SetValue(CustomerListProperty, value);
+        get => GetValue(CustomerProperty) as Customer;
+        set => SetValue(CustomerProperty, value);
+    }
+
+    public ObservableCollection<WaitingOrderLine> WaitingOrders
+    {
+        get => GetValue(WaitingOrderProperty) as ObservableCollection<WaitingOrderLine>;
+        set => SetValue(WaitingOrderProperty, value);
     }
     //get customer
     public AsyncRelayCommand GetCustomerCommand
@@ -121,6 +142,12 @@ public partial class SalesDispatchFormContentView : ContentView
     {
         get => GetValue(SpeCodeListProperty) as ObservableCollection<SpeCodeModel>;
         set => SetValue(SpeCodeListProperty, value);
+    }
+
+    public AsyncRelayCommand GoToSuccessPageViewCommand
+    {
+        get => GetValue(GoToSuccessPageViewCommandProperty) as AsyncRelayCommand;
+        set => SetValue(GoToSuccessPageViewCommandProperty, value);
     }
     public SalesDispatchFormContentView()
 	{

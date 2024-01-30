@@ -6,6 +6,7 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
@@ -23,7 +24,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 {
 	[QueryProperty(nameof(SelectedTransactions), nameof(SelectedTransactions))]
 	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
-
+	[QueryProperty(nameof(Current), nameof(Current))]
+	[QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
 	public partial class ReturnByPurchaseDispatchTransactionLineListViewModel : BaseViewModel
 	{
 
@@ -52,6 +54,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 		int pageSize = 20000;
 		[ObservableProperty]
 		Warehouse warehouse;
+		[ObservableProperty]
+		Supplier current;
+		[ObservableProperty]
+		ShipInfo shipInfo;
 		public ObservableCollection<DispatchTransactionLineGroup> DispatchTransactionLineGroupList { get; } = new();
 		public ObservableCollection<DispatchTransactionLineGroup> Result { get; } = new();
 		public ObservableCollection<DispatchTransactionLine> ChangedLineList { get; } = new();
@@ -356,7 +362,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 				}
 				await Shell.Current.GoToAsync($"{nameof(ReturnByPurchaseDispatchTransactionSummaryView)}", new Dictionary<string, object>
 				{
-					[nameof(ChangedLineList)] = ChangedLineList
+					[nameof(ChangedLineList)] = ChangedLineList,
+					[nameof(Warehouse)] = Warehouse,
+					[nameof(Current)] = Current,
+					[nameof(ShipInfo)] = ShipInfo
 				});
 			}
 			catch (Exception ex)
