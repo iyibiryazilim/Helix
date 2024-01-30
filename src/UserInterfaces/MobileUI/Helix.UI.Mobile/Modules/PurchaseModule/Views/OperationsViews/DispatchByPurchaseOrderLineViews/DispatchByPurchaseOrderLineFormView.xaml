@@ -10,6 +10,7 @@
              x:DataType="viewModel:DispatchByPurchaseOrderLineFormViewModel"
              x:Name="this"
              Title="{Binding Title}"
+             BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False">
 
     <sharedViews:PurchaseDispatchOperationFormContentView Warehouse="{Binding Warehouse}"

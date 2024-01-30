@@ -58,7 +58,7 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
-        TransactionTypeName = "Satın Alma iade İrsaliyesi";
+        TransactionTypeName = "Satın Alma İade İrsaliyesi";
         
     }
 

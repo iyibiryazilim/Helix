@@ -122,7 +122,7 @@ public partial class ConsumableTransactionOperationViewModel : BaseViewModel
             await Shell.Current.GoToAsync("..");
         else
         {
-            bool answer = await Shell.Current.DisplayAlert("Sayım Eksiği :: Vazgeç", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
+            bool answer = await Shell.Current.DisplayAlert("Bilgilendirme", "Çıkmak İstediğinizden Emin misiniz", "Evet", "Hayır");
 
             if (answer)
             {

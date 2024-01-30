@@ -8,6 +8,8 @@
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.ProductDetailAlternativeProductListView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel"
              x:DataType="viewModel:ProductDetailAlternativeProductListViewModel"
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetAlternativeProductsCommand}"
@@ -19,7 +21,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Border Grid.Row="1"
-            BackgroundColor="{StaticResource WhiteSmoke}"
+            BackgroundColor="{StaticResource White}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>

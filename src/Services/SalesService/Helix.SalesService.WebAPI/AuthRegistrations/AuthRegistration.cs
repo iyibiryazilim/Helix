@@ -8,10 +8,8 @@ namespace Helix.SalesService.WebAPI.AuthRegistrations
     {
         public static IServiceCollection ConfigureAuth(this IServiceCollection services,IConfiguration configuration)
         {
-            var key = configuration["AuthConfig:Secret"];
-
-			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthConfig:Secret"]));
-            services.AddAuthentication(option =>
+			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:IssuerSigningKey"]));
+			services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

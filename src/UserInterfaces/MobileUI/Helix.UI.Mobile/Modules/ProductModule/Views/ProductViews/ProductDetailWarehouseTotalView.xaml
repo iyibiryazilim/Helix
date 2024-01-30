@@ -9,13 +9,14 @@
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="{Binding Title}"
+             Shell.TabBarIsVisible="False"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetItemsCommand}"
                                         EventName="Loaded" />
     </ContentPage.Behaviors>
     <Grid>
-        <Border BackgroundColor="{StaticResource WhiteSmoke}"
+        <Border BackgroundColor="{StaticResource White}"
                 StrokeThickness="0"
                 Padding="5,20,5,10">
             <Border.StrokeShape>

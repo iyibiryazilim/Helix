@@ -14,7 +14,9 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetSalesOrdersCommand}" />
     </ContentPage.Behaviors>
-    <!--<sharedViews:SelectedLineListContentView SelectedLineList="{Binding Result}"
+    <sharedViews:SelectedLineListContentView LineList="{Binding Result}"
+                                             IsBusy="{Binding IsBusy}"
+                                             IsRefreshing="{Binding IsRefreshing}"
                                              SearchCommand="{Binding SearchCommand}"
-                                             GoToSummaryCommand="{Binding GoToSummaryCommand}"></sharedViews:SelectedLineListContentView>-->
+                                             GoToNextCommand="{Binding GoToSummaryCommand}"></sharedViews:SelectedLineListContentView>
 </ContentPage>

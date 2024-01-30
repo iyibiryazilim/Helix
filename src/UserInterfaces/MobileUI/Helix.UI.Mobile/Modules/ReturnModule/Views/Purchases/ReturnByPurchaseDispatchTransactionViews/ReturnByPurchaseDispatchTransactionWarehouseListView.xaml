@@ -17,6 +17,7 @@
     </ContentPage.Behaviors>
     <sharedViews:WarehouseSelectContentView WarehouseList="{Binding Results}"
                                             IsBusy="{Binding IsBusy}"
+                                            IsRefreshing="{Binding IsRefreshing}"
                                             ReloadCommand="{Binding ReloadCommand}"
                                             SearchCommand="{Binding SearchCommand}"
                                             ToggleSelectionCommand="{Binding ToggleSelectionCommand}"

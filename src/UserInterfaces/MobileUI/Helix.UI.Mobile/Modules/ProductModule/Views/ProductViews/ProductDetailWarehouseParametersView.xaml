@@ -9,7 +9,8 @@
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel"
              Title="{Binding Title}"
              x:DataType="viewModel:ProductDetailWarehouseParametersViewModel"
-             BackgroundColor="{StaticResource Primary}">
+             BackgroundColor="{StaticResource Primary}"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetItemsCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
