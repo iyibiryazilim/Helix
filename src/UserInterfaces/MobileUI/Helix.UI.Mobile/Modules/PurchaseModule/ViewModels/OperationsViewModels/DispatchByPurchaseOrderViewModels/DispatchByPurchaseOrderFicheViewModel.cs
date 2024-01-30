@@ -76,7 +76,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -236,7 +236,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -266,37 +266,48 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 				}
 				else
 				{
-					await Shell.Current.DisplayAlert("Uyarı", "Sipariş Seçiniz", "Tamam");
+					await Shell.Current.DisplayAlert("Uyarı", "Fiş Seçiniz", "Tamam");
 				}
 
 			}
 			catch (Exception ex)
 			{
-				await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 
 		}
 
 		public async Task SelectAllAsync(bool isSelected)
 		{
-			if (isSelected)
+			try
 			{
-				Result.Clear();
-				foreach (var item in Items)
+				if (isSelected)
 				{
-					Result.Add(item);
-					item.IsSelected = true;
+					foreach (var item in Items)
+					{
+						item.IsSelected = true;
+						SelectedOrders.Add(item);		
+					}
+				}
+				else
+				{
+					foreach (var item in Items)
+					{		
+						item.IsSelected = false;
+						SelectedOrders.Remove(item);
+					}
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Result.Clear();
-				foreach (var item in Items)
-				{
-					Result.Add(item);
-					item.IsSelected = false;
-				}
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
 			}
+			finally
+			{
+				IsBusy = false;
+			}
+			
 		}
 
 	}
