@@ -3,13 +3,12 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionLineViewModels
 {
-	[QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))] 
+	[QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))]
 	public partial class ReturnByPurchaseDispatchTransactionLineSummaryViewModel : BaseViewModel
 	{
 		[ObservableProperty]

@@ -25,7 +25,7 @@
         <!-- Stop at 120dp -->
         <the49:HeightDetent Height="600" />
     </the49:BottomSheet.Detents>
-    <sharedViews:SelectedLineListContentView          GroupLine="{Binding LineGroup}"
+    <sharedViews:SelectedLineListContentView     GroupLine="{Binding LineGroup}"
                                                  Code="{Binding LineGroup.Code}"
                                                  Name="{Binding LineGroup.Name}"
                                                  StockQuantity="{Binding LineGroup.StockQuantity}"

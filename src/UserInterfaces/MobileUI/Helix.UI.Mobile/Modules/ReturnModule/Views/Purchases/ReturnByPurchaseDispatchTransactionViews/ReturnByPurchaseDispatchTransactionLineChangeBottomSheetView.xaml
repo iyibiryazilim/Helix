@@ -25,6 +25,8 @@
     <sharedView:DispatchSelectedLineListContentView GroupLine="{Binding LineGroup}"
                                                     Code="{Binding LineGroup.Code}"
                                                     Name="{Binding LineGroup.Name}"
+                                                    IsBusy="{Binding IsBusy}"
+                                                    IsRefreshing="{Binding IsRefreshing}"
                                                     StockQuantity="{Binding LineGroup.StockQuantity}"
                                                     TempQuantity="{Binding LineGroup.LineQuantity}"
                                                     Image="{Binding LineGroup.Image}"

@@ -17,6 +17,7 @@
                                                  SearchCommand="{Binding SearchCommand}"
                                                  SortCommand="{Binding SortCommand}"
                                                  DispatchTransactionLineGroupList="{Binding Result}"
+                                                 IsRefreshing="{Binding IsRefreshing}"
                                                  IsBusy="{Binding IsBusy}"
                                                  GoToNextCommand="{Binding GoToSummaryCommand}" />
 </ContentPage>

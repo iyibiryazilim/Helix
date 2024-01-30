@@ -77,7 +77,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				var result = await _supplierService.GetObjects(httpClient, "", OrderBy, CurrentPage, PageSize);
+				var result = await _supplierService.GetObjects(httpClient, SearchText, OrderBy, CurrentPage, PageSize);
 				if (result.IsSuccess)
 				{
 					if (Items.Any())

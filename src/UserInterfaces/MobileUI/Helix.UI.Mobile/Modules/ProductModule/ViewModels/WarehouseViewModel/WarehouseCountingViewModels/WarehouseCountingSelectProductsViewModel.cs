@@ -178,7 +178,6 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 		if (IsBusy)
 			return;
 
-
 		try
 		{
 			IsBusy = true;
@@ -242,7 +241,7 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 						await ReloadAsync();
 						break;
 					default:
-						await Shell.Current.DisplayAlert("Customer Error: ", "Yanlış Girdi", "Tamam");
+						await Shell.Current.DisplayAlert("Error: ", "Yanlış Girdi", "Tamam");
 						await ReloadAsync();
 						break;
 
@@ -298,7 +297,6 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 				{
 					item.IsSelected = true;
 					SelectedProducts.Add(item);
-
 				}
 			}
 			else
@@ -307,7 +305,6 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 				{
 					item.IsSelected = false;
 					SelectedProducts.Remove(item);
-
 				}
 			}
 		}

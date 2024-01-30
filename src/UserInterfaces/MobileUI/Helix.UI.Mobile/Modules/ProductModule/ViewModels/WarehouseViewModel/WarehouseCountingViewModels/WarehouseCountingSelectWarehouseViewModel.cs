@@ -1,10 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
-using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
-using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseCountingViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -99,10 +97,10 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 				}
 			}
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -179,7 +177,7 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Reload Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -269,7 +267,7 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için seçim yapmanız gerekmektedir", "Tamam");
 			}
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
@@ -278,7 +276,7 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 		{
 			IsBusy = false;
 		}
-		
+
 
 	}
 
@@ -311,7 +309,7 @@ public partial class WarehouseCountingSelectWarehouseViewModel : BaseViewModel
 
 			Application.Current.MainPage = new AppShell();
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
