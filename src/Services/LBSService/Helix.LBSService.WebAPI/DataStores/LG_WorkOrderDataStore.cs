@@ -1,5 +1,6 @@
 ﻿using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper;
+using Helix.LBSService.WebAPI.Helper.ErrorHelper;
 using Helix.LBSService.WebAPI.Models.BaseModel;
 using Helix.LBSService.WebAPI.Services;
 using UnityObjects;
@@ -35,7 +36,8 @@ namespace Helix.LBSService.WebAPI.DataStores
 						{
 							Data = null,
 							IsSuccess = false,
-							Message = prodApp.GetLastError() + "-" + prodApp.GetLastErrorString()
+							Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
+
 						};
 
 						return result;
@@ -55,6 +57,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 					Data = null,
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
+
 				};
 			}
 			return await Task.FromResult(result);
@@ -80,7 +83,8 @@ namespace Helix.LBSService.WebAPI.DataStores
 					{
 						Data = null,
 						IsSuccess = false,
-						Message = ProdApp.GetLastError() + "-" + ProdApp.GetLastErrorString()
+						Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
+
 					};
 				}
 				else
@@ -101,6 +105,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 					Data = null,
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
+
 				};
 			}
 			return await Task.FromResult(result);
@@ -113,7 +118,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 			ProductionApplication ProdApp = unity.NewProductionApplication();
 			if (!unity.LoggedIn)
 				await _unityApplicationService.LogIn();
-			if(unity.LoggedIn)
+			if (unity.LoggedIn)
 			{
 				if (!ProdApp.ChangePOAndWOStatus(dtos.FicheNo, dtos.Status, 2, true, dtos.DeleteFiche))
 				{
@@ -121,7 +126,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 					{
 						Data = null,
 						IsSuccess = false,
-						Message = ProdApp.GetLastError() + "-" + ProdApp.GetLastErrorString()
+						Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 					};
 
 				}

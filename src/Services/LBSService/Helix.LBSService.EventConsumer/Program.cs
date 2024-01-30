@@ -1,11 +1,7 @@
-﻿using Helix.LBSService.EventConsumer.Helper;
+﻿using Helix.LBSService.EventConsumer.Consumers;
+using Helix.LBSService.EventConsumer.Helper;
 using Helix.LBSService.EventConsumer.Models;
-using Helix.LBSService.EventConsumer.ProductTransaction;
-using Helix.LBSService.EventConsumer.PurchaseDispatch;
-using Helix.LBSService.EventConsumer.RetailSalesDispatch;
 using Helix.LBSService.EventConsumer.Services;
-using Helix.LBSService.EventConsumer.WholeSalesDispatch;
-using Helix.LBSService.EventConsumer.WorkOrder;
 using Helix.LBSService.Tiger.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -90,6 +86,8 @@ class Program
 		services.AddSingleton<OutCountingTransactionConsumer>();
 		services.AddSingleton<InCountingTransactionConsumer>();
 		services.AddSingleton<ConsumableTransactionConsumer>();
+		services.AddSingleton<WorkOrderInsertConsumer>();
+
 		// Add more consumers as needed
 	}
 
