@@ -18,7 +18,7 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
-    [QueryProperty(nameof(Current), nameof(Current))]
+	[QueryProperty(nameof(Current), nameof(Current))]
     [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
     [QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
     public partial class DispatchByPurchaseOrderFormViewModel :BaseViewModel

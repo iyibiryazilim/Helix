@@ -272,7 +272,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 			{
 				await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransctionWarehouseListView)}", new Dictionary<string, object>
 				{
-					["Current"] = SelectedCustomer
+					[nameof(Current)] = SelectedCustomer
 				});
 			}
 			else
