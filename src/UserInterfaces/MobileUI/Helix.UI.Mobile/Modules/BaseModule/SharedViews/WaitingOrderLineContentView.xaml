@@ -80,7 +80,8 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="baseModel:WaitingOrderLineGroup">
-                            <SwipeView Padding="5,0,5,0">
+                            <SwipeView Padding="5,0,5,0"
+                                       Threshold="200">
                                 <SwipeView.LeftItems>
                                     <SwipeItems Mode="Execute">
                                         <SwipeItem BackgroundColor="{StaticResource Success}"
