@@ -8,6 +8,8 @@
         public DateTime TransactionDate { get; set; } = DateTime.Now;
         public TimeSpan TransactionTime{get; set;}
         public int? ConvertedTime{get; set;}
+        public short? GroupType { get; set; }
+
         public short? IOType{get; set;}
         public int? ProductReferenceId{get; set;}
         public string ProductCode{get; set;} = string.Empty;

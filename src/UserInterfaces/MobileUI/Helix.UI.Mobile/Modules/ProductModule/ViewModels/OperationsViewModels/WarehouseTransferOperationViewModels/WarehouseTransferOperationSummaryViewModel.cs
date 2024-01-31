@@ -40,7 +40,8 @@ public partial class WarehouseTransferOperationSummaryViewModel : BaseViewModel
 			await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationFormView)}", new Dictionary<string, object>
 			{
 				[nameof(Warehouse)] = Warehouse,
-				[nameof(SelectedWarehouse)] = SelectedWarehouse
+				[nameof(SelectedWarehouse)] = SelectedWarehouse,
+				[nameof(WarehouseTotal)] = WarehouseTotal
 			});
 		}
 		catch(Exception ex)

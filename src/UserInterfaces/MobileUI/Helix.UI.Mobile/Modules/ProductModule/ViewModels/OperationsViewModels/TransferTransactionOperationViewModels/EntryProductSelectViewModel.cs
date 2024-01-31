@@ -249,9 +249,30 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 		[RelayCommand]
 		async Task ToggleSelectionAsync(Product item)
 		{
-			SelectedProduct = item;			 
-			item.IsSelected = !item.IsSelected;
-		}
+			if (item.Code != Product.Code)
+			{
+                if (item == SelectedProduct)
+                {
+                    SelectedProduct.IsSelected = false;
+                    SelectedProduct = null;
+                }
+                else
+                {
+                    if (SelectedProduct != null)
+                    {
+                        SelectedProduct.IsSelected = false;
+                    }
+                    SelectedProduct = item;
+                    SelectedProduct.IsSelected = true;
+                }
+			}
+			else
+			{
+                await Shell.Current.DisplayAlert("Uyarı: ", "Aynı Ürünü Seçemezsiniz.", "Tamam");
+            }
+            
+
+        }
 
 
 		[RelayCommand]

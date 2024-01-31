@@ -301,6 +301,9 @@
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\TransferTransactionOperationViews\ExitWarehouseSelectView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\TransferTransactionOperationViews\TransferTransactionOperationFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\TransferTransactionOperationViews\TransferTransactionSummaryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

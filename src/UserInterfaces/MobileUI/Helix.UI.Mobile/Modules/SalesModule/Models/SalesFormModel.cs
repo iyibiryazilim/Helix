@@ -35,6 +35,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Models
         [ObservableProperty]
         SpeCodeModel selectedSpeCode;
 
+        [ObservableProperty]
+        ShipInfo shipInfo;
 
     }
 }

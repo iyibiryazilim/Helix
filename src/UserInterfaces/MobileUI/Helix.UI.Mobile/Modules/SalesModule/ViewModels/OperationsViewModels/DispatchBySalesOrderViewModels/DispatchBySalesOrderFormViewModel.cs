@@ -43,7 +43,8 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-
+    [ObservableProperty]
+    public bool isVisible = false;
 
     [ObservableProperty]
     string searchText = string.Empty;
@@ -309,6 +310,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             wholeSalesDispatchTransactionDto.Plaque = SalesFormModel.SelectedDriver.PlateNumber;
             wholeSalesDispatchTransactionDto.TransactionDate = SalesFormModel.TransactionDate;
             wholeSalesDispatchTransactionDto.TransactionType = 8;
+            wholeSalesDispatchTransactionDto.GroupType = 2;
+            wholeSalesDispatchTransactionDto.IOType = 4;
+
             //retailSalesDispatch.ShipInfoReferenceId =0;
             //retailSalesDispatch.ShipInfoCode = "";
             //retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
@@ -330,6 +334,8 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
                 wholeSalesDispatchTransactionLineDto.UnitsetCode = item.UnitsetCode;
                 wholeSalesDispatchTransactionLineDto.UnitsetReferenceId = item.UnitsetReferenceId;
                 wholeSalesDispatchTransactionLineDto.TransactionType = 8;
+                wholeSalesDispatchTransactionLineDto.GroupType = 2;
+                wholeSalesDispatchTransactionLineDto.IOType = 4;
                 wholeSalesDispatchTransactionLineDto.SubUnitsetCode = item.SubUnitsetCode;
                 wholeSalesDispatchTransactionLineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
                 wholeSalesDispatchTransactionLineDto.OrderReferenceId = item.ReferenceId;

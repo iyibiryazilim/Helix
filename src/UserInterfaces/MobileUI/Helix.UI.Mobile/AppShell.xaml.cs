@@ -224,5 +224,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineChangeBottomSheetView), typeof(DispatchByPurchaseOrderLineChangeBottomSheetView));
 		Routing.RegisterRoute(nameof(ProcurementSelectBottomSheetView), typeof(ProcurementSelectBottomSheetView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderChangeBottomSheetView), typeof(DispatchByPurchaseOrderChangeBottomSheetView));
-	}
+        Routing.RegisterRoute(nameof(TransferTransactionOperationFormView), typeof(TransferTransactionOperationFormView));
+
+    }
 }

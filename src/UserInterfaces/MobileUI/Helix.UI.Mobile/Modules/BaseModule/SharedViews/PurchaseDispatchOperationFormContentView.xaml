@@ -54,7 +54,7 @@
                     </Grid>
 
                     <!-- Tedarikçi -->
-                    <VerticalStackLayout Grid.Row="2"
+                    <VerticalStackLayout Grid.Row="2" IsVisible="{Binding Source={x:Reference this},Path=BindingContext.IsNotVisible}"
                                          Padding="7">
                         <Label Text="Tedarikçi"
                                FontSize="Medium" />
@@ -63,9 +63,23 @@
 
                         </Border>
                     </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Row="2" IsVisible="{Binding Source={x:Reference this},Path=BindingContext.IsVisible}"
+                       Padding="7">
+                        <Label Text="Tedarikçi"
+             FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerSupplier"
+                        Title="Seçiniz.."
+                        
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding Source={x:Reference this},Path=SupplierList}"
+                        SelectedItem="{Binding Source={x:Reference this},Path=PurchaseFormModel.SelectedSupplier}" />
 
-                  
 
+                        </Border>
+                    </VerticalStackLayout>
+
+                    
                     <!-- Ambar -->
                     <VerticalStackLayout Grid.Row="3"
                                          Padding="7">

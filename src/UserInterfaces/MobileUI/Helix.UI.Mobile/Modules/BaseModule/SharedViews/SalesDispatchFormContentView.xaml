@@ -69,9 +69,9 @@
                     </VerticalStackLayout>
 
                     <!-- Müşteri -->
-                    <VerticalStackLayout Grid.Row="3"
+                    <VerticalStackLayout Grid.Row="3" IsVisible="{Binding Source={x:Reference this},Path=BindingContext.IsNotVisible}"
                                          Padding="7">
-                        <Label Text="Müşteri Adı"
+                        <Label Text="Müşteri"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="{Binding Source={x:Reference this},Path=Customer.Name}" IsEnabled="False" PlaceholderColor="{StaticResource Black}" />
@@ -79,23 +79,44 @@
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- Sevk Müşterisi -->
-                    <VerticalStackLayout Grid.Row="4"
-                                         Padding="7">
-                        <Label Text="Sevk Müşterisi"
-                               FontSize="Medium" />
+                    <VerticalStackLayout Grid.Row="3" IsVisible="{Binding Source={x:Reference this},Path=BindingContext.IsVisible}"
+                      Padding="7">
+                        <Label Text="Müşteri"
+            FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="" IsEnabled="False" />
+                            <Picker x:Name="pickerCustomer"
+                            Title="Seçiniz.."
+                            
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding Source={x:Reference this},Path=CustomerList}"
+                            SelectedItem="{Binding Source={x:Reference this},Path=BindingContext.SelectedCustomer}" />
+
                         </Border>
                     </VerticalStackLayout>
 
+                    <!-- Sevk Müşterisi -->
+
                     <!-- Sevk Adresi -->
-                    <VerticalStackLayout Grid.Row="5"
+                    <VerticalStackLayout Grid.Row="5" IsVisible="{Binding Source={x:Reference this},Path=BindingContext.IsNotVisible}"
                                          Padding="7">
                         <Label Text="Sevk Adresi"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="{Binding Source={x:Reference this},Path=ShipInfo.Name}" IsEnabled="False" PlaceholderColor="{StaticResource Black}" />
+
+                        </Border>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Row="5" IsVisible="{Binding Source={x:Reference this},Path=BindingContext.IsVisible}"
+          Padding="7">
+                        <Label Text="Sevk Adresi"
+FontSize="Medium" />
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Picker x:Name="pickerShipInfo" 
+                Title="Seçiniz.."
+                
+                ItemDisplayBinding="{Binding Name}"
+                ItemsSource="{Binding Source={x:Reference this},Path=ShipInfoList}"
+                SelectedItem="{Binding Source={x:Reference this},Path=SalesFormModel.ShipInfo}" />
 
                         </Border>
                     </VerticalStackLayout>

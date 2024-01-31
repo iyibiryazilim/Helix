@@ -59,7 +59,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
 			GetOrdersCommand = new Command(async () => await LoadData());
 			SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 			SelectAllCommand = new Command<bool>(async (isSelected) => await SelectAllAsync(isSelected));
-			Title = "Bekleyen Satış Siparişleri";
+			Title = "Satınalma İrsaliyeleri";
 		}
 
 		async Task LoadData()

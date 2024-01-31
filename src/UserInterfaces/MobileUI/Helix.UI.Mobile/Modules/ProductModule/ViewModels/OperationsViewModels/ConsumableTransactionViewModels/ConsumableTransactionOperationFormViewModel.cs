@@ -166,7 +166,7 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
                 TransactionDate = combinedDateTime,
                 DoCode = ProductTransactionFormModel.DocumentryNo,
                 DocTrackingNumber = ProductTransactionFormModel.DocumentryTrackingNo,
-                IOType = 1,
+                IOType = 4,
                 Description = ProductTransactionFormModel.Description,
                 TransactionType = 12,
                 GroupType = 3
@@ -177,7 +177,7 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
 
                 var consumableTransactionLineDto = new ConsumableTransactionLineDto()
                 {
-                    IOType = 1,
+                    IOType = 4,
                     TransactionType = 12,
                     TransactionDate = combinedDateTime,
                     ProductCode = item.Code,

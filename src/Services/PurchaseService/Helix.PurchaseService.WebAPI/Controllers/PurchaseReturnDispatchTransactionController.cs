@@ -1,5 +1,8 @@
-﻿using Helix.PurchaseService.Application.Services;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.AggregateModelss;
+using Helix.PurchaseService.Domain.Dtos;
+using Helix.PurchaseService.Domain.Events;
 using Helix.PurchaseService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using static Helix.PurchaseService.Infrastructure.Helper.Queries.PurchaseReturnDispatchTransactionQuery;
@@ -10,10 +13,12 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 	public class PurchaseReturnDispatchTransactionController : ControllerBase
 	{
 		IConfiguration _configuration;
+		IEventBus _eventBus;
 		IPurchaseReturnDispatchTransactionService _purchaseReturnDispatchTransactionService;
-		public PurchaseReturnDispatchTransactionController(IConfiguration configuration, IPurchaseReturnDispatchTransactionService purchaseReturnDispatchTransactionService)
+		public PurchaseReturnDispatchTransactionController(IConfiguration configuration, IPurchaseReturnDispatchTransactionService purchaseReturnDispatchTransactionService,IEventBus eventBus)
 		{
 			_configuration = configuration;
+			_eventBus = eventBus;
 			_purchaseReturnDispatchTransactionService = purchaseReturnDispatchTransactionService;
 		}
 		[HttpGet]
@@ -103,5 +108,12 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					return result;
 			}
 		}
-	}
+
+        [HttpPost]
+        public async Task PurchaseReturnDispatchTransactionInsert([FromBody] PurchaseReturnDispatchTransactionDto purchaseReturnDispatchTransactionDto)
+        {
+            _eventBus.Publish(new PurchaseReturnDispatchTransactionInsertedIntegrationEvent(purchaseReturnDispatchTransactionDto.referenceId, purchaseReturnDispatchTransactionDto.transactionDate, purchaseReturnDispatchTransactionDto.groupType, purchaseReturnDispatchTransactionDto.iOType, purchaseReturnDispatchTransactionDto.transactionType, purchaseReturnDispatchTransactionDto.warehouseNumber, purchaseReturnDispatchTransactionDto.currentReferenceId, purchaseReturnDispatchTransactionDto.currentCode, purchaseReturnDispatchTransactionDto.total, purchaseReturnDispatchTransactionDto.totalVat, purchaseReturnDispatchTransactionDto.netTotal, purchaseReturnDispatchTransactionDto.description, purchaseReturnDispatchTransactionDto.dispatchType, purchaseReturnDispatchTransactionDto.carrierReferenceId, purchaseReturnDispatchTransactionDto.carrierCode, purchaseReturnDispatchTransactionDto.driverReferenceId, purchaseReturnDispatchTransactionDto.driverFirstName, purchaseReturnDispatchTransactionDto.driverLastName, purchaseReturnDispatchTransactionDto.identityNumber, purchaseReturnDispatchTransactionDto.plaque, purchaseReturnDispatchTransactionDto.shipInfoReferenceId, purchaseReturnDispatchTransactionDto.shipInfoCode, purchaseReturnDispatchTransactionDto.speCode, purchaseReturnDispatchTransactionDto.dispatchStatus, purchaseReturnDispatchTransactionDto.isEDispatch, purchaseReturnDispatchTransactionDto.doCode, purchaseReturnDispatchTransactionDto.docTrackingNumber, purchaseReturnDispatchTransactionDto.isEInvoice, purchaseReturnDispatchTransactionDto.eDispatchProfileId, purchaseReturnDispatchTransactionDto.eInvoiceProfileId, purchaseReturnDispatchTransactionDto.lines));
+
+        }
+    }
 }

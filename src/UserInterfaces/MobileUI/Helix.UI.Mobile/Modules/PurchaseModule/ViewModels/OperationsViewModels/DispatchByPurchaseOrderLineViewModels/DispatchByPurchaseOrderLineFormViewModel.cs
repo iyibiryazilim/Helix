@@ -61,9 +61,13 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
 	[ObservableProperty]
 	public string speCode = string.Empty;
 
+    [ObservableProperty]
+    public bool isVisible = false;
 
+    [ObservableProperty]
+    public bool isNotVisible = true;
 
-	public DispatchByPurchaseOrderLineFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService,IPurchaseDispatchTransactionService purchaseDispatchTransactionService)
+    public DispatchByPurchaseOrderLineFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService,IPurchaseDispatchTransactionService purchaseDispatchTransactionService)
 	{
 		Title = "Satınalma İrsaliye Formu";
 		_httpClientService = httpClientService;

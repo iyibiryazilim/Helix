@@ -18,6 +18,9 @@ public partial class SalesDispatchFormContentView : ContentView
 
     //DriverList
     public static readonly BindableProperty DriverListProperty = BindableProperty.Create(nameof(DriverList), typeof(ObservableCollection<Driver>), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty ShipInfoListProperty = BindableProperty.Create(nameof(ShipInfoList), typeof(ObservableCollection<ShipInfo>), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty CustomerListProperty = BindableProperty.Create(nameof(CustomerList), typeof(ObservableCollection<Customer>), typeof(SalesDispatchFormContentView));
+
 
     //CarrierList
     public static readonly BindableProperty CarrierListProperty = BindableProperty.Create(nameof(CarrierList), typeof(ObservableCollection<Carrier>), typeof(SalesDispatchFormContentView));
@@ -89,6 +92,12 @@ public partial class SalesDispatchFormContentView : ContentView
         get => GetValue(WaitingOrderProperty) as ObservableCollection<WaitingOrderLine>;
         set => SetValue(WaitingOrderProperty, value);
     }
+
+    public ObservableCollection<Customer> CustomerList
+    {
+        get => GetValue(CustomerListProperty) as ObservableCollection<Customer>;
+        set => SetValue(CustomerListProperty, value);
+    }
     //get customer
     public AsyncRelayCommand GetCustomerCommand
     {
@@ -115,6 +124,11 @@ public partial class SalesDispatchFormContentView : ContentView
     {
         get => GetValue(DriverListProperty) as ObservableCollection<Driver>;
         set => SetValue(DriverListProperty, value);
+    }
+    public ObservableCollection<ShipInfo> ShipInfoList
+    {
+        get => GetValue(ShipInfoListProperty) as ObservableCollection<ShipInfo>;
+        set => SetValue(ShipInfoListProperty, value);
     }
 
     //get warehouse

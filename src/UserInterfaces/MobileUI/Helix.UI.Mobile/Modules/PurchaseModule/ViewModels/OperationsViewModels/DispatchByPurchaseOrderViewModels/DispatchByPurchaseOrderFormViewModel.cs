@@ -58,6 +58,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
         Supplier current;
         [ObservableProperty]
         Warehouse warehouse;
+        [ObservableProperty]
+        public bool isVisible = false;
+
+        [ObservableProperty]
+        public bool isNotVisible = true;
 
         public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
