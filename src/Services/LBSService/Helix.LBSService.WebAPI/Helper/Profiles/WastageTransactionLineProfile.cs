@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Models;
 
 namespace Helix.LBSService.WebAPI.Helper.Profiles
 {

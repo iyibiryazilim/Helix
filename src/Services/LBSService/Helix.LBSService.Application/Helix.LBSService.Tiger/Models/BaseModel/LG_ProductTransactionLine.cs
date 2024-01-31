@@ -1,9 +1,9 @@
 ﻿namespace Helix.LBSService.Tiger.Models.BaseModel
 {
 	public class LG_ProductTransactionLine
-    {
-        public LG_ProductTransactionLine()
-        {
+	{
+		public LG_ProductTransactionLine()
+		{
 			SLTRANS = new List<LG_SeriLotTransaction>();
 
 		}

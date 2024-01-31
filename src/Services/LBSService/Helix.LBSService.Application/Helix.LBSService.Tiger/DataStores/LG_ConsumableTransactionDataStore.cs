@@ -1,6 +1,4 @@
-﻿using Helix.LBSService.Tiger.DTOs;
-using Helix.LBSService.Tiger.Helper;
-using Helix.LBSService.Tiger.Helper.Mappers;
+﻿using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Models.BaseModel;
 using Helix.LBSService.Tiger.Services;
@@ -17,21 +15,18 @@ namespace Helix.LBSService.Tiger.DataStores
 			_unityApplicationService = unityApplicationService;
 
 		}
-		public async Task<DataResult<ConsumableTransactionDto>> Insert(ConsumableTransactionDto dto)
+		public async Task<DataResult<LG_ConsumableTransaction>> Insert(LG_ConsumableTransaction dto)
 		{
 			UnityApplication unity = Global.UnityApp;
-			DataResult<ConsumableTransactionDto> result = new();
-			var transaction = Mapping.Mapper.Map<LG_ConsumableTransaction>(dto);
-
-			foreach (var line in dto.Lines.ToList())
+			DataResult<LG_ConsumableTransaction> result = new();
+ 
+			foreach (var line in dto.TRANSACTIONS.ToList())
 			{
-				var transactionLine = Mapping.Mapper.Map<LG_ConsumableTransactionLine>(line);
-				foreach (var item in transactionLine.SLTRANS)
+ 				foreach (var item in line.SLTRANS)
 				{
-					var serilot = Mapping.Mapper.Map<LG_SeriLotTransaction>(item);
-					transactionLine.SLTRANS.Add(serilot);
+					line.SLTRANS.Add(item);
 				}
-				transaction.TRANSACTIONS.Add(transactionLine);
+				dto.TRANSACTIONS.Add(line);
 			}
 
 			if (!unity.LoggedIn)
@@ -50,42 +45,42 @@ namespace Helix.LBSService.Tiger.DataStores
 							items.New();
 
 							object tm = null;
-							unity.PackTime(transaction.DATE.TimeOfDay.Hours, transaction.DATE.TimeOfDay.Minutes, transaction.DATE.TimeOfDay.Seconds, ref tm);
+							unity.PackTime(dto.DATE.TimeOfDay.Hours, dto.DATE.TimeOfDay.Minutes, dto.DATE.TimeOfDay.Seconds, ref tm);
 
 							items.New();
-							items.DataFields.FieldByName("GROUP").Value = transaction.GROUP;
-							items.DataFields.FieldByName("TYPE").Value = transaction.TYPE;
-							items.DataFields.FieldByName("NUMBER").Value = transaction.NUMBER;
-							items.DataFields.FieldByName("DOC_TRACK_NR").Value = transaction.DOC_TRACK_NR;
-							items.DataFields.FieldByName("DATE").Value = transaction.DATE;
+							items.DataFields.FieldByName("GROUP").Value = dto.GROUP;
+							items.DataFields.FieldByName("TYPE").Value = dto.TYPE;
+							items.DataFields.FieldByName("NUMBER").Value = dto.NUMBER;
+							items.DataFields.FieldByName("DOC_TRACK_NR").Value = dto.DOC_TRACK_NR;
+							items.DataFields.FieldByName("DATE").Value = dto.DATE;
 							items.DataFields.FieldByName("TIME").Value = tm;
-							items.DataFields.FieldByName("SOURCE_WH").Value = transaction.SOURCE_WH;
-							items.DataFields.FieldByName("SOURCE_COST_GRP").Value = transaction.SOURCE_COST_GRP;
-							items.DataFields.FieldByName("CREATED_BY").Value = transaction.CREATED_BY;
-							items.DataFields.FieldByName("DATE_CREATED").Value = transaction.DATE_CREATED;
-							items.DataFields.FieldByName("HOUR_CREATED").Value = transaction.HOUR_CREATED;
-							items.DataFields.FieldByName("MIN_CREATED").Value = transaction.MIN_CREATED;
-							items.DataFields.FieldByName("SEC_CREATED").Value = transaction.SEC_CREATED;
-							items.DataFields.FieldByName("GUID").Value = transaction.GUID.ToString();
+							items.DataFields.FieldByName("SOURCE_WH").Value = dto.SOURCE_WH;
+							items.DataFields.FieldByName("SOURCE_COST_GRP").Value = dto.SOURCE_COST_GRP;
+							items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
+							items.DataFields.FieldByName("DATE_CREATED").Value = dto.DATE_CREATED;
+							items.DataFields.FieldByName("HOUR_CREATED").Value = dto.HOUR_CREATED;
+							items.DataFields.FieldByName("MIN_CREATED").Value = dto.MIN_CREATED;
+							items.DataFields.FieldByName("SEC_CREATED").Value = dto.SEC_CREATED;
+							items.DataFields.FieldByName("GUID").Value = dto.GUID.ToString();
 
-							Lines transactions_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
+							Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
 
-							foreach (LG_ConsumableTransactionLine line in transaction.TRANSACTIONS)
+							foreach (LG_ConsumableTransactionLine line in dto.TRANSACTIONS)
 							{
-								transactions_lines.AppendLine();
-								transactions_lines[transactions_lines.Count - 1].FieldByName("ITEM_CODE").Value = line.ITEM_CODE;
-								transactions_lines[transactions_lines.Count - 1].FieldByName("LINE_TYPE").Value = line.LINE_TYPE;
-								transactions_lines[transactions_lines.Count - 1].FieldByName("SOURCEINDEX").Value = line.SOURCEINDEX;
-								transactions_lines[transactions_lines.Count - 1].FieldByName("SOURCECOSTGRP").Value = line.SOURCECOSTGRP;
-								transactions_lines[transactions_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY;
-								transactions_lines[transactions_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
-								transactions_lines[transactions_lines.Count - 1].FieldByName("UNIT_CONV1").Value = line.UNIT_CONV1;
-								transactions_lines[transactions_lines.Count - 1].FieldByName("UNIT_CONV2").Value = line.UNIT_CONV2;
+								dtos_lines.AppendLine();
+								dtos_lines[dtos_lines.Count - 1].FieldByName("ITEM_CODE").Value = line.ITEM_CODE;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("LINE_TYPE").Value = line.LINE_TYPE;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCEINDEX").Value = line.SOURCEINDEX;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCECOSTGRP").Value = line.SOURCECOSTGRP;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV1").Value = line.UNIT_CONV1;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV2").Value = line.UNIT_CONV2;
 
 								if (line.SLTRANS.Count > 0)
 
 								{
-									UnityObjects.Lines sl_details0 = transactions_lines[transactions_lines.Count - 1].FieldByName("SL_DETAILS").Lines;
+									UnityObjects.Lines sl_details0 = dtos_lines[dtos_lines.Count - 1].FieldByName("SL_DETAILS").Lines;
 									foreach (LG_SeriLotTransaction trans in line.SLTRANS)
 									{
 										sl_details0.AppendLine();
@@ -126,7 +121,7 @@ namespace Helix.LBSService.Tiger.DataStores
 								var referenceId = Convert.ToInt32(items.DataFields.FieldByName("INTERNAL_REFERENCE").Value.ToString());
 								var code = items.DataFields.FieldByName("NUMBER").Value.ToString();
 
-								result.Data = new() { ReferenceId = referenceId, Code = code };
+								result.Data = null;
 								result.IsSuccess = true;
 								result.Message = "Success";
 							}
@@ -157,11 +152,11 @@ namespace Helix.LBSService.Tiger.DataStores
 			}
 			else
 			{
-				result = new DataResult<ConsumableTransactionDto>
+				result = new DataResult<LG_ConsumableTransaction>
 				{
 					Data = null,
 					IsSuccess = false,
-					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()  
+					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
 			}
 			return await Task.FromResult(result);

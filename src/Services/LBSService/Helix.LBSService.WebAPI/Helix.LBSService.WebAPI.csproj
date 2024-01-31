@@ -31,7 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Helix.LBSService.Application\Helix.LBSService.Tiger\Helix.LBSService.Tiger.csproj" />
     <ProjectReference Include="..\Helix.LBSService.Go\Helix.LBSService.Go.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataStores\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

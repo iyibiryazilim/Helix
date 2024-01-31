@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Models;
 
 namespace Helix.LBSService.WebAPI.Helper.Profiles
 {
@@ -15,7 +15,6 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 				  .ForMember(d => d.GROUP, o => o.MapFrom(s => s.GroupType))
 				  .ForMember(d => d.SOURCE_WH, o => o.MapFrom(s => s.WarehouseNumber))
 				  .ForMember(d => d.SOURCE_COST_GRP, o => o.MapFrom(s => s.WarehouseNumber));
-
 		}
 	}
 }

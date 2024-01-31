@@ -1,6 +1,7 @@
 ﻿using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Models.BaseModel;
 using Helix.LBSService.Tiger.Services;
+using Helix.LBSService.WebAPI.Helper;
 
 namespace Helix.LBSService.Tiger.DataStores
 {
@@ -25,7 +26,7 @@ namespace Helix.LBSService.Tiger.DataStores
 			{
 				if (!unity.LoggedIn)
 				{
-					if (unity.Login("LOGO", "LOGO", 8))
+					if (unity.Login(LBSParameter.Username, LBSParameter.Password, LBSParameter.FirmNumber))
 					{
 						return new UnityResult()
 						{
