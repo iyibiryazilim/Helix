@@ -2,6 +2,7 @@ using Helix.EventBus.Base;
 using Helix.EventBus.Base.Abstractions;
 using Helix.EventBus.Base.Events;
 using Helix.EventBus.Factory;
+using Helix.ProductService.Api.AuthRegistrations;
 using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Infrastructure.EventHandlers;
@@ -9,6 +10,7 @@ using Helix.ProductService.Infrastructure.Repository;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.ConfigureAuth(builder.Configuration);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
@@ -102,6 +104,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+//app.UseAuthentication();
 
 app.MapControllers();
 //app.RegisterWithConsul(app.Lifetime);

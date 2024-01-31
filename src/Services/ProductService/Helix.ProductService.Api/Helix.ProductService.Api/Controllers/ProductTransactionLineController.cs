@@ -2,6 +2,7 @@
 using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Helpers.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.Client;
@@ -10,6 +11,7 @@ namespace Helix.ProductService.Api.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class ProductTransactionLineController : ControllerBase
 	{
 		IProductTransactionLineService _productTransactionLineService;

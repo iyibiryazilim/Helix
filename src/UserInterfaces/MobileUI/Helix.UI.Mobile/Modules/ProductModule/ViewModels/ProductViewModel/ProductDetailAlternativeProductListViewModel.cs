@@ -60,7 +60,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Warehouse Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {

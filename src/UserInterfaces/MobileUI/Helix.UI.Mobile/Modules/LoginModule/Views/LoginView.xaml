@@ -49,6 +49,8 @@
                    BackgroundColor="#dbe1ed"
                    BorderColor="Transparent">
                 <Entry Placeholder="Kullanıcı Adı"
+                       Text="{Binding UserName}"
+                       x:Name="userName"
                        Margin="5,0,0,0"
                        FontSize="14"
                        PlaceholderColor="#adb3c3"
@@ -61,6 +63,8 @@
                    BorderColor="Transparent">
                 <Entry Placeholder="Şifre"
                        Margin="5,0,0,0"
+                       x:Name="password"
+                       Text="{Binding Password}"
                        IsPassword="True"
                        FontSize="14"
                        PlaceholderColor="#adb3c3"
@@ -68,13 +72,10 @@
             </Frame>
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="3" Spacing="10" VerticalOptions="End">
-            <Button Command="{Binding GoToMainPageCommand}"
-                    
+            <Button Command="{Binding AuthenticateCommand}"
                     CornerRadius="13"
                     Text="Login"
-                    TextColor="{StaticResource White}"
-                    >
-
+                    TextColor="{StaticResource White}">
             </Button>
             <Label Text="Şifremi Unuttum" HorizontalOptions="Center">
                 

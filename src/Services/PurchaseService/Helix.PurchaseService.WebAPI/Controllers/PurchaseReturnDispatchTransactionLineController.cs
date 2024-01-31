@@ -1,12 +1,14 @@
 ﻿using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.AggregateModelss;
 using Helix.PurchaseService.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Helix.PurchaseService.Infrastructure.Helper.Queries.PurchaseReturnDispatchTransactionLineQuery;
 namespace Helix.PurchaseService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PurchaseReturnDispatchTransactionLineController : ControllerBase
 	{
 		IConfiguration _configuration;

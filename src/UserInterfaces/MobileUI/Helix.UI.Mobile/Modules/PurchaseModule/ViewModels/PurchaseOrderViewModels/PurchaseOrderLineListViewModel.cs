@@ -54,7 +54,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{
@@ -130,7 +130,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.PurchaseOrderViewMod
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Waiting Order Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{

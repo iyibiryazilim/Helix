@@ -4,12 +4,14 @@ using Helix.ProductionService.Domain.AggregateModels;
 using Helix.ProductionService.Domain.Dtos;
 using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class ProductionTransactionController : ControllerBase
 	{
 		IProductionTransactionService _productionTransactionService;

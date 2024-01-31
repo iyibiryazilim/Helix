@@ -3,12 +3,14 @@ using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.Dtos;
 using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class WorkOrderController : ControllerBase
 	{
 		IWorkOrderService _workOrderService;

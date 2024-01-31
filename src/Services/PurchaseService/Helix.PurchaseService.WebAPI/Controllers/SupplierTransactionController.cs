@@ -1,6 +1,7 @@
 ﻿using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.Models;
 using Helix.PurchaseService.Infrastructure.Helper.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,8 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SupplierTransactionController : ControllerBase
+	[Authorize]
+	public class SupplierTransactionController : ControllerBase
     {
         ISupplierTransactionService _supplierTransactionService;
         public SupplierTransactionController(ISupplierTransactionService supplierTransactionService)

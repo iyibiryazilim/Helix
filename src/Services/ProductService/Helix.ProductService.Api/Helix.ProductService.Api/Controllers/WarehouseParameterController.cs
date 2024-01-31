@@ -1,6 +1,7 @@
 ﻿using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Helpers.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
@@ -10,7 +11,8 @@ namespace Helix.ProductService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WarehouseParameterController : ControllerBase
+	[Authorize]
+	public class WarehouseParameterController : ControllerBase
     {
         IWarehouseParameterService _warehouseParameterService;
         public WarehouseParameterController(IWarehouseParameterService warehouseParameterService)

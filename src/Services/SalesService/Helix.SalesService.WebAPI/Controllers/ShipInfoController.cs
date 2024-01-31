@@ -1,5 +1,6 @@
 ﻿using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShipInfoController : ControllerBase
     {
         IShipInfoService _shipInfoService;

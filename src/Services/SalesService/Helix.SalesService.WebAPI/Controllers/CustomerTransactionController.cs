@@ -1,28 +1,28 @@
 ﻿using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.Models;
 using Helix.SalesService.Infrastructure.Helper.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Helix.SalesService.Infrastructure.Helper.Queries.CustomerTransactionQuery;
-using static Helix.SalesService.Infrastructure.Helper.Queries.CustomerTransactionQuery;
 
 namespace Helix.SalesService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class CustomerTransactionController : ControllerBase
 	{
 		ICustomerTransactionService _customerTransactionService;
-        public CustomerTransactionController(ICustomerTransactionService customerTransactionService)
-        {
-            _customerTransactionService = customerTransactionService;
-        }
+		public CustomerTransactionController(ICustomerTransactionService customerTransactionService)
+		{
+			_customerTransactionService = customerTransactionService;
+		}
 		[HttpGet("Current/Code/{currentCode}")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAndCodeAsync([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, string currentCode = "", string TransactionType = "1", int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<CustomerTransaction>>();
 			switch (orderBy)
 			{
-				 
+
 				case "codedesc":
 					result = await _customerTransactionService.GetTransactionByTransactionTypeAsync(search, CustomerTransactionOrderBy.CodeDesc, currentCode, TransactionType, page, pageSize);
 					return result;
@@ -37,7 +37,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 		[HttpGet("Current/Id/{currentId:int}")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAndIdAsync([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, int currentId = 0, string TransactionType = "1", int page = 0, int pageSize = 20)
@@ -60,35 +60,35 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 
-        [HttpGet("CurrentAndWarehouse/Id/{currentId:int}&{TransactionType}&{warehouseNumber:int}")]
-        public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAndIdAndWarehouseAsync(int currentId, int warehouseNumber, string TransactionType, [FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, int page = 0, int pageSize = 20)
-        {
-            var result = new DataResult<IEnumerable<CustomerTransaction>>();
-            switch (orderBy)
-            {
+		[HttpGet("CurrentAndWarehouse/Id/{currentId:int}&{TransactionType}&{warehouseNumber:int}")]
+		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByTransactionTypeAndIdAndWarehouseAsync(int currentId, int warehouseNumber, string TransactionType, [FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, int page = 0, int pageSize = 20)
+		{
+			var result = new DataResult<IEnumerable<CustomerTransaction>>();
+			switch (orderBy)
+			{
 
-                case "codedesc":
-                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeDesc, currentId,warehouseNumber, TransactionType, page, pageSize);
-                    return result;
-                case "codeasc":
-                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
-                    return result;
-                case "dateasc":
-                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.DateAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
-                    return result;
-                case "datedesc":
-                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.DateDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
-                    return result;
-                default:
-                    result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
-                    return result;
-            }
-        }
+				case "codedesc":
+					result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+					return result;
+				case "codeasc":
+					result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
+					return result;
+				case "dateasc":
+					result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.DateAsc, currentId, warehouseNumber, TransactionType, page, pageSize);
+					return result;
+				case "datedesc":
+					result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.DateDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+					return result;
+				default:
+					result = await _customerTransactionService.GetTransactionByTransactionTypeAndWarehouseNumberAsync(search, CustomerTransactionOrderBy.CodeDesc, currentId, warehouseNumber, TransactionType, page, pageSize);
+					return result;
+			}
+		}
 
-        [HttpGet("Current/Code/{currentCode}/All")]
+		[HttpGet("Current/Code/{currentCode}/All")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByCurrentCodeAsync([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, string currentCode = "", int page = 0, int pageSize = 20)
 		{
 			var result = new DataResult<IEnumerable<CustomerTransaction>>();
@@ -109,7 +109,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 		[HttpGet("Current/Id/{currentId:int}/All")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetTransactionByCurrentIdAsync([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, int currentId = 0, int page = 0, int pageSize = 20)
@@ -132,7 +132,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 		[HttpGet("Current/Code/{currentCode}/Input")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetInputTransactionByCurrentCode([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, string currentCode = "", int page = 0, int pageSize = 20)
@@ -155,7 +155,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 		[HttpGet("Current/Id/{currentId:int}/Input")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetInputTransactionByCurrentId([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, int currentId = 0, int page = 0, int pageSize = 20)
@@ -178,7 +178,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 		[HttpGet("Current/Code/{currentCode}/Output")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetOutputTransactionByCurrentCode([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, string currentCode = "", int page = 0, int pageSize = 20)
@@ -201,7 +201,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 		[HttpGet("Current/Id/{currentId:int}/Output")]
 		public async Task<DataResult<IEnumerable<CustomerTransaction>>> GetOutputTransactionByCurrentId([FromQuery] string search = "", string orderBy = CustomerTransactionOrderBy.DateAsc, int currentId = 0, int page = 0, int pageSize = 20)
@@ -224,7 +224,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 					return result;
 				default:
 					return result;
-			} 
+			}
 		}
 	}
 }

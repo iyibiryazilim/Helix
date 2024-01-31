@@ -1,6 +1,7 @@
 ﻿using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.Models;
 using Helix.PurchaseService.Infrastructure.Helper.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Helix.PurchaseService.Infrastructure.Helper.Queries.SupplierQuery;
 
@@ -8,6 +9,7 @@ namespace LBS.Gateway.Controllers.Tiger;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class SupplierController : ControllerBase
 {
 	ISupplierService _supplierService;
