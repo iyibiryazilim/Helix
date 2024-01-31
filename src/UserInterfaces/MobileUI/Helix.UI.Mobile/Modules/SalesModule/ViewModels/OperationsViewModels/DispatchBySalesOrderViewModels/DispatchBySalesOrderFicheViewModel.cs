@@ -146,9 +146,9 @@ public partial class DispatchBySalesOrderFicheViewModel : BaseViewModel
             {
                 if (text.Length >= 3)
                 {
-                    SearchText = text;
+                    SearchText = text.ToLower();
                     Results.Clear();
-                    foreach (var item in Items.ToList().Where(x => x.Code.Contains(SearchText) || x.CurrentName.Contains(SearchText) || x.CurrentCode.Contains(SearchText)))
+                    foreach (var item in Items.ToList().Where(x => x.Code.ToLower().Contains(SearchText) || x.CurrentName.ToLower().Contains(SearchText) || x.CurrentCode.ToLower().Contains(SearchText)))
                     {
                         Results.Add(item);
                     }

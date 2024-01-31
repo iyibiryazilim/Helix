@@ -192,9 +192,9 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			{
 				if (text.Length >= 3)
 				{
-					SearchText = text;
+					SearchText = text.ToLower();
 					Result.Clear();
-					foreach (var item in WarehouseTotal.ToList().Where(x => x.ProductCode.Contains(SearchText) || x.ProductName.Contains(SearchText)))
+					foreach (var item in WarehouseTotal.ToList().Where(x => x.ProductCode.ToLower().Contains(SearchText) || x.ProductName.ToLower().Contains(SearchText)))
 					{
 						Result.Add(item);
 					}

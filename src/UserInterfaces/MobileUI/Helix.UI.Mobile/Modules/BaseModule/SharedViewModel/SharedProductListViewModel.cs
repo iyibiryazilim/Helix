@@ -110,6 +110,7 @@ public partial class SharedProductListViewModel :BaseViewModel
         {
             IsBusy = true;
             IsRefreshing = true;
+            IsRefreshing = false;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             var result = await _warehouseTotalService.GetWarehouseTotals(httpClient,Warehouse.Number,"1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
@@ -142,9 +143,9 @@ public partial class SharedProductListViewModel :BaseViewModel
             {
                 if (text.Length >= 3)
                 {
-                    SearchText = text;
+                    SearchText = text.ToLower();
                     Results.Clear();
-                    foreach (var item in Items.ToList().Where(x => x.ProductName.Contains(SearchText) || x.ProductCode.ToString().Contains(SearchText)))
+                    foreach (var item in Items.ToList().Where(x => x.ProductName.ToLower().Contains(SearchText) || x.ProductCode.ToLower().ToString().Contains(SearchText)))
                     {
                         Results.Add(item);
                     }
@@ -180,6 +181,7 @@ public partial class SharedProductListViewModel :BaseViewModel
         {
             IsBusy = true;
             IsRefreshing = true;
+            IsRefreshing = false;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, Warehouse.Number, "1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
@@ -199,7 +201,7 @@ public partial class SharedProductListViewModel :BaseViewModel
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {
@@ -259,7 +261,7 @@ public partial class SharedProductListViewModel :BaseViewModel
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
         }
         finally
         {

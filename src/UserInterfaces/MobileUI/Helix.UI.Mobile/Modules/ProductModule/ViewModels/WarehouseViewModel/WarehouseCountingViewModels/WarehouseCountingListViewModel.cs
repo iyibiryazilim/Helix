@@ -215,9 +215,9 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
 			{
 				if (text.Length >= 3)
 				{
-					SearchText = text;
+					SearchText = text.ToLower();
 					Results.Clear();
-					foreach (var item in Items.ToList().Where(x => x.ProductCode.Contains(SearchText) || x.ProductName.Contains(SearchText)))
+					foreach (var item in Items.ToList().Where(x => x.ProductCode.ToLower().Contains(SearchText) || x.ProductName.ToLower().Contains(SearchText)))
 					{
 						Results.Add(item);
 					}

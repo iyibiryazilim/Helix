@@ -124,9 +124,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 				{
 					if (text.Length >= 3)
 					{
-						SearchText = text;
+						SearchText = text.ToLower();
 						Results.Clear();
-						foreach (var item in Items.ToList().Where(x => x.Name.Contains(SearchText) || x.Code.ToString().Contains(SearchText)))
+						foreach (var item in Items.ToList().Where(x => x.Name.ToLower().Contains(SearchText) || x.Code.ToLower().ToString().Contains(SearchText)))
 						{
 							Results.Add(item);
 						}
