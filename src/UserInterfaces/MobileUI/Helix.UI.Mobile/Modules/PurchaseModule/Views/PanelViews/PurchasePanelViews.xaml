@@ -38,6 +38,7 @@
                             <Label Text="{Binding purchasePanelModel.PurchaseDispatchCount}"
                                    HorizontalOptions="Center"
                                    FontAttributes="Bold"
+                                   FontSize="19"
                                    TextColor="{StaticResource Success}"></Label>
                             <BoxView HeightRequest="0.5"
                                      Color="{StaticResource Secondary}"></BoxView>
@@ -52,6 +53,7 @@
                             <Label Text="{Binding purchasePanelModel.SalesReturnCount}"
                                    HorizontalOptions="Center"
                                    FontAttributes="Bold"
+                                   FontSize="19"
                                    TextColor="{StaticResource Danger}"></Label>
                             <BoxView HeightRequest="0.5"
                                      Color="{StaticResource Secondary}"></BoxView>

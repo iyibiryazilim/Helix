@@ -3,7 +3,7 @@
 public class ReturnPanelQuery : IDisposable
 {
 	static string CompanyNumber = "008";
-	static string CompanyPeriod = "01";
+	static string CompanyPeriod = "02";
 
 	public string LastReturnProductQuery()
 	{

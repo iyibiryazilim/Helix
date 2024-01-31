@@ -1,26 +1,45 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Views;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using Kotlin.Properties;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels
 {
-    public partial class ProcurementOption :BaseViewModel
+    public partial class ProcurementOption : BaseViewModel
     {
 
-       
+
+
+        //[ObservableProperty]
+        //bool selectCustomer = false;
+
+        //[ObservableProperty]
+        //bool selectProduct = false;
 
         [ObservableProperty]
-        bool selectCustomer = false;
+        int selectOption;
 
         [ObservableProperty]
-        bool selectProduct = false;
+        bool isCustomer;
+
+        [ObservableProperty]
+        bool isProduct;
+
+        [ObservableProperty]
+        bool isOrderDate;
+
+        [ObservableProperty]
+        bool isSelected;
+
 
         public ProcurementOption()
         {
             Title = "Seçim Sayfası";
-            
+
         }
 
 
@@ -32,36 +51,67 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         }
 
         [RelayCommand]
-        async Task SelectCustomerAsync()
+        async Task SelectOptionAsync(int option)
         {
-            SelectCustomer= true;
-            SelectProduct = false;
+            switch (option)
+            {
+                case 1:
+                    IsCustomer = true;
+                    IsProduct = false;
+                    IsOrderDate = false;
+
+                    break;
+                case 2:
+                    IsCustomer = false;
+                    IsProduct = true;
+                    IsOrderDate = false;
+                    break;
+                case 3:
+                    IsCustomer = false;
+                    IsProduct = false;
+                    IsOrderDate = true;
+                    break;
+
+                default:
+                    IsCustomer = false;
+                    IsProduct = false;
+                    IsOrderDate = false;
+                    break;
+            }
         }
 
-        [RelayCommand]
-        async Task SelectProductAsync()
-        {
-            SelectCustomer = false;
-            SelectProduct = true;
-        }
+       
+
+
 
         [RelayCommand]
         async Task GoToCustomerList()
         {
             try
             {
-                switch (true)
+                MessageHelper messageHelper = new MessageHelper();
+
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+                if (IsCustomer)
+                    await Shell.Current.GoToAsync($"{nameof(ProcurementCustomerListView)}");
+                else if (IsProduct)
                 {
-                    case true when SelectCustomer:
-                        await Shell.Current.GoToAsync($"{nameof(ProcurementCustomerListView)}");
-                        break;
-                    case true when SelectProduct:
-                        await Shell.Current.DisplayAlert("Uyarı", "??????", "Tamam");
-                        break;
-                    default:
-                        await Shell.Current.DisplayAlert("Uyarı", "Seçim Yapınız", "Tamam");
-                        break;
+                    var snackbar = messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı", Color.FromArgb("#4c3398"), Color.FromArgb("#4c3398"), null);
+
+                    await snackbar.Show(cancellationTokenSource.Token);
                 }
+                else if (IsOrderDate)
+                {
+
+                    var snackbar= messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı", Color.Parse("#4c3398"), Color.Parse("#4c3398"), Color.Parse("#4c3398"));
+                   
+                    await snackbar.Show(cancellationTokenSource.Token);
+
+                }
+                else
+                    await Shell.Current.DisplayAlert("Error", $"Lütfen seçim yapınız", "Tamam");
+
 
             }
             catch (Exception ex)

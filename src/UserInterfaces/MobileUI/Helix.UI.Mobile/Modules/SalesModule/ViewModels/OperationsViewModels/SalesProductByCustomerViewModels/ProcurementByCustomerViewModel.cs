@@ -42,7 +42,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         [ObservableProperty]
         public ObservableCollection<Current> selectedCustomers;
 
-        private List<WarehouseTotal> WarehouseTotals { get; set; } = new List<WarehouseTotal>();
+        private List<WarehouseTotal> WarehouseTotals { get; set; } = new();
         private List<SalesOrderLine> SalesOrders { get; set; } = new();
 
         public Command LoadProcurementCustomerCommand { get; }
@@ -120,7 +120,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                         procurementCustomer.Customer = new Customer { Code = item.Key };
 
                         // Müşterinin bekleyen siparişlerini al
-                        var customerSalesOrders = item.ToList();
+                        var customerSalesOrders = item.ToList().OrderBy(x => x.DueDate);
 
                         foreach (var order in customerSalesOrders)//siparişler
                         {
@@ -129,34 +129,54 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                             
                             ProcurementCustomerOrder customerOrder = new ProcurementCustomerOrder();
                             customerOrder.SalesOrderLine = order;
-
+                            
                             //customerOrder.Customer.Code = order.CurrentCode;
                             //customerOrder.Customer.Name = order.CurrentName;
                             Debug.WriteLine($"SalesOrders - ProductReferenceId: {order.ProductReferenceId}");
                             // ambardaki stok miktarı
-                            var warehouseTotal = WarehouseTotals.FirstOrDefault(wt => wt.ProductReferenceId == order.ProductReferenceId);
+                            var warehouseTotal = WarehouseTotals.FirstOrDefault(wt => wt.ProductReferenceId == order.ProductReferenceId && wt.OnHand>0);
                             if (warehouseTotal != null)
                             {
-                                double onHand = warehouseTotal.OnHand;
-                                Debug.WriteLine($"On Hand for ProductReferenceId: {order.ProductReferenceId} - {onHand}");
+                                #region OldCode
+                                //double onHand = warehouseTotal.OnHand;
+                                //Debug.WriteLine($"On Hand for ProductReferenceId: {order.ProductReferenceId} - {onHand}");
 
-                                double waitingQuantity = order.WaitingQuantity ?? 0;
-                                Debug.WriteLine($"Waiting Quantity for ProductReferenceId: {order.ProductReferenceId} - {waitingQuantity}");
+                                //double waitingQuantity = order.WaitingQuantity ?? 0;
+                                //Debug.WriteLine($"Waiting Quantity for ProductReferenceId: {order.ProductReferenceId} - {waitingQuantity}");
 
-                                // Karşılanan miktar yüzde olarak hesaplanıyor
-                                double matchingPercentage = (onHand >= waitingQuantity) ? 100: (onHand /waitingQuantity) * 100 ;
-                                Debug.WriteLine($"Matching Percentage for ProductReferenceId: {order.ProductReferenceId} - {matchingPercentage}%");
+                                //if (onHand >= 0)
+                                //{
+                                //    // Karşılanan miktar yüzde olarak hesaplanıyor
+                                //    double matchingPercentage = (onHand >= waitingQuantity) ? 100 : (onHand / waitingQuantity) * 100;
+                                //    Debug.WriteLine($"Matching Percentage for ProductReferenceId: {order.ProductReferenceId} - {matchingPercentage}%");
 
-                               
+                                //    //customerOrder.ProcurementQuantity = matchingPercentage;
+                                //    customerOrder.ProcurementRate = matchingPercentage;
 
-                                //customerOrder.ProcurementQuantity = matchingPercentage;
-                                customerOrder.ProcurementRate = matchingPercentage;
+                                //    // Bekleyen miktarı stoktan eksilt
+                                //    if (onHand >= waitingQuantity)
+                                //    {
+                                //        warehouseTotal.OnHand -= waitingQuantity;
+                                //    }
+                                //} 
+                                #endregion
 
-                                // Bekleyen miktarı stoktan eksilt
-                                if (onHand >= waitingQuantity)
-                                {
-                                    warehouseTotal.OnHand -= waitingQuantity;
-                                }
+                                double? waitingQuantity = order.WaitingQuantity;//5
+                                double? stockQuantity = warehouseTotal.OnHand;//2
+
+                                //todo
+
+                                customerOrder.ProcurementQuantity = (double)(stockQuantity >= waitingQuantity ? stockQuantity : waitingQuantity);
+
+                                customerOrder.ProcurementRate = (double)((stockQuantity >= waitingQuantity) ? 100 : (stockQuantity / waitingQuantity) * 100);
+
+                                WarehouseTotals.FirstOrDefault(wt => wt.ProductReferenceId == order.ProductReferenceId && wt.OnHand > 0).OnHand-=customerOrder.ProcurementQuantity;
+
+                            }
+                            else
+                            {
+                                customerOrder.ProcurementQuantity = 0;
+                                customerOrder.ProcurementRate = 0;//yüzde
 
 
                             }
