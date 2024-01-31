@@ -11,6 +11,8 @@ using Helix.UI.Mobile.Modules.BaseModule.Views;
 using Helix.UI.Mobile.Modules.BaseModule.Views.Current;
 using Helix.UI.Mobile.Modules.FastProductionModule.ViewModels;
 using Helix.UI.Mobile.Modules.FastProductionModule.Views;
+using Helix.UI.Mobile.Modules.LoginModule.DataStores;
+using Helix.UI.Mobile.Modules.LoginModule.Services;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.Views;
 using Helix.UI.Mobile.Modules.PanelModule.ViewModels;
@@ -122,6 +124,7 @@ namespace Helix.UI.Mobile
 				.RegisterHttpClientServices()
 				.LoginViews()
 				.LoginViewModels()
+				.LoginRegisterServices()
 				.ReturnRegisterServices()
 				.ReturnRegisterViewModels()
 				.ReturnRegisterViews()
@@ -747,6 +750,13 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder LoginViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
+			return mauiAppBuilder;
+		}
+
+		public static MauiAppBuilder LoginRegisterServices(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddSingleton<IAuthenticationService, AuthenticateDataStore>();
+
 			return mauiAppBuilder;
 		}
 
