@@ -24,7 +24,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
         }
 
 
-        //Ürün Toplama
+        //Müşteri listesi sayfasına geçiş
         [RelayCommand]
         async Task GoToProcurementByCustomerListView()
         {
@@ -44,6 +44,33 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             SelectCustomer = false;
             SelectProduct = true;
         }
+
+        [RelayCommand]
+        async Task GoToCustomerList()
+        {
+            try
+            {
+                switch (true)
+                {
+                    case true when SelectCustomer:
+                        await Shell.Current.GoToAsync($"{nameof(ProcurementCustomerListView)}");
+                        break;
+                    case true when SelectProduct:
+                        await Shell.Current.DisplayAlert("Uyarı", "??????", "Tamam");
+                        break;
+                    default:
+                        await Shell.Current.DisplayAlert("Uyarı", "Seçim Yapınız", "Tamam");
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "Tamam");
+            }
+        }
+
 
 
     }

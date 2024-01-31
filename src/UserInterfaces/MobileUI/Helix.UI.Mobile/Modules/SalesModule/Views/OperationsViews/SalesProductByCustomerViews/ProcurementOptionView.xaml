@@ -30,7 +30,7 @@
                                              Binding="{Binding SelectCustomer}"
                                              Value="True">
                                     <Setter Property="TextColor"
-                                            Value="White" />
+                                            Value="{StaticResource White}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -62,8 +62,17 @@
                        HorizontalOptions="Center"
                        Margin="0,15,0,0">
                     <Label.Style>
-                        <Style>
-                            
+                        <Style TargetType="Label">
+                            <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding SelectProduct}"
+                                             Value="True">
+                                    <Setter Property="TextColor"
+                                            Value="{StaticResource White}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+
                         </Style>
                     </Label.Style> </Label>
                 <Border.StrokeShape>
@@ -88,6 +97,7 @@
     </VerticalStackLayout>
         <Button Grid.Row="2"
                 Text="İleri"
+                Command="{Binding GoToCustomerListCommand}"
                 Margin="10,10,10,20"  ></Button>
     </Grid>
     
