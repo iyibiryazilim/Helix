@@ -13,7 +13,7 @@ using RabbitMQ.Client;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.ConfigureAuth(builder.Configuration);
 
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
@@ -86,7 +86,7 @@ app.UseSwaggerUI();
 
 //app.UseHttpsRedirection();
 
-app.UseAuthentication();
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

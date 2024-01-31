@@ -3,11 +3,13 @@ using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.AggregateModelss;
 using Helix.PurchaseService.Domain.Models;
 using Helix.PurchaseService.Infrastructure.Helper.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Helix.PurchaseService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PurchaseOrderLineController : ControllerBase
 	{
 		IConfiguration _configuration;

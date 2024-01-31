@@ -2,6 +2,7 @@
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Domain.AggregateModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Helix.ProductService.Api.Controllers;
@@ -9,6 +10,7 @@ namespace Helix.ProductService.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ConsumableTransactionLineController : ControllerBase
 {
 	IConsumableTransactionLineService _consumableTransactionLineService;

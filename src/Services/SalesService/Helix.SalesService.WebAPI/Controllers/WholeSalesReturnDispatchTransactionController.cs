@@ -5,6 +5,7 @@ using Helix.SalesService.Domain.Dtos;
 using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Domain.Models;
 using Helix.SalesService.Infrastructure.Helper.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class WholeSalesReturnDispatchTransactionController : ControllerBase
 	{
 		IWholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;

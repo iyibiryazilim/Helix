@@ -2,6 +2,7 @@
 using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.AggregateModelss;
 using Helix.PurchaseService.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Helix.PurchaseService.Infrastructure.Helper.Queries.PurchaseDispatchTransactionQuery;
 
@@ -9,6 +10,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PurchaseDispatchTransactionController : ControllerBase
 	{
 		private readonly ILogger<PurchaseDispatchTransactionController> _logger;

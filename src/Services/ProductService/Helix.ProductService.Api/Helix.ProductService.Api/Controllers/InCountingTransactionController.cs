@@ -4,6 +4,7 @@ using Helix.ProductService.Domain.AggregateModels;
 using Helix.ProductService.Domain.Dtos;
 using Helix.ProductService.Domain.Events;
 using Helix.ProductService.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -12,6 +13,7 @@ namespace Helix.ProductService.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class InCountingTransactionController : ControllerBase
 {
 	IInCountingTransactionService _inCountingTransactionService;

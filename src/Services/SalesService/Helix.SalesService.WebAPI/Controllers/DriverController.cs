@@ -1,5 +1,6 @@
 ﻿using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,8 @@ namespace Helix.SalesService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DriverController : ControllerBase
+	[Authorize]
+	public class DriverController : ControllerBase
     {
         IDriverService _driverService;
         public DriverController(IDriverService driverService)

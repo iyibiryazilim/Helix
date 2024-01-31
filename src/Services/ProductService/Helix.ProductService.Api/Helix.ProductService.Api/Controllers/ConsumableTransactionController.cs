@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Helix.ProductService.Domain.Dtos;
 using Helix.EventBus.Base.Abstractions;
 using Helix.ProductService.Domain.Events;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Helix.ProductService.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ConsumableTransactionController : ControllerBase
 {
 	IConsumableTransactionService _consumableTransactionService;

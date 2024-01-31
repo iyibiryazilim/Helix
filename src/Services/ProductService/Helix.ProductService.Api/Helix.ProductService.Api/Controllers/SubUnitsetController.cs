@@ -1,6 +1,7 @@
 ﻿using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.Tiger.DataAccess.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,8 @@ namespace Helix.ProductService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SubUnitsetController : ControllerBase
+	[Authorize]
+	public class SubUnitsetController : ControllerBase
     {
         //ISubUnitsetService _subUnitsetService;
         //public SubUnitsetController(ISubUnitsetService subUnitsetService)

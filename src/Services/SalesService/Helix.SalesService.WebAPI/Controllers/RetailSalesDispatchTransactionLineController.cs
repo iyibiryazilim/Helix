@@ -3,6 +3,7 @@ using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.AggregateModels;
 using Helix.SalesService.Domain.Models;
 using Helix.SalesService.Infrastructure.Helper.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace Helix.SalesService.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class RetailSalesDispatchTransactionLineController : ControllerBase
 {
 	IRetailSalesDispatchTransactionLineService _retailSalesDispatchTransactionLineService;

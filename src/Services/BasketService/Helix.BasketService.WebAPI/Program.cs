@@ -1,5 +1,6 @@
 using Helix.BasketService.Application.Services;
 using Helix.BasketService.Infrastructure.Repository;
+using Helix.BasketService.WebAPI.AuthRegistrations;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
@@ -11,6 +12,8 @@ namespace Helix.BasketService.WebAPI
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+			builder.Services.ConfigureAuth(builder.Configuration);
+
 			// Redis configuration
 			IConfiguration configuration = builder.Configuration;
 			var connection = ConnectionMultiplexer.Connect(configuration["CacheConnections:RedisConnection"]);

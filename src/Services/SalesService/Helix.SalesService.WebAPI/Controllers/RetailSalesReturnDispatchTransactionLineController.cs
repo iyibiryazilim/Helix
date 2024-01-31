@@ -2,6 +2,7 @@
 using Helix.SalesService.Domain.AggregateModels;
 using Helix.SalesService.Domain.Models;
 using Helix.SalesService.Infrastructure.Helper.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 
@@ -9,6 +10,7 @@ namespace Helix.SalesService.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class RetailSalesReturnDispatchTransactionLineController : ControllerBase
 {
 	IRetailSalesReturnDispatchTransactionLineService _retailSalesReturnDispatchTransactionLineService;

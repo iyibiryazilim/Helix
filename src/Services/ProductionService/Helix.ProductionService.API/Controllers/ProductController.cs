@@ -1,6 +1,7 @@
 ﻿using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.Models;
 using Helix.ProductionService.Domain.Models.BaseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class ProductController : ControllerBase
 	{
 		IProductService _productService;

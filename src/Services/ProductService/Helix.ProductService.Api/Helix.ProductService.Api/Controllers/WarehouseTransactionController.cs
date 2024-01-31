@@ -1,6 +1,7 @@
 ﻿using Helix.ProductService.Application.Repository;
 using Helix.ProductService.Domain.Models;
 using Helix.ProductService.Infrastructure.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Helix.ProductService.Infrastructure.Helpers.Queries.WarehouseTransactionQuery;
 
@@ -10,6 +11,7 @@ namespace Helix.ProductService.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class WarehouseTransactionController : ControllerBase
 {
 	IWarehouseTransactionService _warehouseTransactionService;

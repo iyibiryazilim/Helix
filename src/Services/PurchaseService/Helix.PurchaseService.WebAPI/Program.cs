@@ -9,11 +9,14 @@ using Serilog;
 using Helix.EventBus.Factory;
 using Helix.PurchaseService.Domain.Events;
 using Helix.PurchaseService.Infrastructure.EventHandlers;
+using Helix.PurchaseService.WebAPI.AuthRegistrations;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
+
+builder.Services.ConfigureAuth(builder.Configuration);
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
@@ -73,7 +76,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+//app.UseAuthentication();
 app.MapControllers();
 //app.RegisterWithConsul(app.Lifetime);
 
