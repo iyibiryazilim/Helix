@@ -1,6 +1,6 @@
-﻿using Helix.LBSService.WebAPI.DTOs;
+﻿using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.Models.BaseModel;
-using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -18,18 +18,36 @@ namespace Helix.LBSService.WebAPI.Controllers
 		public async Task<DataResult<WorkOrderDto>> Insert([FromBody] WorkOrdersDto dto)
 		{
 
-			return await _workOrderService.Insert(dto);
+			var result = await _workOrderService.Insert(dto);
+			return new DataResult<WorkOrderDto>()
+			{
+				Data = null,
+				Message = result.Message,
+				IsSuccess = result.IsSuccess,
+			};
 		}
 		[HttpPost("StopTransaction")]
 		public async Task<DataResult<WorkOrderDto>> InsertStopTransaction([FromBody] StopTransactionForWorkOrderDto dto)
 		{
-			return await _workOrderService.InsertStopTransaction(dto);
+ 			var result = await _workOrderService.InsertStopTransaction(dto);
+			return new DataResult<WorkOrderDto>()
+			{
+				Data = null,
+				Message = result.Message,
+				IsSuccess = result.IsSuccess,
+			};
 		}
 		[HttpPost("Status")]
 		public async Task<DataResult<WorkOrderDto>> InsertChangeStatus([FromBody] WorkOrderChangeStatusDto dto)
 		{
 
-			return await _workOrderService.InsertWorkOrderStatus(dto);
+ 			var result = await _workOrderService.InsertWorkOrderStatus(dto);
+			return new DataResult<WorkOrderDto>()
+			{
+				Data = null,
+				Message = result.Message,
+				IsSuccess = result.IsSuccess,
+			};
 		}
 
 	}

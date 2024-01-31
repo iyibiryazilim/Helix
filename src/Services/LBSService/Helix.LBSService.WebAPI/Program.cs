@@ -1,7 +1,9 @@
-using Helix.LBSService.WebAPI.DataStores;
+using Helix.LBSService.Go.DataStores;
+using Helix.LBSService.Go.Services;
+using Helix.LBSService.Tiger.DataStores;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.Helper;
 using Helix.LBSService.WebAPI.Models;
-using Helix.LBSService.WebAPI.Services;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_ProductionTransactionService, LG_ProductionTransactionDataStore>();
+builder.Services.AddTransient<ILG_ConsumableTransactionService, LG_ConsumableTransactionDataStore>();
+builder.Services.AddTransient<ILG_RetailSalesDispatchTransactionService, LG_RetailSalesDispatchTransactionDataStore>();
+
+builder.Services.AddTransient<ILG_STFICHE_Context, LG_STFICHE_Context>();
+
 
 builder.Services.AddControllers();
 

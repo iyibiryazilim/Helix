@@ -10,13 +10,12 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 			var config = new MapperConfiguration(cfg =>
 			{
 				cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
-				cfg.AddProfile<MappingProfile>();
+				cfg.AddProfile<RetailSalesDispatchTransactionLineProfile>();
+				cfg.AddProfile<RetailSalesDispatchTransactionProfile>();
 				cfg.AddProfile<ConsumableTransactionLineProfile>();
 				cfg.AddProfile<ConsumableTransactionProfile>();
 				//cfg.AddProfile<WholeSalesDispatchTransactionLineProfile>();
 				//cfg.AddProfile<WholeSalesDispatchTransactionProfile>();
-				//cfg.AddProfile<RetailSalesDispatchTransactionLineProfile>();
-				//cfg.AddProfile<RetailSalesDispatchTransactionProfile>();
 				//cfg.AddProfile<RetailSalesReturnDispatchTransactionLineProfile>();
 				//cfg.AddProfile<RetailSalesReturnDispatchTransactionProfile>();
 				//cfg.AddProfile<WholeSalesReturnTransactionLineProfile>();
@@ -35,7 +34,10 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 				cfg.AddProfile<ProductionTransactionLineProfile>();
 				//cfg.AddProfile<TransferTransactionProfile>();
 				//cfg.AddProfile<TransferTransactionLineProfile>();
+				cfg.AllowNullCollections = true;
+
 			});
+			//config.AssertConfigurationIsValid();
 			var mapper = config.CreateMapper();
 			return mapper;
 		});

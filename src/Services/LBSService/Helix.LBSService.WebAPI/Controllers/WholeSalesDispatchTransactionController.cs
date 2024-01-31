@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Helix.LBSService.WebAPI.Models.BaseModel;
+﻿using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Services;
+using Helix.LBSService.WebAPI.Helper.Mappers;
+using Helix.LBSService.WebAPI.Models.BaseModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
 {
@@ -19,8 +21,14 @@ namespace Helix.LBSService.WebAPI.Controllers
         [HttpPost("Insert")]
         public async Task<DataResult<WholeSalesDispatchTransactionDto>> Insert([FromBody] WholeSalesDispatchTransactionDto dto)
         {
-            var result = await _wholeSalesDispatchTransactionService.Insert(dto);
-            return result;
-        }
+			var obj = Mapping.Mapper.Map<LG_WholeSalesDispatchTransaction>(dto);
+			var result = await _wholeSalesDispatchTransactionService.Insert(obj);
+			return new DataResult<WholeSalesDispatchTransactionDto>()
+			{
+				Data = null,
+				Message = result.Message,
+				IsSuccess = result.IsSuccess,
+			};
+         }
     }
 }

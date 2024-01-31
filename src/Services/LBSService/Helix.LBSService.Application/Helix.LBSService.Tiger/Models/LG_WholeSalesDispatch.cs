@@ -1,8 +1,8 @@
 ﻿namespace Helix.LBSService.Tiger.Models
 {
-    public class LG_WholeSalesDispatch : LG_ProductSalesDispatchTransaction
+    public class LG_WholeSalesDispatchTransaction : LG_ProductSalesDispatchTransaction
     {
-        public LG_WholeSalesDispatch()
+        public LG_WholeSalesDispatchTransaction()
         {
             TRANSACTIONS = new List<LG_WholeSalesDispatchLine>();
         }

@@ -6,9 +6,9 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
-using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -16,9 +16,11 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels
 {
-    [QueryProperty(nameof(SelectedTransactions), nameof(SelectedTransactions))]
+	[QueryProperty(nameof(SelectedTransactions), nameof(SelectedTransactions))]
     [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
-    public partial class ReturnBySalesDispatchTransactionLineListViewModel : BaseViewModel
+	[QueryProperty(nameof(Current), nameof(Current))]
+
+	public partial class ReturnBySalesDispatchTransactionLineListViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
         ICustomerTransactionLineService _customerTransactionLineService;
@@ -46,8 +48,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         int pageSize = 20000;
         [ObservableProperty]
         Warehouse warehouse;
+		[ObservableProperty]
+		Customer current;
 
-        public ObservableCollection<DispatchTransactionLineGroup> DispatchTransactionLineGroupList { get; } = new();
+		public ObservableCollection<DispatchTransactionLineGroup> DispatchTransactionLineGroupList { get; } = new();
         public ObservableCollection<DispatchTransactionLineGroup> Result { get; } = new();
         public ObservableCollection<DispatchTransactionLineGroup> SelectedDispatchTransactionLineGroupList { get; } = new();
         public ObservableCollection<DispatchTransactionLine> Lines { get; } = new();
@@ -383,8 +387,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 }
                 await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionSummaryView)}", new Dictionary<string, object>
                 {
-                    [nameof(ChangedLineList)] = ChangedLineList
-                });
+                    [nameof(ChangedLineList)] = ChangedLineList,
+					[nameof(Warehouse)] = Warehouse,
+					[nameof(Current)] = Current 
+				});
             }
             catch (Exception ex)
             {

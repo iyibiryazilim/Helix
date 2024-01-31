@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.MVVMHelper;
@@ -9,11 +10,17 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels
 {
-    [QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))]
+	[QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))]
+	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+	[QueryProperty(nameof(Current), nameof(Current))]
 
-    public partial class ReturnBySalesDispatchTransactionSummaryViewModel: BaseViewModel
-    {
-        [ObservableProperty]
+	public partial class ReturnBySalesDispatchTransactionSummaryViewModel: BaseViewModel
+	{
+		[ObservableProperty]
+		Customer current;
+		[ObservableProperty]
+		Warehouse warehouse;
+		[ObservableProperty]
         ObservableCollection<DispatchTransactionLine> changedLineList;
 
         public ReturnBySalesDispatchTransactionSummaryViewModel()
@@ -24,9 +31,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 
         public Command GetDataCommand { get; }
 
-        [ObservableProperty]
-        Current current;
-
+      
 
         async Task LoadData()
         {
@@ -80,8 +85,12 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         {
             await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionFormView)}", new Dictionary<string, object>
             {
-                [nameof(ChangedLineList)] = ChangedLineList
-            });
+                [nameof(ChangedLineList)] = ChangedLineList,
+				[nameof(Current)] = Current,
+				[nameof(Warehouse)] = Warehouse
+
+
+			});
         }
     }
 }

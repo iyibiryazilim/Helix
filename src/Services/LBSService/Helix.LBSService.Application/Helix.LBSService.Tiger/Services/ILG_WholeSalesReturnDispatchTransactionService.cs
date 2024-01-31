@@ -1,11 +1,11 @@
-﻿using Helix.LBSService.Tiger.DTOs;
+﻿using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Models.BaseModel;
 
 namespace Helix.LBSService.Tiger.Services
 {
 	public interface ILG_WholeSalesReturnDispatchTransactionService
 	{
-		public Task<DataResult<WholeSalesReturnTransactionDto>> Insert(WholeSalesReturnTransactionDto dto);
+		public Task<DataResult<LG_WholeSalesReturnDispatchTransaction>> Insert(LG_WholeSalesReturnDispatchTransaction dto);
 
 	}
 }

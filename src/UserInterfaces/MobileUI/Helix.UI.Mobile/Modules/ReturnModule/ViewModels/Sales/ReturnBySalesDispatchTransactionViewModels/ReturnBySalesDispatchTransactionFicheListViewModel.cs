@@ -9,17 +9,12 @@ using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionViewModels
 {
-    [QueryProperty(nameof(Current), nameof(Current))]
+	[QueryProperty(nameof(Current), nameof(Current))]
     [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 
     public partial class ReturnBySalesDispatchTransactionFicheListViewModel : BaseViewModel
@@ -234,7 +229,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Supplier Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -276,8 +271,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineListView)}", new Dictionary<string, object>
                 {
                     [nameof(SelectedTransactions)] = SelectedTransactions,
-                    [nameof(Warehouse)] = Warehouse
-                });
+                    [nameof(Warehouse)] = Warehouse,
+					[nameof(Current)] = Current
+
+				});
             }
             else
             {
