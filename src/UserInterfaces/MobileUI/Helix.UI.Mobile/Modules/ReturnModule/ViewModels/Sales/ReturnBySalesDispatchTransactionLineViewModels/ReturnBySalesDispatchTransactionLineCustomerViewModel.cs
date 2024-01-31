@@ -5,7 +5,6 @@ using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesOrderView;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -242,14 +241,13 @@ public partial class ReturnBySalesDispatchTransactionLineCustomerViewModel : Bas
         {
             await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineWarehouseListView)}", new Dictionary<string, object>
             {
-                ["Current"] = SelectedCustomer
+                [nameof(Current)] = SelectedCustomer
             });
         }
         else
         {
             await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için Müşteri seçimi yapmanız gerekmektedir", "Tamam");
         }
-
     }
 
 }

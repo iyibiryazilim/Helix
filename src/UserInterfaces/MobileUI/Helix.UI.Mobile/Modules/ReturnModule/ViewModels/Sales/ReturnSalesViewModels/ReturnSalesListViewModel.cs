@@ -20,8 +20,7 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels
 {
 
-    [QueryProperty(name: nameof(Product), queryId: nameof(Product))]
-   
+    [QueryProperty(name: nameof(Product), queryId: nameof(Product))] 
     [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 
     public partial class ReturnSalesListViewModel :BaseViewModel
@@ -64,7 +63,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
             await Shell.Current.GoToAsync($"{nameof(SharedProductListView)}", new Dictionary<string, object>
             {
                 ["ViewType"] = 2,
-                ["Warehouse"] = Warehouse
+                [nameof(Warehouse)] = Warehouse
 
             });
         }
@@ -79,7 +78,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
                 await Shell.Current.GoToAsync($"{nameof(ReturnSalesFormView)}", new Dictionary<string, object>
                 {
                     [nameof(ProductModel)] = Items,
-                    ["Warehouse"] = Warehouse
+                    [nameof(Warehouse)] = Warehouse
                 });
 
             }
@@ -151,24 +150,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
         async Task AddQuantity(ProductModel item)
         {
 
-            item.Quantity++;
-
-            //if ( item.StockQuantity< item.Quantity)
-            //{
-            //    bool result = await Shell.Current.DisplayAlert("Uyarı","Ekemek istediğiniz miktar stok miktarından stok miktarından fazla","Ekle","Vazgeç");
-            //    if (result)
-            //    {
-            //        item.Quantity++;
-            //    }
-
-            //}
-            //else
-            //{
-            //    item.Quantity++;
-
-            //}
-
-
+            item.Quantity++; 
         }
         [RelayCommand]
 

@@ -30,4 +30,8 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Helix.LBSService.Go\Helix.LBSService.Go.csproj" />
+  </ItemGroup>
+
 </Project>

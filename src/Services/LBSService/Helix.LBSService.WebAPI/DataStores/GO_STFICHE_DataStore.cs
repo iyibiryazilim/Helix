@@ -42,6 +42,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 				}
 			}
 		}
+
 		public async Task<string> InsertObject(LG_STFICHE item)
 		{
 			int ReferenceId;

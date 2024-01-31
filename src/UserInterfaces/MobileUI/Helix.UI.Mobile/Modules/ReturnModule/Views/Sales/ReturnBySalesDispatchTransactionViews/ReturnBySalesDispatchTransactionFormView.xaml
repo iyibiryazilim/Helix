@@ -8,10 +8,10 @@
              x:DataType="viewModel:ReturnBySalesDispatchTransactionFormViewModel"
              Shell.TabBarIsVisible="False"
              BackgroundColor="{StaticResource Primary}"
-             
              Title="{Binding Title}">
-    <sharedViews:ReturnDispatchTransactionFormContentView 
-                                                       GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
-
-    </sharedViews:ReturnDispatchTransactionFormContentView>
+    <sharedViews:ReturnDispatchTransactionFormContentView GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
+                                                          GoToSuccessPageViewCommand="{Binding PurchaseDispatchInsertCommand}"
+                                                          PurchaseFormModel="{Binding PurchaseFormModel}"
+                                                          IsPickerVisible="false"
+                                                          Warehouse="{Binding Warehouse}"></sharedViews:ReturnDispatchTransactionFormContentView>
 </ContentPage>

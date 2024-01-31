@@ -2,13 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
-using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
-using Helix.UI.Mobile.Modules.PurchaseModule.DataStores;
-using Helix.UI.Mobile.Modules.PurchaseModule.Dtos;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
+using Helix.UI.Mobile.Modules.ReturnModule.Dtos;
+using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -22,34 +21,30 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
 	[QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
 	public partial class ReturnBySalesDispatchTransactionFormViewModel : BaseViewModel
-    {
+	{
 		IHttpClientService _httpClientService;
-		IWarehouseService _warehouseService;
-		ISupplierService _supplierService;
 		ISpeCodeService _speCodeService;
 		IPurchaseDispatchTransactionService _purchaseDispatchTransaction;
 
 		public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
-		public ObservableCollection<Supplier> SupplierItems { get; } = new();
+		public ObservableCollection<Customer> CustomerItems { get; } = new();
+
 
 		[ObservableProperty]
-		Supplier current;
+		Customer current;
+
 		[ObservableProperty]
 		Warehouse warehouse;
 		[ObservableProperty]
-		ObservableCollection<WaitingOrderLine> changedLines;
-		[ObservableProperty]
-		string searchText = string.Empty;
-		[ObservableProperty]
-		ProductOrderBy orderBy = ProductOrderBy.nameasc;
+		ObservableCollection<DispatchTransactionLine> changedLines; 
 		[ObservableProperty]
 		int currentPage = 0;
 		[ObservableProperty]
-		int pageSize = 20;
+		int pageSize = 5000;
 		[ObservableProperty]
 		WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
 		[ObservableProperty]
-		SupplierOrderBy supplierOrderBy = SupplierOrderBy.nameasc;
+		CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
 
 		[ObservableProperty]
 		PurchaseFormModel purchaseFormModel = new();
@@ -57,16 +52,17 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 		[ObservableProperty]
 		public string speCode = string.Empty;
 
-		
+		[ObservableProperty]
+		public string transactionType = string.Empty;
+	 
 		public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
 
-		public ReturnBySalesDispatchTransactionFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService, ISpeCodeService speCodeService, IPurchaseDispatchTransactionService purchaseDispatchTransaction)
+		public ReturnBySalesDispatchTransactionFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IPurchaseDispatchTransactionService purchaseDispatchTransaction)
 		{
-			Title = "Satın Alma Form";
+			Title = "Satış Form";
 			_httpClientService = httpClientService;
-			_warehouseService = warehouseService;
-			_supplierService = supplierService;
+
 			_speCodeService = speCodeService;
 			_purchaseDispatchTransaction = purchaseDispatchTransaction;
 
@@ -115,38 +111,6 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 			}
 		}
 
-		[RelayCommand]
-		public async Task GetSupplierAsync()
-		{
-			try
-			{
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
-				CurrentPage = 0;
-				var result = await _supplierService.GetObjects(httpClient, SearchText, SupplierOrderBy, CurrentPage, PageSize);
-
-				if (result.Data.Any())
-				{
-					SupplierItems.Clear();
-
-					foreach (var item in result.Data)
-					{
-						await Task.Delay(100);
-						SupplierItems.Add(item);
-					}
-				}
-
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Error:", $"{ex.Message}", "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-
-		}
 
 		[RelayCommand]
 		async Task PurchaseDispatchInsert()
@@ -156,37 +120,70 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 				IsBusy = true;
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-				//PurchaseDispatchTransactionDto purchaseDispatchTransactionDto = new PurchaseDispatchTransactionDto();
-				//purchaseDispatchTransactionDto.WarehouseNumber = Warehouse.Number;
-				//purchaseDispatchTransactionDto.TransactionDate = PurchaseFormModel.TransactionDate;
-				//purchaseDispatchTransactionDto.TransactionType = 1;
-				////retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
-				//purchaseDispatchTransactionDto.Description = PurchaseFormModel.Description;
-				//purchaseDispatchTransactionDto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
-				//purchaseDispatchTransactionDto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
+				switch (TransactionType)
+				{
+					case "Parakende Satış İade İrsaliyesi":
+						RetailSalesReturnDispatchTransactionInsertDto dto = new RetailSalesReturnDispatchTransactionInsertDto();
+						dto.WarehouseNumber = Warehouse.Number;
+						dto.TransactionDate = PurchaseFormModel.TransactionDate;
+						dto.TransactionType = 1;
+						//retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
+						dto.Description = PurchaseFormModel.Description;
+						dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
+						dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
 
+						foreach (var item in ChangedLines)
+						{
+							RetailSalesReturnDispatchTransactionLineDto lineDto = new RetailSalesReturnDispatchTransactionLineDto();
 
+							lineDto.ProductCode = item.ProductCode;
+							lineDto.ProductReferenceId = item.ProductReferenceId;
+							lineDto.CurrentCode = item.CurrentCode;
+							lineDto.CurrentReferenceId = item.CurrentReferenceId;
+							lineDto.Quantity = item.Quantity;
+							lineDto.UnitsetCode = item.UnitsetCode;
+							lineDto.UnitsetReferenceId = item.UnitsetReferenceId;
+							lineDto.TransactionType = 1;
+							lineDto.SubUnitsetCode = item.SubUnitsetCode;
+							lineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
+							lineDto.DispatchReferenceId = item.ReferenceId;
+							lineDto.WarehouseNumber = Warehouse.Number;
+							dto.Lines.Add(lineDto);
+						}
+						break;
+					case "Toptan Satış İade İrsaliyesi":
+						WholeSalesReturnTransactionInsertDto _dto = new WholeSalesReturnTransactionInsertDto();
+						_dto.WarehouseNumber = Warehouse.Number;
+						_dto.TransactionDate = PurchaseFormModel.TransactionDate;
+						_dto.TransactionType = 1;
+						//retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
+						_dto.Description = PurchaseFormModel.Description;
+						_dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
+						_dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
 
-				//foreach (var item in ChangedLines)
-				//{
-				//	PurchaseDispatchTransactionLineDto purchaseDispatchLine = new PurchaseDispatchTransactionLineDto();
+						foreach (var item in ChangedLines)
+						{
+							WholeSalesReturnTransactionLineDto lineDto = new WholeSalesReturnTransactionLineDto();
 
-				//	purchaseDispatchLine.ProductCode = item.ProductCode;
-				//	purchaseDispatchLine.ProductReferenceId = item.ProductReferenceId;
-				//	purchaseDispatchLine.CurrentCode = item.CurrentCode;
-				//	purchaseDispatchLine.CurrentReferenceId = item.CurrentReferenceId;
-				//	purchaseDispatchLine.Quantity = item.Quantity;
-				//	purchaseDispatchLine.UnitsetCode = item.UnitsetCode;
-				//	purchaseDispatchLine.UnitsetReferenceId = item.UnitsetReferenceId;
-				//	purchaseDispatchLine.TransactionType = 1;
-				//	purchaseDispatchLine.SubUnitsetCode = item.SubUnitsetCode;
-				//	purchaseDispatchLine.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
-				//	purchaseDispatchLine.OrderReferenceId = item.ReferenceId;
-				//	purchaseDispatchLine.WarehouseNumber = Warehouse.Number;
-				//	purchaseDispatchTransactionDto.Lines.Add(purchaseDispatchLine);
-				//}
-
-				//var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
+							lineDto.ProductCode = item.ProductCode;
+							lineDto.ProductReferenceId = item.ProductReferenceId;
+							lineDto.CurrentCode = item.CurrentCode;
+							lineDto.CurrentReferenceId = item.CurrentReferenceId;
+							lineDto.Quantity = item.Quantity;
+							lineDto.UnitsetCode = item.UnitsetCode;
+							lineDto.UnitsetReferenceId = item.UnitsetReferenceId;
+							lineDto.TransactionType = 1;
+							lineDto.SubUnitsetCode = item.SubUnitsetCode;
+							lineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
+							lineDto.DispatchReferenceId = item.ReferenceId;
+							lineDto.WarehouseNumber = Warehouse.Number;
+							_dto.Lines.Add(lineDto);
+						}
+						break;
+					default:
+						break;
+				} 
+				//var result = await _purchaseDispatchTransaction.InsertObject(httpClient, dto);
 				//if (result.IsSuccess)
 				//{
 				//	await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>

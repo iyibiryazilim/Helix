@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -39,6 +40,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 		int currentPage = 0;
 		[ObservableProperty]
 		int pageSize = 5000;
+		[ObservableProperty]
+		PurchaseFormModel purchaseFormModele = new();
 		public ReturnBySalesDispatchTransactionCustomerViewModel(IHttpClientService httpClientService, ICustomerService customerService)
 		{
 			Title = "Müşteri Listesi";
@@ -70,7 +73,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 
 			}
 		}
-		async Task GetCustomersAsync()
+		async Task GetCustomersAsync()	
 		{
 			if (IsBusy)
 				return;

@@ -263,7 +263,7 @@ public partial class ReturnSalesSelectWarehouseViewModel : BaseViewModel
 		{
 			await Shell.Current.GoToAsync($"{nameof(ReturnSalesListView)}", new Dictionary<string, object>
 			{
-				["Warehouse"] = SelectedWarehouse
+				[nameof(Warehouse)] = SelectedWarehouse
 			});
 		}
 

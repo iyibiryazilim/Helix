@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionLineViews;
-using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
@@ -10,25 +10,25 @@ using System.Diagnostics;
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionLineViewModels
 {
-    [QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))]
-
-    public partial class ReturnBySalesDispatchTransactionLineSummaryViewModel : BaseViewModel
+	[QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))]
+	[QueryProperty(nameof(Current), nameof(Current))]
+	[QueryProperty(nameof(Warehouse), nameof(Warehouse))] 
+	public partial class ReturnBySalesDispatchTransactionLineSummaryViewModel : BaseViewModel
     {
         [ObservableProperty]
         ObservableCollection<DispatchTransactionLine> changedLineList;
-
-        public ReturnBySalesDispatchTransactionLineSummaryViewModel()
+		[ObservableProperty]
+		Customer current;
+		[ObservableProperty]
+		Warehouse warehouse;
+		public ReturnBySalesDispatchTransactionLineSummaryViewModel()
         {
             Title = "Özet";
             GetDataCommand = new Command(async () => await LoadData());
         }
 
         public Command GetDataCommand { get; }
-
-        [ObservableProperty]
-        Current current;
-
-
+ 
         async Task LoadData()
         {
             if (IsBusy)
@@ -81,8 +81,10 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         {
             await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineFormView)}", new Dictionary<string, object>
             {
-                [nameof(ChangedLineList)] = ChangedLineList
-            });
+				["ChangedLines"] = ChangedLineList,
+				[nameof(Current)] = Current,
+				[nameof(Warehouse)] = Warehouse
+			});
         }
     }
 }

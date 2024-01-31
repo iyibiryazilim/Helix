@@ -13,8 +13,7 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionLineViewModels
 {
-    [QueryProperty(nameof(Current), nameof(Current))]
-
+	[QueryProperty(nameof(Current), nameof(Current))] 
     public partial class ReturnBySalesDispatchTransactionLineWarehouseListViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
@@ -256,8 +255,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
             {
                 await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionLineLineListView)}", new Dictionary<string, object>
                 {
-                    ["Warehouse"] = SelectedWarehouse,
-                    ["Current"] = Current,
+                    [nameof(Warehouse)] = SelectedWarehouse,
+                    [nameof(Current)] = Current,
                 });
             }
 
