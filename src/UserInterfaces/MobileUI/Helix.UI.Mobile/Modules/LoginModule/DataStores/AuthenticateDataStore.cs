@@ -23,7 +23,7 @@ public class AuthenticateDataStore : IAuthenticationService
 		{
 			var http = _httpClientService.GetOrCreateHttpClient();
 
-			var responseMessage = await httpClient.PostAsync($"/api/Authentication/Authenticate",
+			var responseMessage = await http.PostAsync($"/api/Authentication/Authenticate",
 				new StringContent(JsonSerializer.Serialize(new {username, password}), Encoding.UTF8, "application/json")); 
 
 			if(responseMessage.IsSuccessStatusCode)
