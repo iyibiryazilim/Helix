@@ -144,7 +144,8 @@ public partial class SalesDispatchListViewModel : BaseViewModel
 			{
 				await Shell.Current.GoToAsync($"{nameof(SalesDispatchFormView)}", new Dictionary<string, object>
 				{
-					[nameof(ProductModel)] = Items
+					[nameof(ProductModel)] = Items,
+					[nameof(Warehouse)] = Warehouse
 				});
 			}
 			else

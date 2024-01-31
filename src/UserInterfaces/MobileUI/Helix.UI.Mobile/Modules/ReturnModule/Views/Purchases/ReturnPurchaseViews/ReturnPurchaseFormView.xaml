@@ -13,15 +13,18 @@
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetWarehouseCommand}" />
+                                        Command="{Binding GetDataCommand}" />
     </ContentPage.Behaviors>
 
-    <sharedViews:ProductTransactionOperationFormContentView WarehouseList="{Binding WarehouseItems}"
-                                                            TransactionTypeName="{Binding TransactionTypeName}"
-                                                            ProductTransactionFormModel="{Binding ProductTransactionFormModel}"
-                                                            GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}"
-                                                            Warehouse="{Binding Warehouse}"
-                                                            GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
+    <sharedViews:PurchaseReturnDispatchTransactionFormContentView Warehouse="{Binding Warehouse}"
+                                        DriverList="{Binding DriverItems}"
+                                        CarrierList="{Binding CarrierItems}"
+                                        GoToSuccessPageViewCommand="{Binding PurchaseDispatchInsertCommand}"
+                                        GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
+                                        SalesFormModel="{Binding SalesFormModel}"
+                                        ShipInfoList="{Binding ShipInfoItems}"
+                                        SupplierList="{Binding Suppliers}"
+                                        >
 
-    </sharedViews:ProductTransactionOperationFormContentView>
+    </sharedViews:PurchaseReturnDispatchTransactionFormContentView>
 </ContentPage>

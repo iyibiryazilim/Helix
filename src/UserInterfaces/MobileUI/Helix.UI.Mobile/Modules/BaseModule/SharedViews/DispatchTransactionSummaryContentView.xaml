@@ -35,7 +35,7 @@
                VerticalOptions="Center"
                WidthRequest="85"
                ZIndex="3">
-            <Image Aspect="AspectFit" Source="{Binding Source={x:Reference this}, Converter={StaticResource ByteArrayToImageSourceConverter}, Path=Current.Image}" />
+            <Image Aspect="AspectFit" Source="{Binding Source={x:Reference this}, Converter={StaticResource ByteArrayToImageSourceConverter}, Path=Supplier.Image}" />
         </Frame>
         <Border Grid.Row="1"
                 Grid.Column="0"
@@ -54,13 +54,13 @@
                                FontSize="15"
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
-                               Text="{Binding Source={x:Reference this}, Path=Current.Name}"
+                               Text="{Binding Source={x:Reference this}, Path=Supplier.Name}"
                                VerticalTextAlignment="Center" />
                         <Label FontAttributes="Bold"
                                FontSize="20"
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
-                               Text="{Binding Source={x:Reference this}, Path=Current.Code}" />
+                               Text="{Binding Source={x:Reference this}, Path=Supplier.Code}" />
                     </VerticalStackLayout>
                     <ScrollView Grid.Row="1" Padding="5,0,5,0">
                         <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Source={x:Reference this}, Path=Lines}">

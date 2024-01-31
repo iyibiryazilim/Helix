@@ -13,9 +13,16 @@
              BackgroundColor="{StaticResource Primary}"
              Shell.TabBarIsVisible="False"
             >
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                      Command="{Binding GetDataCommand}"
+                                      />
 
-    <sharedViews:PurchaseDispatchOperationFormContentView Warehouse="{Binding .}"
-                                                          Current="{Binding .}"
+    </ContentPage.Behaviors>
+    <sharedViews:PurchaseDispatchOperationFormContentView Warehouse="{Binding Warehouse}"
+                                                          SupplierList="{Binding SupplierItems}"
+                                                          PurchaseFormModel="{Binding PurchaseFormModel}"
+                                                          GoToSuccessPageViewCommand="{Binding PurchaseDispatchInsertCommand}"
                                                           GetSpeCodeCommand="{Binding GetSpeCodeCommand}">
         
     </sharedViews:PurchaseDispatchOperationFormContentView>

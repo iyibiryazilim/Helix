@@ -27,7 +27,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
         IPurchaseReturnDispatchTransactionService _purchaseReturnDispatchTransactionService;
 
         [ObservableProperty]
-        ObservableCollection<WaitingOrderLine> changedLineList;
+        ObservableCollection<DispatchTransactionLine> changedLineList;
 
         public ObservableCollection<Driver> DriverItems { get; } = new();
 
@@ -63,6 +63,11 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
         [ObservableProperty]
         ShipInfo shipInfo;
 
+        [ObservableProperty]
+        public bool isVisible = false;
+
+        [ObservableProperty]
+        public bool isNotVisible = true;
 
         public ReturnByPurchaseDispatchTransactionFormViewModel(IHttpClientService httpClientService, IDriverService driverService, ICarrierService carrierService, ISpeCodeService speCodeService, IPurchaseReturnDispatchTransactionService purchaseReturnDispatchTransactionService)
         {
@@ -222,6 +227,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                 purchaseDispatchTransactionDto.TransactionType = 1;
                 //retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
                 purchaseDispatchTransactionDto.Description = SalesFormModel.Description;
+                purchaseDispatchTransactionDto.IOType = 4;
                 purchaseDispatchTransactionDto.CurrentCode = ChangedLineList.FirstOrDefault().CurrentCode;
                 purchaseDispatchTransactionDto.CurrentReferenceId = ChangedLineList.FirstOrDefault().CurrentReferenceId;
 
@@ -238,26 +244,27 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                     purchaseDispatchLine.Quantity = item.Quantity;
                     purchaseDispatchLine.UnitsetCode = item.UnitsetCode;
                     purchaseDispatchLine.UnitsetReferenceId = item.UnitsetReferenceId;
-                    purchaseDispatchLine.TransactionType = 1;
+                    purchaseDispatchLine.TransactionType = 6;
+                    purchaseDispatchLine.IOType = 4;
                     purchaseDispatchLine.SubUnitsetCode = item.SubUnitsetCode;
                     purchaseDispatchLine.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
-                    purchaseDispatchLine.OrderReferenceId = item.ReferenceId;
                     purchaseDispatchLine.WarehouseNumber = Warehouse.Number;
+                    purchaseDispatchLine.DispatchReferenceId = item.ReferenceId;
                     purchaseDispatchTransactionDto.Lines.Add(purchaseDispatchLine);
                 }
 
-                //var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
-                //if (result.IsSuccess)
-                //{
-                //    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                //    {
-                //        ["GroupType"] = 2
-                //    });
-                //}
-                //else
-                //{
-                //    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                //}
+                var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
+                if (result.IsSuccess)
+                {
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 2
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
 
             }
             catch (Exception ex)

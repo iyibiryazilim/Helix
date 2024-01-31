@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.WarehouseTransferOperationViews.WarehouseTransferOperationFormView"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-    xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels"
-    Title="{Binding Title}"
-    x:DataType="viewModel:WarehouseTransferOperationFormViewModel"
-    BackgroundColor="{StaticResource Primary}"
-    Shell.TabBarIsVisible="False">
-
-
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.TransferTransactionOperationViews.TransferTransactionOperationFormView"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.TransferTransactionOperationViewModels"
+             x:DataType="viewModel:TransferTransactionOperationFormViewModel"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}"
+             Title="{Binding Title}">
     <Border
-        Grid.Row="0"
-        Padding="5,20,5,10"
-        BackgroundColor="{StaticResource WhiteSmoke}"
-        StrokeThickness="0">
+      Grid.Row="0"
+      Padding="5,20,5,10"
+      BackgroundColor="{StaticResource WhiteSmoke}"
+      StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
@@ -36,10 +33,10 @@
 
                     <!--  Tarih ve Saat  -->
                     <Grid
-                        Grid.Row="1"
-                        Padding="7"
-                        ColumnSpacing="5"
-                        Grid.ColumnDefinitions="50*,50*">
+                      Grid.Row="1"
+                      Padding="7"
+                      ColumnSpacing="5"
+                      Grid.ColumnDefinitions="50*,50*">
                         <VerticalStackLayout Grid.Column="0">
                             <Label FontSize="Medium" Text="Tarih" />
                             <Border StrokeShape="RoundRectangle 13">
@@ -59,7 +56,7 @@
                     <VerticalStackLayout Grid.Row="2" Padding="7">
                         <Label FontSize="Medium" Text="Çıkış Ambarı" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry IsReadOnly="True" Placeholder="{Binding Warehouse.Name}" PlaceholderColor="{StaticResource Black}"/>
+                            <Entry IsReadOnly="True" Placeholder="{Binding TransferTransactionModel.ExitWarehouse.Name}" PlaceholderColor="{StaticResource Black}"/>
 
                         </Border>
                     </VerticalStackLayout>
@@ -68,7 +65,7 @@
                     <VerticalStackLayout Grid.Row="3" Padding="7">
                         <Label FontSize="Medium" Text="Giriş Ambarı" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry IsReadOnly="True" Placeholder="{Binding SelectedWarehouse.Name}" PlaceholderColor="{StaticResource Black}"/>
+                            <Entry IsReadOnly="True" Placeholder="{Binding TransferTransactionModel.EntryWarehouse.Name}" PlaceholderColor="{StaticResource Black}"/>
 
                         </Border>
                     </VerticalStackLayout>
@@ -80,16 +77,16 @@
                             <Grid ColumnDefinitions="85*,15*">
                                 <Entry Grid.Column="0" Placeholder="Özel Kod Giriniz" Text="{Binding SpeCode}"/>
                                 <ImageButton
-                                    Grid.Column="1"
-                                    Aspect="AspectFit" Command="{Binding GetSpeCodeCommand}"
-                                    BackgroundColor="Transparent"
-                                    HeightRequest="22"
-                                    WidthRequest="22">
+                                  Grid.Column="1"
+                                  Aspect="AspectFit" Command="{Binding GetSpeCodeCommand}"
+                                  BackgroundColor="Transparent"
+                                  HeightRequest="22"
+                                  WidthRequest="22">
                                     <ImageButton.Source>
                                         <FontImageSource
-                                            FontFamily="FAS"
-                                            Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
-                                            Color="{StaticResource DarkPrimary}" />
+                                          FontFamily="FAS"
+                                          Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
+                                          Color="{StaticResource DarkPrimary}" />
                                     </ImageButton.Source>
                                 </ImageButton>
 
@@ -107,7 +104,7 @@
                 </Grid>
             </ScrollView>
             <Grid Grid.Row="1">
-                <Button Margin="5" Text="Kaydet" Command="{Binding GoToSuccessPageViewCommand}" />
+                <Button Margin="5" Text="Kaydet" Command="{Binding TransferTransactionInsertCommand}" />
             </Grid>
 
         </Grid>

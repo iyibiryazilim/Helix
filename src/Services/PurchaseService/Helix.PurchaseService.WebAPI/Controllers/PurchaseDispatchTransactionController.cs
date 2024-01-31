@@ -1,6 +1,9 @@
 ﻿using Consul;
+using Helix.EventBus.Base.Abstractions;
 using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.AggregateModelss;
+using Helix.PurchaseService.Domain.Dtos;
+using Helix.PurchaseService.Domain.Events;
 using Helix.PurchaseService.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using static Helix.PurchaseService.Infrastructure.Helper.Queries.PurchaseDispatchTransactionQuery;
@@ -13,12 +16,14 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 	{
 		private readonly ILogger<PurchaseDispatchTransactionController> _logger;
 		IConfiguration _configuration;
+		IEventBus _eventBus;
 		IPurchaseDispatchTransactionService _purchaseDispatchTransactionService;
-		public PurchaseDispatchTransactionController(IConfiguration configuration, IPurchaseDispatchTransactionService purchaseDispatchTransactionService, ILogger<PurchaseDispatchTransactionController> logger)
+		public PurchaseDispatchTransactionController(IConfiguration configuration, IPurchaseDispatchTransactionService purchaseDispatchTransactionService, ILogger<PurchaseDispatchTransactionController> logger,IEventBus eventBus)
 		{
 			_configuration = configuration;
 			_purchaseDispatchTransactionService = purchaseDispatchTransactionService;
 			_logger = logger;
+			_eventBus = eventBus;
 		}
 		 
 		[HttpGet]
@@ -108,5 +113,12 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					return result;
 			} 
 		}
-	}
+
+        [HttpPost]
+        public async Task PurchaseDispatchTransactionInsert([FromBody] PurchaseDispatchTransactionDto purchaseDispatchTransactionDto)
+        {
+            _eventBus.Publish(new PurchaseDispatchTransactionInsertedIntegrationEvent(purchaseDispatchTransactionDto.referenceId, purchaseDispatchTransactionDto.transactionDate, purchaseDispatchTransactionDto.groupType, purchaseDispatchTransactionDto.iOType, purchaseDispatchTransactionDto.transactionType, purchaseDispatchTransactionDto.warehouseNumber, purchaseDispatchTransactionDto.currentReferenceId, purchaseDispatchTransactionDto.currentCode, purchaseDispatchTransactionDto.total, purchaseDispatchTransactionDto.totalVat, purchaseDispatchTransactionDto.netTotal, purchaseDispatchTransactionDto.description, purchaseDispatchTransactionDto.dispatchType, purchaseDispatchTransactionDto.speCode, purchaseDispatchTransactionDto.dispatchStatus, purchaseDispatchTransactionDto.isEDispatch, purchaseDispatchTransactionDto.doCode, purchaseDispatchTransactionDto.docTrackingNumber, purchaseDispatchTransactionDto.isEInvoice, purchaseDispatchTransactionDto.eDispatchProfileId, purchaseDispatchTransactionDto.eInvoiceProfileId, purchaseDispatchTransactionDto.lines));
+
+        }
+    }
 }

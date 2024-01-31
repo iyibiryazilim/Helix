@@ -18,11 +18,14 @@ public partial class PurchaseReturnDispatchTransactionFormContentView : ContentV
     public static readonly BindableProperty DriverListProperty = BindableProperty.Create(nameof(DriverList), typeof(ObservableCollection<Driver>), typeof(SalesDispatchFormContentView));
 
     //CarrierList
-    public static readonly BindableProperty CarrierListProperty = BindableProperty.Create(nameof(CarrierList), typeof(ObservableCollection<Carrier>), typeof(SalesDispatchFormContentView));
+    public static readonly BindableProperty CarrierListProperty = BindableProperty.Create(nameof(CarrierList), typeof(ObservableCollection<Carrier>), typeof(PurchaseReturnDispatchTransactionFormContentView));
+    public static readonly BindableProperty SupplierListProperty = BindableProperty.Create(nameof(SupplierList), typeof(ObservableCollection<Supplier>), typeof(PurchaseReturnDispatchTransactionFormContentView));
+    public static readonly BindableProperty ShipInfoListProperty = BindableProperty.Create(nameof(ShipInfoList), typeof(ObservableCollection<ShipInfo>), typeof(PurchaseReturnDispatchTransactionFormContentView));
+
 
     //SpeCodeList
-    public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(SalesDispatchFormContentView));
-    public static readonly BindableProperty SelectedTransactionTypeProperty = BindableProperty.Create(nameof(SelectedTransactionType), typeof(string), typeof(SalesDispatchFormContentView), null);
+    public static readonly BindableProperty SpeCodeListProperty = BindableProperty.Create(nameof(SpeCodeList), typeof(ObservableCollection<SpeCodeModel>), typeof(PurchaseReturnDispatchTransactionFormContentView));
+    public static readonly BindableProperty SelectedTransactionTypeProperty = BindableProperty.Create(nameof(SelectedTransactionType), typeof(string), typeof(PurchaseReturnDispatchTransactionFormContentView), null);
 
 
 
@@ -113,6 +116,17 @@ public partial class PurchaseReturnDispatchTransactionFormContentView : ContentV
     {
         get => GetValue(DriverListProperty) as ObservableCollection<Driver>;
         set => SetValue(DriverListProperty, value);
+    }
+    public ObservableCollection<Supplier> SupplierList
+    {
+        get => GetValue(SupplierListProperty) as ObservableCollection<Supplier>;
+        set => SetValue(SupplierListProperty, value);
+    }
+
+    public ObservableCollection<ShipInfo> ShipInfoList
+    {
+        get => GetValue(ShipInfoListProperty) as ObservableCollection<ShipInfo>;
+        set => SetValue(ShipInfoListProperty, value);
     }
 
     //get warehouse

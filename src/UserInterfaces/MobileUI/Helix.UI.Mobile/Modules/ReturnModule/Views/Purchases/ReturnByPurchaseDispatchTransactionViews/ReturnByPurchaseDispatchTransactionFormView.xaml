@@ -8,15 +8,16 @@
               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews" 
             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             Title="ReturnByPurchaseDispatchTransactionFormView">
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                      Command="{Binding GetDataCommand}" />
 
 
     </ContentPage.Behaviors>
-    <sharedViews:SalesDispatchFormContentView Warehouse="{Binding Warehouse}"
-                                           Customer="{Binding Current}" 
+    <sharedViews:PurchaseReturnDispatchTransactionFormContentView Warehouse="{Binding Warehouse}"
+                                           Supplier="{Binding Current}" 
                                            DriverList="{Binding DriverItems}"
                                            CarrierList="{Binding CarrierItems}"
                                            GoToSuccessPageViewCommand="{Binding PurchaseDispatchInsertCommand}"
@@ -26,5 +27,5 @@
                                            
                                            >
 
-    </sharedViews:SalesDispatchFormContentView>
+    </sharedViews:PurchaseReturnDispatchTransactionFormContentView>
 </ContentPage>

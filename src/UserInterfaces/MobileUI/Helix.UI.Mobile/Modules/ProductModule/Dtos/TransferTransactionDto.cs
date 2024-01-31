@@ -8,6 +8,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Dtos
         {
             Lines = new List<TransferTransactionLineDto>();
         }
+        public int? DestinationWarehouseNumber { get; set; }
         public IList<TransferTransactionLineDto> Lines { get; set; }
     }
 }

@@ -1,9 +1,11 @@
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurchaseDispatchTransactionViewModels;
+
 namespace Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnByPurchaseDispatchTransactionViews;
 
 public partial class ReturnByPurchaseDispatchTransactionFormView : ContentPage
 {
-	ReturnByPurchaseDispatchTransactionFormView _viewModel;
-	public ReturnByPurchaseDispatchTransactionFormView(ReturnByPurchaseDispatchTransactionFormView viewModel)
+	ReturnByPurchaseDispatchTransactionFormViewModel _viewModel;
+	public ReturnByPurchaseDispatchTransactionFormView(ReturnByPurchaseDispatchTransactionFormViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = viewModel;

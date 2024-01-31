@@ -12,5 +12,6 @@
              Shell.TabBarIsVisible="False"
              Title="{Binding Title}"> 
     <sharedViews:DispatchTransactionSummaryContentView Lines="{Binding ChangedLineList}"
+                                                       Supplier="{Binding Current}"
                                                        GoToNextCommand="{Binding GoToOrderFormCommand}"></sharedViews:DispatchTransactionSummaryContentView>
 </ContentPage>

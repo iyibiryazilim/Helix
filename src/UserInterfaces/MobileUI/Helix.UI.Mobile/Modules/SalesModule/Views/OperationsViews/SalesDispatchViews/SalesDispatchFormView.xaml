@@ -13,23 +13,20 @@
              Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetWarehouseCommand}"
+                                        Command="{Binding GetDataCommand}"
                                         />
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetCustomerCommand}" />
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetDriverCommand}" />
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetCarrierCommand}" />
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding GetSpeCodeCommand}" />
+       
     </ContentPage.Behaviors>
     
     <sharedViews:SalesDispatchFormContentView 
-                                              
+                                              Warehouse="{Binding Warehouse}"
+                                              CustomerList="{Binding CustomerItems}"
                                               DriverList="{Binding DriverItems}"
                                               CarrierList="{Binding CarrierItems}"
+                                              SalesFormModel="{Binding SalesFormModel}"
+                                              ShipInfoList="{Binding ShipInfoItems}"
                                               SpeCodeList="{Binding SpeCodeModelItems}"
+                                              GoToSuccessPageViewCommand="{Binding InsertCommand}"
                                               >
         
     </sharedViews:SalesDispatchFormContentView>

@@ -83,6 +83,12 @@ public partial class SuccessPageViewModel : BaseViewModel
                     await Shell.Current.GoToAsync("..");
                     await Shell.Current.GoToAsync("..");
                     break;
+                case 100:
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync("..");
+
+                    break;
                 default:
                     Application.Current.MainPage = new AppShell();
                     break;

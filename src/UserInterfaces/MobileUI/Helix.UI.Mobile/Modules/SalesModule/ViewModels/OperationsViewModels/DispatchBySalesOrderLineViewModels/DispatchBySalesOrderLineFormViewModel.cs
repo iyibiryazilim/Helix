@@ -67,6 +67,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         [ObservableProperty]
         ShipInfo shipInfo;
 
+        [ObservableProperty]
+        public bool isVisible = false;
+
         public DispatchBySalesOrderLineFormViewModel(IHttpClientService httpClientService, ICarrierService carrierService, IDriverService driverService, ISpeCodeService speCodeService,IRetailSalesDispatchTransactionService retailSalesDispatchTransactionService,IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService)
         {
             Title = "Form";
