@@ -25,5 +25,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Models
 
 		[ObservableProperty]
 		string description;
+
+		[ObservableProperty]
+		Supplier selectedSupplier;
 	}
 }
