@@ -14,16 +14,16 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 				cfg.AddProfile<RetailSalesDispatchTransactionProfile>();
 				cfg.AddProfile<ConsumableTransactionLineProfile>();
 				cfg.AddProfile<ConsumableTransactionProfile>();
-				//cfg.AddProfile<WholeSalesDispatchTransactionLineProfile>();
-				//cfg.AddProfile<WholeSalesDispatchTransactionProfile>();
+				cfg.AddProfile<WholeSalesDispatchTransactionLineProfile>();
+				cfg.AddProfile<WholeSalesDispatchTransactionProfile>();
 				cfg.AddProfile<RetailSalesReturnDispatchTransactionLineProfile>();
 				cfg.AddProfile<RetailSalesReturnDispatchTransactionProfile>();
 				cfg.AddProfile<WholeSalesReturnTransactionLineProfile>();
 				cfg.AddProfile<WholeSalesReturnTransactionProfile>();
-				//cfg.AddProfile<PurchaseDispatchTransactionLineProfile>();
-				//cfg.AddProfile<PurchaseDispatchTransactionProfile>();
-				//cfg.AddProfile<PurchaseReturnDispatchTransactionLineProfile>();
-				//cfg.AddProfile<PurchaseReturnDispatchTransactionProfile>();
+				cfg.AddProfile<PurchaseDispatchTransactionLineProfile>();
+				cfg.AddProfile<PurchaseDispatchTransactionProfile>();
+				cfg.AddProfile<PurchaseReturnDispatchTransactionLineProfile>();
+				cfg.AddProfile<PurchaseReturnDispatchTransactionProfile>();
 				cfg.AddProfile<WastageTransactionProfile>();
 				cfg.AddProfile<WastageTransactionLineProfile>();
 				cfg.AddProfile<InCountingTransactionProfile>();
@@ -32,8 +32,8 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 				cfg.AddProfile<OutCountingTransactionLineProfile>();
 				cfg.AddProfile<ProductionTransactionProfile>();
 				cfg.AddProfile<ProductionTransactionLineProfile>();
-				//cfg.AddProfile<TransferTransactionProfile>();
-				//cfg.AddProfile<TransferTransactionLineProfile>();
+				cfg.AddProfile<TransferTransactionProfile>();
+				cfg.AddProfile<TransferTransactionLineProfile>();
 				cfg.AllowNullCollections = true;
 
 			});

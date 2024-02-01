@@ -10,8 +10,8 @@ namespace Helix.LBSService.EventConsumer.Helper
 	public class MessageConsumer<TDto> : IDisposable
 	{
 		private readonly IService<TDto> _service;
-		private readonly ConnectionFactory _factory;
-		private readonly IModel _channel;
+		private  ConnectionFactory _factory;
+		private  IModel _channel;
 		private readonly HttpClient _httpClient;
 
 		private readonly string _queueName;
@@ -22,33 +22,42 @@ namespace Helix.LBSService.EventConsumer.Helper
 			_service = service;
 			_httpClient = httpClient;
 			_queueName = queueName;
-			_exchange = exchange;
-
-			_factory = new ConnectionFactory
-			{
-				Uri = new Uri(ApplicationParameter.RabbitMQAdress)
-			};
-
-			var connection = _factory.CreateConnection();
-			_channel = connection.CreateModel();
-			_channel.ExchangeDeclare(exchange: _exchange, type: "direct");
-			_channel.QueueBind(_queueName, exchange: _exchange, routingKey: _queueName);
+			_exchange = exchange; 
 		}
 
 		public async Task ProcessMessagesAsync()
 		{
-			await Task.Run(GetMessageFromQueue);
+			_factory = new ConnectionFactory
+			{   
+				Uri = new Uri(ApplicationParameter.RabbitMQAdress)
+			};
+
+			while (true)
+			{
+				try
+				{
+					var connection = _factory.CreateConnection();
+					_channel = connection.CreateModel();
+					_channel.ExchangeDeclare(exchange: _exchange, type: "direct");
+					_channel.QueueBind(_queueName, exchange: _exchange, routingKey: _queueName);
+
+					await Task.Run(GetMessageFromQueue);
+				}
+				catch (Exception ex)
+				{
+					Log.Debug($"Error: {ex.Message} - {_queueName}");
+					await Task.Delay(TimeSpan.FromMinutes(1));
+				}
+			}
 		}
 
-		private async Task<bool> PostDtoToApiAsync(TDto dto, string apiEndpoint)
+		private async Task<bool> PostDtoToApiAsync(string dto, string apiEndpoint)
 		{
 			try
 			{
-				string apiUrl = ApplicationParameter.ApiAdress; // Replace with your actual API endpoint
+				string apiUrl = ApplicationParameter.ApiAdress; // Replace with your actual API endpoint 
 
-				string jsonDto = JsonConvert.SerializeObject(dto);
-
-				StringContent content = new StringContent(jsonDto, Encoding.UTF8, "application/json");
+				StringContent content = new StringContent(dto, Encoding.UTF8, "application/json");
 
 				HttpResponseMessage response = await _httpClient.PostAsync(apiUrl + apiEndpoint, content);
 
@@ -102,9 +111,8 @@ namespace Helix.LBSService.EventConsumer.Helper
 						var body = ea.Body.ToArray();
 						var message = Encoding.UTF8.GetString(body);
 						Log.Information($" [x] Received {message}");
-						dto = JsonConvert.DeserializeObject<TDto>(message);
-
-						bool result = await PostDtoToApiAsync(dto, _service.GetApiEndpoint());
+ 
+						bool result = await PostDtoToApiAsync(message, _service.GetApiEndpoint());
 
 						if (result)
 						{

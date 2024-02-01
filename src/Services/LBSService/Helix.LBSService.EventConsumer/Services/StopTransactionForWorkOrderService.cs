@@ -8,7 +8,7 @@ namespace Helix.LBSService.EventConsumer.Services
 	{
 		public string GetApiEndpoint()
 		{
-			return "/api/WorkOrder/Status"; // Replace with your actual API endpoint
+			return "/api/WorkOrder/StopTransaction"; // Replace with your actual API endpoint
 
 		}
 	}
