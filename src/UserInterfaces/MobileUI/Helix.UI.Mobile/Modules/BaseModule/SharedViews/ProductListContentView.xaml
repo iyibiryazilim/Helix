@@ -29,7 +29,7 @@
                     <Grid ColumnDefinitions=".85*,.15*"
                           ColumnSpacing="5">
                         <SearchBar x:Name="searchBar"
-                                   Placeholder="Ürün Ara..."
+                                   Placeholder="Malzeme ara"
                                    Grid.Column="0">
                             <SearchBar.Behaviors>
                                 <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this}, Path=SearchCommand, Mode=TwoWay}"

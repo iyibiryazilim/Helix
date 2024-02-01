@@ -6,6 +6,7 @@
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
              x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews.ProductDetailAlternativeProductListView"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel"
              x:DataType="viewModel:ProductDetailAlternativeProductListViewModel"
              BackgroundColor="{StaticResource Primary}"
@@ -38,7 +39,7 @@
                                    Grid.Column="0"
                                    Placeholder="Malzeme Ara">
                             <SearchBar.Behaviors>
-                                <toolkit:EventToCommandBehavior Command="{Binding PerformSearchCommand}"
+                                <toolkit:EventToCommandBehavior Command="{Binding SearchCommand}"
                                                                 CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                                                                 EventName="TextChanged" />
                             </SearchBar.Behaviors>
@@ -82,11 +83,8 @@
                             <Border StrokeShape="RoundRectangle 10"
                                         BackgroundColor="{StaticResource White}"
                                         Padding="5"
-                                        Margin="10,0,10,0"
-                                        HeightRequest="85">
-                                   
-
-                                    <Grid ColumnDefinitions=".25*,.75*">
+                                        Margin="10,0,10,0">
+                                <Grid ColumnDefinitions=".25*,.75*">
                                         <Border Grid.Column="0"
                                                 StrokeShape="RoundRectangle 10"
                                                 WidthRequest="75"
@@ -175,7 +173,8 @@
                 </CollectionView>
 
             </RefreshView>
-          
+            <sharedViews:LoadingView IsBusy="{Binding IsBusy}" Grid.Row="1" />
+
         </Grid>
 
 

@@ -196,7 +196,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 			if (IsBusy) return;
 			try
 			{
-				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Code A-Z", "Code Z-A","Miktara Göre Artan","Miktara Göre Azalan");
+				string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Kod A-Z", "Kod Z-A","Miktara Göre Artan","Miktara Göre Azalan");
 				if (!string.IsNullOrEmpty(response))
 				{
 					CurrentPage = 0;
@@ -211,11 +211,11 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 							OrderBy = WarehouseTotalOrderBy.namedesc;
 							await ReloadAsync();
 							break;
-						case "Code A-Z":
-							OrderBy = WarehouseTotalOrderBy.codedesc;
+						case "Kod A-Z":
+							OrderBy = WarehouseTotalOrderBy.codeasc;
 							await ReloadAsync();
 							break;
-						case "Code Z-A":
+						case "Kod Z-A":
 							OrderBy = WarehouseTotalOrderBy.codedesc;
 							await ReloadAsync();
 							break;

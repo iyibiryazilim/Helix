@@ -379,6 +379,11 @@ public partial class SharedProductListViewModel :BaseViewModel
 						productionTransactionService.Items.ToList().First(x => x.Code == product.ProductCode).Quantity += 1;
 
 					}
+					//if (productionTransactionService.Results.ToList().Exists(x => x.Code == product.ProductCode))
+					//{
+					//	productionTransactionService.Results.ToList().First(x => x.Code == product.ProductCode).Quantity += 1;
+
+					//}
 					else
 					{
 						var model = new ProductModel
@@ -396,6 +401,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 						};
 						product.IsSelected = false;
 						productionTransactionService.Items.Add(model);
+                        productionTransactionService.Results.Add(model);
 					}
 
 				}

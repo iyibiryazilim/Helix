@@ -36,7 +36,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
 
         public ObservableCollection<Product> Items { get; } = new();
         public Command GetAlternativeProductsCommand { get; }
-        public Command<string> PerformSearchCommand { get; }
+        public Command<string> SearchCommand { get; }
 
         public ProductDetailAlternativeProductListViewModel(IHttpClientService httpClientService, IProductService productService)
         {
@@ -44,7 +44,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
             _httpClientService = httpClientService;
             _productService = productService;
             GetAlternativeProductsCommand = new Command(async () => await LoadData());
-            PerformSearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
+            SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
 
         }
         async Task LoadData()
@@ -125,7 +125,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Warehouse Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -137,24 +137,21 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
         [RelayCommand]
         async Task ReloadAsync()
         {
-            if (IsBusy) return;
+            //if (IsBusy) return;
             try
             {
                 IsBusy = true;
                 IsRefreshing = true;
+                IsRefreshing = false;
 
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
                 CurrentPage = 0;
                 var result = await _productService.GetAlternativeProducts(httpClient, Product.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
 
-                if (result.Data.Any())
+				Items.Clear();
+                foreach (var item in result.Data)
                 {
-                    Items.Clear();
-
-                    foreach (var item in result.Data)
-                    {
-                        Items.Add(item);
-                    }
+                    Items.Add(item);
                 }
             }
             catch (Exception ex)
@@ -207,7 +204,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Sort Warehouse Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {

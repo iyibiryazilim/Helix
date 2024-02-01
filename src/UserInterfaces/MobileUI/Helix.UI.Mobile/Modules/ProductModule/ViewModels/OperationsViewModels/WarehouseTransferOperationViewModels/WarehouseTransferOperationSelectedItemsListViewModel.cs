@@ -27,7 +27,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 
 	public WarehouseTransferOperationSelectedItemsListViewModel()
 	{
-		Title = "Seçilen Ürünler";
+		Title = "Seçilen Malzemeler";
 
 		SearchCommand = new Command<string>(async (text) => await PerformSearchAsync(text));
 		GetSelectedItemsCommand = new Command(async () => await LoadData());
@@ -103,7 +103,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 			IsBusy = true;
 			IsRefreshing = true;
 
-			bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.ProductName} adlı ürün çıkartılacaktır. Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
+			bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.ProductName} adlı malzeme çıkartılacaktır. Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
 			if (answer)
 			{
 				item.IsSelected = false;
@@ -115,7 +115,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Ürün Silme Hatası", ex.Message, "Tamam");
+			await Shell.Current.DisplayAlert("Malzeme Silme Hatası", ex.Message, "Tamam");
 		}
 		finally
 		{
@@ -337,7 +337,7 @@ public partial class WarehouseTransferOperationSelectedItemsListViewModel : Base
 
 			if(Result.Count < 1)
 			{
-				await Shell.Current.DisplayAlert("Hata", "Seçili bir ürününüz olmadığından dolayı sonraki sayfaya geçiş yapamazsınız", "Tamam");
+				await Shell.Current.DisplayAlert("Hata", "Seçili bir malzemeniz olmadığından dolayı sonraki sayfaya geçiş yapamazsınız", "Tamam");
 			}else
 			{
 				await Shell.Current.GoToAsync($"{nameof(WarehouseTransferOperationTransferredWarehouseListView)}", new Dictionary<string, object>

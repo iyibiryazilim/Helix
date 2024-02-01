@@ -174,7 +174,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
             }
             finally
             {
@@ -189,27 +189,13 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
             if (IsBusy) return;
             try
             {
-                string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Numara A-Z", "Numara Z-A", "Ad A-Z", "Ad Z-A");
+                string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ad A-Z", "Ad Z-A", "Numaraya Göre Artan", "Numaraya Göre Azalan");
                 if (!string.IsNullOrEmpty(response))
                 {
                     CurrentPage = 0;
                     await Task.Delay(100);
                     switch (response)
                     {
-                        case "Numara A-Z":
-                            Results.Clear();
-                            foreach (var item in Items.OrderBy(x => x.Number).ToList())
-                            {
-                                Results.Add(item);
-                            }
-                            break;
-                        case "Numara Z-A":
-                            Results.Clear();
-                            foreach (var item in Items.OrderByDescending(x => x.Number).ToList())
-                            {
-                                Results.Add(item);
-                            }
-                            break;
                         case "Ad A-Z":
                             Results.Clear();
                             foreach (var item in Items.OrderBy(x => x.Name).ToList())
@@ -220,6 +206,20 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                         case "Ad Z-A":
                             Results.Clear();
                             foreach (var item in Items.OrderByDescending(x => x.Name).ToList())
+                            {
+                                Results.Add(item);
+                            }
+                            break;
+                        case "Numaraya Göre Artan":
+                            Results.Clear();
+                            foreach (var item in Items.OrderBy(x => x.Number).ToList())
+                            {
+                                Results.Add(item);
+                            }
+                            break;
+                        case "Numaraya Göre Azalan":
+                            Results.Clear();
+                            foreach (var item in Items.OrderByDescending(x => x.Number).ToList())
                             {
                                 Results.Add(item);
                             }

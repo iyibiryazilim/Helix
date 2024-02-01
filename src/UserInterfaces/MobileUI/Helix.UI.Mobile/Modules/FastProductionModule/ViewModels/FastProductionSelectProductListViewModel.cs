@@ -24,7 +24,7 @@ public partial class FastProductionSelectProductListViewModel : BaseViewModel
 
 	public FastProductionSelectProductListViewModel(IHttpClientService httpClientService, IWarehouseTotalService warehouseTotalService, IServiceProvider serviceProvider)
 	{
-		Title = "Ürün Listesi";
+		Title = "Malzeme Listesi";
 		_httpClientService = httpClientService;
 		_warehouseTotalService = warehouseTotalService;
 		_serviceProvider = serviceProvider;
@@ -239,7 +239,7 @@ public partial class FastProductionSelectProductListViewModel : BaseViewModel
 			return;
 		if(SelectedProduct is null)
 		{
-			await Shell.Current.DisplayAlert("Hata", "Lütfen bir ürün seçiniz.", "Tamam");
+			await Shell.Current.DisplayAlert("Hata", "Lütfen malzeme seçiniz.", "Tamam");
 			return;
 		}
 		try
