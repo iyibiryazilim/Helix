@@ -8,7 +8,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class SpeCodeController : ControllerBase
     {
         ISpeCodeModelService _speCodeService;

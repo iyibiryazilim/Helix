@@ -8,7 +8,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
+	//[Authorize]
 	public class WorkstationController : ControllerBase
 	{
 		IWorkstationService _workstationService;

@@ -9,7 +9,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	[Authorize]
+	//[Authorize]
 	public class SupplierTransactionController : ControllerBase
     {
         ISupplierTransactionService _supplierTransactionService;

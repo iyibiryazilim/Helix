@@ -7,7 +7,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
+	//[Authorize]
 	public class StopCauseController : ControllerBase
 	{
 		IStopCauseService _stopCauseService;

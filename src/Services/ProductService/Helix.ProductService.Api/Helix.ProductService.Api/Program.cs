@@ -10,7 +10,7 @@ using Helix.ProductService.Infrastructure.Repository;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.ConfigureAuth(builder.Configuration);
+//builder.Services.ConfigureAuth(builder.Configuration);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
