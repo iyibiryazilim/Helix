@@ -1,9 +1,9 @@
-﻿using Helix.LBSService.EventConsumer.Helper;
-using Helix.LBSService.Tiger.DTOs;
+﻿using Helix.LBSService.EventConsumer.Dtos;
+using Helix.LBSService.EventConsumer.Helper;
 
 namespace Helix.LBSService.EventConsumer.Consumers
 {
-    public class WastageTransactionConsumer : IDisposable
+	public class WastageTransactionConsumer : IDisposable
     {
         private readonly MessageConsumer<WastageTransactionDto> _messageConsumer;
 

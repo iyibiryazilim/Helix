@@ -16,10 +16,10 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 				cfg.AddProfile<ConsumableTransactionProfile>();
 				//cfg.AddProfile<WholeSalesDispatchTransactionLineProfile>();
 				//cfg.AddProfile<WholeSalesDispatchTransactionProfile>();
-				//cfg.AddProfile<RetailSalesReturnDispatchTransactionLineProfile>();
-				//cfg.AddProfile<RetailSalesReturnDispatchTransactionProfile>();
-				//cfg.AddProfile<WholeSalesReturnTransactionLineProfile>();
-				//cfg.AddProfile<WholeSalesReturnTransactionProfile>();
+				cfg.AddProfile<RetailSalesReturnDispatchTransactionLineProfile>();
+				cfg.AddProfile<RetailSalesReturnDispatchTransactionProfile>();
+				cfg.AddProfile<WholeSalesReturnTransactionLineProfile>();
+				cfg.AddProfile<WholeSalesReturnTransactionProfile>();
 				//cfg.AddProfile<PurchaseDispatchTransactionLineProfile>();
 				//cfg.AddProfile<PurchaseDispatchTransactionProfile>();
 				//cfg.AddProfile<PurchaseReturnDispatchTransactionLineProfile>();

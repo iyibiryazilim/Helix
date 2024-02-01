@@ -14,6 +14,7 @@ builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_ProductionTransactionService, LG_ProductionTransactionDataStore>();
 builder.Services.AddTransient<ILG_ConsumableTransactionService, LG_ConsumableTransactionDataStore>();
 builder.Services.AddTransient<ILG_RetailSalesDispatchTransactionService, LG_RetailSalesDispatchTransactionDataStore>();
+builder.Services.AddTransient<ILG_WholeSalesReturnDispatchTransactionService, LG_WholeSalesReturnDispatchTransactionDataStore>();
 
 builder.Services.AddTransient<ILG_STFICHE_Context, LG_STFICHE_Context>();
 
