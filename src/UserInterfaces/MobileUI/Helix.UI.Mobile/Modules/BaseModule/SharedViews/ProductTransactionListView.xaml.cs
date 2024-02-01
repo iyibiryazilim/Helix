@@ -9,6 +9,7 @@ public partial class ProductTransactionListView : ContentView
 	#region Properties --> Definition
 	public static readonly BindableProperty IsRefreshingProperty = BindableProperty.Create(nameof(IsRefreshing), typeof(bool), typeof(ProductTransactionListView), false);
 	public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(ProductTransactionListView), false);
+	public static readonly BindableProperty SearchBarTitleProperty = BindableProperty.Create(nameof(SearchBarTitle), typeof(string), typeof(ProductTransactionListView), string.Empty);
 	#endregion
 
 
@@ -34,6 +35,12 @@ public partial class ProductTransactionListView : ContentView
 	{
 		get => (bool)GetValue(IsBusyProperty);
 		set => SetValue(IsBusyProperty, value);
+	}
+
+	public string SearchBarTitle
+	{
+		get => GetValue(SearchBarTitleProperty) as string;
+		set => SetValue(SearchBarTitleProperty, value);
 	}
 	#endregion
 

@@ -14,6 +14,7 @@
     <Grid>
         <sharedViews:ProductTransactionListView ProductTransactionList="{Binding ProductTransactionPurchaseDispatchListItems}"
                                                 SearchCommand="{Binding SearchCommand}"
+                                                SearchBarTitle="Satınalma irsaliyesi ara"
                                                 LoadMoreCommand="{Binding LoadMoreCommand}"  
                                                 ReloadCommand="{Binding ReloadCommand}"
                                                 GoToBackCommand="{Binding GoToBackCommand}"
