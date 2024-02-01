@@ -15,7 +15,8 @@
     <sharedViews:ProductTransactionContentView GoToSharedProductListCommand="{Binding GoToSharedProductListCommand}"
                                                GetBackCommand="{Binding GetBackCommand}"
                                                GoToOperationFormCommand="{Binding GoToOperationFormCommand}"
-                                               ProductModelList="{Binding Items}"
+                                               ProductModelList="{Binding Results}"
+                                               SearchCommand="{Binding SearchCommand}"
                                                RemoveItemCommand="{Binding RemoveItemCommand}"
                                                AddQuantityCommand="{Binding AddQuantityCommand}"
                                                DeleteQuantityCommand="{Binding DeleteQuantityCommand}">

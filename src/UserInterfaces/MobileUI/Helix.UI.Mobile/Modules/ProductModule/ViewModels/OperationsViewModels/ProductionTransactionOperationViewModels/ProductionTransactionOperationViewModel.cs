@@ -16,15 +16,23 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 public partial class ProductionTransactionOperationViewModel : BaseViewModel
 {
     IHttpClientService _httpClientService;
+
+    public Command SearchCommand { get; }
     public ProductionTransactionOperationViewModel(IHttpClientService httpClientService)
     {
         Title = "Üretimden Giriş İşlemleri";
         _httpClientService = httpClientService;
+
+        SearchCommand = new Command<string>(async (searchText) => await PerformSearchAsync(searchText));
     }
     public ObservableCollection<ProductModel> Items { get; } = new();
+    public ObservableCollection<ProductModel> Results { get; } = new();
 
     [ObservableProperty]
     Warehouse warehouse;
+
+    [ObservableProperty]
+    string searchText = String.Empty;
 
     [RelayCommand]
     async Task GoToSharedProductList()
@@ -51,7 +59,7 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
 
         else
         {
-            await Shell.Current.DisplayAlert("Uyarı ", $"Ürün seçmediniz", "Kapat");
+            await Shell.Current.DisplayAlert("Uyarı ", $"Malzeme seçmediniz", "Kapat");
         }
 
     }
@@ -92,7 +100,7 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
             IsRefreshing = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-            bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.Name} ürün çıkartılacaktır.Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
+            bool answer = await Application.Current.MainPage.DisplayAlert("Uyarı", $"{item.Name} adlı malzeme çıkartılacaktır. Devam etmek istiyor musunuz ?", "Çıkart", "Vazgeç");
             if (answer)
                 Items.Remove(item);
         }
@@ -132,5 +140,44 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
             item.Quantity--;
 
 
+    }
+
+    async Task PerformSearchAsync(string text)
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                if(text.Length >= 3)
+                {
+                    SearchText = text.ToLower();
+                    Results.Clear();
+                    foreach(var item in Items.ToList().Where(x => x.Name.ToLower().Contains(SearchText) || x.Code.ToString().ToLower().Contains(SearchText)))
+                    {
+                        Results.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                SearchText = String.Empty;
+                Results.Clear();
+                foreach(var item in Items)
+                {
+					Results.Add(item);
+				}
+            }
+        }
+        catch(Exception ex)
+        {
+			Debug.WriteLine(ex);
+			await Application.Current.MainPage.DisplayAlert("Search Error :", ex.Message, "Tamam");
+		}
+        finally
+        {
+            IsBusy = false;
+        }
     }
 }
