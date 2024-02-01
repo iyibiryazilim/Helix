@@ -41,6 +41,7 @@ public partial class ProcurementBottomSheetViewModel :BaseViewModel
 
             if (SelectedProcurementCustomer.Orders.Any())
             {
+               await Task.Delay(500);
                 foreach (ProcurementCustomerOrder item in SelectedProcurementCustomer.Orders)
                 {
                     Items.Add(item);

@@ -9,7 +9,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Helpers.QueryHelper
     public class WarehouseQuery
     {
         static string CompanyNumber = "008";
-        static string CompanyPeriod = "01";
+        static string CompanyPeriod = "02";
 
         public string WarehouseDetailCardTypeCount(int number)
         {

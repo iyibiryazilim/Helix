@@ -38,7 +38,8 @@
                             <Label Text="{Binding salesPanelModel.SalesDispatchCount}"
                                    HorizontalOptions="Center"
                                    FontAttributes="Bold"
-                                   TextColor="{StaticResource Success}"></Label>
+                                   TextColor="{StaticResource Success}"
+                                   FontSize="19"></Label>
                             <BoxView HeightRequest="0.5"
                                      Color="{StaticResource Secondary}"></BoxView>
                             <Label Text="Satılan Ürün Miktarı"
@@ -52,6 +53,7 @@
                             <Label Text="{Binding salesPanelModel.PurchaseReturnCount}"
                                    HorizontalOptions="Center"
                                    FontAttributes="Bold"
+                                   FontSize="19"
                                    TextColor="{StaticResource Danger}"></Label>
                             <BoxView HeightRequest="0.5"
                                      Color="{StaticResource Secondary}"></BoxView>

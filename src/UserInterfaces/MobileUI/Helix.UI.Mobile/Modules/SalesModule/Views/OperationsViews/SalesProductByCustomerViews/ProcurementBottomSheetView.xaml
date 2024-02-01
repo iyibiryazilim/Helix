@@ -63,12 +63,14 @@
                             <DataTemplate x:DataType="baseModel:ProcurementCustomerOrder">
 
                                 <Border BackgroundColor="White"
+                                        
                                         StrokeShape="RoundRectangle 10">
-                                    <Grid ColumnDefinitions="Auto, Auto, *, Auto"
+                                    <Grid ColumnDefinitions="Auto, Auto, *"
                                           ColumnSpacing="10"
                                           Padding="0,0,10,0">
                                         <Border Grid.Column="0"
                                                 Margin="-2"
+                                               
                                                 WidthRequest="9"
                                                 BackgroundColor="{StaticResource Primary}"
                                                 StrokeShape="RoundRectangle 10,0,0,0">
@@ -116,26 +118,78 @@
                                             <Label Text="{Binding SalesOrderLine.ProductCode}"
                                                    FontAttributes="Bold" />
                                             <Label Text="{Binding SalesOrderLine.ProductName}"
-                                                   FontSize="12" />
+                                                   FontSize="12" LineBreakMode="TailTruncation" />
                                             <HorizontalStackLayout Spacing="13">
-                                                <VerticalStackLayout>
-                                                    <Label Text="Stok" FontSize="Caption"></Label>
-                                                    <BoxView HeightRequest="0.5"
-                                                             Color="{StaticResource Primary}">
-                                                    </BoxView>
-                                                    <Label Text="{Binding SalesOrderLine.Quantity}"
-                                                           FontSize="Caption"
-                                                           HorizontalOptions="Center" />
-                                                </VerticalStackLayout>
                                                 <VerticalStackLayout>
                                                     <Label Text="Bekleyen"
                                                            FontSize="Caption"></Label>
-                                                    <BoxView HeightRequest="0.5"
-                                                             Color="{StaticResource Primary}">
-                                                    </BoxView>
-                                                    <Label Text="{Binding SalesOrderLine.WaitingQuantity}"
-                                                           HorizontalOptions="Center"
-                                                           FontSize="Caption" />
+
+                                                    <Border Padding="10,5"
+                                                            BackgroundColor="{StaticResource Secondary}"
+                                                            HorizontalOptions="Start"
+                                                            StrokeShape="RoundRectangle 5"
+                                                            StrokeThickness="0">
+                                                        <Label TextColor="{StaticResource Primary}"
+                                                               VerticalOptions="Center"
+                                                               FontSize="10">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding SalesOrderLine.WaitingQuantity,StringFormat='{0:N2}'}" />
+                                                                    <Span Text=" " />
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding SalesOrderLine.SubUnitsetCode}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+
+                                                    </Border>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout>
+                                                    <Label Text="Toplanabilir" FontSize="Caption" ></Label>
+                                                    
+                                                    <Border Padding="10,5"
+                                                            BackgroundColor="{StaticResource Success}"
+                                                            HorizontalOptions="Start"
+                                                            StrokeShape="RoundRectangle 5"
+                                                            StrokeThickness="0">
+                                                        <Label TextColor="{StaticResource White}"
+                                                               VerticalOptions="Center"
+                                                               FontSize="10">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span FontAttributes="Bold" Text="{Binding ProcurementQuantity ,StringFormat='{0:N2}'}"/>
+                                                                    <Span Text=" " />
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding SalesOrderLine.SubUnitsetCode}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                    </Border>
+                                                </VerticalStackLayout>
+                                               
+                                                <VerticalStackLayout>
+                                                    <Label Text="Oran"
+                                                           FontSize="Caption" HorizontalOptions="Center"></Label>
+                                                    <Border Padding="10,5"
+                                                            HorizontalOptions="End"
+                                                            BackgroundColor="{StaticResource Warning}"
+                                                            StrokeShape="RoundRectangle 5"
+                                                            StrokeThickness="0">
+                                                        <Label TextColor="{StaticResource Primary}"
+                                                               VerticalOptions="Center"
+                                                               FontSize="10">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="%" />
+                                                                    <Span Text=" " />
+                                                                    <Span FontAttributes="Bold"
+                                                                          Text="{Binding ProcurementRate}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                    </Border>
                                                 </VerticalStackLayout>
 
                                                
@@ -150,27 +204,7 @@
                                             </HorizontalStackLayout>-->
 
                                         </VerticalStackLayout>
-                                        <Border Padding="10,5"
-                                                Grid.Column="3"
-                                                Margin="30"
-                                                BackgroundColor="{StaticResource Warning}"
-                                                HorizontalOptions="Start"
-                                                StrokeShape="RoundRectangle 5"
-                                                StrokeThickness="0">
-                                            <Label TextColor="{StaticResource Primary}"
-                                                   VerticalOptions="Center"
-                                                   FontSize="10">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold"
-                                                              Text="%" />
-                                                        <Span Text=" " />
-                                                        <Span FontAttributes="Bold"
-                                                              Text="{Binding ProcurementRate}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </Border>
+                                        
 
 
 

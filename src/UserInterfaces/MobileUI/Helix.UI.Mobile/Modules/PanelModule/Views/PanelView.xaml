@@ -76,6 +76,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
+                                   FontSize="20"
                                    Text="{Binding mainPanelModel.InputCount}"
                                    TextColor="{StaticResource Secondary}" />
                             <Label FontSize="Caption"
@@ -98,6 +99,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
+                                   FontSize="20"
                                    Text="{Binding mainPanelModel.OutputCount}"
                                    TextColor="{StaticResource Secondary}" />
                             <Label FontSize="Caption"
@@ -128,6 +130,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
+                                   FontSize="20"
                                    Text="{Binding mainPanelModel.WaitingSalesOrderCount}"
                                    TextColor="{StaticResource Primary}" />
                             <Label FontSize="Caption"
@@ -150,6 +153,7 @@
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    HorizontalOptions="Center"
+                                   FontSize="20"
                                    Text="{Binding mainPanelModel.WaitingPurchaseOrderCount}"
                                    TextColor="{StaticResource Primary}" />
                             <Label FontSize="Caption"
