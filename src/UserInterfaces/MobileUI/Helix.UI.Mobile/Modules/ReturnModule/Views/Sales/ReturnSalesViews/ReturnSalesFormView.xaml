@@ -16,7 +16,7 @@
                                         Command="{Binding GetCustomersCommand}" />
     </ContentPage.Behaviors>
     <sharedViews:ReturnDispatchTransactionFormContentView GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
-                                                          GoToSuccessPageViewCommand="{Binding GoToSuccessPageViewCommand}"
+                                                          GoToSuccessPageViewCommand="{Binding ReturnDispatchInsertCommand}"
                                                           PurchaseFormModel="{Binding PurchaseFormModel}"
                                                           CustomerList="{Binding CustomerList}"
                                                           IsPickerVisible="True"

@@ -2,11 +2,13 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Services;
 using Helix.UI.Mobile.Modules.ReturnModule.Dtos;
+using Helix.UI.Mobile.Modules.ReturnModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -24,8 +26,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 	{
 		IHttpClientService _httpClientService;
 		ISpeCodeService _speCodeService;
-		IPurchaseDispatchTransactionService _purchaseDispatchTransaction;
-
+		IRetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
+		IWholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;
 		public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 		public ObservableCollection<Customer> CustomerItems { get; } = new();
 
@@ -58,14 +60,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 		public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
 
-		public ReturnBySalesDispatchTransactionFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IPurchaseDispatchTransactionService purchaseDispatchTransaction)
+		public ReturnBySalesDispatchTransactionFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IPurchaseDispatchTransactionService purchaseDispatchTransaction,IRetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService,IWholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService)
 		{
 			Title = "Satış Form";
 			_httpClientService = httpClientService;
-
 			_speCodeService = speCodeService;
-			_purchaseDispatchTransaction = purchaseDispatchTransaction;
-
+			_retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService;
+			_wholeSalesReturnDispatchTransactionService = wholeSalesReturnDispatchTransactionService;
 		}
 
 
@@ -112,8 +113,130 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 		}
 
 
-		[RelayCommand]
-		async Task PurchaseDispatchInsert()
+		async Task RetailSalesReturnDispatchTransactionInsertAsync()
+		{
+            try
+            {
+                IsBusy = true;
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+                RetailSalesReturnDispatchTransactionInsertDto dto = new RetailSalesReturnDispatchTransactionInsertDto();
+                dto.WarehouseNumber = Warehouse.Number;
+                dto.TransactionDate = PurchaseFormModel.TransactionDate;
+                dto.TransactionType = 2;
+                //retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
+                dto.Description = PurchaseFormModel.Description;
+                dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
+                dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
+
+                foreach (var item in ChangedLines)
+                {
+                    RetailSalesReturnDispatchTransactionLineDto lineDto = new RetailSalesReturnDispatchTransactionLineDto();
+
+                    lineDto.ProductCode = item.ProductCode;
+                    lineDto.ProductReferenceId = item.ProductReferenceId;
+                    lineDto.CurrentCode = item.CurrentCode;
+                    lineDto.CurrentReferenceId = item.CurrentReferenceId;
+                    lineDto.Quantity = item.Quantity;
+                    lineDto.UnitsetCode = item.UnitsetCode;
+                    lineDto.UnitsetReferenceId = item.UnitsetReferenceId;
+                    lineDto.TransactionType = 2;
+                    lineDto.SubUnitsetCode = item.SubUnitsetCode;
+                    lineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
+                    lineDto.DispatchReferenceId = item.ReferenceId;
+                    lineDto.WarehouseNumber = Warehouse.Number;
+                    dto.Lines.Add(lineDto);
+                }
+
+                var result = await _retailSalesReturnDispatchTransactionService.InsertObject(httpClient, dto);
+                if (result.IsSuccess)
+                {
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 7
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Hata", ex.Message.ToString(), "Tamam");
+                //return ex.ToString();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        async Task WholeSalesReturnDispatchTransactionInsertAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+                WholeSalesReturnTransactionInsertDto _dto = new WholeSalesReturnTransactionInsertDto();
+                _dto.WarehouseNumber = Warehouse.Number;
+                _dto.TransactionDate = PurchaseFormModel.TransactionDate;
+                _dto.TransactionType = 3;
+                //retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
+                _dto.Description = PurchaseFormModel.Description;
+                _dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
+                _dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
+
+                foreach (var item in ChangedLines)
+                {
+                    WholeSalesReturnTransactionLineDto lineDto = new WholeSalesReturnTransactionLineDto();
+
+                    lineDto.ProductCode = item.ProductCode;
+                    lineDto.ProductReferenceId = item.ProductReferenceId;
+                    lineDto.CurrentCode = item.CurrentCode;
+                    lineDto.CurrentReferenceId = item.CurrentReferenceId;
+                    lineDto.Quantity = item.Quantity;
+                    lineDto.UnitsetCode = item.UnitsetCode;
+                    lineDto.UnitsetReferenceId = item.UnitsetReferenceId;
+                    lineDto.TransactionType = 3;
+                    lineDto.SubUnitsetCode = item.SubUnitsetCode;
+                    lineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
+                    lineDto.DispatchReferenceId = item.ReferenceId;
+                    lineDto.WarehouseNumber = Warehouse.Number;
+                    _dto.Lines.Add(lineDto);
+                }
+
+                var result = await _wholeSalesReturnDispatchTransactionService.InsertObject(httpClient, _dto);
+                if (result.IsSuccess)
+                {
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 7
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Hata", ex.Message.ToString(), "Tamam");
+                //return ex.ToString();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+		async Task ReturnDispatchInsert()
 		{
 			try
 			{
@@ -123,78 +246,15 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
 				switch (TransactionType)
 				{
 					case "Parakende Satış İade İrsaliyesi":
-						RetailSalesReturnDispatchTransactionInsertDto dto = new RetailSalesReturnDispatchTransactionInsertDto();
-						dto.WarehouseNumber = Warehouse.Number;
-						dto.TransactionDate = PurchaseFormModel.TransactionDate;
-						dto.TransactionType = 1;
-						//retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
-						dto.Description = PurchaseFormModel.Description;
-						dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
-						dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
-
-						foreach (var item in ChangedLines)
-						{
-							RetailSalesReturnDispatchTransactionLineDto lineDto = new RetailSalesReturnDispatchTransactionLineDto();
-
-							lineDto.ProductCode = item.ProductCode;
-							lineDto.ProductReferenceId = item.ProductReferenceId;
-							lineDto.CurrentCode = item.CurrentCode;
-							lineDto.CurrentReferenceId = item.CurrentReferenceId;
-							lineDto.Quantity = item.Quantity;
-							lineDto.UnitsetCode = item.UnitsetCode;
-							lineDto.UnitsetReferenceId = item.UnitsetReferenceId;
-							lineDto.TransactionType = 1;
-							lineDto.SubUnitsetCode = item.SubUnitsetCode;
-							lineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
-							lineDto.DispatchReferenceId = item.ReferenceId;
-							lineDto.WarehouseNumber = Warehouse.Number;
-							dto.Lines.Add(lineDto);
-						}
+						await RetailSalesReturnDispatchTransactionInsertAsync();
 						break;
 					case "Toptan Satış İade İrsaliyesi":
-						WholeSalesReturnTransactionInsertDto _dto = new WholeSalesReturnTransactionInsertDto();
-						_dto.WarehouseNumber = Warehouse.Number;
-						_dto.TransactionDate = PurchaseFormModel.TransactionDate;
-						_dto.TransactionType = 1;
-						//retailSalesDispatch.IsEDispatch = (short)DispatchBySalesOrder.SelectedCustomer.DispatchType;
-						_dto.Description = PurchaseFormModel.Description;
-						_dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
-						_dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
-
-						foreach (var item in ChangedLines)
-						{
-							WholeSalesReturnTransactionLineDto lineDto = new WholeSalesReturnTransactionLineDto();
-
-							lineDto.ProductCode = item.ProductCode;
-							lineDto.ProductReferenceId = item.ProductReferenceId;
-							lineDto.CurrentCode = item.CurrentCode;
-							lineDto.CurrentReferenceId = item.CurrentReferenceId;
-							lineDto.Quantity = item.Quantity;
-							lineDto.UnitsetCode = item.UnitsetCode;
-							lineDto.UnitsetReferenceId = item.UnitsetReferenceId;
-							lineDto.TransactionType = 1;
-							lineDto.SubUnitsetCode = item.SubUnitsetCode;
-							lineDto.SubUnitsetReferenceId = item.SubUnitsetReferenceId;
-							lineDto.DispatchReferenceId = item.ReferenceId;
-							lineDto.WarehouseNumber = Warehouse.Number;
-							_dto.Lines.Add(lineDto);
-						}
+						await WholeSalesReturnDispatchTransactionInsertAsync();
 						break;
 					default:
 						break;
 				} 
-				//var result = await _purchaseDispatchTransaction.InsertObject(httpClient, dto);
-				//if (result.IsSuccess)
-				//{
-				//	await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-				//	{
-				//		["GroupType"] = 1
-				//	});
-				//}
-				//else
-				//{
-				//	await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-				//}
+			
 
 			}
 			catch (Exception ex)

@@ -42,14 +42,14 @@
                             <Label Text="Tarih"
                                    FontSize="Medium" />
                             <Border StrokeShape="RoundRectangle 13">
-                                <DatePicker />
+                                <DatePicker Date="{Binding Source={x:Reference this},Path=PurchaseFormModel.TransactionDate}"/>
                             </Border>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1">
                             <Label Text="Saat"
                                    FontSize="Medium" />
                             <Border StrokeShape="RoundRectangle 13">
-                                <TimePicker />
+                                <TimePicker Time="{Binding Source={x:Reference this},Path=PurchaseFormModel.TransactionTime}"/>
                             </Border>
                         </VerticalStackLayout>
                     </Grid>
@@ -72,7 +72,7 @@
                         <Label Text="Müşteri"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="{Binding Source={x:Reference this},Path=BindingContext.Current.Name}"
+                            <Entry Placeholder="{Binding Source={x:Reference this},Path=BindingContext.Current.Name}" PlaceholderColor="{StaticResource Black}"
                                    IsEnabled="False" />
                         </Border>
                     </VerticalStackLayout>
@@ -107,7 +107,7 @@
                         <Label Text="Ambar"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="{Binding Source={x:Reference this},Path=BindingContext.Warehouse.Name}"
+                            <Entry Placeholder="{Binding Source={x:Reference this},Path=BindingContext.Warehouse.Name}" PlaceholderColor="{StaticResource Black}"
                                    IsEnabled="False" />
                         </Border>
                     </VerticalStackLayout>
@@ -142,7 +142,7 @@
                         <Label Text="Açıklama"
                                FontSize="Medium" />
                         <Border StrokeShape="RoundRectangle 13">
-                            <Entry Placeholder="{Binding Source={x:Reference this},Path=PurchaseFormModel.Description}" />
+                            <Entry Placeholder="Açıklama Giriniz" Text="{Binding Source={x:Reference this},Path=PurchaseFormModel.Description}"/>
                         </Border>
                     </VerticalStackLayout>
                 </Grid>
