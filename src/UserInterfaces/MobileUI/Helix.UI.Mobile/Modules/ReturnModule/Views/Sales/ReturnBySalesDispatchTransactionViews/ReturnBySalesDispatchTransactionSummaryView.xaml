@@ -18,5 +18,6 @@
     </ContentPage.Behaviors>
     <sharedViews:DispatchTransactionSummaryContentView Current="{Binding Current}"
                                            GoToNextCommand="{Binding GoToSalesOrderFormCommand}"
+                                           Customer="{Binding Current}"
                                            Lines="{Binding ChangedLineList}"></sharedViews:DispatchTransactionSummaryContentView>
 </ContentPage>

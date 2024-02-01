@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.PurchaseModule.Models;
+using Helix.UI.Mobile.Modules.SalesModule.Models;
 using System.Collections.ObjectModel;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -11,6 +12,8 @@ public partial class DispatchTransactionSummaryContentView : ContentView
 	public static readonly BindableProperty GoToNextCommandProperty = BindableProperty.Create(nameof(GoToNextCommand), typeof(AsyncRelayCommand), typeof(DispatchTransactionSummaryContentView), null);
 
 	public static readonly BindableProperty CurrentProperty = BindableProperty.Create(nameof(Current), typeof(Current), typeof(DispatchTransactionSummaryContentView), null);
+    public static readonly BindableProperty CustomerProperty = BindableProperty.Create(nameof(Customer), typeof(Customer), typeof(DispatchTransactionSummaryContentView), null);
+
     public static readonly BindableProperty SupplierProperty = BindableProperty.Create(nameof(Supplier), typeof(Supplier), typeof(DispatchTransactionSummaryContentView), null);
 
     public ObservableCollection<DispatchTransactionLine> Lines
@@ -28,6 +31,11 @@ public partial class DispatchTransactionSummaryContentView : ContentView
     {
         get => GetValue(SupplierProperty) as Supplier;
         set => SetValue(SupplierProperty, value);
+    }
+    public Customer Customer
+    {
+        get => GetValue(CustomerProperty) as Customer;
+        set => SetValue(CustomerProperty, value);
     }
     public AsyncRelayCommand GoToNextCommand
 	{

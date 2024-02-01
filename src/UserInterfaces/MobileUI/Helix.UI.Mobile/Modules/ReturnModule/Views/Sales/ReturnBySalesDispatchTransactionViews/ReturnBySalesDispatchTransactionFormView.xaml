@@ -10,7 +10,7 @@
              BackgroundColor="{StaticResource Primary}"
              Title="{Binding Title}">
     <sharedViews:ReturnDispatchTransactionFormContentView GetSpeCodeCommand="{Binding GetSpeCodeCommand}"
-                                                          GoToSuccessPageViewCommand="{Binding PurchaseDispatchInsertCommand}"
+                                                          GoToSuccessPageViewCommand="{Binding ReturnDispatchInsertCommand}"
                                                           PurchaseFormModel="{Binding PurchaseFormModel}"
                                                           IsPickerVisible="false"
                                                           Warehouse="{Binding Warehouse}"></sharedViews:ReturnDispatchTransactionFormContentView>

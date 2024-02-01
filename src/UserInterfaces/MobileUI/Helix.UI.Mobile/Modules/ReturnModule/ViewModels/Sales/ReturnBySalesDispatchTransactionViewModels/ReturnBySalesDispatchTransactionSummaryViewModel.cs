@@ -85,7 +85,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
         {
             await Shell.Current.GoToAsync($"{nameof(ReturnBySalesDispatchTransactionFormView)}", new Dictionary<string, object>
             {
-                [nameof(ChangedLineList)] = ChangedLineList,
+                ["ChangedLines"] = ChangedLineList,
 				[nameof(Current)] = Current,
 				[nameof(Warehouse)] = Warehouse
 
