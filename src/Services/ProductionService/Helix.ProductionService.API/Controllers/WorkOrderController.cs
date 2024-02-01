@@ -10,7 +10,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
+	//[Authorize]
 	public class WorkOrderController : ControllerBase
 	{
 		IWorkOrderService _workOrderService;

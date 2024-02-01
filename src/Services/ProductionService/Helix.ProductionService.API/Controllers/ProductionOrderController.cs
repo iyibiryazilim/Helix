@@ -9,7 +9,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
+	//[Authorize]
 	public class ProductionOrderController : ControllerBase
 	{
 		IProductionOrderService _productionOrderService;

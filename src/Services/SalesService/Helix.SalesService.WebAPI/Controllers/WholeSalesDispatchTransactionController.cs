@@ -12,7 +12,7 @@ namespace Helix.SalesService.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class WholeSalesDispatchTransactionController : ControllerBase
 {
 	IWholeSalesDispatchTransactionService _wholeSalesDispatchTransactionService;

@@ -16,7 +16,7 @@ IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettin
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
 
-builder.Services.ConfigureAuth(builder.Configuration);
+//builder.Services.ConfigureAuth(builder.Configuration);
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
