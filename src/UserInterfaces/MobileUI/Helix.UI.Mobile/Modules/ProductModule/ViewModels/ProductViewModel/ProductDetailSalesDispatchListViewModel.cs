@@ -88,7 +88,7 @@ public partial class ProductDetailSalesDispatchListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Product Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 
 		}
 		finally
@@ -113,9 +113,10 @@ public partial class ProductDetailSalesDispatchListViewModel : BaseViewModel
 			CurrentPage = 0;
 
 			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "7,8", SearchText, OrderBy, CurrentPage, PageSize);
+
+			ProductTransactionSalesDispatchListItems.Clear();
 			if (result.Data.Any())
 			{
-				ProductTransactionSalesDispatchListItems.Clear();
 				foreach (var item in result.Data)
 				{
 					await Task.Delay(200);

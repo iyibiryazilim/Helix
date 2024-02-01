@@ -15,6 +15,7 @@
         <sharedViews:ProductTransactionListView ProductTransactionList="{Binding ProductTransactionSalesDispatchListItems}"
                                                 SearchCommand="{Binding SearchCommand}"
                                                 LoadMoreCommand="{Binding LoadMoreCommand}"  
+                                                SearchBarTitle="Satış İrsaliyesi ara"
                                                 ReloadCommand="{Binding ReloadCommand}"
                                                 GoToBackCommand="{Binding GoToBackCommand}"
                                                 SortCommand="{Binding SortCommand}"

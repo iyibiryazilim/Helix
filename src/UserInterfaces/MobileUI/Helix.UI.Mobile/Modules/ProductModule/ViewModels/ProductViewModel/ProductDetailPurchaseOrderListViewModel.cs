@@ -80,9 +80,9 @@ public partial class ProductDetailPurchaseOrderListViewModel : BaseViewModel
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			var result = await _purchaseOrderLineService.GetWaitingOrdersByProductId(httpClient, SearchText, OrderBy, Product.ReferenceId, CurrentPage, PageSize);
 
-            if (result.Data.Any())
+			Items.Clear();
+			if (result.Data.Any())
             {
-                Items.Clear();
 				foreach (var item in result.Data)
 				{
 					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
