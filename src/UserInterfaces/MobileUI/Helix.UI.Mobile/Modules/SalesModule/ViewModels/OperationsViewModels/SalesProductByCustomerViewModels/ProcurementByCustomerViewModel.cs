@@ -262,7 +262,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
             {
 
                 Debug.WriteLine(ex.Message);
-                await Shell.Current.DisplayAlert("Procurement  Error", ex.Message, "Tamam");
+                await Shell.Current.DisplayAlert("Uyarı", "Devam etmek için müşteri seçiniz", "Tamam");
             }
         }
 

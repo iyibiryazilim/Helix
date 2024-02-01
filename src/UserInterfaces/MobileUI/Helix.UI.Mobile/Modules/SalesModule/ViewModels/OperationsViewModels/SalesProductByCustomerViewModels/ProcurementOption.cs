@@ -6,6 +6,8 @@ using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews;
 using Helix.UI.Mobile.MVVMHelper;
 using Kotlin.Properties;
+using Microsoft.Maui.Controls;
+using View = Android.Views.View;
 
 namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesProductByCustomerViewModels
 {
@@ -97,15 +99,16 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                     await Shell.Current.GoToAsync($"{nameof(ProcurementCustomerListView)}");
                 else if (IsProduct)
                 {
-                    var snackbar = messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı", Color.FromArgb("#4c3398"), Color.FromArgb("#4c3398"), null);
-
+                   // View ProcurementOptionView = border; 
+                    var snackbar = messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı",Color.Parse("#f8f8ff"), Color.Parse("#f8f8ff"), Color.Parse("#f8f8ff"));
                     await snackbar.Show(cancellationTokenSource.Token);
                 }
                 else if (IsOrderDate)
                 {
 
-                    var snackbar= messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı", Color.Parse("#4c3398"), Color.Parse("#4c3398"), Color.Parse("#4c3398"));
-                   
+                    //View anchorView = border; 
+                    var snackbar = messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı", Color.Parse("#ffffff"), Color.Parse("#f8f8ff"), Color.Parse("#f8f8ff"));
+
                     await snackbar.Show(cancellationTokenSource.Token);
 
                 }
