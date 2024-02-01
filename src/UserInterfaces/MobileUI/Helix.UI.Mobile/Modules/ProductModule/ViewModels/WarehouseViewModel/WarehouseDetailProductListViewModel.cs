@@ -150,6 +150,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 			{
 				IsBusy = true;
 				IsRefreshing = true;
+				IsRefreshing = false;
 
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 				CurrentPage = 0;
@@ -236,7 +237,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert("Sort Warehouse Error: ", $"{ex.Message}", "Tamam");
+				await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 			}
 			finally
 			{

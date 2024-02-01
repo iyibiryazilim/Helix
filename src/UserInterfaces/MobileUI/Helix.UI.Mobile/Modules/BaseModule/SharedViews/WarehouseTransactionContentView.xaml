@@ -40,7 +40,7 @@
                 <RoundRectangle CornerRadius="20, 20, 0, 0" />
             </Border.StrokeShape>
             <Grid Padding="0,0,0,15"
-                  RowDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto, *"
                   RowSpacing="10">
                 <Grid Grid.Row="0">
                     <Border StrokeShape="RoundRectangle 20">
@@ -69,8 +69,35 @@
                         </Grid>
                     </Border>
                 </Grid>
-                <sharedViews:LoadingView Grid.Row="1" IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
-                <RefreshView Grid.Row="1"
+                <Border Grid.Row="1"
+                        Margin="10,0,10,0"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="85"
+                        StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Border Grid.Column="0"
+                                Padding="0,0,10,0"
+                                StrokeThickness="0">
+                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                CornerRadius="50"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Source={x:Reference this}, Path=BindingContext.Warehouse.Number}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="5"
+                                             Spacing="5"
+                                             VerticalOptions="Center">
+                            <Label FontAttributes="Bold"
+                                   FontSize="Default"
+                                   LineBreakMode="TailTruncation"
+                                   MaxLines="1"
+                                   Text="{Binding Source={x:Reference this}, Path=BindingContext.Warehouse.Name}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding Source={x:Reference this}, Path=IsBusy}" />
+                <RefreshView Grid.Row="2"
                              Command="{Binding Source={x:Reference this}, Path=ReloadCommand}"
                              IsRefreshing="{Binding Source={x:Reference this}, Path=IsRefreshing, Mode=OneWay}"
                              RefreshColor="{StaticResource DarkPrimary}">
