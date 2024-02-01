@@ -313,7 +313,7 @@
                                             BackgroundColor="Transparent"
                                             StrokeThickness="0">
                                         <Border.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}" CommandParameter="{Binding .}" />
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}" CommandParameter="{Binding .}" />
                                         </Border.GestureRecognizers>
                                         <Image Margin="5"
                                                Aspect="AspectFit"
@@ -323,7 +323,7 @@
                                                WidthRequest="18">
                                             <Image.Source>
                                                 <FontImageSource FontFamily="FAS"
-                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
+                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
                                                                  Color="{StaticResource Primary}" />
                                             </Image.Source>
                                         </Image>
@@ -331,8 +331,10 @@
                                     <Border Grid.Column="1"
                                             BackgroundColor="{StaticResource Primary}"
                                             StrokeThickness="0">
-                                        <Label HorizontalOptions="Center"
-                                               Text="{Binding FifoQuantity}"
+                                        <Entry  Keyboard="Numeric"
+                                                HorizontalOptions="Center"
+                                                FontSize="12"
+                                                Text="{Binding FifoQuantity}"
                                                TextColor="{StaticResource White}"
                                                VerticalOptions="Center" />
                                     </Border>
@@ -340,7 +342,7 @@
                                             BackgroundColor="Transparent"
                                             StrokeThickness="0">
                                         <Border.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteQuantityCommand}" CommandParameter="{Binding .}" />
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.AddQuantityCommand}" CommandParameter="{Binding .}" />
                                         </Border.GestureRecognizers>
                                         <Image Grid.Column="2"
                                                Margin="5"
@@ -351,7 +353,7 @@
                                                WidthRequest="16">
                                             <Image.Source>
                                                 <FontImageSource FontFamily="FAS"
-                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Minus}"
+                                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
                                                                  Color="{StaticResource Primary}" />
                                             </Image.Source>
                                         </Image>

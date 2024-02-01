@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Core;
 using Font = Microsoft.Maui.Font;
 using CommunityToolkit.Maui.Alerts;
+using Java.Lang;
 
 namespace Helix.UI.Mobile.Helpers.MessageHelper;
 
@@ -30,5 +31,13 @@ public  class MessageHelper
 
         
     }
+    public IToast GetToastMessage(string toastText, ToastDuration toastDuration= ToastDuration.Long, double toastFontSize = 14 )
+    {
+        string text = toastText;
+        ToastDuration duration = toastDuration;
+        double fontSize = toastFontSize;
 
+        return Toast.Make(text, duration, fontSize);
+    }
+   
 }

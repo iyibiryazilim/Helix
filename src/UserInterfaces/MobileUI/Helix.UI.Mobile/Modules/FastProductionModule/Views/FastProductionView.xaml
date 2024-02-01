@@ -94,7 +94,7 @@
                                 <Border Grid.Column="1"
                                         BackgroundColor="{StaticResource Primary}"
                                         StrokeThickness="0">
-                                    <Label HorizontalOptions="Center"
+                                    <Entry HorizontalOptions="Center" FontSize="12" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                                            Text="{Binding SelectedProduct.OnHand}"
                                            TextColor="{StaticResource White}"
                                            VerticalOptions="Center" />
@@ -272,13 +272,13 @@
                                                                 </Image.Source>
                                                             </Image>
                                                         </Border>
-                                                        <Border Grid.Column="1"
+                                                        <Border Grid.Column="1" Padding="0" HeightRequest="36"
                                                                 BackgroundColor="{StaticResource Primary}"
-                                                                StrokeThickness="0">
-                                                            <Label HorizontalOptions="Center"
-                                                                   Text="{Binding OnHand}"
+                                                                StrokeThickness="0" >
+                                                            <Entry Keyboard="Numeric" HorizontalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                                                   Text="{Binding OnHand}" FontSize="12"
                                                                    TextColor="{StaticResource White}"
-                                                                   VerticalOptions="Center" />
+                                                                   VerticalOptions="End" />
                                                         </Border>
                                                         <Border Grid.Column="0"
                                                                 BackgroundColor="Transparent"
