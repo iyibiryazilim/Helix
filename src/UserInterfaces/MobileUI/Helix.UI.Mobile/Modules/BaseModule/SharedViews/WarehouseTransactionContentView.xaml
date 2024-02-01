@@ -211,11 +211,6 @@
                                                 <Label Text="{Binding CurrentName}" />
                                                 <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
                                             </VerticalStackLayout>
-                                            <VerticalStackLayout Spacing="4">
-                                                <Label Text="Birim Fiyat" TextColor="{StaticResource Primary}" />
-                                                <Label Text="{Binding UnitPrice}" />
-                                                <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
-                                            </VerticalStackLayout>
                                         </VerticalStackLayout>
                                     </toolkit:Expander.Content>
                                 </toolkit:Expander>
