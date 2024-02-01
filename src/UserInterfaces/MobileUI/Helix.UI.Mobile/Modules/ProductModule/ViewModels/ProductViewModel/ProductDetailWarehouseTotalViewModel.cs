@@ -75,26 +75,26 @@ public partial class ProductDetailWarehouseTotalViewModel : BaseViewModel
         if (IsBusy) return;
         try
         {
-            string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Ürün Adı A-Z","Ürün Adı Z-A","Miktara Göre Artan", "Miktara Göre Azalan","Ambar Numarasına Göre Artan", "Ambar Numarasına Göre Azalan","Ambar Adı A-Z", "Ambar Adı Z-A");
+            string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Malzeme Kodu A-Z", "Malzeme Kodu Z-A", "Malzeme Adı A-Z","Malzeme Adı Z-A","Miktara Göre Artan", "Miktara Göre Azalan","Ambar Numarasına Göre Artan", "Ambar Numarasına Göre Azalan","Ambar Adı A-Z", "Ambar Adı Z-A");
             if (!string.IsNullOrEmpty(response))
             {
                 CurrentPage = 0;
                 await Task.Delay(100);
                 switch (response)
                 {
-                    case "Ürün Kodu A-Z":
+                    case "Malzeme Kodu A-Z":
                         OrderBy = WarehouseTotalOrderBy.codeasc;
                         await ReloadAsync();
                         break;
-					case "Ürün Kodu Z-A":
+					case "Malzeme Kodu Z-A":
 						OrderBy = WarehouseTotalOrderBy.codedesc;
 						await ReloadAsync();
 						break;
-                    case "Ürün Adı A-Z":
+                    case "Malzeme Adı A-Z":
                         OrderBy = WarehouseTotalOrderBy.nameasc;
 						await ReloadAsync();
 						break;
-                    case "Ürün Adı Z-A":
+                    case "Malzeme Adı Z-A":
                         OrderBy = WarehouseTotalOrderBy.namedesc;
                         await ReloadAsync();
                         break;

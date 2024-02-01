@@ -147,7 +147,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 	{
 		if(item.OnHand < 0)
 		{
-			await Shell.Current.DisplayAlert("Uyarı", "Bu ürünü seçemezsiniz", "Tamam");
+			await Shell.Current.DisplayAlert("Uyarı", "Bu malzemeyi seçemezsiniz", "Tamam");
 			return;
 		}
 		item.IsSelected = !item.IsSelected;
@@ -344,7 +344,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			}
 			else
 			{
-				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için ürün seçmeniz gerekmektedir", "Tamam");
+				await Shell.Current.DisplayAlert("Hata", "Bir sonraki sayfaya gitmek için malzeme seçmeniz gerekmektedir", "Tamam");
 			}
 		}
 		catch (Exception ex)

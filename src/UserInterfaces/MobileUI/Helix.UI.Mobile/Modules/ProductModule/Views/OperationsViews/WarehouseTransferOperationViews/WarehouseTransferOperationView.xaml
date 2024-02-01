@@ -106,7 +106,7 @@
                                         <SwipeItem BackgroundColor="{StaticResource Success}"
                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:WarehouseTransferOperationViewModel}}, Path=ToggleSelectionCommand}"
                                                    CommandParameter="{Binding .}"
-                                                   Text="Ürün Seç" />
+                                                   Text="Malzeme Seç" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
 

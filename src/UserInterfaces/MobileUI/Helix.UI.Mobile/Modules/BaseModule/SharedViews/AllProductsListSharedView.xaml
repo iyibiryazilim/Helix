@@ -25,7 +25,7 @@
                 <Border StrokeShape="RoundRectangle 20">
                     <Grid ColumnDefinitions=".85*,.15*">
                         <SearchBar x:Name="searchBar" Grid.Column="0"
-                                   Placeholder="Ürün ara...">
+                                   Placeholder="Malzeme ara">
                             <SearchBar.Behaviors>
                                 <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this}, Path=SearchCommand, Mode=TwoWay}"
                                                                 CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
@@ -80,7 +80,7 @@
                                         <SwipeItem BackgroundColor="{StaticResource Success}"
                                                    Command="{Binding Source={x:Reference this}, Path=BindingContext.ToggleSelectionCommand}"
                                                    CommandParameter="{Binding .}"
-                                                   Text=" Ürün Seç" />
+                                                   Text=" Malzeme Seç" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
                                 <Border Margin="10,0,10,0"

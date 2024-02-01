@@ -48,7 +48,7 @@
                     <Border StrokeShape="RoundRectangle 20">
                         <Grid ColumnDefinitions="*, Auto">
                             <Grid Grid.Column="0">
-                                <SearchBar x:Name="searchBar" Placeholder="Ürün ara">
+                                <SearchBar x:Name="searchBar" Placeholder="Malzeme ara">
                                     <SearchBar.Behaviors>
                                         <toolkit:EventToCommandBehavior Command="{Binding Source={x:Reference this}, Path=SearchCommand, Mode=TwoWay}"
                                                                         CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
