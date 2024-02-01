@@ -23,6 +23,11 @@ namespace Helix.LBSService.WebAPI.Controllers
         public async Task<DataResult<OutCountingTransactionDto>> Insert([FromBody] OutCountingTransactionDto dto)
         {
 			var obj = Mapping.Mapper.Map<LG_OutCountingTransaction>(dto);
+			foreach (var item in dto.Lines)
+			{
+				var transaction = Mapping.Mapper.Map<LG_OutCountingTransactionLine>(item);
+				obj.TRANSACTIONS.Add(transaction);
+			}
 			var result = await _outCountingTransactionService.Insert(obj);
 			return new DataResult<OutCountingTransactionDto>()
 			{

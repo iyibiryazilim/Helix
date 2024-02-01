@@ -23,6 +23,11 @@ namespace Helix.LBSService.WebAPI.Controllers
         public async Task<DataResult<TransferTransactionDto>> Insert([FromBody] TransferTransactionDto dto)
         {
 			var obj = Mapping.Mapper.Map<LG_TransferTransaction>(dto);
+			foreach (var item in dto.Lines)
+			{
+				var transaction = Mapping.Mapper.Map<LG_TransferTransactionLine>(item);
+				obj.TRANSACTIONS.Add(transaction);
+			}
 			var result = await _transferTransactionService.Insert(obj);
 			return new DataResult<TransferTransactionDto>()
 			{

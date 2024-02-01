@@ -1,8 +1,9 @@
-﻿using Helix.LBSService.EventConsumer.Helper;
-using Helix.LBSService.Tiger.DTOs;
+﻿using Helix.LBSService.EventConsumer.Dtos;
+using Helix.LBSService.EventConsumer.Helper;
+using Helix.LBSService.EventConsumer.Dtos;
 namespace Helix.LBSService.EventConsumer.Consumers
 {
-    public class WorkOrderInsertConsumer : IDisposable
+	public class WorkOrderInsertConsumer : IDisposable
     {
         private readonly MessageConsumer<WorkOrdersDto> _messageConsumer;
 

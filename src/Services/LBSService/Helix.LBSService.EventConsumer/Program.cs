@@ -1,8 +1,9 @@
 ﻿using Helix.LBSService.EventConsumer.Consumers;
+using Helix.LBSService.EventConsumer.Dtos;
 using Helix.LBSService.EventConsumer.Helper;
 using Helix.LBSService.EventConsumer.Models;
 using Helix.LBSService.EventConsumer.Services;
-using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.EventConsumer.Dtos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -1,9 +1,10 @@
-﻿using Helix.LBSService.EventConsumer.Helper;
-using Helix.LBSService.Tiger.DTOs;
+﻿using Helix.LBSService.EventConsumer.Dtos;
+using Helix.LBSService.EventConsumer.Helper;
+using Helix.LBSService.EventConsumer.Dtos;
 
 namespace Helix.LBSService.EventConsumer.Consumers
 {
-    public class StopTransactionForWorkOrderConsumer : IDisposable
+	public class StopTransactionForWorkOrderConsumer : IDisposable
     {
         private readonly MessageConsumer<StopTransactionForWorkOrderDto> _messageConsumer;
 

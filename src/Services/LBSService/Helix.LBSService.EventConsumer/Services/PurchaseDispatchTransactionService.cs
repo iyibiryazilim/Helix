@@ -1,5 +1,5 @@
 ﻿using Helix.LBSService.EventConsumer.Helper;
-using Helix.LBSService.Tiger.DTOs;
+using Helix.LBSService.EventConsumer.Dtos;
 
 namespace Helix.LBSService.EventConsumer.Services
 {
