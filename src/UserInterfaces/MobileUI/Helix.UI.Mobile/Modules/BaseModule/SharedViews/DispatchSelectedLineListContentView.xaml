@@ -254,7 +254,7 @@
                                     ZIndex="999">
                                 <Grid Padding="0"
                                       ColumnDefinitions="Auto, 40, Auto">
-                                    <Border Grid.Column="0"
+                                    <Border Grid.Column="2"
                                             BackgroundColor="Transparent"
                                             StrokeThickness="0">
                                         <Border.GestureRecognizers>
@@ -282,7 +282,7 @@
                                                TextColor="{StaticResource White}"
                                                VerticalOptions="Center" />
                                     </Border>
-                                    <Border Grid.Column="2"
+                                    <Border Grid.Column="0"
                                             HeightRequest="30"
                                             BackgroundColor="Transparent"
                                             StrokeThickness="0">
