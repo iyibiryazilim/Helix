@@ -127,7 +127,8 @@
                                                     </Image.Source>
 
                                                 </Image>
-                                                <Entry Placeholder="Müşteri : "
+
+                                                <Entry Placeholder="{Binding CardTypeName} "
                                                        Grid.Column="1"
                                                        PlaceholderColor="Black"
                                                        TextColor="{StaticResource Gray500}"

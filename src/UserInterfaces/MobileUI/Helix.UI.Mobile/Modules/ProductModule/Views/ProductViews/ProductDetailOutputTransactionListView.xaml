@@ -14,6 +14,7 @@
     <Grid>
         <sharedViews:ProductTransactionListView ProductTransactionList="{Binding ProductOutputTransactionListItems}"
                                                 SearchCommand="{Binding SearchCommand}"
+                                                SearchBarTitle="Çıkış Hareketi ara"
                                                 LoadMoreCommand="{Binding LoadMoreCommand}"  
                                                 ReloadCommand="{Binding ReloadCommand}"
                                                 GoToBackCommand="{Binding GoToBackCommand}"

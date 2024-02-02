@@ -112,9 +112,10 @@ public partial class ProductDetailOutputTransactionListViewModel : BaseViewModel
 			CurrentPage = 0;
 
 			var result = await _productTransactionLineService.GetOutputTransactionLinesByProductId(httpClient, Product.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
+
+			ProductOutputTransactionListItems.Clear();
 			if (result.Data.Any())
 			{
-				ProductOutputTransactionListItems.Clear();
 				foreach (var item in result.Data)
 				{
 					await Task.Delay(200);

@@ -8,7 +8,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
+	//[Authorize]
 	public class PurchaseDispatchTransactionLineController : ControllerBase
 	{
 		IConfiguration _configuration;

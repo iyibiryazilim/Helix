@@ -112,9 +112,9 @@ public partial class ProductDetailInputTransactionListViewModel : BaseViewModel
 			CurrentPage = 0;
 
 			var result = await _productTransactionLineService.GetInputTransactionLinesByProductId(httpClient, Product.ReferenceId, SearchText, OrderBy, CurrentPage, PageSize);
+			ProductInputTransactionListItems.Clear();
 			if (result.Data.Any())
 			{
-				ProductInputTransactionListItems.Clear();
 				foreach (var item in result.Data)
 				{
 					await Task.Delay(200);

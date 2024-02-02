@@ -1,4 +1,5 @@
 using Android.Content.Res;
+using Camera.MAUI;
 using CommunityToolkit.Maui;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.DataStores;
@@ -120,7 +121,8 @@ namespace Helix.UI.Mobile
 				.UseMauiApp<App>()
 				.UseBottomSheet()
 				.UseSkiaSharp()
-				 .UseMauiCommunityToolkit()
+				.UseMauiCommunityToolkit()
+				.UseMauiCameraView()
 				.RegisterHttpClientServices()
 				.LoginViews()
 				.LoginViewModels()
@@ -248,7 +250,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<SuccessPageViewModel>();
 			mauiAppBuilder.Services.AddTransient<FailedPageView>();
 			mauiAppBuilder.Services.AddTransient<FailedPageViewModel>();
-
+			mauiAppBuilder.Services.AddTransient<BarcodePageView>();
+			mauiAppBuilder.Services.AddTransient<BarcodePageViewModel>();
 
 
 

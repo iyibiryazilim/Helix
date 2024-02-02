@@ -128,7 +128,14 @@ class Program
 				productionTransactionConsumer.ProcessMessagesAsync(),
 				inCountingTransactionConsumer.ProcessMessagesAsync(),
 				outCountingTransactionConsumer.ProcessMessagesAsync(),
-				retailSalesDispatchTransactionConsumer.ProcessMessagesAsync()
+				transferTransactionConsumer.ProcessMessagesAsync(),
+				retailSalesDispatchTransactionConsumer.ProcessMessagesAsync(),
+				retailSalesReturnDispatchTransactionConsumer.ProcessMessagesAsync(),
+				purchaseDispatchTransactionConsumer.ProcessMessagesAsync(),
+				wholeSalesDispatchTransactionConsumer.ProcessMessagesAsync(),
+				purchaseReturnDispatchTransactionConsumer.ProcessMessagesAsync(),
+				wholeSalesDispatchTransactionConsumer.ProcessMessagesAsync(),
+				wholeSalesReturnDispatchTransactionConsumer.ProcessMessagesAsync()
 			// Add more consumer tasks as needed
 			);
 		}

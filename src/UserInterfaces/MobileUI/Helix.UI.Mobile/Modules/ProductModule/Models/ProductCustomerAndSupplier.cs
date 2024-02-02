@@ -29,6 +29,25 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
         short? priority;
         [ObservableProperty]
         short? cardType;
+
+        public string CardTypeName
+        {
+            get
+            {
+
+                switch (CardType)
+                {
+                    case 0:
+                        return "Müşteri : ";
+                    case 1:
+                        return "Tedarikçi : ";
+                    default:
+                        return "Diğer";
+                }
+            }
+        }
+
+
         [ObservableProperty]
         string barcode;
         [ObservableProperty]

@@ -22,6 +22,7 @@ public partial class ProductDetailWaitingOrderLineContentView : ContentView
 	public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(ProductDetailWaitingOrderLineContentView), null);
 	public static readonly BindableProperty IsRefreshingProperty = BindableProperty.Create(nameof(IsRefreshing), typeof(bool), typeof(ProductDetailWaitingOrderLineContentView), false);
 	public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(ProductDetailWaitingOrderLineContentView), false);
+	public static readonly BindableProperty SearchBarTitleProperty = BindableProperty.Create(nameof(SearchBarTitle), typeof(string), typeof(ProductDetailWaitingOrderLineContentView), string.Empty);
 	#endregion
 
 	#region List
@@ -83,6 +84,11 @@ public partial class ProductDetailWaitingOrderLineContentView : ContentView
 		set => SetValue(IsBusyProperty, value);
 	}
 
+	public string SearchBarTitle
+	{
+		get => GetValue(SearchBarTitleProperty) as string;
+		set => SetValue(SearchBarTitleProperty, value);
+	}
 	#endregion
 
 	public ProductDetailWaitingOrderLineContentView()
