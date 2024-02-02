@@ -113,9 +113,10 @@ public partial class ProductDetailPurchaseDispatchListViewModel : BaseViewModel
 			CurrentPage = 0;
 
 			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "1", SearchText, OrderBy, CurrentPage, PageSize);
+
+			ProductTransactionPurchaseDispatchListItems.Clear();
 			if (result.Data.Any())
 			{
-				ProductTransactionPurchaseDispatchListItems.Clear();
 				foreach (var item in result.Data)
 				{
 					await Task.Delay(200);

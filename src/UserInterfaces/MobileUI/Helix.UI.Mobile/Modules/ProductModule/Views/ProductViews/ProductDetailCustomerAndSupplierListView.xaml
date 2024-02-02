@@ -127,6 +127,7 @@
                                                     </Image.Source>
 
                                                 </Image>
+
                                                 <Entry Placeholder="{Binding CardTypeName} "
                                                        Grid.Column="1"
                                                        PlaceholderColor="Black"

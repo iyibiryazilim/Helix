@@ -38,6 +38,7 @@
                     <Grid ColumnDefinitions="Auto, *, Auto">
                         <Grid Grid.Column="0" Padding="20,0,0,0">
                             <ImageButton Aspect="AspectFit"
+                                         Command="{Binding GoToBarcodePageViewCommand}"
                                          HeightRequest="25"
                                          WidthRequest="25">
                                 <ImageButton.Source>

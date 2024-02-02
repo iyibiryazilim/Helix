@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseDetailProductListView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseDetailProductListView"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel"
-             x:DataType="viewModel:WarehouseDetailProductListViewModel"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
              xmlns:model="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Models"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              Title="WarehouseDetailProductListView"
-             Shell.PresentationMode="ModalAnimated" BackgroundColor="{StaticResource Primary}">
+             x:DataType="viewModel:WarehouseDetailProductListViewModel"
+             BackgroundColor="{StaticResource Primary}"
+             Shell.PresentationMode="ModalAnimated">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding GetProductsCommand}"
-                                        EventName="Loaded" />
+        <toolkit:EventToCommandBehavior Command="{Binding GetProductsCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="Auto, *"
-          Padding="0,20,0,0">
+    <Grid Padding="0,20,0,0" RowDefinitions="Auto, *">
         <Grid Grid.Row="0"
+              Padding="18,0"
               ColumnDefinitions="Auto, *"
               ColumnSpacing="18"
-              Padding="18,0">
-            <Grid Grid.Column="0">
-                <ImageButton Command="{Binding GoToBackCommand}"
-                             Aspect="AspectFit"
+              RowDefinitions="Auto, Auto">
+            <Grid Grid.Row="0" Grid.Column="0">
+                <ImageButton Aspect="AspectFit"
+                             Command="{Binding GoToBackCommand}"
                              HeightRequest="20"
                              WidthRequest="20">
                     <ImageButton.Source>
@@ -37,12 +38,13 @@
                     </ImageButton.Source>
                 </ImageButton>
             </Grid>
-            <Label Grid.Column="1"
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   FontSize="Title"
+                   HorizontalOptions="Start"
                    Text="{Binding Title}"
                    TextColor="White"
-                   FontSize="Title"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Start" />
+                   VerticalOptions="Center" />
         </Grid>
         <Border Grid.Row="1"
                 Margin="0,30,0,0"
@@ -52,23 +54,21 @@
                 <RoundRectangle CornerRadius="20,20,0,0" />
             </Border.StrokeShape>
             <Grid BackgroundColor="Transparent"
-                  RowDefinitions="Auto, *"
+                  RowDefinitions="Auto, Auto, *"
                   RowSpacing="10">
                 <Grid Grid.Row="0">
                     <Border StrokeShape="RoundRectangle 20">
                         <Grid ColumnDefinitions="*, Auto">
                             <Grid Grid.Column="0">
-                                <SearchBar x:Name="searchBar"
-                                           Placeholder="Malzeme ara">
+                                <SearchBar x:Name="searchBar" Placeholder="Malzeme ara">
                                     <SearchBar.Behaviors>
-                                        <toolkit:EventToCommandBehavior EventName="TextChanged"
-                                                                        Command="{Binding PerformSearchCommand, Mode=TwoWay}"
-                                                                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+                                        <toolkit:EventToCommandBehavior Command="{Binding PerformSearchCommand, Mode=TwoWay}"
+                                                                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                                                                        EventName="TextChanged" />
                                     </SearchBar.Behaviors>
                                 </SearchBar>
                             </Grid>
-                            <Grid Grid.Column="1"
-                                  Padding="0,0,20,0">
+                            <Grid Grid.Column="1" Padding="0,0,20,0">
                                 <ImageButton Aspect="AspectFit"
                                              Command="{Binding SortCommand}"
                                              HeightRequest="25"
@@ -83,46 +83,72 @@
                         </Grid>
                     </Border>
                 </Grid>
-                <RefreshView Grid.Row="1"
-                             RefreshColor="{StaticResource DarkPrimary}"
+                <Border Grid.Row="1"
+                        Margin="10,0,10,0"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="85"
+                        StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Border Grid.Column="0"
+                                Padding="0,0,10,0"
+                                StrokeThickness="0">
+                            <toolkit:AvatarView BackgroundColor="#E6E7F6"
+                                                CornerRadius="50"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Warehouse.Number}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="5"
+                                             Spacing="5"
+                                             VerticalOptions="Center">
+                            <Label FontAttributes="Bold"
+                                   FontSize="Default"
+                                   LineBreakMode="TailTruncation"
+                                   MaxLines="1"
+                                   Text="{Binding Warehouse.Name}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                
+                <RefreshView Grid.Row="2"
+                             Command="{Binding ReloadCommand}"
                              IsRefreshing="{Binding IsRefreshing}"
-                             Command="{Binding ReloadCommand}">
+                             RefreshColor="{StaticResource DarkPrimary}">
                     <CollectionView ItemsSource="{Binding Items}"
                                     RemainingItemsThreshold="10"
                                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="5"
-                                               Orientation="Vertical" />
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:WarehouseTotal">
-                                <Border StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="{StaticResource White}"
+                                <Border Margin="10,0,10,0"
                                         Padding="5"
-                                        Margin="10,0,10,0"
-                                        HeightRequest="95">
-                                    
+                                        BackgroundColor="{StaticResource White}"
+                                        HeightRequest="95"
+                                        StrokeShape="RoundRectangle 10">
+
                                     <Grid ColumnDefinitions=".25*,.75*">
                                         <Border Grid.Column="0"
-                                                StrokeShape="RoundRectangle 10"
-                                                WidthRequest="75"
-                                                HorizontalOptions="Start"
                                                 Padding="10"
-                                                StrokeThickness="0">
-                                            <Image Aspect="AspectFit"
-                                                   Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter} }" />
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 10"
+                                                StrokeThickness="0"
+                                                WidthRequest="75">
+                                            <Image Aspect="AspectFit" Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                         </Border>
                                         <VerticalStackLayout Grid.Column="1"
                                                              Padding="5"
-                                                             Spacing="5"
-                                                             HorizontalOptions="Start">
-                                            <Label Text="{Binding ProductCode}"
+                                                             HorizontalOptions="Start"
+                                                             Spacing="5">
+                                            <Label FontAttributes="Bold"
                                                    FontSize="Body"
                                                    LineBreakMode="TailTruncation"
-                                                   FontAttributes="Bold"></Label>
-                                            <Label Text="{Binding ProductName}"
-                                                   FontSize="Caption"
-                                                   LineBreakMode="TailTruncation"></Label>
+                                                   Text="{Binding ProductCode}" />
+                                            <Label FontSize="Caption"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding ProductName}" />
                                             <Border Grid.Column="0"
                                                     Padding="10,5"
                                                     BackgroundColor="{StaticResource Warning}"
@@ -130,16 +156,14 @@
                                                     StrokeShape="RoundRectangle 5"
                                                     StrokeThickness="0">
                                                 <Label FontSize="10"
-                                                       TextColor="{StaticResource Primary}"
-                                                      
-                                                       HorizontalOptions="Center">
+                                                       HorizontalOptions="Center"
+                                                       TextColor="{StaticResource Primary}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span FontAttributes="Bold"
-                                                                  Text="{Binding OnHand, StringFormat='{0:N2} '}" />
-                                                            
-                                                            <Span  FontAttributes="Bold" Text="{Binding SubUnitsetCode} " />
-                                                  
+                                                            <Span FontAttributes="Bold" Text="{Binding OnHand, StringFormat='{0:N2} '}" />
+                                                            <Span Text=" " />
+                                                            <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
+
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
@@ -158,6 +182,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </RefreshView>
+                <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
 
             </Grid>
         </Border>

@@ -357,4 +357,26 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		}
 	}
 
+	[RelayCommand]
+	async Task GoToBarcodePageViewAsync()
+	{
+		if (IsBusy)
+			return;
+
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}");			
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex.Message);
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
 }

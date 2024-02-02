@@ -113,9 +113,10 @@ public partial class ProductDetailOutputReturnListViewModel : BaseViewModel
 			CurrentPage = 0;
 
 			var result = await _productTransactionLineService.GetTransactionLinesByTransactionType(httpClient, Product.Code, "2,3", SearchText, OrderBy, CurrentPage, PageSize);
+
+			ProductTransactionOutputReturnListItems.Clear();
 			if (result.Data.Any())
 			{
-				ProductTransactionOutputReturnListItems.Clear();
 				foreach (var item in result.Data)
 				{
 					await Task.Delay(200);
