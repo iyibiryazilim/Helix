@@ -44,11 +44,10 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.PanelViewModels
                 return;
             try
             {
+                
                 await Task.Delay(500);
-                await GetTopCustomersAsync();
-                await GetLastTransactionsAsync();
-                await GetSalesDispatchCountAsync();
-                await GetPurchaseCountAsync();
+                await Task.WhenAll(GetTopCustomersAsync(), GetLastTransactionsAsync(), GetSalesDispatchCountAsync(), GetPurchaseCountAsync());
+
 
             }
             catch (Exception ex)
