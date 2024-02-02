@@ -10,45 +10,40 @@ namespace Helix.LBSService.EventConsumer.Helper
 	public class MessageConsumer<TDto> : IDisposable
 	{
 		private readonly IService<TDto> _service;
-		private  ConnectionFactory _factory;
-		private  IModel _channel;
-		private readonly HttpClient _httpClient;
+		private ManualResetEvent _resetEvent = null;
+		private IConnection _connection;
+		private IModel _channel;
 
+		private readonly HttpClient _httpClient;
 		private readonly string _queueName;
 		private readonly string _exchange;
 
-		public MessageConsumer(IService<TDto> service, string queueName, string exchange, HttpClient httpClient)
+
+		public MessageConsumer(IService<TDto> service, string queueName, string exchange, HttpClient httpClient, ManualResetEvent resetEvent)
 		{
 			_service = service;
 			_httpClient = httpClient;
 			_queueName = queueName;
-			_exchange = exchange; 
+			_exchange = exchange;
+
+
+			_resetEvent = resetEvent;
+
+			// create a connection and open a channel, dispose them when done
+			var factory = new ConnectionFactory
+			{
+				Uri = new Uri(ApplicationParameter.RabbitMQAdress)
+			};
+
+			_connection = factory.CreateConnection();
+			_channel = _connection.CreateModel();
+
 		}
 
 		public async Task ProcessMessagesAsync()
 		{
-			_factory = new ConnectionFactory
-			{   
-				Uri = new Uri(ApplicationParameter.RabbitMQAdress)
-			};
+			await Task.Run(GetMessageFromQueue);
 
-			while (true)
-			{
-				try
-				{
-					var connection = _factory.CreateConnection();
-					_channel = connection.CreateModel();
-					_channel.ExchangeDeclare(exchange: _exchange, type: "direct");
-					_channel.QueueBind(_queueName, exchange: _exchange, routingKey: _queueName);
-
-					await Task.Run(GetMessageFromQueue);
-				}
-				catch (Exception ex)
-				{
-					Log.Debug($"Error: {ex.Message} - {_queueName}");
-					await Task.Delay(TimeSpan.FromMinutes(1));
-				}
-			}
 		}
 
 		private async Task<bool> PostDtoToApiAsync(string dto, string apiEndpoint)
@@ -91,18 +86,17 @@ namespace Helix.LBSService.EventConsumer.Helper
 
 		private void GetMessageFromQueue()
 		{
+			var queueName = _queueName;
+			bool durable = true;
+			bool exclusive = false;
+			bool autoDelete = false;
+
 			try
 			{
 				Log.Information($" [*] {_queueName} Waiting for messages.");
+				_channel.QueueDeclare(queueName, durable, exclusive, autoDelete, null);
 
 				var consumer = new EventingBasicConsumer(_channel);
-				TDto dto = Activator.CreateInstance<TDto>();
-
-				_channel.BasicConsume(
-					queue: _queueName,
-					autoAck: false,
-					consumer: consumer
-				);
 
 				consumer.Received += async (model, ea) =>
 				{
@@ -111,7 +105,7 @@ namespace Helix.LBSService.EventConsumer.Helper
 						var body = ea.Body.ToArray();
 						var message = Encoding.UTF8.GetString(body);
 						Log.Information($" [x] Received {message}");
- 
+
 						bool result = await PostDtoToApiAsync(message, _service.GetApiEndpoint());
 
 						if (result)
@@ -134,7 +128,19 @@ namespace Helix.LBSService.EventConsumer.Helper
 					}
 				};
 
-				// Add a mechanism for graceful shutdown if needed
+
+				// start consuming
+				_ = _channel.BasicConsume(consumer, queueName);
+
+				// Wait for the reset event and clean up when it triggers
+				_resetEvent.WaitOne();
+				Console.WriteLine("CancelEvent recieved, shutting down Consumer");
+				_channel?.Close();
+				_channel = null;
+				_connection?.Close();
+				_connection = null;
+
+				 
 			}
 			catch (Exception ex)
 			{

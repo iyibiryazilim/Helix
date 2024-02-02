@@ -14,8 +14,9 @@ namespace Helix.LBSService.EventConsumer.Consumers
                 service,
                 "ProductionService.StopTransactionForWorkOrderInserted",
                 "HelixTopicName",
-                httpClient
-            );
+                httpClient,
+				new ManualResetEvent(false)
+			);
         }
 
         public async Task ProcessMessagesAsync()

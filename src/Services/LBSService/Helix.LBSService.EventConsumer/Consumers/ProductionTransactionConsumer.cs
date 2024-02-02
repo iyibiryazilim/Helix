@@ -14,7 +14,8 @@ namespace Helix.LBSService.EventConsumer.Consumers
 				service: service,
 				queueName: "ProductService.ProductionTransactionIns",
 				exchange: "HelixTopicName",
-				httpClient: httpClient
+				httpClient: httpClient,
+				new ManualResetEvent(false)
 			);
 		}
 

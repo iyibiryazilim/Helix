@@ -1,13 +1,5 @@
 ﻿using Helix.LBSService.EventConsumer.Dtos;
 using Helix.LBSService.EventConsumer.Helper;
-using Helix.LBSService.EventConsumer.Models;
-using Helix.LBSService.EventConsumer.Dtos;
-using Helix.LBSService.Tiger.Services;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using Serilog;
-using System.Text;
 
 namespace Helix.LBSService.EventConsumer.Consumers
 {
@@ -21,8 +13,9 @@ namespace Helix.LBSService.EventConsumer.Consumers
                 service,
                 "ProductionService.WorkOrderChangeStatusInserted",
                 "HelixTopicName",
-                httpClient
-            );
+                httpClient,
+				new ManualResetEvent(false)
+			);
         }
 
         public async Task ProcessMessagesAsync()

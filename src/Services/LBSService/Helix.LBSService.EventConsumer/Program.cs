@@ -3,7 +3,6 @@ using Helix.LBSService.EventConsumer.Dtos;
 using Helix.LBSService.EventConsumer.Helper;
 using Helix.LBSService.EventConsumer.Models;
 using Helix.LBSService.EventConsumer.Services;
-using Helix.LBSService.EventConsumer.Dtos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -93,7 +92,7 @@ class Program
 
 		// Add more consumers as needed
 	}
-	
+
 
 
 	private static async Task ProcessConsumersAsync(IHost host)
@@ -136,8 +135,22 @@ class Program
 				purchaseReturnDispatchTransactionConsumer.ProcessMessagesAsync(),
 				wholeSalesDispatchTransactionConsumer.ProcessMessagesAsync(),
 				wholeSalesReturnDispatchTransactionConsumer.ProcessMessagesAsync()
-			// Add more consumer tasks as needed
+			// Add more consumer tasks as needed 
 			);
+			workOrderStatusChangeConsumer.Dispose();
+			wastageTransactionConsumer.Dispose();
+			consumableTransactionConsumer.Dispose();
+			productionTransactionConsumer.Dispose();
+			inCountingTransactionConsumer.Dispose();
+			outCountingTransactionConsumer.Dispose();
+			transferTransactionConsumer.Dispose();
+			retailSalesDispatchTransactionConsumer.Dispose();
+			retailSalesReturnDispatchTransactionConsumer.Dispose();
+			purchaseDispatchTransactionConsumer.Dispose();
+			wholeSalesDispatchTransactionConsumer.Dispose();
+			purchaseReturnDispatchTransactionConsumer.Dispose();
+			wholeSalesDispatchTransactionConsumer.Dispose();
+			wholeSalesReturnDispatchTransactionConsumer.Dispose();
 		}
 	}
 }
