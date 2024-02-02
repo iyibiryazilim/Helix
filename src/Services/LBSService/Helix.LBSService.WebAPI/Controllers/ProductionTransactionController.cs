@@ -20,6 +20,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 		[HttpPost("Insert")]
 		public async Task<DataResult<ProductionTransactionDto>> Insert([FromBody] ProductionTransactionDto dto)
 		{
+	
 			var obj = Mapping.Mapper.Map<LG_ProductionTransaction>(dto);
 			foreach (var item in dto.Lines)
 			{

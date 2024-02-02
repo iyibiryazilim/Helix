@@ -12,9 +12,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_ProductionTransactionService, LG_ProductionTransactionDataStore>();
+builder.Services.AddTransient<ILG_InCountingTransactionService, LG_InCountingTransactionDataStore>();
+builder.Services.AddTransient<ILG_OutCountingTransactionService, LG_OutCountingTransactionDataStore>();
 builder.Services.AddTransient<ILG_ConsumableTransactionService, LG_ConsumableTransactionDataStore>();
+builder.Services.AddTransient<ILG_TransferTransactionService, LG_TransferTransactionDataStore>();
 builder.Services.AddTransient<ILG_RetailSalesDispatchTransactionService, LG_RetailSalesDispatchTransactionDataStore>();
+builder.Services.AddTransient<ILG_RetailSalesReturnDispatchTransactionService, LG_RetailSalesReturnDispatchTransactionDataStore>();
 builder.Services.AddTransient<ILG_WholeSalesReturnDispatchTransactionService, LG_WholeSalesReturnDispatchTransactionDataStore>();
+builder.Services.AddTransient<ILG_WholeSalesDispatchTransactionService, LG_WholeSalesDispatchTransactionDataStore>();
+builder.Services.AddTransient<ILG_PurchaseReturnDispatchTransactionService, LG_PurchaseReturnDispatchTransactionDataStore>();
+builder.Services.AddTransient<ILG_PurchaseDispatchTransactionService, LG_PurchaseDispatchTransactionDataStore>();
+builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
+builder.Services.AddTransient<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
+
+
+
 
 builder.Services.AddTransient<ILG_STFICHE_Context, LG_STFICHE_Context>();
 
