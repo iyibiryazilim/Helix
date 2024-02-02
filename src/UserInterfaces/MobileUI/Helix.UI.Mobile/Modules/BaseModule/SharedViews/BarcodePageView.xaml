@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.BarcodePageView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
+             x:DataType="viewModel:BarcodePageViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:barcode="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             Title="{Binding Title}"
+             Shell.TabBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout VerticalOptions="Center" >
+            <barcode:CameraView x:Name="cameraView"
+                                BarCodeDetectionEnabled="True"
+                                CamerasLoaded="CameraView_CamerasLoaded"
+                                BarcodeDetected="cameraView_BarcodeDetected"
+                                HeightRequest="500"
+                                WidthRequest="300"
+                                 />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

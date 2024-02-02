@@ -87,6 +87,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="Camera.MAUI" Version="1.4.4" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -114,6 +115,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\AllProductsListSharedView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Modules\BaseModule\SharedViews\BarcodePageView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\BaseModule\SharedViews\CurrentCardView.xaml">
