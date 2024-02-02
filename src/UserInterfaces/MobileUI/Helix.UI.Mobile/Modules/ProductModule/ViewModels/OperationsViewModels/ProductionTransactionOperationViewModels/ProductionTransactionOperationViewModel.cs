@@ -90,9 +90,6 @@ public partial class ProductionTransactionOperationViewModel : BaseViewModel
     async Task RemoveItemAsync(ProductModel item)
     {
 
-        if (IsBusy)
-            return;
-
         try
         {
 

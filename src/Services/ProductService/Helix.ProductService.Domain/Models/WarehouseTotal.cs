@@ -101,8 +101,18 @@ namespace Helix.ProductService.Domain.Models
 			}
 		}
 
+		string? image;
+        public string? Image
+        {
+            get => image;
+            set
+            {
+                image = value;
+                NotifyPropertyChanged();
+            }
+        }
 
-		int subUnitsetReferenceId;
+        int subUnitsetReferenceId;
 
 		public int SubUnitsetReferenceId
 		{

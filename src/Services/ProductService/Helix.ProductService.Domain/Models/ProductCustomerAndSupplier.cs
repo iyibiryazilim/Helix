@@ -149,6 +149,7 @@ namespace Helix.ProductService.Domain.Models
             }
         }
 
+
         string? customerSupplierCode;
         public string? CustomerSupplierCode
         {

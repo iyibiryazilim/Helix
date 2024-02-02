@@ -247,7 +247,7 @@ public partial class FastProductionSelectProductListViewModel : BaseViewModel
 			IsBusy = true;
 
 			var fastProductionViewModel = _serviceProvider.GetService<FastProductionViewModel>();
-
+			fastProductionViewModel.SelectedWarehouse = SelectedWarehouse;
 			var model = new FastProductionCard
 			{
 				ProductReferenceId = SelectedProduct.ProductReferenceId,
