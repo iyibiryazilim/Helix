@@ -1,22 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.BarcodePageView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
-             x:DataType="viewModel:BarcodePageViewModel"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:barcode="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
-             Title="{Binding Title}"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
+             BackgroundColor="{StaticResource Primary}"
+             x:DataType="viewModel:BarcodePageViewModel"
+             Shell.PresentationMode="ModalAnimated"
              Shell.TabBarIsVisible="False">
-    <ScrollView>
-        <VerticalStackLayout VerticalOptions="Center" >
-            <barcode:CameraView x:Name="cameraView"
-                                BarCodeDetectionEnabled="True"
-                                CamerasLoaded="CameraView_CamerasLoaded"
-                                BarcodeDetected="cameraView_BarcodeDetected"
-                                HeightRequest="500"
-                                WidthRequest="300"
-                                 />
-        </VerticalStackLayout>
-    </ScrollView>
+
+    <Grid Padding="0,20,0,0" RowDefinitions="Auto, *">
+        <Grid Grid.Row="0"
+              Padding="18,0"
+              ColumnDefinitions="Auto, *"
+              ColumnSpacing="18">
+            <Grid Grid.Column="0">
+                <ImageButton Aspect="AspectFit"
+                             Command="{Binding GoToBackCommand}"
+                             HeightRequest="20"
+                             WidthRequest="20">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="FAS"
+                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowLeft}"
+                                         Color="{StaticResource White}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+            <Label Grid.Column="1"
+                   FontSize="Title"
+                   HorizontalOptions="Start"
+                   Text="{Binding Title}"
+                   TextColor="White"
+                   VerticalOptions="Center" />
+        </Grid>
+        <Border Grid.Row="1"
+                Margin="0,30,0,0"
+                BackgroundColor="{StaticResource White}"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,0,0" />
+            </Border.StrokeShape>
+            <ScrollView>
+                <VerticalStackLayout VerticalOptions="Center">
+                    <barcode:CameraView x:Name="cameraView"
+                                        BarCodeDetectionEnabled="True"
+                                        BarcodeDetected="CameraView_BarcodeDetected"
+                                        CamerasLoaded="CameraView_CamerasLoaded"
+                                        HeightRequest="500"
+                                        WidthRequest="300" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
 
 </ContentPage>
