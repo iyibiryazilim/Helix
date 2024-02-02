@@ -298,6 +298,7 @@ public class RetailSalesReturnDispatchTransactionDataStore : IRetailSalesReturnD
     {
         HttpResponseMessage responseMessage = await httpClient.PostAsync(postUrl, new StringContent(JsonSerializer.Serialize(retailSalesReturnDispatchTransactionInsertDto), Encoding.UTF8, "application/json"));
 
+
         DataResult<RetailSalesReturnDispatchTransactionInsertDto> dataResult = new DataResult<RetailSalesReturnDispatchTransactionInsertDto>();
         dataResult.IsSuccess = responseMessage.IsSuccessStatusCode;
 

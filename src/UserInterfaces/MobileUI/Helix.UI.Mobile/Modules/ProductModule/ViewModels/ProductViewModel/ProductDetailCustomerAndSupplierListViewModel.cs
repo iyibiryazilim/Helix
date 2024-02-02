@@ -33,6 +33,9 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
         [ObservableProperty]
         Product product;
 
+        [ObservableProperty]
+        string currentType;
+
         public ObservableCollection<ProductCustomerAndSupplier> Items { get; } = new();
         public Command GetCustomerAndSupplierCommand { get; }
         public Command<string> PerformSearchCommand { get; }
@@ -113,6 +116,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
                 {
                     foreach (var item in result.Data)
                     {
+                     
                         Items.Add(item);
                     }
                 }
@@ -152,6 +156,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.ProductViewModel
 
                     foreach (var item in result.Data)
                     {
+                        
                         Items.Add(item);
                     }
                 }

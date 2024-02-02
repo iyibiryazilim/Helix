@@ -99,17 +99,16 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
                     await Shell.Current.GoToAsync($"{nameof(ProcurementCustomerListView)}");
                 else if (IsProduct)
                 {
-                   // View ProcurementOptionView = border; 
-                    var snackbar = messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı",Color.Parse("#f8f8ff"), Color.Parse("#f8f8ff"), Color.Parse("#f8f8ff"));
-                    await snackbar.Show(cancellationTokenSource.Token);
+
+                    var toastMessage = messageHelper.GetToastMessage("Yakında..");
+                    await toastMessage.Show(cancellationTokenSource.Token);
                 }
                 else if (IsOrderDate)
                 {
 
-                    //View anchorView = border; 
-                    var snackbar = messageHelper.GetSnackMessage("Yakında", "Tamam", "Bilgi", "Bilgi Mesajı", Color.Parse("#ffffff"), Color.Parse("#f8f8ff"), Color.Parse("#f8f8ff"));
 
-                    await snackbar.Show(cancellationTokenSource.Token);
+                    var toastMessage = messageHelper.GetToastMessage("Yakında..");
+                    await toastMessage.Show(cancellationTokenSource.Token);
 
                 }
                 else

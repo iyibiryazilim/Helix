@@ -24,7 +24,7 @@
                           Padding="10"
                           RowSpacing="10">
                         <Border Grid.Row="0"
-                                
+                              
                                 Padding="10"
                                 StrokeShape="RoundRectangle 10">
                             <Grid ColumnDefinitions=".20*,.10*,*"
@@ -52,7 +52,7 @@
                                 </Label>
                                 <BoxView Grid.Column="1"
                                          WidthRequest="0.8"
-                                         Color="{StaticResource Secondary}">
+                                         Color="{StaticResource WhiteSmoke}">
 
                                 </BoxView>
                                 <VerticalStackLayout Grid.Column="2"
@@ -142,7 +142,7 @@
                                 </Label>
                                 <BoxView Grid.Column="1"
                                          WidthRequest="0.8"
-                                         Color="{StaticResource Secondary}">
+                                         Color="{StaticResource WhiteSmoke}">
 
                                 </BoxView>
                                 <VerticalStackLayout Grid.Column="2"
@@ -231,7 +231,7 @@
                                 </Label>
                                 <BoxView Grid.Column="1"
                                          WidthRequest="0.8"
-                                         Color="{StaticResource Secondary}">
+                                         Color="{StaticResource WhiteSmoke}">
 
                                 </BoxView>
                                 <VerticalStackLayout Grid.Column="2"

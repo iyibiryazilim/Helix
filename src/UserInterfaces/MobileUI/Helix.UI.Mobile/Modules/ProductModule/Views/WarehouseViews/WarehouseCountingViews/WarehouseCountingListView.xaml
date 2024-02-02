@@ -208,7 +208,7 @@
                                         <Border Grid.Column="1"
                                                 BackgroundColor="{StaticResource Primary}"
                                                 StrokeThickness="0">
-                                            <Label HorizontalOptions="Center"
+                                            <Entry Keyboard="Numeric" HorizontalOptions="Center" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                                    Text="{Binding TempOnhand, StringFormat='{0:N0}'}"
                                                    TextColor="{StaticResource White}"
                                                    VerticalOptions="Center" />

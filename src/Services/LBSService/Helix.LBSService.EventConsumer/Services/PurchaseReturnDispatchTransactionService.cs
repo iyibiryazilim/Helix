@@ -7,7 +7,7 @@ namespace Helix.LBSService.EventConsumer.Services
 	{
 		public string GetApiEndpoint()
 		{
-			return "/api/WorkOrder/Insert"; // Replace with your actual API endpoint
+			return "/api/PurchaseReturnDispatchTransaction/Insert"; // Replace with your actual API endpoint
 		}
 	}
 }

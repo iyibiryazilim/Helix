@@ -1,6 +1,6 @@
 ﻿namespace Helix.LBSService.WebAPI.DTOs
 {
-	public class PurchaseReturnDispatchTransactionDto : ProductTransactionDto
+	public class PurchaseReturnDispatchTransactionDto : DispatchTransactionDto
 	{
 		public IList<PurchaseReturnDispatchTransactionLineDto> Lines { get; set; }
 
@@ -10,7 +10,7 @@
 			Lines = new List<PurchaseReturnDispatchTransactionLineDto>();
 		}
 	}
-	public class PurchaseReturnDispatchTransactionLineDto : ProductTransactionLineDto
+	public class PurchaseReturnDispatchTransactionLineDto : DispatchTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
 

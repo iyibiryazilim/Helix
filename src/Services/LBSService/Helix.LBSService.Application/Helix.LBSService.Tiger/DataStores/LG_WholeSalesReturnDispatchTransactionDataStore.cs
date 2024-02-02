@@ -165,20 +165,21 @@ namespace Helix.LBSService.Tiger.DataStores
 
 								}
 
-								if (items.Post())
-								{
-									var referenceId = Convert.ToInt32(items.DataFields.FieldByName("INTERNAL_REFERENCE").Value.ToString());
-									var code = items.DataFields.FieldByName("NUMBER").Value.ToString();
 
-									result.Data = null;
-									result.IsSuccess = true;
-									result.Message = "Success";
-								}
-								else
-								{
-									result.IsSuccess = false;
-									result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
-								}
+							}
+							if (items.Post())
+							{
+								var referenceId = Convert.ToInt32(items.DataFields.FieldByName("INTERNAL_REFERENCE").Value.ToString());
+								var code = items.DataFields.FieldByName("NUMBER").Value.ToString();
+
+								result.Data = null;
+								result.IsSuccess = true;
+								result.Message = "Success";
+							}
+							else
+							{
+								result.IsSuccess = false;
+								result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
 							}
 						}
 						else
