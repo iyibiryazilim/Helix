@@ -73,7 +73,9 @@
                 <Image Grid.Column="0"
                        HeightRequest="25"
                        WidthRequest="25">
-
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToConfigBottomSheetViewCommand}" />
+                    </Image.GestureRecognizers>
                     <Image.Source>
                         <FontImageSource FontFamily="FAS"
                                          Glyph="{x:Static fontAwesome:FontAwesomeIcons.Gear}"
