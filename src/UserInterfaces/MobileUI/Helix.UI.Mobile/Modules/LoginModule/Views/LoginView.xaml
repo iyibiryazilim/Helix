@@ -1,87 +1,95 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Helix.UI.Mobile.Modules.LoginModule.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Helix.UI.Mobile.Modules.LoginModule.Views.LoginView"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.LoginModule.ViewModels"
-             x:DataType="viewModel:LoginViewModel"
              Title="LoginView"
-             >
+             x:DataType="viewModel:LoginViewModel">
 
-    <Grid RowDefinitions="0.30*,0.05*,*,Auto,Auto"
-          Padding="30"
+    <Grid Padding="30"
+          RowDefinitions="0.30*,0.05*,*,Auto,Auto"
           RowSpacing="20">
 
-       
-        
         <Frame BackgroundColor="{StaticResource Primary}"
-               
-               WidthRequest="70"
-               HeightRequest="70"
                CornerRadius="13"
+               HeightRequest="70"
                HorizontalOptions="Start"
-               VerticalOptions="End">
-            <Label Text="V" TextColor="{StaticResource White}" FontSize="28" VerticalOptions="Start" HorizontalOptions="Center" FontAttributes="Bold">
-                
-            </Label>
+               VerticalOptions="End"
+               WidthRequest="70">
+            <Label FontAttributes="Bold"
+                   FontSize="28"
+                   HorizontalOptions="Center"
+                   Text="V"
+                   TextColor="{StaticResource White}"
+                   VerticalOptions="Start" />
         </Frame>
         <VerticalStackLayout Grid.Row="1"
                              Spacing="10"
                              VerticalOptions="Start">
-            <Label Text="Login or register using your email and password"
+            <Label FontAttributes="Bold"
                    FontSize="Title"
-                   FontAttributes="Bold">
-
-            </Label>
-            <Label Text="Login or register using your email and password"
-                   FontSize="Subtitle"
-                   
-                   TextColor="Blue">
-
-            </Label>
+                   Text="Login or register using your email and password" />
+            <Label FontSize="Subtitle"
+                   Text="Login or register using your email and password"
+                   TextColor="Blue" />
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="2"
                              Spacing="25"
                              VerticalOptions="Center">
-            <Frame CornerRadius="13"
-                   Padding="2"
+            <Frame Padding="2"
                    BackgroundColor="#dbe1ed"
-                   BorderColor="Transparent">
-                <Entry Placeholder="Kullanıcı Adı"
-                       Text="{Binding UserName}"
-                       x:Name="userName"
+                   BorderColor="Transparent"
+                   CornerRadius="13">
+                <Entry x:Name="userName"
                        Margin="5,0,0,0"
                        FontSize="14"
+                       Placeholder="Kullanıcı Adı"
                        PlaceholderColor="#adb3c3"
+                       Text="{Binding UserName}"
                        VerticalOptions="Center" />
             </Frame>
 
-            <Frame Padding="2" 
+            <Frame Padding="2"
                    BackgroundColor="#dbe1ed"
-                   CornerRadius="13"
-                   BorderColor="Transparent">
-                <Entry Placeholder="Şifre"
+                   BorderColor="Transparent"
+                   CornerRadius="13">
+                <Entry x:Name="password"
                        Margin="5,0,0,0"
-                       x:Name="password"
-                       Text="{Binding Password}"
-                       IsPassword="True"
                        FontSize="14"
+                       IsPassword="True"
+                       Placeholder="Şifre"
                        PlaceholderColor="#adb3c3"
+                       Text="{Binding Password}"
                        VerticalOptions="Center" />
             </Frame>
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="3" Spacing="10" VerticalOptions="End">
-            <Button Command="{Binding AuthenticateCommand}"
-                    CornerRadius="13"
-                    Text="Login"
-                    TextColor="{StaticResource White}">
-            </Button>
-            <Label Text="Şifremi Unuttum" HorizontalOptions="Center">
-                
-            </Label>
+        <VerticalStackLayout Grid.Row="3"
+                             Spacing="10"
+                             VerticalOptions="End">
+            <Grid ColumnDefinitions="30, *" ColumnSpacing="10">
+                <Image Grid.Column="0"
+                       HeightRequest="25"
+                       WidthRequest="25">
+
+                    <Image.Source>
+                        <FontImageSource FontFamily="FAS"
+                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Gear}"
+                                         Color="{StaticResource Gray600}" />
+                    </Image.Source>
+                </Image>
+                <Button Grid.Column="1"
+                        Command="{Binding AuthenticateCommand}"
+                        CornerRadius="13"
+                        Text="Oturum Aç"
+                        TextColor="{StaticResource White}" />
+            </Grid>
+
+            <Label HorizontalOptions="Center" Text="Şifremi Unuttum" />
         </VerticalStackLayout>
-      
+
 
     </Grid>
 

@@ -61,13 +61,13 @@ public partial class LoginViewModel : BaseViewModel
 				var result = await SecureStorage.Default.GetAsync("isWatch");
 				if (result == "true")
 				{
-					await Task.Delay(500);
+					await Task.Delay(100);
 					Application.Current.MainPage = new AppShell();
 
 				}
 				else
 				{
-					await Task.Delay(500);
+					await Task.Delay(100);
 					Application.Current.MainPage = new IntroductionScreenView();
 				}
 			}
