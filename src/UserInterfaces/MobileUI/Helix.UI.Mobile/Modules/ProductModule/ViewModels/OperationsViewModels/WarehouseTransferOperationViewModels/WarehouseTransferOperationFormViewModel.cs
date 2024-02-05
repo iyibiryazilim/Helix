@@ -142,7 +142,8 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 8
+                    ["GroupType"] = 8,
+                    ["SuccessMessage"] = "Ambar Transfer Fişi Başarıyla Gönderildi."
                 });
             }
             else

@@ -194,7 +194,8 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 3
+                    ["GroupType"] = 3,
+                    ["SuccessMessage"]="Sayım Eksiği Fişi Başarıyla Gönderildi."
                 });
             }
             else

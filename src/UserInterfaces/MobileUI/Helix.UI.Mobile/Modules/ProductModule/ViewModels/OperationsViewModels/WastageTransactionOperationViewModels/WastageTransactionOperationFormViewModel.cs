@@ -190,7 +190,8 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 3
+                    ["GroupType"] = 3,
+                    ["SuccessMessage"]="Fire Fişi Başarıyla Gönderildi."
                 });
             }
             else

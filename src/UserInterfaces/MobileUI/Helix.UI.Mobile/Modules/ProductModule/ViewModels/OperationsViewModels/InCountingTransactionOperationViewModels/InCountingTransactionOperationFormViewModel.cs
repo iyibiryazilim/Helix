@@ -196,7 +196,8 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 3
+                    ["GroupType"] = 3,
+                    ["SuccessMessage"]="Sayım Fazlası Fişi Başarıyla Gönderildi."
                 });
             }
             else

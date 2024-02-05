@@ -379,7 +379,9 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 3
+                    ["GroupType"] = 3,
+                    ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+
                 });
             }
             else

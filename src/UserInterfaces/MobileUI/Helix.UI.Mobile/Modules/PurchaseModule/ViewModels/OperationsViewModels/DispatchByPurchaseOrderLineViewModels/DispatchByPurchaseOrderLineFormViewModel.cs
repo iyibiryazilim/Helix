@@ -158,7 +158,9 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 10
+                    ["GroupType"] = 10,
+                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                 });
             }
             else

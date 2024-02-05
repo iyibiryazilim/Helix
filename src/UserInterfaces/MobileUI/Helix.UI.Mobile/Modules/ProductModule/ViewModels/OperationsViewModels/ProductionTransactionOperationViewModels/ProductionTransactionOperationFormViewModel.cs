@@ -192,7 +192,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 3
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"]= "Üretimden Giriş Fişi Başarılıyla Gönderildi."
                     });
                 }
                 else

@@ -172,7 +172,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
-                            ["GroupType"] = 8
+                            ["GroupType"] = 8,
+                            ["SuccessMessage"] = "Virman Fişi Başarıyla Gönderildi."
                         });
                     }
                 }
