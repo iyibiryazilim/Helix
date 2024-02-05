@@ -5,6 +5,8 @@
                    xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
                    xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
                    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                   xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.LoginModule.ViewModels.BottomSheetViewModels"
+                   x:DataType="viewModel:ConfigBottomSheetViewModel"
                    BackgroundColor="{StaticResource White}"
                    HandleColor="{StaticResource Primary}"
                    HasBackdrop="True"
@@ -15,7 +17,7 @@
         <the49:ContentDetent />
 
     </the49:BottomSheet.Detents>
-    <Grid Padding="10,20,10,0"
+    <Grid Padding="20,20,20,0"
           ColumnDefinitions="*"
           RowDefinitions="*, Auto"
           RowSpacing="30">
@@ -32,7 +34,8 @@
                         Stroke="{StaticResource Gray300}"
                         StrokeShape="RoundRectangle 10">
                     <Entry FontSize="14"
-                           Placeholder="http//192.168.1.5"
+                           Text="{Binding BaseUri}"
+                           Placeholder="http://195.142.192.18"
                            PlaceholderColor="#adb3c3"
                            VerticalOptions="Center" />
                 </Border>
@@ -42,6 +45,7 @@
                         StrokeShape="RoundRectangle 10">
                     <Entry FontSize="14"
                            Placeholder="1089"
+                           Text="{Binding Port}"
                            PlaceholderColor="#adb3c3"
                            VerticalOptions="Center" />
                 </Border>
@@ -51,7 +55,9 @@
         <Grid Grid.Row="1"
               Grid.Column="0"
               VerticalOptions="End">
-            <Button BackgroundColor="{StaticResource Primary}" Text="Kaydet" />
+            <Button BackgroundColor="{StaticResource Primary}"
+                    Command="{Binding SaveConfigCommand}"
+                    Text="Kaydet" />
         </Grid>
 
     </Grid>

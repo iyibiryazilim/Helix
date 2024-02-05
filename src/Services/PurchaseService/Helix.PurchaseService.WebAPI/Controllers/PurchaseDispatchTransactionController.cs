@@ -13,7 +13,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	//[Authorize]
+	[Authorize]
 	public class PurchaseDispatchTransactionController : ControllerBase
 	{
 		private readonly ILogger<PurchaseDispatchTransactionController> _logger;

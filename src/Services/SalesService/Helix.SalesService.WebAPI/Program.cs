@@ -13,12 +13,13 @@ using RabbitMQ.Client;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.ConfigureAuth(builder.Configuration);
+builder.Services.ConfigureAuth(builder.Configuration);
 
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
+builder.Services.ConfigureAuth(configuration);
 
 
 builder.Services.AddSingleton<IEventBus>(eb =>
@@ -67,7 +68,7 @@ builder.Services.AddTransient<IShipInfoService, ShipInfoDataStore>();
 
 builder.Services.AddTransient<ICustomerService, CustomerDataStore>();
 
-builder.Services.ConfigureAuth(configuration);
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

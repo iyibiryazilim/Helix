@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.LoginModule.ViewModels"
              Title="LoginView"
@@ -69,19 +70,26 @@
         <VerticalStackLayout Grid.Row="3"
                              Spacing="10"
                              VerticalOptions="End">
-            <Grid ColumnDefinitions="30, *" ColumnSpacing="10">
-                <Image Grid.Column="0"
-                       HeightRequest="25"
-                       WidthRequest="25">
-                    <Image.GestureRecognizers>
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="2">
+                <Border BackgroundColor="{StaticResource Primary}" Grid.Column="0" Padding="15"
+                        StrokeShape="RoundRectangle 12">
+                    <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoToConfigBottomSheetViewCommand}" />
-                    </Image.GestureRecognizers>
-                    <Image.Source>
-                        <FontImageSource FontFamily="FAS"
-                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Gear}"
-                                         Color="{StaticResource Gray600}" />
-                    </Image.Source>
-                </Image>
+                    </Border.GestureRecognizers>
+                    <Image
+                           HeightRequest="20"
+                           WidthRequest="20">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToConfigBottomSheetViewCommand}" />
+                        </Image.GestureRecognizers>
+                        <Image.Source>
+                            <FontImageSource FontFamily="FAS"
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Gear}"
+                                             Color="{StaticResource White}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
+
                 <Button Grid.Column="1"
                         Command="{Binding AuthenticateCommand}"
                         CornerRadius="13"
