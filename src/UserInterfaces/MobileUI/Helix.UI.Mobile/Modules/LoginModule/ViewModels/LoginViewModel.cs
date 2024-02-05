@@ -68,7 +68,7 @@ public partial class LoginViewModel : BaseViewModel
 				{
 					httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.Token);
 
-					//await SecureStorage.SetAsync("CurrentUser", $"");
+					await SecureStorage.SetAsync("CurrentUser", UserName);
 					var result = await SecureStorage.Default.GetAsync("isWatch");
 					if (result == "true")
 					{

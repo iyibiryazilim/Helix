@@ -67,6 +67,7 @@
                        VerticalOptions="Center" />
             </Frame>
         </VerticalStackLayout>
+        <sharedViews:LoadingView IsBusy="{Binding IsBusy}" Grid.Row="2" />
         <VerticalStackLayout Grid.Row="3"
                              Spacing="10"
                              VerticalOptions="End">
