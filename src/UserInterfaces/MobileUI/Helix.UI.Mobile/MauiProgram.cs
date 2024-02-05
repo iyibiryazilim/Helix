@@ -759,14 +759,14 @@ namespace Helix.UI.Mobile
 		#region LoginModule
 		public static MauiAppBuilder LoginViews(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddSingleton<LoginView>();
+			mauiAppBuilder.Services.AddTransient<LoginView>();
 			mauiAppBuilder.Services.AddTransient<ConfigBottomSheetView>();
 
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder LoginViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
+			mauiAppBuilder.Services.AddTransient<LoginViewModel>();
 			mauiAppBuilder.Services.AddTransient<ConfigBottomSheetViewModel>();
 
 			return mauiAppBuilder;

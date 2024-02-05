@@ -57,8 +57,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5125
+          "Host": "172.25.86.101",
+          "Port": 10081
         }
       ],
       "UpstreamPathTemplate": "/gateway/identity/{everything}",

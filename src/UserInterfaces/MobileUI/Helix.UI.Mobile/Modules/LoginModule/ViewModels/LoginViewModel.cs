@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.IntroductionModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.Services;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels.BottomSheetViewModels;
@@ -55,25 +56,40 @@ public partial class LoginViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
+
 			if (!string.IsNullOrEmpty(UserName))
 			{
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
+				string baseAddress = await SecureStorage.GetAsync("BaseUrl");
+				//httpClient.BaseAddress = new Uri(baseAddress);
+
 				var auth = await _authenticationService.Authenticate(httpClient, UserName, Password);
-				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.Token);
-
-				//await SecureStorage.Default.SetAsync("CurrentUser", $"");
-				var result = await SecureStorage.Default.GetAsync("isWatch");
-				if (result == "true")
+				if(auth.Result != false)
 				{
-					await Task.Delay(100);
-					Application.Current.MainPage = new AppShell();
+					httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.Token);
 
+					await SecureStorage.SetAsync("CurrentUser", UserName);
+					var result = await SecureStorage.Default.GetAsync("isWatch");
+					if (result == "true")
+					{
+						await Task.Delay(1000);
+						Application.Current.MainPage = new AppShell();
+
+					}
+					else
+					{
+						await Task.Delay(1000);
+						Application.Current.MainPage = new IntroductionScreenView();
+					}
 				}
 				else
 				{
-					await Task.Delay(100);
-					Application.Current.MainPage = new IntroductionScreenView();
+					MessageHelper messageHelper = new();
+					CancellationTokenSource cancellationTokenSource = new();
+
+					await messageHelper.GetToastMessage("Kullanıcı bilgileriniz hatalı!").Show(cancellationTokenSource.Token);
 				}
+				
 			}
 		}
 		catch(Exception ex)

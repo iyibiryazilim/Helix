@@ -9,7 +9,7 @@ namespace LBS.Gateway.Controllers.Tiger;
 
 [Route("api/[controller]")]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class SupplierController : ControllerBase
 {
 	ISupplierService _supplierService;

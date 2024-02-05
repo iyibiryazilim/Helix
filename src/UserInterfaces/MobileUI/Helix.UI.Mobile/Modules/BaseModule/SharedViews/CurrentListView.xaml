@@ -7,7 +7,7 @@
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.CurrentListView">
-    <Border BackgroundColor="{StaticResource White}"
+    <Border BackgroundColor="{StaticResource MainBorderColor}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>

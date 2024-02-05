@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
@@ -277,7 +277,8 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 7
+                        ["GroupType"] = 7,
+                         ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
                     });
                 }
             }
@@ -353,7 +354,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 7
+                    ["GroupType"] = 7,
+                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                 });
             }
             else

@@ -4,8 +4,8 @@
 	public class TransferTransactionDto : ProductTransactionDto
 	{
 		public IList<TransferTransactionLineDto> Lines { get; set; }
-
-		public TransferTransactionDto()
+        public int DestinationWarehouseNumber { get; set; }
+        public TransferTransactionDto()
 		{
 			TransactionType = 25;
 			IOType = 3;
@@ -16,6 +16,7 @@
 	public class TransferTransactionLineDto : ProductTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
+		public int DestinationWarehouseNumber { get; set; }
 
 		public TransferTransactionLineDto()
 		{

@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
@@ -162,7 +162,8 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 10
+                        ["GroupType"] = 10,
+                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
                     });
                 }
             }

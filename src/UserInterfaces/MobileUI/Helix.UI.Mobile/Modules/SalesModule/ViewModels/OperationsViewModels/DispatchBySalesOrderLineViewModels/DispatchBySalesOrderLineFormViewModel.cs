@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
@@ -263,7 +263,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
-                            ["GroupType"] = 8
+                            ["GroupType"] = 8,
+                            ["SuccessMessage"]="İrsaliye Başarıyla Gönderildi."
                         });
                     }
                 }
@@ -332,7 +333,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 8
+                        ["GroupType"] = 8,
+                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                     });
                 }
                 else

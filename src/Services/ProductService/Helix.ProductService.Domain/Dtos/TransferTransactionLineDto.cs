@@ -13,7 +13,9 @@
         int? subUnitsetReferenceId,
         string? subUnitsetCode,
         double quantity,
-        int warehousereferenceId,
+        int? warehousereferenceId,
+        int? destinationWarehouseNumber,
+
         short? warehouseNumber,
         string? description,
         string? speCode,

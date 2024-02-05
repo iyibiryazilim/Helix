@@ -9,7 +9,7 @@ namespace Helix.ProductService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	//[Authorize]
+	[Authorize]
 	public class SubUnitsetController : ControllerBase
     {
         //ISubUnitsetService _subUnitsetService;
