@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.PanelModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.PanelModule.Models;
+using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -236,4 +237,11 @@ public partial class PanelViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
+
+    [RelayCommand]
+    async Task GoToProfilelViewAsync()
+    {
+		await Shell.Current.GoToAsync($"{nameof(ProfilePageView)}");
+    }
+
 }

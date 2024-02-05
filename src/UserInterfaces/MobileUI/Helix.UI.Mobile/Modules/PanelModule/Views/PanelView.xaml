@@ -38,7 +38,8 @@
                                     CornerRadius="50"
                                     Text="VS">
                     <toolkit:AvatarView.GestureRecognizers>
-                        <TapGestureRecognizer  />
+                        <TapGestureRecognizer  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProfilelViewCommand}"
+                                               CommandParameter="{Binding .}" />
                         </toolkit:AvatarView.GestureRecognizers>
                 </toolkit:AvatarView>
                 <VerticalStackLayout Grid.Column="1" Spacing="5">
