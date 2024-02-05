@@ -194,10 +194,15 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
                 var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
                 if (result.IsSuccess)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                    if (userResponse)
                     {
-                        ["GroupType"] = 1
-                    });
+                        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                        {
+                            ["GroupType"] = 1
+                        });
+                    }
                 }
                 else
                 {

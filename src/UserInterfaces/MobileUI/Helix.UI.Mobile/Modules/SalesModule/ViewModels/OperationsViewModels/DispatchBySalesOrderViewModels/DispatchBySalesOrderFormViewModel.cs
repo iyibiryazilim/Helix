@@ -271,10 +271,15 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             var result =  await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
             if (result.IsSuccess)
             {
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    ["GroupType"] = 7
-                });
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 7
+                    });
+                }
             }
             else
             {

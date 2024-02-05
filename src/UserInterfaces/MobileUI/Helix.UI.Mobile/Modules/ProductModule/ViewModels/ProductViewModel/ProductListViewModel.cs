@@ -215,7 +215,7 @@ public partial class ProductListViewModel : BaseViewModel
 						await ReloadAsync();
 						break;
 					default:
-						await Shell.Current.DisplayAlert("Error: ", "Yanlış Girdi", "Tamam");
+						
 						await ReloadAsync();
 						break;
 

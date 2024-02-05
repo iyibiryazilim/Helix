@@ -36,7 +36,11 @@
                 <toolkit:AvatarView Grid.Column="0"
                                     BackgroundColor="{StaticResource Secondary}"
                                     CornerRadius="50"
-                                    Text="VS" />
+                                    Text="VS">
+                    <toolkit:AvatarView.GestureRecognizers>
+                        <TapGestureRecognizer  />
+                        </toolkit:AvatarView.GestureRecognizers>
+                </toolkit:AvatarView>
                 <VerticalStackLayout Grid.Column="1" Spacing="5">
                     <Label FontSize="Default"
                            Text="Hoşgeldiniz"

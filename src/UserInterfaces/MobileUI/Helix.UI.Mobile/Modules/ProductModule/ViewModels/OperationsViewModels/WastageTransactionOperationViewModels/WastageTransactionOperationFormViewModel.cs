@@ -188,10 +188,15 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
             var result = await _wastageTransactionService.InsertObject(httpClient, wastageTransactionDto);
             if (result.IsSuccess)
             {
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    ["GroupType"] = 3
-                });
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3
+                    });
+                }
             }
             else
             {

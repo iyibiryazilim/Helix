@@ -134,7 +134,7 @@ namespace Helix.UI.Mobile
 				.ReturnRegisterViews()
 				.BaseRegisterServices()
 				.SalesRegisterServices()
-				.SalesRegisterViewModels()
+				.SalesRegisterViewModels() 
 				.SalesRegisterViews()
 				.PurchaseRegisterViews()
 				.PurchaseRegisterViewModels()
@@ -254,6 +254,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<FailedPageViewModel>();
 			mauiAppBuilder.Services.AddTransient<BarcodePageView>();
 			mauiAppBuilder.Services.AddTransient<BarcodePageViewModel>();
+			
+		
 
 
 

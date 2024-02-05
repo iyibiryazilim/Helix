@@ -170,10 +170,15 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     var ProductionResult = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
                     if (ProductionResult.IsSuccess)
                     {
-                        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                        var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                        if (userResponse)
                         {
-                            ["GroupType"] = 8
-                        });
+                            await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                            {
+                                ["GroupType"] = 8
+                            });
+                        }
                     }
                 }
                 else

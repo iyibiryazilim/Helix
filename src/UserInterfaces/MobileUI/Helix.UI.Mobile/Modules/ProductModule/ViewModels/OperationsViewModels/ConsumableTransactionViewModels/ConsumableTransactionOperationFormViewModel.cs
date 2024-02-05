@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -54,6 +55,9 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
     [ObservableProperty]
     public string speCode = string.Empty;
 
+    public bool answer;
+    public string selectAnswer;
+   
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
     public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IConsumableTransactionService consumableTransactionService)
@@ -196,10 +200,15 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
             var result = await _consumableTransactionService.InsertObject(httpClient, consumableTransactionDto);
             if (result.IsSuccess)
             {
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    ["GroupType"] = 3
-                });
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3
+                    });
+                }
             }
             else
             {
