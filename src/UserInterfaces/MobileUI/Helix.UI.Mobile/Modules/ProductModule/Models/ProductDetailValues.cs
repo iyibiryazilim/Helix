@@ -10,4 +10,8 @@ public partial class ProductDetailValues : ObservableObject
 	int outputQuantity;
 	[ObservableProperty]
 	int stockQuantity;
+	[ObservableProperty]
+	string subUnitsetCode;
+
+    
 }

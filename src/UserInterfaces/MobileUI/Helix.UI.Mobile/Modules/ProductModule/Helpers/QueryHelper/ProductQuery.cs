@@ -18,7 +18,11 @@ public class ProductQuery : IDisposable
                [OutputQuantity] = (SELECT ISNULL(SUM(AMOUNT), 0) FROM LG_{CompanyNumber}_{CompanyPeriod}_STLINE WHERE IOCODE IN(3, 4) AND STOCKREF = {ReferenceId}),
                [StockQuantity] = (SELECT ISNULL(SUM(ONHAND), 0) FROM LV_{CompanyNumber}_{CompanyPeriod}_STINVTOT AS STINVTOT LEFT JOIN L_CAPIWHOUSE AS WAREHOUSE ON STINVTOT.INVENNO = WAREHOUSE.NR AND WAREHOUSE.FIRMNR = {Int32.Parse(CompanyNumber)}
                WHERE STINVTOT.STOCKREF = {ReferenceId} AND WAREHOUSE.NR = STINVTOT.INVENNO),
-               [LastTransactionDate] = (SELECT TOP 1 LASTTRDATE FROM LV_{CompanyNumber}_{CompanyPeriod}_STINVTOT WHERE STOCKREF = {ReferenceId} ORDER BY DATE_ DESC)";
+               [LastTransactionDate] = (SELECT TOP 1 LASTTRDATE FROM LV_{CompanyNumber}_{CompanyPeriod}_STINVTOT WHERE STOCKREF = {ReferenceId} ORDER BY DATE_ DESC),
+               [SubUnitsetCode]=(SELECT TOP 1 SUBUNITSET.CODE 
+			   FROM LG_{CompanyNumber}_{CompanyPeriod}_STLINE AS STLINE 
+			   LEFT JOIN LG_{CompanyNumber}_UNITSETL AS SUBUNITSET ON STLINE.UOMREF=SUBUNITSET.LOGICALREF AND SUBUNITSET.MAINUNIT=1
+			   WHERE STLINE.STOCKREF={ReferenceId})";
 
 		return query;
 	}

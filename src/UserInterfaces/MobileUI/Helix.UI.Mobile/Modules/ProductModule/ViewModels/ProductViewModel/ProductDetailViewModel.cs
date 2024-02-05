@@ -119,6 +119,7 @@ public partial class ProductDetailViewModel : BaseViewModel
 			ProductDetailValues.InputQuantity = obj.InputQuantity;
 			ProductDetailValues.OutputQuantity = obj.OutputQuantity;
 			ProductDetailValues.StockQuantity = obj.StockQuantity;
+			ProductDetailValues.SubUnitsetCode = obj.SubUnitsetCode;
 		}
 		catch(Exception ex)
 		{
