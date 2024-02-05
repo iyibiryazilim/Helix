@@ -228,11 +228,16 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
             var result = await _retailSalesReturnDispatchTransactionService.InsertObject(httpClient, dto);
             if (result.IsSuccess)
             {
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    ["GroupType"] = 3,
-                    ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
-                });
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+                    });
+                }
             }
             else
             {

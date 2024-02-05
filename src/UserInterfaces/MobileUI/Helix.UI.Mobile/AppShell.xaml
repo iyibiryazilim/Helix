@@ -28,6 +28,7 @@
        xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
        xmlns:warehouseCountingViews="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseCountingViews"
        xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+       xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.ViewModels"
        Shell.FlyoutBehavior="Flyout"
      >
    
@@ -38,37 +39,37 @@
                          VerticalOptions="Center"
                          Spacing="20">
 
-                <Grid RowDefinitions="Auto,Auto"
-                      ColumnDefinitions="Auto,*"
-                      Padding="10"
-                      ColumnSpacing="15">
+                <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="10">
+                    <Border Grid.Column="0" StrokeThickness="0">
+                        <toolkit:AvatarView 
+                                            Grid.Column="0"
+                                            Grid.RowSpan="2"
+                                            StrokeThickness="2"
+                                            HeightRequest="70"
+                                            WidthRequest="70"
+                                            CornerRadius="35"
+                                            ImageSource="user.svg"
+                                            HorizontalOptions="Start"/>
 
-                    <toolkit:AvatarView Grid.Row="0"
-                                        Grid.Column="0"
-                                        Grid.RowSpan="2"
-                                        StrokeThickness="2"
-                                        HeightRequest="70"
-                                        WidthRequest="70"
-                                        CornerRadius="35"
-                                        ImageSource="user.svg"
-                                        HorizontalOptions="Start" />
+                       
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="End">
+                        <Label 
+                               Grid.Column="1"
+                               Text="Volkan Sunuk"
+                               FontAttributes="Bold"
+                               FontSize="Subtitle"
+                               FontFamily="Roboto"
+                               VerticalOptions="End" />
 
-                    <Label Grid.Row="0"
-                           Grid.Column="1"
-                           Text="Volkan Sunuk"
-                           FontAttributes="Bold"
-                           FontSize="Subtitle"
-                           FontFamily="Roboto"
-                           VerticalOptions="End" />
-
-                    <Label Grid.Row="1"
-                           Grid.Column="1"
-                           Text="Paketleme"
-                           FontSize="Small"
-                           FontFamily="Roboto"
-                           TextColor="{StaticResource Gray400}"
-                           VerticalOptions="Start" />
-
+                        <Label 
+                               Text="Paketleme"
+                               FontSize="Small"
+                               FontFamily="Roboto"
+                               TextColor="{StaticResource Gray400}"
+                               VerticalOptions="Start" />
+                    </VerticalStackLayout>
+                    
                 </Grid>
 
                 <BoxView HeightRequest="1"

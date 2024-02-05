@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -190,13 +190,18 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
             var result = await _wastageTransactionService.InsertObject(httpClient, wastageTransactionDto);
             if (result.IsSuccess)
             {
-                var viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
-                viewModel.Items.Clear();
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    ["GroupType"] = 3,
-                    ["SuccessMessage"]="Fire Fişi Başarıyla Gönderildi."
-                });
+                  var viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
+                  viewModel.Items.Clear();
+                  await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                  {
+                      ["GroupType"] = 3,
+                      ["SuccessMessage"]="Fire Fişi Başarıyla Gönderildi."
+                  });
+                }
             }
             else
             {

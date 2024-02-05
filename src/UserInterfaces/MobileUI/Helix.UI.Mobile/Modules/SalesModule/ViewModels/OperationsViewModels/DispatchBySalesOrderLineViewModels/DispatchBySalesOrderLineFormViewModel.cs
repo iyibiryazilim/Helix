@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
@@ -257,11 +257,16 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
                 if (result.IsSuccess)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                    if (userResponse)
                     {
-                        ["GroupType"] = 8,
-                        ["SuccessMessage"]="İrsaliye Başarıyla Gönderildi."
-                    });
+                        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                        {
+                            ["GroupType"] = 8,
+                            ["SuccessMessage"]="İrsaliye Başarıyla Gönderildi."
+                        });
+                    }
                 }
                 else
                 {

@@ -187,7 +187,7 @@
                                         <Border Grid.Column="1"
                                                 BackgroundColor="{StaticResource Primary}"
                                                 StrokeThickness="0">
-                                            <Label HorizontalOptions="Center"
+                                            <Entry Keyboard="Numeric" HorizontalOptions="Center" FontSize="12" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                                                    Text="{Binding QuantityCounter}"
                                                    TextColor="{StaticResource White}"
                                                    VerticalOptions="Center" />

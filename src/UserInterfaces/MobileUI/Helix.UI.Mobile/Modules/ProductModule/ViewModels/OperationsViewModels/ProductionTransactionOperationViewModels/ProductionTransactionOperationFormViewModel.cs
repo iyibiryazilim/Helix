@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -192,13 +192,20 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 var result = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
                 if (result.IsSuccess)
                 {
-                    var viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
-                    viewModel.Items.Clear();
-                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+
+                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                    if (userResponse)
                     {
-                        ["GroupType"] = 3,
-                        ["SuccessMessage"]= "Üretimden Giriş Fişi Başarılıyla Gönderildi."
-                    });
+                        var viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
+                        viewModel.Items.Clear();
+                        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                        {
+                            ["GroupType"] = 3,
+                            ["SuccessMessage"]= "Üretimden Giriş Fişi Başarılıyla Gönderildi."
+                        });
+                    }
+
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -387,15 +387,20 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
             var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
             if (result.IsSuccess)
             {
-                var viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
-                viewModel.Items.Clear();
-               
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                {
-                    ["GroupType"] = 3,
-                    ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                });
+                if (userResponse)
+                {
+                   var viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
+                    viewModel.Items.Clear();
+               
+                  await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                  {
+                      ["GroupType"] = 3,
+                      ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+
+                  });
+                }
             }
             else
             {

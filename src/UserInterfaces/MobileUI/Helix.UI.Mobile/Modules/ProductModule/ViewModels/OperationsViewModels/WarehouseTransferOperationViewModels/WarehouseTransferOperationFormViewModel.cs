@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -143,13 +143,19 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
             var result = await _transferTransactionService.InsertObject(httpClient, transferTransactionDto);
             if (result.IsSuccess)
             {
-                var viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
-                viewModel.Items.Clear();
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    ["GroupType"] = 8,
-                    ["SuccessMessage"] = "Ambar Transfer Fişi Başarıyla Gönderildi."
-                });
+                    var viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
+                    viewModel.Items.Clear();
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 8,
+                        ["SuccessMessage"] = "Ambar Transfer Fişi Başarıyla Gönderildi."
+                    });
+                }
+
             }
             else
             {

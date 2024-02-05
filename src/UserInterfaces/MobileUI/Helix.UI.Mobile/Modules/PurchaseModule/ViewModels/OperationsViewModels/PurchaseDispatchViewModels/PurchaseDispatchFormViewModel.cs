@@ -215,12 +215,16 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
             var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
             if (result.IsSuccess)
             {
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                {
-                    ["GroupType"] = 100,
-                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                });
+                if (userResponse)
+                {
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 100,
+                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+                    });
+                }
             }
             else
             {

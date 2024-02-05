@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -171,17 +171,21 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     var ProductionResult = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
                     if (ProductionResult.IsSuccess)
                     {
-                        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                        var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                        if (userResponse)
                         {
-                            ["GroupType"] = 8,
-                            ["SuccessMessage"] = "Virman Fişi Başarıyla Gönderildi."
-                        });
-                    }
-                }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                }
+                            await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                            {
+                               ["GroupType"] = 8,
+                               ["SuccessMessage"] = "Virman Fişi Başarıyla Gönderildi."
+                             });
+                        }
+                  }
+                  else
+                  {
+                      await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                  }
 
             }
             catch (Exception)

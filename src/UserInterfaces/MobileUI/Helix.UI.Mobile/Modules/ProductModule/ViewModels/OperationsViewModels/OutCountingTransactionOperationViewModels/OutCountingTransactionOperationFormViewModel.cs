@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -194,13 +194,19 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
             var result = await _outCountingTransactionService.InsertObject(httpClient, outCountingTransactionDto);
             if (result.IsSuccess)
             {
-                var viewModel = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
-                viewModel.Items.Clear();
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    ["GroupType"] = 3,
-                    ["SuccessMessage"]="Sayım Eksiği Fişi Başarıyla Gönderildi."
-                });
+                   var viewModel = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
+                    viewModel.Items.Clear();
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"]="Sayım Eksiği Fişi Başarıyla Gönderildi."
+                    });
+                }
             }
             else
             {
