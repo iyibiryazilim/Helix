@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -133,7 +134,7 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -366,6 +367,10 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
+
+			//var popup = new BarcodePageView();
+			//var popupResult = await Shell.Current.ShowPopupAsync(popup);
+
 
 			await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}");			
 		}

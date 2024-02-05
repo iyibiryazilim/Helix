@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet x:Class="Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews.ConfigBottomSheetView"
+                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+                   xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+                   xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                   BackgroundColor="{StaticResource White}"
+                   HandleColor="{StaticResource Primary}"
+                   HasBackdrop="True"
+                   HasHandle="true">
+    <the49:BottomSheet.Detents>
+        <!--  Stop at the height of the screen  -->
+        <!--  Stop at the height of the page content  -->
+        <the49:ContentDetent />
+
+    </the49:BottomSheet.Detents>
+    <Grid Padding="10,20,10,0"
+          ColumnDefinitions="*"
+          RowDefinitions="*, Auto"
+          RowSpacing="30">
+        <VerticalStackLayout Grid.Column="0"
+                             Padding="0"
+                             Spacing="15">
+            <Label FontAttributes="Bold"
+                   FontSize="Title"
+                   HorizontalOptions="Center"
+                   Text="API Parametreleri" />
+            <Grid ColumnDefinitions=".70*, .30*" ColumnSpacing="10">
+                <Border Grid.Column="0"
+                        Padding="0"
+                        Stroke="{StaticResource Gray300}"
+                        StrokeShape="RoundRectangle 10">
+                    <Entry FontSize="14"
+                           Placeholder="http//192.168.1.5"
+                           PlaceholderColor="#adb3c3"
+                           VerticalOptions="Center" />
+                </Border>
+                <Border Grid.Column="1"
+                        Padding="0"
+                        Stroke="{StaticResource Gray300}"
+                        StrokeShape="RoundRectangle 10">
+                    <Entry FontSize="14"
+                           Placeholder="1089"
+                           PlaceholderColor="#adb3c3"
+                           VerticalOptions="Center" />
+                </Border>
+            </Grid>
+
+        </VerticalStackLayout>
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              VerticalOptions="End">
+            <Button BackgroundColor="{StaticResource Primary}" Text="Kaydet" />
+        </Grid>
+
+    </Grid>
+</the49:BottomSheet>

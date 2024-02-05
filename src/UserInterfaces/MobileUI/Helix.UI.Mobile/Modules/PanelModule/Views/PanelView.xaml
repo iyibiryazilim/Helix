@@ -52,8 +52,7 @@
                     <Image.Source>
                         <FontImageSource FontFamily="FAS"
                                          Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bell}"
-                                         Color="{AppThemeBinding Light={StaticResource Primary},
-                                                                 Dark={StaticResource Primary}}" />
+                                         Color="{StaticResource Warning}" />
                     </Image.Source>
                 </Image>
             </Grid>

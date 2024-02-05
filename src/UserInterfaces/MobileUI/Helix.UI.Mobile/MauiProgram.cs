@@ -15,7 +15,9 @@ using Helix.UI.Mobile.Modules.FastProductionModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.DataStores;
 using Helix.UI.Mobile.Modules.LoginModule.Services;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
+using Helix.UI.Mobile.Modules.LoginModule.ViewModels.BottomSheetViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.Views;
+using Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews;
 using Helix.UI.Mobile.Modules.PanelModule.ViewModels;
 using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
@@ -756,11 +758,15 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder LoginViews(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddSingleton<LoginView>();
+			mauiAppBuilder.Services.AddTransient<ConfigBottomSheetView>();
+
 			return mauiAppBuilder;
 		}
 		public static MauiAppBuilder LoginViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
+			mauiAppBuilder.Services.AddTransient<ConfigBottomSheetViewModel>();
+
 			return mauiAppBuilder;
 		}
 

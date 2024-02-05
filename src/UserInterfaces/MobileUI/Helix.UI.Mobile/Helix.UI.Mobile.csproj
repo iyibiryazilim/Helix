@@ -101,8 +101,6 @@
 
 	<ItemGroup>
 	  <Folder Include="DataStores\" />
-	  <Folder Include="Modules\LoginModule\ViewModels\" />
-	  <Folder Include="Modules\LoginModule\Views\" />
 	  <Folder Include="Modules\PurchaseModule\ViewModels\PanelViewModels\" />
 	  <Folder Include="Modules\PurchaseModule\Views\PanelViews\" />
 	</ItemGroup>
@@ -243,6 +241,10 @@
 	  </MauiXaml>
 
 	  <MauiXaml Update="Modules\IntroductionModule\Views\IntroductionScreenView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+
+	  <MauiXaml Update="Modules\LoginModule\Views\BottomSheetViews\ConfigBottomSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Modules\LoginModule\Views\LoginView.xaml">
