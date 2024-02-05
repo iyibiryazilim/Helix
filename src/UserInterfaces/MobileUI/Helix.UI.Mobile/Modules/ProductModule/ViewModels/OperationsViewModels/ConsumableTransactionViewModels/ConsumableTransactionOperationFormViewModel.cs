@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -24,6 +25,7 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
+    IServiceProvider _serviceProvider;
     IConsumableTransactionService _consumableTransactionService;
     //WarehouseService
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
@@ -56,13 +58,14 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IConsumableTransactionService consumableTransactionService)
+    public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IConsumableTransactionService consumableTransactionService,IServiceProvider serviceProvider)
     {
         Title = "Sarf İşlemleri";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
         _consumableTransactionService = consumableTransactionService;
+        _serviceProvider = serviceProvider;
         TransactionTypeName = "Sarf Fişi";
     }
 
@@ -196,9 +199,12 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
             var result = await _consumableTransactionService.InsertObject(httpClient, consumableTransactionDto);
             if (result.IsSuccess)
             {
+                var viewModel = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
+                viewModel.Items.Clear();
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 3
+                    ["GroupType"] = 3,
+                    ["SuccessMessage"] = "Sarf Fişi Başarıyla Gönderildi."
                 });
             }
             else

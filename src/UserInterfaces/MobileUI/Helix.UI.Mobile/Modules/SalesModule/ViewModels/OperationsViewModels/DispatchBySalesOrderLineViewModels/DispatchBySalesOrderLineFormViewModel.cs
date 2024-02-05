@@ -259,7 +259,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 8
+                        ["GroupType"] = 8,
+                        ["SuccessMessage"]="İrsaliye Başarıyla Gönderildi."
                     });
                 }
                 else
@@ -327,7 +328,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 8
+                        ["GroupType"] = 8,
+                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                     });
                 }
                 else

@@ -23,6 +23,7 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
     IWastageTransactionService _wastageTransactionService;
+    IServiceProvider _serviceProvider;
     //WarehouseService
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
@@ -53,13 +54,14 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public WastageTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IWastageTransactionService wastageTransactionService )
+    public WastageTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IWastageTransactionService wastageTransactionService,IServiceProvider serviceProvider)
     {
         Title = "Fire İşlemleri";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
         _wastageTransactionService = wastageTransactionService;
+        _serviceProvider = serviceProvider;
         TransactionTypeName = "Fire Fişi";
     }
 
@@ -188,9 +190,12 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
             var result = await _wastageTransactionService.InsertObject(httpClient, wastageTransactionDto);
             if (result.IsSuccess)
             {
+                var viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
+                viewModel.Items.Clear();
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 3
+                    ["GroupType"] = 3,
+                    ["SuccessMessage"]="Fire Fişi Başarıyla Gönderildi."
                 });
             }
             else

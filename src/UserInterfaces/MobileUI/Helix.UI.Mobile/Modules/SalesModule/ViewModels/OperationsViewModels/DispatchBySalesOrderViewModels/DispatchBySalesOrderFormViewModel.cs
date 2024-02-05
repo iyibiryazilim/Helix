@@ -273,7 +273,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 7
+                    ["GroupType"] = 7,
+                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                 });
             }
             else
@@ -348,7 +350,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 7
+                    ["GroupType"] = 7,
+                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                 });
             }
             else

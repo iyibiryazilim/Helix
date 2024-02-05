@@ -21,7 +21,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         ISpeCodeService _speCodeService;
         IProductionTransactionService _productionTransactionService;
         IConsumableTransactionService _consumableTransactionService;
-
+        IServiceProvider _serviceProvider;
 
         [ObservableProperty]
         public string speCode = string.Empty;
@@ -39,13 +39,14 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 
         public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-        public TransferTransactionOperationFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IProductionTransactionService productionTransactionService, IConsumableTransactionService consumableTransactionService)
+        public TransferTransactionOperationFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IProductionTransactionService productionTransactionService, IConsumableTransactionService consumableTransactionService, IServiceProvider serviceProvider)
         {
             Title = "Ambar Transfer Formu";
             _httpClientService = httpClientService;
             _speCodeService = speCodeService;
             _consumableTransactionService = consumableTransactionService;
             _productionTransactionService = productionTransactionService;
+            _serviceProvider = serviceProvider;
         }
 
         [RelayCommand]
@@ -172,7 +173,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
-                            ["GroupType"] = 8
+                            ["GroupType"] = 8,
+                            ["SuccessMessage"] = "Virman Fişi Başarıyla Gönderildi."
                         });
                     }
                 }

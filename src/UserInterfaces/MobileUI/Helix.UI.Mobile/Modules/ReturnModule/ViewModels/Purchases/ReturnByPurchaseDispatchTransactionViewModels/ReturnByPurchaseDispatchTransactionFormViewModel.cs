@@ -258,7 +258,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 2
+                        ["GroupType"] = 2,
+                        ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+
                     });
                 }
                 else

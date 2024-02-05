@@ -393,7 +393,9 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 				viewModel.Results.Clear();
 				await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 100
+                    ["GroupType"] = 100,
+                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                 });
             }
             else
@@ -466,7 +468,9 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
                 viewModel.Results.Clear();
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 100
+                    ["GroupType"] = 100,
+                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                 });
             }
             else

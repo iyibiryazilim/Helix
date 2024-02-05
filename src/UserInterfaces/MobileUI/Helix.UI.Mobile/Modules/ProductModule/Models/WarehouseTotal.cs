@@ -54,61 +54,48 @@ namespace Helix.UI.Mobile.Modules.ProductModule.Models
 		[ObservableProperty]
 		int quantityCounter = 0;
 
-		[ObservableProperty]
+
 		double tempOnhand;
 
-		//[ObservableProperty]
-		//Microsoft.Maui.Graphics.Color borderColor;
-
-		//[ObservableProperty]
-		//string? indicatorColor;
-
-		//public Microsoft.Maui.Graphics.Color WarehouseCountingIndicatorColor
-		//{
-		//	get
-		//	{
-
-		//		if (TempOnhand > OnHand)
-		//		{
-		//			return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");  // Success
-		//		}
-		//		else if(TempOnhand == OnHand)
-		//		{
-		//			return Microsoft.Maui.Graphics.Color.FromRgba("#00000000");  // Transparent
-		//		}
-		//		else
-		//		{
-		//			return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");  // Danger
-		//		}
-		//	}
-		//	set
-		//	{
-		//		OnPropertyChanged();
-		//	}
-		//}
-
-		public string? IndicatorColor
+		public double TempOnhand
 		{
 			get
 			{
-
-				if (TempOnhand > OnHand)
-				{
-					return "#2ca57c";  // Success
-				}
-				else if (TempOnhand == OnHand)
-				{
-					return "#00000000";  // Transparent
-				}
-				else
-				{
-					return "#c1322a";  // Danger
-				}
+				return tempOnhand;
 			}
 			set
 			{
-				OnPropertyChanged();
+				SetProperty(ref tempOnhand, value);
+				OnPropertyChanged(nameof(ListColor));
+				OnPropertyChanged(nameof(TempOnhand));
 			}
+		}
+
+		public Microsoft.Maui.Graphics.Color ListColor
+		{
+			get
+			{
+				if (QuantityCounter < 0)
+				{
+					return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");
+
+				}
+				else if (QuantityCounter > 0)
+				{
+					return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");
+
+				}
+				else
+				{
+					return Microsoft.Maui.Graphics.Color.FromRgba("#00000000");
+				}
+
+			}
+			set
+			{
+
+			}
+
 		}
 	}
 }

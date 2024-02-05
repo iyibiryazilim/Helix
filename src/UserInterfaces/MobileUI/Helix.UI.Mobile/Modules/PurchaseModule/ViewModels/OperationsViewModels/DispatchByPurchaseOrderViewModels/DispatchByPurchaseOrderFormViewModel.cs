@@ -196,7 +196,9 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 1
+                        ["GroupType"] = 1,
+                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+
                     });
                 }
                 else

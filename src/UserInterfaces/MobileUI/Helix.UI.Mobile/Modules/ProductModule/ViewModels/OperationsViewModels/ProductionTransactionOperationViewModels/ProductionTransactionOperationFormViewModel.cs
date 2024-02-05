@@ -27,6 +27,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
         IWarehouseService _warehouseService;
         ISpeCodeService _speCodeService;
         IProductionTransactionService _productionTransactionService;
+        IServiceProvider _serviceProvider;
         //WarehouseService
         public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
 
@@ -56,13 +57,14 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 
         public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-        public ProductionTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IProductionTransactionService productionTransactionService)
+        public ProductionTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IProductionTransactionService productionTransactionService,IServiceProvider serviceProvider)
         {
             Title = "Üretimden Giriş İşlemleri";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
             _speCodeService = speCodeService;
             _productionTransactionService = productionTransactionService;
+            _serviceProvider = serviceProvider;
             TransactionTypeName = "Üretimden Giriş Fişi";
         }
 
@@ -190,9 +192,12 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 var result = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
                 if (result.IsSuccess)
                 {
+                    var viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
+                    viewModel.Items.Clear();
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 3
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"]= "Üretimden Giriş Fişi Başarılıyla Gönderildi."
                     });
                 }
                 else

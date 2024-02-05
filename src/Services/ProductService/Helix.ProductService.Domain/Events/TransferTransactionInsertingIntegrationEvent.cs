@@ -12,6 +12,8 @@ namespace Helix.ProductService.Domain.Events
         public short IOType { get; private set; }
         public short TransactionType { get; private set; }
         public int? WarehouseNumber { get; private set; }
+        public int? DestinationWarehouseNumber { get; private set; }
+
         public int? CurrentReferenceId { get; private set; }
         public string? CurrentCode { get; private set; }
         public string Description { get; private set; }
@@ -21,7 +23,7 @@ namespace Helix.ProductService.Domain.Events
 
         public List<TransferTransactionLineDto> Lines { get; set; }
 
-        public TransferTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string code, short groupType, short iOType, short transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, List<TransferTransactionLineDto> lines)
+        public TransferTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string code, short groupType, short iOType, short transactionType, int? warehouseNumber,int? destinationWarehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, List<TransferTransactionLineDto> lines)
         {
             ReferenceId = referenceId;
             TransactionDate = transactionDate;
@@ -30,6 +32,7 @@ namespace Helix.ProductService.Domain.Events
             IOType = iOType;
             TransactionType = transactionType;
             WarehouseNumber = warehouseNumber;
+            DestinationWarehouseNumber = destinationWarehouseNumber;
             CurrentReferenceId = currentReferenceId;
             CurrentCode = currentCode;
             Description = description;
