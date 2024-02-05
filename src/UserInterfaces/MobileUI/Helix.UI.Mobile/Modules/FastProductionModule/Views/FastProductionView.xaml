@@ -43,8 +43,7 @@
                         Grid.Column="0"
                         Margin="-20"
                         Padding="20"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource White},
-                                                          Dark={StaticResource Black}}"
+                        BackgroundColor="{StaticResource White}"
                         ZIndex="2">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="60,60,0,0" />

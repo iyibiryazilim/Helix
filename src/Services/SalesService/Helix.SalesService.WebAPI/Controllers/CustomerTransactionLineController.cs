@@ -9,7 +9,7 @@ namespace Helix.SalesService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	//[Authorize]
+	[Authorize]
 	public class CustomerTransactionLineController : ControllerBase
 	{
 		ICustomerTransactionLineService _customerTransactionLineService;

@@ -23,7 +23,7 @@ public class AuthenticateDataStore : IAuthenticationService
 		{
 			var http = _httpClientService.GetOrCreateHttpClient();
 
-			var responseMessage = await http.PostAsync($"/api/Authentication/Authenticate",
+			var responseMessage = await http.PostAsync($"gateway/identity/Authentication/Authenticate",
 				new StringContent(JsonSerializer.Serialize(new {username, password}), Encoding.UTF8, "application/json")); 
 
 			if(responseMessage.IsSuccessStatusCode)
@@ -33,8 +33,8 @@ public class AuthenticateDataStore : IAuthenticationService
 					var token = await responseMessage.Content.ReadAsStringAsync();
 					_httpClientService.Token = token;
 
-					http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-					
+					http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim('"'));
+					authenticateModel.Token = token.Trim('"');
 					authenticateModel.Result = true;
 					authenticateModel.Message = "Success";
 				}
