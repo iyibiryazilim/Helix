@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Dtos;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
@@ -27,6 +28,7 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
     ISpeCodeService _speCodeService;
+    IServiceProvider _serviceProvider;
     IInCountingTransactionService _inCountingTransactionService;
     //WarehouseService
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
@@ -59,12 +61,13 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public InCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IInCountingTransactionService inCountingTransactionService)
+    public InCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IInCountingTransactionService inCountingTransactionService,IServiceProvider serviceProvider)
     {
         Title = "Sayım Fazlası İşlemleri";
         _httpClientService = httpClientService;
         _warehouseService = warehouseService;
         _speCodeService = speCodeService;
+        _serviceProvider = serviceProvider;
         _inCountingTransactionService = inCountingTransactionService;
         TransactionTypeName = "Sayım Fazlası Fişi";
 
@@ -194,8 +197,11 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
             var result = await _inCountingTransactionService.InsertObject(httpClient, inCountingTransactionDto);
             if (result.IsSuccess)
             {
+                var viewModel = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
+                viewModel.Items.Clear();
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
+
                     ["GroupType"] = 3,
                     ["SuccessMessage"]="Sayım Fazlası Fişi Başarıyla Gönderildi."
                 });

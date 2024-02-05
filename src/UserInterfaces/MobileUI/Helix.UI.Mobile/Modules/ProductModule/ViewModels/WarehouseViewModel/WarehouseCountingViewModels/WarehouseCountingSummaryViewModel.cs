@@ -35,7 +35,7 @@ public partial class WarehouseCountingSummaryViewModel : BaseViewModel
 
 			await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
 			{
-				["SuccessMessage"] = "Ambar Sayım Operasyonu Başarıyla Gerçekleştirildi."
+				["SuccessMessage"] = "Ambar Sayım Fişi Başarıyla Gönderildi."
 			});
 		}
 		catch(Exception ex)
