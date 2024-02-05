@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.LoginModule.Views;
+using Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 
@@ -37,7 +38,7 @@ public partial class ConfigBottomSheetViewModel : BaseViewModel
 
 			if (!string.IsNullOrEmpty(BaseUri) && !string.IsNullOrEmpty(Port))
 			{
-				await SecureStorage.SetAsync("BaseUrl", $"{BaseUri}:{Port}");
+				await SecureStorage.SetAsync("BaseUrl", $"http://{BaseUri}:{Port}");
 				BaseUrl = await SecureStorage.GetAsync("BaseUrl");
 
 				_httpClient.BaseUri = BaseUrl;
