@@ -6,6 +6,7 @@ using Helix.LBSService.EventConsumer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RabbitMQ.Client;
 using Serilog;
 
 class Program
@@ -24,6 +25,13 @@ class Program
 		ApplicationParameterModel parameters = configuration.GetSection(nameof(ApplicationParameter)).Get<ApplicationParameterModel>();
 		ApplicationParameter.ApiAdress = parameters.ApiAdress;
 		ApplicationParameter.RabbitMQAdress = parameters.RabbitMQAdress;
+
+		var factory = new ConnectionFactory
+		{
+			Uri = new Uri(ApplicationParameter.RabbitMQAdress)
+		};
+
+		ApplicationParameter.Connection = factory.CreateConnection();
 
 		builder.ConfigureServices((hostContext, services) =>
 		{

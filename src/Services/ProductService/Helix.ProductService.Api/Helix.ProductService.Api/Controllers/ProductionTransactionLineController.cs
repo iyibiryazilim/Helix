@@ -9,7 +9,7 @@ namespace Helix.ProductService.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class ProductionTransactionLineController : ControllerBase
 {
 	IProductionTransactionLineService _productionTransactionLineService;

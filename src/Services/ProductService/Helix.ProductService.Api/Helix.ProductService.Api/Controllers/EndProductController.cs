@@ -7,7 +7,7 @@ namespace Helix.ProductService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	//[Authorize]
+	[Authorize]
 	public class EndProductController : ControllerBase
     {
         IEndProductService _endProductService;

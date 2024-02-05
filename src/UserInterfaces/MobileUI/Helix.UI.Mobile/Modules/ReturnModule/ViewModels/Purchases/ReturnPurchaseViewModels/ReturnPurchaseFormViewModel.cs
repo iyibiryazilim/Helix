@@ -29,6 +29,7 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
     ICarrierService _carrierService;
     ISupplierService _supplierService;
     IShipInfoService _shipInfoService;
+    IServiceProvider _serviceProvider;
     ISpeCodeService _speCodeService;
     IPurchaseReturnDispatchTransactionService _purchaseReturnDispatchTransactionService;
 
@@ -89,7 +90,15 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
     }
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public ReturnPurchaseFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IDriverService driverService,ICarrierService carrierService, ISupplierService supplierService,IShipInfoService shipInfoService,IPurchaseReturnDispatchTransactionService purchaseReturnDispatchTransactionService)
+    public ReturnPurchaseFormViewModel(IHttpClientService httpClientService,
+									   IWarehouseService warehouseService,
+									   ISpeCodeService speCodeService,
+									   IDriverService driverService,
+									   ICarrierService carrierService,
+									   ISupplierService supplierService,
+									   IShipInfoService shipInfoService,
+									   IPurchaseReturnDispatchTransactionService purchaseReturnDispatchTransactionService,
+                                       IServiceProvider serviceProvider)
     {
         Title = "Satın Alma İade Fişleri";
         _httpClientService = httpClientService;
@@ -99,6 +108,7 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
         _carrierService = carrierService;
         _supplierService = supplierService;
         _shipInfoService = shipInfoService;
+        _serviceProvider = serviceProvider;
         _purchaseReturnDispatchTransactionService = purchaseReturnDispatchTransactionService;
         TransactionTypeName = "Satın Alma İade İrsaliyesi";
         GetDataCommand = new Command(async () => await LoadData());
@@ -377,6 +387,9 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
             var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
             if (result.IsSuccess)
             {
+                var viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
+                viewModel.Items.Clear();
+               
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
                     ["GroupType"] = 3,

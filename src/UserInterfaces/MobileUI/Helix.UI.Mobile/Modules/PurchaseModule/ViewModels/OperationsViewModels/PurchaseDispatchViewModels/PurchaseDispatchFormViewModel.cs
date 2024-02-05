@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -238,8 +238,5 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
         {
             IsBusy = false;
         }
-
     }
-
 }
-

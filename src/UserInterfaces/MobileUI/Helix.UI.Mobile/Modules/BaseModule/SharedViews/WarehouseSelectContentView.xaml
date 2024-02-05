@@ -9,7 +9,7 @@
              x:Class="Helix.UI.Mobile.Modules.BaseModule.SharedViews.WarehouseSelectContentView"
              BackgroundColor="{StaticResource Primary}">
     <Grid>
-        <Border BackgroundColor="{StaticResource White}"
+        <Border BackgroundColor="{StaticResource MainBorderColor}"
                 StrokeThickness="0"
                 Padding="5,20,5,10">
             <Border.StrokeShape>

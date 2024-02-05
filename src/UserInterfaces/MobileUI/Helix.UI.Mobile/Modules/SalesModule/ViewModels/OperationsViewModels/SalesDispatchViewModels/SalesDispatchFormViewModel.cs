@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
-using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Services;
@@ -9,7 +8,6 @@ using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Dtos;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
-using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.DispatchBySalesOrderViewModels;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -32,7 +30,7 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     IShipInfoService _shipInfoService;
     IWholeSalesDispatchTransactionService _wholeSalesDispatchTransactionService;
     IRetailSalesDispatchTransactionService _retailSalesDispatchTransactionService;
-
+ 
 
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
     public ObservableCollection<Customer> CustomerItems { get; } = new();
@@ -389,8 +387,11 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 
             var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
             if (result.IsSuccess)
-            {
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+			{
+				var viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
+				viewModel.Items.Clear();
+				viewModel.Results.Clear();
+				await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
                     ["GroupType"] = 100,
                     ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
@@ -462,6 +463,9 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
             var result = await _wholeSalesDispatchTransactionService.InsertObject(httpClient, wholeSalesDispatchTransactionDto);
             if (result.IsSuccess)
             {
+                var viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
+                viewModel.Items.Clear();
+                viewModel.Results.Clear();
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
                     ["GroupType"] = 100,

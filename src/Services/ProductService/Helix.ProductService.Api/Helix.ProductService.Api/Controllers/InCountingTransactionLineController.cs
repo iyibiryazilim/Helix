@@ -10,7 +10,7 @@ namespace Helix.ProductService.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class InCountingTransactionLineController : ControllerBase
 {
 	IInCountingTransactionLineService _inCountingTransactionLineService;
