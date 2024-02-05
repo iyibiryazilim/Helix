@@ -25,8 +25,7 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					line.SLTRANS.Add(item);
 				}
-				dto.TRANSACTIONS.Add(line);
-			}
+ 			}
 
 
 

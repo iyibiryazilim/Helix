@@ -26,8 +26,7 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					line.SLTRANS.Add(item);
 				}
-				dto.TRANSACTIONS.Add(line);
-			}
+ 			}
 
 
 			if (!unity.LoggedIn)
@@ -57,6 +56,8 @@ namespace Helix.LBSService.Tiger.DataStores
 							items.DataFields.FieldByName("TIME").Value = tm;
 							items.DataFields.FieldByName("SOURCE_WH").Value = dto.SOURCE_WH;
 							items.DataFields.FieldByName("SOURCE_COST_GRP").Value = dto.SOURCE_COST_GRP;
+							items.DataFields.FieldByName("DEST_WH").Value = dto.DEST_WH;
+							items.DataFields.FieldByName("DEST_COST_GRP").Value = dto.DEST_WH;
 							items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
 							items.DataFields.FieldByName("DATE_CREATED").Value = dto.DATE_CREATED;
 							items.DataFields.FieldByName("HOUR_CREATED").Value = dto.HOUR_CREATED;
@@ -72,12 +73,14 @@ namespace Helix.LBSService.Tiger.DataStores
 								dtos_lines[dtos_lines.Count - 1].FieldByName("ITEM_CODE").Value = line.ITEM_CODE;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("LINE_TYPE").Value = line.LINE_TYPE;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCEINDEX").Value = line.SOURCEINDEX;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("DESTINDEX").Value = line.DESTINDEX;
+								dtos_lines[dtos_lines.Count - 1].FieldByName("DESTCOSTGRP").Value = line.DESTINDEX;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCECOSTGRP").Value = line.SOURCECOSTGRP;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV1").Value = line.UNIT_CONV1;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV2").Value = line.UNIT_CONV2;
-								if (line.SLTRANS.Count > 0)
+ 								if (line.SLTRANS.Count > 0)
 
 								{
 									UnityObjects.Lines sl_details0 = dtos_lines[dtos_lines.Count - 1].FieldByName("SL_DETAILS").Lines;
@@ -98,7 +101,7 @@ namespace Helix.LBSService.Tiger.DataStores
 										sl_details0[sl_details0.Count - 1].FieldByName("UNIT_CONV1").Value = trans.UNIT_CONV1;
 										sl_details0[sl_details0.Count - 1].FieldByName("UNIT_CONV2").Value = trans.UNIT_CONV2;
 										sl_details0[sl_details0.Count - 1].FieldByName("QUANTITY").Value = trans.QUANTITY;
-
+ 
 										if (trans.UNIT_CONV1 == trans.UNIT_CONV2)
 										{
 											sl_details0[sl_details0.Count - 1].FieldByName("MU_QUANTITY").Value = trans.MU_QUANTITY;
