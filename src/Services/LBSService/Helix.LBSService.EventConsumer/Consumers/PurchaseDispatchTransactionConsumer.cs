@@ -13,8 +13,9 @@ namespace Helix.LBSService.EventConsumer.Consumers
                 service: service,
                 queueName: "PurchaseService.PurchaseDispatchTransactionInserted",
                 exchange: "HelixTopicName",
-                httpClient: httpClient
-            );
+                httpClient: httpClient,
+				new ManualResetEvent(false)
+			);
         }
 
         public async Task ProcessMessagesAsync()

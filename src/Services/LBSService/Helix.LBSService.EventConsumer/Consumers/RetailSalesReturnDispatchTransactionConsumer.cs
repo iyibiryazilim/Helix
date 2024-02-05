@@ -14,8 +14,9 @@ namespace Helix.LBSService.EventConsumer.Consumers
                 service,
 				"SalesService.RetailSalesReturnDispatchTransactionIns",
                 "HelixTopicName",
-                httpClient
-            );
+                httpClient,
+				new ManualResetEvent(false)
+			);
         }
 
         public async Task ProcessMessagesAsync()
