@@ -12,7 +12,7 @@
     </ContentPage.Behaviors>
     <sharedViews:SalesOrderLineContentView   IsBusy="{Binding IsBusy}"
                                              IsRefreshing="{Binding IsRefreshing}"
-                                             Items="{Binding Items}"
+                                             Items="{Binding GroupItems}"
                                              SearchCommand="{Binding PerformSearchCommand}"
                                              ReloadCommand="{Binding ReloadCommand}"
                                              SortCommand="{Binding SortCommand}"

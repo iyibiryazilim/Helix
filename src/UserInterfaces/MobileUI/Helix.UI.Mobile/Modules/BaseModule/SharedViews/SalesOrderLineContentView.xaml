@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:baseModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.Models"
+             xmlns:customModel="clr-namespace:Helix.UI.Mobile.Modules.PurchaseModule.Models"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -51,10 +52,16 @@
                              RefreshColor="{StaticResource DarkPrimary}">
                     <CollectionView ItemsSource="{Binding Source={x:Reference this}, Path=Items}"
                                     RemainingItemsThreshold="10"
+                                    IsGrouped="True"
                                     RemainingItemsThresholdReachedCommand="{Binding Source={x:Reference this}, Path=LoadMoreCommand}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
+                        <CollectionView.GroupHeaderTemplate>
+                            <DataTemplate x:DataType="customModel:WaitingOrderLineGroupByModel">
+                                <Label Padding="10" Text="{Binding Name}" />
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="baseModel:WaitingOrderLine">
                                 <toolkit:Expander x:Name="expander" Padding="10,0">

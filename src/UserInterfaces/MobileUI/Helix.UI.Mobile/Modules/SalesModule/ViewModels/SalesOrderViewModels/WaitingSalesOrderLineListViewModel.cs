@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
@@ -18,6 +19,8 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 	private readonly ISalesOrderLineService _salesOrderLineService;
 
 	public ObservableCollection<WaitingOrderLine> Items { get; } = new();
+	public ObservableCollection<WaitingOrderLineGroupByModel> GroupItems { get; } = new();
+
 	public Command GetWaitingSalesOrderLinesCommand { get; }
 	public Command PerformSearchCommand { get; }
 	public WaitingSalesOrderLineListViewModel(IHttpClientService httpClientService,ISalesOrderLineService salesOrderLineService)
@@ -55,7 +58,7 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -77,15 +80,28 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 			CurrentPage = 0;
 			var result = await _salesOrderLineService.GetObjects(httpClient, IncludeWaiting, SearchText, OrderBy, CurrentPage, PageSize);
-			if(result.Data.Any())
+			GroupItems.Clear();
+			if (result.Data.Any())
 			{
-				Items.Clear();
-				foreach (var item in result.Data)
+				var groupBy = result.Data.GroupBy(x => x.CurrentName).ToDictionary(x => x.Key, x => x.ToList());
+
+				foreach (var item in groupBy)
 				{
-					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
-					await Task.Delay(100);
-					Items.Add(obj);
+					List<WaitingOrderLine> waitingOrderLines = new();
+					foreach (var line in item.Value)
+					{
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(line);
+						await Task.Delay(100);
+						waitingOrderLines.Add(obj);
+					}
+					GroupItems.Add(new WaitingOrderLineGroupByModel(item.Key, waitingOrderLines));
 				}
+				//foreach (var item in result.Data)
+				//{
+				//	var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+				//	await Task.Delay(100);
+				//	Items.Add(obj);
+				//}
 				
 			}
 		} catch(Exception ex)
@@ -114,11 +130,18 @@ public partial class WaitingSalesOrderLineListViewModel : BaseViewModel
 			var result = await _salesOrderLineService.GetObjects(httpClient, IncludeWaiting, SearchText, OrderBy, CurrentPage, PageSize);
 			if (result.Data.Any())
 			{
-				foreach (var item in result.Data)
+				var groupBy = result.Data.GroupBy(x => x.CurrentName).ToDictionary(x => x.Key, x => x.ToList());
+
+				foreach (var item in groupBy)
 				{
-					var obj = Mapping.Mapper.Map<WaitingOrderLine>(item);
+					List<WaitingOrderLine> waitingOrderLines = new();
+					foreach (var line in item.Value)
+					{
+						var obj = Mapping.Mapper.Map<WaitingOrderLine>(line);
+						waitingOrderLines.Add(obj);
+					}
 					await Task.Delay(100);
-					Items.Add(obj);
+					GroupItems.Add(new WaitingOrderLineGroupByModel(item.Key, waitingOrderLines));
 				}
 			}
 			else
