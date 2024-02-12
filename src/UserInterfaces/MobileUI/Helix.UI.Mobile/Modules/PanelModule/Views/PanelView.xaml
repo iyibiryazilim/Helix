@@ -18,6 +18,8 @@
     </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}" EventName="Loaded" />
+        <toolkit:EventToCommandBehavior Command="{Binding GetUserInformationCommand}"
+                                        EventName="Loaded" />
     </ContentPage.Behaviors>
     <Border Padding="5,20,5,10"
             BackgroundColor="{StaticResource MainBorderColor}"
@@ -47,7 +49,7 @@
                            Text="Hoşgeldiniz"
                            TextColor="{StaticResource Gray400}" />
                     <Label FontAttributes="Bold"
-                           Text="Volkan Sunuk"
+                           Text="{Binding UserName}"
                            VerticalOptions="End" />
                 </VerticalStackLayout>
                 <Image Grid.Column="2"
