@@ -29,11 +29,11 @@
                     BackgroundColor="#D5343E"
                     StrokeShape="RoundRectangle 10,0,10,0"
                     HeightRequest="70"
-                    WidthRequest="120"
+                    WidthRequest="190"
                     HorizontalOptions="End"
                     StrokeThickness="0"
                     VerticalOptions="End">
-                <Image Aspect="AspectFill" Source="logo.png" />
+                <Image Aspect="AspectFill" Source="logo.png" WidthRequest="120" />
             </Border>
         </Grid>
 
