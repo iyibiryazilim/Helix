@@ -2554,7 +2554,7 @@ namespace Helix.LBSService.Go.DataStores
 									command.Parameters.AddWithValue("PREVLINEREF", line.PREVLINEREF);
 									command.Parameters.AddWithValue("PREVLINENO", line.PREVLINENO);
 									command.Parameters.AddWithValue("DETLINE", line.DETLINE);
-									command.Parameters.AddWithValue("TRCODE", 51);
+									command.Parameters.AddWithValue("TRCODE", 25);
 									command.Parameters.AddWithValue("DATE_", line.DATE_);
 									command.Parameters.AddWithValue("FHOUR", item.DATE_.Hour);
 									command.Parameters.AddWithValue("FMINUTE", item.DATE_.Minute);
@@ -3032,7 +3032,7 @@ namespace Helix.LBSService.Go.DataStores
 										command.Parameters.AddWithValue("LINENR", serilot.LINENR);
 										//command.Parameters.AddWithValue("serilotREF", serilot.serilotREF);
 										command.Parameters.AddWithValue("DATE_", serilot.DATE_);
-										command.Parameters.AddWithValue("IOCODE", 4);
+										command.Parameters.AddWithValue("IOCODE", 3);
 										command.Parameters.AddWithValue("INVENNO", serilot.INVENNO);
 										command.Parameters.AddWithValue("FICHETYPE", serilot.FICHETYPE);
 										command.Parameters.AddWithValue("SLTYPE", serilot.SLTYPE);
@@ -3716,7 +3716,7 @@ namespace Helix.LBSService.Go.DataStores
 									command.Parameters.AddWithValue("PREVLINEREF", line.PREVLINEREF);
 									command.Parameters.AddWithValue("PREVLINENO", line.PREVLINENO);
 									command.Parameters.AddWithValue("DETLINE", line.DETLINE);
-									command.Parameters.AddWithValue("TRCODE", 50);
+									command.Parameters.AddWithValue("TRCODE", 25);
 									command.Parameters.AddWithValue("DATE_", line.DATE_);
 									command.Parameters.AddWithValue("FHOUR", item.DATE_.Hour);
 									command.Parameters.AddWithValue("FMINUTE", item.DATE_.Minute);
@@ -3735,7 +3735,7 @@ namespace Helix.LBSService.Go.DataStores
 									command.Parameters.AddWithValue("DESTWSREF", line.DESTWSREF);
 									command.Parameters.AddWithValue("DESTPOLNREF", line.DESTPOLNREF);
 									command.Parameters.AddWithValue("FACTORYNR", line.FACTORYNR);
-									command.Parameters.AddWithValue("IOCODE", 1);
+									command.Parameters.AddWithValue("IOCODE", 2);
 									command.Parameters.AddWithValue("STFICHEREF", ReferenceId);
 									command.Parameters.AddWithValue("STFICHELNNO", line.STFICHELNNO);
 									command.Parameters.AddWithValue("INVOICEREF", line.INVOICEREF);
