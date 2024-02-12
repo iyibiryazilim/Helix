@@ -177,16 +177,17 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                         {
                             await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                             {
-                               ["GroupType"] = 8,
-                               ["SuccessMessage"] = "Virman Fişi Başarıyla Gönderildi."
-                             });
+                                ["GroupType"] = 8,
+                                ["SuccessMessage"] = "Virman Fişi Başarıyla Gönderildi."
+                            });
                         }
-                  }
-                  else
-                  {
-                      await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                  }
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
 
+                }
             }
             catch (Exception)
             {
