@@ -31,26 +31,33 @@
             <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10"  Padding="10,0,10,10">
                 <Frame Grid.Row="0"
                        HeightRequest="100"
+                       BackgroundColor="{StaticResource Primary}"
                        >
                     <Grid ColumnDefinitions="Auto,*,Auto">
                         <VerticalStackLayout Grid.Column="0" Spacing="2" >
                             <Label Text="{Binding productPanelModel.InputCount}"
                                    HorizontalOptions="Center"
                                    FontAttributes="Bold"
-                                   TextColor="{StaticResource Success}"
+                                   TextColor="{StaticResource Secondary}"
                                    FontSize="19"></Label>
                             <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}"></BoxView>
-                            <Label Text="Bugün Giren Referans Sayısı" FontSize="Caption" FontAttributes="Bold" ></Label>
+                            <Label Text="Bugün Giren Referans Sayısı" 
+                                   FontSize="Caption" 
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Secondary}"></Label>
                         </VerticalStackLayout>
-                        <BoxView Grid.Column="1" WidthRequest="0.7"   ></BoxView>
+                        <BoxView Grid.Column="1" WidthRequest="0.7" Color="{StaticResource Secondary}"></BoxView>
                         <VerticalStackLayout Grid.Column="2" Spacing="2" >
                             <Label Text="{Binding productPanelModel.InputCount}"
                                    HorizontalOptions="Center"
                                    FontAttributes="Bold"
-                                   TextColor="{StaticResource Danger}"
+                                   TextColor="{StaticResource Secondary}"
                                    FontSize="19"></Label>
                             <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}" ></BoxView>
-                            <Label Text="Bugün Çıkan Referans Sayısı" FontSize="Caption" FontAttributes="Bold" ></Label>
+                            <Label Text="Bugün Çıkan Referans Sayısı" 
+                                   FontSize="Caption" 
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Secondary}"></Label>
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>

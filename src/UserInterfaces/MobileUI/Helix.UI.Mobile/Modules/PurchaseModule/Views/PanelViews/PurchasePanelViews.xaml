@@ -33,49 +33,48 @@
                 <Frame Grid.Row="0"
                        BackgroundColor="{StaticResource Primary}"
                        HeightRequest="100">
-                    <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Grid ColumnDefinitions="*,Auto,*"
+                          ColumnSpacing="30"
+                          HorizontalOptions="Center">
                         <VerticalStackLayout Grid.Column="0"
                                              HorizontalOptions="Center"
                                              Spacing="2">
-                            <Label Text="{Binding purchasePanelModel.PurchaseDispatchCount}"
-                                   HorizontalOptions="Center"
-                                   FontAttributes="Bold"
+                            <Label FontAttributes="Bold"
                                    FontSize="19"
-                                   TextColor="{StaticResource Success}"></Label>
-                            <BoxView HeightRequest="0.5"
-                                     Color="{StaticResource Secondary}"></BoxView>
-                            <Label Text="Satınalma Sayısı"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding purchasePanelModel.PurchaseDispatchCount}"
+                                   TextColor="{StaticResource Secondary}" />
+                            <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}" />
+                            <Label FontAttributes="Bold"
                                    FontSize="Caption"
-                                   TextColor="{StaticResource Secondary}"
-                                   FontAttributes="Bold"></Label>
+                                   Text="Satınalma Sayısı"
+                                   TextColor="{StaticResource Secondary}" />
                         </VerticalStackLayout>
                         <BoxView Grid.Column="1"
-                                 Color="{StaticResource Secondary}"
-                                 WidthRequest="0.7"></BoxView>
+                                 WidthRequest="0.7"
+                                 Color="{StaticResource Secondary}" />
                         <VerticalStackLayout Grid.Column="2"
+                                             HorizontalOptions="Center"
                                              Spacing="2">
-                            <Label Text="{Binding purchasePanelModel.SalesReturnCount}"
-                                   HorizontalOptions="Center"
-                                   FontAttributes="Bold"
+                            <Label FontAttributes="Bold"
                                    FontSize="19"
-                                   TextColor="{StaticResource Danger}"></Label>
-                            <BoxView HeightRequest="0.5"
-                                     Color="{StaticResource Secondary}"></BoxView>
-                            <Label Text="Toplam İade Sayısı" HorizontalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding purchasePanelModel.SalesReturnCount}"
+                                   TextColor="{StaticResource Secondary}" />
+                            <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}" />
+                            <Label FontAttributes="Bold"
                                    FontSize="Caption"
-                                   TextColor="{StaticResource Secondary}"
-                                   FontAttributes="Bold"></Label>
+                                   Text="Toplam İade Sayısı"
+                                   TextColor="{StaticResource Secondary}" />
                         </VerticalStackLayout>
                     </Grid>
-
-
                 </Frame>
                 <Grid Grid.Row="1">
                     <VerticalStackLayout Spacing="5">
-                        <Label FontAttributes="Bold" 
+                        <Label FontAttributes="Bold"
                                Text="En Çok Hareket Gören Tedarikçiler"
                                TextColor="{StaticResource Gray300}" />
-                        <CollectionView ItemsSource="{Binding Suppliers}">
+                        <CollectionView ItemsSource="{Binding Suppliers}" EmptyView="En çok hareket gören tedarikçiniz bulunmamaktadır..">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                             </CollectionView.ItemsLayout>
@@ -130,9 +129,9 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <VerticalStackLayout>
-                        <Label FontAttributes="Bold" 
+                        <Label FontAttributes="Bold"
                                Text="Son Hareketler"
-                               TextColor="{StaticResource Gray300}"/>
+                               TextColor="{StaticResource Gray300}" />
                         <Grid RowDefinitions="*">
                             <sharedViews:LoadingView IsBusy="{Binding IsBusy}" />
                             <CollectionView Grid.Row="0"
