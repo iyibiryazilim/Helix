@@ -36,6 +36,8 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
     #region Lists
     public ObservableCollection<WarehouseTotal> Items { get; } = new();
     public ObservableCollection<WarehouseTotal> Results { get; } = new();
+
+    public ObservableCollection<WarehouseTotal> SelectedProducts { get; } = new();
     #endregion
 
 
@@ -272,11 +274,18 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
         try
         {
             IsBusy = true;
+            foreach (var item in Results)
+            {
+                if (item.OnHand != item.TempOnhand)
+                {
+                    SelectedProducts.Add(item);
+                }
+            }
 
             await Shell.Current.GoToAsync($"{nameof(WarehouseCountingSummaryView)}", new Dictionary<string, object>
             {
                 [nameof(SelectedWarehouse)] = SelectedWarehouse,
-                ["Results"] = Results
+                ["SelectedProducts"] = SelectedProducts,
             });
         }
         catch (Exception ex)

@@ -254,6 +254,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<FailedPageViewModel>();
 			mauiAppBuilder.Services.AddTransient<BarcodePageView>();
 			mauiAppBuilder.Services.AddTransient<BarcodePageViewModel>();
+
 			
 		
 
@@ -538,6 +539,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingListView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSummaryView>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectProductsView>();
+            mauiAppBuilder.Services.AddTransient<WarehouseCountingFormView>();
             mauiAppBuilder.Services.AddTransient<TransferTransactionOperationFormView>();
 
 
@@ -605,6 +607,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddScoped<WarehouseCountingListViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSummaryViewModel>();
 			mauiAppBuilder.Services.AddTransient<WarehouseCountingSelectProductsViewModel>();
+			mauiAppBuilder.Services.AddTransient<WarehouseCountingFormViewModel>();
             mauiAppBuilder.Services.AddTransient<TransferTransactionOperationFormViewModel>();
 
 
@@ -766,8 +769,10 @@ namespace Helix.UI.Mobile
 		}
 		public static MauiAppBuilder LoginViewModels(this MauiAppBuilder mauiAppBuilder)
 		{
-			mauiAppBuilder.Services.AddTransient<LoginViewModel>();
-			mauiAppBuilder.Services.AddTransient<ConfigBottomSheetViewModel>();
+			mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
+            mauiAppBuilder.Services.AddSingleton<AppShellViewModel>();
+
+            mauiAppBuilder.Services.AddTransient<ConfigBottomSheetViewModel>();
 
 			return mauiAppBuilder;
 		}
