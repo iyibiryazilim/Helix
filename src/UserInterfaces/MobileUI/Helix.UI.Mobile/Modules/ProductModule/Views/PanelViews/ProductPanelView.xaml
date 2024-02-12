@@ -21,46 +21,73 @@
     </ContentPage.Resources>
 
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource White}"
+            BackgroundColor="{StaticResource MainBorderColor}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
         <ScrollView>
 
-            <Grid RowDefinitions="auto,auto,*" RowSpacing="4">
-                <Frame Grid.Row="0"
-                       HeightRequest="100"
-                       >
-                    <Grid ColumnDefinitions="Auto,*,Auto">
-                        <VerticalStackLayout Grid.Column="0" Spacing="2" >
-                            <Label Text="{Binding productPanelModel.InputCount}"
+            <Grid Padding="10,0,10,10"
+                  RowDefinitions="Auto,Auto,*"
+                  RowSpacing="10">
+                <Grid Grid.Row="0"
+                      Margin="0,0,0,10"
+                      ColumnDefinitions=".50*, .50*"
+                      ColumnSpacing="10">
+                    <Border Grid.Column="0"
+                            Padding="10"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="{StaticResource Primary}"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   FontSize="20"
                                    HorizontalOptions="Center"
-                                   FontAttributes="Bold"
-                                   TextColor="{StaticResource Success}"
-                                   FontSize="19"></Label>
-                            <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}"></BoxView>
-                            <Label Text="Bugün Giren Referans Sayısı" FontSize="Caption" FontAttributes="Bold" ></Label>
-                        </VerticalStackLayout>
-                        <BoxView Grid.Column="1" WidthRequest="0.7"   ></BoxView>
-                        <VerticalStackLayout Grid.Column="2" Spacing="2" >
-                            <Label Text="{Binding productPanelModel.InputCount}"
+                                   Text="{Binding productPanelModel.InputCount}"
+                                   TextColor="{StaticResource Secondary}" />
+                            <Label FontSize="Caption"
                                    HorizontalOptions="Center"
-                                   FontAttributes="Bold"
-                                   TextColor="{StaticResource Danger}"
-                                   FontSize="19"></Label>
-                            <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}" ></BoxView>
-                            <Label Text="Bugün Çıkan Referans Sasyısı" FontSize="Caption" FontAttributes="Bold" ></Label>
+                                   Text="Bugün Giren Referans Sayısı"
+                                   TextColor="{StaticResource Secondary}" />
                         </VerticalStackLayout>
-                    </Grid>
-                    
-                    
-                </Frame>
-                      
-                
-                <VerticalStackLayout Grid.Row="1" Spacing="7">
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Primary}"
+                                    Opacity="0.1"
+                                    Radius="20"
+                                    Offset="20,20" />
+                        </Border.Shadow>
+                    </Border>
+                    <Border Grid.Column="1"
+                            Padding="10"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="{StaticResource Secondary}"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   FontSize="20"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding productPanelModel.OutputCount}"
+                                   TextColor="{StaticResource Secondary}" />
+                            <Label FontSize="Caption"
+                                   HorizontalOptions="Center"
+                                   Text="Bugün Çıkan Referans Sayısı"
+                                   TextColor="{StaticResource Secondary}" />
+                        </VerticalStackLayout>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Primary}"
+                                    Opacity="0.1"
+                                    Radius="20"
+                                    Offset="20,20" />
+                        </Border.Shadow>
+                    </Border>
+                </Grid>
 
-                    <Label FontAttributes="Bold" Text="En Son Hareket Gören Ürünler" />
+                <VerticalStackLayout Grid.Row="1" Spacing="5">
+
+                    <Label FontAttributes="Bold"
+                           Text="En Son Hareket Gören Ürünler"
+                           TextColor="{StaticResource Gray300}" />
                     <CollectionView ItemsSource="{Binding Items}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
@@ -115,12 +142,14 @@
 
                 </VerticalStackLayout>
                 <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
-                <VerticalStackLayout Grid.Row="2" Spacing="7">
-                    <Label FontAttributes="Bold" Text="Son Hareketler" />
+                <VerticalStackLayout Grid.Row="2">
+                    <Label FontAttributes="Bold"
+                           Text="Son Hareketler"
+                           TextColor="{StaticResource Gray300}" />
                     <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Lines}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:ProductTransactionLine">
-                                <toolkit:Expander x:Name="expander" Margin="0,10,0,0">
+                                <toolkit:Expander x:Name="expander" Margin="0,5,0,0">
                                     <toolkit:Expander.Header>
                                         <Border BackgroundColor="White" StrokeShape="RoundRectangle 10">
                                             <Grid Padding="0,0,10,0"

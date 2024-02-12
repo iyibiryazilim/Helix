@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
+using Helix.UI.Mobile.Modules.PurchaseModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Models;
 using System.Collections.ObjectModel;
 
@@ -8,7 +9,7 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 public partial class SalesOrderLineContentView : ContentView
 {
 	#region List Definition
-	public static readonly BindableProperty ItemsProperty = BindableProperty.Create(nameof(Items), typeof(ObservableCollection<WaitingOrderLine>), typeof(SalesOrderLineContentView), null);
+	public static readonly BindableProperty ItemsProperty = BindableProperty.Create(nameof(Items), typeof(ObservableCollection<WaitingOrderLineGroupByModel>), typeof(SalesOrderLineContentView), null);
 	#endregion
 
 	#region Commands Definition
@@ -25,9 +26,9 @@ public partial class SalesOrderLineContentView : ContentView
 	#endregion
 
 	#region List
-	public ObservableCollection<WaitingOrderLine> Items
+	public ObservableCollection<WaitingOrderLineGroupByModel> Items
 	{
-		get => GetValue(ItemsProperty) as ObservableCollection<WaitingOrderLine>;
+		get => GetValue(ItemsProperty) as ObservableCollection<WaitingOrderLineGroupByModel>;
 		set => SetValue(ItemsProperty, value);
 	}
 

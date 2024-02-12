@@ -19,6 +19,6 @@
                                            ReloadCommand="{Binding ReloadCommand}"
                                            SearchCommand="{Binding PerformSearchCommand}"
                                            SortCommand="{Binding SortCommand}"
-                                           Items="{Binding Items}"/>
+                                           Items="{Binding GroupItems}"/>
 
 </ContentPage>
