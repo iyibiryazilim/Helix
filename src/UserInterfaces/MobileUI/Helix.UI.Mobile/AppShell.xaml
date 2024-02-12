@@ -28,19 +28,19 @@
        xmlns:sharedViews="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViews"
        xmlns:warehouseCountingViews="clr-namespace:Helix.UI.Mobile.Modules.ProductModule.Views.WarehouseViews.WarehouseCountingViews"
        xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
-       xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.ViewModels"
-       Shell.FlyoutBehavior="Flyout"
+       xmlns:viewModel ="clr-namespace:Helix.UI.Mobile.Modules.LoginModule.ViewModels"
+       Shell.FlyoutBehavior="Flyout" FlyoutBackgroundColor="{StaticResource Primary}"
      >
-   
+ 
     <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
+        <DataTemplate x:DataType="viewModel:LoginViewModel">
             <StackLayout Padding="20"
                          HeightRequest="150"
                          VerticalOptions="Center"
                          Spacing="20">
 
                 <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="10">
-                    <Border Grid.Column="0" StrokeThickness="0">
+                    
                         <toolkit:AvatarView 
                                             Grid.Column="0"
                                             Grid.RowSpan="2"
@@ -49,32 +49,34 @@
                                             WidthRequest="70"
                                             CornerRadius="35"
                                             ImageSource="user.svg"
+                            
                                             HorizontalOptions="Start"/>
 
                        
-                    </Border>
-                    <VerticalStackLayout Grid.Column="1" VerticalOptions="End">
+                    
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                         <Label 
                                Grid.Column="1"
-                               Text="Volkan Sunuk"
+                               Text="{Binding UserName}"
+                               TextColor="{StaticResource White}"
                                FontAttributes="Bold"
                                FontSize="Subtitle"
                                FontFamily="Roboto"
-                               VerticalOptions="End" />
+                               VerticalOptions="Center" />
 
                         <Label 
                                Text="Paketleme"
                                FontSize="Small"
                                FontFamily="Roboto"
-                               TextColor="{StaticResource Gray400}"
-                               VerticalOptions="Start" />
+                               TextColor="{StaticResource White}"
+                               VerticalOptions="Center" />
                     </VerticalStackLayout>
                     
                 </Grid>
 
-                <BoxView HeightRequest="1"
-                         Opacity="0.5"
-                         Color="{StaticResource Primary}" />
+                <BoxView HeightRequest="2"
+                         Opacity="0.8"
+                         Color="{StaticResource White}" />
             </StackLayout>
 
         </DataTemplate>
@@ -82,7 +84,6 @@
 
     <Shell.ItemTemplate>
         <DataTemplate>
-
             <Grid ColumnDefinitions="Auto,Auto,*"
                   ColumnSpacing="10"
                   Padding="15"
@@ -94,7 +95,7 @@
                        HeightRequest="20"
                        WidthRequest="20">
                     <Image.Behaviors>
-                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Warning}" />
                     </Image.Behaviors>
 
                 </Image>
@@ -102,9 +103,12 @@
                 <Label Grid.Column="1"
                        Text="{Binding Title}"
                        FontSize="Subtitle"
+                       TextColor="{StaticResource White}"
                        HorizontalOptions="StartAndExpand" />
-
+              
             </Grid>
+
+
         </DataTemplate>
     </Shell.ItemTemplate>
 
@@ -132,6 +136,7 @@
                           ContentTemplate="{DataTemplate panelViews:PanelView}" />
         </Tab>
 
+       
     </FlyoutItem>
 
    <FlyoutItem Title="Malzeme İşlemleri"
@@ -379,16 +384,16 @@
     </FlyoutItem>-->
     
     <Shell.FlyoutFooterTemplate>
-        <DataTemplate>
+        <DataTemplate x:DataType="viewModel:LoginViewModel">
             <StackLayout Padding="20"
                          VerticalOptions="End"
                          Spacing="20">
 
-                <Button Text="Oturumu Kapat"
+                <Button Text="Oturumu Kapat" Command="{Binding LogOutCommand}"
                         
                         BackgroundColor="{StaticResource Danger}" />
 
-                <Label Text="Copyright İyibir Yazılım ve Teknoloji 2023"
+                <Label Text="Copyright İyibir Yazılım ve Teknoloji 2023" TextColor="{StaticResource White}"
                        FontSize="Micro"
                        HorizontalOptions="Center" />
 

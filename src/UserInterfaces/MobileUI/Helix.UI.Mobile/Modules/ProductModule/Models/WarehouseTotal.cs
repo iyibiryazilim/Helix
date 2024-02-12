@@ -7,95 +7,111 @@ using System.Threading.Tasks;
 
 namespace Helix.UI.Mobile.Modules.ProductModule.Models
 {
-	public partial class WarehouseTotal : ObservableObject
-	{
-		[ObservableProperty]
-		DateTime? transactionDate;
+    public partial class WarehouseTotal : ObservableObject
+    {
+        [ObservableProperty]
+        DateTime? transactionDate;
 
-		[ObservableProperty]
-		int warehousereferenceId;
+        [ObservableProperty]
+        int warehousereferenceId;
 
-		[ObservableProperty]
-		string warehouseName;
+        [ObservableProperty]
+        string warehouseName;
 
-		[ObservableProperty]
-		short? warehouseNumber;
+        [ObservableProperty]
+        short? warehouseNumber;
 
-		[ObservableProperty]
-		double onHand = default;
+        [ObservableProperty]
+        double onHand = default;
 
-		[ObservableProperty]
-		int productReferenceId;
+        [ObservableProperty]
+        int productReferenceId;
 
-		[ObservableProperty]
-		string? productCode;
+        [ObservableProperty]
+        string? productCode;
 
-		[ObservableProperty]
-		string? productName;
+        [ObservableProperty]
+        string? productName;
 
-		[ObservableProperty]
-		int subUnitsetReferenceId;
+        [ObservableProperty]
+        int subUnitsetReferenceId;
 
-		[ObservableProperty]
-		string? subUnitsetCode;
+        [ObservableProperty]
+        string? subUnitsetCode;
 
-		[ObservableProperty]
-		int unitsetReferenceId;
+        [ObservableProperty]
+        int unitsetReferenceId;
 
-		[ObservableProperty]
-		string? unitsetCode;
+        [ObservableProperty]
+        string? unitsetCode;
 
-		[ObservableProperty]
-		string? image;
+        [ObservableProperty]
+        string? image;
 
-		[ObservableProperty]
-		bool isSelected = false;
+        [ObservableProperty]
+        bool isSelected = false;
 
-		[ObservableProperty]
-		int quantityCounter = 0;
+        //[ObservableProperty]
+        //int quantityCounter = 0;
+
+        private int _quantityCounter;
+
+        public int QuantityCounter
+        {
+            get => _quantityCounter;
+            set
+            {
+                if (_quantityCounter != value)
+                {
+                    _quantityCounter = value;
+                    OnPropertyChanged(nameof(QuantityCounter));
+                    OnPropertyChanged(nameof(ListColor));
+                }
+            }
+        }
+
+        private double _tempOnhand;
+
+        public double TempOnhand
+        {
+            get => _tempOnhand;
+            set
+            {
+                if (_tempOnhand != value)
+                {
+                    _tempOnhand = value;
+                    OnPropertyChanged(nameof(TempOnhand));
+                    OnPropertyChanged(nameof(ListColor));
+                }
+            }
+        }
 
 
-		double tempOnhand;
+        public Microsoft.Maui.Graphics.Color ListColor
+        {
+            get
+            {
+                if (TempOnhand < OnHand)
+                {
+                    return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");
 
-		public double TempOnhand
-		{
-			get
-			{
-				return tempOnhand;
-			}
-			set
-			{
-				SetProperty(ref tempOnhand, value);
-				OnPropertyChanged(nameof(ListColor));
-				OnPropertyChanged(nameof(TempOnhand));
-			}
-		}
+                }
+                else if (TempOnhand > OnHand)
+                {
+                    return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");
 
-		public Microsoft.Maui.Graphics.Color ListColor
-		{
-			get
-			{
-				if (QuantityCounter < 0)
-				{
-					return Microsoft.Maui.Graphics.Color.FromRgba("#c1322a");
+                }
+                else
+                {
+                    return Microsoft.Maui.Graphics.Color.FromRgba("#00000000");
+                }
 
-				}
-				else if (QuantityCounter > 0)
-				{
-					return Microsoft.Maui.Graphics.Color.FromRgba("#2ca57c");
+            }
+            set
+            {
 
-				}
-				else
-				{
-					return Microsoft.Maui.Graphics.Color.FromRgba("#00000000");
-				}
+            }
+        }
 
-			}
-			set
-			{
-
-			}
-
-		}
-	}
+    }
 }

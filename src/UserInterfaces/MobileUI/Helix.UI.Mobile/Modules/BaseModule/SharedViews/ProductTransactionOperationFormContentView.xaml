@@ -14,116 +14,115 @@
         </Border.StrokeShape>
         <Grid RowDefinitions="*,Auto">
             <ScrollView Grid.Row="0">
-            <Grid Grid.Row="0" Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                <Grid Grid.Row="0" Grid.RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                    BackgroundColor="{StaticResource WhiteSmoke}">
-                <!-- Fiş Türü -->
-                <VerticalStackLayout Grid.Row="0"
+                    <!-- Fiş Türü -->
+                    <VerticalStackLayout Grid.Row="0"
                                      Padding="7">
-                    <Label Text="Fiş Türü"
+                        <Label Text="Fiş Türü"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 13">
-                        <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}"
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="{Binding Source={x:Reference this},Path=TransactionTypeName}"
                                PlaceholderColor="Black"
                                IsEnabled="False" />
-                    </Border>
-                </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
 
-                <!-- Tarih ve Saat -->
-                <Grid Grid.Row="1"
+                    <!-- Tarih ve Saat -->
+                    <Grid Grid.Row="1"
                       Grid.ColumnDefinitions="50*,50*"
                       Padding="7"
                       ColumnSpacing="5">
-                    <VerticalStackLayout Grid.Column="0">
-                        <Label Text="Tarih"
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Tarih"
                                FontSize="Medium" />
-                        <Border StrokeShape="RoundRectangle 13">
+                            <Border StrokeShape="RoundRectangle 13">
                                 <DatePicker  Date="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.TransactionDate}"/>
-                        </Border>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Saat"
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Saat"
                                FontSize="Medium" />
-                        <Border StrokeShape="RoundRectangle 13">
+                            <Border StrokeShape="RoundRectangle 13">
                                 <TimePicker  Time="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.TransactionTime}"/>
-                        </Border>
-                    </VerticalStackLayout>
+                            </Border>
+                        </VerticalStackLayout>
 
-                </Grid>
+                    </Grid>
 
-                <!-- Ambar -->
-                <VerticalStackLayout Grid.Row="2"
+                    <!-- Ambar -->
+                    <VerticalStackLayout Grid.Row="2"
                                      Padding="7">
-                    <Label Text="Ambar"
+                        <Label Text="Ambar"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 13">
-                        <Entry Placeholder="{Binding Source={x:Reference this},Path=Warehouse.Name}"
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Entry Placeholder="{Binding Source={x:Reference this},Path=Warehouse.Name}"
                                PlaceholderColor="Black"
                                IsEnabled="False" />
-                    </Border>
-                </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
 
-                <!-- Belge Kodu -->
-                <VerticalStackLayout Grid.Row="3"
+                    <!-- Belge Kodu -->
+                    <VerticalStackLayout Grid.Row="3"
                                      Padding="7">
-                    <Label Text="Belge Kodu"
+                        <Label Text="Belge Kodu"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 13">
+                        <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="Belge Kodu Giriniz" Text="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.DocumentryNo}" />
 
-                    </Border>
-                </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
 
-                <!-- Özel Kod -->
-                <VerticalStackLayout Grid.Row="4"
+                    <!-- Özel Kod -->
+                    <VerticalStackLayout Grid.Row="4"
                                      Padding="7">
-                    <Label Text="Özel Kod"
+                        <Label Text="Özel Kod"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 13">
-                        <Grid ColumnDefinitions="85*,15*">
-                            <Entry Grid.Column="0"
+                        <Border StrokeShape="RoundRectangle 13">
+                            <Grid ColumnDefinitions="85*,15*">
+                                <Entry Grid.Column="0"
                                        Placeholder="  Özel Kod Giriniz"
-                                       Text="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.SpeCode}" />
-                            <ImageButton Grid.Column="1"
+                                       Text="{Binding Source={x:Reference this},Path=BindingContext.SpeCode}" />
+                                <ImageButton Grid.Column="1"
                                          BackgroundColor="Transparent"
                                          Aspect="AspectFit"
                                          HeightRequest="22"
                                          WidthRequest="22"
-                                             CommandParameter="{Binding .}"
                                              Command="{Binding Source={x:Reference this}, Path=GetSpeCodeCommand}">
-                                <ImageButton.Source>
-                                    <FontImageSource FontFamily="FAS"
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="FAS"
                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
                                                      Color="{StaticResource DarkPrimary}" />
-                                </ImageButton.Source>
-                            </ImageButton>
+                                    </ImageButton.Source>
+                                </ImageButton>
 
-                        </Grid>
-                    </Border>
-                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
 
-                <!-- Doküman İzleme No -->
-                <VerticalStackLayout Grid.Row="5"
+                    <!-- Doküman İzleme No -->
+                    <VerticalStackLayout Grid.Row="5"
                                      Padding="7">
-                    <Label Text="Doküman İzleme No"
+                        <Label Text="Doküman İzleme No"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 13">
+                        <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="  Doküman İzleme No Giriniz" Text="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.DocumentryTrackingNo}" />
-                    </Border>
-                </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
 
-                <!-- Açıklama -->
-                <VerticalStackLayout Grid.Row="6"
+                    <!-- Açıklama -->
+                    <VerticalStackLayout Grid.Row="6"
                                      Padding="7">
-                    <Label Text="Açıklama"
+                        <Label Text="Açıklama"
                            FontSize="Medium" />
-                    <Border StrokeShape="RoundRectangle 13">
+                        <Border StrokeShape="RoundRectangle 13">
                             <Entry Placeholder="  Açıklama"  Text="{Binding Source={x:Reference this},Path=ProductTransactionFormModel.Description}"/>
-                    </Border>
-                </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
 
-             
 
-            </Grid>
+
+                </Grid>
             </ScrollView>
             <Button Grid.Row="1"
                     Margin="10,10,10,20"
@@ -132,6 +131,6 @@
                     VerticalOptions="End"
                     Command="{Binding Source={x:Reference this},Path=GoToSuccessPageViewCommand}"></Button>
         </Grid>
-        
+
     </Border>
 </ContentView>

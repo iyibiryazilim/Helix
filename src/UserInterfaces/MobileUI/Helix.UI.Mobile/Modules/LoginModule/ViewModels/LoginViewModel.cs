@@ -5,6 +5,7 @@ using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.IntroductionModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.Services;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels.BottomSheetViewModels;
+using Helix.UI.Mobile.Modules.LoginModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
@@ -39,7 +40,7 @@ public partial class LoginViewModel : BaseViewModel
 		if (result=="true")
 		{
 			Application.Current.MainPage = new AppShell();
-
+			
 		}
 		else
 		{
@@ -73,10 +74,12 @@ public partial class LoginViewModel : BaseViewModel
 					if (result == "true")
 					{
 						await Task.Delay(1000);
-						Application.Current.MainPage = new AppShell();
+                        UserName = await SecureStorage.GetAsync("CurrentUser");
 
-					}
-					else
+                        Application.Current.MainPage = new AppShell();
+
+                    }
+                    else
 					{
 						await Task.Delay(1000);
 						Application.Current.MainPage = new IntroductionScreenView();
@@ -127,6 +130,13 @@ public partial class LoginViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
+
+	[RelayCommand]
+	async Task LogOutAsync()
+	{
+        await SecureStorage.SetAsync("CurrentUser", "");
+        Application.Current.MainPage = new LoginView(this);
+    }
 	
 	
 }

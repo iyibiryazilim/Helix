@@ -97,22 +97,7 @@
                                                 StrokeShape="RoundRectangle 10,0,0,0"
                                                 StrokeThickness="0"
                                                 WidthRequest="9">
-                                            <!--<Border.Triggers>
-                                                <DataTrigger TargetType="Border" Value="#2ca57c">
-                                                    <DataTrigger.Binding>
-                                                        <Binding Source="{Binding OnHand}">
 
-                                                            <Binding.Converter>
-                                                                <converter:BorderColorConverter OnHand="{Binding OnHand}" TempOnhand="{Binding TempOnhand}"  />
-                                                            </Binding.Converter>
-                                                        </Binding>
-                                                    </DataTrigger.Binding>
-
-                                                    <Setter Property="BackgroundColor" Value="#2ca57c" />
-
-                                                </DataTrigger>
-
-                                            </Border.Triggers>-->
                                         </Border>
                                         <Border Grid.Column="1"
                                                 Padding="5"
