@@ -1,4 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
+using Helix.LBSService.Go.Models;
+using Helix.LBSService.Go.Services;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
@@ -13,8 +15,10 @@ namespace Helix.LBSService.WebAPI.Controllers
     {
 
         private readonly ILG_PurchaseDispatchTransactionService _purchaseDispatchTransactionService;
-        private ILogger<PurchaseDispatchTransactionController> _logger;
-        public PurchaseDispatchTransactionController(ILG_PurchaseDispatchTransactionService purchaseDispatchTransactionService, ILogger<PurchaseDispatchTransactionController> logger)
+		private readonly ILG_STFICHE_Context _stficheService;
+
+		private ILogger<PurchaseDispatchTransactionController> _logger;
+        public PurchaseDispatchTransactionController(ILG_PurchaseDispatchTransactionService purchaseDispatchTransactionService, ILogger<PurchaseDispatchTransactionController> logger,ILG_STFICHE_Context stficheContext)
         {
             _purchaseDispatchTransactionService = purchaseDispatchTransactionService;
             _logger = logger;
@@ -24,19 +28,38 @@ namespace Helix.LBSService.WebAPI.Controllers
         [HttpPost("Insert")]
         public async Task<DataResult<PurchaseDispatchTransactionDto>> Insert([FromBody] PurchaseDispatchTransactionDto dto)
         {
-			var obj = Mapping.Mapper.Map<LG_PurchaseDispatchTransaction>(dto);
-			foreach (var item in dto.Lines)
-			{
-				var transaction = Mapping.Mapper.Map<LG_PurchaseDispatchTransactionLine>(item);
-				obj.TRANSACTIONS.Add(transaction);
+            if (LBSParameter.IsTiger)
+            {
+				var obj = Mapping.Mapper.Map<LG_PurchaseDispatchTransaction>(dto);
+				foreach (var item in dto.Lines)
+				{
+					var transaction = Mapping.Mapper.Map<LG_PurchaseDispatchTransactionLine>(item);
+					obj.TRANSACTIONS.Add(transaction);
+				}
+				var result = await _purchaseDispatchTransactionService.Insert(obj);
+				return new DataResult<PurchaseDispatchTransactionDto>()
+				{
+					Data = null,
+					Message = result.Message,
+					IsSuccess = result.IsSuccess,
+				};
 			}
-			var result = await _purchaseDispatchTransactionService.Insert(obj);
-			return new DataResult<PurchaseDispatchTransactionDto>()
+			else
 			{
-				Data = null,
-				Message = result.Message,
-				IsSuccess = result.IsSuccess,
-			};
+				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
+				foreach (var item in dto.Lines)
+				{
+					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
+					obj.TRANSACTIONS.Add(transaction);
+				}
+				var result = await _stficheService.InsertObject(obj);
+				return new DataResult<PurchaseDispatchTransactionDto>()
+				{
+					Data = null,
+					Message = result.Message,
+					IsSuccess = result.IsSuccess,
+				};
+			}
          }
     }
 }
