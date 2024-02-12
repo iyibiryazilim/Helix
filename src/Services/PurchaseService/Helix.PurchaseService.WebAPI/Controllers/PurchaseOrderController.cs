@@ -50,9 +50,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderService.GetPurchaseOrderList(search, PurchaseOrdersOrderBy.NetTotalAsc, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderService.GetPurchaseOrderList(search, PurchaseOrdersOrderBy.DateDesc, page, pageSize);
+                    return result;
+            }
 
 		}
 		[HttpGet("Code/{code}")]

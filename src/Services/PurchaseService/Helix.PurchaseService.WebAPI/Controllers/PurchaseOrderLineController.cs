@@ -108,9 +108,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderLineService.GetPurchaseOrderLine(search, PurchaseOrderLineOrderBy.DateDesc, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLine(search, PurchaseOrderLineOrderBy.DateDesc, page, pageSize);
+                    return result;
+            }
 		}
 		[HttpGet("Fiche/Code/{code}")]
 		public async Task<DataResult<IEnumerable<PurchaseOrderLine>>> GetByCode(string code, [FromQuery] bool includeWaiting = false,string search = "",string orderBy = "datedesc", int page = 0, int pageSize = 20)
@@ -201,9 +201,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
+                    return result;
+            }
 		}
 
 		[HttpGet("Fiche/Id/{id:int}")]
@@ -296,9 +296,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByFicheId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
+                    return result;
+            }
 
 		}
 
@@ -390,9 +390,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByCurrentId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
+                    return result;
+            }
 		 
 		}
 
@@ -484,7 +484,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.DateDesc, id,warehouseNumber, page, pageSize);
                     return result;
                 default:
-                    result.Message = "OrderBy wrong text";
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, PurchaseOrderLineOrderBy.DateDesc, id, warehouseNumber, page, pageSize);
                     return result;
             }
 
@@ -578,9 +578,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByCurrentCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByCurrentCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
+                    return result;
+            }
 		 
 		}
 
@@ -672,9 +672,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByProductId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByProductId(search, PurchaseOrderLineOrderBy.DateDesc, id, page, pageSize);
+                    return result;
+            }
 		}
 
 		[HttpGet("Product/Code/{code}")]
@@ -765,9 +765,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseOrderLineService.GetPurchaseOrderLineByProductCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseOrderLineService.GetWaitingPurchaseOrderLineByProductCode(search, PurchaseOrderLineOrderBy.DateDesc, code, page, pageSize);
+                    return result;
+            }
 
 		}
 	}
