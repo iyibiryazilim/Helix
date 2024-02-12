@@ -9,10 +9,9 @@
              Title="LoginView"
              x:DataType="viewModel:LoginViewModel">
 
-    <Grid Padding="30"
-          RowDefinitions="0.30*,0.05*,*,Auto,Auto"
+    <Grid RowDefinitions="0.30*,0.05*,*,Auto,Auto"
           RowSpacing="20">
-        <Grid Grid.Row="0" ColumnDefinitions="*,*">
+        <Grid Grid.Row="0" ColumnDefinitions="*,*" Padding="30,30,0,30">
             <Frame BackgroundColor="{StaticResource Primary}"
                    CornerRadius="13"
                    HeightRequest="70"
@@ -27,9 +26,9 @@
                        VerticalOptions="Start" />
             </Frame>
             <Border Grid.Column="1"
-                    BackgroundColor="Purple"
+                    BackgroundColor="#D5343E"
+                    StrokeShape="RoundRectangle 10,0,10,0"
                     HeightRequest="70"
-                    StrokeShape="RoundRectangle 10"
                     WidthRequest="120"
                     HorizontalOptions="End"
                     StrokeThickness="0"
@@ -39,6 +38,7 @@
         </Grid>
 
         <VerticalStackLayout Grid.Row="1"
+                             Padding="30"
                              Spacing="10"
                              VerticalOptions="Start">
             <Label FontAttributes="Bold"
@@ -51,6 +51,7 @@
 
         <VerticalStackLayout Grid.Row="2"
                              Spacing="25"
+                             Padding="30"
                              VerticalOptions="Center">
             <Frame Padding="2"
                    BackgroundColor="#dbe1ed"
@@ -81,6 +82,7 @@
         </VerticalStackLayout>
         <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
         <VerticalStackLayout Grid.Row="3"
+                             Padding="30"
                              Spacing="10"
                              VerticalOptions="End">
             <Grid ColumnDefinitions="Auto, *" ColumnSpacing="2">
