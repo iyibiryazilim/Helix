@@ -1,5 +1,6 @@
-﻿using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Models.BaseModel;
+﻿using Helix.LBSService.Base.Models;
+using Helix.LBSService.Tiger.Models;
+
 namespace Helix.LBSService.Tiger.Services
 {
 	public interface ILG_WastageTransactionService

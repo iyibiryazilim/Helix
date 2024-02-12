@@ -1,9 +1,10 @@
-﻿using Helix.LBSService.Go.Services;
+﻿using Helix.LBSService.Base.Models;
+using Helix.LBSService.Go.Models;
+using Helix.LBSService.Go.Services;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
-using Helix.LBSService.WebAPI.Models.BaseModel;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -25,19 +26,38 @@ namespace Helix.LBSService.WebAPI.Controllers
 		[HttpPost("Insert")]
 		public async Task<DataResult<ConsumableTransactionDto>> Insert([FromBody] ConsumableTransactionDto dto)
 		{
-			var obj = Mapping.Mapper.Map<LG_ConsumableTransaction>(dto);
-			foreach (var item in dto.Lines)
+			if (LBSParameter.IsTiger)
 			{
-				var transaction = Mapping.Mapper.Map<LG_ConsumableTransactionLine>(item);
-				obj.TRANSACTIONS.Add(transaction);
+				var obj = Mapping.Mapper.Map<LG_ConsumableTransaction>(dto);
+				foreach (var item in dto.Lines)
+				{
+					var transaction = Mapping.Mapper.Map<LG_ConsumableTransactionLine>(item);
+					obj.TRANSACTIONS.Add(transaction);
+				}
+				var result = await _consumableTransactionService.Insert(obj);
+				return new DataResult<ConsumableTransactionDto>()
+				{
+					Data = null,
+					Message = result.Message,
+					IsSuccess = result.IsSuccess,
+				};
 			}
-			var result = await _consumableTransactionService.Insert(obj); 
-			return new DataResult<ConsumableTransactionDto>()
+			else
 			{
-				Data = null,
-				Message = result.Message,
-				IsSuccess = result.IsSuccess,
-			};	
+				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
+				foreach (var item in dto.Lines)
+				{
+					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
+					obj.TRANSACTIONS.Add(transaction);
+				}
+				var result = await _stficheService.InsertObject(obj);
+				return new DataResult<ConsumableTransactionDto>()
+				{
+					Data = null,
+					Message = result.Message,
+					IsSuccess = result.IsSuccess,
+				};
+			}
 
 		}
 	}

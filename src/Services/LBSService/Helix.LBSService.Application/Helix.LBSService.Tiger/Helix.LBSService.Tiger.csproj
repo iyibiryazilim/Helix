@@ -25,4 +25,7 @@
     <Folder Include="Helper\Mappers\" />
     <Folder Include="Helper\Profiles\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Helix.LBSService.Base\Helix.LBSService.Base.csproj" />
+  </ItemGroup>
 </Project>

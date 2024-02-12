@@ -1,4 +1,4 @@
-﻿namespace Helix.LBSService.WebAPI.Models
+﻿namespace Helix.LBSService.Go.Models
 {
 	public class LG_STFICHE
 	{

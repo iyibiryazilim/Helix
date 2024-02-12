@@ -154,6 +154,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.FinanceService.Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.FinanceService.WebAPI", "src\Services\FinanceService\Helix.FinanceService.WebAPI\Helix.FinanceService.WebAPI.csproj", "{D1BC12AB-6D86-4B9E-AB27-90BA4D8AF36F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.Base", "src\Services\LBSService\Helix.LBSService.Base\Helix.LBSService.Base.csproj", "{44F9CE49-F01C-46E8-822A-9873D1209755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -464,6 +466,12 @@ Global
 		{D1BC12AB-6D86-4B9E-AB27-90BA4D8AF36F}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
 		{D1BC12AB-6D86-4B9E-AB27-90BA4D8AF36F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1BC12AB-6D86-4B9E-AB27-90BA4D8AF36F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44F9CE49-F01C-46E8-822A-9873D1209755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F9CE49-F01C-46E8-822A-9873D1209755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44F9CE49-F01C-46E8-822A-9873D1209755}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F9CE49-F01C-46E8-822A-9873D1209755}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{44F9CE49-F01C-46E8-822A-9873D1209755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44F9CE49-F01C-46E8-822A-9873D1209755}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -543,6 +551,7 @@ Global
 		{14C6F653-8D33-4C2D-83A8-E8BCB9778858} = {765C7EC9-49A3-4EB4-ADB3-06D1920762A7}
 		{0E6F0A9B-61B8-45F2-8D25-05CC6D12381F} = {765C7EC9-49A3-4EB4-ADB3-06D1920762A7}
 		{D1BC12AB-6D86-4B9E-AB27-90BA4D8AF36F} = {765C7EC9-49A3-4EB4-ADB3-06D1920762A7}
+		{44F9CE49-F01C-46E8-822A-9873D1209755} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}
