@@ -41,8 +41,13 @@ public class HttpClientService : IHttpClientService
 
 		if (!string.IsNullOrEmpty(Token))
 		{
+			var token = Token.Trim('"');
 			if (httpClient.DefaultRequestHeaders.Authorization == null)
-				httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token.Trim('"'));
+				httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+			else
+			{
+				//httpClient.DefaultRequestHeaders.Authorization.Parameter = token;
+			}
 
 		}
 		else

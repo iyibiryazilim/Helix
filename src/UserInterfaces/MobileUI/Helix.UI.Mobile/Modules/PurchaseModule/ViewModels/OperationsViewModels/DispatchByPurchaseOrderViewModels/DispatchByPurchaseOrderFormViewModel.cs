@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Models;
@@ -200,9 +200,11 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
-                            ["GroupType"] = 1
+                            ["GroupType"] = 1,
+                            ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
                         });
                     }
+
                 }
                 else
                 {

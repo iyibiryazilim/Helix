@@ -12,7 +12,7 @@ public partial class ConfigBottomSheetView : BottomSheet
 		BindingContext = _viewModel = viewModel;
 	}
 
-	async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+	public async void TapGestureRecognizer_Tapped()
 	{
 		await this.DismissAsync();
 	}

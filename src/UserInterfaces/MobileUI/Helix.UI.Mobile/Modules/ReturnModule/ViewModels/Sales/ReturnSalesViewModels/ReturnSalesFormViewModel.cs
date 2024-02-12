@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -56,23 +56,28 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
 	private readonly IHttpClientService _httpClientService;
 	private readonly IWarehouseService _warehouseService;
 	private readonly ISpeCodeService _speCodeService;
+	private readonly IServiceProvider _serviceProvider;
 	private readonly ICustomerService _customerService;
-    private readonly IRetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
-    private readonly IWholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;
+	private readonly IRetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
+	private readonly IWholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;
 
 	// Constructor with dependency injection
 	public ReturnSalesFormViewModel(
 		IHttpClientService httpClientService,
 		IWarehouseService warehouseService,
 		ISpeCodeService speCodeService,
-		ICustomerService customerService,IRetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService,IWholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService)
+		ICustomerService customerService,
+		IRetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService,
+		IWholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService,
+		IServiceProvider serviceProvider)
 	{
 		_httpClientService = httpClientService ?? throw new ArgumentNullException(nameof(httpClientService));
 		_warehouseService = warehouseService ?? throw new ArgumentNullException(nameof(warehouseService));
 		_speCodeService = speCodeService ?? throw new ArgumentNullException(nameof(speCodeService));
 		_customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
-        _retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(retailSalesReturnDispatchTransactionService));
-        _wholeSalesReturnDispatchTransactionService = wholeSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(wholeSalesReturnDispatchTransactionService));
+		_retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(retailSalesReturnDispatchTransactionService));
+		_wholeSalesReturnDispatchTransactionService = wholeSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(wholeSalesReturnDispatchTransactionService));
+		_serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
 		Title = "Satış İade Formu";
 		GetCustomersCommand = new Command(async () => await LoadData());
@@ -229,7 +234,8 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 3
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
                     });
                 }
             }
@@ -291,7 +297,9 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
             {
                 await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                 {
-                    ["GroupType"] = 3
+                    ["GroupType"] = 3,
+                    ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+
                 });
             }
             else
@@ -344,8 +352,5 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
         {
             IsBusy = false;
         }
-
     }
-
-
 }

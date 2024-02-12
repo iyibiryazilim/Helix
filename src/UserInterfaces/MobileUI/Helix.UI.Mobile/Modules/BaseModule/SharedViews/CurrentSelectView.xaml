@@ -14,7 +14,7 @@
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <Border BackgroundColor="{StaticResource White}"
+    <Border BackgroundColor="{StaticResource MainBorderColor}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>

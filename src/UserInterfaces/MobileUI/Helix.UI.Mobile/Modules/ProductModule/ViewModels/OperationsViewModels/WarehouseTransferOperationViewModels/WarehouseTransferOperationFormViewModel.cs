@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
@@ -21,6 +21,7 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
 	IHttpClientService _httpClientService;
     ISpeCodeService _speCodeService;
     ITransferTransactionService _transferTransactionService;
+    IServiceProvider _serviceProvider;
 
 	[ObservableProperty]
 	Warehouse warehouse;
@@ -44,12 +45,14 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public WarehouseTransferOperationFormViewModel(IHttpClientService httpClientService,ISpeCodeService speCodeService,ITransferTransactionService transferTransactionService)
+    public WarehouseTransferOperationFormViewModel(IHttpClientService httpClientService,ISpeCodeService speCodeService,ITransferTransactionService transferTransactionService,IServiceProvider serviceProvider)
 	{
 		Title = "Ambar Transfer Formu";
 		_httpClientService = httpClientService;
         _speCodeService = speCodeService;
         _transferTransactionService = transferTransactionService;
+        _serviceProvider = serviceProvider;
+
 	}
 
     [RelayCommand]
@@ -144,11 +147,15 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
 
                 if (userResponse)
                 {
+                    var viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
+                    viewModel.Items.Clear();
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 8
+                        ["GroupType"] = 8,
+                        ["SuccessMessage"] = "Ambar Transfer Fişi Başarıyla Gönderildi."
                     });
                 }
+
             }
             else
             {

@@ -12,7 +12,7 @@ namespace Helix.ProductService.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class OutCountingTransactionController : ControllerBase
 {
 	IOutCountingTransactionService _outCountingTransactionService;

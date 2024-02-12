@@ -15,6 +15,7 @@
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="White">White</Color>
     <Color x:Key="WhiteSmoke">WhiteSmoke</Color>
+    <Color x:Key="MainBorderColor">WhiteSmoke</Color>
     <!--<Color x:Key="Black">#080c1f</Color>-->
     <Color x:Key="Black">#1e1e2c</Color>
     <!--<Color x:Key="BlackSolid">#1c234d</Color>-->

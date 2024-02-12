@@ -30,13 +30,17 @@ namespace Helix.LBSService.EventConsumer.Helper
 			_resetEvent = resetEvent;
 
 			// create a connection and open a channel, dispose them when done
-			var factory = new ConnectionFactory
+			if(ApplicationParameter.Connection == null)
 			{
-				Uri = new Uri(ApplicationParameter.RabbitMQAdress)
-			};
+				var factory = new ConnectionFactory
+				{
+					Uri = new Uri(ApplicationParameter.RabbitMQAdress)
+				};
 
-			_connection = factory.CreateConnection();
-			_channel = _connection.CreateModel();
+				ApplicationParameter.Connection = factory.CreateConnection();
+			}
+
+			_channel = ApplicationParameter.Connection.CreateModel();
 
 		}
 
@@ -115,7 +119,7 @@ namespace Helix.LBSService.EventConsumer.Helper
 						}
 						else
 						{
-							_channel.BasicReject(ea.DeliveryTag, false);
+							_channel.BasicNack(ea.DeliveryTag, false,true);
 							Log.Error($" [!] Message processing failed: Unable to post DTO to API");
 							Log.Error($" [!] Message negatively acknowledged and requeued: {message}");
 						}
