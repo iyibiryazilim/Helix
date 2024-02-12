@@ -1,4 +1,4 @@
-﻿namespace Helix.LBSService.WebAPI.Models.BaseModel
+﻿namespace Helix.LBSService.Base.Models
 {
 	public class DataResult<T> where T : class
 	{

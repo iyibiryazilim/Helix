@@ -260,122 +260,124 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 		}
 	}
 
-	[RelayCommand]
-	public async Task ToggleSelectionAsync(Product item)
-	{
-		try
-		{
-			item.IsSelected = !item.IsSelected;
-			if (item.IsSelected)
-			{
-				SelectedProducts.Add(item);
-			}
-			else
-			{
-				SelectedProducts.Remove(item);
-			}
-		}
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-		}
-	}
+    [RelayCommand]
+    public async Task ToggleSelectionAsync(Product item)
+    {
+        try
+        {
+            var warehouseCountingListViewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+            if (!warehouseCountingListViewModel.Items.ToList().Exists(x => x.ProductCode == item.Code))
+            {
+                item.IsSelected = !item.IsSelected;
+                if (item.IsSelected)
+                {
+                    SelectedProducts.Add(item);
+                }
+                else
+                {
+                    SelectedProducts.Remove(item);
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Uyarı", "Bu ürün zaten sayım listesinde bulunmaktadır.", "Tamam");
+            }
 
-	[RelayCommand]
-	public async Task SelectAllAsync(bool isSelected)
-	{
-		try
-		{
-			if (isSelected)
-			{
-				foreach (var item in Items)
-				{
-					item.IsSelected = true;
-					SelectedProducts.Add(item);
-				}
-			}
-			else
-			{
-				foreach (var item in Items)
-				{
-					item.IsSelected = false;
-					SelectedProducts.Remove(item);
-				}
-			}
-		}
-		catch(Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-		}
-		
-	}
 
-	[RelayCommand]
-	public async Task GoToNextAsync()
-	{
-		if (IsBusy)
-			return;
-		try
-		{
-			IsBusy = true;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
 
-			var warehouseCountingListViewModel  = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+    [RelayCommand]
+    public async Task SelectAllAsync(bool isSelected)
+    {
+        try
+        {
+            if (isSelected)
+            {
+                foreach (var item in Items)
+                {
+                    var warehouseCountingListViewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+                    if (!warehouseCountingListViewModel.Items.ToList().Exists(x => x.ProductCode == item.Code))
+                    {
+                        item.IsSelected = true;
+                        SelectedProducts.Add(item);
+                    }
 
-			foreach(var item in SelectedProducts)
-			{
-				if(warehouseCountingListViewModel.Items.ToList().Exists(x => x.ProductCode == item.Code))
-				{
-					//warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
-					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).TempOnhand += 1;
-					warehouseCountingListViewModel.Items.ToList().First(x => x.ProductCode == item.Code).QuantityCounter += 1;
-				}
-				if (warehouseCountingListViewModel.Results.ToList().Exists(x => x.ProductCode == item.Code))
-				{
-					//warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).OnHand += 1;
-					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).TempOnhand += 1;
-					warehouseCountingListViewModel.Results.ToList().First(x => x.ProductCode == item.Code).QuantityCounter += 1;
-				}
+                }
+            }
+            else
+            {
+                foreach (var item in Items)
+                {
+                    item.IsSelected = false;
+                    SelectedProducts.Remove(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
 
-				var model = new WarehouseTotal
-				{
-					ProductReferenceId = item.ReferenceId,
-					ProductCode = item.Code,
-					ProductName = item.Name,
-					SubUnitsetCode = item.SubUnitsetCode,
-					OnHand = item.StockQuantity,
-					TempOnhand = item.TempOnhand
-					
-				};
-				item.IsSelected = false;
-				if (!warehouseCountingListViewModel.Results.ToList().Exists(x => x.ProductCode == item.Code))
-				{
-					warehouseCountingListViewModel.Items.Add(model);
-					warehouseCountingListViewModel.Results.Add(model);
-				}
-			}
+    }
 
-			await Task.Delay(200);
-			await Shell.Current.GoToAsync("..");
+    [RelayCommand]
+    public async Task GoToNextAsync()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
 
-		}
-		catch(Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-		}
-	}
+            var warehouseCountingListViewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+
+            foreach (var item in SelectedProducts)
+            {
+
+                var model = new WarehouseTotal
+                {
+                    ProductReferenceId = item.ReferenceId,
+                    ProductCode = item.Code,
+                    ProductName = item.Name,
+                    SubUnitsetCode = item.SubUnitsetCode,
+                    OnHand = item.StockQuantity,
+                    TempOnhand = 1,
+                    Image = item.Image,
+
+                };
+                item.IsSelected = false;
+                warehouseCountingListViewModel.Items.Add(model);
+                warehouseCountingListViewModel.Results.Add(model);
+
+            }
+
+            await Task.Delay(200);
+            await Shell.Current.GoToAsync("..");
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
 }

@@ -30,45 +30,63 @@
             <Grid Padding="10,0,10,10"
                   RowDefinitions="auto,auto,*"
                   RowSpacing="10">
-                <Frame Grid.Row="0"
-                       HeightRequest="100">
-                    <Grid ColumnDefinitions="Auto,*,Auto">
-                        <VerticalStackLayout Grid.Column="0"
-                                             Spacing="2">
-                            <Label Text="{Binding purchasePanelModel.PurchaseDispatchCount}"
+                <Grid Grid.Row="0"
+                      Margin="0,0,0,10"
+                      ColumnDefinitions=".50*, .50*"
+                      ColumnSpacing="10">
+                    <Border Grid.Column="0"
+                            Padding="10"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="{StaticResource Primary}"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   FontSize="20"
                                    HorizontalOptions="Center"
-                                   FontAttributes="Bold"
-                                   FontSize="19"
-                                   TextColor="{StaticResource Success}"></Label>
-                            <BoxView HeightRequest="0.5"
-                                     Color="{StaticResource Secondary}"></BoxView>
-                            <Label Text="Satınalma Sayısı"
-                                   FontSize="Caption"
-                                   FontAttributes="Bold"></Label>
-                        </VerticalStackLayout>
-                        <BoxView Grid.Column="1"
-                                 WidthRequest="0.7"></BoxView>
-                        <VerticalStackLayout Grid.Column="2"
-                                             Spacing="2">
-                            <Label Text="{Binding purchasePanelModel.SalesReturnCount}"
+                                   Text="{Binding purchasePanelModel.PurchaseDispatchCount}"
+                                   TextColor="{StaticResource Secondary}" />
+                            <Label FontSize="Caption"
                                    HorizontalOptions="Center"
-                                   FontAttributes="Bold"
-                                   FontSize="19"
-                                   TextColor="{StaticResource Danger}"></Label>
-                            <BoxView HeightRequest="0.5"
-                                     Color="{StaticResource Secondary}"></BoxView>
-                            <Label Text="Toplam İade Sayısı" HorizontalOptions="Center"
-                                   FontSize="Caption"
-                                   FontAttributes="Bold"></Label>
+                                   Text="Satınalma Sayısı"
+                                   TextColor="{StaticResource Secondary}" />
                         </VerticalStackLayout>
-                    </Grid>
-
-
-                </Frame>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Primary}"
+                                    Opacity="0.1"
+                                    Radius="20"
+                                    Offset="20,20" />
+                        </Border.Shadow>
+                    </Border>
+                    <Border Grid.Column="1"
+                            Padding="10"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="{StaticResource Secondary}"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontAttributes="Bold"
+                                   FontSize="20"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding purchasePanelModel.SalesReturnCount}"
+                                   TextColor="{StaticResource Secondary}" />
+                            <Label FontSize="Caption"
+                                   HorizontalOptions="Center"
+                                   Text="Toplam İade Sayısı"
+                                   TextColor="{StaticResource Secondary}" />
+                        </VerticalStackLayout>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Primary}"
+                                    Opacity="0.1"
+                                    Radius="20"
+                                    Offset="20,20" />
+                        </Border.Shadow>
+                    </Border>
+                </Grid>
                 <Grid Grid.Row="1">
                     <VerticalStackLayout Spacing="5">
-                        <Label FontAttributes="Bold" Text="En Çok Hareket Gören Tedarikçiler" />
-                        <CollectionView ItemsSource="{Binding Suppliers}">
+                        <Label FontAttributes="Bold"
+                               Text="En Çok Hareket Gören Tedarikçiler"
+                               TextColor="{StaticResource Gray300}" />
+                        <CollectionView EmptyView="En çok hareket gören tedarikçiniz bulunmamaktadır.." ItemsSource="{Binding Suppliers}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                             </CollectionView.ItemsLayout>
@@ -123,7 +141,9 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <VerticalStackLayout>
-                        <Label FontAttributes="Bold" Text="Son Hareketler" />
+                        <Label FontAttributes="Bold"
+                               Text="Son Hareketler"
+                               TextColor="{StaticResource Gray300}" />
                         <Grid RowDefinitions="*">
                             <sharedViews:LoadingView IsBusy="{Binding IsBusy}" />
                             <CollectionView Grid.Row="0"

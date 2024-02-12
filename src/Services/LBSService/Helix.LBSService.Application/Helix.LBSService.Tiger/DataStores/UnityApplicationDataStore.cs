@@ -1,7 +1,7 @@
-﻿using Helix.LBSService.Tiger.Helper;
+﻿using Helix.LBSService.Base.Models;
+using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Models.BaseModel;
 using Helix.LBSService.Tiger.Services;
-using Helix.LBSService.WebAPI.Helper;
 
 namespace Helix.LBSService.Tiger.DataStores
 {

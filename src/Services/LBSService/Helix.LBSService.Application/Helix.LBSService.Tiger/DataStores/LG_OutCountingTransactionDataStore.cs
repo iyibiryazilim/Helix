@@ -1,4 +1,5 @@
-﻿using Helix.LBSService.Tiger.Helper;
+﻿using Helix.LBSService.Base.Models;
+using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Models.BaseModel;
 using Helix.LBSService.Tiger.Services;

@@ -1,6 +1,6 @@
-﻿using Helix.LBSService.Tiger.DTOs;
+﻿using Helix.LBSService.Base.Models;
+using Helix.LBSService.Tiger.DTOs;
 using Helix.LBSService.Tiger.Services;
-using Helix.LBSService.WebAPI.Models.BaseModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers

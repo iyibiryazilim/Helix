@@ -1,7 +1,10 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.BaseModule.Views;
 using Helix.UI.Mobile.Modules.BaseModule.Views.Current;
 using Helix.UI.Mobile.Modules.FastProductionModule.Views;
+using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews;
 using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
@@ -38,10 +41,20 @@ namespace Helix.UI.Mobile;
 
 public partial class AppShell : Shell
 {
-	public AppShell()
+    public AppShell()
 	{
+		
 		InitializeComponent();
-		Routing.RegisterRoute(nameof(ProductListView), typeof(ProductListView));
+
+        var serviceProvider = IPlatformApplication.Current.Services;
+        using (var scope = serviceProvider.CreateScope())
+        {
+            var serviceProviderScoped = scope.ServiceProvider;
+            var viewModel = serviceProviderScoped.GetRequiredService<LoginViewModel>();
+            BindingContext = viewModel;
+        }
+
+        Routing.RegisterRoute(nameof(ProductListView), typeof(ProductListView));
 		Routing.RegisterRoute(nameof(ProductDetailView), typeof(ProductDetailView));
 		Routing.RegisterRoute(nameof(WarehouseDetailView), typeof(WarehouseDetailView));
 		Routing.RegisterRoute(nameof(CustomerDetailView), typeof(CustomerDetailView));
@@ -226,9 +239,11 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineChangeBottomSheetView), typeof(DispatchByPurchaseOrderLineChangeBottomSheetView));
 		Routing.RegisterRoute(nameof(ProcurementSelectBottomSheetView), typeof(ProcurementSelectBottomSheetView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderChangeBottomSheetView), typeof(DispatchByPurchaseOrderChangeBottomSheetView));
-        Routing.RegisterRoute(nameof(TransferTransactionOperationFormView), typeof(TransferTransactionOperationFormView));
+    Routing.RegisterRoute(nameof(TransferTransactionOperationFormView), typeof(TransferTransactionOperationFormView));
 		Routing.RegisterRoute(nameof(BarcodePageView), typeof(BarcodePageView));
 		Routing.RegisterRoute(nameof(ConfigBottomSheetView), typeof(ConfigBottomSheetView));
 		Routing.RegisterRoute(nameof(ProfilePageView),typeof(ProfilePageView));
+    Routing.RegisterRoute(nameof(WarehouseCountingFormView), typeof(WarehouseCountingFormView));
+
     }
 }

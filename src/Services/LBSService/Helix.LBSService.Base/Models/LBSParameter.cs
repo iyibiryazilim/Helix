@@ -1,4 +1,4 @@
-﻿namespace Helix.LBSService.WebAPI.Helper
+﻿namespace Helix.LBSService.Base.Models
 {
 	public static class LBSParameter
 	{

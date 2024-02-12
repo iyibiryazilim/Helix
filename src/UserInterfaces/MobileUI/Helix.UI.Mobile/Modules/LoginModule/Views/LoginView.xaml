@@ -9,36 +9,49 @@
              Title="LoginView"
              x:DataType="viewModel:LoginViewModel">
 
-    <Grid Padding="30"
-          RowDefinitions="0.30*,0.05*,*,Auto,Auto"
+    <Grid RowDefinitions="0.30*,0.05*,*,Auto,Auto"
           RowSpacing="20">
+        <Grid Grid.Row="0" ColumnDefinitions="*,*" Padding="30,30,0,30">
+            <Frame BackgroundColor="{StaticResource Primary}"
+                   CornerRadius="13"
+                   HeightRequest="70"
+                   HorizontalOptions="Start"
+                   VerticalOptions="End"
+                   WidthRequest="70">
+                <Label FontAttributes="Bold"
+                       FontSize="28"
+                       HorizontalOptions="Center"
+                       Text="V"
+                       TextColor="{StaticResource White}"
+                       VerticalOptions="Start" />
+            </Frame>
+            <Border Grid.Column="1"
+                    BackgroundColor="#D5343E"
+                    StrokeShape="RoundRectangle 10,0,10,0"
+                    HeightRequest="70"
+                    WidthRequest="190"
+                    HorizontalOptions="End"
+                    StrokeThickness="0"
+                    VerticalOptions="End">
+                <Image Aspect="AspectFill" Source="logo.png" WidthRequest="120" />
+            </Border>
+        </Grid>
 
-        <Frame BackgroundColor="{StaticResource Primary}"
-               CornerRadius="13"
-               HeightRequest="70"
-               HorizontalOptions="Start"
-               VerticalOptions="End"
-               WidthRequest="70">
-            <Label FontAttributes="Bold"
-                   FontSize="28"
-                   HorizontalOptions="Center"
-                   Text="V"
-                   TextColor="{StaticResource White}"
-                   VerticalOptions="Start" />
-        </Frame>
         <VerticalStackLayout Grid.Row="1"
+                             Padding="30"
                              Spacing="10"
                              VerticalOptions="Start">
             <Label FontAttributes="Bold"
                    FontSize="Title"
-                   Text="Login or register using your email and password" />
+                   Text="İyibir Depo Yönetim Sistemine Hoşgeldiniz" />
             <Label FontSize="Subtitle"
-                   Text="Login or register using your email and password"
+                   Text="Giriş için lütfen kullanıcı bilgilerinizi giriniz"
                    TextColor="Blue" />
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="2"
                              Spacing="25"
+                             Padding="30"
                              VerticalOptions="Center">
             <Frame Padding="2"
                    BackgroundColor="#dbe1ed"
@@ -67,19 +80,20 @@
                        VerticalOptions="Center" />
             </Frame>
         </VerticalStackLayout>
-        <sharedViews:LoadingView IsBusy="{Binding IsBusy}" Grid.Row="2" />
+        <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
         <VerticalStackLayout Grid.Row="3"
+                             Padding="30"
                              Spacing="10"
                              VerticalOptions="End">
             <Grid ColumnDefinitions="Auto, *" ColumnSpacing="2">
-                <Border BackgroundColor="{StaticResource Primary}" Grid.Column="0" Padding="15"
+                <Border Grid.Column="0"
+                        Padding="15"
+                        BackgroundColor="{StaticResource Primary}"
                         StrokeShape="RoundRectangle 12">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoToConfigBottomSheetViewCommand}" />
                     </Border.GestureRecognizers>
-                    <Image
-                           HeightRequest="20"
-                           WidthRequest="20">
+                    <Image HeightRequest="20" WidthRequest="20">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoToConfigBottomSheetViewCommand}" />
                         </Image.GestureRecognizers>
@@ -98,7 +112,9 @@
                         TextColor="{StaticResource White}" />
             </Grid>
 
-            <Label HorizontalOptions="Center" Text="Şifremi Unuttum" />
+            <Label HorizontalOptions="Center"
+                   IsVisible="False"
+                   Text="Şifremi Unuttum" />
         </VerticalStackLayout>
 
 

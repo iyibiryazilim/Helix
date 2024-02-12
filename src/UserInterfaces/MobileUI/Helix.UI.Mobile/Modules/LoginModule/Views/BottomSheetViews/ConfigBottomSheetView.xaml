@@ -25,9 +25,10 @@
                              Padding="0"
                              Spacing="15">
             <Label FontAttributes="Bold"
-                   FontSize="Title"
+                   FontSize="19"
                    HorizontalOptions="Center"
                    Text="API Parametreleri" />
+            <BoxView Color="{StaticResource Primary}"  HeightRequest="1" />
             <Grid ColumnDefinitions=".70*, .30*" ColumnSpacing="10">
                 <Border Grid.Column="0"
                         Padding="0"
@@ -35,7 +36,7 @@
                         StrokeShape="RoundRectangle 10">
                     <Entry FontSize="14"
                            Text="{Binding BaseUri}"
-                           Placeholder="http://195.142.192.18"
+                           Placeholder="195.142.192.18"
                            PlaceholderColor="#adb3c3"
                            VerticalOptions="Center" />
                 </Border>

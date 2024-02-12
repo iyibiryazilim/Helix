@@ -10,4 +10,12 @@
     <Folder Include="Dtos\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Helix.LBSService.Base\Helix.LBSService.Base.csproj" />
+  </ItemGroup>
+
 </Project>
