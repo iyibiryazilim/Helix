@@ -3,7 +3,7 @@
 	public class ProductTransactionDto
 	{
 		public int? ReferenceId { get; set; }
-		public DateTime TransactionDate { get; set; } = DateTime.Now;
+ 		public DateTime TransactionDate { get; set; } = DateTime.Now;
 		public string? Code { get; set; } = string.Empty;
 		public short? GroupType { get; set; } = 3;
 		public short? IOType { get; set; } = 0;

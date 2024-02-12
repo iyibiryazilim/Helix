@@ -1,12 +1,28 @@
+using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Services;
 using Helix.LBSService.Tiger.DataStores;
 using Helix.LBSService.Tiger.Services;
-using Helix.LBSService.WebAPI.Helper;
 using Helix.LBSService.WebAPI.Models;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("appsettings.json");
+
+
+LBSParameterModel parameterModel = builder.Configuration.GetSection(nameof(LBSParameter)).Get<LBSParameterModel>();
+LBSParameter.FirmNumber = parameterModel.FirmNumber;
+LBSParameter.IsTiger = parameterModel.IsTiger;
+LBSParameter.Username = parameterModel.Username;
+LBSParameter.Password = parameterModel.Password;
+LBSParameter.Period = parameterModel.Period;
+LBSParameter.DB_DataSource = parameterModel.DB_DataSource;
+LBSParameter.DB_InitialCatalog = parameterModel.DB_InitialCatalog;
+LBSParameter.DB_UserId = parameterModel.DB_UserId;
+LBSParameter.DB_Password = parameterModel.DB_Password;
+
+Debug.WriteLine(LBSParameter.Connection);
 
 // Add services to the container.
 builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
@@ -24,29 +40,17 @@ builder.Services.AddTransient<ILG_PurchaseReturnDispatchTransactionService, LG_P
 builder.Services.AddTransient<ILG_PurchaseDispatchTransactionService, LG_PurchaseDispatchTransactionDataStore>();
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
+builder.Services.AddTransient<ILG_STFICHE_Context,LG_STFICHE_Context>();
 
 
 
 
-builder.Services.AddTransient<ILG_STFICHE_Context, LG_STFICHE_Context>();
 
+ 
 
 builder.Services.AddControllers();
 
-builder.Configuration.AddJsonFile("appsettings.json");
- 
 
-LBSParameterModel parameterModel = builder.Configuration.GetSection(nameof(LBSParameter)).Get<LBSParameterModel>();
-LBSParameter.FirmNumber = parameterModel.FirmNumber;
-LBSParameter.IsTiger = parameterModel.IsTiger;
-LBSParameter.Username = parameterModel.Username;
-LBSParameter.Password = parameterModel.Password;
-LBSParameter.DB_DataSource = parameterModel.DB_DataSource;
-LBSParameter.DB_InitialCatalog = parameterModel.DB_InitialCatalog;
-LBSParameter.DB_UserId = parameterModel.DB_UserId;
-LBSParameter.DB_Password = parameterModel.DB_Password;
-
-Debug.WriteLine(LBSParameter.Connection);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

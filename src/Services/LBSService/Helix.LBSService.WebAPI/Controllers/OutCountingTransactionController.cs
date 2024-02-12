@@ -2,7 +2,8 @@
 using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
-using Helix.LBSService.WebAPI.Models.BaseModel;
+using Helix.LBSService.Base.Models;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
