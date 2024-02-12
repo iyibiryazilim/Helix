@@ -246,8 +246,8 @@ public partial class FastProductionAllProductsListViewModel : BaseViewModel
 						await ReloadAsync();
 						break;
 					default:
-						await Shell.Current.DisplayAlert("Error: ", "Yanlış Girdi", "Tamam");
-						await ReloadAsync();
+                        OrderBy = ProductOrderBy.nameasc;
+                        await ReloadAsync();
 						break;
 
 				}

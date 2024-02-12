@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Helix.UI.Mobile.Modules.PanelModule.Views.ProfilePageView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetUserInformationCommand}"
+                                        EventName="Loaded" />
+    </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+      
+    </ContentPage.Resources>
+   
+    <Grid>
+        <ScrollView>
+            <Grid BackgroundColor="{StaticResource Primary}"
+                  RowDefinitions="0.1*,0.9*">
+                <Frame Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="0,30,0,0"
+                       Padding="0"
+                       BorderColor="Grey"
+                       CornerRadius="80"
+                       HasShadow="False"
+                       HeightRequest="85"
+                       HorizontalOptions="Center"
+                       IsClippedToBounds="True"
+                       VerticalOptions="Center"
+                       WidthRequest="85"
+                       ZIndex="3">
+                    <Image Aspect="AspectFit"
+                           HeightRequest="50"
+                           Source="{Binding Product.Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                </Frame>
+
+                <Border Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="-20"
+                        Padding="20"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                           Dark={StaticResource Black}}"
+                        ZIndex="2">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="60,60,0,0" />
+                    </Border.StrokeShape>
+                    <ScrollView>
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                              RowSpacing="5">
+                            <VerticalStackLayout Grid.Row="0"
+                                                 Padding="20,30,20,10">
+                                <Label FontAttributes="Bold"
+                                       FontSize="Large"
+                                       HorizontalOptions="Center"
+                                       Text="{Binding UserName}" />
+                                <Label FontAttributes="Bold"
+                                       FontSize="Small"
+                                       HorizontalOptions="Center"
+                                       Text="Paketleme" />
+
+                            </VerticalStackLayout>
+
+                            <Grid Grid.Row="1"
+                                  Padding="0,10,0,10"
+                                  ColumnDefinitions="Auto,Auto,Auto"
+                                  ColumnSpacing="25"
+                                  HorizontalOptions="CenterAndExpand"
+                                  VerticalOptions="Center">
+                                <VerticalStackLayout Grid.Column="0"
+                                                     HorizontalOptions="Start"
+                                                     Spacing="4">
+                                    <Label TextColor="{StaticResource Primary}"
+                                           FontSize="10">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold"
+                                                      FontSize="Medium"
+                                                      Text="{Binding ProductDetailValues.InputQuantity, StringFormat='{0:N2} '}" />
+                                                <Span Text=" " />
+                                                <Span FontAttributes="Bold"
+                                                      FontSize="Medium"
+                                                      Text="{Binding ProductDetailValues.SubUnitsetCode}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <BoxView HeightRequest="0.1" />
+                                    <Label FontSize="Small"
+                                           HorizontalOptions="CenterAndExpand"
+                                           Text="Giriş"
+                                           TextColor="{StaticResource Gray300}" />
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="2"
+                                                     HorizontalOptions="Center"
+                                                     Spacing="4">
+                                    <Label TextColor="{StaticResource Success}"
+                                           FontSize="10">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold"
+                                                      FontSize="Medium"
+                                                      Text="{Binding ProductDetailValues.StockQuantity, StringFormat='{0:N2} '}" />
+                                                <Span Text=" " />
+                                                <Span FontAttributes="Bold"
+                                                      FontSize="Medium"
+                                                      Text="{Binding ProductDetailValues.SubUnitsetCode}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <BoxView HeightRequest="0.1" />
+                                    <Label FontSize="Small"
+                                           HorizontalOptions="CenterAndExpand"
+                                           Text="Refereans"
+                                           TextColor="{StaticResource Gray300}" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1"
+                                                     HorizontalOptions="End"
+                                                     Spacing="4">
+                                    <Label TextColor="{StaticResource Danger}"
+                                           FontSize="10">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold"
+                                                      FontSize="Medium"
+                                                      Text="{Binding ProductDetailValues.OutputQuantity, StringFormat='{0:N2} '}" />
+                                                <Span Text=" " />
+                                                <Span FontAttributes="Bold"
+                                                      FontSize="Medium"
+                                                      Text="{Binding ProductDetailValues.SubUnitsetCode}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <BoxView HeightRequest="0.1" />
+                                    <Label FontSize="Small"
+                                           HorizontalOptions="CenterAndExpand"
+                                           Text="Çıkış"
+                                           TextColor="{StaticResource Gray300}" />
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <VerticalStackLayout Grid.Row="2"
+                                                 Padding="10"
+                                                 Spacing="25"  >
+
+                                <Label FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       Text="İletişim Bilgileri"
+                                       VerticalOptions="Center" />
+                                <Grid RowDefinitions="*,*,*,*,*"
+                                      RowSpacing="10">
+                                    <Border Grid.Row="0"
+                                            StrokeShape="RoundRectangle 10" Padding="5">
+                                        <Grid ColumnDefinitions=".20*,*"
+                                              ColumnSpacing="5">
+                                            <Label Grid.Column="0"
+                                                   FontFamily="FAS"
+                                                   Text="User"
+                                                   FontSize="22"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center">
+                                            </Label>
+                                            <VerticalStackLayout Grid.Column="1"
+                                                                 Spacing="2">
+                                                <Label Text="Adı"
+                                                       FontSize="Small"
+                                                       TextColor="{StaticResource Gray400}"
+                                                       FontAttributes="Bold"></Label>
+                                                <Label Text="{Binding UserName}"
+                                                       FontSize="Small"
+                                                       FontAttributes="Bold"></Label>
+                                            </VerticalStackLayout>
+
+                                        </Grid>
+
+                                    </Border>
+                                    <Border Grid.Row="1"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="5">
+                                        <Grid ColumnDefinitions=".20*,*"
+                                              ColumnSpacing="5">
+                                            <Label Grid.Column="0"
+                                                   FontFamily="FAS"
+                                                   Text="User"
+                                                   FontSize="22"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center">
+                                            </Label>
+                                            <VerticalStackLayout Grid.Column="1"
+                                                                 Spacing="2">
+                                                <Label Text="Soyadı"
+                                                       FontSize="Small"
+                                                       TextColor="{StaticResource Gray400}"
+                                                       FontAttributes="Bold"></Label>
+                                                <Label Text="Sunuk"
+                                                       FontSize="Small"
+                                                       FontAttributes="Bold"></Label>
+                                            </VerticalStackLayout>
+
+                                        </Grid>
+
+                                    </Border>
+                                    <Border Grid.Row="2"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="5">
+                                        <Grid ColumnDefinitions=".20*,*"
+                                              ColumnSpacing="5">
+                                            <Label Grid.Column="0"
+                                                   FontFamily="FAS"
+                                                   Text="Phone"
+                                                   FontSize="22"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center">
+                                            </Label>
+                                            <VerticalStackLayout Grid.Column="1">
+                                                <Label Text="Telefon"
+                                                       FontSize="Small"
+                                                       TextColor="{StaticResource Gray400}"
+                                                       FontAttributes="Bold"></Label>
+                                                <Label Text="000-000-00000"
+                                                       FontSize="Small"
+                                                       FontAttributes="Bold"></Label>
+                                            </VerticalStackLayout>
+
+                                        </Grid>
+
+                                    </Border>
+                                    <Border Grid.Row="3"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="5">
+                                        <Grid ColumnDefinitions=".20*,*"
+                                              ColumnSpacing="5">
+                                            <Label Grid.Column="0"
+                                                   FontFamily="FAS"
+                                                   Text="Tag"
+                                                   FontSize="22"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center">
+                                            </Label>
+                                            <VerticalStackLayout Grid.Column="1">
+                                                <Label Text="Bölüm"
+                                                       FontSize="Small"
+                                                       TextColor="{StaticResource Gray400}"
+                                                       FontAttributes="Bold"></Label>
+                                                <Label Text="Paketleme"
+                                                       FontSize="Small"
+                                                       FontAttributes="Bold"></Label>
+                                            </VerticalStackLayout>
+
+                                        </Grid>
+
+                                    </Border>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </ScrollView>
+
+                </Border>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

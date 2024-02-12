@@ -18,6 +18,8 @@
     </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}" EventName="Loaded" />
+        <toolkit:EventToCommandBehavior Command="{Binding GetUserInformationCommand}"
+                                        EventName="Loaded" />
     </ContentPage.Behaviors>
     <Border Padding="5,20,5,10"
             BackgroundColor="{StaticResource MainBorderColor}"
@@ -38,7 +40,8 @@
                                     CornerRadius="50"
                                     Text="VS">
                     <toolkit:AvatarView.GestureRecognizers>
-                        <TapGestureRecognizer  />
+                        <TapGestureRecognizer  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProfilelViewCommand}"
+                                               CommandParameter="{Binding .}" />
                         </toolkit:AvatarView.GestureRecognizers>
                 </toolkit:AvatarView>
                 <VerticalStackLayout Grid.Column="1" Spacing="5">
@@ -46,7 +49,7 @@
                            Text="Hoşgeldiniz"
                            TextColor="{StaticResource Gray400}" />
                     <Label FontAttributes="Bold"
-                           Text="Volkan Sunuk"
+                           Text="{Binding UserName}"
                            VerticalOptions="End" />
                 </VerticalStackLayout>
                 <Image Grid.Column="2"

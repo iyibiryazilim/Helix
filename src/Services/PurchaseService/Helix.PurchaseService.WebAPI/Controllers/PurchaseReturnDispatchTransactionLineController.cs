@@ -53,9 +53,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseReturnDispatchTransactionService.GetTransactionLineList(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseReturnDispatchTransactionService.GetTransactionLineList(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, page, pageSize);
+                    return result;
+            }
 
 		}
 
@@ -97,9 +97,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByCurrentId(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByCurrentId(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, id, page, pageSize);
+                    return result;
+            }
 
 		}
 
@@ -134,9 +134,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByCurrentCode(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByCurrentCode(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, code, page, pageSize);
+                    return result;
+            }
 
 		}
 
@@ -171,9 +171,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByProductId(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByProductId(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, id, page, pageSize);
+                    return result;
+            }
 		}
 
 		[HttpGet("Product/Code/{code}")]
@@ -207,9 +207,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByProductCode(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByProductCode(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, code, page, pageSize);
+                    return result;
+            }
 		}
 
 		[HttpGet("Fiche/Id/{id:int}")]
@@ -243,9 +243,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByFicheId(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByFicheId(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, id, page, pageSize);
+                    return result;
+            }
 		}
 
 		[HttpGet("Fiche/Code/{code}")]
@@ -279,9 +279,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByFicheCode(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			}
+                    result = await _purchaseReturnDispatchTransactionService.GetTransactionLineByFicheCode(search, PurchaseReturnDispatchTransactionLineOrderBy.DateDesc, code, page, pageSize);
+                    return result;
+            }
 
 		}
 	}

@@ -277,6 +277,8 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<CustomerDetailView>();
 			mauiAppBuilder.Services.AddTransient<WaitingSalesOrderLineListView>();
 			mauiAppBuilder.Services.AddTransient<SalesPanelView>();
+			mauiAppBuilder.Services.AddTransient<ProfilePageView>();
+			mauiAppBuilder.Services.AddTransient<ProfilePageViewModel>();
 			mauiAppBuilder.Services.AddTransient<SalesOperationView>();
 			mauiAppBuilder.Services.AddTransient<BasketView>();
 			mauiAppBuilder.Services.AddTransient<DispatchBySalesOrderCustomerView>();

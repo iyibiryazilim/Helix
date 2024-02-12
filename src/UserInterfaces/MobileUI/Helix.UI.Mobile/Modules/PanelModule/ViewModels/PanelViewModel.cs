@@ -1,10 +1,12 @@
 ﻿using Android.Security.Identity;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.PanelModule.Helpers.QueryHelper;
 using Helix.UI.Mobile.Modules.PanelModule.Models;
+using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
 using Helix.UI.Mobile.Modules.ProductModule.Views.ProductViews;
 using Helix.UI.Mobile.MVVMHelper;
@@ -17,11 +19,18 @@ public partial class PanelViewModel : BaseViewModel
 	IHttpClientService _httpClient;
 	ICustomQueryService _customQueryService;
 
+
 	public Command GetDataCommand { get; }
 	public ObservableCollection<Product> Products { get; } = new();
 
 	public MainPanelModel mainPanelModel { get; set; }
-	public PanelViewModel(IHttpClientService httpClient, ICustomQueryService customQueryService)
+
+    [ObservableProperty]
+    string userName = string.Empty;
+
+    public Command GetUserInformationCommand { get; }
+
+    public PanelViewModel(IHttpClientService httpClient, ICustomQueryService customQueryService)
 	{
 		Title = "Ana Panel";
 		_httpClient = httpClient;
@@ -29,7 +38,8 @@ public partial class PanelViewModel : BaseViewModel
 
 		GetDataCommand = new Command(async () => await LoadData());
 		mainPanelModel = new MainPanelModel();
-	}
+        GetUserInformationCommand = new Command(async () => await GetUserInformationAsync());
+    }
 
 	[RelayCommand]
 	public async Task LoadData()
@@ -54,8 +64,27 @@ public partial class PanelViewModel : BaseViewModel
 		}
 
 	}
+    
+    async Task GetUserInformationAsync()
+    {
 
-	async Task GetTodayTransactionedProductAsync()
+        try
+        {
+            IsBusy = true;
+
+            UserName = await SecureStorage.GetAsync("CurrentUser");
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+
+
+    async Task GetTodayTransactionedProductAsync()
 	{
 		try
 		{
@@ -236,4 +265,11 @@ public partial class PanelViewModel : BaseViewModel
 			IsBusy = false;
 		}
 	}
+
+    [RelayCommand]
+    async Task GoToProfilelViewAsync()
+    {
+		await Shell.Current.GoToAsync($"{nameof(ProfilePageView)}");
+    }
+
 }

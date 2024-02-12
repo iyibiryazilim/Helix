@@ -47,8 +47,8 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseDispatchTransactionService.GetPurchaseDispatchTransactionList(search, PurchaseDispatchTransactionOrderBy.DateDesc, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
+                    result = await _purchaseDispatchTransactionService.GetPurchaseDispatchTransactionList(search, PurchaseDispatchTransactionOrderBy.DateDesc, page, pageSize);
+                    return result;
 			}
 			 
 		}
@@ -86,8 +86,8 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseDispatchTransactionService.GetPurchaseDispatchTransactionByCurrentId(search, PurchaseDispatchTransactionOrderBy.DateDesc, id, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
+                    result = await _purchaseDispatchTransactionService.GetPurchaseDispatchTransactionByCurrentId(search, PurchaseDispatchTransactionOrderBy.DateDesc, id, page, pageSize);
+                    return result;
 			}
 		 
 		}
@@ -111,9 +111,9 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result = await _purchaseDispatchTransactionService.GetPurchaseDispatchTransactionByCurrentCode(search, PurchaseDispatchTransactionOrderBy.DateDesc, code, page, pageSize);
 					return result;
 				default:
-					result.Message = "OrderBy wrong text";
-					return result;
-			} 
+                    result = await _purchaseDispatchTransactionService.GetPurchaseDispatchTransactionByCurrentCode(search, PurchaseDispatchTransactionOrderBy.DateDesc, code, page, pageSize);
+                    return result;
+            } 
 		}
 
         [HttpPost]

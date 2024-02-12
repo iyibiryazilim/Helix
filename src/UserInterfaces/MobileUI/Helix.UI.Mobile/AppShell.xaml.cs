@@ -6,6 +6,7 @@ using Helix.UI.Mobile.Modules.BaseModule.Views.Current;
 using Helix.UI.Mobile.Modules.FastProductionModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews;
+using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.ConsumableTransactionViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.InCountingTransactionOperationViews;
 using Helix.UI.Mobile.Modules.ProductModule.Views.OperationsViews.OutCountingTransactionOperationViews;
@@ -238,11 +239,11 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderLineChangeBottomSheetView), typeof(DispatchByPurchaseOrderLineChangeBottomSheetView));
 		Routing.RegisterRoute(nameof(ProcurementSelectBottomSheetView), typeof(ProcurementSelectBottomSheetView));
 		Routing.RegisterRoute(nameof(DispatchByPurchaseOrderChangeBottomSheetView), typeof(DispatchByPurchaseOrderChangeBottomSheetView));
-        Routing.RegisterRoute(nameof(TransferTransactionOperationFormView), typeof(TransferTransactionOperationFormView));
+    Routing.RegisterRoute(nameof(TransferTransactionOperationFormView), typeof(TransferTransactionOperationFormView));
 		Routing.RegisterRoute(nameof(BarcodePageView), typeof(BarcodePageView));
 		Routing.RegisterRoute(nameof(ConfigBottomSheetView), typeof(ConfigBottomSheetView));
-        Routing.RegisterRoute(nameof(WarehouseCountingFormView), typeof(WarehouseCountingFormView));
-
+		Routing.RegisterRoute(nameof(ProfilePageView),typeof(ProfilePageView));
+    Routing.RegisterRoute(nameof(WarehouseCountingFormView), typeof(WarehouseCountingFormView));
 
     }
 }

@@ -253,6 +253,9 @@
 	  <MauiXaml Update="Modules\PanelModule\Views\PanelView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Modules\PanelModule\Views\ProfilePageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Modules\ProductModule\Views\OperationsViews\ConsumableTransactionViews\ConsumableTransactionOperationFormView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
