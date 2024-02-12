@@ -31,6 +31,7 @@
                   RowDefinitions="auto,auto,*"
                   RowSpacing="10">
                 <Frame Grid.Row="0"
+                       BackgroundColor="{StaticResource Primary}"
                        HeightRequest="100">
                     <Grid ColumnDefinitions="Auto,*,Auto">
                         <VerticalStackLayout Grid.Column="0"
@@ -44,9 +45,11 @@
                                      Color="{StaticResource Secondary}"></BoxView>
                             <Label Text="Satılan Ürün Miktarı"
                                    FontSize="Caption"
+                                   TextColor="{StaticResource Secondary}"
                                    FontAttributes="Bold"></Label>
                         </VerticalStackLayout>
                         <BoxView Grid.Column="1"
+                                 Color="{StaticResource Secondary}"
                                  WidthRequest="0.7"></BoxView>
                         <VerticalStackLayout Grid.Column="2"
                                              Spacing="2">
@@ -59,6 +62,7 @@
                                      Color="{StaticResource Secondary}"></BoxView>
                             <Label Text="İade Edilen Ürün Miktarı"
                                    FontSize="Caption"
+                                   TextColor="{StaticResource Secondary}"
                                    FontAttributes="Bold"></Label>
                         </VerticalStackLayout>
                     </Grid>
@@ -67,7 +71,7 @@
                 </Frame>
                 <Grid Grid.Row="1">
                     <VerticalStackLayout Spacing="5">
-                        <Label FontAttributes="Bold" Text="En Çok Hareket Gören Müşteriler" />
+                        <Label FontAttributes="Bold" Text="En Çok Hareket Gören Müşteriler" TextColor="{StaticResource Gray300}" />
 
                         <CollectionView Grid.Row="0" ItemsSource="{Binding Customers}">
                             <CollectionView.ItemsLayout>
@@ -125,7 +129,7 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <VerticalStackLayout>
-                        <Label FontAttributes="Bold" Text="Son Hareketler" />
+                        <Label FontAttributes="Bold" Text="Son Hareketler" TextColor="{StaticResource Gray300}" />
                         <Grid RowDefinitions="*">
                             <sharedViews:LoadingView Grid.Row="0" IsBusy="{Binding IsBusy}" />
                             <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Lines}">

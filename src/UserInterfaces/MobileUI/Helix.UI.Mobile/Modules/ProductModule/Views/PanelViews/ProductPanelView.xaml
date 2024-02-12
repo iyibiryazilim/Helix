@@ -21,14 +21,14 @@
     </ContentPage.Resources>
 
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource White}"
+            BackgroundColor="{StaticResource MainBorderColor}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
         </Border.StrokeShape>
         <ScrollView>
 
-            <Grid RowDefinitions="auto,auto,*" RowSpacing="4">
+            <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10"  Padding="10,0,10,10">
                 <Frame Grid.Row="0"
                        HeightRequest="100"
                        >
@@ -50,17 +50,14 @@
                                    TextColor="{StaticResource Danger}"
                                    FontSize="19"></Label>
                             <BoxView HeightRequest="0.5" Color="{StaticResource Secondary}" ></BoxView>
-                            <Label Text="Bugün Çıkan Referans Sasyısı" FontSize="Caption" FontAttributes="Bold" ></Label>
+                            <Label Text="Bugün Çıkan Referans Sayısı" FontSize="Caption" FontAttributes="Bold" ></Label>
                         </VerticalStackLayout>
                     </Grid>
-                    
-                    
                 </Frame>
-                      
-                
-                <VerticalStackLayout Grid.Row="1" Spacing="7">
 
-                    <Label FontAttributes="Bold" Text="En Son Hareket Gören Ürünler" />
+                <VerticalStackLayout Grid.Row="1" Spacing="5">
+
+                    <Label FontAttributes="Bold" Text="En Son Hareket Gören Ürünler" TextColor="{StaticResource Gray300}" />
                     <CollectionView ItemsSource="{Binding Items}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
@@ -115,12 +112,12 @@
 
                 </VerticalStackLayout>
                 <sharedViews:LoadingView Grid.Row="2" IsBusy="{Binding IsBusy}" />
-                <VerticalStackLayout Grid.Row="2" Spacing="7">
-                    <Label FontAttributes="Bold" Text="Son Hareketler" />
+                <VerticalStackLayout Grid.Row="2">
+                    <Label FontAttributes="Bold" Text="Son Hareketler" TextColor="{StaticResource Gray300}" />
                     <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Lines}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:ProductTransactionLine">
-                                <toolkit:Expander x:Name="expander" Margin="0,10,0,0">
+                                <toolkit:Expander x:Name="expander" Margin="0,5,0,0">
                                     <toolkit:Expander.Header>
                                         <Border BackgroundColor="White" StrokeShape="RoundRectangle 10">
                                             <Grid Padding="0,0,10,0"
