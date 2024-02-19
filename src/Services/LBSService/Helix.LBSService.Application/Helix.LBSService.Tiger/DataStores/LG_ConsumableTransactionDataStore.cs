@@ -128,8 +128,8 @@ namespace Helix.LBSService.Tiger.DataStores
 								result.Data = null;
 								result.IsSuccess = true;
 								result.Message = "Success";
-								_eventBus.Publish(new SYSMessageEvent(referenceId,result.IsSuccess, result.Message, null, dto));
-								_eventBus.Publish(new LOGOSuccessEvent(referenceId, result.Message, null, dto));
+								_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId,result.IsSuccess, result.Message, null, dto));
+								_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, null, dto));
 
 
 							}
@@ -137,10 +137,8 @@ namespace Helix.LBSService.Tiger.DataStores
 							{
 								result.IsSuccess = false;
 								result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
-								_eventBus.Publish(new SYSMessageEvent(null, result.IsSuccess, result.Message, null, dto));
-								_eventBus.Publish(new LOGOSuccessEvent(null, result.Message, null, dto));
-
-
+								_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, null, dto));
+								_eventBus.Publish(new LOGOSuccessIntegrationEvent(null, result.Message, null, dto));
 							}
 						}
 						else

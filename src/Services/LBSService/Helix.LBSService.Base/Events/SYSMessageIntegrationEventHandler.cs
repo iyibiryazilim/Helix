@@ -2,9 +2,9 @@
 
 namespace Helix.LBSService.Base.Events
 {
-	public class SYSMessageIntegrationEventHandler : IIntegrationEventHandler<SYSMessageEvent>
+	public class SYSMessageIntegrationEventHandler : IIntegrationEventHandler<SYSMessageIntegrationEvent>
 	{
-		public Task Handle(SYSMessageEvent @event)
+		public Task Handle(SYSMessageIntegrationEvent @event)
 		{
 			return Task.CompletedTask;
 		}

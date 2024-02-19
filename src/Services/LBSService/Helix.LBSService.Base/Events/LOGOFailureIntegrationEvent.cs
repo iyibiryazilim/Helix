@@ -2,18 +2,18 @@
 
 namespace Helix.LBSService.Base.Events
 {
-	public class SYSMessageEvent : IntegrationEvent
+	public class LOGOFailureIntegrationEvent : IntegrationEvent
 	{
 		public int? FicheId { get; set; }
-        public bool IsSucces { get; set; }
-        public string Message { get; set; } = string.Empty;
+		public bool IsSucces { get; set; } = false;
+		public string Message { get; set; } = string.Empty;
 		public Guid? ApplicationOwner { get; set; }
 		public object? Dto { get; set; }
-		public SYSMessageEvent(int? ficheId,bool isSucces, string message, Guid? applicationOwner, object dto)
+		public LOGOFailureIntegrationEvent(int? ficheId, string message, Guid? applicationOwner, object dto)
 		{
 			FicheId = ficheId;
 			Message = message;
-			IsSucces = isSucces;
+			IsSucces = false;
 			ApplicationOwner = applicationOwner;
 			Dto = dto;
 		}
