@@ -19,6 +19,7 @@
                                                 GetBackCommand="{Binding GetBackCommand}"
                                                 RemoveItemCommand="{Binding RemoveItemCommand}"
                                                 AddQuantityCommand="{Binding AddQuantityCommand}"
+                                                GoToBarcodePageViewCommand="{Binding GoToBarcodePageViewCommand}"
                                                 DeleteQuantityCommand="{Binding DeleteQuantityCommand}">
         
     </sharedViews:ProductTransactionContentView>

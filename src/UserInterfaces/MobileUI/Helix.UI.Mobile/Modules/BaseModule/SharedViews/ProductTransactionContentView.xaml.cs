@@ -7,6 +7,8 @@ namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 public partial class ProductTransactionContentView : ContentView
 {
 	//Commands
+	public static readonly BindableProperty GoToBarcodePageViewCommandProperty = BindableProperty.Create(nameof(GoToBarcodePageViewCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionContentView), null);
+
 	public static readonly BindableProperty GoToSharedProductListCommandProperty = BindableProperty.Create(nameof(GoToSharedProductListCommand), typeof(AsyncRelayCommand), typeof(ProductTransactionContentView), null);
 
 	public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(nameof(SearchCommand), typeof(Command), typeof(ProductTransactionContentView), null);
@@ -38,6 +40,11 @@ public partial class ProductTransactionContentView : ContentView
 
 	public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(ProductTransactionContentView), false);
 
+	public AsyncRelayCommand GoToBarcodePageViewCommand
+	{
+		get => GetValue(GoToBarcodePageViewCommandProperty) as AsyncRelayCommand;
+		set => SetValue(GoToBarcodePageViewCommandProperty, value);
+	}
 
 	public AsyncRelayCommand GoToSharedProductListCommand
 	{

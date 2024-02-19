@@ -129,7 +129,6 @@ public partial class InCountingTransactionOperationViewModel :BaseViewModel
 
     }
     [RelayCommand]
-
     async Task DeleteQuantity(ProductModel item)
     {
         if (item.Quantity != 1)
@@ -137,4 +136,30 @@ public partial class InCountingTransactionOperationViewModel :BaseViewModel
 
 
     }
+
+	[RelayCommand]
+	async Task GoToBarcodePageViewAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}", new Dictionary<string, object>
+			{
+				["CurrentPage"] = "InCountingTransactionOperationView"
+			});
+
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
 }

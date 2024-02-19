@@ -372,7 +372,10 @@ public partial class WarehouseTransferOperationViewModel : BaseViewModel
 			//var popupResult = await Shell.Current.ShowPopupAsync(popup);
 
 
-			await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}");			
+			await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}", new Dictionary<string, object>
+			{
+				["CurrentPage"] = "WarehouseTransferOperationView"
+			});			
 		}
 		catch (Exception ex)
 		{

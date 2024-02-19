@@ -1,7 +1,15 @@
 using CommunityToolkit.Maui.Views;
 using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
+using Helix.UI.Mobile.Modules.ProductModule.Models;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ConsumableTransactionViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.InCountingTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutCountingTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
 using System.Diagnostics;
 using ZXing;
 
@@ -44,22 +52,152 @@ public partial class BarcodePageView : ContentPage
 		MainThread.BeginInvokeOnMainThread(async () =>
 		{
 			CancellationTokenSource cancellationToken = new();
-			WarehouseTransferOperationViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
-			var product = viewModel.Items.Where(x => x.ProductCode == args.Result[0].Text).FirstOrDefault();
-			if(product != null)
+
+			#region WarehouseTransferOperationView
+			if (_viewModel.CurrentPage == "WarehouseTransferOperationView")
 			{
-				product.IsSelected = true;
-				viewModel.SelectedItems.Add(product);
-				//Debug.WriteLine(args.Result[0].BarcodeFormat);
-				Debug.WriteLine(args.Result[0].Text);
-				await Task.Delay(500);
-				await Shell.Current.GoToAsync("..");
+				WarehouseTransferOperationViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
+				var product = viewModel.Items.Where(x => x.ProductCode == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
+				{
+					product.IsSelected = true;
+					viewModel.SelectedItems.Add(product);
+					//Debug.WriteLine(args.Result[0].BarcodeFormat);
+					Debug.WriteLine(args.Result[0].Text);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					Debug.WriteLine(args.Result[0].Text);
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
 			}
-			else
+			#endregion
+			#region PurchaseDispatchListView
+			else if (_viewModel.CurrentPage == "PurchaseDispatchListView")
 			{
-				Debug.WriteLine(args.Result[0].Text);
-				await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				PurchaseDispatchListViewModel viewModel = _serviceProvider.GetService<PurchaseDispatchListViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					Debug.WriteLine(args.Result[0].Text);
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
 			}
+			#endregion
+			#region InCountingTransactionOperationView
+			else if (_viewModel.CurrentPage == "InCountingTransactionOperationView")
+			{
+				InCountingTransactionOperationViewModel viewModel = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+			#region ConsumableTransactionOperationView
+			else if (_viewModel.CurrentPage == "ConsumableTransactionOperationView")
+			{
+				ConsumableTransactionOperationViewModel viewModel = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+			#region WastageTransactionOperationView
+			else if (_viewModel.CurrentPage == "WastageTransactionOperationView")
+			{
+				WastageTransactionOperationViewModel viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+			}
+			#endregion
+			#region OutCountingTransactionOperationView
+			else if (_viewModel.CurrentPage == "OutCountingTransactionOperationView")
+			{
+				OutCountingTransactionOperationViewModel viewModel = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+			#region ProductionTransactionOperationView
+			else if(_viewModel.CurrentPage == "ProductionTransactionOperationView")
+			{
+				ProductionTransactionOperationViewModel viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
+				var product = viewModel.Results.Where( x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if(product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Results.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+			#region ReturnSalesListView
+			else if(_viewModel.CurrentPage == "ReturnSalesListView")
+			{
+				ReturnSalesListViewModel viewModel = _serviceProvider.GetService<ReturnSalesListViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if(product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+
 		});
 	}
 }
