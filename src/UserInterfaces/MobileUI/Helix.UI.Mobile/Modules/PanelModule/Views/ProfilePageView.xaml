@@ -2,8 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Helix.UI.Mobile.Modules.PanelModule.Views.ProfilePageView"
+             xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
+             xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.PanelModule.ViewModels"
+             x:DataType="viewModel:ProfilePageViewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter">
+             xmlns:root="clr-namespace:Helix.UI.Mobile.Helpers.ImageConverter"
+             Shell.PresentationMode="ModalAnimated"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetUserInformationCommand}"
                                         EventName="Loaded" />
@@ -14,9 +19,30 @@
         </ResourceDictionary>
       
     </ContentPage.Resources>
-   
-    <Grid>
-        <ScrollView>
+
+    <Grid Padding="0,15,0,0" RowDefinitions="Auto, *">
+
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,Auto"
+              BackgroundColor="{StaticResource Primary}"
+              Padding="10,0">
+            <!--<Label Text="Kullanıcı Bilgileri" 
+                   TextColor="{StaticResource White}"
+                   FontSize="22"/>-->
+            <ImageButton Aspect="AspectFit"
+                 Grid.Column="1"
+                 Command="{Binding GoToBackCommand}"
+                 HeightRequest="30"
+                 HorizontalOptions="End"        
+                 WidthRequest="30">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FAS"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Xmark}"
+                             Color="{StaticResource White}" />
+                </ImageButton.Source>
+            </ImageButton>
+        </Grid>
+        <ScrollView Grid.Row="1">
             <Grid BackgroundColor="{StaticResource Primary}"
                   RowDefinitions="0.1*,0.9*">
                 <Frame Grid.Row="0"
@@ -34,7 +60,7 @@
                        ZIndex="3">
                     <Image Aspect="AspectFit"
                            HeightRequest="50"
-                           Source="{Binding Product.Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                           Source="user.svg" />
                 </Frame>
 
                 <Border Grid.Row="1"
@@ -78,11 +104,11 @@
                                             <FormattedString>
                                                 <Span FontAttributes="Bold"
                                                       FontSize="Medium"
-                                                      Text="{Binding ProductDetailValues.InputQuantity, StringFormat='{0:N2} '}" />
+                                                      Text="" />
                                                 <Span Text=" " />
                                                 <Span FontAttributes="Bold"
                                                       FontSize="Medium"
-                                                      Text="{Binding ProductDetailValues.SubUnitsetCode}" />
+                                                      Text="" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -102,11 +128,11 @@
                                             <FormattedString>
                                                 <Span FontAttributes="Bold"
                                                       FontSize="Medium"
-                                                      Text="{Binding ProductDetailValues.StockQuantity, StringFormat='{0:N2} '}" />
+                                                      Text="" />
                                                 <Span Text=" " />
                                                 <Span FontAttributes="Bold"
                                                       FontSize="Medium"
-                                                      Text="{Binding ProductDetailValues.SubUnitsetCode}" />
+                                                      Text="" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -126,11 +152,11 @@
                                             <FormattedString>
                                                 <Span FontAttributes="Bold"
                                                       FontSize="Medium"
-                                                      Text="{Binding ProductDetailValues.OutputQuantity, StringFormat='{0:N2} '}" />
+                                                      Text="" />
                                                 <Span Text=" " />
                                                 <Span FontAttributes="Bold"
                                                       FontSize="Medium"
-                                                      Text="{Binding ProductDetailValues.SubUnitsetCode}" />
+                                                      Text="" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

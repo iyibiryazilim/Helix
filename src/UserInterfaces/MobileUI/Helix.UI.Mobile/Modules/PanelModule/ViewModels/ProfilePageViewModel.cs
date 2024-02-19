@@ -1,41 +1,55 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.MVVMHelper;
+using System.Diagnostics;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace Helix.UI.Mobile.Modules.PanelModule.ViewModels;
 
-namespace Helix.UI.Mobile.Modules.PanelModule.ViewModels
+public partial class ProfilePageViewModel : BaseViewModel
 {
-   public partial class ProfilePageViewModel :BaseViewModel
-    {
-        public ProfilePageViewModel()
-        {
-            GetUserInformationCommand = new Command(async () => await GetUserInformationAsync());
-        }
+	public ProfilePageViewModel()
+	{
+		GetUserInformationCommand = new Command(async () => await GetUserInformationAsync());
+	}
 
-        [ObservableProperty]
-        string userName = string.Empty;
+	[ObservableProperty]
+	string userName = string.Empty;
 
-        public Command GetUserInformationCommand { get; }
+	public Command GetUserInformationCommand { get; }
 
-        async Task GetUserInformationAsync()
-        {
-           
-            try
-            {
-                IsBusy = true;
+	async Task GetUserInformationAsync()
+	{
 
-                UserName = await SecureStorage.GetAsync("CurrentUser");
+		try
+		{
+			IsBusy = true;
 
-            }
-            catch (Exception)
-            {
+			UserName = await SecureStorage.GetAsync("CurrentUser");
 
-                throw;
-            }
-        }
-    }
+		}
+		catch (Exception)
+		{
+
+			throw;
+		}
+	}
+
+	[RelayCommand]
+	async Task GoToBackAsync()
+	{
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync("..");
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex.Message);
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}	
 }
