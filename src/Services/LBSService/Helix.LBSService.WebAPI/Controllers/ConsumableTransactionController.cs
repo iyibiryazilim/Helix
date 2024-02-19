@@ -25,7 +25,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 		}
 		[HttpPost("Insert")]
 		public async Task<DataResult<ConsumableTransactionDto>> Insert([FromBody] ConsumableTransactionDto dto)
-		{
+		{ 
 			if (LBSParameter.IsTiger)
 			{
 				var obj = Mapping.Mapper.Map<LG_ConsumableTransaction>(dto);
@@ -34,7 +34,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 					var transaction = Mapping.Mapper.Map<LG_ConsumableTransactionLine>(item);
 					obj.TRANSACTIONS.Add(transaction);
 				}
-				var result = await _consumableTransactionService.Insert(obj);
+				var result = await _consumableTransactionService.Insert(obj); 
+		 
 				return new DataResult<ConsumableTransactionDto>()
 				{
 					Data = null,
@@ -51,6 +52,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 					obj.TRANSACTIONS.Add(transaction);
 				}
 				var result = await _stficheService.InsertObject(obj);
+				//Gonna publish LOGO.FailureEvent 
 				return new DataResult<ConsumableTransactionDto>()
 				{
 					Data = null,

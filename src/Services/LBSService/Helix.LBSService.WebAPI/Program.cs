@@ -1,10 +1,14 @@
+using Helix.EventBus.Base;
+using Helix.EventBus.Base.Abstractions;
+using Helix.EventBus.Base.Events;
+using Helix.EventBus.Factory;
+using Helix.LBSService.Base.Events;
 using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Services;
 using Helix.LBSService.Tiger.DataStores;
 using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.Models;
-using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +25,29 @@ LBSParameter.DB_DataSource = parameterModel.DB_DataSource;
 LBSParameter.DB_InitialCatalog = parameterModel.DB_InitialCatalog;
 LBSParameter.DB_UserId = parameterModel.DB_UserId;
 LBSParameter.DB_Password = parameterModel.DB_Password;
+builder.Services.AddSingleton<IEventBus>(eb =>
+{
+	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
+	{
+		ConnectionRetryCount = 5,
+		SubscriperClientAppName = "LBSService",
+		DefaultTopicName = "HelixTopicName",
+		EventBusType = EventBusType.RabbitMQ,
+		EventNameSuffix = nameof(IntegrationEvent),
 
-Debug.WriteLine(LBSParameter.Connection);
+	}, eb);
+});
 
-// Add services to the container.
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+
+eventBus.Subscribe<LOGOSuccessEvent, LOGOSuccessIntegrationEventHandler>();
+eventBus.Subscribe<LOGOFailureEvent,LOGOFailureIntegrationEventHandler>();
+eventBus.Subscribe<SYSMessageEvent,SYSMessageIntegrationEventHandler>();
+ 
+
+// Add services to the container. 
 builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_ProductionTransactionService, LG_ProductionTransactionDataStore>();

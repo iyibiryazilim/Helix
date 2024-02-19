@@ -7,9 +7,7 @@ using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Infrastructure.EventHandlers;
 using Helix.SalesService.Infrastructure.Repository;
 using Helix.SalesService.WebAPI.AuthRegistrations;
-using Helix.SalesService.WebAPI.ConsulRegistrations;
 using Helix.Tiger.DataAccess.DataStores;
-using RabbitMQ.Client;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

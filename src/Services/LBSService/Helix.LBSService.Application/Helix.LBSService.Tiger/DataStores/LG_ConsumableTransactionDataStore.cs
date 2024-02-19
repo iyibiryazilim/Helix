@@ -1,4 +1,6 @@
-﻿using Helix.LBSService.Base.Models;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.LBSService.Base.Events;
+using Helix.LBSService.Base.Models;
 using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Services;
@@ -11,10 +13,11 @@ namespace Helix.LBSService.Tiger.DataStores
 	public class LG_ConsumableTransactionDataStore : ILG_ConsumableTransactionService
 	{
 		IUnityApplicationService _unityApplicationService;
-		public LG_ConsumableTransactionDataStore(IUnityApplicationService unityApplicationService)
+		IEventBus _eventBus;
+		public LG_ConsumableTransactionDataStore(IUnityApplicationService unityApplicationService, IEventBus eventBus)
 		{
 			_unityApplicationService = unityApplicationService;
-
+			_eventBus = eventBus;
 		}
 		public async Task<DataResult<LG_ConsumableTransaction>> Insert(LG_ConsumableTransaction dto)
 		{
@@ -121,14 +124,23 @@ namespace Helix.LBSService.Tiger.DataStores
 								var referenceId = Convert.ToInt32(items.DataFields.FieldByName("INTERNAL_REFERENCE").Value.ToString());
 								var code = items.DataFields.FieldByName("NUMBER").Value.ToString();
 
+
 								result.Data = null;
 								result.IsSuccess = true;
 								result.Message = "Success";
+								_eventBus.Publish(new SYSMessageEvent(referenceId,result.IsSuccess, result.Message, null, dto));
+								_eventBus.Publish(new LOGOSuccessEvent(referenceId, result.Message, null, dto));
+
+
 							}
 							else
 							{
 								result.IsSuccess = false;
 								result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
+								_eventBus.Publish(new SYSMessageEvent(null, result.IsSuccess, result.Message, null, dto));
+								_eventBus.Publish(new LOGOSuccessEvent(null, result.Message, null, dto));
+
+
 							}
 						}
 						else
