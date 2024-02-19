@@ -146,7 +146,6 @@
                                                TextColor="{StaticResource Gray300}" />
                                     </VerticalStackLayout>
                                 </Grid>
-
                                 <Button Grid.Row="2"
                                         Padding="0"
                                         BackgroundColor="{StaticResource Success}"
@@ -158,33 +157,6 @@
                                         HorizontalOptions="Center"
                                         Text="Daha Fazla"
                                         WidthRequest="120" />
-
-                                <!--<CollectionView Grid.Row="3" ItemsSource="{Binding Charts}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Frame
-                                        Margin="10"
-                                        Padding="10"
-                                        BackgroundColor="{AppThemeBinding Light={StaticResource White},
-                                                                          Dark={StaticResource BlackSolid}}"
-                                        HasShadow="False"
-                                        IsVisible="true">
-                                -->
-                                <!--<microcharts:ChartView x:Name="chartView"
-                                                               Chart="{Binding ChartData}"
-                                                               HeightRequest="150"
-                                                               WidthRequest="350" />-->
-                                <!--
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>-->
-
-
-
                                 <VerticalStackLayout Grid.Row="5"
                                                      Padding="10"
                                                      Spacing="15">

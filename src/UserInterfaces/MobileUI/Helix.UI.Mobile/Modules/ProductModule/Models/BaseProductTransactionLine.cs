@@ -48,7 +48,7 @@ public partial class BaseProductTransactionLine :ObservableObject
 			switch (TransactionType)
 			{
 				case 1:
-					return "Satınalma İrsaliyesi";
+					return "Mal Alım İrsaliyesi";
 				case 2:
 					return "Perakende Satış İade İrsaliyesi";
 				case 3:

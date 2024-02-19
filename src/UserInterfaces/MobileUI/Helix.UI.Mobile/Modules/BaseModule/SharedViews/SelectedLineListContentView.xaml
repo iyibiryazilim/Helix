@@ -303,12 +303,12 @@
                             <Border Grid.Row="1"
                                     Margin="5,-16,12,0"
                                     Padding="0,0,0,0"
-                                    HeightRequest="30"
+                                    HeightRequest="35"
                                     HorizontalOptions="End"
                                     StrokeShape="RoundRectangle 5"
-                                    WidthRequest="100"
+                                    WidthRequest="115"
                                     ZIndex="999">
-                                <Grid Padding="0" ColumnDefinitions="Auto, 40, Auto">
+                                <Grid Padding="0" ColumnDefinitions="Auto, 40, Auto" HorizontalOptions="Center">
                                     <Border Grid.Column="0"
                                             BackgroundColor="Transparent"
                                             StrokeThickness="0">
@@ -332,8 +332,10 @@
                                             BackgroundColor="{StaticResource Primary}"
                                             StrokeThickness="0">
                                         <Entry  Keyboard="Numeric"
+                                                VerticalTextAlignment="End"
                                                 HorizontalOptions="Center"
-                                                FontSize="12"
+                                                HorizontalTextAlignment="Center"
+                                                FontSize="10"
                                                 Text="{Binding FifoQuantity}"
                                                TextColor="{StaticResource White}"
                                                VerticalOptions="Center" />
