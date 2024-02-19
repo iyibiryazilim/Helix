@@ -145,8 +145,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
 
             item.Quantity++; 
         }
-        [RelayCommand]
 
+        [RelayCommand]
         async Task DeleteQuantity(ProductModel item)
         {
             if (item.Quantity != 1)
@@ -155,6 +155,32 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
 
         }
 
-    }
+		[RelayCommand]
+		async Task GoToBarcodePageViewAsync()
+		{
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+
+				await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}", new Dictionary<string, object>
+				{
+					["CurrentPage"] = "ReturnSalesListView"
+				});
+
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+	}
 }
 

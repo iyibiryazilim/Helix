@@ -26,6 +26,7 @@
                     <Grid ColumnDefinitions=".15*,.70*,.15*">
                         <ImageButton Grid.Column="0"
                                      Aspect="AspectFit"
+                                     Command="{Binding Source={x:Reference this}, Path=GoToBarcodePageViewCommand}"
                                      BackgroundColor="Transparent"
                                      HeightRequest="22"
                                      WidthRequest="22">

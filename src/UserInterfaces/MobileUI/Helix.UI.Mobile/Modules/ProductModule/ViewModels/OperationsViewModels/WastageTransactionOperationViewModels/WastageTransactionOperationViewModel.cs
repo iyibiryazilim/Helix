@@ -108,14 +108,15 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
         }
 
     }
+
     [RelayCommand]
     async Task AddQuantity(ProductModel item)
     {
         item.Quantity++;
 
     }
-    [RelayCommand]
 
+    [RelayCommand]
     async Task DeleteQuantity(ProductModel item)
     {
         if (item.Quantity != 1)
@@ -123,4 +124,30 @@ public partial class WastageTransactionOperationViewModel : BaseViewModel
 
 
     }
+
+	[RelayCommand]
+	async Task GoToBarcodePageViewAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}", new Dictionary<string, object>
+			{
+				["CurrentPage"] = "WastageTransactionOperationView"
+			});
+
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
 }
