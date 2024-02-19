@@ -22,10 +22,8 @@ namespace Helix.UI.Sys.Module.BusinessObjects
     {
         private int _referenceId;
         private string _code;
-        private string _firstName;
-        private string _lastName;
-        private string _email;
-        private string _phone;
+        private string _name;
+        private string _registerCode;
         
         public Employee(Session session)
             : base(session)
@@ -40,13 +38,13 @@ namespace Helix.UI.Sys.Module.BusinessObjects
 
         public string Code { get => _code; set => SetPropertyValue(nameof(Code), ref _code, value); }
 
-        public string FirstName { get => _firstName; set=>SetPropertyValue(nameof(FirstName), ref _firstName, value); }
+        public string FirstName { get => _name; set=>SetPropertyValue(nameof(FirstName), ref _name, value); }
         
-        public string LastName { get => _lastName; set =>SetPropertyValue(nameof(LastName), ref _lastName, value); }
+        
 
-        public string Email { get => _email; set =>SetPropertyValue(nameof(Email), ref _email, value); }
+        public string RegisterCode { get => _registerCode; set =>SetPropertyValue(nameof(RegisterCode), ref _registerCode, value); }
 
-        public string Phone { get => _phone; set => SetPropertyValue(nameof(Phone), ref _phone, value); }
+      
 
        
 
