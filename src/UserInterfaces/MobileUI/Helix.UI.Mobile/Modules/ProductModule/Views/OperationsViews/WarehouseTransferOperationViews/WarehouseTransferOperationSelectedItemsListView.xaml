@@ -26,7 +26,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding GetSelectedItemsCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource White}"
+            BackgroundColor="{StaticResource MainBorderColor}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />
@@ -40,6 +40,7 @@
                     <Grid ColumnDefinitions="Auto, *, Auto">
                         <Grid Grid.Column="0" Padding="20,0,0,0">
                             <ImageButton Aspect="AspectFit"
+                                         Command="{Binding GoToBarcodePageViewCommand}"
                                          HeightRequest="25"
                                          WidthRequest="25">
                                 <ImageButton.Source>

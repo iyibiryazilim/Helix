@@ -8,6 +8,7 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.OutC
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.ProductionTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
+using Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.WarehouseCountingViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
@@ -30,7 +31,7 @@ public partial class BarcodePageView : ContentPage
 
 		cameraView.BarCodeOptions = new()
 		{
-			PossibleFormats = {BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39, BarcodeFormat.CODE_128, BarcodeFormat.EAN_8, BarcodeFormat.CODE_39},
+			PossibleFormats = {BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39, BarcodeFormat.CODE_128, BarcodeFormat.EAN_8},
 			AutoRotate = true,
 		};
 	}
@@ -84,7 +85,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if (product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -103,7 +104,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if (product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -122,7 +123,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if (product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -140,7 +141,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if (product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -158,7 +159,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if (product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -176,7 +177,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if (product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -194,7 +195,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Results.Where( x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if(product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Results.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -212,7 +213,7 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if(product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
@@ -230,8 +231,46 @@ public partial class BarcodePageView : ContentPage
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if (product != null)
 				{
-					product.IsSelected = true;
+					//product.IsSelected = true;
 					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+			#region WarehouseCountingListView
+			else if(_viewModel.CurrentPage == "WarehouseCountingListView")
+			{
+				WarehouseCountingListViewModel viewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+				var product = viewModel.Results.Where(x => x.ProductCode == args.Result[0].Text).FirstOrDefault();
+				if(product != null)
+				{
+					//product.IsSelected = true;
+					viewModel.Results.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+			#region WarehouseTransferOperationSelectedItemsListView
+			else if(_viewModel.CurrentPage == "WarehouseTransferOperationSelectedItemsListView")
+			{
+				WarehouseTransferOperationSelectedItemsListViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationSelectedItemsListViewModel>();
+				var product = viewModel.Result.Where(x => x.ProductCode == args.Result[0].Text).FirstOrDefault();
+				if(product != null && !viewModel.Result.Contains(product))
+				{
+					if(viewModel.Result.Contains(product))
+						await new MessageHelper().GetToastMessage("Ürün malzeme listesinde yer almaktadýr").Show(cancellationToken.Token);
+
+					viewModel.Result.Add(product);
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
 				}

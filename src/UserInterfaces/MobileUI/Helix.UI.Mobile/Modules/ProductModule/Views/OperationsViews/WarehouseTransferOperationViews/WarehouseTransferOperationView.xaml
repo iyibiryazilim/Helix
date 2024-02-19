@@ -24,7 +24,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
     <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource White}"
+            BackgroundColor="{StaticResource MainBorderColor}"
             StrokeThickness="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20,20,0,0" />

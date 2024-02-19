@@ -14,21 +14,20 @@
     <Grid Padding="0,20,0,0" RowDefinitions="Auto, *">
         <Grid Grid.Row="0"
               Padding="18,0"
-              ColumnDefinitions="Auto, *"
-              ColumnSpacing="18">
-            <Grid Grid.Column="0">
+              ColumnDefinitions="*,Auto">
+            <Grid Grid.Column="1" HorizontalOptions="End">
                 <ImageButton Aspect="AspectFit"
                              Command="{Binding GoToBackCommand}"
-                             HeightRequest="20"
-                             WidthRequest="20">
+                             HeightRequest="30"
+                             WidthRequest="30">
                     <ImageButton.Source>
                         <FontImageSource FontFamily="FAS"
-                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.ArrowLeft}"
+                                         Glyph="{x:Static fontAwesome:FontAwesomeIcons.Xmark}"
                                          Color="{StaticResource White}" />
                     </ImageButton.Source>
                 </ImageButton>
             </Grid>
-            <Label Grid.Column="1"
+            <Label Grid.Column="0"
                    FontSize="Title"
                    HorizontalOptions="Start"
                    Text="{Binding Title}"
@@ -44,12 +43,18 @@
             </Border.StrokeShape>
             <ScrollView>
                 <VerticalStackLayout VerticalOptions="Center">
-                    <barcode:CameraView x:Name="cameraView"
-                                        BarCodeDetectionEnabled="True"
-                                        BarcodeDetected="CameraView_BarcodeDetected"
-                                        CamerasLoaded="CameraView_CamerasLoaded"
-                                        HeightRequest="500"
-                                        WidthRequest="300" />
+                    <Border StrokeThickness="1"
+                            HeightRequest="500"
+                            WidthRequest="300"
+                            BackgroundColor="Transparent"
+                            StrokeShape="RoundRectangle 30">
+                        <barcode:CameraView x:Name="cameraView"
+                                BarCodeDetectionEnabled="True"
+                                BarcodeDetected="CameraView_BarcodeDetected"
+                                CamerasLoaded="CameraView_CamerasLoaded"
+                                 />
+                    </Border>
+                    
                 </VerticalStackLayout>
             </ScrollView>
         </Border>
