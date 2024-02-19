@@ -564,5 +564,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.DataStores
 		productcodeasc,
 		duedateasc,
 		duedatedesc,
-	}
+        quantityasc,
+        quantitydesc,
+    }
 }

@@ -142,26 +142,26 @@ public partial class ProductDetailOutputReturnListViewModel : BaseViewModel
 		if (IsBusy) return;
 		try
 		{
-			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Miktara Göre Artan", "Miktara Göre Azalan");
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre A-Z", "Tarihe Göre Z-A", "Miktara Göre A-Z", "Miktara Göre Z-A");
 			if (!string.IsNullOrEmpty(response))
 			{
 				CurrentPage = 0;
 				await Task.Delay(100);
 				switch (response)
 				{
-					case "Tarihe Göre Artan":
+					case "Tarihe Göre A-Z":
 						OrderBy = ProductTransactionLineOrderBy.dateasc;
 						await ReloadAsync();
 						break;
-					case "Tarihe Göre Azalan":
+					case "Tarihe Göre Z-A":
 						OrderBy = ProductTransactionLineOrderBy.datedesc;
 						await ReloadAsync();
 						break;
-					case "Miktara Göre Artan":
+					case "Miktara Göre A-Z":
 						OrderBy = ProductTransactionLineOrderBy.quantityasc;
 						await ReloadAsync();
 						break;
-					case "Miktara Göre Azalan":
+					case "Miktara Göre Z-A":
 						OrderBy = ProductTransactionLineOrderBy.quantitydesc;
 						await ReloadAsync();
 						break;

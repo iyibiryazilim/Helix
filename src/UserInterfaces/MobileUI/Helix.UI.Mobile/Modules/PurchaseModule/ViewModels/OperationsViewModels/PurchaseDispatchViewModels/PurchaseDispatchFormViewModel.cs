@@ -180,6 +180,18 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
         try
         {
             IsBusy = true;
+
+            if (PurchaseFormModel.SelectedSupplier == null || string.IsNullOrEmpty(PurchaseFormModel.SelectedSupplier.Code))
+            {
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "Lütfen bir tedarikçi seçin.", "Tamam", "İptal");
+                if (userResponse)
+                {
+                    return; 
+                }
+            }
+
+
+
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
             PurchaseDispatchTransactionDto purchaseDispatchTransactionDto = new PurchaseDispatchTransactionDto();

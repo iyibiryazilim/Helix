@@ -518,6 +518,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 		currentnamedesc,
 		currentnameasc,
 		dateasc,
-		datedesc
-	}
+		datedesc,
+        quantityasc,
+        quantitydesc
+    }
 }
