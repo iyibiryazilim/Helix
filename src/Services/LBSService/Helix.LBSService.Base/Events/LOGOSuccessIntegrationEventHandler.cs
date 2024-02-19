@@ -2,9 +2,9 @@
 
 namespace Helix.LBSService.Base.Events
 {
-	public class LOGOSuccessIntegrationEventHandler : IIntegrationEventHandler<LOGOSuccessEvent>
+	public class LOGOSuccessIntegrationEventHandler : IIntegrationEventHandler<LOGOSuccessIntegrationEvent>
 	{
-		public Task Handle(LOGOSuccessEvent @event)
+		public Task Handle(LOGOSuccessIntegrationEvent @event)
 		{
 				return Task.CompletedTask;
 		}

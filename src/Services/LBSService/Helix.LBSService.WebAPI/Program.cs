@@ -42,9 +42,9 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
-eventBus.Subscribe<LOGOSuccessEvent, LOGOSuccessIntegrationEventHandler>();
-eventBus.Subscribe<LOGOFailureEvent,LOGOFailureIntegrationEventHandler>();
-eventBus.Subscribe<SYSMessageEvent,SYSMessageIntegrationEventHandler>();
+eventBus.Subscribe<LOGOSuccessIntegrationEvent, LOGOSuccessIntegrationEventHandler>();
+eventBus.Subscribe<LOGOFailureIntegrationEvent,LOGOFailureIntegrationEventHandler>();
+eventBus.Subscribe<SYSMessageIntegrationEvent,SYSMessageIntegrationEventHandler>();
  
 
 // Add services to the container. 
