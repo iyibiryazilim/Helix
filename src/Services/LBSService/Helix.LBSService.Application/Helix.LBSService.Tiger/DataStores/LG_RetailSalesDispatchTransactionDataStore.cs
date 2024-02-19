@@ -1,4 +1,6 @@
-﻿using Helix.LBSService.Base.Models;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.LBSService.Base.Events;
+using Helix.LBSService.Base.Models;
 using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Services;
@@ -10,11 +12,12 @@ namespace Helix.LBSService.Tiger.DataStores
 	public class LG_RetailSalesDispatchTransactionDataStore : ILG_RetailSalesDispatchTransactionService
 	{
 		IUnityApplicationService _unityApplicationService;
+		IEventBus _eventBus;
 
-		public LG_RetailSalesDispatchTransactionDataStore(IUnityApplicationService unityApplicationService)
+		public LG_RetailSalesDispatchTransactionDataStore(IUnityApplicationService unityApplicationService, IEventBus eventBus)
 		{
 			_unityApplicationService = unityApplicationService;
-
+			_eventBus = eventBus;
 		}
 		public async Task<DataResult<LG_RetailSalesDispatchTransaction>> Insert(LG_RetailSalesDispatchTransaction dto)
 		{
@@ -171,11 +174,15 @@ namespace Helix.LBSService.Tiger.DataStores
 								result.Data = null;
 								result.IsSuccess = true;
 								result.Message = "Success";
+								_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, null, dto));
+								_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, null, dto));
 							}
 							else
 							{
 								result.IsSuccess = false;
 								result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
+								_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, null, dto));
+								_eventBus.Publish(new LOGOSuccessIntegrationEvent(null, result.Message, null, dto));
 							}
 						}
 						else

@@ -84,18 +84,22 @@ namespace Helix.EventBus.RabbitMQ
 		{
 			if (_consumerChannel != null)
 			{
-				_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
+				try
+				{
+					_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
+					_consumer = new EventingBasicConsumer(_consumerChannel);
+					_consumer.Received += Consumer_Received;
 
+					//_consumerChannel.BasicConsume(queue: GetSubName(eventName),
+					//													autoAck: false,
+					//													consumer: _consumer);
 
-				//var consumer = new EventingBasicConsumer(_consumerChannel);
+				}
+				catch (Exception)
+				{
 
-				//consumer.Received += Consumer_Received;
-				_consumer = new EventingBasicConsumer(_consumerChannel);
-
-				_consumerChannel.BasicConsume(queue: GetSubName(eventName),
-																	autoAck: false,
-																	consumer: _consumer);
-				
+					throw;
+				}
 			}
 
 		}
