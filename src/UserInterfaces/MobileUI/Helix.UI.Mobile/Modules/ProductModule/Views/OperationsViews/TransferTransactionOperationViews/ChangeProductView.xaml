@@ -201,10 +201,14 @@
                                             <Border Grid.Column="1"
                                                     BackgroundColor="{StaticResource Primary}"
                                                     StrokeThickness="0">
-                                                <Label HorizontalOptions="Center"
-                                                       Text="{Binding ChangedQuantity}"
+                                                <Entry HorizontalOptions="Center"
+                                                       VerticalOptions="Center"
+                                                       FontSize="12"
                                                        TextColor="{StaticResource White}"
-                                                       VerticalOptions="Center" />
+                                                       VerticalTextAlignment="Center"
+                                                       HorizontalTextAlignment="Center"
+                                                       Text="{Binding ChangedQuantity}"
+                                                       />
                                             </Border>
                                             <Border Grid.Column="0"
                                                     BackgroundColor="Transparent"

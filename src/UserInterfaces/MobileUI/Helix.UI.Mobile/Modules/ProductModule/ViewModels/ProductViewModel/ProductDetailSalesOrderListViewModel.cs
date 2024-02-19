@@ -151,41 +151,33 @@ public partial class ProductDetailSalesOrderListViewModel : BaseViewModel
 
 		try
 		{
-			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A");
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre A-Z", "Tarihe Göre Z-A", "Miktara Göre A-Z", "Miktara Göre Z-A");
 			if (!string.IsNullOrEmpty(response))
 			{
 				CurrentPage = 0;
 				await Task.Delay(100);
 				switch (response)
 				{
-					case "Tarihe Göre Artan":
+					case "Tarihe Göre A-Z":
 						OrderBy = SalesOrdersLineOrderBy.duedateasc;
 						await ReloadAsync();
 						break;
-					case "Tarihe Göre Azalan":
+					case "Tarihe Göre Z-A":
 						OrderBy = SalesOrdersLineOrderBy.duedatedesc;
 						await ReloadAsync();
 						break;
-					case "Ürün Adı A-Z":
-						OrderBy = SalesOrdersLineOrderBy.productnameasc;
-						await ReloadAsync();
-						break;
-					case "Ürün Adı Z-A":
-						OrderBy = SalesOrdersLineOrderBy.productnamedesc;
-						await ReloadAsync();
-						break;
-					case "Ürün Kodu A-Z":
-						OrderBy = SalesOrdersLineOrderBy.productcodeasc;
-						await ReloadAsync();
-						break;
-					case "Ürün Kodu Z-A":
-						OrderBy = SalesOrdersLineOrderBy.productcodedesc;
-						await ReloadAsync();
-						break;
-					default:
-						await ReloadAsync();
-						break;
-				}
+                    case "Miktara Göre A-Z":
+                        OrderBy = SalesOrdersLineOrderBy.quantityasc;
+                        await ReloadAsync();
+                        break;
+                    case "Miktara Göre Z-A":
+                        OrderBy = SalesOrdersLineOrderBy.quantitydesc;
+                        await ReloadAsync();
+                        break;
+                    default:
+                        await ReloadAsync();
+                        break;
+                }
 			}
 		}
 		catch (Exception ex)
