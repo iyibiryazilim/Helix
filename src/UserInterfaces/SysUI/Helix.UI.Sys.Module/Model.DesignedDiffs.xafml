@@ -1,12 +1,46 @@
-﻿<?xml version="1.0" ?>
-<Application Title="Helix.UI.Sys">
-  <BOModel>
-    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
-  </BOModel>
-  <Options>
-    <LayoutManagerOptions RequiredFieldMark="*" />
-  </Options>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="22.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+  </SchemaModules>
   <Views>
-    <ListView Id="ApplicationUser_ListView" Caption="Users" />
+    <DetailView Id="VW_Product_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="VW_Product" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="VW_Product_col1" RelativeSize="100">
+                <LayoutItem Id="CardTypeName" ViewItem="CardTypeName" Index="0" RelativeSize="3.5269709543568464" IsNewNode="True" />
+                <LayoutItem Id="Code" RelativeSize="2.6970954356846475" Index="1" />
+                <LayoutItem Id="Name" RelativeSize="2.6970954356846475" Index="2" />
+                <LayoutItem Id="SpeCode" RelativeSize="2.6970954356846475" Index="3" />
+                <LayoutItem Id="SubUnitset" RelativeSize="2.6970954356846475" Index="4" />
+                <LayoutGroup Id="Auto4907e754-b20f-4ee4-91b9-392afb299845" ShowCaption="False" Direction="Horizontal" Index="5" RelativeSize="85.68464730290457" IsNewNode="True">
+                  <LayoutItem Id="StockQuantity" ViewItem="StockQuantity" Index="0" RelativeSize="50" IsNewNode="True" />
+                  <LayoutItem Id="Unitset" ViewItem="Unitset" Index="1" RelativeSize="50" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="VW_Product_col2" RelativeSize="50" Removed="True">
+                <LayoutItem Id="CardTypeName" Index="0" RelativeSize="100" Removed="True" />
+                <LayoutItem Id="StockQuantity" Index="0" RelativeSize="3.5269709543568464" Removed="True" />
+                <LayoutItem Id="Unitset" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="VW_Product_ListView">
+      <Columns>
+        <ColumnInfo Id="SubUnitset" Width="99" Index="-1" />
+        <ColumnInfo Id="CardTypeName" Width="135" Index="0" />
+        <ColumnInfo Id="Code" Index="1" Width="59" />
+        <ColumnInfo Id="Name" Index="2" Width="79" />
+        <ColumnInfo Id="SpeCode" Width="88" Index="3" />
+        <ColumnInfo Id="StockQuantity" Width="120" Index="4" />
+        <ColumnInfo Id="Unitset" Index="5" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>
