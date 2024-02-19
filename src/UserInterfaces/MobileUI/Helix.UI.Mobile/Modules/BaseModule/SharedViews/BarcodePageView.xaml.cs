@@ -9,7 +9,10 @@ using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.Prod
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WarehouseTransferOperationViewModels;
 using Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.WastageTransactionOperationViewModels;
 using Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.PurchaseDispatchViewModels;
+using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurchaseViewModels;
 using Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewModels;
+using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
+using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using System.Diagnostics;
 using ZXing;
 
@@ -93,6 +96,25 @@ public partial class BarcodePageView : ContentPage
 				}
 			}
 			#endregion
+			#region SalesDispatchListView
+			else if (_viewModel.CurrentPage == "SalesDispatchListView")
+			{
+				SalesDispatchListViewModel viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					Debug.WriteLine(args.Result[0].Text);
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
 			#region InCountingTransactionOperationView
 			else if (_viewModel.CurrentPage == "InCountingTransactionOperationView")
 			{
@@ -141,6 +163,10 @@ public partial class BarcodePageView : ContentPage
 					await Task.Delay(500);
 					await Shell.Current.GoToAsync("..");
 				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
 			}
 			#endregion
 			#region OutCountingTransactionOperationView
@@ -185,6 +211,24 @@ public partial class BarcodePageView : ContentPage
 				ReturnSalesListViewModel viewModel = _serviceProvider.GetService<ReturnSalesListViewModel>();
 				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
 				if(product != null)
+				{
+					product.IsSelected = true;
+					viewModel.Items.Add(product);
+					await Task.Delay(500);
+					await Shell.Current.GoToAsync("..");
+				}
+				else
+				{
+					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+				}
+			}
+			#endregion
+			#region ReturnPurchaseListView
+			else if (_viewModel.CurrentPage == "ReturnPurchaseListView")
+			{
+				ReturnPurchaseListViewModel viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
+				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
+				if (product != null)
 				{
 					product.IsSelected = true;
 					viewModel.Items.Add(product);

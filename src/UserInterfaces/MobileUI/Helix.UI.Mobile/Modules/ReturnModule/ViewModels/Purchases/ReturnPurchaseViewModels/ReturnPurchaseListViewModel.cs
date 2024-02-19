@@ -157,5 +157,31 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
             if (item.Quantity != 1)
                 item.Quantity--;
         }
-    }
+
+		[RelayCommand]
+		async Task GoToBarcodePageViewAsync()
+		{
+			if (IsBusy)
+				return;
+			try
+			{
+				IsBusy = true;
+
+				await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}", new Dictionary<string, object>
+				{
+					["CurrentPage"] = "ReturnPurchaseListView"
+				});
+
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+	}
 }

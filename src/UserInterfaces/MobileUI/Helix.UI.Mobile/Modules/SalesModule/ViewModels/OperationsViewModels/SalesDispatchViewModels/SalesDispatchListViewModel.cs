@@ -63,7 +63,7 @@ public partial class SalesDispatchListViewModel : BaseViewModel
 		catch (Exception ex)
 		{
 			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+			await Shell.Current.DisplayAlert("Error: ", $"{ex.Message}", "Tamam");
 		}
 		finally
 		{
@@ -308,6 +308,32 @@ public partial class SalesDispatchListViewModel : BaseViewModel
 			Debug.WriteLine(ex);
 			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
 
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	async Task GoToBarcodePageViewAsync()
+	{
+		if (IsBusy)
+			return;
+		try
+		{
+			IsBusy = true;
+
+			await Shell.Current.GoToAsync($"{nameof(BarcodePageView)}", new Dictionary<string, object>
+			{
+				["CurrentPage"] = "SalesDispatchListView"
+			});
+
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine(ex);
+			await Shell.Current.DisplayAlert("Hata", ex.Message, "Tamam");
 		}
 		finally
 		{

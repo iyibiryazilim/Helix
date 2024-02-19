@@ -22,6 +22,7 @@
                                                RemoveItemCommand="{Binding RemoveItemCommand}"
                                                DeleteQuantityCommand="{Binding DeleteQuantityCommand}"
                                                AddQuantityCommand="{Binding AddQuantityCommand}"
-                                               GetBackCommand="{Binding GetBackCommand}" /> 
+                                               GetBackCommand="{Binding GetBackCommand}"
+                                               GoToBarcodePageViewCommand="{Binding GoToBarcodePageViewCommand}"/> 
         
 </ContentPage>
