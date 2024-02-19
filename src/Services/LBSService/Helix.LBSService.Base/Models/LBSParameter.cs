@@ -10,8 +10,7 @@
 		public static string DB_UserId { get; set; } = string.Empty;
 		public static string DB_Password { get; set; } = string.Empty;
 		public static string DB_InitialCatalog { get; set; } = string.Empty;
-		public static bool IsTiger { get; set; } = false;
-
+		public static bool IsTiger { get; set; } = false; 
 		public static string Connection
 		{
 			get => $"Data Source={DB_DataSource};User ID={DB_UserId};Password={DB_Password};Initial Catalog={DB_InitialCatalog};";
