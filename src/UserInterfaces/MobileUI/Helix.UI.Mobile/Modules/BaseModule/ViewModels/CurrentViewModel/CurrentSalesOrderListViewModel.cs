@@ -152,53 +152,38 @@ public partial class CurrentSalesOrderListViewModel : BaseViewModel
 
 		try
 		{
-			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A", "Müşteri Adı A-Z", "Müşteri Adı Z-A", "Müşteri Kodu A-Z", "Müşteri Kodu Z-A");
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A", "Tarih A-Z", "Tarih Z-A");
 			if (!string.IsNullOrEmpty(response))
 			{
 				CurrentPage = 0;
 				await Task.Delay(100);
 				switch (response)
 				{
-					case "Tarihe Göre Artan":
-						OrderBy = SalesOrdersLineOrderBy.duedateasc;
-						await ReloadAsync();
-						break;
-					case "Tarihe Göre Azalan":
-						OrderBy = SalesOrdersLineOrderBy.duedatedesc;
-						await ReloadAsync();
-						break;
-					case "Ürün Adı A-Z":
-						OrderBy = SalesOrdersLineOrderBy.productnameasc;
-						await ReloadAsync();
-						break;
-					case "Ürün Adı Z-A":
-						OrderBy = SalesOrdersLineOrderBy.productnamedesc;
-						await ReloadAsync();
-						break;
-					case "Ürün Kodu A-Z":
+					case "Kod A-Z":
 						OrderBy = SalesOrdersLineOrderBy.productcodeasc;
 						await ReloadAsync();
 						break;
-					case "Ürün Kodu Z-A":
+					case "Kod Z-A":
 						OrderBy = SalesOrdersLineOrderBy.productcodedesc;
 						await ReloadAsync();
 						break;
-					case "Müşteri Adı A-Z":
-						OrderBy = SalesOrdersLineOrderBy.customernameasc;
+					case "Ad A-Z":
+						OrderBy = SalesOrdersLineOrderBy.productnameasc;
 						await ReloadAsync();
 						break;
-					case "Müşteri Adı Z-A":
-						OrderBy = SalesOrdersLineOrderBy.customernamedesc;
+					case "Ad Z-A":
+						OrderBy = SalesOrdersLineOrderBy.productnamedesc;
 						await ReloadAsync();
 						break;
-					case "Müşteri Kodu A-Z":
-						OrderBy = SalesOrdersLineOrderBy.customercodeasc;
+					case "Tarih A-Z":
+						OrderBy = SalesOrdersLineOrderBy.duedatedesc;
 						await ReloadAsync();
 						break;
-					case "Müşteri Kodu Z-A":
-						OrderBy = SalesOrdersLineOrderBy.customercodedesc;
+					case "Tarih Z-A":
+						OrderBy = SalesOrdersLineOrderBy.duedateasc;
 						await ReloadAsync();
 						break;
+					
 
 					default:
 						await ReloadAsync();

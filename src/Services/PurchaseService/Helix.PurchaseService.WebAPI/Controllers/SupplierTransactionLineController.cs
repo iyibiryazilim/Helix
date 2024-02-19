@@ -41,6 +41,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAsync(search, SupplierTransactionLineOrderBy.DateDesc, currentCode, TransactionType, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAsync(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentCode, TransactionType, page, pageSize);
                     return result;
             }
 
@@ -70,7 +71,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAsync(search, SupplierTransactionLineOrderBy.DateDesc, currentId, TransactionType, page, pageSize);
                     return result;
                 default:
-                    result.Message = "OrderBy wrong text";
+                    result = await _supplierTransactionLineService.GetTransactionLineByTransactionTypeAsync(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, TransactionType, page, pageSize);
                     return result;
             }
 
@@ -163,6 +164,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetTransactionLineByCurrentCode(search, SupplierTransactionLineOrderBy.DateDesc, currentCode, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetTransactionLineByCurrentCode(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentCode, page, pageSize);
                     return result;
             }
 
@@ -192,6 +194,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetTransactionLineByCurrentId(search, SupplierTransactionLineOrderBy.DateDesc, currentId, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetTransactionLineByCurrentId(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, page, pageSize);
                     return result;
             }
 
@@ -221,6 +224,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetInputTransactionLineByCurrentCode(search, SupplierTransactionLineOrderBy.DateDesc, currentCode, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetInputTransactionLineByCurrentCode(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentCode, page, pageSize);
                     return result;
             }
         }
@@ -249,6 +253,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetInputTransactionLineByCurrentId(search, SupplierTransactionLineOrderBy.DateDesc, currentId, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetInputTransactionLineByCurrentId(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, page, pageSize);
                     return result;
             }
         }
@@ -277,6 +282,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetOutputTransactionLineByCurrentCode(search, SupplierTransactionLineOrderBy.DateDesc, currentCode, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetOutputTransactionLineByCurrentCode(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentCode, page, pageSize);
                     return result;
             }
         }
@@ -305,6 +311,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetOutputTransactionLineByCurrentId(search, SupplierTransactionLineOrderBy.DateDesc, currentId, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetOutputTransactionLineByCurrentId(search, SupplierTransactionLineOrderBy.ProductNameDesc, currentId, page, pageSize);
                     return result;
             }
         }
@@ -333,6 +340,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetTransactionLineByFicheCode(search, SupplierTransactionLineOrderBy.DateDesc, ficheCode, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetTransactionLineByFicheCode(search, SupplierTransactionLineOrderBy.ProductNameDesc, ficheCode, page, pageSize);
                     return result;
             }
         }
@@ -361,6 +369,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
                     result = await _supplierTransactionLineService.GetTransactionLineByFicheId(search, SupplierTransactionLineOrderBy.DateDesc, ficheId, page, pageSize);
                     return result;
                 default:
+                    result = await _supplierTransactionLineService.GetTransactionLineByFicheId(search, SupplierTransactionLineOrderBy.ProductNameDesc, ficheId, page, pageSize);
                     return result;
             }
         }

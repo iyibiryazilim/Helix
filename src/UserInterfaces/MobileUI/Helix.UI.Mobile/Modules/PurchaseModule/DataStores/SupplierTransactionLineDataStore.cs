@@ -560,7 +560,7 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.DataStores
 
 		public async Task<DataResult<IEnumerable<SupplierTransactionLine>>> GetTransactionLineByTransactionTypeAsync(HttpClient httpclient, string search, SupplierTransactionLineOrderBy orderBy, int currentId, string TransactionType, int page, int pageSize)
 		{
-			HttpResponseMessage responseMessage = await httpclient.GetAsync(postUrl + $"/Current/Id/{currentId}?search={search}&orderBy={orderBy}&page={page}&pageSize={pageSize}");
+			HttpResponseMessage responseMessage = await httpclient.GetAsync(postUrl + $"/Current/Id/{currentId}?search={search}&orderBy={orderBy}&TransactionType={TransactionType}&page={page}&pageSize={pageSize}");
 			DataResult<IEnumerable<SupplierTransactionLine>> dataResult = new DataResult<IEnumerable<SupplierTransactionLine>>();
 			if (responseMessage.IsSuccessStatusCode)
 			{

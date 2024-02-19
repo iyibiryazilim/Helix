@@ -150,34 +150,34 @@ public partial class CurrentPurchaseOrderListViewModel : BaseViewModel
 		if (IsBusy) return;
 		try
 		{
-			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Tarihe Göre Artan", "Tarihe Göre Azalan", "Ürün Adı A-Z", "Ürün Adı Z-A", "Ürün Kodu A-Z", "Ürün Kodu Z-A");
+			string response = await Shell.Current.DisplayActionSheet("Sırala", "Vazgeç", null, "Kod A-Z", "Kod Z-A", "Ad A-Z", "Ad Z-A", "Tarih A-Z", "Tarih Z-A");
 
 			CurrentPage = 0;
 			await Task.Delay(100);
 			switch (response)
 			{
-				case "Tarihe Göre Artan":
-					OrderBy = PurchaseOrderLineOrderBy.dateasc;
-					await ReloadAsync();
-					break;
-				case "Tarihe Göre Azalan":
-					OrderBy = PurchaseOrderLineOrderBy.datedesc;
-					await ReloadAsync();
-					break;
-				case "Ürün Adı A-Z":
-					OrderBy = PurchaseOrderLineOrderBy.productnameasc;
-					await ReloadAsync();
-					break;
-				case "Ürün Adı Z-A":
-					OrderBy = PurchaseOrderLineOrderBy.productnamedesc;
-					await ReloadAsync();
-					break;
-				case "Ürün Kodu A-Z":
+				case "Kod A-Z":
 					OrderBy = PurchaseOrderLineOrderBy.productcodeasc;
 					await ReloadAsync();
 					break;
-				case "Ürün Kodu Z-A":
+				case "Kod Z-A":
 					OrderBy = PurchaseOrderLineOrderBy.productcodedesc;
+					await ReloadAsync();
+					break;
+				case "Ad A-Z":
+					OrderBy = PurchaseOrderLineOrderBy.productnameasc;
+					await ReloadAsync();
+					break;
+				case "Ad Z-A":
+					OrderBy = PurchaseOrderLineOrderBy.productnamedesc;
+					await ReloadAsync();
+					break;
+				case "Tarih A-Z":
+					OrderBy = PurchaseOrderLineOrderBy.dateasc;
+					await ReloadAsync();
+					break;
+				case "Tarih Z-A":
+                    OrderBy = PurchaseOrderLineOrderBy.datedesc;
 					await ReloadAsync();
 					break;
 				default:

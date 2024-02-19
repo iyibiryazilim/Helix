@@ -21,6 +21,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.Wa
         ISpeCodeService _speCodeService;
         IInCountingTransactionService _inCountingTransactionService;
         IOutCountingTransactionService _outCountingTransactionService;
+        IServiceProvider _serviceProvider;
         //WarehouseService
 
         [ObservableProperty]
@@ -44,13 +45,14 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.Wa
 
         public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-        public WarehouseCountingFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IInCountingTransactionService inCountingTransactionService, IOutCountingTransactionService outCountingTransactionService)
+        public WarehouseCountingFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IInCountingTransactionService inCountingTransactionService, IOutCountingTransactionService outCountingTransactionService,IServiceProvider serviceProvider)
         {
             Title = "Ambar Sayım İşlemleri";
             _httpClientService = httpClientService;
             _speCodeService = speCodeService;
             _inCountingTransactionService = inCountingTransactionService;
             _outCountingTransactionService = outCountingTransactionService;
+            _serviceProvider = serviceProvider;
             TransactionTypeName = "Ambar Sayım";
         }
 
@@ -207,9 +209,12 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.Wa
 
                 if (inCountingIsTrue && outCountingIsTrue)
                 {
+                    var viewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+                    viewModel.Items.Clear();
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 5
+                        ["GroupType"] = 10,
+                        ["SuccessMessage"] = "Ambar Sayım Fişi Başarıyla Gönderildi."
                     });
                 }
                 else
