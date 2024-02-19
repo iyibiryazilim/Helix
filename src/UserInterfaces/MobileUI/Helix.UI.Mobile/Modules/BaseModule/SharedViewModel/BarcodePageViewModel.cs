@@ -23,26 +23,6 @@ public partial class BarcodePageViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	public async Task WarehouseTransferOperationViewModelBarcodeScannerAsync()
-	{
-		try
-		{
-			WarehouseTransferOperationViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
-			
-
-		}
-		catch(Exception ex)
-		{
-			Debug.WriteLine(ex.Message);
-		}
-		finally
-		{
-			IsBusy = false;
-		}
-
-	}
-
-	[RelayCommand]
 	async Task GoToBackAsync()
 	{
 		try

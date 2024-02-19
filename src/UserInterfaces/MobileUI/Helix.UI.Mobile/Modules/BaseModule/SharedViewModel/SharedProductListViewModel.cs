@@ -113,7 +113,10 @@ public partial class SharedProductListViewModel :BaseViewModel
             IsRefreshing = false;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-            var result = await _warehouseTotalService.GetWarehouseTotals(httpClient,Warehouse.Number,"1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
+			Items.Clear();
+			Results.Clear();
+
+			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient,Warehouse.Number,"1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
             foreach (WarehouseTotal item in result.Data)
             {
                 Items.Add(item);
@@ -184,13 +187,13 @@ public partial class SharedProductListViewModel :BaseViewModel
             IsRefreshing = false;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-            var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, Warehouse.Number, "1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
+			Items.Clear();
+			Results.Clear();
+
+			var result = await _warehouseTotalService.GetWarehouseTotals(httpClient, Warehouse.Number, "1,2,3,4,10,11,12,13", SearchText, OrderBy, CurrentPage, PageSize);
 
             if(result.Data.Any())
             {
-                Items.Clear();
-                Results.Clear();
-
 				foreach (WarehouseTotal item in result.Data)
 				{
 					Items.Add(item);
@@ -306,6 +309,8 @@ public partial class SharedProductListViewModel :BaseViewModel
 					}
 
 				}
+				SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
 				break;
 			//InCounting//Sayım fazlası işlemleri
 			case 50:
@@ -315,7 +320,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 					if (inCountingService.Items.ToList().Exists(x => x.Code == product.ProductCode))
 					{
 						inCountingService.Items.ToList().First(x => x.Code == product.ProductCode).Quantity += 1;
-
+                        Debug.WriteLine(inCountingService.Items.ToList().First(x => x.Code == product.ProductCode));
 					}
 					else
 					{
@@ -335,8 +340,9 @@ public partial class SharedProductListViewModel :BaseViewModel
 						product.IsSelected = false;
 						inCountingService.Items.Add(model);
 					}
-
 				}
+                SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
 				break;
 			//OutCounting//Sayım Fazlası İşlemleri
 			case 51:
@@ -368,6 +374,8 @@ public partial class SharedProductListViewModel :BaseViewModel
 					}
 
 				}
+                SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
 				break;
 			//ProductionTransaction//Üretimden Giriş işlemleri
 			case 13:
@@ -405,6 +413,8 @@ public partial class SharedProductListViewModel :BaseViewModel
 					}
 
 				}
+				SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
 				break;
 			//WastageTransaction//Fire İşlemleri
 			case 11:
@@ -436,6 +446,8 @@ public partial class SharedProductListViewModel :BaseViewModel
 					}
 
 				}
+				SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
 				break;
 			case 7:
 				var salesDispatchService = _serviceProvider.GetService<SalesDispatchListViewModel>();
@@ -466,6 +478,8 @@ public partial class SharedProductListViewModel :BaseViewModel
 					}
 
 				}
+				SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
 				break;
 			case 1:
 				var purchaseDispatchService = _serviceProvider.GetService<PurchaseDispatchListViewModel>();
@@ -495,6 +509,8 @@ public partial class SharedProductListViewModel :BaseViewModel
 						purchaseDispatchService.Items.Add(model);
 					}
 				}
+				SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
 				break;
                 //satış iade
             case 2:
@@ -525,7 +541,9 @@ public partial class SharedProductListViewModel :BaseViewModel
                         returnSalesService.Items.Add(model);
                     }
                 }
-                break;
+				SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
+				break;
                 //satın alma iade
             case 6:
                 var returnPurchaseService = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
@@ -555,7 +573,9 @@ public partial class SharedProductListViewModel :BaseViewModel
                         returnPurchaseService.Items.Add(model);
                     }
                 }
-                break;
+				SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
+
+				break;
 
 
             default:
