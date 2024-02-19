@@ -88,7 +88,7 @@
                                          Aspect="AspectFit"
                                          HeightRequest="22"
                                          WidthRequest="22"
-                                             Command="{Binding Source={x:Reference this}, Path=GetSpeCodeCommand}">
+                                             Command="{Binding Source={x:Reference this}, Path=BindingContext.GetSpeCodeCommand}">
                                     <ImageButton.Source>
                                         <FontImageSource FontFamily="FAS"
                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bars}"
