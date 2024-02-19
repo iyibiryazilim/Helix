@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.ApplicationGroup">
+      <OwnMembers>
+        <Member Name="Code" Caption="Kodu" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Customer">
+      <OwnMembers>
+        <Member Name="Code" Caption="Kodu" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Division" Caption="İş Yeri">
+      <OwnMembers>
+        <Member Name="Name" Caption="Adı" />
+        <Member Name="Number" Caption="Numara" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Product">
+      <OwnMembers>
+        <Member Name="Code" Caption="Kodu" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_PurchaseDispatchTransaction">
+      <OwnMembers>
+        <Member Name="DivisionName" Caption="İş Yeri" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_SalesDispatchTransaction">
+      <OwnMembers>
+        <Member Name="DivisionName" Caption="İş Yeri" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Supplier">
+      <OwnMembers>
+        <Member Name="Code" Caption="Kodu" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_WaitingPurchaseOrder">
+      <OwnMembers>
+        <Member Name="DivisionName" Caption="İş Yeri" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_WaitingSalesOrder">
+      <OwnMembers>
+        <Member Name="DivisionName" Caption="İş Yeri" />
+        <Member Name="DivisionNumber" Caption="İş Yeri Numarası" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Warehouse">
+      <OwnMembers>
+        <Member Name="DivisionName" Caption="İş Yeri" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="VW_Product_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_Product">
+              <LayoutGroup Id="VW_Product_col1">
+                <LayoutGroup Id="Auto4907e754-b20f-4ee4-91b9-392afb299845" Caption="" />
+              </LayoutGroup>
+              <LayoutGroup Id="VW_Product_col2" Caption="VW_Product_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

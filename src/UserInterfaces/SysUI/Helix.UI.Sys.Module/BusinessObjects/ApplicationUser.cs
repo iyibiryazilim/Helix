@@ -2,6 +2,7 @@
 using System.Text;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 
@@ -9,6 +10,7 @@ namespace Helix.UI.Sys.Module.BusinessObjects;
 
 [MapInheritance(MapInheritanceType.ParentTable)]
 [DefaultProperty(nameof(UserName))]
+[NavigationItem("System Settings")] 
 public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo {
     public ApplicationUser(Session session) : base(session) { }
 

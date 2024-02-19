@@ -15,6 +15,7 @@ using System.Text;
 namespace Helix.UI.Sys.Module.BusinessObjects
 {
     [DefaultClassOptions]
+    [NavigationItem("System Settings")]
     //[ImageName("BO_Contact")]
     //[DefaultProperty("DisplayMemberNameForLookupEditorsOfThisType")]
     //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, false, NewItemRowPosition.None)]
