@@ -296,6 +296,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							ReferenceId = product.ProductReferenceId,
 							Code = product.ProductCode,
 							Name = product.ProductName,
+                            Image = product.Image,
 							UnitsetCode = product.UnitsetCode,
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -329,6 +330,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							ReferenceId = product.ProductReferenceId,
 							Code = product.ProductCode,
 							Name = product.ProductName,
+                            Image = product.Image,
 							UnitsetCode = product.UnitsetCode,
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -344,7 +346,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                 SelectedProducts.Clear(); // Servis Scope olarak inject edildiğinde Seçili ürünler bu şekilde temizlenmeli.
 
 				break;
-			//OutCounting//Sayım Fazlası İşlemleri
+			//OutCounting//Sayım Eksiği İşlemleri
 			case 51:
 				var outCountingService = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
 				foreach (var product in SelectedProducts)
@@ -361,6 +363,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							ReferenceId = product.ProductReferenceId,
 							Code = product.ProductCode,
 							Name = product.ProductName,
+                            Image = product.Image,
 							UnitsetCode = product.UnitsetCode,
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -399,6 +402,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							ReferenceId = product.ProductReferenceId,
 							Code = product.ProductCode,
 							Name = product.ProductName,
+                            Image = product.Image,
 							UnitsetCode = product.UnitsetCode,
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -433,6 +437,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							ReferenceId = product.ProductReferenceId,
 							Code = product.ProductCode,
 							Name = product.ProductName,
+                            Image = product.Image,
 							UnitsetCode = product.UnitsetCode,
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -455,7 +460,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 				{
 					if (salesDispatchService.Items.ToList().Exists(x => x.Code == product.ProductCode))
 					{
-						salesDispatchService.Items.ToList().First(x => x.Code == product.ProductCode).StockQuantity += 1;
+						salesDispatchService.Items.ToList().First(x => x.Code == product.ProductCode).Quantity += 1;
 
 					}
 					else
@@ -465,6 +470,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							ReferenceId = product.ProductReferenceId,
 							Code = product.ProductCode,
 							Name = product.ProductName,
+                            Image = product.Image,
 							UnitsetCode = product.UnitsetCode,
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -487,7 +493,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 				{
 					if (purchaseDispatchService.Items.ToList().Exists(x => x.Code == product.ProductCode))
 					{
-						purchaseDispatchService.Items.ToList().First(x => x.Code == product.ProductCode).StockQuantity += 1;
+						purchaseDispatchService.Items.ToList().First(x => x.Code == product.ProductCode).Quantity += 1;
 
 					}
 					else
@@ -497,6 +503,7 @@ public partial class SharedProductListViewModel :BaseViewModel
 							ReferenceId = product.ProductReferenceId,
 							Code = product.ProductCode,
 							Name = product.ProductName,
+                            Image = product.Image,
 							UnitsetCode = product.UnitsetCode,
 							SubUnitsetCode = product.SubUnitsetCode,
 							SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -519,7 +526,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                 {
                     if (returnSalesService.Items.ToList().Exists(x => x.Code == product.ProductCode))
                     {
-                        returnSalesService.Items.ToList().First(x => x.Code == product.ProductCode).StockQuantity += 1;
+                        returnSalesService.Items.ToList().First(x => x.Code == product.ProductCode).Quantity += 1;
 
                     }
                     else
@@ -529,6 +536,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                             ReferenceId = product.ProductReferenceId,
                             Code = product.ProductCode,
                             Name = product.ProductName,
+                            Image = product.Image,
                             UnitsetCode = product.UnitsetCode,
                             SubUnitsetCode = product.SubUnitsetCode,
                             SubUnitsetReferenceId = product.SubUnitsetReferenceId,
@@ -551,7 +559,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                 {
                     if (returnPurchaseService.Items.ToList().Exists(x => x.Code == product.ProductCode))
                     {
-                        returnPurchaseService.Items.ToList().First(x => x.Code == product.ProductCode).StockQuantity += 1;
+                        returnPurchaseService.Items.ToList().First(x => x.Code == product.ProductCode).Quantity += 1;
 
                     }
                     else
@@ -561,6 +569,7 @@ public partial class SharedProductListViewModel :BaseViewModel
                             ReferenceId = product.ProductReferenceId,
                             Code = product.ProductCode,
                             Name = product.ProductName,
+                            Image = product.Image,
                             UnitsetCode = product.UnitsetCode,
                             SubUnitsetCode = product.SubUnitsetCode,
                             SubUnitsetReferenceId = product.SubUnitsetReferenceId,
