@@ -26,8 +26,15 @@ public abstract class BaseEventBus : IEventBus
             eventName = eventName.TrimStart(_eventBusconfig.EventNamePrefix.ToArray());
 
         if(_eventBusconfig.DeleteEventSuffix)
-            eventName = eventName.TrimEnd(_eventBusconfig.EventNameSuffix.ToArray());
-
+        { 
+			// Check if eventName ends with the suffix
+			if (eventName.EndsWith(_eventBusconfig.EventNameSuffix))
+			{
+				// Remove the suffix
+				eventName = eventName.Substring(0, eventName.Length - _eventBusconfig.EventNameSuffix.Length);
+			}
+		}
+ 
         return eventName;
     }
     public virtual string GetSubName(string eventName)

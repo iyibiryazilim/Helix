@@ -87,6 +87,12 @@ namespace Helix.EventBus.RabbitMQ
 			{
 				try
 				{
+					_consumerChannel.QueueDeclare(queue: GetSubName(eventName),
+																  durable: true,
+																  exclusive: false,
+																  autoDelete: false,
+																  arguments: null);
+
 					_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
 					var consumer = new EventingBasicConsumer(_consumerChannel);
 					consumer.Received += Consumer_Received;
@@ -119,7 +125,7 @@ namespace Helix.EventBus.RabbitMQ
 				throw;
 			}
 
-			//_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
+			_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
 
 		}
 
@@ -195,8 +201,13 @@ namespace Helix.EventBus.RabbitMQ
 		public override void Consume(IntegrationEvent @event)
 		{
 
-			var eventName = @event.GetType().Name;
-			eventName = eventName.TrimEnd(_eventBusconfig.EventNameSuffix.ToArray());
+			var eventName = @event.GetType().Name; 
+			// Check if eventName ends with the suffix
+			if (eventName.EndsWith(_eventBusconfig.EventNameSuffix))
+			{
+				// Remove the suffix
+				eventName = eventName.Substring(0, eventName.Length - _eventBusconfig.EventNameSuffix.Length);
+			}
 			StartBasicConsume(eventName);
 		}
 
