@@ -34,6 +34,7 @@ public partial class BarcodePageView : ContentPage
 		cameraBarcodeReaderView.Options = new BarcodeReaderOptions
 		{
 			Formats = BarcodeFormats.All,
+			TryHarder = false,
 			AutoRotate = true,
 			Multiple = false
 		};
@@ -58,7 +59,7 @@ public partial class BarcodePageView : ContentPage
 			CancellationTokenSource cancellationToken = new();
 			var first = e.Results?.FirstOrDefault();
 
-			#region WarehouseTransferOperationView
+			#region WarehouseTransferOperationView -- not completed
 			if (_viewModel.CurrentPage == "WarehouseTransferOperationView")
 			{
 				WarehouseTransferOperationViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
@@ -429,7 +430,7 @@ public partial class BarcodePageView : ContentPage
 				}
 			}
 			#endregion
-			#region WarehouseTransferOperationSelectedItemsListView
+			#region WarehouseTransferOperationSelectedItemsListView -- not completed
 			else if (_viewModel.CurrentPage == "WarehouseTransferOperationSelectedItemsListView")
 			{
 				WarehouseTransferOperationSelectedItemsListViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationSelectedItemsListViewModel>();
