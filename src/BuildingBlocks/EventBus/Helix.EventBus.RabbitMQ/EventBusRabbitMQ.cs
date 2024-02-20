@@ -6,6 +6,7 @@ using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
@@ -84,18 +85,28 @@ namespace Helix.EventBus.RabbitMQ
 		{
 			if (_consumerChannel != null)
 			{
-				_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
+				try
+				{
+					_consumerChannel.QueueDeclare(queue: GetSubName(eventName),
+																  durable: true,
+																  exclusive: false,
+																  autoDelete: false,
+																  arguments: null);
 
+					_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
+					var consumer = new EventingBasicConsumer(_consumerChannel);
+					consumer.Received += Consumer_Received;
 
-				//var consumer = new EventingBasicConsumer(_consumerChannel);
+					_consumerChannel.BasicConsume(queue: GetSubName(eventName),
+																		autoAck: false,
+																		consumer: consumer);
+					_consumer = consumer;
+				}
+				catch (Exception)
+				{
 
-				//consumer.Received += Consumer_Received;
-				_consumer = new EventingBasicConsumer(_consumerChannel);
-
-				_consumerChannel.BasicConsume(queue: GetSubName(eventName),
-																	autoAck: false,
-																	consumer: _consumer);
-				
+					throw;
+				}
 			}
 
 		}
@@ -105,14 +116,12 @@ namespace Helix.EventBus.RabbitMQ
 			var eventName = args.RoutingKey;
 			eventName = ProcessEventName(eventName);
 			var message = Encoding.UTF8.GetString(args.Body.Span);
-
-			try
+ 			try
 			{
 				await ProcessEvent(eventName, message);
 			}
 			catch (Exception)
-			{
-
+			{ 
 				throw;
 			}
 
@@ -192,8 +201,13 @@ namespace Helix.EventBus.RabbitMQ
 		public override void Consume(IntegrationEvent @event)
 		{
 
-			var eventName = @event.GetType().Name;
-			eventName = eventName.TrimEnd(_eventBusconfig.EventNameSuffix.ToArray());
+			var eventName = @event.GetType().Name; 
+			// Check if eventName ends with the suffix
+			if (eventName.EndsWith(_eventBusconfig.EventNameSuffix))
+			{
+				// Remove the suffix
+				eventName = eventName.Substring(0, eventName.Length - _eventBusconfig.EventNameSuffix.Length);
+			}
 			StartBasicConsume(eventName);
 		}
 

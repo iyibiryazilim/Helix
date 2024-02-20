@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Helix.NotificationService-8087c4eb-2867-4cef-a894-fdb2f7aadabf</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Base\Helix.EventBus.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Factory\Helix.EventBus.Factory.csproj" />
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\EventBus\Helix.EventBus.RabbitMQ\Helix.EventBus.RabbitMQ.csproj" />
+  </ItemGroup>
+</Project>
