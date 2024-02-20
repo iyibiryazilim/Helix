@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Product">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="SubUnitset" Caption="Alt Birim" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

@@ -15,8 +15,8 @@ using System.Text;
 namespace Helix.UI.Sys.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    //[ImageName("BO_Contact")]
-    //[DefaultProperty("DisplayMemberNameForLookupEditorsOfThisType")]
+    [ImageName("BO_Employee")]
+    [NavigationItem("System Settings")]
  
     public class Employee : BaseObject
     {

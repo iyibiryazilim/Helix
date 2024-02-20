@@ -89,6 +89,13 @@ public class Startup {
             .AddXafWebApi(Configuration, options => {
                 // Make your business objects available in the Web API and generate the GET, POST, PUT, and DELETE HTTP methods for it.
                 options.BusinessObject<ApplicationUser>();
+                options.BusinessObject<TransactionOwner>();
+                options.BusinessObject<FailureTransactionOwner>();
+                options.BusinessObject<Employee>();
+                options.BusinessObject<Position>();
+                options.BusinessObject<Department>();
+
+
 
 
             })
@@ -141,7 +148,10 @@ public class Startup {
         }
         else {
             app.UseExceptionHandler("/Error");
-            // The default HSTS value is 30 days. To change this for production scenarios, see: https://aka.ms/aspnetcore-hsts.
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Helix.IdentityServer WebApi v1");
+            });
             app.UseHsts();
         }
         app.UseHttpsRedirection();

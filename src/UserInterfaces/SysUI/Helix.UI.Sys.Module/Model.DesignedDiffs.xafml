@@ -1,10 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <NavigationItems>
+    <Items>
+      <Item Id="Product Management" Index="0" />
+      <Item Id="Purchase Management" Index="1" />
+      <Item Id="Sales Management" Index="2" />
+      <Item Id="System Settings" Index="3" />
+      <Item Id="Transaction Audit" Index="4" />
+      <Item Id="Reports" Index="5" />
+    </Items>
+  </NavigationItems>
   <SchemaModules>
     <SchemaModule Name="CloneObjectModule" Version="22.2.4.0" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <ListView Id="Department_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="99" />
+        <ColumnInfo Id="Name" Index="1" Width="147" />
+        <ColumnInfo Id="Description" Width="175" />
+        <ColumnInfo Id="IsActive" Width="76" />
+      </Columns>
+    </ListView>
+    <ListView Id="Employee_ListView">
+      <Columns>
+        <ColumnInfo Id="ReferenceId" Width="95" Index="-1" />
+        <ColumnInfo Id="Code" Index="0" Width="93" />
+        <ColumnInfo Id="FirstName" Width="134" Index="1" />
+        <ColumnInfo Id="LastName" Index="2" Width="144" />
+        <ColumnInfo Id="Email" Index="3" Width="115" />
+        <ColumnInfo Id="Phone" Index="4" Width="153" />
+      </Columns>
+    </ListView>
+    <ListView Id="Position_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="113" />
+        <ColumnInfo Id="Name" Index="1" Width="125" />
+        <ColumnInfo Id="Description" Width="144" />
+        <ColumnInfo Id="Department" Index="3" Width="135" />
+        <ColumnInfo Id="IsActive" Index="4" Width="103" />
+      </Columns>
+    </ListView>
+    <ListView Id="TransactionOwner_ListView">
+      <Columns>
+        <ColumnInfo Id="Employee" Index="1" Width="87" />
+        <ColumnInfo Id="FicheReferenceId" Width="68" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_Customer_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="59" />
+        <ColumnInfo Id="Title" Index="1" Width="50" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Telephone" Width="91" />
+        <ColumnInfo Id="OtherTelephone" Width="128" />
+        <ColumnInfo Id="TaxOffice" Width="109" />
+        <ColumnInfo Id="TaxNumber" SortIndex="0" SortOrder="Ascending" Index="5" Width="141" />
+        <ColumnInfo Id="Email" Index="6" Width="61" />
+        <ColumnInfo Id="Address" Width="74" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_Division_ListView">
+      <Columns>
+        <ColumnInfo Id="Number" Index="0" Width="77" />
+        <ColumnInfo Id="Name" Index="1" Width="163" />
+      </Columns>
+    </ListView>
     <DetailView Id="VW_Product_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -15,7 +76,6 @@
                 <LayoutItem Id="Code" RelativeSize="2.6970954356846475" Index="1" />
                 <LayoutItem Id="Name" RelativeSize="2.6970954356846475" Index="2" />
                 <LayoutItem Id="SpeCode" RelativeSize="2.6970954356846475" Index="3" />
-                <LayoutItem Id="SubUnitset" RelativeSize="2.6970954356846475" Index="4" />
                 <LayoutGroup Id="Auto4907e754-b20f-4ee4-91b9-392afb299845" ShowCaption="False" Direction="Horizontal" Index="5" RelativeSize="85.68464730290457" IsNewNode="True">
                   <LayoutItem Id="StockQuantity" ViewItem="StockQuantity" Index="0" RelativeSize="50" IsNewNode="True" />
                   <LayoutItem Id="Unitset" ViewItem="Unitset" Index="1" RelativeSize="50" IsNewNode="True" />
@@ -33,13 +93,110 @@
     </DetailView>
     <ListView Id="VW_Product_ListView">
       <Columns>
-        <ColumnInfo Id="SubUnitset" Width="99" Index="-1" />
-        <ColumnInfo Id="CardTypeName" Width="135" Index="0" />
-        <ColumnInfo Id="Code" Index="1" Width="59" />
-        <ColumnInfo Id="Name" Index="2" Width="79" />
-        <ColumnInfo Id="SpeCode" Width="88" Index="3" />
-        <ColumnInfo Id="StockQuantity" Width="120" Index="4" />
-        <ColumnInfo Id="Unitset" Index="5" />
+        <ColumnInfo Id="CardTypeName" Width="124" Index="0" />
+        <ColumnInfo Id="Code" Index="1" Width="120" />
+        <ColumnInfo Id="Name" Index="2" Width="125" />
+        <ColumnInfo Id="SpeCode" Width="143" Index="3" />
+        <ColumnInfo Id="StockQuantity" Width="103" Index="4" />
+        <ColumnInfo Id="Unitset" Index="5" Width="146" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_PurchaseDispatchTransaction_ListView">
+      <Columns>
+        <ColumnInfo Id="SubUnitsetCode" Index="-1" />
+        <ColumnInfo Id="TransactionTypeName" SortOrder="Ascending" Width="169" />
+        <ColumnInfo Id="DispatchDate" Width="111" />
+        <ColumnInfo Id="FicheNumber" Width="170" />
+        <ColumnInfo Id="ProductName" Width="112" />
+        <ColumnInfo Id="ProductCode" Width="124" />
+        <ColumnInfo Id="Quantity" Index="5" Width="66" />
+        <ColumnInfo Id="UnitsetCode" Index="6" Width="102" />
+        <ColumnInfo Id="CurrentCode" Index="7" Width="104" />
+        <ColumnInfo Id="CurrentName" Index="8" Width="191" />
+        <ColumnInfo Id="WarehouseNumber" Index="9" Width="136" />
+        <ColumnInfo Id="WarehouseName" Index="10" Width="135" />
+        <ColumnInfo Id="DivisionName" Index="11" Width="114" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_SalesDispatchTransaction_ListView">
+      <Columns>
+        <ColumnInfo Id="SubUnitsetCode" Index="-1" Width="127" />
+        <ColumnInfo Id="TransactionTypeName" Width="169" />
+        <ColumnInfo Id="DispatchDate" Width="111" />
+        <ColumnInfo Id="FicheNumber" Width="109" />
+        <ColumnInfo Id="ProductName" Width="112" />
+        <ColumnInfo Id="ProductCode" Width="124" />
+        <ColumnInfo Id="Quantity" Index="5" Width="66" />
+        <ColumnInfo Id="UnitsetCode" Index="6" Width="102" />
+        <ColumnInfo Id="CurrentCode" Index="7" Width="104" />
+        <ColumnInfo Id="CurrentName" Index="8" Width="169" />
+        <ColumnInfo Id="WarehouseNumber" Width="136" Index="9" />
+        <ColumnInfo Id="WarehouseName" Width="135" Index="10" />
+        <ColumnInfo Id="DivisionName" Width="114" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_Supplier_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="59" />
+        <ColumnInfo Id="Title" Index="1" Width="62" />
+        <ColumnInfo Id="Telephone" Width="91" />
+        <ColumnInfo Id="OtherTelephone" Width="128" />
+        <ColumnInfo Id="TaxOffice" Width="109" />
+        <ColumnInfo Id="TaxNumber" Index="5" Width="126" />
+        <ColumnInfo Id="Email" Index="6" Width="61" />
+        <ColumnInfo Id="Address" Width="74" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_WaitingPurchaseOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="SubUnitsetCode" Index="-1" />
+        <ColumnInfo Id="DueDate" Index="0" Width="111" />
+        <ColumnInfo Id="OrderCode" Index="1" Width="135" />
+        <ColumnInfo Id="OrderDate" Index="2" SortIndex="0" SortOrder="Ascending" Width="124" />
+        <ColumnInfo Id="ProductName" Index="3" SortIndex="-1" SortOrder="None" Width="112" />
+        <ColumnInfo Id="ProductCode" Index="4" Width="124" />
+        <ColumnInfo Id="CurrentCode" Index="5" Width="104" />
+        <ColumnInfo Id="CurrentName" Index="6" Width="109" />
+        <ColumnInfo Id="Quantity" Index="7" Width="66" />
+        <ColumnInfo Id="ShippedQuantity" Index="8" Width="141" />
+        <ColumnInfo Id="WaitingQuantity" Index="9" Width="129" />
+        <ColumnInfo Id="UnitsetCode" Index="10" Width="102" />
+        <ColumnInfo Id="DivisionName" Index="11" Width="114" />
+        <ColumnInfo Id="WarehouseNumber" Index="12" Width="136" />
+        <ColumnInfo Id="WarehouseName" Index="13" Width="135" />
+        <ColumnInfo Id="Description" Index="14" Width="97" />
+        <ColumnInfo Id="UnitPrice" Index="15" Width="94" />
+        <ColumnInfo Id="NetTotal" Index="16" Width="103" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_WaitingSalesOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="DivisionNumber" Index="-1" Width="130" />
+        <ColumnInfo Id="SubUnitsetCode" Width="127" Index="-1" />
+        <ColumnInfo Id="DueDate" Index="0" Width="111" />
+        <ColumnInfo Id="OrderCode" Width="135" Index="1" />
+        <ColumnInfo Id="OrderDate" Width="109" Index="2" />
+        <ColumnInfo Id="ProductName" Width="127" Index="3" />
+        <ColumnInfo Id="ProductCode" Index="4" Width="110" />
+        <ColumnInfo Id="CurrentCode" Width="104" Index="5" />
+        <ColumnInfo Id="CurrentName" Width="109" Index="6" />
+        <ColumnInfo Id="Quantity" Index="7" Width="66" />
+        <ColumnInfo Id="ShippedQuantity" Index="8" Width="141" />
+        <ColumnInfo Id="WaitingQuantity" Index="9" Width="129" />
+        <ColumnInfo Id="UnitsetCode" Index="10" Width="105" />
+        <ColumnInfo Id="DivisionName" Index="11" Width="114" />
+        <ColumnInfo Id="WarehouseNumber" Index="12" Width="136" />
+        <ColumnInfo Id="WarehouseName" Index="13" Width="135" />
+        <ColumnInfo Id="Description" Width="97" Index="14" />
+        <ColumnInfo Id="UnitPrice" Index="15" Width="94" />
+        <ColumnInfo Id="NetTotal" Width="103" Index="16" />
+      </Columns>
+    </ListView>
+    <ListView Id="VW_Warehouse_ListView">
+      <Columns>
+        <ColumnInfo Id="Number" Index="0" Width="77" />
+        <ColumnInfo Id="Name" Width="62" Index="1" />
+        <ColumnInfo Id="DivisionName" Width="114" />
       </Columns>
     </ListView>
   </Views>

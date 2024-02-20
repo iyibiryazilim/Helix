@@ -7,17 +7,79 @@ app {
     height: 100%;
 }
 
+.xaf-sidebar{
+background-color: #4c3398;
+}
+
+.dxbl-accordion-items-container{
+    background-color: #4c3398;
+}
+.dxbl-scroll-viewer{
+background-color: #4c3398;
+}
+.dxbl-scroll-viewer-content {
+    background-color: #4c3398;
+}
+.dxbl-group-header {
+    background-color: #4c3398;
+}
+.view-caption-root {
+    color: white;
+}
+.header {
+    background-color: #4c3398
+}
+
+.account-button{
+    color: white;
+}
+
+.theme-button {
+    color: white;
+}
+
+.btn-hamburger{
+    color: white;
+}
+
+.dxbl-group .dxbl-btn {
+    color: white;
+}
+
+
+.dxbl-group-expand-btn:hover {
+    color: yellow;
+}
+
+.dxbl-group {
+    background-color: #4c3398
+}
+
+.logon-template-header {
+    background-color: #4c3398;
+}
+.xaf-nav-link span {
+    color: white;
+    text-decoration: none !important;
+
+}
+
+.dxbl-accordion-item-content {
+    text-decoration: none;
+}
+
+
 .header-logo {
     flex-shrink: 0;
-    background-color: currentColor;
-    -webkit-mask: url('../images/Logo.svg');
-    mask: url('../images/Logo.svg');
+    background-color: white;
+    -webkit-mask: url('../images/violet_white_logo.svg');
+    mask: url('../images/violet_white_logo.svg');
     -webkit-mask-position: center;
     mask-position: center;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    width: 180px;
-    height: 24px;
+    width: 140px;
+    height: 40px;
 }
 
 #blazor-error-ui {

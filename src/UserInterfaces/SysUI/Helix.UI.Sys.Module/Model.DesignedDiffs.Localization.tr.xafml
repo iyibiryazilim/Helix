@@ -1,14 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="MyDetails" Caption="Profilim" />
+    </Actions>
+    <ActionToContainerMapping>
+      <ActionContainer Id="Reports" Caption="Raporlar" />
+    </ActionToContainerMapping>
+  </ActionDesign>
   <BOModel>
+    <Class Name="DevExpress.ExpressApp.SystemModule.AboutInfo">
+      <OwnMembers>
+        <Member Name="ProductName" Caption="Malzeme Adı" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyActionPermissionObject">
+      <OwnMembers>
+        <Member Name="Role" Caption="Rol" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyNavigationPermissionObject">
+      <OwnMembers>
+        <Member Name="Role" Caption="Rol" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole" Caption="Rol">
+      <OwnMembers>
+        <Member Name="Users" Caption="Kullanıcılar" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyTypePermissionObject">
+      <OwnMembers>
+        <Member Name="Role" Caption="Rol" />
+      </OwnMembers>
+    </Class>
     <Class Name="Helix.UI.Sys.Module.BusinessObjects.ApplicationGroup">
       <OwnMembers>
         <Member Name="Code" Caption="Kodu" />
+        <Member Name="Users" Caption="Kullanıcılar" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Customer">
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.ApplicationUser">
+      <OwnMembers>
+        <Member Name="Department" Caption="Departman" />
+        <Member Name="Employee" Caption="Çalışan" />
+        <Member Name="Position" Caption="Pozisyon" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.ApplicationUserLoginInfo">
+      <OwnMembers>
+        <Member Name="User" Caption="Kullanıcı" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.Department" Caption="Departman">
       <OwnMembers>
         <Member Name="Code" Caption="Kodu" />
+        <Member Name="Description" Caption="Açıklama" />
+        <Member Name="IsActive" Caption="Aktif Mi" />
+        <Member Name="Name" Caption="Adı" />
+        <Member Name="Positions" Caption="Pozisyonlar" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.Employee" Caption="Çalışan">
+      <OwnMembers>
+        <Member Name="Code" Caption="Kodu" />
+        <Member Name="FirstName" Caption="Adı" />
+        <Member Name="LastName" Caption="Soyadı" />
+        <Member Name="Phone" Caption="Telefon" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.FailureTransactionOwner" Caption="Hatalı İşlemler">
+      <OwnMembers>
+        <Member Name="Message" Caption="Mesaj" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.Position" Caption="Pozisyon">
+      <OwnMembers>
+        <Member Name="Code" Caption="Kodu" />
+        <Member Name="Department" Caption="Departman" />
+        <Member Name="Description" Caption="Açıklama" />
+        <Member Name="IsActive" Caption="Aktif Mi" />
+        <Member Name="Name" Caption="Adı" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.TransactionOwner" Caption="Başarılı İşlemler">
+      <OwnMembers>
+        <Member Name="Employee" Caption="Çalışan" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Customer" Caption="Müşteri">
+      <OwnMembers>
+        <Member Name="Address" Caption="Adres" />
+        <Member Name="Code" Caption="Kodu" />
+        <Member Name="OtherTelephone" Caption="Diğer Telefon" />
+        <Member Name="TaxNumber" Caption="Vergi Numarası" />
+        <Member Name="TaxOffice" Caption="Vergi Dairesi" />
+        <Member Name="Telephone" Caption="Telefon" />
+        <Member Name="Title" Caption="Adı" />
       </OwnMembers>
     </Class>
     <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Division" Caption="İş Yeri">
@@ -17,54 +105,215 @@
         <Member Name="Number" Caption="Numara" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Product">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Product" Caption="Malzemeler">
       <OwnMembers>
+        <Member Name="CardTypeName" Caption="Malzeme Türü" />
         <Member Name="Code" Caption="Kodu" />
+        <Member Name="Name" Caption="Adı" />
+        <Member Name="SpeCode" Caption="Özel Kodu" />
+        <Member Name="StockQuantity" Caption="Stok Miktarı" />
+        <Member Name="Unitset" Caption="Birim" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_PurchaseDispatchTransaction">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_PurchaseDispatchTransaction" Caption="Satınalma İrsaliyeleri">
       <OwnMembers>
+        <Member Name="CurrentCode" Caption="Cari Kodu" />
+        <Member Name="CurrentName" Caption="Cari Adı" />
+        <Member Name="DispatchDate" Caption="İrsaliye Tarihi" />
         <Member Name="DivisionName" Caption="İş Yeri" />
+        <Member Name="FicheNumber" Caption="Fiş Numarası" />
+        <Member Name="ProductCode" Caption="Malzeme Kodu" />
+        <Member Name="ProductName" Caption="Malzeme Adı" />
+        <Member Name="Quantity" Caption="Miktar" />
+        <Member Name="SubUnitsetCode" Caption="Alt Birim Kodu" />
+        <Member Name="TransactionTypeName" Caption="Hareket Türü" />
+        <Member Name="UnitsetCode" Caption="Birim Kodu" />
+        <Member Name="WarehouseName" Caption="Ambar Adı" />
+        <Member Name="WarehouseNumber" Caption="Ambar Numarası" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_SalesDispatchTransaction">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_SalesDispatchTransaction" Caption="Satış İrsaliyeleri">
       <OwnMembers>
+        <Member Name="CurrentCode" Caption="Cari Kodu" />
+        <Member Name="CurrentName" Caption="Cari Adı" />
+        <Member Name="DispatchDate" Caption="İrsaliye Tarihi" />
         <Member Name="DivisionName" Caption="İş Yeri" />
+        <Member Name="FicheNumber" Caption="Fiş Numarası" />
+        <Member Name="ProductCode" Caption="Malzeme Kodu" />
+        <Member Name="ProductName" Caption="Malzeme Adı" />
+        <Member Name="Quantity" Caption="Miktar" />
+        <Member Name="SubUnitsetCode" Caption="Alt Birim Kodu" />
+        <Member Name="TransactionTypeName" Caption="Hareket Türü" />
+        <Member Name="UnitsetCode" Caption="Birim Kodu" />
+        <Member Name="WarehouseName" Caption="Ambar Adı" />
+        <Member Name="WarehouseNumber" Caption="Ambar Numarası" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Supplier">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Supplier" Caption="Tedarikçi">
       <OwnMembers>
+        <Member Name="Address" Caption="Adres" />
         <Member Name="Code" Caption="Kodu" />
+        <Member Name="OtherTelephone" Caption="Diğer Telefon" />
+        <Member Name="TaxNumber" Caption="Vergi Numarası" />
+        <Member Name="TaxOffice" Caption="Vergi Dairesi" />
+        <Member Name="Telephone" Caption="Telefon" />
+        <Member Name="Title" Caption="Adı" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_WaitingPurchaseOrder">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_WaitingPurchaseOrder" Caption="Bekleyen Satınalma Siparişleri">
       <OwnMembers>
+        <Member Name="CurrentCode" Caption="Cari Kodu" />
+        <Member Name="CurrentName" Caption="Cari Adı" />
+        <Member Name="Description" Caption="Açıklama" />
         <Member Name="DivisionName" Caption="İş Yeri" />
+        <Member Name="DueDate" Caption="Termin Tarihi" />
+        <Member Name="NetTotal" Caption="Net Toplam" />
+        <Member Name="OrderCode" Caption="Sipariş Numarası" />
+        <Member Name="OrderDate" Caption="Sipariş Tarihi" />
+        <Member Name="ProductCode" Caption="Malzeme Kodu" />
+        <Member Name="ProductName" Caption="Malzeme Adı" />
+        <Member Name="Quantity" Caption="Miktar" />
+        <Member Name="ShippedQuantity" Caption="Sevkedilen Miktar" />
+        <Member Name="SubUnitsetCode" Caption="Alt Birim Kodu" />
+        <Member Name="UnitPrice" Caption="Birim Fiyat" />
+        <Member Name="UnitsetCode" Caption="Birim Kodu" />
+        <Member Name="WaitingQuantity" Caption="Bekleyen Miktar" />
+        <Member Name="WarehouseName" Caption="Ambar Adı" />
+        <Member Name="WarehouseNumber" Caption="Ambar Numarası" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_WaitingSalesOrder">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_WaitingSalesOrder" Caption="Bekleyen Satış Siparişleri">
       <OwnMembers>
+        <Member Name="CurrentCode" Caption="Cari Kodu" />
+        <Member Name="CurrentName" Caption="Cari Adı" />
+        <Member Name="Description" Caption="Açıklama" />
         <Member Name="DivisionName" Caption="İş Yeri" />
         <Member Name="DivisionNumber" Caption="İş Yeri Numarası" />
+        <Member Name="DueDate" Caption="Termin Tarihi" />
+        <Member Name="NetTotal" Caption="Net Toplam" />
+        <Member Name="OrderCode" Caption="Sipariş Numarası" />
+        <Member Name="OrderDate" Caption="Sipariş Tarihi" />
+        <Member Name="ProductCode" Caption="" />
+        <Member Name="ProductName" Caption="Malzeme Adı" />
+        <Member Name="Quantity" Caption="Miktar" />
+        <Member Name="ShippedQuantity" Caption="Sevkedilen Miktar" />
+        <Member Name="SubUnitsetCode" Caption="Alt Birim Kodu" />
+        <Member Name="UnitPrice" Caption="Birim Fiyat" />
+        <Member Name="UnitsetCode" Caption="" />
+        <Member Name="WaitingQuantity" Caption="Bekleyen Miktar" />
+        <Member Name="WarehouseName" Caption="Ambar Adı" />
+        <Member Name="WarehouseNumber" Caption="Ambar Numarası" />
       </OwnMembers>
     </Class>
-    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Warehouse">
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_Warehouse" Caption="Ambar">
       <OwnMembers>
         <Member Name="DivisionName" Caption="İş Yeri" />
+        <Member Name="Name" Caption="Adı" />
+        <Member Name="Number" Caption="Numara" />
       </OwnMembers>
     </Class>
   </BOModel>
+  <Localization>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="Helix.UI.Sys.Module.BusinessObjects.ApplicationUserType">
+        <LocalizationItem Name="Employee" Value="Çalışan" />
+        <LocalizationItem Name="User" Value="Kullanıcı" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+  <NavigationItems RelatedReportsGroupCaption="Raporlar">
+    <Items>
+      <Item Id="Product Management" Caption="Malzeme Yönetimi" />
+      <Item Id="Purchase Management" Caption="Satınalma Yönetimi" />
+      <Item Id="Sales Management" Caption="Satış Yönetimi" />
+      <Item Id="System Settings" Caption="Sistem Ayarları">
+        <Items>
+          <Item Id="ApplicationGroup_ListView" Caption="Kullanıcı Grupları" />
+          <Item Id="ApplicationUser_ListView" Caption="Kullanıcılar" />
+        </Items>
+      </Item>
+      <Item Id="Transaction Audit" Caption="Kayıt İzleme" />
+      <Item Id="Reports" Caption="Raporlar">
+        <Items>
+          <Item Id="ReportsV2" Caption="Raporlar" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <Views>
+    <DetailView Id="Employee_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Employee" Caption="Çalışan" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Position_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Position" Caption="Pozisyon" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="VW_Customer_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_Customer" Caption="Müşteri" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="VW_Product_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="VW_Product">
+            <LayoutGroup Id="VW_Product" Caption="Malzemeler">
               <LayoutGroup Id="VW_Product_col1">
                 <LayoutGroup Id="Auto4907e754-b20f-4ee4-91b9-392afb299845" Caption="" />
               </LayoutGroup>
               <LayoutGroup Id="VW_Product_col2" Caption="VW_Product_col2" />
             </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="VW_PurchaseDispatchTransaction_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_PurchaseDispatchTransaction" Caption="Satınalma İrsaliyeleri" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="VW_Supplier_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_Supplier" Caption="Tedarikçi" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="VW_WaitingPurchaseOrder_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_WaitingPurchaseOrder" Caption="Bekleyen Satınalma Siparişleri" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="VW_WaitingSalesOrder_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_WaitingSalesOrder" Caption="Bekleyen Satış Siparişleri" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>

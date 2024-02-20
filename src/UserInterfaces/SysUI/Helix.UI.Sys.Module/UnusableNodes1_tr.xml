@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.TransactionOwner">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="FicheReferanceId" Caption="" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>
