@@ -38,11 +38,11 @@ namespace Helix.UI.Sys.Module.Controllers
 
         private void syncEmploye_CustomizePopVindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
         {
-            IObjectSpace os = Application.CreateObjectSpace(typeof(VW_Employee));
+            IObjectSpace os = Application.CreateObjectSpace(typeof(ViewObjects.EmployeeList));
 
-            string listViewId = Application.FindListViewId(typeof(VW_Employee));
+            string listViewId = Application.FindListViewId(typeof(ViewObjects.EmployeeList));
 
-            CollectionSourceBase cs = Application.CreateCollectionSource(os, typeof(VW_Employee), listViewId, CollectionSourceDataAccessMode.Client, CollectionSourceMode.Normal);
+            CollectionSourceBase cs = Application.CreateCollectionSource(os, typeof(ViewObjects.EmployeeList), listViewId, CollectionSourceDataAccessMode.Client, CollectionSourceMode.Normal);
 
             ConnectionParameter connectionParameter = View.ObjectSpace.FindObject<ConnectionParameter>(CriteriaOperator.Parse("IsActive = ?", true));
 
@@ -70,19 +70,22 @@ namespace Helix.UI.Sys.Module.Controllers
 
         private void EmployeeAcceptAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            List<Employee> selectedItems = e.SelectedObjects.OfType<Employee>().ToList();
+            List<EmployeeList> selectedItems = e.SelectedObjects.OfType<EmployeeList>().ToList();
             foreach (var item in selectedItems)
             {
-                Employee employee = View.ObjectSpace.FindObject<Employee>(CriteriaOperator.Parse("ReferenceId= ?", item.ReferenceId));
-                if (employee is null)
+                Employee employee = View.ObjectSpace.FindObject<Employee>(CriteriaOperator.Parse("ReferenceId= ?", (object)item.ReferenceId));
+               if(employee is null)
                 {
-                   
+                    employee = View.ObjectSpace.CreateObject<Employee>();
+                    employee.ReferenceId = item.ReferenceId;
                     employee.Code = item.Code;
                     employee.FirstName = item.FirstName;
                     employee.RegisterCode = item.RegisterCode;
+                }
+                    
                     
                    
-                }
+                
 
 
             }

@@ -13,16 +13,16 @@ namespace Helix.UI.Sys.Module.DataStores
             _connectionParameter = connectionParameter;
         }
 
-        public async Task<IEnumerable<VW_Employee>> ConvertObjects(DataTable dataTable)
+        public async Task<IEnumerable<ViewObjects.EmployeeList>> ConvertObjects(DataTable dataTable)
         {
-            List<VW_Employee> items = new List<VW_Employee>();
+            List<ViewObjects.EmployeeList> items = new List<ViewObjects.EmployeeList>();
             try
             {
                 foreach (DataRow row in dataTable.Rows)
                 {
 
 
-                    VW_Employee item = new VW_Employee();
+                    ViewObjects.EmployeeList item = new ViewObjects.EmployeeList();
                     item.ReferenceId = string.IsNullOrEmpty(row["ReferenceId"].ToString()) ? 0 : Convert.ToInt32(row["ReferenceId"]); 
                     item.Code = string.IsNullOrEmpty(row["Code"].ToString()) ? string.Empty : row["Code"].ToString();
                     item.FirstName = string.IsNullOrEmpty(row["FirstName"].ToString()) ? string.Empty : row["FirstName"].ToString();
@@ -42,7 +42,7 @@ namespace Helix.UI.Sys.Module.DataStores
             return await Task.FromResult(items);
 
         }
-        public async Task<IEnumerable<VW_Employee>> GetObjects()
+        public async Task<IEnumerable<ViewObjects.EmployeeList>> GetObjects()
         {
             try
             {

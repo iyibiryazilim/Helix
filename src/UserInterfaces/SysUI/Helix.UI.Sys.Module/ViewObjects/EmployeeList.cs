@@ -8,9 +8,9 @@ namespace Helix.UI.Sys.Module.ViewObjects
 {
     [DefaultClassOptions]
     [DomainComponent]
-    public class VW_Employee 
+    public class EmployeeList 
     {
-        public VW_Employee()
+        public EmployeeList()
         {
         }
 
