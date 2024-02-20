@@ -95,7 +95,10 @@ public partial class BarcodePageView : ContentPage
 					{
 						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
 						{
-							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+							viewModel.Items.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
 						}
 						else
 						{
@@ -109,13 +112,16 @@ public partial class BarcodePageView : ContentPage
 							obj.StockQuantity = product.OnHand;
 							obj.Quantity = 1;
 							viewModel.Items.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
 							await Task.Delay(500);
 							await Shell.Current.GoToAsync("..");
 						}
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
 					}
 				}
 				#endregion
@@ -130,7 +136,10 @@ public partial class BarcodePageView : ContentPage
 					{
 						if (viewModel.Results.Any(x => x.Code == product.ProductCode))
 						{
-							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+							viewModel.Results.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
 						}
 						else
 						{
@@ -144,13 +153,14 @@ public partial class BarcodePageView : ContentPage
 							obj.StockQuantity = product.OnHand;
 							obj.Quantity = 1;
 							viewModel.Results.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
 							await Task.Delay(500);
 							await Shell.Current.GoToAsync("..");
 						}
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
 						await Task.Delay(500);
 						await Shell.Current.GoToAsync("..");
 					}
@@ -167,7 +177,10 @@ public partial class BarcodePageView : ContentPage
 					{
 						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
 						{
-							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+							viewModel.Items.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
 						}
 						else
 						{
@@ -182,13 +195,16 @@ public partial class BarcodePageView : ContentPage
 							obj.Quantity = 1;
 							//obj.LastTransactionDate = product.TransactionDate;
 							viewModel.Items.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
 							await Task.Delay(500);
 							await Shell.Current.GoToAsync("..");
 						}
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
 					}
 				}
 				#endregion
@@ -203,7 +219,10 @@ public partial class BarcodePageView : ContentPage
 					{
 						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
 						{
-							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+							viewModel.Items.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
 						}
 						else
 						{
@@ -217,13 +236,16 @@ public partial class BarcodePageView : ContentPage
 							obj.StockQuantity = product.OnHand;
 							obj.Quantity = 1;
 							viewModel.Items.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
 							await Task.Delay(500);
 							await Shell.Current.GoToAsync("..");
 						}
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
 					}
 				}
 				#endregion
@@ -238,7 +260,10 @@ public partial class BarcodePageView : ContentPage
 					{
 						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
 						{
-							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+							viewModel.Items.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
 						}
 						else
 						{
@@ -252,13 +277,16 @@ public partial class BarcodePageView : ContentPage
 							obj.StockQuantity = product.OnHand;
 							obj.Quantity = 1;
 							viewModel.Items.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
 							await Task.Delay(500);
 							await Shell.Current.GoToAsync("..");
 						}
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
 					}
 				}
 				#endregion
@@ -297,7 +325,7 @@ public partial class BarcodePageView : ContentPage
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
 						await Task.Delay(500);
 						await Shell.Current.GoToAsync("..");
 					}
@@ -338,7 +366,7 @@ public partial class BarcodePageView : ContentPage
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
 						await Task.Delay(500);
 						await Shell.Current.GoToAsync("..");
 					}
@@ -379,7 +407,7 @@ public partial class BarcodePageView : ContentPage
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
 						await Task.Delay(500);
 						await Shell.Current.GoToAsync("..");
 					}
@@ -420,7 +448,7 @@ public partial class BarcodePageView : ContentPage
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
 						await Task.Delay(500);
 						await Shell.Current.GoToAsync("..");
 					}
@@ -437,7 +465,11 @@ public partial class BarcodePageView : ContentPage
 					{
 						if (viewModel.Results.Any(x => x.ProductCode == product.Code))
 						{
-							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+							viewModel.Items.Where(x => x.ProductCode == product.Code).FirstOrDefault().QuantityCounter += 1;
+							viewModel.Items.Where(x => x.ProductCode == product.Code).FirstOrDefault().TempOnhand += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
 						}
 						else
 						{
@@ -453,13 +485,16 @@ public partial class BarcodePageView : ContentPage
 							obj.QuantityCounter = (int)product.StockQuantity;
 							viewModel.Items.Add(obj);
 							viewModel.Results.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
 							await Task.Delay(500);
 							await Shell.Current.GoToAsync("..");
 						}
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
 					}
 				}
 				#endregion
@@ -479,7 +514,7 @@ public partial class BarcodePageView : ContentPage
 					}
 					else
 					{
-						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await new MessageHelper().GetToastMessage("Ürün bulunamadý").Show(cancellationToken.Token);
 					}
 				}
 				#endregion
