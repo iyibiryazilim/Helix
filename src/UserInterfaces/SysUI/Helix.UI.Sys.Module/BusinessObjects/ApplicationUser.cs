@@ -28,6 +28,7 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
     }
 
     [DataSourceProperty(nameof(Department))]
+
     public Position Position
     {
         get => _position;

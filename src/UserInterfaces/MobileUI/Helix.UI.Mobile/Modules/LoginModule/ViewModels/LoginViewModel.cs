@@ -18,6 +18,8 @@ public partial class LoginViewModel : BaseViewModel
 	IHttpClientService _httpClientService;
 	IAuthenticationService _authenticationService;
 	IServiceProvider _serviceProvider;
+	IApplicationUserService _applicationUserService;
+
 
 	[ObservableProperty]
 	string userName = String.Empty;
@@ -25,11 +27,12 @@ public partial class LoginViewModel : BaseViewModel
 	[ObservableProperty]
 	string password = String.Empty;
 
-    public LoginViewModel(IHttpClientService httpClientService, IAuthenticationService authenticationService, IServiceProvider serviceProvider)
+    public LoginViewModel(IHttpClientService httpClientService, IAuthenticationService authenticationService, IServiceProvider serviceProvider,IApplicationUserService applicationUserService)
     {
 		_httpClientService = httpClientService;
 		_authenticationService = authenticationService;
 		_serviceProvider = serviceProvider;
+		_applicationUserService = applicationUserService;
     }
 
     [RelayCommand]
@@ -69,6 +72,12 @@ public partial class LoginViewModel : BaseViewModel
 				{
 					httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.Token);
 
+					var user = await _applicationUserService.GetObjects(httpClient, $"?$filter=UserName eq '{UserName}'&$expand=Employee");
+					var data = user.Data.FirstOrDefault();
+					if (user!=null)
+					{
+                        await SecureStorage.SetAsync("EmployeeOid", data.Employee.Oid.ToString());
+                    }
 					await SecureStorage.SetAsync("CurrentUser", UserName);
 					var result = await SecureStorage.Default.GetAsync("isWatch");
 					if (result == "true")

@@ -21,11 +21,13 @@ namespace Helix.UI.Sys.Module.BusinessObjects
             base.AfterConstruction();
            
         }
+
         public Employee Employee { get => _employee; set=>SetPropertyValue(nameof(Employee),ref _employee, value); }
 
         [Size(-1)]
         public string Message { get => _message; set => SetPropertyValue(nameof(Message), ref _message, value); }
 
+        [Size(-1)]
         public string Data { get => _data; set=> SetPropertyValue(nameof(Data),ref _data, value); }
         
     }
