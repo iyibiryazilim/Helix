@@ -396,13 +396,32 @@ public partial class BarcodePageView : ContentPage
 			else if (_viewModel.CurrentPage == "WarehouseCountingListView")
 			{
 				WarehouseCountingListViewModel viewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
-				var product = viewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+				WarehouseCountingSelectProductsViewModel selectProductsViewModel = _serviceProvider.GetService<WarehouseCountingSelectProductsViewModel>();
+
+				var product = selectProductsViewModel.Items.Where(x => x.Code == first.Value).FirstOrDefault();
 				if (product != null)
 				{
-					//product.IsSelected = true;
-					viewModel.Results.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
+					if (viewModel.Results.Any(x => x.ProductCode == product.Code))
+					{
+						await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+					}
+					else
+					{
+						var obj = Mapping.Mapper.Map<WarehouseTotal>(product);
+						obj.ProductReferenceId = product.ReferenceId;
+						obj.ProductCode = product.Code;
+						obj.ProductName = product.Name;
+						obj.Image = product.Image;
+						obj.UnitsetReferenceId = product.ReferenceId;
+						obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+						obj.OnHand = product.StockQuantity;
+						obj.TempOnhand = product.StockQuantity;
+						obj.QuantityCounter = (int)product.StockQuantity;
+						viewModel.Items.Add(obj);
+						viewModel.Results.Add(obj);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
 				}
 				else
 				{

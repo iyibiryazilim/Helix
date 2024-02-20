@@ -31,6 +31,7 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 	#region Lists
 	public ObservableCollection<Product> Items { get; } = new();
 	public ObservableCollection<Product> SelectedItems { get; } = new();
+	public ObservableCollection<Product> SelectedProducts { get; } = new();
 	#endregion
 
 	#region Properties
@@ -42,10 +43,6 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 	int currentPage = 0;
 	[ObservableProperty]
 	int pageSize = 20;
-
-
-	ObservableCollection<Product> SelectedProducts { get; } = new();
-
 	#endregion
 
 	async Task LoadData()
@@ -77,6 +74,7 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
 		{
 			IsBusy = true;
 			IsRefreshing = true;
+			IsRefreshing = false;
 
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			var result = await _productService.GetObjects(httpClient, SearchText, "", OrderBy, CurrentPage, PageSize);
@@ -356,7 +354,8 @@ public partial class WarehouseCountingSelectProductsViewModel : BaseViewModel
                     ProductName = item.Name,
                     SubUnitsetCode = item.SubUnitsetCode,
                     OnHand = item.StockQuantity,
-                    TempOnhand = 1,
+                    TempOnhand = item.StockQuantity,
+					QuantityCounter = (int)item.StockQuantity,
                     Image = item.Image,
 
                 };

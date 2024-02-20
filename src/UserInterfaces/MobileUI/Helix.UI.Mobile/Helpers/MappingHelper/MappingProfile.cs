@@ -38,6 +38,7 @@ public class MappingProfile : Profile
 		CreateMap<SupplierTransaction, DispatchTransaction>().ReverseMap();
 		CreateMap<PurchaseDispatchTransactionLine, DispatchTransactionLine>().ReverseMap();
 		CreateMap<WarehouseTotal, ProductModel>().ReverseMap();
+		CreateMap<Product, WarehouseTotal>().ReverseMap();
 
 
 	}
