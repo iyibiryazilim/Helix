@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:fontAwesome="clr-namespace:Helix.UI.Mobile.Helpers.FontAwesomeHelper"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
              xmlns:barcode="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:Helix.UI.Mobile.Modules.BaseModule.SharedViewModel"
@@ -43,17 +44,23 @@
             </Border.StrokeShape>
             <ScrollView>
                 <VerticalStackLayout VerticalOptions="Center">
-                    <Border StrokeThickness="1"
+                    <!--<Border StrokeThickness="1"
                             HeightRequest="500"
                             WidthRequest="300"
                             BackgroundColor="Transparent"
                             StrokeShape="RoundRectangle 30">
-                        <barcode:CameraView x:Name="cameraView"
+                        --><!--<barcode:CameraView x:Name="cameraView"
                                 BarCodeDetectionEnabled="True"
                                 BarcodeDetected="CameraView_BarcodeDetected"
                                 CamerasLoaded="CameraView_CamerasLoaded"
-                                 />
-                    </Border>
+                                 />--><!--
+                        <zxing:CameraBarcodeReaderView x:Name="cameraBarcodeReaderView"
+                                                       BarcodesDetected="cameraBarcodeReaderView_BarcodesDetected"/>
+                    </Border>-->
+                    <zxing:CameraBarcodeReaderView x:Name="cameraBarcodeReaderView"
+                        HeightRequest="500"        
+                        WidthRequest="300"
+                        BarcodesDetected="cameraBarcodeReaderView_BarcodesDetected"/>
                     
                 </VerticalStackLayout>
             </ScrollView>

@@ -286,7 +286,7 @@ public partial class WarehouseCountingListViewModel : BaseViewModel
             await Shell.Current.GoToAsync($"{nameof(WarehouseCountingSummaryView)}", new Dictionary<string, object>
             {
                 [nameof(SelectedWarehouse)] = SelectedWarehouse,
-                ["SelectedProducts"] = SelectedProducts,
+                ["SelectedProducts"] = Results,
             });
         }
         catch (Exception ex)

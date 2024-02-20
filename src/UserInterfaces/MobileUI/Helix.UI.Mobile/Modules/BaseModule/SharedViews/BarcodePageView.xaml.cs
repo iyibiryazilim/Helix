@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Views;
+using Helix.UI.Mobile.Helpers.MappingHelper;
 using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.ProductModule.Models;
@@ -16,6 +17,7 @@ using Helix.UI.Mobile.Modules.ReturnModule.Views.Purchases.ReturnPurchaseViews;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.SalesDispatchViewModels;
 using System.Diagnostics;
 using ZXing;
+using ZXing.Net.Maui;
 
 namespace Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 
@@ -23,264 +25,477 @@ public partial class BarcodePageView : ContentPage
 {
 	BarcodePageViewModel _viewModel;
 	IServiceProvider _serviceProvider;
+
+	int scanCount = 0;
 	public BarcodePageView(BarcodePageViewModel viewModel, IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = viewModel;
 		_serviceProvider = serviceProvider;
 
-		cameraView.BarCodeOptions = new()
+		cameraBarcodeReaderView.Options = new BarcodeReaderOptions
 		{
-			PossibleFormats = {BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39, BarcodeFormat.CODE_128, BarcodeFormat.EAN_8},
+			Formats = BarcodeFormats.All,
+			TryHarder = false,
 			AutoRotate = true,
+			Multiple = false
 		};
+		
 	}
 
-	public void CameraView_CamerasLoaded(object sender, EventArgs e)
+	//public void CameraBarcodeReaderViewMethod()
+	//{
+	//	cameraBarcodeReaderView.Options = new BarcodeReaderOptions
+	//	{
+	//		Formats = BarcodeFormats.All,
+	//		AutoRotate = true,
+	//		Multiple = false
+	//	};
+	//}
+
+	private void cameraBarcodeReaderView_BarcodesDetected(object sender, ZXing.Net.Maui.BarcodeDetectionEventArgs e)
 	{
-		if(cameraView.Cameras.Count > 0)
+		if (scanCount > 0)
 		{
-			cameraView.Camera = cameraView.Cameras.First();
-			MainThread.BeginInvokeOnMainThread(async () =>
-			{
-				//Task.Delay(500);
-				await cameraView.StopCameraAsync();
-				await cameraView.StartCameraAsync();
-
-			});
+			return;
 		}
-	}
-
-	public void CameraView_BarcodeDetected(object sender, Camera.MAUI.ZXingHelper.BarcodeEventArgs args)
-	{
-		MainThread.BeginInvokeOnMainThread(async () =>
+		try
 		{
 			CancellationTokenSource cancellationToken = new();
+			var first = e.Results?.FirstOrDefault();
+			Dispatcher.DispatchAsync(async () =>
+			{
+				#region WarehouseTransferOperationView -- not completed
+				if (_viewModel.CurrentPage == "WarehouseTransferOperationView")
+				{
+					WarehouseTransferOperationViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
+					var product = viewModel.Items.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						product.IsSelected = true;
+						viewModel.SelectedItems.Add(product);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
+					else
+					{
+						Debug.WriteLine(first.Value);
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+					}
+				}
+				#endregion
+				#region PurchaseDispatchListView
+				else if (_viewModel.CurrentPage == "PurchaseDispatchListView")
+				{
+					PurchaseDispatchListViewModel viewModel = _serviceProvider.GetService<PurchaseDispatchListViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
 
-			#region WarehouseTransferOperationView
-			if (_viewModel.CurrentPage == "WarehouseTransferOperationView")
-			{
-				WarehouseTransferOperationViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
-				var product = viewModel.Items.Where(x => x.ProductCode == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					product.IsSelected = true;
-					viewModel.SelectedItems.Add(product);
-					//Debug.WriteLine(args.Result[0].BarcodeFormat);
-					Debug.WriteLine(args.Result[0].Text);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
+						{
+							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Items.Add(obj);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+					}
 				}
-				else
+				#endregion
+				#region SalesDispatchListView
+				else if (_viewModel.CurrentPage == "SalesDispatchListView")
 				{
-					Debug.WriteLine(args.Result[0].Text);
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region PurchaseDispatchListView
-			else if (_viewModel.CurrentPage == "PurchaseDispatchListView")
-			{
-				PurchaseDispatchListViewModel viewModel = _serviceProvider.GetService<PurchaseDispatchListViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					Debug.WriteLine(args.Result[0].Text);
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region SalesDispatchListView
-			else if (_viewModel.CurrentPage == "SalesDispatchListView")
-			{
-				SalesDispatchListViewModel viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					Debug.WriteLine(args.Result[0].Text);
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region InCountingTransactionOperationView
-			else if (_viewModel.CurrentPage == "InCountingTransactionOperationView")
-			{
-				InCountingTransactionOperationViewModel viewModel = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region ConsumableTransactionOperationView
-			else if (_viewModel.CurrentPage == "ConsumableTransactionOperationView")
-			{
-				ConsumableTransactionOperationViewModel viewModel = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region WastageTransactionOperationView
-			else if (_viewModel.CurrentPage == "WastageTransactionOperationView")
-			{
-				WastageTransactionOperationViewModel viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region OutCountingTransactionOperationView
-			else if (_viewModel.CurrentPage == "OutCountingTransactionOperationView")
-			{
-				OutCountingTransactionOperationViewModel viewModel = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region ProductionTransactionOperationView
-			else if(_viewModel.CurrentPage == "ProductionTransactionOperationView")
-			{
-				ProductionTransactionOperationViewModel viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
-				var product = viewModel.Results.Where( x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if(product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Results.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region ReturnSalesListView
-			else if(_viewModel.CurrentPage == "ReturnSalesListView")
-			{
-				ReturnSalesListViewModel viewModel = _serviceProvider.GetService<ReturnSalesListViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if(product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region ReturnPurchaseListView
-			else if (_viewModel.CurrentPage == "ReturnPurchaseListView")
-			{
-				ReturnPurchaseListViewModel viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
-				var product = viewModel.Items.Where(x => x.Code == args.Result[0].Text).FirstOrDefault();
-				if (product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Items.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region WarehouseCountingListView
-			else if(_viewModel.CurrentPage == "WarehouseCountingListView")
-			{
-				WarehouseCountingListViewModel viewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
-				var product = viewModel.Results.Where(x => x.ProductCode == args.Result[0].Text).FirstOrDefault();
-				if(product != null)
-				{
-					//product.IsSelected = true;
-					viewModel.Results.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
-				}
-				else
-				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
-			#region WarehouseTransferOperationSelectedItemsListView
-			else if(_viewModel.CurrentPage == "WarehouseTransferOperationSelectedItemsListView")
-			{
-				WarehouseTransferOperationSelectedItemsListViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationSelectedItemsListViewModel>();
-				var product = viewModel.Result.Where(x => x.ProductCode == args.Result[0].Text).FirstOrDefault();
-				if(product != null && !viewModel.Result.Contains(product))
-				{
-					if(viewModel.Result.Contains(product))
-						await new MessageHelper().GetToastMessage("Ürün malzeme listesinde yer almaktadýr").Show(cancellationToken.Token);
+					SalesDispatchListViewModel viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
 
-					viewModel.Result.Add(product);
-					await Task.Delay(500);
-					await Shell.Current.GoToAsync("..");
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Results.Any(x => x.Code == product.ProductCode))
+						{
+							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Results.Add(obj);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
 				}
-				else
+				#endregion
+				#region InCountingTransactionOperationView
+				else if (_viewModel.CurrentPage == "InCountingTransactionOperationView")
 				{
-					await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
-				}
-			}
-			#endregion
+					InCountingTransactionOperationViewModel viewModel = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
 
-		});
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
+						{
+							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							//obj.LastTransactionDate = product.TransactionDate;
+							viewModel.Items.Add(obj);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+					}
+				}
+				#endregion
+				#region ConsumableTransactionOperationView
+				else if (_viewModel.CurrentPage == "ConsumableTransactionOperationView")
+				{
+					ConsumableTransactionOperationViewModel viewModel = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
+
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
+						{
+							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Items.Add(obj);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+					}
+				}
+				#endregion
+				#region WastageTransactionOperationView
+				else if (_viewModel.CurrentPage == "WastageTransactionOperationView")
+				{
+					WastageTransactionOperationViewModel viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
+
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
+						{
+							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Items.Add(obj);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+					}
+				}
+				#endregion
+				#region OutCountingTransactionOperationView
+				else if (_viewModel.CurrentPage == "OutCountingTransactionOperationView")
+				{
+					OutCountingTransactionOperationViewModel viewModel = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
+
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
+						{
+							viewModel.Items.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Items.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
+				}
+				#endregion
+				#region ProductionTransactionOperationView
+				else if (_viewModel.CurrentPage == "ProductionTransactionOperationView")
+				{
+					ProductionTransactionOperationViewModel viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
+
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Results.Any(x => x.Code == product.ProductCode))
+						{
+							viewModel.Results.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Results.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
+				}
+				#endregion
+				#region ReturnSalesListView
+				else if (_viewModel.CurrentPage == "ReturnSalesListView")
+				{
+					ReturnSalesListViewModel viewModel = _serviceProvider.GetService<ReturnSalesListViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
+
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
+						{
+							viewModel.Items.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Items.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
+				}
+				#endregion
+				#region ReturnPurchaseListView
+				else if (_viewModel.CurrentPage == "ReturnPurchaseListView")
+				{
+					ReturnPurchaseListViewModel viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
+					SharedProductListViewModel sharedViewModel = _serviceProvider.GetService<SharedProductListViewModel>();
+
+					var product = sharedViewModel.Results.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Items.Any(x => x.Code == product.ProductCode))
+						{
+							viewModel.Items.Where(x => x.Code == product.ProductCode).FirstOrDefault().Quantity += 1;
+							await new MessageHelper().GetToastMessage("Var olan ürünün miktarý arttýrýldý").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<ProductModel>(product);
+							obj.ReferenceId = product.ProductReferenceId;
+							obj.Code = product.ProductCode;
+							obj.Name = product.ProductName;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.UnitsetReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.StockQuantity = product.OnHand;
+							obj.Quantity = 1;
+							viewModel.Items.Add(obj);
+							await new MessageHelper().GetToastMessage("Ürün eklendi").Show(cancellationToken.Token);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
+				}
+				#endregion
+				#region WarehouseCountingListView
+				else if (_viewModel.CurrentPage == "WarehouseCountingListView")
+				{
+					WarehouseCountingListViewModel viewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+					WarehouseCountingSelectProductsViewModel selectProductsViewModel = _serviceProvider.GetService<WarehouseCountingSelectProductsViewModel>();
+
+					var product = selectProductsViewModel.Items.Where(x => x.Code == first.Value).FirstOrDefault();
+					if (product != null)
+					{
+						if (viewModel.Results.Any(x => x.ProductCode == product.Code))
+						{
+							await new MessageHelper().GetToastMessage("Taratýlan ürün listede bulunmaktadýr").Show(cancellationToken.Token);
+						}
+						else
+						{
+							var obj = Mapping.Mapper.Map<WarehouseTotal>(product);
+							obj.ProductReferenceId = product.ReferenceId;
+							obj.ProductCode = product.Code;
+							obj.ProductName = product.Name;
+							obj.Image = product.Image;
+							obj.UnitsetReferenceId = product.ReferenceId;
+							obj.SubUnitsetReferenceId = product.SubUnitsetReferenceId;
+							obj.OnHand = product.StockQuantity;
+							obj.TempOnhand = product.StockQuantity;
+							obj.QuantityCounter = (int)product.StockQuantity;
+							viewModel.Items.Add(obj);
+							viewModel.Results.Add(obj);
+							await Task.Delay(500);
+							await Shell.Current.GoToAsync("..");
+						}
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+					}
+				}
+				#endregion
+				#region WarehouseTransferOperationSelectedItemsListView -- not completed
+				else if (_viewModel.CurrentPage == "WarehouseTransferOperationSelectedItemsListView")
+				{
+					WarehouseTransferOperationSelectedItemsListViewModel viewModel = _serviceProvider.GetService<WarehouseTransferOperationSelectedItemsListViewModel>();
+					var product = viewModel.Result.Where(x => x.ProductCode == first.Value).FirstOrDefault();
+					if (product != null && !viewModel.Result.Contains(product))
+					{
+						if (viewModel.Result.Contains(product))
+							await new MessageHelper().GetToastMessage("Ürün malzeme listesinde yer almaktadýr").Show(cancellationToken.Token);
+
+						viewModel.Result.Add(product);
+						await Task.Delay(500);
+						await Shell.Current.GoToAsync("..");
+					}
+					else
+					{
+						await new MessageHelper().GetToastMessage("Ürün Bulunamadý").Show(cancellationToken.Token);
+					}
+				}
+				#endregion
+			});
+		
+		}
+		
+		catch(Exception ex)
+		{
+			Debug.WriteLine(ex.Message);
+		}
+		finally
+		{
+			scanCount += 1;
+		}
+		
+		
 	}
 }

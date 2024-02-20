@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <Grid>
-    <Border BackgroundColor="{StaticResource White}"
+    <Border BackgroundColor="{StaticResource MainBorderColor}"
             StrokeThickness="0"
             Padding="5,20,5,10">
         <Border.StrokeShape>
