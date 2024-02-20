@@ -30,6 +30,7 @@ namespace Helix.UI.Sys.Module.ViewObjects
         public string SpeCode { get; set; }
 
         [ModelDefault("AllowEdit", "False")]
+        [Browsable(false)]
         public string SubUnitset { get; set; }
 
         [Browsable(false)]

@@ -30,6 +30,27 @@ background-color: #4c3398;
     background-color: #4c3398
 }
 
+.account-button{
+    color: white;
+}
+
+.theme-button {
+    color: white;
+}
+
+.btn-hamburger{
+    color: white;
+}
+
+.dxbl-group .dxbl-btn {
+    color: white;
+}
+
+
+.dxbl-group-expand-btn:hover {
+    color: yellow;
+}
+
 .dxbl-group {
     background-color: #4c3398
 }
@@ -42,6 +63,7 @@ background-color: #4c3398;
     text-decoration: none !important;
 
 }
+
 .dxbl-accordion-item-content {
     text-decoration: none;
 }

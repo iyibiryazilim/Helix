@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="VW_Product_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="SubUnitset" Width="99" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="VW_Product_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_Product">
+              <LayoutGroup Id="VW_Product_col1">
+                <LayoutItem Id="SubUnitset" RelativeSize="2.6970954356846475" Index="4" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

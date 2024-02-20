@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.FailureTransactionOwner">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ApplicationUser" Caption="Kullanıcı" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>
