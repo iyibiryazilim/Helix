@@ -58,7 +58,7 @@
                                                        BarcodesDetected="cameraBarcodeReaderView_BarcodesDetected"/>
                     </Border>-->
                     <zxing:CameraBarcodeReaderView x:Name="cameraBarcodeReaderView"
-                        HeightRequest="500"
+                        HeightRequest="500"        
                         WidthRequest="300"
                         BarcodesDetected="cameraBarcodeReaderView_BarcodesDetected"/>
                     
