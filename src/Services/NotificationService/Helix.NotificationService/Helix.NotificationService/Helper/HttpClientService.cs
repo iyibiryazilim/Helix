@@ -1,6 +1,6 @@
 ﻿namespace Helix.NotificationService.Helper;
 
-public class HttpClientService  
+public class HttpClientService  : IHttpClientService
 {
 	private readonly Lazy<HttpClient> _httpClient = new Lazy<HttpClient>(
 () =>
