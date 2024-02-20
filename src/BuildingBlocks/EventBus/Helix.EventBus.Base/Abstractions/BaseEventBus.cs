@@ -54,7 +54,11 @@ public abstract class BaseEventBus : IEventBus
                 {
                     var handler = _serviceProvider.GetService(subscription.HandleType);
 
-                    if (handler == null) continue;
+                    if (handler == null)
+                    {
+                        Console.WriteLine("Handler is null");
+						continue;
+					}
 
                     var eventType = _subscriptionManager.GetEventTypeByName($"{_eventBusconfig.EventNamePrefix}{eventName}{_eventBusconfig.EventNameSuffix}");
 

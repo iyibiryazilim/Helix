@@ -1,14 +1,9 @@
 ﻿using Helix.EventBus.Base.Abstractions;
 using Helix.EventBus.Base.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Helix.EventBus.Base.SubManagers
 {
-    public class InMemoryEventBusSubscriptionManager : IEventBusSubscriptionManager
+	public class InMemoryEventBusSubscriptionManager : IEventBusSubscriptionManager
     {
         private readonly Dictionary<string, List<SubscriptionInfo>> _handlers;
         private readonly List<Type> _eventTypes;

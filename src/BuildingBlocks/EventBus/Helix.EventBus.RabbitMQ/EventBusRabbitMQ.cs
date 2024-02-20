@@ -6,6 +6,7 @@ using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
@@ -87,13 +88,13 @@ namespace Helix.EventBus.RabbitMQ
 				try
 				{
 					_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
-					_consumer = new EventingBasicConsumer(_consumerChannel);
-					_consumer.Received += Consumer_Received;
+					var consumer = new EventingBasicConsumer(_consumerChannel);
+					consumer.Received += Consumer_Received;
 
-					//_consumerChannel.BasicConsume(queue: GetSubName(eventName),
-					//													autoAck: false,
-					//													consumer: _consumer);
-
+					_consumerChannel.BasicConsume(queue: GetSubName(eventName),
+																		autoAck: false,
+																		consumer: consumer);
+					_consumer = consumer;
 				}
 				catch (Exception)
 				{
@@ -109,18 +110,16 @@ namespace Helix.EventBus.RabbitMQ
 			var eventName = args.RoutingKey;
 			eventName = ProcessEventName(eventName);
 			var message = Encoding.UTF8.GetString(args.Body.Span);
-
-			try
+ 			try
 			{
 				await ProcessEvent(eventName, message);
 			}
 			catch (Exception)
-			{
-
+			{ 
 				throw;
 			}
 
-			_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
+			//_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
 
 		}
 

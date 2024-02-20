@@ -4,6 +4,12 @@ namespace Helix.NotificationService.Events
 {
 	public class LOGOFailureIntegrationEventHandler : IIntegrationEventHandler<LOGOFailureIntegrationEvent>
 	{
+		private readonly ILogger<LOGOFailureIntegrationEventHandler> _logger;
+		public LOGOFailureIntegrationEventHandler(ILogger<LOGOFailureIntegrationEventHandler> logger)
+		{
+			_logger = logger;
+		}
+
 		public Task Handle(LOGOFailureIntegrationEvent @event)
 		{
 			//Throw error to test error handling

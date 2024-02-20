@@ -6,28 +6,30 @@ using Helix.NotificationService;
 using Helix.NotificationService.Events;
 
 var builder = Host.CreateApplicationBuilder(args);
+
+// Register Worker as a hosted service
 builder.Services.AddHostedService<Worker>();
-
-
-builder.Services.AddSingleton<IEventBus>(eb =>
+builder.Services.AddTransient<LOGOSuccessIntegrationEventHandler>();
+builder.Services.AddTransient<LOGOFailureIntegrationEventHandler>();
+builder.Services.AddTransient<SYSMessageIntegrationEventHandler>(); 
+// Register the event bus factory and create an instance of IEventBus
+builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 {
-	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
+	var eventBus = EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
 	{
 		ConnectionRetryCount = 5,
 		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
 		EventNameSuffix = nameof(IntegrationEvent),
- 
-	}, eb);
-});
-var serviceProvider = builder.Services.BuildServiceProvider();
+	}, serviceProvider);
 
-var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+	// Subscribe to events here if necessary 
+	eventBus.Subscribe<LOGOSuccessIntegrationEvent, LOGOSuccessIntegrationEventHandler>();
+	eventBus.Subscribe<LOGOFailureIntegrationEvent, LOGOFailureIntegrationEventHandler>();
+	eventBus.Subscribe<SYSMessageIntegrationEvent, SYSMessageIntegrationEventHandler>();
+	return eventBus;
+}); 
 
-eventBus.Subscribe<LOGOSuccessIntegrationEvent, LOGOSuccessIntegrationEventHandler>();
-eventBus.Subscribe<LOGOFailureIntegrationEvent, LOGOFailureIntegrationEventHandler>();
-eventBus.Subscribe<SYSMessageIntegrationEvent, SYSMessageIntegrationEventHandler>();
-
- var host = builder.Build();
+var host = builder.Build();
 host.Run();

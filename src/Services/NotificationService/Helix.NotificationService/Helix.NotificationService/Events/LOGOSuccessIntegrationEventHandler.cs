@@ -5,9 +5,15 @@ namespace Helix.NotificationService.Events
 {
 	public class LOGOSuccessIntegrationEventHandler : IIntegrationEventHandler<LOGOSuccessIntegrationEvent>
 	{
+		private readonly ILogger<LOGOSuccessIntegrationEventHandler> _logger;
+		public LOGOSuccessIntegrationEventHandler(ILogger<LOGOSuccessIntegrationEventHandler> logger)
+		{
+			_logger = logger;
+		}
+
 		public Task Handle(LOGOSuccessIntegrationEvent @event)
 		{
-			Debug.WriteLine("LOGOSuccessIntegrationEvent Handled");	
+			_logger.LogInformation("LOGOSuccessIntegrationEvent Handled");	
 			return Task.CompletedTask;
 		}
 	}
