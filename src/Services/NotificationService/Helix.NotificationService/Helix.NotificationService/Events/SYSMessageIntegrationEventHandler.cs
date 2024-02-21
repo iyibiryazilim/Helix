@@ -27,7 +27,7 @@ namespace Helix.NotificationService.Events
 				{
 					var dto = new TransactionOwnerDto()
 					{
-						Employee = new Guid("C05E3FA6-95C7-4571-BFFC-1D80B320B763"),
+						Employee = @event.ApplicationOwner,
 						FicheReferenceId = @event.FicheId
 					};
 					HttpResponseMessage response = await httpclient.PostAsync("gateway/identity/odata/TransactionOwner", new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json"));
@@ -47,7 +47,7 @@ namespace Helix.NotificationService.Events
 				{
 					var dto = new FailureTransactionOwnerDto()
 					{
-						Employee = new Guid("C05E3FA6-95C7-4571-BFFC-1D80B320B763"),
+						Employee = @event.ApplicationOwner,
 						Data = JsonConvert.SerializeObject(@event),
 						Message = @event.Message
 					};

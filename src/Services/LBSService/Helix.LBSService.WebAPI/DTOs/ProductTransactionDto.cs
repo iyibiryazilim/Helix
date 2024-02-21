@@ -2,7 +2,8 @@
 {
 	public class ProductTransactionDto
 	{
-		public int? ReferenceId { get; set; }
+        public string? EmployeeOid { get; set; }
+        public int? ReferenceId { get; set; }
  		public DateTime TransactionDate { get; set; } = DateTime.Now;
 		public string? Code { get; set; } = string.Empty;
 		public short? GroupType { get; set; } = 3;
