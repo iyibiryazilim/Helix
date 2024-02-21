@@ -784,6 +784,7 @@ namespace Helix.UI.Mobile
 		public static MauiAppBuilder LoginRegisterServices(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddSingleton<IAuthenticationService, AuthenticateDataStore>();
+			mauiAppBuilder.Services.AddSingleton<IApplicationUserService, ApplicationUserDataStore>();
 
 			return mauiAppBuilder;
 		}

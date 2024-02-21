@@ -43,9 +43,10 @@ public class RetailSalesDispatchTransactionInsertingIntegrationEvent : Integrati
     public short? IsEInvoice { get; private set; }
     public short? EDispatchProfileId { get; private set; }
     public short? EInvoiceProfileId { get; private set; }
+    public string? EmployeeOid { get; private set; }
     public List<RetailSalesDispatchTransactionLineDto> Lines { get; set; }
 
-    public RetailSalesDispatchTransactionInsertingIntegrationEvent(int? referenceId, DateTime transactionDate, short? groupType, short? ıOType, short? transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, double? total, double? totalVat, double? netTotal, string description, short? dispatchType, int? carrierReferenceId, string carrierCode, int? driverReferenceId, string driverFirstName, string driverLastName, string identityNumber, string plaque, int? shipInfoReferenceId, string shipInfoCode, string speCode, short? dispatchStatus, short? isEDispatch, string doCode, string docTrackingNumber, short? ısEInvoice, short? eDispatchProfileId, short? eInvoiceProfileId,List<RetailSalesDispatchTransactionLineDto> lines)
+    public RetailSalesDispatchTransactionInsertingIntegrationEvent(int? referenceId, DateTime transactionDate, short? groupType, short? ıOType, short? transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, double? total, double? totalVat, double? netTotal, string description, short? dispatchType, int? carrierReferenceId, string carrierCode, int? driverReferenceId, string driverFirstName, string driverLastName, string identityNumber, string plaque, int? shipInfoReferenceId, string shipInfoCode, string speCode, short? dispatchStatus, short? isEDispatch, string doCode, string docTrackingNumber, short? ısEInvoice, short? eDispatchProfileId, short? eInvoiceProfileId, string? employeeOid, List<RetailSalesDispatchTransactionLineDto> lines)
     {
         ReferenceId = referenceId;
         TransactionDate = transactionDate;
@@ -78,6 +79,7 @@ public class RetailSalesDispatchTransactionInsertingIntegrationEvent : Integrati
         IsEInvoice = ısEInvoice;
         EDispatchProfileId = eDispatchProfileId;
         EInvoiceProfileId = eInvoiceProfileId;
+        EmployeeOid = employeeOid;
         Lines = lines;
     }
 }

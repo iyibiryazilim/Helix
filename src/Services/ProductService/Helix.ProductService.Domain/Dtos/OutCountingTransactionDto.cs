@@ -13,6 +13,7 @@
     string speCode,
     string doCode,
     string docTrackingNumber,
+    string? employeeOid,
     List<OutCountingTransactionLineDto> lines)
     {
     }

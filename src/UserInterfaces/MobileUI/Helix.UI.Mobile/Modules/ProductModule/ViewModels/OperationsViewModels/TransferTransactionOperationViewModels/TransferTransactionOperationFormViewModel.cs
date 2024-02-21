@@ -102,6 +102,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                    .AddHours(TransactionTime.Hours)
                    .AddMinutes(TransactionTime.Minutes)
                    .AddSeconds(TransactionTime.Seconds);
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
 
                 var consumableTransactionDto = new ConsumableTransactionDto()
                 {
@@ -110,7 +111,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     IOType = 4,
                     Description = Description,
                     TransactionType = 12,
-                    GroupType = 3
+                    GroupType = 3,
+                    EmployeeOid = employeeOid
 
                 };
                 foreach (var item in TransferTransactionModel.Products)
@@ -145,7 +147,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                         IOType = 1,
                         Description = Description,
                         TransactionType = 13,
-                        GroupType = 3
+                        GroupType = 3,
+                        EmployeeOid = employeeOid
 
                     };
                     foreach (var item in TransferTransactionModel.Products)

@@ -13,5 +13,6 @@
         public string SpeCode { get; set; } = string.Empty;
         public string DoCode { get; set; } = string.Empty;
         public string DocTrackingNumber { get; set; } = string.Empty;
+        public string EmployeeOid { get; set; }
     }
 }

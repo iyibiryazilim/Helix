@@ -157,6 +157,8 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
                .AddHours(ProductTransactionFormModel.TransactionTime.Hours)
                .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
                .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
 
             var outCountingTransactionDto = new OutCountingTransactionDto()
             {
@@ -167,7 +169,8 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
                 IOType = 4,
                 Description = ProductTransactionFormModel.Description,
                 TransactionType = 51,
-                GroupType = 3
+                GroupType = 3,
+                EmployeeOid = employeeOid
 
             };
             foreach (var item in ProductModel)

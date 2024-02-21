@@ -62,7 +62,7 @@ public class ProductionTransactionController : ControllerBase
 	[HttpPost]
 	public async Task ProductionTransactionInsert([FromBody] ProductionTransactionDto productionTransactionDto)
 	{
-		_eventBus.Publish(new ProductionTransactionInsertingIntegrationEvent(productionTransactionDto.referenceId, productionTransactionDto.transactionDate, productionTransactionDto.code, productionTransactionDto.groupType, productionTransactionDto.iOType, productionTransactionDto.transactionType, productionTransactionDto.warehouseNumber, productionTransactionDto.currentReferenceId, productionTransactionDto.currentCode, productionTransactionDto.description, productionTransactionDto.speCode, productionTransactionDto.doCode, productionTransactionDto.docTrackingNumber, productionTransactionDto.lines));
+		_eventBus.Publish(new ProductionTransactionInsertingIntegrationEvent(productionTransactionDto.referenceId, productionTransactionDto.transactionDate, productionTransactionDto.code, productionTransactionDto.groupType, productionTransactionDto.iOType, productionTransactionDto.transactionType, productionTransactionDto.warehouseNumber, productionTransactionDto.currentReferenceId, productionTransactionDto.currentCode, productionTransactionDto.description, productionTransactionDto.speCode, productionTransactionDto.doCode, productionTransactionDto.docTrackingNumber, productionTransactionDto.employeeOid, productionTransactionDto.lines));
 	}
 
 }

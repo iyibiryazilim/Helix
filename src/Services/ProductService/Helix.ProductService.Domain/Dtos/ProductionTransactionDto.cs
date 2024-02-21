@@ -12,7 +12,7 @@ public record ProductionTransactionDto(int referenceId,
     string description,
     string speCode,
     string doCode,
-    string docTrackingNumber, List<ProductionTransactionLineDto> lines)
+    string docTrackingNumber, string? employeeOid, List<ProductionTransactionLineDto> lines)
 {
     
 }

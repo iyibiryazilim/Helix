@@ -14,6 +14,7 @@
     string speCode,
     string doCode,
     string docTrackingNumber,
+    string? employeeOid,
     List<ConsumableTransactionLineDto> lines
      
      )

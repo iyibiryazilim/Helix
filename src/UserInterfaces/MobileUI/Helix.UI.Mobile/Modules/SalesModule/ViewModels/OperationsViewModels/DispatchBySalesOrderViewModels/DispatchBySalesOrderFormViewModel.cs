@@ -231,6 +231,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             IsBusy = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
+
             RetailSalesDispatchTransactionDto retailSalesDispatch = new RetailSalesDispatchTransactionDto();
             retailSalesDispatch.WarehouseNumber = Warehouse.Number;
             retailSalesDispatch.CarrierCode = SalesFormModel.SelectedCarrier.Code;
@@ -246,6 +249,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             retailSalesDispatch.Description = SalesFormModel.Description;
             retailSalesDispatch.CurrentCode = Current.Code;
             retailSalesDispatch.CurrentReferenceId = Current.ReferenceId;
+            retailSalesDispatch.EmployeeOid = employeeOid;
 
 
 
@@ -307,6 +311,9 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             IsBusy = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
+
             WholeSalesDispatchTransactionDto wholeSalesDispatchTransactionDto = new WholeSalesDispatchTransactionDto();
             wholeSalesDispatchTransactionDto.WarehouseNumber = Warehouse.Number;
             wholeSalesDispatchTransactionDto.CarrierCode = SalesFormModel.SelectedCarrier.Code;
@@ -325,6 +332,7 @@ public partial class DispatchBySalesOrderFormViewModel:BaseViewModel
             wholeSalesDispatchTransactionDto.Description = SalesFormModel.Description;
             wholeSalesDispatchTransactionDto.CurrentCode = Current.Code;
             wholeSalesDispatchTransactionDto.CurrentReferenceId = Current.ReferenceId;
+            wholeSalesDispatchTransactionDto.EmployeeOid = employeeOid;
 
 
 

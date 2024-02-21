@@ -108,6 +108,8 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
                .AddHours(TransactionTime.Hours)
                .AddMinutes(TransactionTime.Minutes)
                .AddSeconds(TransactionTime.Seconds);
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
 
             var transferTransactionDto = new TransferTransactionDto()
             {
@@ -116,7 +118,8 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
                 TransactionDate = combinedDateTime,
                 Description = Description,
                 TransactionType = 25,
-                GroupType = 3
+                GroupType = 3,
+                EmployeeOid = employeeOid
 
             };
             foreach (var item in WarehouseTotal)

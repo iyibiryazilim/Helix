@@ -197,6 +197,9 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
             IsBusy = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
+
             RetailSalesReturnDispatchTransactionInsertDto dto = new RetailSalesReturnDispatchTransactionInsertDto();
             dto.WarehouseNumber = Warehouse.Number;
             dto.TransactionDate = PurchaseFormModel.TransactionDate;
@@ -205,6 +208,7 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
             dto.Description = PurchaseFormModel.Description;
             dto.CurrentCode = PurchaseFormModel.Customer.Code;
             dto.CurrentReferenceId = PurchaseFormModel.Customer.ReferenceId;
+            dto.EmployeeOid = employeeOid;
 
             foreach (var item in ProductModel)
             {
@@ -263,6 +267,7 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
         {
             IsBusy = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
 
             WholeSalesReturnTransactionInsertDto _dto = new WholeSalesReturnTransactionInsertDto();
             _dto.WarehouseNumber = Warehouse.Number;
@@ -272,6 +277,7 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
             _dto.Description = PurchaseFormModel.Description;
             _dto.CurrentCode = PurchaseFormModel.Customer.Code;
             _dto.CurrentReferenceId = PurchaseFormModel.Customer.ReferenceId;
+            _dto.EmployeeOid = employeeOid;
 
             foreach (var item in ProductModel)
             {

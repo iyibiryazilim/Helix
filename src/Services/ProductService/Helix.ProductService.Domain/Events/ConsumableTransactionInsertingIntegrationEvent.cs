@@ -18,10 +18,11 @@ namespace Helix.ProductService.Domain.Events
         public string SpeCode { get; private set; }
         public string DoCode { get; private set; }
         public string DocTrackingNumber { get; private set; }
+        public string? EmployeeOid { get; private set; }
 
         public List<ConsumableTransactionLineDto> Lines { get; set; }
 
-        public ConsumableTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string code, short groupType, short iOType, short transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, List<ConsumableTransactionLineDto> lines)
+        public ConsumableTransactionInsertingIntegrationEvent(int referenceId, DateTime transactionDate, string code, short groupType, short iOType, short transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, string description, string speCode, string doCode, string docTrackingNumber, string? employeeOid, List<ConsumableTransactionLineDto> lines)
         {
             ReferenceId = referenceId;
             TransactionDate = transactionDate;
@@ -36,6 +37,7 @@ namespace Helix.ProductService.Domain.Events
             SpeCode = speCode;
             DoCode = doCode;
             DocTrackingNumber = docTrackingNumber;
+            EmployeeOid = employeeOid;
             Lines = lines;
         }
 

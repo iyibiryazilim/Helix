@@ -21,7 +21,6 @@ namespace Helix.UI.Sys.Module.BusinessObjects
             base.AfterConstruction();
             
         }
-        
         public Employee Employee { get => _employee; set => SetPropertyValue(nameof(Employee), ref _employee, value); }
 
         public int FicheReferenceId { get => _ficheReferenceId; set=>SetPropertyValue(nameof(FicheReferenceId),ref _ficheReferenceId, value); }

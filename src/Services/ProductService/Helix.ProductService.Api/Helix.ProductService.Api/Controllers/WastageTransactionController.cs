@@ -62,6 +62,6 @@ public class WastageTransactionController : ControllerBase
     [HttpPost]
     public async Task WastageTransactionInsert([FromBody] WastageTransactionDto wastageTransactionDto)
     {
-        _eventbus.Publish(new WastageTransactionInsertingIntegrationEvent(wastageTransactionDto.referenceId, wastageTransactionDto.transactionDate, wastageTransactionDto.code, wastageTransactionDto.groupType, wastageTransactionDto.iOType, wastageTransactionDto.transactionType, wastageTransactionDto.warehouseNumber, wastageTransactionDto.currentReferenceId, wastageTransactionDto.currentCode, wastageTransactionDto.description, wastageTransactionDto.speCode, wastageTransactionDto.doCode, wastageTransactionDto.docTrackingNumber, wastageTransactionDto.lines));
+        _eventbus.Publish(new WastageTransactionInsertingIntegrationEvent(wastageTransactionDto.referenceId, wastageTransactionDto.transactionDate, wastageTransactionDto.code, wastageTransactionDto.groupType, wastageTransactionDto.iOType, wastageTransactionDto.transactionType, wastageTransactionDto.warehouseNumber, wastageTransactionDto.currentReferenceId, wastageTransactionDto.currentCode, wastageTransactionDto.description, wastageTransactionDto.speCode, wastageTransactionDto.doCode, wastageTransactionDto.docTrackingNumber,wastageTransactionDto.employeeOid, wastageTransactionDto.lines));
     }
 }

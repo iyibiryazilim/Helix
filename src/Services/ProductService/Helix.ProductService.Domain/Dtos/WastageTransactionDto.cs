@@ -12,7 +12,7 @@ public record WastageTransactionDto(int referenceId,
     string description,
     string speCode,
     string doCode,
-    string docTrackingNumber, List<WastageTransactionLineDto> lines)
+    string docTrackingNumber, string? employeeOid, List<WastageTransactionLineDto> lines)
 {
 
 }

@@ -160,6 +160,7 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
                .AddHours(ProductTransactionFormModel.TransactionTime.Hours)
                .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
                .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
 
             var inCountingTransactionDto = new InCountingTransactionDto()
             {
@@ -170,7 +171,8 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
                 IOType = 1,
                 Description = ProductTransactionFormModel.Description,
                 TransactionType = 50,
-                GroupType = 3
+                GroupType = 3,
+                EmployeeOid = employeeOid
 
             };
             foreach (var item in ProductModel)

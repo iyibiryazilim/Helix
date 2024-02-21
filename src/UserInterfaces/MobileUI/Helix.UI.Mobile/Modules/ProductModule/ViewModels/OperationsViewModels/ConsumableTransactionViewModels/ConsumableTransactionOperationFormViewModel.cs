@@ -167,6 +167,9 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
                .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
                .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
 
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
+
             var consumableTransactionDto = new ConsumableTransactionDto()
             {
                 WarehouseNumber = Warehouse.Number,
@@ -176,7 +179,8 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
                 IOType = 4,
                 Description = ProductTransactionFormModel.Description,
                 TransactionType = 12,
-                GroupType = 3
+                GroupType = 3,
+                EmployeeOid = employeeOid
 
             };
             foreach (var item in ProductModel)

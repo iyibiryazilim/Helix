@@ -26,9 +26,11 @@ public class PurchaseDispatchTransactionInsertedIntegrationEvent : IntegrationEv
     public short? IsEInvoice { get; private set; }
     public short? EDispatchProfileId { get; private set; }
     public short? EInvoiceProfileId { get; private set; }
+
+    public string? EmployeeOid { get;private set; }
     public List<PurchaseDispatchTransactionLineDto> Lines { get; set; }
 
-    public PurchaseDispatchTransactionInsertedIntegrationEvent(int? referenceId, DateTime transactionDate, short? groupType, short? ıOType, short? transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, double? total, double? totalVat, double? netTotal, string description, short? dispatchType, string speCode, short? dispatchStatus, short? isEDispatch, string doCode, string docTrackingNumber, short? ısEInvoice, short? eDispatchProfileId, short? eInvoiceProfileId, List<PurchaseDispatchTransactionLineDto> lines)
+    public PurchaseDispatchTransactionInsertedIntegrationEvent(int? referenceId, DateTime transactionDate, short? groupType, short? ıOType, short? transactionType, int? warehouseNumber, int? currentReferenceId, string? currentCode, double? total, double? totalVat, double? netTotal, string description, short? dispatchType, string speCode, short? dispatchStatus, short? isEDispatch, string doCode, string docTrackingNumber, short? ısEInvoice, short? eDispatchProfileId, short? eInvoiceProfileId,string? employeeOid, List<PurchaseDispatchTransactionLineDto> lines)
     {
         ReferenceId = referenceId;
         TransactionDate = transactionDate;
@@ -52,6 +54,7 @@ public class PurchaseDispatchTransactionInsertedIntegrationEvent : IntegrationEv
         IsEInvoice = ısEInvoice;
         EDispatchProfileId = eDispatchProfileId;
         EInvoiceProfileId = eInvoiceProfileId;
+        EmployeeOid = employeeOid;
         Lines = lines;
     }
 }

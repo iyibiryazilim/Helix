@@ -352,6 +352,7 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
         {
             IsBusy = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
 
             PurchaseReturnDispatchTransactionInsertDto purchaseDispatchTransactionDto = new PurchaseReturnDispatchTransactionInsertDto();
             purchaseDispatchTransactionDto.WarehouseNumber = Warehouse.Number;
@@ -362,6 +363,7 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
             purchaseDispatchTransactionDto.CurrentCode = SelectedSupplier.Code;
             purchaseDispatchTransactionDto.IOType = 4;
             purchaseDispatchTransactionDto.CurrentReferenceId = SelectedSupplier.ReferenceId;
+            purchaseDispatchTransactionDto.EmployeeOid = employeeOid;
 
 
 

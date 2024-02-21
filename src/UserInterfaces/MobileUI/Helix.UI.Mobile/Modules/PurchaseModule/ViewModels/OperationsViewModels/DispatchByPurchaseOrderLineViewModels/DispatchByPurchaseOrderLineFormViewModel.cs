@@ -122,6 +122,7 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
         {
             IsBusy = true;
             var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
 
             PurchaseDispatchTransactionDto purchaseDispatchTransactionDto = new PurchaseDispatchTransactionDto();
             purchaseDispatchTransactionDto.WarehouseNumber = Warehouse.Number;
@@ -131,6 +132,7 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
             purchaseDispatchTransactionDto.Description = PurchaseFormModel.Description;
             purchaseDispatchTransactionDto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
             purchaseDispatchTransactionDto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
+            purchaseDispatchTransactionDto.EmployeeOid = employeeOid;
 
 
 

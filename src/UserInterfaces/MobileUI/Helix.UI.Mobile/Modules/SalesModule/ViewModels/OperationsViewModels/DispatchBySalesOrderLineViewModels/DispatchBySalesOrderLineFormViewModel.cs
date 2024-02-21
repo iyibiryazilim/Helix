@@ -219,6 +219,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsBusy = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
+
                 RetailSalesDispatchTransactionDto retailSalesDispatch = new RetailSalesDispatchTransactionDto();
                 retailSalesDispatch.WarehouseNumber = Warehouse.Number;
                 retailSalesDispatch.CarrierCode = SalesFormModel.SelectedCarrier.Code;
@@ -234,6 +237,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 retailSalesDispatch.Description = SalesFormModel.Description;
                 retailSalesDispatch.CurrentCode = Current.Code;
                 retailSalesDispatch.CurrentReferenceId = Current.ReferenceId;
+                retailSalesDispatch.EmployeeOid = employeeOid;
 
 
 
@@ -293,6 +297,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 IsBusy = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
                 RetailSalesDispatchTransactionDto retailSalesDispatch = new RetailSalesDispatchTransactionDto();
                 retailSalesDispatch.WarehouseNumber = Warehouse.Number;
                 retailSalesDispatch.CarrierCode = SalesFormModel.SelectedCarrier.Code;
@@ -308,6 +314,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                 retailSalesDispatch.Description = SalesFormModel.Description;
                 retailSalesDispatch.CurrentCode = Current.Code;
                 retailSalesDispatch.CurrentReferenceId = Current.ReferenceId;
+                retailSalesDispatch.EmployeeOid = employeeOid;
 
 
 
