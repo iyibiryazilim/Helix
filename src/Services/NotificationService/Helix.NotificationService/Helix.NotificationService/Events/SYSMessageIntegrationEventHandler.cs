@@ -71,7 +71,7 @@ namespace Helix.NotificationService.Events
 
 				throw;
 			}
-
+			_logger.LogInformation("SYSMessageIntegrationEvent Handled");
  		}
 	}
 }

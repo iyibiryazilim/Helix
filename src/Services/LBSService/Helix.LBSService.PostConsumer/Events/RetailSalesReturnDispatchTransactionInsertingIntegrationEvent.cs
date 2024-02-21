@@ -6,6 +6,7 @@ namespace Helix.LBSService.PostConsumer.Events
 	public class RetailSalesReturnDispatchTransactionInsertingIntegrationEvent : IntegrationEvent
 	{
 		public IList<RetailSalesReturnDispatchTransactionLineDto> Lines { get; set; }
+		public string EmployeeOid { get; set; } = string.Empty;
 
 		public RetailSalesReturnDispatchTransactionInsertingIntegrationEvent()
 		{

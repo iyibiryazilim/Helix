@@ -6,6 +6,7 @@ namespace Helix.LBSService.PostConsumer.Events
 	public class OutCountingTransactionInsertingIntegrationEvent : IntegrationEvent
 	{
 		public IList<OutCountingTransactionLineDto> Lines { get; set; }
+		public string EmployeeOid { get; set; } = string.Empty;
 
 		public OutCountingTransactionInsertingIntegrationEvent()
 		{

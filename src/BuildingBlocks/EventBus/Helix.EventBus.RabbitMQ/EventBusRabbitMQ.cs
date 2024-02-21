@@ -94,7 +94,7 @@ namespace Helix.EventBus.RabbitMQ
 																  arguments: null);
 
 					_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
-					var _consumer = new EventingBasicConsumer(_consumerChannel);
+				    _consumer = new EventingBasicConsumer(_consumerChannel);
 					_consumer.Received += Consumer_Received;
 
 					_consumerChannel.BasicConsume(queue: GetSubName(eventName),

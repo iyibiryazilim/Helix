@@ -6,6 +6,7 @@ namespace Helix.LBSService.PostConsumer.Events
 	public class WastageTransactionInsertingIntegrationEvent : IntegrationEvent
 	{
 		public IList<WastageTransactionLineDto> Lines { get; set; }
+		public string EmployeeOid { get; set; } = string.Empty;
 
 		public WastageTransactionInsertingIntegrationEvent()
 		{

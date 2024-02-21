@@ -27,13 +27,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
 		EventNameSuffix = nameof(IntegrationEvent),
-		//Connection = new ConnectionFactory
-		//{
-		//	HostName = "rattlesnake-01.rmq.cloudamqp.com",
-		//	Port = 5672,
-		//	UserName = "oqhbtvgt",
-		//	Password = "Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g"
-		//}
+		 
 	}, eb);
 });
 
@@ -72,8 +66,6 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-//app.UseAuthentication();
-app.MapControllers();
-//app.RegisterWithConsul(app.Lifetime);
-
+ app.MapControllers();
+ 
 app.Run();

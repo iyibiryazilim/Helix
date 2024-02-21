@@ -6,6 +6,7 @@ namespace Helix.LBSService.PostConsumer.Events
 	public class TransferTransactionInsertingIntegrationEvent : IntegrationEvent
 	{
 		public IList<TransferTransactionLineDto> Lines { get; set; }
+		public string EmployeeOid { get; set; } = string.Empty;
 
 		public TransferTransactionInsertingIntegrationEvent()
 		{

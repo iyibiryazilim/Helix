@@ -13,6 +13,7 @@ namespace Helix.LBSService.PostConsumer.Events
 			IOType = 4;
 			Lines = new List<ConsumableTransactionLineDto>();
 		}
+		public string EmployeeOid { get; set; } = string.Empty;
         public int? ReferenceId { get; set; }
 		public DateTime TransactionDate { get; set; } = DateTime.Now;
 		public string? Code { get; set; } = string.Empty;
