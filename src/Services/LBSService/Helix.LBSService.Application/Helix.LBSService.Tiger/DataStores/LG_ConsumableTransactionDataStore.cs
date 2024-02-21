@@ -156,7 +156,10 @@ namespace Helix.LBSService.Tiger.DataStores
 				}
 				catch (Exception ex)
 				{
-					Debug.WriteLine(ex.Message);
+					result.IsSuccess = false;
+					result.Message = ex.Message;
+					_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, ex.Message, null, dto));
+ 					return await Task.FromResult(result); 
 				}
 
 			}

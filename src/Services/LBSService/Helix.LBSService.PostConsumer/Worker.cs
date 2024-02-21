@@ -33,11 +33,7 @@ namespace Helix.LBSService.PostConsumer
 				_eventBus.Consume(new TransferTransactionInsertingIntegrationEvent());
 				_eventBus.Consume(new WastageTransactionInsertingIntegrationEvent());
 				_eventBus.Consume(new WholeSalesDispatchTransactionInsertingIntegrationEvent());
-				_eventBus.Consume(new WholeSalesReturnDispatchTransactionInsertingIntegrationEvent());
-
-
-
-				await Task.Delay(1000, stoppingToken);
+				_eventBus.Consume(new WholeSalesReturnDispatchTransactionInsertingIntegrationEvent()); 
 			}
 		}
 	}
