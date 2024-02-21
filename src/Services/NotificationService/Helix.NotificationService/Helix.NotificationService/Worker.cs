@@ -7,12 +7,10 @@ namespace Helix.NotificationService
 	{
 		private readonly IEventBus _eventBus;
 		private readonly ILogger<Worker> _logger;
-		private readonly IServiceProvider _serviceProvider;
-		public Worker(ILogger<Worker> logger, IEventBus eventBus, IServiceProvider serviceProvider)
+ 		public Worker(ILogger<Worker> logger, IEventBus eventBus)
 		{
 			_logger = logger;
 			_eventBus = eventBus;
-			_serviceProvider = serviceProvider; 
  		}
 
 		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
