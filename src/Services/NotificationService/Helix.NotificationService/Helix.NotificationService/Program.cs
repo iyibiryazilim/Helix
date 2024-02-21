@@ -3,16 +3,17 @@ using Helix.EventBus.Base.Abstractions;
 using Helix.EventBus.Base.Events;
 using Helix.EventBus.Factory;
 using Helix.NotificationService;
-using Helix.NotificationService.AuthRegistrations;
 using Helix.NotificationService.Events;
-using Microsoft.AspNetCore.Builder;
+using Helix.NotificationService.Helper;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = Host.CreateApplicationBuilder(args);
  // Register Worker as a hosted service
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddTransient<LOGOSuccessIntegrationEventHandler>();
 builder.Services.AddTransient<LOGOFailureIntegrationEventHandler>();
 builder.Services.AddTransient<SYSMessageIntegrationEventHandler>();
+builder.Services.AddSingleton<IHttpClientService, HttpClientService>(); 
+builder.Services.AddSingleton<IAuthenticationService, AuthenticateService>();
 
 // Register the event bus factory and create an instance of IEventBus
 builder.Services.AddSingleton<IEventBus>(serviceProvider =>
@@ -33,8 +34,6 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 	return eventBus;
 });
 
-builder.Services.ConfigureAuth(builder.Configuration);
-
+ 
 var host = builder.Build();
-host.UseAuthorization();
-host.Run();
+ host.Run();

@@ -1,15 +1,15 @@
-﻿namespace Helix.NotificationService.Helper;
+﻿namespace Helix.LBSService.PostConsumer.Helper;
 
-public class HttpClientService  : IHttpClientService
+public class HttpClientService : IHttpClientService
 {
 	private readonly Lazy<HttpClient> _httpClient = new Lazy<HttpClient>(
 () =>
 {
 	var httpClient = new HttpClient();
 
-	 
+
 	httpClient.BaseAddress = new Uri("http://195.142.192.18:1089");
- 	httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+	httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
 	return httpClient;
 }
@@ -19,7 +19,7 @@ public class HttpClientService  : IHttpClientService
 	public string Token { get; set; } = string.Empty;
 
 	public string BaseUri { get; set; } = "http://195.142.192.18:1089";
- 
+
 	public HttpClient GetOrCreateHttpClient()
 	{
 
