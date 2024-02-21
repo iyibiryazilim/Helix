@@ -24,5 +24,6 @@
         public short? IsEInvoice { get; set; }
         public short? EDispatchProfileId { get; set; }
         public short? EInvoiceProfileId { get; set; }
+        public string EmployeeOid { get; set; }
     }
 }

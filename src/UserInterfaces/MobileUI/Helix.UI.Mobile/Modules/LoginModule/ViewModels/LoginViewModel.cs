@@ -74,7 +74,7 @@ public partial class LoginViewModel : BaseViewModel
 
 					var user = await _applicationUserService.GetObjects(httpClient, $"?$filter=UserName eq '{UserName}'&$expand=Employee");
 					var data = user.Data.FirstOrDefault();
-					if (user!=null)
+					if (data.Employee!=null)
 					{
                         await SecureStorage.SetAsync("EmployeeOid", data.Employee.Oid.ToString());
                     }
@@ -144,6 +144,7 @@ public partial class LoginViewModel : BaseViewModel
 	async Task LogOutAsync()
 	{
         await SecureStorage.SetAsync("CurrentUser", "");
+		await SecureStorage.SetAsync("EmployeeOid", "");
         Application.Current.MainPage = new LoginView(this);
     }
 	

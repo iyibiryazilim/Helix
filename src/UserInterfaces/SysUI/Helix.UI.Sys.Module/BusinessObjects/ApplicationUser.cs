@@ -20,14 +20,14 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
 
     public ApplicationUser(Session session) : base(session) { }
 
-    [ImmediatePostData]
+    //[ImmediatePostData]
     public Department Department
     {
         get => _department;
         set => SetPropertyValue(nameof(Department), ref _department, value);
     }
 
-    [DataSourceProperty(nameof(Department))]
+    //[DataSourceProperty(nameof(Department))]
 
     public Position Position
     {

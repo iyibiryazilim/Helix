@@ -60,6 +60,6 @@ public class ConsumableTransactionController : ControllerBase
 	[HttpPost]
 	public async Task ConsumableTransactionInsert([FromBody] ConsumableTransactionDto consumableTransactionDto)
 	{
-		_eventBus.Publish(new ConsumableTransactionInsertingIntegrationEvent(consumableTransactionDto.referenceId, consumableTransactionDto.transactionDate, consumableTransactionDto.code, consumableTransactionDto.groupType, consumableTransactionDto.iOType, consumableTransactionDto.transactionType, consumableTransactionDto.warehouseNumber, consumableTransactionDto.currentReferenceId, consumableTransactionDto.currentCode,consumableTransactionDto.description,   consumableTransactionDto.speCode,consumableTransactionDto.doCode, consumableTransactionDto.docTrackingNumber,consumableTransactionDto.lines ));
+		_eventBus.Publish(new ConsumableTransactionInsertingIntegrationEvent(consumableTransactionDto.referenceId, consumableTransactionDto.transactionDate, consumableTransactionDto.code, consumableTransactionDto.groupType, consumableTransactionDto.iOType, consumableTransactionDto.transactionType, consumableTransactionDto.warehouseNumber, consumableTransactionDto.currentReferenceId, consumableTransactionDto.currentCode,consumableTransactionDto.description,   consumableTransactionDto.speCode,consumableTransactionDto.doCode, consumableTransactionDto.docTrackingNumber,consumableTransactionDto.employeeOid, consumableTransactionDto.lines ));
 	}
 }

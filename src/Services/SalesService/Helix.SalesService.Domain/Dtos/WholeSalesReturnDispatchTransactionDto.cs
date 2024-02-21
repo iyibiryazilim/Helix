@@ -22,6 +22,6 @@ public record WholeSalesReturnDispatchTransactionDto(int? referenceId,
   string? docTrackingNumber,
   short? isEInvoice,
   short? eDispatchProfileId,
-  short? eInvoiceProfileId, List<WholeSalesReturnTransactionLineDto> lines)
+  short? eInvoiceProfileId, string? employeeOid, List<WholeSalesReturnTransactionLineDto> lines)
 {
 }

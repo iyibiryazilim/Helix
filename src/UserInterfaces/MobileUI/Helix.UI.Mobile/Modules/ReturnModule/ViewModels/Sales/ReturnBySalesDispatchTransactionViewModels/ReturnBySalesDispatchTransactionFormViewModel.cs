@@ -120,6 +120,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 IsBusy = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
+
                 RetailSalesReturnDispatchTransactionInsertDto dto = new RetailSalesReturnDispatchTransactionInsertDto();
                 dto.WarehouseNumber = Warehouse.Number;
                 dto.TransactionDate = PurchaseFormModel.TransactionDate;
@@ -128,6 +131,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 dto.Description = PurchaseFormModel.Description;
                 dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
                 dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
+                dto.EmployeeOid = employeeOid;
 
                 foreach (var item in ChangedLines)
                 {
@@ -187,6 +191,9 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 IsBusy = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
+
                 WholeSalesReturnTransactionInsertDto _dto = new WholeSalesReturnTransactionInsertDto();
                 _dto.WarehouseNumber = Warehouse.Number;
                 _dto.TransactionDate = PurchaseFormModel.TransactionDate;
@@ -195,6 +202,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                 _dto.Description = PurchaseFormModel.Description;
                 _dto.CurrentCode = ChangedLines.FirstOrDefault().CurrentCode;
                 _dto.CurrentReferenceId = ChangedLines.FirstOrDefault().CurrentReferenceId;
+                _dto.EmployeeOid = employeeOid;
 
                 foreach (var item in ChangedLines)
                 {

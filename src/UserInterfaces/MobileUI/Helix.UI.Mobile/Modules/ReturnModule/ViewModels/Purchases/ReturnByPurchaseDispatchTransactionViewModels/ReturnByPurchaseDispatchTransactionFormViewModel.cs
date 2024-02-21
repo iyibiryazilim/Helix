@@ -220,6 +220,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
             {
                 IsBusy = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
 
                 PurchaseReturnDispatchTransactionInsertDto purchaseDispatchTransactionDto = new PurchaseReturnDispatchTransactionInsertDto();
                 purchaseDispatchTransactionDto.WarehouseNumber = Warehouse.Number;
@@ -230,6 +232,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                 purchaseDispatchTransactionDto.IOType = 4;
                 purchaseDispatchTransactionDto.CurrentCode = ChangedLineList.FirstOrDefault().CurrentCode;
                 purchaseDispatchTransactionDto.CurrentReferenceId = ChangedLineList.FirstOrDefault().CurrentReferenceId;
+                purchaseDispatchTransactionDto.EmployeeOid = employeeOid;
 
 
 

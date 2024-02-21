@@ -60,7 +60,7 @@ public class OutCountingTransactionController : ControllerBase
     [HttpPost]
     public async Task OutCountingInsert([FromBody] OutCountingTransactionDto outCountingTransaction)
     {
-        _eventBus.Publish(new OutCountingTransactionInsertingIntegrationEvent(outCountingTransaction.referenceId, outCountingTransaction.transactionDate, outCountingTransaction.code, outCountingTransaction.groupType, outCountingTransaction.iOType, outCountingTransaction.transactionType, outCountingTransaction.warehouseNumber, outCountingTransaction.currentReferenceId, outCountingTransaction.currentCode, outCountingTransaction.description, outCountingTransaction.speCode, outCountingTransaction.doCode, outCountingTransaction.docTrackingNumber, outCountingTransaction.lines));
+        _eventBus.Publish(new OutCountingTransactionInsertingIntegrationEvent(outCountingTransaction.referenceId, outCountingTransaction.transactionDate, outCountingTransaction.code, outCountingTransaction.groupType, outCountingTransaction.iOType, outCountingTransaction.transactionType, outCountingTransaction.warehouseNumber, outCountingTransaction.currentReferenceId, outCountingTransaction.currentCode, outCountingTransaction.description, outCountingTransaction.speCode, outCountingTransaction.doCode, outCountingTransaction.docTrackingNumber,outCountingTransaction.employeeOid, outCountingTransaction.lines));
 
     }
 }

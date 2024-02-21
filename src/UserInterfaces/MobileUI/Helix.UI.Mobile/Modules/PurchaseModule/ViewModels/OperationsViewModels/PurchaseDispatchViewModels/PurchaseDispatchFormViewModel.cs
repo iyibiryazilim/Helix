@@ -193,6 +193,7 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
 
 
             var httpClient = _httpClientService.GetOrCreateHttpClient();
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
 
             PurchaseDispatchTransactionDto purchaseDispatchTransactionDto = new PurchaseDispatchTransactionDto();
             purchaseDispatchTransactionDto.WarehouseNumber = Warehouse.Number;
@@ -202,6 +203,7 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
             purchaseDispatchTransactionDto.Description = PurchaseFormModel.Description;
             purchaseDispatchTransactionDto.CurrentCode = PurchaseFormModel.SelectedSupplier.Code;
             purchaseDispatchTransactionDto.CurrentReferenceId = PurchaseFormModel.SelectedSupplier.ReferenceId;
+            purchaseDispatchTransactionDto.EmployeeOid = employeeOid;
 
 
 

@@ -1,4 +1,5 @@
-﻿using Helix.UI.Mobile.Modules.LoginModule.Models;
+﻿using Helix.UI.Mobile.Modules.BaseModule.Dtos;
+using Helix.UI.Mobile.Modules.LoginModule.Models;
 using Helix.UI.Mobile.Modules.LoginModule.Services;
 using System.Text.Json;
 using System.Text.Json.Nodes;

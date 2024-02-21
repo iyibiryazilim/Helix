@@ -21,7 +21,7 @@ namespace Helix.ProductService.Domain.Dtos
     string description,
     string speCode,
     string doCode,
-    string docTrackingNumber, List<TransferTransactionLineDto> lines)
+    string docTrackingNumber, string? employeeOid, List<TransferTransactionLineDto> lines)
     {
 
     }

@@ -154,6 +154,8 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
                .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
                .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
 
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
             var wastageTransactionDto = new WastageTransactionDto()
             {
                 WarehouseNumber = Warehouse.Number,
@@ -163,7 +165,8 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
                 IOType = 4,
                 Description = ProductTransactionFormModel.Description,
                 TransactionType = 11,
-                GroupType = 3
+                GroupType = 3,
+                EmployeeOid = employeeOid
                 
             };
             foreach (var item in ProductModel)

@@ -156,6 +156,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                    .AddMinutes(ProductTransactionFormModel.TransactionTime.Minutes)
                    .AddSeconds(ProductTransactionFormModel.TransactionTime.Seconds);
 
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+
                 var productionTransactionDto = new ProductionTransactionDto()
                 {
                     WarehouseNumber = Warehouse.Number,
@@ -165,7 +167,8 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     IOType = 1,
                     Description = ProductTransactionFormModel.Description,
                     TransactionType = 13,
-                    GroupType = 3
+                    GroupType = 3,
+                    EmployeeOid = employeeOid
 
                 };
                 foreach (var item in ProductModel)
