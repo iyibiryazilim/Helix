@@ -22,7 +22,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
     return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
     {
         ConnectionRetryCount = 5,
-        SubscriperClientAppName = "ProductService",
+        SubscriperClientAppName = "LBSService",
         DefaultTopicName = "HelixTopicName",
         EventBusType = EventBusType.RabbitMQ,
         EventNameSuffix = nameof(IntegrationEvent),
