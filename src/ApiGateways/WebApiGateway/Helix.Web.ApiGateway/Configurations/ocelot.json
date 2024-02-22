@@ -61,7 +61,7 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/identity/{everything}",
-      "UpstreamHttpMethod": [ "POST","GET","PUT" ]
+      "UpstreamHttpMethod": [ "POST","GET","PUT","PATCH" ]
     },
     {
 
