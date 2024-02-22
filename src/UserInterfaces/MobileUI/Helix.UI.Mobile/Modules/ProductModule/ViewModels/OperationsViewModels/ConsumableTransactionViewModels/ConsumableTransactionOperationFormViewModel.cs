@@ -204,14 +204,16 @@ public partial class ConsumableTransactionOperationFormViewModel : BaseViewModel
             }
 
 
-            var result = await _consumableTransactionService.InsertObject(httpClient, consumableTransactionDto);
-            if (result.IsSuccess)
+
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (userResponse)
             {
+                var result = await _consumableTransactionService.InsertObject(httpClient, consumableTransactionDto);
 
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
-
-                if (userResponse)
+                if (result.IsSuccess)
                 {
+
                     var viewModel = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
                     viewModel.Items.Clear();
 
@@ -221,11 +223,12 @@ public partial class ConsumableTransactionOperationFormViewModel : BaseViewModel
                         ["SuccessMessage"] = "Sarf Fişi Başarıyla Gönderildi."
                     });
                 }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+            
 
         }
         catch (Exception)

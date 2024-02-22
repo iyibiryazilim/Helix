@@ -61,7 +61,7 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public InCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IInCountingTransactionService inCountingTransactionService,IServiceProvider serviceProvider)
+    public InCountingTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService, IInCountingTransactionService inCountingTransactionService, IServiceProvider serviceProvider)
     {
         Title = "Sayım Fazlası İşlemleri";
         _httpClientService = httpClientService;
@@ -196,13 +196,14 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
             }
 
 
-            var result = await _inCountingTransactionService.InsertObject(httpClient, inCountingTransactionDto);
-            if (result.IsSuccess)
+
+
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (userResponse)
             {
-
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
-
-                if (userResponse)
+                var result = await _inCountingTransactionService.InsertObject(httpClient, inCountingTransactionDto);
+                if (result.IsSuccess)
                 {
                     var viewModel = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
                     viewModel.Items.Clear();
@@ -211,15 +212,16 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
                     {
 
                         ["GroupType"] = 3,
-                        ["SuccessMessage"]="Sayım Fazlası Fişi Başarıyla Gönderildi."
+                        ["SuccessMessage"] = "Sayım Fazlası Fişi Başarıyla Gönderildi."
                     });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
                 }
 
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+
 
         }
         catch (Exception)

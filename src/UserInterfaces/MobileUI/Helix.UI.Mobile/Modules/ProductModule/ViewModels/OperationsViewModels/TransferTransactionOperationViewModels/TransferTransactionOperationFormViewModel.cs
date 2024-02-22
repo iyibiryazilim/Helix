@@ -171,12 +171,13 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                         productionTransactionDto.Lines.Add(productionTransactionLineDto);
                     }
 
-                    var ProductionResult = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
-                    if (ProductionResult.IsSuccess)
-                    {
-                        var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                        if (userResponse)
+                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                    if (userResponse)
+                    {
+                        var ProductionResult = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
+                        if (ProductionResult.IsSuccess)
                         {
                             await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                             {
@@ -184,11 +185,12 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                                 ["SuccessMessage"] = "Virman Fişi Başarıyla Gönderildi."
                             });
                         }
+                        else
+                        {
+                            await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                        }
                     }
-                    else
-                    {
-                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                    }
+                  
 
                 }
             }

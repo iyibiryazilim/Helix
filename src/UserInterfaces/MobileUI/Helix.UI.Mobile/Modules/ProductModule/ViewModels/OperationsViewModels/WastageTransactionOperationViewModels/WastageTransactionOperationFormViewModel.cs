@@ -54,7 +54,7 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public WastageTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IWastageTransactionService wastageTransactionService,IServiceProvider serviceProvider)
+    public WastageTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService, IWastageTransactionService wastageTransactionService, IServiceProvider serviceProvider)
     {
         Title = "Fire İşlemleri";
         _httpClientService = httpClientService;
@@ -167,11 +167,11 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
                 TransactionType = 11,
                 GroupType = 3,
                 EmployeeOid = employeeOid
-                
+
             };
             foreach (var item in ProductModel)
             {
-                
+
                 var wastageTransactionLineDto = new WastageTransactionLineDto()
                 {
                     IOType = 4,
@@ -190,28 +190,30 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
             }
 
 
-            var result = await _wastageTransactionService.InsertObject(httpClient, wastageTransactionDto);
-            if (result.IsSuccess)
-            {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                if (userResponse)
+            if (userResponse)
+            {
+
+                var result = await _wastageTransactionService.InsertObject(httpClient, wastageTransactionDto);
+                if (result.IsSuccess)
                 {
-                  var viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
-                  viewModel.Items.Clear();
+                    var viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
+                    viewModel.Items.Clear();
 
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                  {
-                      ["GroupType"] = 3,
-                      ["SuccessMessage"]="Fire Fişi Başarıyla Gönderildi."
-                  });
+                    {
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"] = "Fire Fişi Başarıyla Gönderildi."
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
                 }
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
            
+
         }
         catch (Exception)
         {
@@ -223,7 +225,7 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
             IsBusy = false;
         }
 
-       
+
     }
 
 

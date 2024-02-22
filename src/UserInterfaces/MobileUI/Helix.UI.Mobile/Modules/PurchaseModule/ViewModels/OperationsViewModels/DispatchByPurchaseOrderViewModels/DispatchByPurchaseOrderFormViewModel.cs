@@ -18,10 +18,10 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels.DispatchByPurchaseOrderViewModels
 {
-	[QueryProperty(nameof(Current), nameof(Current))]
+    [QueryProperty(nameof(Current), nameof(Current))]
     [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
     [QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
-    public partial class DispatchByPurchaseOrderFormViewModel :BaseViewModel
+    public partial class DispatchByPurchaseOrderFormViewModel : BaseViewModel
     {
         IHttpClientService _httpClientService;
         IWarehouseService _warehouseService;
@@ -66,12 +66,12 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 
         public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-        public DispatchByPurchaseOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService,ISpeCodeService speCodeService,IPurchaseDispatchTransactionService purchaseDispatchTransaction)
+        public DispatchByPurchaseOrderFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISupplierService supplierService, ISpeCodeService speCodeService, IPurchaseDispatchTransactionService purchaseDispatchTransaction)
         {
             Title = "Satın Alma Form";
             _httpClientService = httpClientService;
             _warehouseService = warehouseService;
-            _supplierService= supplierService;
+            _supplierService = supplierService;
             _speCodeService = speCodeService;
             _purchaseDispatchTransaction = purchaseDispatchTransaction;
 
@@ -194,12 +194,13 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
                     purchaseDispatchTransactionDto.Lines.Add(purchaseDispatchLine);
                 }
 
-                var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
-                if (result.IsSuccess)
-                {
-                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                    if (userResponse)
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
+                {
+                    var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
+                    if (result.IsSuccess)
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
@@ -207,12 +208,14 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
                             ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
                         });
                     }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
 
                 }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                }
+
+                
 
             }
             catch (Exception ex)

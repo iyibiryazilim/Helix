@@ -22,173 +22,173 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnSalesViewM
 
 public partial class ReturnSalesFormViewModel : BaseViewModel
 {
-	public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
-	public ObservableCollection<Customer> CustomerList { get; } = new();
+    public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
+    public ObservableCollection<Customer> CustomerList { get; } = new();
 
-	[ObservableProperty]
-	string transactionType;
+    [ObservableProperty]
+    string transactionType;
 
-	[ObservableProperty]
-	PurchaseFormModel productTransactionFormModel = new();
-
-
-	[ObservableProperty]
-	int currentPage = 0;
-	[ObservableProperty]
-	int pageSize = 5000;
-	[ObservableProperty]
-	WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
-
-	[ObservableProperty]
-	Warehouse warehouse;
-	[ObservableProperty]
-	ObservableCollection<ProductModel> productModel;
-	[ObservableProperty]
-	PurchaseFormModel purchaseFormModel = new();
-	public Command GetCustomersCommand { get; }
-
-	//speCode
-	[ObservableProperty]
-	public string speCode = string.Empty;
-
-	public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
-
-	private readonly IHttpClientService _httpClientService;
-	private readonly IWarehouseService _warehouseService;
-	private readonly ISpeCodeService _speCodeService;
-	private readonly IServiceProvider _serviceProvider;
-	private readonly ICustomerService _customerService;
-	private readonly IRetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
-	private readonly IWholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;
-
-	// Constructor with dependency injection
-	public ReturnSalesFormViewModel(
-		IHttpClientService httpClientService,
-		IWarehouseService warehouseService,
-		ISpeCodeService speCodeService,
-		ICustomerService customerService,
-		IRetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService,
-		IWholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService,
-		IServiceProvider serviceProvider)
-	{
-		_httpClientService = httpClientService ?? throw new ArgumentNullException(nameof(httpClientService));
-		_warehouseService = warehouseService ?? throw new ArgumentNullException(nameof(warehouseService));
-		_speCodeService = speCodeService ?? throw new ArgumentNullException(nameof(speCodeService));
-		_customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
-		_retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(retailSalesReturnDispatchTransactionService));
-		_wholeSalesReturnDispatchTransactionService = wholeSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(wholeSalesReturnDispatchTransactionService));
-		_serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-
-		Title = "Satış İade Formu";
-		GetCustomersCommand = new Command(async () => await LoadData());
-	}
-	async Task LoadData()
-	{
-		if (IsBusy)
-			return;
-		try
-		{
-			await Task.Delay(500);
-			await MainThread.InvokeOnMainThreadAsync(GetCustomersAsync);
-
-		}
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-			IsRefreshing = false;
-
-		}
-	}
-	[RelayCommand]
-	public async Task GetSpeCodeAsync()
-	{
-		string action;
-
-		try
-		{
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			CurrentPage = 0;
-			var result = await _speCodeService.GetObjects(httpClient);
-
-			if (result.Data.Any())
-			{
-				SpeCodeModelItems.Clear();
-
-				foreach (var item in result.Data)
-				{
-					SpeCodeModelItems.Add(item);
-				}
-
-				List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
-
-				action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
-
-				SpeCode = action;
+    [ObservableProperty]
+    PurchaseFormModel productTransactionFormModel = new();
 
 
-			}
+    [ObservableProperty]
+    int currentPage = 0;
+    [ObservableProperty]
+    int pageSize = 5000;
+    [ObservableProperty]
+    WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
 
-		}
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
+    [ObservableProperty]
+    Warehouse warehouse;
+    [ObservableProperty]
+    ObservableCollection<ProductModel> productModel;
+    [ObservableProperty]
+    PurchaseFormModel purchaseFormModel = new();
+    public Command GetCustomersCommand { get; }
 
-		}
-	}
+    //speCode
+    [ObservableProperty]
+    public string speCode = string.Empty;
 
-	async Task GetCustomersAsync()
-	{
-		if (IsBusy)
-			return;
-		try
-		{
-			IsBusy = true;
-			IsRefreshing = true;
-			IsRefreshing = false;
+    public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
+    private readonly IHttpClientService _httpClientService;
+    private readonly IWarehouseService _warehouseService;
+    private readonly ISpeCodeService _speCodeService;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly ICustomerService _customerService;
+    private readonly IRetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
+    private readonly IWholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;
 
-			var result = await _customerService.GetObjects(httpClient, "", CustomerOrderBy.namedesc, CurrentPage, PageSize);
-			if (result.IsSuccess)
-			{
-				if (result.Data.Any())
-				{
-					CustomerList.Clear();
-					foreach (var item in result.Data)
-					{
-						CustomerList.Add(item);
-					}
-				}
-			}
-			else
-			{
-				await Shell.Current.DisplayAlert("Customer Error: ", $"{result.Message}", "Tamam");
+    // Constructor with dependency injection
+    public ReturnSalesFormViewModel(
+        IHttpClientService httpClientService,
+        IWarehouseService warehouseService,
+        ISpeCodeService speCodeService,
+        ICustomerService customerService,
+        IRetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService,
+        IWholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService,
+        IServiceProvider serviceProvider)
+    {
+        _httpClientService = httpClientService ?? throw new ArgumentNullException(nameof(httpClientService));
+        _warehouseService = warehouseService ?? throw new ArgumentNullException(nameof(warehouseService));
+        _speCodeService = speCodeService ?? throw new ArgumentNullException(nameof(speCodeService));
+        _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+        _retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(retailSalesReturnDispatchTransactionService));
+        _wholeSalesReturnDispatchTransactionService = wholeSalesReturnDispatchTransactionService ?? throw new ArgumentNullException(nameof(wholeSalesReturnDispatchTransactionService));
+        _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
-			}
+        Title = "Satış İade Formu";
+        GetCustomersCommand = new Command(async () => await LoadData());
+    }
+    async Task LoadData()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            await Task.Delay(500);
+            await MainThread.InvokeOnMainThreadAsync(GetCustomersAsync);
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Waiting Sales Order Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+
+        }
+    }
+    [RelayCommand]
+    public async Task GetSpeCodeAsync()
+    {
+        string action;
+
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _speCodeService.GetObjects(httpClient);
+
+            if (result.Data.Any())
+            {
+                SpeCodeModelItems.Clear();
+
+                foreach (var item in result.Data)
+                {
+                    SpeCodeModelItems.Add(item);
+                }
+
+                List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
+
+                action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
+
+                SpeCode = action;
 
 
-		}
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
-			IsRefreshing = false;
-		}
-	}
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+
+        }
+    }
+
+    async Task GetCustomersAsync()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
+            IsRefreshing = true;
+            IsRefreshing = false;
+
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+
+            var result = await _customerService.GetObjects(httpClient, "", CustomerOrderBy.namedesc, CurrentPage, PageSize);
+            if (result.IsSuccess)
+            {
+                if (result.Data.Any())
+                {
+                    CustomerList.Clear();
+                    foreach (var item in result.Data)
+                    {
+                        CustomerList.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Customer Error: ", $"{result.Message}", "Tamam");
+
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Customer Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+        }
+    }
 
     async Task RetailSalesReturnDispatchTransactionInsertAsync()
     {
@@ -229,12 +229,13 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
                 dto.Lines.Add(lineDto);
             }
 
-            var result = await _retailSalesReturnDispatchTransactionService.InsertObject(httpClient, dto);
-            if (result.IsSuccess)
-            {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                if (userResponse)
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (userResponse)
+            {
+                var result = await _retailSalesReturnDispatchTransactionService.InsertObject(httpClient, dto);
+                if (result.IsSuccess)
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
@@ -242,11 +243,12 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
                         ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
                     });
                 }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+
 
         }
         catch (Exception ex)
@@ -298,19 +300,24 @@ public partial class ReturnSalesFormViewModel : BaseViewModel
                 _dto.Lines.Add(lineDto);
             }
 
-            var result = await _wholeSalesReturnDispatchTransactionService.InsertObject(httpClient, _dto);
-            if (result.IsSuccess)
-            {
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                {
-                    ["GroupType"] = 3,
-                    ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                });
-            }
-            else
+            if (userResponse)
             {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                var result = await _wholeSalesReturnDispatchTransactionService.InsertObject(httpClient, _dto);
+                if (result.IsSuccess)
+                {
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
             }
 
         }

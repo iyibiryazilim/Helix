@@ -21,7 +21,7 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnPurcha
 [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 [QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
 
-public partial class ReturnPurchaseFormViewModel :BaseViewModel
+public partial class ReturnPurchaseFormViewModel : BaseViewModel
 {
     IHttpClientService _httpClientService;
     IWarehouseService _warehouseService;
@@ -91,13 +91,13 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
     public ReturnPurchaseFormViewModel(IHttpClientService httpClientService,
-									   IWarehouseService warehouseService,
-									   ISpeCodeService speCodeService,
-									   IDriverService driverService,
-									   ICarrierService carrierService,
-									   ISupplierService supplierService,
-									   IShipInfoService shipInfoService,
-									   IPurchaseReturnDispatchTransactionService purchaseReturnDispatchTransactionService,
+                                       IWarehouseService warehouseService,
+                                       ISpeCodeService speCodeService,
+                                       IDriverService driverService,
+                                       ICarrierService carrierService,
+                                       ISupplierService supplierService,
+                                       IShipInfoService shipInfoService,
+                                       IPurchaseReturnDispatchTransactionService purchaseReturnDispatchTransactionService,
                                        IServiceProvider serviceProvider)
     {
         Title = "Satın Alma İade Fişleri";
@@ -386,28 +386,30 @@ public partial class ReturnPurchaseFormViewModel :BaseViewModel
                 purchaseDispatchTransactionDto.Lines.Add(purchaseDispatchLine);
             }
 
-            var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
-            if (result.IsSuccess)
+
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (userResponse)
             {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
-
-                if (userResponse)
+                var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
+                if (result.IsSuccess)
                 {
-                   var viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
+                    var viewModel = _serviceProvider.GetService<ReturnPurchaseListViewModel>();
                     viewModel.Items.Clear();
-               
-                  await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                  {
-                      ["GroupType"] = 3,
-                      ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
 
-                  });
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
                 }
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+            
 
         }
         catch (Exception ex)
