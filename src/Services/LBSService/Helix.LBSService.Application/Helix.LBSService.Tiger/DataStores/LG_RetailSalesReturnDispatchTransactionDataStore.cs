@@ -196,12 +196,11 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						result.IsSuccess = false;
 						result.Message = "Unity is null";
-					}
 
+					}
 				}
 				catch (Exception ex)
 				{
-					Debug.WriteLine(ex.Message);
 					result = new DataResult<LG_RetailSalesReturnDispatchTransaction>
 					{
 						Data = null,
@@ -209,7 +208,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						Message = ex.Message
 					};
 				}
-
 			}
 			else
 			{
@@ -217,8 +215,9 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					Data = null,
 					IsSuccess = false,
-					Message = Global.UnityApp.GetLastError() + "-" + Global.UnityApp.GetLastErrorString()
+					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
+
 			}
 			return await Task.FromResult(result);
 		}

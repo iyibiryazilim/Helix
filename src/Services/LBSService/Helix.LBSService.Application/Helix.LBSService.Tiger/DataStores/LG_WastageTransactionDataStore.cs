@@ -146,8 +146,8 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						result.IsSuccess = false;
 						result.Message = "Unity is null";
-					}
 
+					}
 				}
 				catch (Exception ex)
 				{
@@ -158,7 +158,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						Message = ex.Message
 					};
 				}
-
 			}
 			else
 			{
@@ -168,6 +167,7 @@ namespace Helix.LBSService.Tiger.DataStores
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
+
 			}
 			return await Task.FromResult(result);
 		}

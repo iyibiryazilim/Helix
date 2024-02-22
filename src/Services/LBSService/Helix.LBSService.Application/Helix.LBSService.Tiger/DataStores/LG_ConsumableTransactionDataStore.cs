@@ -23,10 +23,10 @@ namespace Helix.LBSService.Tiger.DataStores
 		{
 			UnityApplication unity = Global.UnityApp;
 			DataResult<LG_ConsumableTransaction> result = new();
- 
+
 			foreach (var line in dto.TRANSACTIONS.ToList())
 			{
- 				foreach (var item in line.SLTRANS)
+				foreach (var item in line.SLTRANS)
 				{
 					line.SLTRANS.Add(item);
 				}
@@ -128,10 +128,8 @@ namespace Helix.LBSService.Tiger.DataStores
 								result.Data = null;
 								result.IsSuccess = true;
 								result.Message = "Success";
-								_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId,result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
+								_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
 								_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, new Guid(dto.EmployeeOid), dto));
-
-
 							}
 							else
 							{
@@ -151,17 +149,18 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						result.IsSuccess = false;
 						result.Message = "Unity is null";
-					}
 
+					}
 				}
 				catch (Exception ex)
 				{
-					result.IsSuccess = false;
-					result.Message = ex.Message;
-					_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, ex.Message, null, dto));
- 					return await Task.FromResult(result); 
+					result = new DataResult<LG_ConsumableTransaction>
+					{
+						Data = null,
+						IsSuccess = false,
+						Message = ex.Message
+					};
 				}
-
 			}
 			else
 			{
@@ -171,6 +170,7 @@ namespace Helix.LBSService.Tiger.DataStores
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
+
 			}
 			return await Task.FromResult(result);
 		}

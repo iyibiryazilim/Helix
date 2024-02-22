@@ -2,8 +2,9 @@
 {
 	public class LG_STFICHE
 	{
-		#region Properties
-		public int LOGICALREF { get; set; }
+		public string EmployeeOid { get; set; } = string.Empty;
+        #region Properties
+        public int LOGICALREF { get; set; }
 		public short GRPCODE { get; set; } = default;
 		public short TRCODE { get; set; } = default;
 		public short IOCODE { get; set; } = default;

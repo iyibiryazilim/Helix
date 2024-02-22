@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Base\Helix.EventBus.Base.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Factory\Helix.EventBus.Factory.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.RabbitMQ\Helix.EventBus.RabbitMQ.csproj" />
     <ProjectReference Include="..\Helix.LBSService.Base\Helix.LBSService.Base.csproj" />
   </ItemGroup>
 
