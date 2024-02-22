@@ -6,34 +6,38 @@ using DevExpress.ExpressApp.Security.Authentication;
 using DevExpress.ExpressApp.Security.Authentication.ClientServer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Helix.IdentityServer.WebApi.JWT;
+namespace Helix.IdentityServer.WebApi.API.Security;
 
-public class JwtTokenProviderService : IAuthenticationTokenProvider {
-    readonly IStandardAuthenticationService securityAuthenticationService;
-    readonly IConfiguration configuration;
+public class JwtTokenProviderService : IAuthenticationTokenProvider
+{
+	readonly IStandardAuthenticationService securityAuthenticationService;
+	readonly IConfiguration configuration;
 
-    public JwtTokenProviderService(IStandardAuthenticationService securityAuthenticationService, IConfiguration configuration) {
-        this.securityAuthenticationService = securityAuthenticationService;
-        this.configuration = configuration;
-    }
-    public string Authenticate(object logonParameters) {
-        ClaimsPrincipal user = securityAuthenticationService.Authenticate(logonParameters);
+	public JwtTokenProviderService(IStandardAuthenticationService securityAuthenticationService, IConfiguration configuration)
+	{
+		this.securityAuthenticationService = securityAuthenticationService;
+		this.configuration = configuration;
+	}
+	public string Authenticate(object logonParameters)
+	{
+		ClaimsPrincipal user = securityAuthenticationService.Authenticate(logonParameters);
 
-        if(user != null) {
-            var key = configuration["Authentication:Jwt:IssuerSigningKey"];
+		if (user != null)
+		{
+			var key = configuration["Authentication:Jwt:IssuerSigningKey"];
 
 			var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:IssuerSigningKey"]));
-            var token = new JwtSecurityToken(
-                //issuer: configuration["Authentication:Jwt:Issuer"],
-                //audience: configuration["Authentication:Jwt:Audience"],
-                claims: user.Claims,
-                expires: DateTime.Now.AddHours(2),
-                signingCredentials: new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256)
-                //notBefore:DateTime.Now
-                );
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+			var token = new JwtSecurityToken(
+				//issuer: configuration["Authentication:Jwt:Issuer"],
+				//audience: configuration["Authentication:Jwt:Audience"],
+				claims: user.Claims,
+				expires: DateTime.Now.AddHours(2),
+				signingCredentials: new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256)
+				//notBefore:DateTime.Now
+				);
+			return new JwtSecurityTokenHandler().WriteToken(token);
+		}
 
-        throw new AuthenticationException("User name or password is incorrect.");
-    }
+		throw new AuthenticationException("User name or password is incorrect.");
+	}
 }
