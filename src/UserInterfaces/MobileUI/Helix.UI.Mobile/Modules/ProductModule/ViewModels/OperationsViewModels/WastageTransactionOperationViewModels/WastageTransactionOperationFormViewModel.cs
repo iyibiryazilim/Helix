@@ -199,7 +199,8 @@ public partial class WastageTransactionOperationFormViewModel : BaseViewModel
                 {
                   var viewModel = _serviceProvider.GetService<WastageTransactionOperationViewModel>();
                   viewModel.Items.Clear();
-                  await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                   {
                       ["GroupType"] = 3,
                       ["SuccessMessage"]="Fire Fişi Başarıyla Gönderildi."

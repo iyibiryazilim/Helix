@@ -65,8 +65,6 @@
       <OwnMembers>
         <Member Name="Code" Caption="Kodu" />
         <Member Name="FirstName" Caption="Adı" />
-        <Member Name="LastName" Caption="Soyadı" />
-        <Member Name="Phone" Caption="Telefon" />
       </OwnMembers>
     </Class>
     <Class Name="Helix.UI.Sys.Module.BusinessObjects.FailureTransactionOwner" Caption="Hatalı İşlemler">
@@ -158,6 +156,14 @@
         <Member Name="TaxOffice" Caption="Vergi Dairesi" />
         <Member Name="Telephone" Caption="Telefon" />
         <Member Name="Title" Caption="Adı" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_TransactionOwner" Caption="Başarılı İşlemler">
+      <OwnMembers>
+        <Member Name="EmployeeName" Caption="Operatör" />
+        <Member Name="FicheDate" Caption="Tarih" />
+        <Member Name="FicheNumber" Caption="Fiş Numarası" />
+        <Member Name="FicheTypeName" Caption="Fiş Türü" />
       </OwnMembers>
     </Class>
     <Class Name="Helix.UI.Sys.Module.ViewObjects.VW_WaitingPurchaseOrder" Caption="Bekleyen Satınalma Siparişleri">
@@ -296,6 +302,15 @@
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
             <LayoutGroup Id="VW_Supplier" Caption="Tedarikçi" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="VW_TransactionOwner_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="VW_TransactionOwner" Caption="Başarılı İşlemler" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
