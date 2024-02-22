@@ -28,9 +28,6 @@
         <ColumnInfo Id="ReferenceId" Width="95" Index="-1" />
         <ColumnInfo Id="Code" Index="0" Width="93" />
         <ColumnInfo Id="FirstName" Width="134" Index="1" />
-        <ColumnInfo Id="LastName" Index="2" Width="144" />
-        <ColumnInfo Id="Email" Index="3" Width="115" />
-        <ColumnInfo Id="Phone" Index="4" Width="153" />
       </Columns>
     </ListView>
     <ListView Id="Position_ListView">

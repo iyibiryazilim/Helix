@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MessageHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.IntroductionModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.Services;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels.BottomSheetViewModels;
@@ -19,7 +20,7 @@ public partial class LoginViewModel : BaseViewModel
 	IAuthenticationService _authenticationService;
 	IServiceProvider _serviceProvider;
 	IApplicationUserService _applicationUserService;
-
+	ITransactionOwnerService _transactionOwnerService;
 
 	[ObservableProperty]
 	string userName = String.Empty;
@@ -27,12 +28,13 @@ public partial class LoginViewModel : BaseViewModel
 	[ObservableProperty]
 	string password = String.Empty;
 
-    public LoginViewModel(IHttpClientService httpClientService, IAuthenticationService authenticationService, IServiceProvider serviceProvider,IApplicationUserService applicationUserService)
+    public LoginViewModel(IHttpClientService httpClientService, IAuthenticationService authenticationService, IServiceProvider serviceProvider,IApplicationUserService applicationUserService,ITransactionOwnerService transactionOwnerService)
     {
 		_httpClientService = httpClientService;
 		_authenticationService = authenticationService;
 		_serviceProvider = serviceProvider;
 		_applicationUserService = applicationUserService;
+		_transactionOwnerService = transactionOwnerService;
     }
 
     [RelayCommand]
@@ -60,14 +62,15 @@ public partial class LoginViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
-
 			if (!string.IsNullOrEmpty(UserName))
 			{
 				var httpClient = _httpClientService.GetOrCreateHttpClient();
 				string baseAddress = await SecureStorage.GetAsync("BaseUrl");
 				//httpClient.BaseAddress = new Uri(baseAddress);
+				
 
-				var auth = await _authenticationService.Authenticate(httpClient, UserName, Password);
+
+                var auth = await _authenticationService.Authenticate(httpClient, UserName, Password);
 				if(auth.Result != false)
 				{
 					httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.Token);
@@ -77,6 +80,8 @@ public partial class LoginViewModel : BaseViewModel
 					if (data.Employee!=null)
 					{
                         await SecureStorage.SetAsync("EmployeeOid", data.Employee.Oid.ToString());
+                       
+
                     }
 					await SecureStorage.SetAsync("CurrentUser", UserName);
 					var result = await SecureStorage.Default.GetAsync("isWatch");
