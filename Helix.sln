@@ -160,7 +160,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "Noti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.NotificationService", "src\Services\NotificationService\Helix.NotificationService\Helix.NotificationService\Helix.NotificationService.csproj", "{A220F61C-F7DE-4A64-A766-41E322F2DD7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSService.PostConsumer", "src\Services\LBSService\Helix.LBSService.PostConsumer\Helix.LBSService.PostConsumer.csproj", "{7644FC7F-9A8A-42EA-978D-4E2F77E356F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.LBSService.PostConsumer", "src\Services\LBSService\Helix.LBSService.PostConsumer\Helix.LBSService.PostConsumer.csproj", "{7644FC7F-9A8A-42EA-978D-4E2F77E356F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.CustomQueryService.WebAPI", "src\Services\CustomQueryService\Helix.CustomQueryService.WebAPI\Helix.CustomQueryService.WebAPI\Helix.CustomQueryService.WebAPI.csproj", "{AFB79C6E-4A54-459D-9BBC-3C56A6981D93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomQueryService", "CustomQueryService", "{21A5740A-983F-4258-B3EB-A1FD311D4E29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -490,6 +494,12 @@ Global
 		{7644FC7F-9A8A-42EA-978D-4E2F77E356F4}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
 		{7644FC7F-9A8A-42EA-978D-4E2F77E356F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7644FC7F-9A8A-42EA-978D-4E2F77E356F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB79C6E-4A54-459D-9BBC-3C56A6981D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB79C6E-4A54-459D-9BBC-3C56A6981D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB79C6E-4A54-459D-9BBC-3C56A6981D93}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB79C6E-4A54-459D-9BBC-3C56A6981D93}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{AFB79C6E-4A54-459D-9BBC-3C56A6981D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB79C6E-4A54-459D-9BBC-3C56A6981D93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -573,6 +583,8 @@ Global
 		{28AC32D1-1480-4C2E-9030-D7B38A50BCB1} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
 		{A220F61C-F7DE-4A64-A766-41E322F2DD7E} = {28AC32D1-1480-4C2E-9030-D7B38A50BCB1}
 		{7644FC7F-9A8A-42EA-978D-4E2F77E356F4} = {7438FA5D-0998-49CE-8730-0D12A0534A78}
+		{AFB79C6E-4A54-459D-9BBC-3C56A6981D93} = {21A5740A-983F-4258-B3EB-A1FD311D4E29}
+		{21A5740A-983F-4258-B3EB-A1FD311D4E29} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}
