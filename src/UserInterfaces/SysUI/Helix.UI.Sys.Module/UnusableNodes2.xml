@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="Employee_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="LastName" Index="2" Width="144" />
+        <ColumnInfo Id="Email" Index="3" Width="115" />
+        <ColumnInfo Id="Phone" Index="4" Width="153" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

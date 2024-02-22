@@ -204,6 +204,7 @@ public partial class OutCountingTransactionOperationFormViewModel : BaseViewMode
                 {
                    var viewModel = _serviceProvider.GetService<OutCountingTransactionOperationViewModel>();
                     viewModel.Items.Clear();
+
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
                         ["GroupType"] = 3,

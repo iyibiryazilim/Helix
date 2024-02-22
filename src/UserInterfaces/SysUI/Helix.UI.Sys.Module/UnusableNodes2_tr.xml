@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Helix.UI.Sys.Module.BusinessObjects.Employee">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="LastName" Caption="Soyadı" />
+        <Member Name="Phone" Caption="Telefon" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

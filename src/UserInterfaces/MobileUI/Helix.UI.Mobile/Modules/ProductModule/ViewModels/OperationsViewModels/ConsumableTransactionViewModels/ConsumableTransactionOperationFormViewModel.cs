@@ -20,7 +20,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 [QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
 
-public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
+public partial class ConsumableTransactionOperationFormViewModel : BaseViewModel
 {
 
     IHttpClientService _httpClientService;
@@ -35,7 +35,7 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
     string transactionTypeName;
 
     [ObservableProperty]
-    ProductTransactionFormModel productTransactionFormModel= new();
+    ProductTransactionFormModel productTransactionFormModel = new();
 
     [ObservableProperty]
     string searchText = string.Empty;
@@ -59,10 +59,10 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
 
     public bool answer;
     public string selectAnswer;
-   
+
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IConsumableTransactionService consumableTransactionService,IServiceProvider serviceProvider)
+    public ConsumableTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService, IConsumableTransactionService consumableTransactionService, IServiceProvider serviceProvider)
     {
         Title = "Sarf İşlemleri";
         _httpClientService = httpClientService;
@@ -213,12 +213,13 @@ public partial class ConsumableTransactionOperationFormViewModel:BaseViewModel
                 if (userResponse)
                 {
                     var viewModel = _serviceProvider.GetService<ConsumableTransactionOperationViewModel>();
-                  viewModel.Items.Clear();
-                  await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                  {
-                      ["GroupType"] = 3,
-                      ["SuccessMessage"] = "Sarf Fişi Başarıyla Gönderildi."
-                  });
+                    viewModel.Items.Clear();
+
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 3,
+                        ["SuccessMessage"] = "Sarf Fişi Başarıyla Gönderildi."
+                    });
                 }
             }
             else

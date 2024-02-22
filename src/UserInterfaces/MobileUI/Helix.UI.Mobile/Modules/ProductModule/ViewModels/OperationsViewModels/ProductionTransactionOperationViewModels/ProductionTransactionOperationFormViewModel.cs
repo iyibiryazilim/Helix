@@ -202,6 +202,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                     {
                         var viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
                         viewModel.Items.Clear();
+                        viewModel.Results.Clear();
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
                             ["GroupType"] = 3,

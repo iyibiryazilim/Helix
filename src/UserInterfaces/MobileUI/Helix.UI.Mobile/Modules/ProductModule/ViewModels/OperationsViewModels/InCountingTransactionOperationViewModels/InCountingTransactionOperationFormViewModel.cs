@@ -206,6 +206,7 @@ public partial class InCountingTransactionOperationFormViewModel : BaseViewModel
                 {
                     var viewModel = _serviceProvider.GetService<InCountingTransactionOperationViewModel>();
                     viewModel.Items.Clear();
+
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
 

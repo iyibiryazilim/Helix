@@ -108,6 +108,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCu
 using Helix.UI.Mobile.Modules.SalesModule.Views.PanelViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.SalesOrderViews;
 using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using The49.Maui.BottomSheet;
 using ZXing.Net.Maui.Controls;
@@ -122,7 +123,8 @@ namespace Helix.UI.Mobile
 			var builder = MauiApp.CreateBuilder();
 			builder
 				.UseMauiApp<App>()
-				.UseBottomSheet()
+                .UseLocalNotification()
+                .UseBottomSheet()
 				.UseSkiaSharp()
 				.UseMauiCommunityToolkit()
 				.UseBarcodeReader()
@@ -256,6 +258,7 @@ namespace Helix.UI.Mobile
 			mauiAppBuilder.Services.AddTransient<FailedPageViewModel>();
 			mauiAppBuilder.Services.AddTransient<BarcodePageView>();
 			mauiAppBuilder.Services.AddTransient<BarcodePageViewModel>();
+			mauiAppBuilder.Services.AddSingleton<ITransactionOwnerService, TransactionOwnerDataStore>();
 
 			
 		
