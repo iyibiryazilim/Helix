@@ -15,19 +15,18 @@ namespace Helix.NotificationService
 
 		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 		{
+			_eventBus.Consume(new LOGOSuccessIntegrationEvent());
+			_eventBus.Consume(new LOGOFailureIntegrationEvent());
+			_eventBus.Consume(new SYSMessageIntegrationEvent());
 			while (!stoppingToken.IsCancellationRequested)
 			{
-				//if (_logger.IsEnabled(LogLevel.Information))
-				//{
-				//	_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-				//}
+				if (_logger.IsEnabled(LogLevel.Information))
+				{
+					_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+				}
 
-				_eventBus.Consume(new LOGOSuccessIntegrationEvent());
-				_eventBus.Consume(new LOGOFailureIntegrationEvent());
-				_eventBus.Consume(new SYSMessageIntegrationEvent());
-
-				await Task.Delay(1000, stoppingToken);
-			}
+			 await Task.Delay(10000, stoppingToken);
+ 			}
 		}
 	}
 }

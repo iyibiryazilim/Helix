@@ -8,7 +8,7 @@ public class HttpClientService : IHttpClientService
 	var httpClient = new HttpClient();
 
 
-	httpClient.BaseAddress = new Uri("http://195.142.192.18:1089");
+	httpClient.BaseAddress = new Uri("http://172.25.86.101:10085");
 	httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
 	return httpClient;
@@ -18,7 +18,7 @@ public class HttpClientService : IHttpClientService
 
 	public string Token { get; set; } = string.Empty;
 
-	public string BaseUri { get; set; } = "http://195.142.192.18:1089";
+	public string BaseUri { get; set; } = "http://172.25.86.101:10085";
 
 	public HttpClient GetOrCreateHttpClient()
 	{

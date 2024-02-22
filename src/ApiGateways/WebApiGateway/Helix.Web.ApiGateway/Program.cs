@@ -12,11 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
-		config
+	config
 		.SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
 		.AddJsonFile("appsettings.json", true, true)
 		.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-		.AddJsonFile("Configurations\\ocelot.json")
+		.AddJsonFile(Path.Combine("Configurations", "ocelot.json"), optional: false, reloadOnChange: true)
 		.AddEnvironmentVariables();
 })
 			.ConfigureServices(s =>

@@ -22,7 +22,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
     return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
     {
         ConnectionRetryCount = 5,
-        SubscriperClientAppName = "ProductService",
+        SubscriperClientAppName = "LBSService",
         DefaultTopicName = "HelixTopicName",
         EventBusType = EventBusType.RabbitMQ,
         EventNameSuffix = nameof(IntegrationEvent),
@@ -95,11 +95,8 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

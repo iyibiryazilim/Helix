@@ -5,10 +5,9 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.25.86.101",
-          "Port": 10089
-          //"Port": 5124
-        }
+          "Host": "ocelot.sales",
+          "Port": 8080
+         }
       ],
       "UpstreamPathTemplate": "/gateway/sales/{everything}",
       "UpstreamHttpMethod": [ "Get", "POST" ]
@@ -30,8 +29,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.25.86.101",
-          "Port": 10087
+          "Host": "ocelot.purchase",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/purchase/{everything}",
@@ -43,8 +42,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.25.86.101",
-          "Port": 10086
+          "Host": "ocelot.product",
+          "Port": 8080
         }
       ],
 
@@ -62,7 +61,7 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/identity/{everything}",
-      "UpstreamHttpMethod": [ "POST","GET","PUT" ]
+      "UpstreamHttpMethod": [ "POST","GET","PUT","PATCH" ]
     },
     {
 
@@ -70,8 +69,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.25.86.101",
-          "Port": 10090
+          "Host": "ocelot.customquery",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/customQuery/{everything}",

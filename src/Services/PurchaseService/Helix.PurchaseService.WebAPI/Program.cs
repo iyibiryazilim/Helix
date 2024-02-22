@@ -23,17 +23,11 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
 	{
 		ConnectionRetryCount = 5,
-		SubscriperClientAppName = "PurchaseService",
+		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
 		EventNameSuffix = nameof(IntegrationEvent),
-		//Connection = new ConnectionFactory
-		//{
-		//	HostName = "rattlesnake-01.rmq.cloudamqp.com",
-		//	Port = 5672,
-		//	UserName = "oqhbtvgt",
-		//	Password = "Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g"
-		//}
+		 
 	}, eb);
 });
 
@@ -66,18 +60,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-//app.UseAuthentication();
-app.MapControllers();
-//app.RegisterWithConsul(app.Lifetime);
-
+ app.MapControllers();
+ 
 app.Run();

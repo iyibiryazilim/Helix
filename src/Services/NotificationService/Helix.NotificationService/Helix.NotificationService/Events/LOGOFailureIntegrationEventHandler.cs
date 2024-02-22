@@ -12,8 +12,8 @@ namespace Helix.NotificationService.Events
 
 		public Task Handle(LOGOFailureIntegrationEvent @event)
 		{
-			//Throw error to test error handling
-			throw new Exception("Test Exception"); 
-  		}
+			_logger.LogInformation("LOGOFailureIntegrationEvent Handled");
+			return Task.CompletedTask;
+		}
 	}
 }

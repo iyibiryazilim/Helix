@@ -1,4 +1,6 @@
-﻿using Helix.LBSService.Base.Models;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.LBSService.Base.Events;
+using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Go.Services;
 using System.Data.SqlClient;
@@ -10,11 +12,16 @@ namespace Helix.LBSService.Go.DataStores
 {
 	public class LG_STFICHE_Context : ILG_STFICHE_Context
 	{
-
+        readonly IEventBus _eventBus;
 		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
 		readonly int _defaultPeriodNumber = LBSParameter.Period;
-		readonly string _connectionString = LBSParameter.Connection; 
-       
+		readonly string _connectionString = LBSParameter.Connection;
+
+		public LG_STFICHE_Context(IEventBus eventBus)
+		{
+			_eventBus = eventBus;
+		}
+
 		public async Task<int> UpdateObject(string lastAsgnd, string effsdate, string effedate, int TRCODE)
 		{
 			string query = $@"UPDATE L_LDOCNUM SET LASTASGND = '{lastAsgnd}'
@@ -4273,8 +4280,9 @@ namespace Helix.LBSService.Go.DataStores
 					#endregion
 					await UpdateObject(last, item.DATE_.ToString("s"), item.DATE_.ToString("s"), item.TRCODE);
 					transaction.Complete();
-
-					return new DataResult<LG_STFICHE>()
+                    _eventBus.Publish(new SYSMessageIntegrationEvent(ReferenceId, true, "Success", new Guid(item.EmployeeOid), item));
+                    _eventBus.Publish(new LOGOSuccessIntegrationEvent(ReferenceId, "Success", new Guid(item.EmployeeOid), item));
+                    return new DataResult<LG_STFICHE>()
 					{
 						Data = null,
 						IsSuccess = true,
@@ -4285,12 +4293,16 @@ namespace Helix.LBSService.Go.DataStores
 				{
 					Debug.WriteLine(e.Message);
 
-					return new DataResult<LG_STFICHE>()
+                    var result = new DataResult<LG_STFICHE>()
 					{
 						Data = null,
 						IsSuccess = false,
 						Message = e.Message
 					};
+					_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(item.EmployeeOid), item));
+					_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(item.EmployeeOid), item));
+
+                    return result;
 
 				}
 			}

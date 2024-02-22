@@ -1,21 +1,18 @@
-﻿using DevExpress.ExpressApp.Security;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.ExpressApp.AspNetCore.WebApi;
+using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Authentication.ClientServer;
+using DevExpress.ExpressApp.WebApi.Services;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
-using System.Text;
+using Helix.IdentityServer.WebApi.API.Security;
+using Helix.IdentityServer.WebApi.Services;
+using Helix.UI.Sys.Module.BusinessObjects;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using DevExpress.ExpressApp.WebApi.Services;
-using Microsoft.AspNetCore.OData;
-using DevExpress.ExpressApp.Core;
-using Helix.IdentityServer.WebApi.JWT;
-using DevExpress.ExpressApp.Security.Authentication;
-using DevExpress.ExpressApp.Security.Authentication.ClientServer;
-using Helix.IdentityServer.WebApi.Core;
-using DevExpress.ExpressApp.AspNetCore.WebApi;
-using Helix.UI.Sys.Module.BusinessObjects;
+using System.Text;
 
 namespace Helix.IdentityServer.WebApi;
 
