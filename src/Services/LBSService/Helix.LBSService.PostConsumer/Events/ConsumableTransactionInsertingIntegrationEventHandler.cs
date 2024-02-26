@@ -32,20 +32,25 @@ namespace Helix.LBSService.PostConsumer.Events
 				else
 				{
 					_logger.LogError($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
- 				}
+  				}
 			}
 			catch (HttpRequestException ex)
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
- 			}
+				throw;
+			}
 			catch (JsonException ex)
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
- 			}
+				throw;
+
+			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
- 			}
+				throw;
+
+			}
 
 		}
 	} 
