@@ -18,16 +18,16 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 [QueryProperty(name: nameof(WarehouseTotal), queryId: nameof(WarehouseTotal))]
 public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
 {
-	IHttpClientService _httpClientService;
+    IHttpClientService _httpClientService;
     ISpeCodeService _speCodeService;
     ITransferTransactionService _transferTransactionService;
     IServiceProvider _serviceProvider;
 
-	[ObservableProperty]
-	Warehouse warehouse;
+    [ObservableProperty]
+    Warehouse warehouse;
 
-	[ObservableProperty]
-	Warehouse selectedWarehouse;
+    [ObservableProperty]
+    Warehouse selectedWarehouse;
 
     [ObservableProperty]
     ObservableCollection<WarehouseTotal> warehouseTotal;
@@ -45,15 +45,15 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
 
     public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-    public WarehouseTransferOperationFormViewModel(IHttpClientService httpClientService,ISpeCodeService speCodeService,ITransferTransactionService transferTransactionService,IServiceProvider serviceProvider)
-	{
-		Title = "Ambar Transfer Formu";
-		_httpClientService = httpClientService;
+    public WarehouseTransferOperationFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, ITransferTransactionService transferTransactionService, IServiceProvider serviceProvider)
+    {
+        Title = "Ambar Transfer Formu";
+        _httpClientService = httpClientService;
         _speCodeService = speCodeService;
         _transferTransactionService = transferTransactionService;
         _serviceProvider = serviceProvider;
 
-	}
+    }
 
     [RelayCommand]
     public async Task GetSpeCodeAsync()
@@ -97,8 +97,8 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
     }
 
     [RelayCommand]
-	async Task GoToSuccessPageViewAsync()
-	{
+    async Task GoToSuccessPageViewAsync()
+    {
         try
         {
             IsBusy = true;
@@ -143,12 +143,12 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
             }
 
 
-            var result = await _transferTransactionService.InsertObject(httpClient, transferTransactionDto);
-            if (result.IsSuccess)
-            {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                if (userResponse)
+            if (userResponse)
+            {
+                var result = await _transferTransactionService.InsertObject(httpClient, transferTransactionDto);
+                if (result.IsSuccess)
                 {
                     var viewModel = _serviceProvider.GetService<WarehouseTransferOperationViewModel>();
                     viewModel.Items.Clear();
@@ -158,12 +158,14 @@ public partial class WarehouseTransferOperationFormViewModel : BaseViewModel
                         ["SuccessMessage"] = "Ambar Transfer Fişi Başarıyla Gönderildi."
                     });
                 }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
+            }
 
-            }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+
+          
 
         }
         catch (Exception)

@@ -12,6 +12,7 @@ namespace Helix.UI.Sys.Module.BusinessObjects
         private Employee _employee;
         private string _message;
         private string _data;
+        private bool _IsRead;
         public FailureTransactionOwner(Session session)
             : base(session)
         {
@@ -29,6 +30,8 @@ namespace Helix.UI.Sys.Module.BusinessObjects
 
         [Size(-1)]
         public string Data { get => _data; set=> SetPropertyValue(nameof(Data),ref _data, value); }
+
+        public bool IsRead { get => _IsRead; set => SetPropertyValue(nameof(IsRead), ref _IsRead, value); }
         
     }
 }

@@ -183,10 +183,10 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
 
             if (PurchaseFormModel.SelectedSupplier == null || string.IsNullOrEmpty(PurchaseFormModel.SelectedSupplier.Code))
             {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "Lütfen bir tedarikçi seçin.", "Tamam", "İptal");
-                if (userResponse)
+                var supplierResponse = await Shell.Current.DisplayAlert("Uyarı", "Lütfen bir tedarikçi seçin.", "Tamam", "İptal");
+                if (supplierResponse)
                 {
-                    return; 
+                    return;
                 }
             }
 
@@ -226,12 +226,13 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
                 purchaseDispatchTransactionDto.Lines.Add(purchaseDispatchLine);
             }
 
-            var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
-            if (result.IsSuccess)
-            {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                if (userResponse)
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (userResponse)
+            {
+                var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
+                if (result.IsSuccess)
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
@@ -239,11 +240,12 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
                         ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
                     });
                 }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+           
 
         }
         catch (Exception ex)

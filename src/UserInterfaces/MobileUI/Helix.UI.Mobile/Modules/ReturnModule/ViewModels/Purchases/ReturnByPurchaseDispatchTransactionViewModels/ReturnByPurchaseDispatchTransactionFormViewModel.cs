@@ -18,8 +18,8 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
     [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
     [QueryProperty(nameof(ShipInfo), nameof(ShipInfo))]
     [QueryProperty(nameof(ChangedLineList), nameof(ChangedLineList))]
-	public partial class ReturnByPurchaseDispatchTransactionFormViewModel : BaseViewModel
-	{
+    public partial class ReturnByPurchaseDispatchTransactionFormViewModel : BaseViewModel
+    {
         IHttpClientService _httpClientService;
         IDriverService _driverService;
         ICarrierService _carrierService;
@@ -256,12 +256,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                     purchaseDispatchTransactionDto.Lines.Add(purchaseDispatchLine);
                 }
 
-                var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
-                if (result.IsSuccess)
-                {
-                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                    if (userResponse)
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
+                {
+                    var result = await _purchaseReturnDispatchTransactionService.InsertObject(httpClient, purchaseDispatchTransactionDto);
+                    if (result.IsSuccess)
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
@@ -269,11 +270,12 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Purchases.ReturnByPurc
                             ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
                         });
                     }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
                 }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                }
+                
 
             }
             catch (Exception ex)

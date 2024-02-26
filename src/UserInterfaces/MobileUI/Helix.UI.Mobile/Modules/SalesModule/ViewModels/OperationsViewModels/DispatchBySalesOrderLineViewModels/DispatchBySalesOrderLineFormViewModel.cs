@@ -20,7 +20,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
     [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
     [QueryProperty(name: nameof(ShipInfo), queryId: nameof(ShipInfo))]
     public partial class DispatchBySalesOrderLineFormViewModel : BaseViewModel
-	{
+    {
 
         IHttpClientService _httpClientService;
         IDriverService _driverService;
@@ -41,7 +41,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         int currentPage = 0;
 
         [ObservableProperty]
-        SalesFormModel salesFormModel= new();
+        SalesFormModel salesFormModel = new();
         [ObservableProperty]
         int pageSize = 20;
         [ObservableProperty]
@@ -70,7 +70,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
         [ObservableProperty]
         public bool isVisible = false;
 
-        public DispatchBySalesOrderLineFormViewModel(IHttpClientService httpClientService, ICarrierService carrierService, IDriverService driverService, ISpeCodeService speCodeService,IRetailSalesDispatchTransactionService retailSalesDispatchTransactionService,IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService)
+        public DispatchBySalesOrderLineFormViewModel(IHttpClientService httpClientService, ICarrierService carrierService, IDriverService driverService, ISpeCodeService speCodeService, IRetailSalesDispatchTransactionService retailSalesDispatchTransactionService, IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService)
         {
             Title = "Form";
             _httpClientService = httpClientService;
@@ -124,7 +124,7 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
 
                     foreach (var item in result.Data)
                     {
-                        
+
                         SpeCodeModelItems.Add(item);
                     }
                     List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
@@ -258,24 +258,26 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                     retailSalesDispatch.Lines.Add(retailSalesDispatchLine);
                 }
 
-                var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
-                if (result.IsSuccess)
-                {
-                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                    if (userResponse)
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
+                {
+                    var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
+                    if (result.IsSuccess)
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
                             ["GroupType"] = 8,
-                            ["SuccessMessage"]="İrsaliye Başarıyla Gönderildi."
+                            ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
                         });
                     }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
                 }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                }
+
 
             }
             catch (Exception ex)
@@ -334,20 +336,24 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Di
                     retailSalesDispatchLine.WarehouseNumber = Warehouse.Number;
                     retailSalesDispatch.Lines.Add(retailSalesDispatchLine);
                 }
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
-                if (result.IsSuccess)
+                if (userResponse)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
+                    if (result.IsSuccess)
                     {
-                        ["GroupType"] = 8,
-                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+                        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                        {
+                            ["GroupType"] = 8,
+                            ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
 
-                    });
-                }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                        });
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
                 }
 
             }

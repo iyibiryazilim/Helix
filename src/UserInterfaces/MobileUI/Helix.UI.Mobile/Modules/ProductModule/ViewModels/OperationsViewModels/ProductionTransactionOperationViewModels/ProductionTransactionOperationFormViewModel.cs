@@ -18,7 +18,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
     [QueryProperty(name: nameof(ProductModel), queryId: nameof(ProductModel))]
     [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 
-    public partial class ProductionTransactionOperationFormViewModel: BaseViewModel
+    public partial class ProductionTransactionOperationFormViewModel : BaseViewModel
     {
         [ObservableProperty]
         ObservableCollection<ProductModel> productModel;
@@ -57,7 +57,7 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
 
         public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-        public ProductionTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService,IProductionTransactionService productionTransactionService,IServiceProvider serviceProvider)
+        public ProductionTransactionOperationFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ISpeCodeService speCodeService, IProductionTransactionService productionTransactionService, IServiceProvider serviceProvider)
         {
             Title = "Üretimden Giriş İşlemleri";
             _httpClientService = httpClientService;
@@ -192,29 +192,31 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.OperationsViewModels.
                 }
 
 
-                var result = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
-                if (result.IsSuccess)
+
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-
-                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
-
-                    if (userResponse)
+                    var result = await _productionTransactionService.InsertObject(httpClient, productionTransactionDto);
+                    if (result.IsSuccess)
                     {
+
                         var viewModel = _serviceProvider.GetService<ProductionTransactionOperationViewModel>();
                         viewModel.Items.Clear();
                         viewModel.Results.Clear();
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
                             ["GroupType"] = 3,
-                            ["SuccessMessage"]= "Üretimden Giriş Fişi Başarılıyla Gönderildi."
+                            ["SuccessMessage"] = "Üretimden Giriş Fişi Başarılıyla Gönderildi."
                         });
                     }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
+                }
 
-                }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                }
+                
 
             }
             catch (Exception)

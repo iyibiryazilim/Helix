@@ -389,6 +389,7 @@ namespace Helix.UI.Mobile
             mauiAppBuilder.Services.AddTransient<IRetailSalesDispatchTransactionService, RetailSalesDispatchTransactionDataStore>();
             mauiAppBuilder.Services.AddTransient<IWholeSalesDispatchTransactionService, WholeSalesDispatchTransactionDataStore>();
             mauiAppBuilder.Services.AddTransient<ITransferTransactionService, TransferTransactionDataStore>();
+			mauiAppBuilder.Services.AddTransient<IFailureTransactionService, FailureTransactionOwnerDataStore>();
 
 
 

@@ -23,43 +23,43 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.ViewModels.OperationsViewModels
 [QueryProperty(name: nameof(Current), queryId: nameof(Current))]
 public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
 {
-	IHttpClientService _httpClientService;
-	ISpeCodeService _speCodeService;
-	IPurchaseDispatchTransactionService _purchaseDispatchTransaction;
+    IHttpClientService _httpClientService;
+    ISpeCodeService _speCodeService;
+    IPurchaseDispatchTransactionService _purchaseDispatchTransaction;
 
-	public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
-	public ObservableCollection<Supplier> SupplierItems { get; } = new();
+    public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
+    public ObservableCollection<Supplier> SupplierItems { get; } = new();
 
-	public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
+    public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
-	[ObservableProperty]
-	ObservableCollection<WaitingOrderLine> changedLines;
+    [ObservableProperty]
+    ObservableCollection<WaitingOrderLine> changedLines;
 
-	[ObservableProperty]
-	string searchText = string.Empty;
-	[ObservableProperty]
-	ProductOrderBy orderBy = ProductOrderBy.nameasc;
-	[ObservableProperty]
-	int currentPage = 0;
-	[ObservableProperty]
-	int pageSize = 20000;
-	[ObservableProperty]
-	WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
-	[ObservableProperty]
-	SupplierOrderBy supplierOrderBy = SupplierOrderBy.nameasc;
+    [ObservableProperty]
+    string searchText = string.Empty;
+    [ObservableProperty]
+    ProductOrderBy orderBy = ProductOrderBy.nameasc;
+    [ObservableProperty]
+    int currentPage = 0;
+    [ObservableProperty]
+    int pageSize = 20000;
+    [ObservableProperty]
+    WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
+    [ObservableProperty]
+    SupplierOrderBy supplierOrderBy = SupplierOrderBy.nameasc;
 
-	[ObservableProperty]
-	PurchaseFormModel purchaseFormModel = new();
+    [ObservableProperty]
+    PurchaseFormModel purchaseFormModel = new();
 
 
-	[ObservableProperty]
-	Warehouse warehouse;
+    [ObservableProperty]
+    Warehouse warehouse;
 
-	[ObservableProperty]
-	Supplier current;
+    [ObservableProperty]
+    Supplier current;
 
-	[ObservableProperty]
-	public string speCode = string.Empty;
+    [ObservableProperty]
+    public string speCode = string.Empty;
 
     [ObservableProperty]
     public bool isVisible = false;
@@ -67,52 +67,52 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
     [ObservableProperty]
     public bool isNotVisible = true;
 
-    public DispatchByPurchaseOrderLineFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService,IPurchaseDispatchTransactionService purchaseDispatchTransactionService)
-	{
-		Title = "Satınalma İrsaliye Formu";
-		_httpClientService = httpClientService;
-		_speCodeService = speCodeService;
-		_purchaseDispatchTransaction = purchaseDispatchTransactionService;
-	}
+    public DispatchByPurchaseOrderLineFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IPurchaseDispatchTransactionService purchaseDispatchTransactionService)
+    {
+        Title = "Satınalma İrsaliye Formu";
+        _httpClientService = httpClientService;
+        _speCodeService = speCodeService;
+        _purchaseDispatchTransaction = purchaseDispatchTransactionService;
+    }
 
-	[RelayCommand]
-	public async Task GetSpeCodeAsync()
-	{
-		string action;
+    [RelayCommand]
+    public async Task GetSpeCodeAsync()
+    {
+        string action;
 
-		try
-		{
-			var httpClient = _httpClientService.GetOrCreateHttpClient();
-			CurrentPage = 0;
-			var result = await _speCodeService.GetObjects(httpClient);
+        try
+        {
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
+            CurrentPage = 0;
+            var result = await _speCodeService.GetObjects(httpClient);
 
-			if (result.Data.Any())
-			{
-				SpeCodeModelItems.Clear();
+            if (result.Data.Any())
+            {
+                SpeCodeModelItems.Clear();
 
-				foreach (var item in result.Data)
-				{
-					SpeCodeModelItems.Add(item);
-				}
+                foreach (var item in result.Data)
+                {
+                    SpeCodeModelItems.Add(item);
+                }
 
-				List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
+                List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
 
-				action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
+                action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
 
-				SpeCode = action;
-			}
-		}
-		catch (Exception ex)
-		{
-			Debug.WriteLine(ex);
-			await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
-		}
-		finally
-		{
-			IsBusy = false;
+                SpeCode = action;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+        }
+        finally
+        {
+            IsBusy = false;
 
-		}
-	}
+        }
+    }
 
 
     [RelayCommand]
@@ -155,12 +155,13 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
                 purchaseDispatchTransactionDto.Lines.Add(purchaseDispatchLine);
             }
 
-            var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
-            if (result.IsSuccess)
-            {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                if (userResponse)
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (userResponse)
+            {
+                var result = await _purchaseDispatchTransaction.InsertObject(httpClient, purchaseDispatchTransactionDto);
+                if (result.IsSuccess)
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
@@ -168,11 +169,13 @@ public partial class DispatchByPurchaseOrderLineFormViewModel : BaseViewModel
                         ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
                     });
                 }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
+
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+           
 
         }
         catch (Exception ex)

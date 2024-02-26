@@ -27,6 +27,7 @@ public class MappingProfile : Profile
 		CreateMap<WaitingOrder, PurchaseOrder>().ReverseMap();
         CreateMap<Current, Customer>().ReverseMap();
         CreateMap<WarehouseModel, dynamic>();
+		CreateMap<NotificationFiche, dynamic>();
         CreateMap<BarcodeAndSubUnitset, dynamic>();
 		CreateMap<DispatchTransactionLine, PurchaseOrderLine>().ReverseMap();
 		CreateMap<DispatchTransactionLine, SalesOrderLine>().ReverseMap();

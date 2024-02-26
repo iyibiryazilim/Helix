@@ -18,99 +18,99 @@ using static Helix.UI.Mobile.Modules.ProductModule.DataStores.WarehouseDataStore
 
 namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDispatchTransactionLineViewModels
 {
-	[QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
-	[QueryProperty(nameof(Current), nameof(Current))]
-	[QueryProperty(nameof(Warehouse), nameof(Warehouse))]
-	public partial class ReturnBySalesDispatchTransactionLineFormViewModel : BaseViewModel
-	{
-		IHttpClientService _httpClientService;
-		ISpeCodeService _speCodeService;
+    [QueryProperty(nameof(ChangedLines), nameof(ChangedLines))]
+    [QueryProperty(nameof(Current), nameof(Current))]
+    [QueryProperty(nameof(Warehouse), nameof(Warehouse))]
+    public partial class ReturnBySalesDispatchTransactionLineFormViewModel : BaseViewModel
+    {
+        IHttpClientService _httpClientService;
+        ISpeCodeService _speCodeService;
         IRetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
         IWholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;
-		public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
-		public ObservableCollection<Customer> CustomerItems { get; } = new();
+        public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
+        public ObservableCollection<Customer> CustomerItems { get; } = new();
 
 
-		[ObservableProperty]
-		Customer current;
+        [ObservableProperty]
+        Customer current;
 
-		[ObservableProperty]
-		Warehouse warehouse;
-		[ObservableProperty]
-		ObservableCollection<DispatchTransactionLine> changedLines;
-		[ObservableProperty]
-		int currentPage = 0;
-		[ObservableProperty]
-		int pageSize = 5000;
-		[ObservableProperty]
-		WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
-		[ObservableProperty]
-		CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
+        [ObservableProperty]
+        Warehouse warehouse;
+        [ObservableProperty]
+        ObservableCollection<DispatchTransactionLine> changedLines;
+        [ObservableProperty]
+        int currentPage = 0;
+        [ObservableProperty]
+        int pageSize = 5000;
+        [ObservableProperty]
+        WarehouseOrderBy warehouseOrderBy = WarehouseOrderBy.numberasc;
+        [ObservableProperty]
+        CustomerOrderBy customerOrderBy = CustomerOrderBy.nameasc;
 
-		[ObservableProperty]
-		PurchaseFormModel purchaseFormModel = new();
-		//speCode
-		[ObservableProperty]
-		public string speCode = string.Empty;
+        [ObservableProperty]
+        PurchaseFormModel purchaseFormModel = new();
+        //speCode
+        [ObservableProperty]
+        public string speCode = string.Empty;
 
-		[ObservableProperty]
-		public string transactionType = string.Empty;
- 
-		public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
+        [ObservableProperty]
+        public string transactionType = string.Empty;
+
+        public ObservableCollection<SpeCodeModel> SpeCodeModelItems { get; } = new();
 
 
-		public ReturnBySalesDispatchTransactionLineFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IWholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService,IRetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService)
-		{
-			Title = "Satış Form";
-			_httpClientService = httpClientService;
+        public ReturnBySalesDispatchTransactionLineFormViewModel(IHttpClientService httpClientService, ISpeCodeService speCodeService, IWholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService, IRetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService)
+        {
+            Title = "Satış Form";
+            _httpClientService = httpClientService;
 
-			_speCodeService = speCodeService;
+            _speCodeService = speCodeService;
             _retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService;
             _wholeSalesReturnDispatchTransactionService = wholeSalesReturnDispatchTransactionService;
-		}
+        }
 
 
-		[RelayCommand]
-		public async Task GetSpeCodeAsync()
-		{
-			string action;
+        [RelayCommand]
+        public async Task GetSpeCodeAsync()
+        {
+            string action;
 
-			try
-			{
-				var httpClient = _httpClientService.GetOrCreateHttpClient();
-				CurrentPage = 0;
-				var result = await _speCodeService.GetObjects(httpClient);
+            try
+            {
+                var httpClient = _httpClientService.GetOrCreateHttpClient();
+                CurrentPage = 0;
+                var result = await _speCodeService.GetObjects(httpClient);
 
-				if (result.Data.Any())
-				{
-					SpeCodeModelItems.Clear();
+                if (result.Data.Any())
+                {
+                    SpeCodeModelItems.Clear();
 
-					foreach (var item in result.Data)
-					{
-						SpeCodeModelItems.Add(item);
-					}
+                    foreach (var item in result.Data)
+                    {
+                        SpeCodeModelItems.Add(item);
+                    }
 
-					List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
+                    List<string> speCodeStrings = SpeCodeModelItems.Select(code => code.SpeCode).ToList();
 
-					action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
+                    action = await Shell.Current.DisplayActionSheet("Özel Kod:", "Vazgeç", null, speCodeStrings.ToArray());
 
-					SpeCode = action;
+                    SpeCode = action;
 
 
-				}
+                }
 
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
-			}
-			finally
-			{
-				IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert(" Error: ", $"{ex.Message}", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
 
-			}
-		}
+            }
+        }
 
 
         async Task RetailSalesReturnDispatchTransactionInsertAsync()
@@ -152,12 +152,13 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                     dto.Lines.Add(lineDto);
                 }
 
-                var result = await _retailSalesReturnDispatchTransactionService.InsertObject(httpClient, dto);
-                if (result.IsSuccess)
-                {
-                    var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                    if (userResponse)
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
+                {
+                    var result = await _retailSalesReturnDispatchTransactionService.InsertObject(httpClient, dto);
+                    if (result.IsSuccess)
                     {
                         await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                         {
@@ -165,11 +166,12 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                             ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
                         });
                     }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
                 }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                }
+
 
             }
             catch (Exception ex)
@@ -222,21 +224,25 @@ namespace Helix.UI.Mobile.Modules.ReturnModule.ViewModels.Sales.ReturnBySalesDis
                     _dto.Lines.Add(lineDto);
                 }
 
-                var result = await _wholeSalesReturnDispatchTransactionService.InsertObject(httpClient, _dto);
-                if (result.IsSuccess)
+                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+                if (userResponse)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    var result = await _wholeSalesReturnDispatchTransactionService.InsertObject(httpClient, _dto);
+                    if (result.IsSuccess)
                     {
-                        ["GroupType"] = 7,
-                        ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
+                        await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                        {
+                            ["GroupType"] = 7,
+                            ["SuccessMessage"] = "İade İrsaliyesi Başarıyla Gönderildi."
 
-                    });
+                        });
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                    }
                 }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-                }
-
             }
             catch (Exception ex)
             {

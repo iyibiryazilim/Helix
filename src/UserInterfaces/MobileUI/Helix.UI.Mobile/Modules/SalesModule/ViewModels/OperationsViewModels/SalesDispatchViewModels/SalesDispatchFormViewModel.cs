@@ -19,9 +19,9 @@ namespace Helix.UI.Mobile.Modules.SalesModule.ViewModels.OperationsViewModels.Sa
 [QueryProperty(name: nameof(Warehouse), queryId: nameof(Warehouse))]
 public partial class SalesDispatchFormViewModel : BaseViewModel
 {
-	IHttpClientService _httpClientService;
-	//warehouseService
-	IWarehouseService _warehouseService;
+    IHttpClientService _httpClientService;
+    //warehouseService
+    IWarehouseService _warehouseService;
     ICustomerService _customerService;
     IServiceProvider _serviceProvider;
     IDriverService _driverService;
@@ -30,7 +30,7 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     IShipInfoService _shipInfoService;
     IWholeSalesDispatchTransactionService _wholeSalesDispatchTransactionService;
     IRetailSalesDispatchTransactionService _retailSalesDispatchTransactionService;
- 
+
 
     public ObservableCollection<Warehouse> WarehouseItems { get; } = new();
     public ObservableCollection<Customer> CustomerItems { get; } = new();
@@ -50,7 +50,7 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     SalesFormModel salesFormModel = new();
 
     [ObservableProperty]
-	ObservableCollection<ProductModel> productModel;
+    ObservableCollection<ProductModel> productModel;
     [ObservableProperty]
     string searchText = string.Empty;
     [ObservableProperty]
@@ -93,11 +93,11 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 
     [ObservableProperty]
     public string speCode = string.Empty;
-    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService,ICarrierService carrierService, ISpeCodeService speCodeService,IShipInfoService shipInfoService,IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService,IRetailSalesDispatchTransactionService retailSalesDispatchTransactionService)
-	{
-		Title = "Sevk Formu";
+    public SalesDispatchFormViewModel(IHttpClientService httpClientService, IWarehouseService warehouseService, ICustomerService customerService, IDriverService driverService, ICarrierService carrierService, ISpeCodeService speCodeService, IShipInfoService shipInfoService, IWholeSalesDispatchTransactionService wholeSalesDispatchTransactionService, IRetailSalesDispatchTransactionService retailSalesDispatchTransactionService)
+    {
+        Title = "Sevk Formu";
         _httpClientService = httpClientService;
-		_warehouseService = warehouseService;
+        _warehouseService = warehouseService;
         _customerService = customerService;
         _driverService = driverService;
         _carrierService = carrierService;
@@ -117,7 +117,7 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
         try
         {
             await Task.Delay(500);
-            await Task.WhenAll(GetCarrierAsync(), GetDriverAsync(),GetCustomerAsync());
+            await Task.WhenAll(GetCarrierAsync(), GetDriverAsync(), GetCustomerAsync());
 
         }
         catch (Exception ex)
@@ -241,8 +241,8 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
 
 
     [RelayCommand]
-	public async Task GetWarehouseAsync()
-	{
+    public async Task GetWarehouseAsync()
+    {
 
         try
         {
@@ -281,15 +281,15 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
     {
         try
         {
-            var httpClient=_httpClientService.GetOrCreateHttpClient();
+            var httpClient = _httpClientService.GetOrCreateHttpClient();
             CurrentPage = 0;
             var result = await _customerService.GetObjects(httpClient, SearchText, CustomerOrderBy, CurrentPage, PageSize);
 
-            if(result.Data.Any())
+            if (result.Data.Any())
             {
                 CustomerItems.Clear();
 
-                foreach(var item in result.Data)
+                foreach (var item in result.Data)
                 {
                     await Task.Delay(100);
                     CustomerItems.Add(item);
@@ -297,14 +297,14 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
             }
 
         }
-        catch(Exception ex) 
+        catch (Exception ex)
         {
             Debug.WriteLine(ex);
             await Shell.Current.DisplayAlert("Error:", $"{ex.Message}", "Tamam");
         }
         finally
         {
-            IsBusy= false;
+            IsBusy = false;
         }
 
     }
@@ -388,24 +388,28 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
                 retailSalesDispatch.Lines.Add(retailSalesDispatchLine);
             }
 
-            var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
-            if (result.IsSuccess)
-			{
-				var viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
-				viewModel.Items.Clear();
-				viewModel.Results.Clear();
-				await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
-                {
-                    ["GroupType"] = 100,
-                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
 
-                });
-            }
-            else
+            if (userResponse)
             {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
+                var result = await _retailSalesDispatchTransactionService.InsertObject(httpClient, retailSalesDispatch);
+                if (result.IsSuccess)
+                {
+                    var viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
+                    viewModel.Items.Clear();
+                    viewModel.Results.Clear();
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 100,
+                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
 
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -467,24 +471,28 @@ public partial class SalesDispatchFormViewModel : BaseViewModel
                 wholeSalesDispatchTransactionDto.Lines.Add(wholeSalesDispatchTransactionLineDto);
             }
 
-            var result = await _wholeSalesDispatchTransactionService.InsertObject(httpClient, wholeSalesDispatchTransactionDto);
-            if (result.IsSuccess)
+            var userResponse = await Shell.Current.DisplayAlert("Uyarı", "İşleminiz kaydedilecektir devam etmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (userResponse)
             {
-                var viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
-                viewModel.Items.Clear();
-                viewModel.Results.Clear();
-                await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                var result = await _wholeSalesDispatchTransactionService.InsertObject(httpClient, wholeSalesDispatchTransactionDto);
+                if (result.IsSuccess)
                 {
-                    ["GroupType"] = 100,
-                    ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
+                    var viewModel = _serviceProvider.GetService<SalesDispatchListViewModel>();
+                    viewModel.Items.Clear();
+                    viewModel.Results.Clear();
+                    await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
+                    {
+                        ["GroupType"] = 100,
+                        ["SuccessMessage"] = "İrsaliye Başarıyla Gönderildi."
 
-                });
+                    });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
+                }
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Hata", result.Message, "Tamam");
-            }
-
         }
         catch (Exception ex)
         {
