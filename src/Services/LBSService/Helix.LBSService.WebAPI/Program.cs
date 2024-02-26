@@ -25,6 +25,7 @@ LBSParameter.DB_DataSource = parameterModel.DB_DataSource;
 LBSParameter.DB_InitialCatalog = parameterModel.DB_InitialCatalog;
 LBSParameter.DB_UserId = parameterModel.DB_UserId;
 LBSParameter.DB_Password = parameterModel.DB_Password;
+
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
 	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
@@ -32,7 +33,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		ConnectionRetryCount = 5,
  		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
-		EventBusConnectionString = "amqp://guest:guest@localhost:52796",
+		//EventBusConnectionString = "amqp://guest:guest@localhost:52796",
 		EventBusType = EventBusType.RabbitMQ,
 		EventNameSuffix = nameof(IntegrationEvent),
 

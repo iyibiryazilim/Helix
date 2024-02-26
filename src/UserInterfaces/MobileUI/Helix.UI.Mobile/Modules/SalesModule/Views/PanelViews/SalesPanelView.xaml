@@ -13,42 +13,44 @@
              x:DataType="viewModel:SalesPanelViewModel"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}" EventName="Loaded" />
+        <toolkit:EventToCommandBehavior Command="{Binding GetDataCommand}"
+                                        EventName="Loaded" />
     </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Border Padding="5,20,5,10"
-            BackgroundColor="{StaticResource MainBorderColor}"
-            StrokeThickness="0">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="20,20,0,0" />
-        </Border.StrokeShape>
-        <ScrollView>
-            <Grid Padding="10,0,10,10"
-                  RowDefinitions="auto,auto,*"
-                  RowSpacing="10">
+    <ScrollView BackgroundColor="{StaticResource WhiteSmoke}">
+        <Grid RowDefinitions="auto,*"
+              RowSpacing="15">
+            <Border Padding="10"
+                    Margin="-1"
+                    Grid.Row="0"
+                    BackgroundColor="{StaticResource Primary}"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,20,20" />
+                </Border.StrokeShape>
                 <Grid Margin="0,0,0,10"
                       Grid.Row="0"
                       ColumnDefinitions=".50*, .50*"
                       ColumnSpacing="20">
                     <Border Grid.Column="0"
                             Padding="10"
-                            BackgroundColor="{StaticResource Primary}"
-                            Stroke="{StaticResource Primary}"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="{StaticResource White}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    FontSize="20"
                                    HorizontalOptions="Center"
                                    Text="{Binding salesPanelModel.SalesDispatchCount}"
-                                   TextColor="{StaticResource Secondary}" />
+                                   TextColor="{StaticResource Primary}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="Satılan Ürün Miktarı"
-                                   TextColor="{StaticResource Secondary}" />
+                                   TextColor="{StaticResource Primary}" />
                         </VerticalStackLayout>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource Primary}"
@@ -59,19 +61,19 @@
                     </Border>
                     <Border Grid.Column="1"
                             Padding="10"
-                            BackgroundColor="{StaticResource Primary}"
-                            Stroke="{StaticResource Secondary}"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="{StaticResource White}"
                             StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Spacing="5">
                             <Label FontAttributes="Bold"
                                    FontSize="20"
                                    HorizontalOptions="Center"
                                    Text="{Binding salesPanelModel.PurchaseReturnCount}"
-                                   TextColor="{StaticResource Secondary}" />
+                                   TextColor="{StaticResource Primary}" />
                             <Label FontSize="Caption"
                                    HorizontalOptions="Center"
                                    Text="İade Edilen Ürün Miktarı"
-                                   TextColor="{StaticResource Secondary}" />
+                                   TextColor="{StaticResource Primary}" />
                         </VerticalStackLayout>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource Primary}"
@@ -81,21 +83,29 @@
                         </Border.Shadow>
                     </Border>
                 </Grid>
-                <Grid Grid.Row="1">
+            </Border>
+            <Grid Padding="10,0,10,10"
+                  Grid.Row="1"
+                  RowDefinitions="Auto,*"
+                  RowSpacing="10">
+                <Grid Grid.Row="0">
                     <VerticalStackLayout Spacing="5">
                         <Label FontAttributes="Bold"
                                Text="En Çok Hareket Gören Müşteriler"
                                TextColor="{StaticResource Gray300}" />
-
-                        <CollectionView Grid.Row="0" ItemsSource="{Binding Customers}">
+                        <CollectionView Grid.Row="0"
+                                        ItemsSource="{Binding Customers}">
                             <CollectionView.ItemsLayout>
-                                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                                <LinearItemsLayout ItemSpacing="10"
+                                                   Orientation="Horizontal" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Customer">
                                     <Frame WidthRequest="250">
-                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-                                            <Grid Grid.Column="0" RowDefinitions="*,*,*">
+                                        <Grid ColumnDefinitions="*,Auto"
+                                              ColumnSpacing="10">
+                                            <Grid Grid.Column="0"
+                                                  RowDefinitions="*,*,*">
                                                 <Label Grid.Row="0"
                                                        FontAttributes="Bold"
                                                        FontSize="15"
@@ -138,22 +148,25 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-
                     </VerticalStackLayout>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="1">
                     <VerticalStackLayout>
                         <Label FontAttributes="Bold"
                                Text="Son Hareketler"
                                TextColor="{StaticResource Gray300}" />
                         <Grid RowDefinitions="*">
-                            <sharedViews:LoadingView Grid.Row="0" IsBusy="{Binding IsBusy}" />
-                            <CollectionView EmptyView="Gösterilecek Hareket Yok.." ItemsSource="{Binding Lines}">
+                            <sharedViews:LoadingView Grid.Row="0"
+                                                     IsBusy="{Binding IsBusy}" />
+                            <CollectionView EmptyView="Gösterilecek Hareket Yok.."
+                                            ItemsSource="{Binding Lines}">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="model:CustomerTransactionLine">
-                                        <toolkit:Expander x:Name="expander" Margin="0,5,0,0">
+                                        <toolkit:Expander x:Name="expander"
+                                                          Margin="0,5,0,0">
                                             <toolkit:Expander.Header>
-                                                <Border BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                                <Border BackgroundColor="White"
+                                                        StrokeShape="RoundRectangle 10">
                                                     <Grid Padding="0,0,10,0"
                                                           ColumnDefinitions="Auto,Auto,*,Auto"
                                                           ColumnSpacing="10">
@@ -194,19 +207,24 @@
                                                         <VerticalStackLayout Grid.Column="2"
                                                                              Spacing="5"
                                                                              VerticalOptions="Center">
-                                                            <Label FontAttributes="Bold" Text="{Binding ProductCode}" />
-                                                            <Label FontSize="12" Text="{Binding ProductName}" />
+                                                            <Label FontAttributes="Bold"
+                                                                   Text="{Binding ProductCode}" />
+                                                            <Label FontSize="12"
+                                                                   Text="{Binding ProductName}" />
                                                             <Border Padding="10,5"
                                                                     BackgroundColor="{StaticResource Warning}"
                                                                     HorizontalOptions="Start"
                                                                     StrokeShape="RoundRectangle 5"
                                                                     StrokeThickness="0">
-                                                                <Label FontSize="10" TextColor="{StaticResource Primary}">
+                                                                <Label FontSize="10"
+                                                                       TextColor="{StaticResource Primary}">
                                                                     <Label.FormattedText>
                                                                         <FormattedString>
-                                                                            <Span FontAttributes="Bold" Text="{Binding Quantity, StringFormat='{0:N2} '}" />
+                                                                            <Span FontAttributes="Bold"
+                                                                                  Text="{Binding Quantity, StringFormat='{0:N2} '}" />
                                                                             <Span Text=" " />
-                                                                            <Span FontAttributes="Bold" Text="{Binding SubUnitsetCode}" />
+                                                                            <Span FontAttributes="Bold"
+                                                                                  Text="{Binding SubUnitsetCode}" />
                                                                         </FormattedString>
                                                                     </Label.FormattedText>
                                                                 </Label>
@@ -220,13 +238,14 @@
                                                                 <FontImageSource FontFamily="FAS"
                                                                                  Glyph="{x:Static fontAwesome:FontAwesomeIcons.ChevronDown}"
                                                                                  Color="{AppThemeBinding Light={StaticResource Primary},
-                                                                                                         Dark={StaticResource Primary}}" />
+                                                                                             Dark={StaticResource Primary}}" />
                                                             </Image.Source>
                                                             <Image.Triggers>
                                                                 <DataTrigger Binding="{Binding Source={x:Reference expander}, Path=IsExpanded}"
                                                                              TargetType="Image"
                                                                              Value="True">
-                                                                    <Setter Property="Rotation" Value="180" />
+                                                                    <Setter Property="Rotation"
+                                                                            Value="180" />
                                                                 </DataTrigger>
                                                             </Image.Triggers>
                                                         </Image>
@@ -234,36 +253,49 @@
                                                 </Border>
                                             </toolkit:Expander.Header>
                                             <toolkit:Expander.Content>
-                                                <VerticalStackLayout Margin="20,10,5,0" Spacing="4">
+                                                <VerticalStackLayout Margin="20,10,5,0"
+                                                                     Spacing="4">
                                                     <VerticalStackLayout Spacing="4">
-                                                        <Label Text="Fiş Türü" TextColor="{StaticResource Primary}" />
+                                                        <Label Text="Fiş Türü"
+                                                               TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding TransactionTypeName}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                        <BoxView HeightRequest="0.7"
+                                                                 Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
-                                                        <Label Text="Fiş Numarası" TextColor="{StaticResource Primary}" />
+                                                        <Label Text="Fiş Numarası"
+                                                               TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding FicheCode}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                        <BoxView HeightRequest="0.7"
+                                                                 Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
-                                                        <Label Text="Ambar Adı" TextColor="{StaticResource Primary}" />
+                                                        <Label Text="Ambar Adı"
+                                                               TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding WarehouseName}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                        <BoxView HeightRequest="0.7"
+                                                                 Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
-                                                        <Label Text="Müşteri" TextColor="{StaticResource Primary}" />
+                                                        <Label Text="Müşteri"
+                                                               TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding CurrentName}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                        <BoxView HeightRequest="0.7"
+                                                                 Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
-                                                        <Label Text="Belge Numarası" TextColor="{StaticResource Primary}" />
+                                                        <Label Text="Belge Numarası"
+                                                               TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding DocumentNumber}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                        <BoxView HeightRequest="0.7"
+                                                                 Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Spacing="4">
-                                                        <Label Text="Döküman İzleme Numarası" TextColor="{StaticResource Primary}" />
+                                                        <Label Text="Döküman İzleme Numarası"
+                                                               TextColor="{StaticResource Primary}" />
                                                         <Label Text="{Binding DocumentTrackingNumber}" />
-                                                        <BoxView HeightRequest="0.7" Color="{StaticResource Primary}" />
+                                                        <BoxView HeightRequest="0.7"
+                                                                 Color="{StaticResource Primary}" />
                                                     </VerticalStackLayout>
                                                 </VerticalStackLayout>
                                             </toolkit:Expander.Content>
@@ -275,6 +307,7 @@
                     </VerticalStackLayout>
                 </Grid>
             </Grid>
-        </ScrollView>
-    </Border>
+             
+        </Grid>
+    </ScrollView>
 </ContentPage>
