@@ -5,8 +5,14 @@ using Helix.EventBus.Factory;
 using Helix.LBSService.PostConsumer;
 using Helix.LBSService.PostConsumer.Events;
 using Helix.LBSService.PostConsumer.Helper;
+using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.Extensions.Logging.EventLog;
 
 var builder = Host.CreateApplicationBuilder(args);
+builder.Services.AddWindowsService(options =>
+{
+	options.ServiceName = "Helix Post Consumer";
+});
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddTransient<ConsumableTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<InCountingTransactionInsertingIntegrationEventHandler>();
@@ -20,8 +26,16 @@ builder.Services.AddTransient<TransferTransactionInsertingIntegrationEventHandle
 builder.Services.AddTransient<WastageTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
-builder.Services.AddSingleton<IHttpClientService, HttpClientService>(); 
+builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
+LoggerProviderOptions.RegisterProviderOptions<
+	EventLogSettings, EventLogLoggerProvider>(builder.Services);
 
+//On docker gonna be comment
+builder.Logging.AddEventLog(eventLogSettings =>
+{
+	eventLogSettings.LogName = "Application";
+	eventLogSettings.SourceName = "Helix.PostConsumer";
+});
 builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 {
 	var eventBus = EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig

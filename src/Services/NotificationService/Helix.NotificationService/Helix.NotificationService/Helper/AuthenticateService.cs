@@ -17,7 +17,7 @@ public class AuthenticateService : IAuthenticationService
 	public async Task<AuthenticateModel> Authenticate(HttpClient httpClient)
 	{
 		var username="Admin";
-		var password="";
+		var password="1673";
 		AuthenticateModel authenticateModel = new();
 		try
 		{
