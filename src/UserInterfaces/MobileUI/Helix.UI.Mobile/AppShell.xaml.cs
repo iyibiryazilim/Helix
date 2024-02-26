@@ -1,7 +1,9 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+using Android.Graphics;
 using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Helpers.MappingHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Helpers.QueryHelper;
+using Helix.UI.Mobile.Modules.BaseModule.Models;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
-using Helix.UI.Mobile.Modules.BaseModule.SharedViewModel;
 using Helix.UI.Mobile.Modules.BaseModule.SharedViews;
 using Helix.UI.Mobile.Modules.BaseModule.Views;
 using Helix.UI.Mobile.Modules.BaseModule.Views.Current;
@@ -40,13 +42,15 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCu
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.AndroidOption;
 using Plugin.LocalNotification.EventArgs;
+using static Android.Graphics.ColorSpace;
+using Color = Android.Graphics.Color;
 
 
 namespace Helix.UI.Mobile;
 
 public partial class AppShell : Shell
 {
-    private readonly TimeSpan interval = TimeSpan.FromSeconds(30);
+    private readonly TimeSpan interval = TimeSpan.FromSeconds(15);
     private System.Threading.Timer timer;
     public AppShell()
     {
@@ -269,7 +273,6 @@ public partial class AppShell : Shell
                 var httpService = serviceProviderScoped.GetRequiredService<IHttpClientService>();
                 var httpClient = httpService.GetOrCreateHttpClient();
 
-                //await LocalNotificationCenter.Current.Show(request);
                 var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
 
                 var transactionOwner = await transactionOwnerService.GetObjects(httpClient, $"?$filter=FicheReferenceId eq {e.Request.NotificationId}");
@@ -289,11 +292,11 @@ public partial class AppShell : Shell
     {
         timer = new System.Threading.Timer(async (_) =>
         {
-            await PushNotification();
+            await Task.WhenAll(PushSuccessNotification(), PushErrorNotification());
         }, null, TimeSpan.Zero, interval);
     }
 
-    private async Task PushNotification()
+    private async Task PushSuccessNotification()
     {
 
         var serviceProvider = IPlatformApplication.Current.Services;
@@ -302,26 +305,75 @@ public partial class AppShell : Shell
             var serviceProviderScoped = scope.ServiceProvider;
             var transactionOwnerService = serviceProviderScoped.GetRequiredService<ITransactionOwnerService>();
             var httpService = serviceProviderScoped.GetRequiredService<IHttpClientService>();
+            var customQueryService = serviceProvider.GetRequiredService<ICustomQueryService>();
 
             var httpClient = httpService.GetOrCreateHttpClient();
             var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
             var transactionOwner = await transactionOwnerService.GetObjects(httpClient, $"?$expand=Employee&$filter=IsRead eq false and Employee/Oid eq {employeeOid}");
-            foreach (var item in transactionOwner.Data)
+            if (transactionOwner.IsSuccess)
             {
-                var request = new NotificationRequest
+                foreach (var item in transactionOwner.Data)
                 {
-                    Title = "Fiþ",
-                    NotificationId = item.FicheReferenceId,
-                    Subtitle = "Baþarýlý",
-                    Description = $"{item.FicheReferenceId} Id numaralý fiþ baþarýyla aktarýlmýþtýr.",
-                    BadgeNumber = 42,
-                    
+                    var result = await customQueryService.GetObjectAsync(httpClient, new NotificationQuery().GetNotificationDetails(item.FicheReferenceId));
+                    var obj = Mapping.Mapper.Map<NotificationFiche>(result.Data);
 
-                };
+                    var request = new NotificationRequest
+                    {
+                        Title = obj.TransactionTypeName,
+                        NotificationId = item.FicheReferenceId,
+                        Subtitle = "Baþarýlý",
+                        Description = $"{obj.FicheNumber} numaralý fiþ baþarýyla aktarýlmýþtýr.",
+                        BadgeNumber = 42,
 
-                await LocalNotificationCenter.Current.Show(request);
+                    };
 
+                    await LocalNotificationCenter.Current.Show(request);
+
+                }
             }
+            
+
+        }
+
+    }
+
+    private async Task PushErrorNotification()
+    {
+
+        var serviceProvider = IPlatformApplication.Current.Services;
+        using (var scope = serviceProvider.CreateScope())
+        {
+            var serviceProviderScoped = scope.ServiceProvider;
+            var failureTransactionOwnerService = serviceProviderScoped.GetRequiredService<IFailureTransactionService>();
+            var httpService = serviceProviderScoped.GetRequiredService<IHttpClientService>();
+
+            var httpClient = httpService.GetOrCreateHttpClient();
+            var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
+            var faliureTransactionOwner = await failureTransactionOwnerService.GetObjects(httpClient, $"?$expand=Employee&$filter=IsRead eq false and Employee/Oid eq {employeeOid}");
+
+            if (faliureTransactionOwner.IsSuccess)
+            {
+                int index = 0;
+                foreach (var item in faliureTransactionOwner.Data)
+                {
+
+                    var request = new NotificationRequest
+                    {
+                        Title = "Baþarýsýz Ýþlem",
+                        NotificationId = index,
+                        Subtitle = "Baþarýsýz.",
+                        Description = $"{item.Message}",
+                        BadgeNumber = 42,
+
+                    };
+
+                    await LocalNotificationCenter.Current.Show(request);
+                    index++;
+
+                    await failureTransactionOwnerService.PatchObject(httpClient, new { IsRead = true }, item.Oid);
+                }
+            }
+          
 
         }
 

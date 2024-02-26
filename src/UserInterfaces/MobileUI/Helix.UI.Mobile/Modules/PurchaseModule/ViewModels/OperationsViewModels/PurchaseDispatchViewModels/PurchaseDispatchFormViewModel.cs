@@ -183,8 +183,8 @@ public partial class PurchaseDispatchFormViewModel : BaseViewModel
 
             if (PurchaseFormModel.SelectedSupplier == null || string.IsNullOrEmpty(PurchaseFormModel.SelectedSupplier.Code))
             {
-                var userResponse = await Shell.Current.DisplayAlert("Uyarı", "Lütfen bir tedarikçi seçin.", "Tamam", "İptal");
-                if (userResponse)
+                var supplierResponse = await Shell.Current.DisplayAlert("Uyarı", "Lütfen bir tedarikçi seçin.", "Tamam", "İptal");
+                if (supplierResponse)
                 {
                     return;
                 }

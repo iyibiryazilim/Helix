@@ -159,6 +159,10 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.Wa
                     }
 
                 }
+                else
+                {
+                    inCountingIsTrue = true;
+                }
 
                 bool outCountingIsExist = SelectedProducts.Any(item => item.OnHand > item.TempOnhand);
                 if (outCountingIsExist)
@@ -206,16 +210,24 @@ namespace Helix.UI.Mobile.Modules.ProductModule.ViewModels.WarehouseViewModel.Wa
                     }
 
                 }
+                else
+                {
+                    outCountingIsTrue = true;
+                }
 
                 if (inCountingIsTrue && outCountingIsTrue)
                 {
                     var viewModel = _serviceProvider.GetService<WarehouseCountingListViewModel>();
+                    viewModel.SelectedProducts.Clear();
+                    viewModel.Results.Clear();
                     viewModel.Items.Clear();
+
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
                         ["GroupType"] = 10,
                         ["SuccessMessage"] = "Ambar Sayım Fişi Başarıyla Gönderildi."
                     });
+
                 }
                 else
                 {
