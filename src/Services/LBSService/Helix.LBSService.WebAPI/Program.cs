@@ -30,8 +30,9 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
 	{
 		ConnectionRetryCount = 5,
-		SubscriperClientAppName = "LBSService",
+ 		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
+		EventBusConnectionString = "amqp://guest:guest@localhost:52796",
 		EventBusType = EventBusType.RabbitMQ,
 		EventNameSuffix = nameof(IntegrationEvent),
 

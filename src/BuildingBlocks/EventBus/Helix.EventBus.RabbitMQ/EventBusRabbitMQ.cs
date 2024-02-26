@@ -34,7 +34,7 @@ namespace Helix.EventBus.RabbitMQ
 			{
 				_connectionFactory = new ConnectionFactory()
 				{
-					Uri = new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt")
+					Uri = eventBusconfig.EventBusConnectionString == string.Empty ? new Uri("amqps://oqhbtvgt:Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g@rattlesnake.rmq.cloudamqp.com/oqhbtvgt") : new Uri(eventBusconfig.EventBusConnectionString)
 					//HostName = "rattlesnake-01.rmq.cloudamqp.com",
 					//Port = 5672,
 					//UserName = "oqhbtvgt",
