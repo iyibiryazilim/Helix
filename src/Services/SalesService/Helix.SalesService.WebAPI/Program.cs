@@ -17,7 +17,6 @@ builder.Services.ConfigureAuth(builder.Configuration);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
-builder.Services.ConfigureAuth(configuration);
 
 
 builder.Services.AddSingleton<IEventBus>(eb =>
@@ -28,7 +27,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
-		EventBusConnectionString = "amqp://guest:guest@rabbit.management:5672", 
+		//EventBusConnectionString = "amqp://guest:guest@rabbit.management:5672", 
 		EventNameSuffix = nameof(IntegrationEvent),
 		
 	}, eb);

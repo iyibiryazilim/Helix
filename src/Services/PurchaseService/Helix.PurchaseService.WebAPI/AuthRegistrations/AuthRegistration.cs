@@ -10,8 +10,8 @@ namespace Helix.PurchaseService.WebAPI.AuthRegistrations
 		public static IServiceCollection ConfigureAuth(this IServiceCollection services, IConfiguration configuration)
 		{
 			// Check if authentication has already been configured
-			if (services.Any(x => x.ServiceType == typeof(IAuthenticationService)))
-				return services;
+			//if (services.Any(x => x.ServiceType == typeof(IAuthenticationService)))
+			//	return services;
 
 			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:IssuerSigningKey"]));
 
