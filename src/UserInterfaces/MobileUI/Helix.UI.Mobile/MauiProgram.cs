@@ -18,6 +18,8 @@ using Helix.UI.Mobile.Modules.LoginModule.ViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels.BottomSheetViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews;
+using Helix.UI.Mobile.Modules.PanelModule.DataStores;
+using Helix.UI.Mobile.Modules.PanelModule.Services;
 using Helix.UI.Mobile.Modules.PanelModule.ViewModels;
 using Helix.UI.Mobile.Modules.PanelModule.Views;
 using Helix.UI.Mobile.Modules.ProductModule.DataStores;
@@ -87,7 +89,6 @@ using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTran
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnBySalesDispatchTransactionViews;
 using Helix.UI.Mobile.Modules.ReturnModule.Views.Sales.ReturnSalesViews;
 using Helix.UI.Mobile.Modules.SalesModule.DataStores;
-using Helix.UI.Mobile.Modules.SalesModule.Models;
 using Helix.UI.Mobile.Modules.SalesModule.Services;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.BasketViewModels;
 using Helix.UI.Mobile.Modules.SalesModule.ViewModels.CustomerViewModels;
@@ -148,6 +149,7 @@ namespace Helix.UI.Mobile
 				.ProductRegisterViews()
 				.PanelViewModels()
 				.PanelViews()
+				.PanelRegisterServices()
 				.FastProductionViewModels()
 				.FastProductionViews()
 				.ConfigureFonts(fonts =>
@@ -796,6 +798,12 @@ namespace Helix.UI.Mobile
 		#endregion
 
 		#region PanelModule
+
+		public static MauiAppBuilder PanelRegisterServices(this MauiAppBuilder mauiAppBuilder)
+		{
+			mauiAppBuilder.Services.AddTransient<IEmployeeService, EmployeeDataStore>();
+			return mauiAppBuilder;
+		}
 		public static MauiAppBuilder PanelViews(this MauiAppBuilder mauiAppBuilder)
 		{
 			mauiAppBuilder.Services.AddTransient<PanelView>();
