@@ -40,10 +40,7 @@ using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.DispatchBySalesO
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesDispatchViews;
 using Helix.UI.Mobile.Modules.SalesModule.Views.OperationsViews.SalesProductByCustomerViews;
 using Plugin.LocalNotification;
-using Plugin.LocalNotification.AndroidOption;
-using Plugin.LocalNotification.EventArgs;
-using static Android.Graphics.ColorSpace;
-using Color = Android.Graphics.Color;
+
 
 
 namespace Helix.UI.Mobile;
@@ -258,36 +255,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ProfilePageView), typeof(ProfilePageView));
         Routing.RegisterRoute(nameof(WarehouseCountingFormView), typeof(WarehouseCountingFormView));
 
-        LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
     }
-
-    private async void OnNotificationActionTapped(NotificationActionEventArgs e)
-    {
-        if (e.IsDismissed)
-        {
-            var serviceProvider = IPlatformApplication.Current.Services;
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var serviceProviderScoped = scope.ServiceProvider;
-                var transactionOwnerService = serviceProviderScoped.GetRequiredService<ITransactionOwnerService>();
-                var httpService = serviceProviderScoped.GetRequiredService<IHttpClientService>();
-                var httpClient = httpService.GetOrCreateHttpClient();
-
-                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
-
-                var transactionOwner = await transactionOwnerService.GetObjects(httpClient, $"?$filter=FicheReferenceId eq {e.Request.NotificationId}");
-                var data = transactionOwner.Data.FirstOrDefault();
-                await transactionOwnerService.PatchObject(httpClient, new { IsRead = true }, data.Oid);
-
-
-            }
-        }
-        else if (e.IsTapped)
-        {
-
-        }
-    }
-
     private void StartTimer()
     {
         timer = new System.Threading.Timer(async (_) =>
@@ -328,6 +296,7 @@ public partial class AppShell : Shell
                     };
 
                     await LocalNotificationCenter.Current.Show(request);
+                    await transactionOwnerService.PatchObject(httpClient, new { IsRead = true }, item.Oid);
 
                 }
             }
@@ -349,12 +318,12 @@ public partial class AppShell : Shell
 
             var httpClient = httpService.GetOrCreateHttpClient();
             var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
-            var faliureTransactionOwner = await failureTransactionOwnerService.GetObjects(httpClient, $"?$expand=Employee&$filter=IsRead eq false and Employee/Oid eq {employeeOid}");
+            var failureTransactionOwner = await failureTransactionOwnerService.GetObjects(httpClient, $"?$expand=Employee&$filter=IsRead eq false and Employee/Oid eq {employeeOid}");
 
-            if (faliureTransactionOwner.IsSuccess)
+            if (failureTransactionOwner.IsSuccess)
             {
                 int index = 0;
-                foreach (var item in faliureTransactionOwner.Data)
+                foreach (var item in failureTransactionOwner.Data)
                 {
 
                     var request = new NotificationRequest
