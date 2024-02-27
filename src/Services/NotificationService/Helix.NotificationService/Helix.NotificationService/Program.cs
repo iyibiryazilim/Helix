@@ -5,15 +5,8 @@ using Helix.EventBus.Factory;
 using Helix.NotificationService;
 using Helix.NotificationService.Events;
 using Helix.NotificationService.Helper;
-using Microsoft.Extensions.Logging.Configuration;
-using Microsoft.Extensions.Logging.EventLog;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
-
-builder.Services.AddWindowsService(options =>
-{
-	options.ServiceName = "Notification Service";
-});
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
   // Register Worker as a hosted service
@@ -23,16 +16,6 @@ builder.Services.AddTransient<LOGOFailureIntegrationEventHandler>();
 builder.Services.AddTransient<SYSMessageIntegrationEventHandler>();
 builder.Services.AddSingleton<IHttpClientService, HttpClientService>(); 
 builder.Services.AddSingleton<IAuthenticationService, AuthenticateService>();
-
-LoggerProviderOptions.RegisterProviderOptions<
-	EventLogSettings, EventLogLoggerProvider>(builder.Services);
-
- //On docker gonna be comment
-builder.Logging.AddEventLog(eventLogSettings =>
-{
-	eventLogSettings.LogName = "Application";
-	eventLogSettings.SourceName = "Helix.NotificationService";
-});
 
 // Register the event bus factory and create an instance of IEventBus
 builder.Services.AddSingleton<IEventBus>(serviceProvider =>
