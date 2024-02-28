@@ -18,8 +18,9 @@
             <root:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="Auto, *">
-        <Grid Grid.Row="0"
+    <Grid RowDefinitions="Auto, *"
+          Padding="0,15,0,0">
+        <Grid Grid.Row="0" 
               ColumnDefinitions="*,Auto"
               BackgroundColor="{StaticResource Primary}"
               Padding="10,0">

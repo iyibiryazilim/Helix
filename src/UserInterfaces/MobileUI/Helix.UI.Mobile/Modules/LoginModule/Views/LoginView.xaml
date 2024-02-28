@@ -9,7 +9,7 @@
              Title="LoginView"
              x:DataType="viewModel:LoginViewModel">
 
-    <Grid RowDefinitions="0.30*,0.05*,*,Auto,Auto"
+    <Grid RowDefinitions="0.30*,0.05*,*,Auto,Auto" 
           RowSpacing="20">
         <Grid Grid.Row="0" ColumnDefinitions="*,*" Padding="30,30,0,30">
             <Frame BackgroundColor="{StaticResource Primary}"

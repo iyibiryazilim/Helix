@@ -64,6 +64,11 @@
 
             <CollectionView Grid.Row="1"
                             ItemsSource="{Binding Source={x:Reference this}, Path=ProductModelList}">
+                <CollectionView.EmptyView>
+                    <Label Text="Malzeme ekleyiniz."
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </CollectionView.EmptyView>
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="3"
                                        Orientation="Vertical" />
