@@ -3,6 +3,7 @@ using System.Text;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 
@@ -16,6 +17,8 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
     private Department _department;
     private Position _position;
     private Employee _employee;
+    private MediaDataObject _image;
+
     private ApplicationUserType _applicationUserType;
 
     public ApplicationUser(Session session) : base(session) { }
@@ -46,7 +49,11 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
         get => _applicationUserType;
         set => SetPropertyValue(nameof(ApplicationUserType), ref _applicationUserType, value);
     }
-
+    public MediaDataObject Image
+    {
+        get { return _image; }
+        set { SetPropertyValue(nameof(Image), ref _image, value); }
+    }
 
     [Association("UserAssignGroup")]
     public XPCollection<ApplicationGroup> Groups => GetCollection<ApplicationGroup>(nameof(Groups));

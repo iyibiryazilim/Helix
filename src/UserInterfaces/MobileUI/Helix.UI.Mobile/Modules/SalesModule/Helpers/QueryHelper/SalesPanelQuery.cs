@@ -8,8 +8,8 @@ namespace Helix.UI.Mobile.Modules.SalesModule.Helpers.QueryHelper
 {
     public class SalesPanelQuery
     {
-        readonly string CompanyNumber = "008";
-        readonly string CompanyPeriod = "02";
+        readonly string CompanyNumber = "003";
+        readonly string CompanyPeriod = "01";
        
 
 

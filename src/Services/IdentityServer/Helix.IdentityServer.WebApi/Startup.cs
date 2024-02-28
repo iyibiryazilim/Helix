@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Authentication.ClientServer;
 using DevExpress.ExpressApp.WebApi.Services;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Helix.IdentityServer.WebApi.API.Security;
 using Helix.IdentityServer.WebApi.Services;
@@ -91,6 +92,7 @@ public class Startup {
                 options.BusinessObject<Employee>();
                 options.BusinessObject<Position>();
                 options.BusinessObject<Department>();
+                options.BusinessObject<MediaDataObject>();
 
 
 

@@ -2,8 +2,8 @@
 {
     public class NotificationQuery : IDisposable
     {
-        static string CompanyNumber = "008";
-        static string CompanyPeriod = "02";
+        static string CompanyNumber = "003";
+        static string CompanyPeriod = "01";
 
         public void Dispose()
         {

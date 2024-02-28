@@ -67,7 +67,7 @@
                             </Label.FormattedText>
                         </Label>
                     </VerticalStackLayout>
-                    <Image Grid.Column="2"
+                    <Image Grid.Column="2" IsVisible="false"
                            Margin="0,0,25,0"
                            HeightRequest="25"
                            WidthRequest="25">

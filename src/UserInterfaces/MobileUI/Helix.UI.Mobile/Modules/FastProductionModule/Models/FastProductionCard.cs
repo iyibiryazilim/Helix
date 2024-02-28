@@ -19,6 +19,9 @@ public partial class FastProductionCard : ObservableObject
 	string subUnitsetCode;
 
 	[ObservableProperty]
+	int subUnitsetReferenceId;
+
+	[ObservableProperty]
 	double onHand;
 
 	[ObservableProperty]

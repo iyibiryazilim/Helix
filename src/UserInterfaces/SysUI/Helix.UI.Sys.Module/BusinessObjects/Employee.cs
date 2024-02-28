@@ -23,6 +23,7 @@ namespace Helix.UI.Sys.Module.BusinessObjects
         private int _referenceId;
         private string _code;
         private string _name;
+        private MediaDataObject _image;
         private string _registerCode;
         
         public Employee(Session session)
@@ -44,9 +45,13 @@ namespace Helix.UI.Sys.Module.BusinessObjects
 
         public string RegisterCode { get => _registerCode; set =>SetPropertyValue(nameof(RegisterCode), ref _registerCode, value); }
 
-      
+        public MediaDataObject Image
+        {
+            get { return _image; }
+            set { SetPropertyValue(nameof(Image), ref _image, value); }
+        }
 
-       
+
 
 
 
