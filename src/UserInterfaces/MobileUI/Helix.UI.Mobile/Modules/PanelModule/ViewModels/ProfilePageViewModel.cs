@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Helix.UI.Mobile.Helpers.HttpClientHelper;
+using Helix.UI.Mobile.Modules.LoginModule.Models;
+using Helix.UI.Mobile.Modules.PanelModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 
@@ -7,13 +10,18 @@ namespace Helix.UI.Mobile.Modules.PanelModule.ViewModels;
 
 public partial class ProfilePageViewModel : BaseViewModel
 {
-	public ProfilePageViewModel()
+	IEmployeeService _employeeService;
+	IHttpClientService _httpClientService;
+
+	public ProfilePageViewModel(IEmployeeService employeeService, IHttpClientService httpClientService)
 	{
 		GetUserInformationCommand = new Command(async () => await GetUserInformationAsync());
+		_employeeService = employeeService;
+		_httpClientService = httpClientService;
 	}
 
 	[ObservableProperty]
-	string userName = string.Empty;
+	Employee user = new Employee();
 
 	public Command GetUserInformationCommand { get; }
 
@@ -23,8 +31,13 @@ public partial class ProfilePageViewModel : BaseViewModel
 		try
 		{
 			IsBusy = true;
+			var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-			UserName = await SecureStorage.GetAsync("CurrentUser");
+			var userResult = await _employeeService.GetObject(httpClient, new Guid(await SecureStorage.GetAsync("EmployeeOid")), "?&expand=Image");
+			if (userResult.IsSuccess)
+			{
+				User = userResult.Data;
+			}
 
 		}
 		catch (Exception)

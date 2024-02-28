@@ -1,5 +1,7 @@
 ﻿using Helix.EventBus.Base.Abstractions;
+using Helix.LBSService.Base.Models;
 using Helix.LBSService.PostConsumer.Helper;
+using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Text.Json;
 
@@ -24,14 +26,20 @@ namespace Helix.LBSService.PostConsumer.Events
 
 				StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 				HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+				string responseBody = await response.Content.ReadAsStringAsync();
+ 				// Deserialize the JSON response
+				JObject jsonResponse = JObject.Parse(responseBody);
 
-				if (response.IsSuccessStatusCode)
+				// Get the value of the IsSuccess property
+				bool isSuccess = jsonResponse["isSuccess"].Value<bool>();
+				string message = jsonResponse["message"].Value<string>();
+				if (isSuccess)
 				{
 					_logger.LogInformation($" [>] Successfully posted DTO to API.");
  				}
 				else
 				{
-					_logger.LogError($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
+					_logger.LogError($" [!] Failed to post DTO to API. Status Mess: {message} and JSON: {json}"); 
   				}
 			}
 			catch (HttpRequestException ex)

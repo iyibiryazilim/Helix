@@ -43,7 +43,7 @@
                              VerticalOptions="Start">
             <Label FontAttributes="Bold"
                    FontSize="Title"
-                   Text="İyibir Depo Yönetim Sistemine Hoşgeldiniz" />
+                   Text="Violet Depo Yönetim Sistemine Hoşgeldiniz" />
             <Label FontSize="Subtitle"
                    Text="Giriş için lütfen kullanıcı bilgilerinizi giriniz"
                    TextColor="Blue" />

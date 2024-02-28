@@ -15,6 +15,26 @@ namespace Helix.NotificationService
 
 		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 		{
+			try
+			{
+				await StartRabbitMQ(stoppingToken); 
+			}
+			catch (OperationCanceledException)
+			{
+				// When the stopping token is canceled, for example, a call made from services.msc,
+				// we shouldn't exit with a non-zero exit code. In other words, this is expected...
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "{Message}", ex.Message); 
+				 
+				Environment.Exit(1);
+			} 
+			
+		}
+
+		private async Task StartRabbitMQ(CancellationToken stoppingToken)
+		{
 			_eventBus.Consume(new LOGOSuccessIntegrationEvent());
 			_eventBus.Consume(new LOGOFailureIntegrationEvent());
 			_eventBus.Consume(new SYSMessageIntegrationEvent());
@@ -25,8 +45,8 @@ namespace Helix.NotificationService
 					_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 				}
 
-			 await Task.Delay(10000, stoppingToken);
- 			}
+				await Task.Delay(10000, stoppingToken);
+			}
 		}
 	}
 }
