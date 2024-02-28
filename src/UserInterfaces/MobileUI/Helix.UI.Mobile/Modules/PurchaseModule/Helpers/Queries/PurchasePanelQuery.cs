@@ -8,8 +8,8 @@ namespace Helix.UI.Mobile.Modules.PurchaseModule.Helpers.Queries
 {
     public class PurchasePanelQuery
     {
-        readonly string CompanyNumber = "008";
-        readonly string CompanyPeriod = "02";
+        readonly string CompanyNumber = "003";
+        readonly string CompanyPeriod = "01";
 
         public string GetSalesReturnCount()
         {

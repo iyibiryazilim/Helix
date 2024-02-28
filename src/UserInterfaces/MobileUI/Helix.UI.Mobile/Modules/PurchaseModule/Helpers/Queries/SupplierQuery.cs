@@ -2,9 +2,9 @@
 {
 	public class SupplierQuery
 	{
-		readonly string CompanyNumber = "008";
-		readonly string CompanyPeriod = "02";
-		readonly string FirmNumber = "8";
+		readonly string CompanyNumber = "003";
+		readonly string CompanyPeriod = "01";
+		readonly string FirmNumber = "3";
 
 		public string GetTopSuppliers()
 		{

@@ -182,7 +182,7 @@ public partial class FastProductionViewModel : BaseViewModel
                 IsBusy = true;
                 var httpClient = _httpClientService.GetOrCreateHttpClient();
 
-
+                var employeeOid = await SecureStorage.GetAsync("EmployeeOid");
                 foreach (var item in FastProductionList)
                 {
                     var consumableTransactionDto = new ConsumableTransactionDto()
@@ -191,7 +191,8 @@ public partial class FastProductionViewModel : BaseViewModel
                         TransactionDate = DateTime.Now,
                         IOType = 4,
                         TransactionType = 12,
-                        GroupType = 3
+                        GroupType = 3,
+                        EmployeeOid = employeeOid
 
                     };
                     var consumableTransactionLineDto = new ConsumableTransactionLineDto()
@@ -203,6 +204,7 @@ public partial class FastProductionViewModel : BaseViewModel
                         ProductReferenceId = item.ProductReferenceId,
                         Quantity = item.OnHand,
                         SubUnitsetCode = item.SubUnitsetCode,
+                        SubUnitsetReferenceId = item.SubUnitsetReferenceId,
                         //UnitsetCode = item.ExitProduct.UnitsetCode,
                         //UnitsetReferenceId = item.ExitProduct.UnitsetReferenceId,
                         WarehouseNumber = item.WarehouseNumber
@@ -219,7 +221,8 @@ public partial class FastProductionViewModel : BaseViewModel
                     TransactionDate = DateTime.Now,
                     IOType = 1,
                     TransactionType = 13,
-                    GroupType = 3
+                    GroupType = 3,
+                    EmployeeOid = employeeOid
 
                 };
 
@@ -245,7 +248,7 @@ public partial class FastProductionViewModel : BaseViewModel
                 {
                     await Shell.Current.GoToAsync($"{nameof(SuccessPageView)}", new Dictionary<string, object>
                     {
-                        ["GroupType"] = 3
+                        ["GroupType"] = 5
                     });
                 }
 

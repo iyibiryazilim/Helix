@@ -42,7 +42,7 @@
                     <toolkit:AvatarView Grid.Column="0"
                                         BackgroundColor="{StaticResource Secondary}"
                                         CornerRadius="50"
-                                        Text="VS">
+                                        Text="A">
                         <toolkit:AvatarView.GestureRecognizers>
                             <TapGestureRecognizer  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProfilelViewCommand}"
                                                    CommandParameter="{Binding .}" />
@@ -58,7 +58,7 @@
                                VerticalOptions="End"
                                TextColor="{StaticResource White}" />
                     </VerticalStackLayout>
-                    <Image Grid.Column="2"
+                    <Image Grid.Column="2" IsVisible="false"
                            HeightRequest="25"
                            WidthRequest="25">
                         <Image.Source>
