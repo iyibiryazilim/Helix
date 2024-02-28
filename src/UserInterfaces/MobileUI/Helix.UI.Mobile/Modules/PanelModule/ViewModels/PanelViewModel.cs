@@ -27,12 +27,11 @@ public partial class PanelViewModel : BaseViewModel
 	public ObservableCollection<Employee> Employees { get; } = new();
 
 
-	public MainPanelModel mainPanelModel { get; set; }
+	public MainPanelModel mainPanelModel { get; set; } 
 
-    [ObservableProperty]
-    string userName = string.Empty;
-
-    public Command GetUserInformationCommand { get; }
+	[ObservableProperty]
+	Employee user = new Employee();
+	public Command GetUserInformationCommand { get; }
 
 	public PanelViewModel(IHttpClientService httpClient, ICustomQueryService customQueryService, IEmployeeService employeeService)
 	{
@@ -81,8 +80,13 @@ public partial class PanelViewModel : BaseViewModel
         try
         {
             IsBusy = true;
+			var httpClient = _httpClient.GetOrCreateHttpClient();
 
-            UserName = await SecureStorage.GetAsync("CurrentUser");
+			var result =await  _employeeService.GetObject(httpClient, new Guid(await SecureStorage.GetAsync("EmployeeOid")),"?&expand=Image");
+			if(result.IsSuccess)
+			{
+				User = result.Data;
+			} 
 
         }
         catch (Exception)
@@ -257,7 +261,7 @@ public partial class PanelViewModel : BaseViewModel
 			IsBusy = true;
 
 			var httpClient = _httpClient.GetOrCreateHttpClient();
-			var result = await _employeeService.GetObjects(httpClient);
+			var result = await _employeeService.GetObjects(httpClient, "?&expand=Image");
 
 			if (result.IsSuccess)
 			{

@@ -28,13 +28,13 @@ namespace Helix.LBSService.PostConsumer.Events
 	}
 	public class ConsumableTransactionLineDto : ProductTransactionLineDto
 	{
-		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
+		//public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
 
 		public ConsumableTransactionLineDto()
 		{
 			TransactionType = 12;
 			IOType = 4;
-			SeriLotTransactions = new List<SeriLotTransactionDto>();
+			//SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
 

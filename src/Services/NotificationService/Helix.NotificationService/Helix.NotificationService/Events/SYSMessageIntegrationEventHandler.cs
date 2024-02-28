@@ -40,7 +40,7 @@ namespace Helix.NotificationService.Events
 					else
 					{
 						var test = await response.RequestMessage.Content.ReadAsStringAsync();
- 						throw new Exception($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
+						_logger.LogError($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
 					}
 				}
 				else

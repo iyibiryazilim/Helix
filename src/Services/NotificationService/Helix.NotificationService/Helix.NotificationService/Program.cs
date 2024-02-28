@@ -6,8 +6,10 @@ using Helix.NotificationService;
 using Helix.NotificationService.Events;
 using Helix.NotificationService.Helper;
 
-var builder = Host.CreateApplicationBuilder(args);
- // Register Worker as a hosted service
+HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+  // Register Worker as a hosted service
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddTransient<LOGOSuccessIntegrationEventHandler>();
 builder.Services.AddTransient<LOGOFailureIntegrationEventHandler>();
@@ -35,6 +37,6 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 	return eventBus;
 });
 
- 
+  
 var host = builder.Build();
  host.Run();
