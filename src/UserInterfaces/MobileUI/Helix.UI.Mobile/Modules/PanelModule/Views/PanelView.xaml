@@ -39,26 +39,35 @@
             <VerticalStackLayout Spacing="15">
                 <Grid ColumnDefinitions="Auto, *, Auto"
                       ColumnSpacing="10">
-                    <toolkit:AvatarView Grid.Column="0"
-                                        BackgroundColor="{StaticResource Secondary}"
-                                        CornerRadius="50"
-                                        Text="VS">
-                        <toolkit:AvatarView.GestureRecognizers>
-                            <TapGestureRecognizer  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProfilelViewCommand}"
-                                                   CommandParameter="{Binding .}" />
-                        </toolkit:AvatarView.GestureRecognizers>
-                    </toolkit:AvatarView>
+                    <Frame Grid.Column="0"
+                           Padding="0"
+                           BackgroundColor="{StaticResource Secondary}"
+                           BorderColor="Transparent"
+                           CornerRadius="50"
+                           HasShadow="False"
+                           HorizontalOptions="Center"
+                           IsClippedToBounds="True"
+                           VerticalOptions="Center">
+                        <ImageButton 
+                                     Aspect="AspectFit"
+                                     HeightRequest="60"
+                                     Source="{Binding User.Image.MediaData, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProfilelViewCommand}"
+                                     CommandParameter="{Binding .}"
+                                     WidthRequest="60"></ImageButton>
+                    </Frame>
                     <VerticalStackLayout Grid.Column="1"
                                          Spacing="5">
                         <Label FontSize="Default"
                                Text="Hoşgeldiniz"
                                TextColor="{StaticResource Gray400}" />
                         <Label FontAttributes="Bold"
-                               Text="{Binding UserName}"
+                               Text="{Binding User.FirstName}"
                                VerticalOptions="End"
                                TextColor="{StaticResource White}" />
                     </VerticalStackLayout>
                     <Image Grid.Column="2"
+                           Margin="0,0,25,0"
                            HeightRequest="25"
                            WidthRequest="25">
                         <Image.Source>
@@ -293,8 +302,9 @@
                                         StrokeShape="RoundRectangle 20"
                                         StrokeThickness="0">
                                     <Image Aspect="AspectFit"
-                                           HeightRequest="50"
-                                           Source="user.svg" />
+                                           HeightRequest="60"
+                                           Source="{Binding Image.MediaData, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                           WidthRequest="100" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1"
                                                      Spacing="5"
