@@ -4,10 +4,12 @@ using Helix.UI.Mobile.Helpers.HttpClientHelper;
 using Helix.UI.Mobile.Helpers.MessageHelper;
 using Helix.UI.Mobile.Modules.BaseModule.Services;
 using Helix.UI.Mobile.Modules.IntroductionModule.Views;
+using Helix.UI.Mobile.Modules.LoginModule.Models;
 using Helix.UI.Mobile.Modules.LoginModule.Services;
 using Helix.UI.Mobile.Modules.LoginModule.ViewModels.BottomSheetViewModels;
 using Helix.UI.Mobile.Modules.LoginModule.Views;
 using Helix.UI.Mobile.Modules.LoginModule.Views.BottomSheetViews;
+using Helix.UI.Mobile.Modules.PanelModule.Services;
 using Helix.UI.Mobile.MVVMHelper;
 using System.Diagnostics;
 using System.Net.Http.Headers;
@@ -21,6 +23,7 @@ public partial class LoginViewModel : BaseViewModel
 	IServiceProvider _serviceProvider;
 	IApplicationUserService _applicationUserService;
 	ITransactionOwnerService _transactionOwnerService;
+	IEmployeeService _employeeService;
 
 	[ObservableProperty]
 	string userName = String.Empty;
@@ -28,16 +31,20 @@ public partial class LoginViewModel : BaseViewModel
 	[ObservableProperty]
 	string password = String.Empty;
 
-    public LoginViewModel(IHttpClientService httpClientService, IAuthenticationService authenticationService, IServiceProvider serviceProvider,IApplicationUserService applicationUserService,ITransactionOwnerService transactionOwnerService)
-    {
+	[ObservableProperty]
+	Employee user = new Employee();
+
+	public LoginViewModel(IHttpClientService httpClientService, IAuthenticationService authenticationService, IServiceProvider serviceProvider, IApplicationUserService applicationUserService, ITransactionOwnerService transactionOwnerService, IEmployeeService employeeService)
+	{
 		_httpClientService = httpClientService;
 		_authenticationService = authenticationService;
 		_serviceProvider = serviceProvider;
 		_applicationUserService = applicationUserService;
 		_transactionOwnerService = transactionOwnerService;
-    }
+		_employeeService = employeeService;
+	}
 
-    [RelayCommand]
+	[RelayCommand]
 	async Task GoToMainPage()
 	{
 
@@ -80,9 +87,13 @@ public partial class LoginViewModel : BaseViewModel
 					if (data.Employee!=null)
 					{
                         await SecureStorage.SetAsync("EmployeeOid", data.Employee.Oid.ToString());
-                       
 
-                    }
+						var userResult = await _employeeService.GetObject(httpClient, new Guid(await SecureStorage.GetAsync("EmployeeOid")), "?&expand=Image");
+						if (userResult.IsSuccess)
+						{
+							User = userResult.Data;
+						}
+					}
 					await SecureStorage.SetAsync("CurrentUser", UserName);
 					var result = await SecureStorage.Default.GetAsync("isWatch");
 					if (result == "true")

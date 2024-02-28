@@ -39,32 +39,33 @@
             <VerticalStackLayout Spacing="15">
                 <Grid ColumnDefinitions="Auto, *, Auto"
                       ColumnSpacing="10">
-                    <Frame Grid.Column="0"
-                           Padding="0"
-                           BackgroundColor="{StaticResource Secondary}"
-                           BorderColor="Transparent"
-                           CornerRadius="50"
-                           HasShadow="False"
-                           HorizontalOptions="Center"
-                           IsClippedToBounds="True"
-                           VerticalOptions="Center">
-                        <ImageButton 
-                                     Aspect="AspectFit"
-                                     HeightRequest="60"
-                                     Source="{Binding User.Image.MediaData, Converter={StaticResource ByteArrayToImageSourceConverter}}"
-                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProfilelViewCommand}"
-                                     CommandParameter="{Binding .}"
-                                     WidthRequest="60"></ImageButton>
-                    </Frame>
+                    <toolkit:AvatarView Grid.Column="0"
+                                        BackgroundColor="Transparent"
+                                         BorderWidth="1"
+                                        CornerRadius="50"
+                                        ImageSource="{Binding User.Image.MediaData, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                        TextColor="{StaticResource Success}">
+                        <toolkit:AvatarView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PanelViewModel}}, Path=GoToProfilelViewCommand}"
+                                                  CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        </toolkit:AvatarView.GestureRecognizers>
+                    </toolkit:AvatarView>
                     <VerticalStackLayout Grid.Column="1"
                                          Spacing="5">
                         <Label FontSize="Default"
                                Text="Hoşgeldiniz"
                                TextColor="{StaticResource Gray400}" />
                         <Label FontAttributes="Bold"
-                               Text="{Binding User.FirstName}"
                                VerticalOptions="End"
-                               TextColor="{StaticResource White}" />
+                               TextColor="{StaticResource White}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding User.FirstName}" />
+                                    <Span Text=" " />
+                                    <Span Text="{Binding User.LastName}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                     </VerticalStackLayout>
                     <Image Grid.Column="2"
                            Margin="0,0,25,0"
@@ -207,7 +208,7 @@
                     <CollectionView.EmptyView>
                         <Label Text="Bugün işlem gören herhangi bir malzeme yok."
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center" />
                     </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="5"
@@ -314,7 +315,7 @@
                                             <FormattedString>
                                                 <Span Text="{Binding FirstName}" />
                                                 <Span Text=" " />
-                                                <Span Text="{Binding LastName}"/>
+                                                <Span Text="{Binding LastName}" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
