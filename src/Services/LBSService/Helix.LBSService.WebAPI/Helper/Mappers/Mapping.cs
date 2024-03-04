@@ -34,6 +34,9 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 				cfg.AddProfile<ProductionTransactionLineProfile>();
 				cfg.AddProfile<TransferTransactionProfile>();
 				cfg.AddProfile<TransferTransactionLineProfile>();
+				cfg.AddProfile<SalesOrderProfile>();
+				cfg.AddProfile<SalesOrderLineProfile>();
+
 				cfg.AllowNullCollections = true;
 
 			});
