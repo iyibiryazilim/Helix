@@ -53,6 +53,7 @@ namespace Helix.LBSService.Tiger.DataStores
 								items.DataFields.FieldByName("SOURCE_COST_GRP").Value = dto.SOURCE_COST_GRP;
 								items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
 								items.DataFields.FieldByName("DATE_CREATED").Value = dto.DATE_CREATED;
+								items.DataFields.FieldByName("ARP_CODE_SHPM").Value = dto.ARP_CODE_SHPM; 
 								items.DataFields.FieldByName("HOUR_CREATED").Value = dto.HOUR_CREATED;
 								items.DataFields.FieldByName("MIN_CREATED").Value = dto.MIN_CREATED;
 								items.DataFields.FieldByName("SEC_CREATED").Value = dto.SEC_CREATED;
@@ -81,9 +82,12 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("MASTER_CODE").Value = line.MASTER_CODE; 
 									dtos_lines[dtos_lines.Count - 1].FieldByName("GL_CODE1").Value = line.GL_CODE1;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("GL_CODE2").Value = line.GL_CODE2;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY; 
-									dtos_lines[dtos_lines.Count - 1].FieldByName("VAT_RATE").Value = line.VAT_RATE;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE; 
+									dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("PRICE").Value = line.PRICE;
+ 									dtos_lines[dtos_lines.Count - 1].FieldByName("VAT_RATE").Value = line.VAT_RATE;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("TRANS_DESCRIPTION").Value = line.TRANS_DESCRIPTION; 
+									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("VARIANTCODE").Value = line.VARIANTCODE; 
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV1").Value = line.UNIT_CONV1; 
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV2").Value = line.UNIT_CONV2;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV3").Value = line.UNIT_CONV3;
@@ -98,8 +102,8 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("DATA_REFERENCE").Value = line.DATA_REFERENCE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_DUE_DATE").Value = line.ORG_DUE_DATE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_QUANTITY").Value = line.ORG_QUANTITY;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("PRODUCER_CODE").Value = line.PRODUCER_CODE; 
- 								  
+									dtos_lines[dtos_lines.Count - 1].FieldByName("PRODUCER_CODE").Value = line.PRODUCER_CODE;
+									
 								}
 
 								if (items.Post())

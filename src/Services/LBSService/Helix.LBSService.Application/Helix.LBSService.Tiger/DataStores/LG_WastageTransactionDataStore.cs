@@ -131,7 +131,7 @@ namespace Helix.LBSService.Tiger.DataStores
 							else
 							{
 								result.IsSuccess = false;
-								result.Message = unity.GetLastError() + "-" + unity.GetLastErrorString();
+								result.Message = new ErrorHelper().GetError(items);
 								_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
 								_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(dto.EmployeeOid), dto));
 							}
