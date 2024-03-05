@@ -2,11 +2,15 @@
 {
 	public class LG_Order
 	{
-		public string NUMBER { get; set; } = "~";
-		public DateTime? DATE { get; set; } = default;
+		public string EmployeeOid { get; set; } = string.Empty;
+        public string NUMBER { get; set; } = "~";
+		public DateTime DATE { get; set; } = DateTime.Now;
 		public object? TIME { get; set; }
 		public string? DOC_NUMBER { get; set; } = string.Empty;
 		public string? ARP_CODE { get; set; } = string.Empty;
+		public string? ARP_CODE_SHPM { get; set; } = string.Empty;
+		public string SALESMAN { get; set; } = string.Empty;
+
 		public string GL_CODE { get; set; } = string.Empty;
 		public short SOURCE_WH { get; set; } = default;
 		public int SOURCE_COST_GRP { get; set; } = default;
@@ -31,7 +35,14 @@
 		public short DEDUCTIONPART2 { get; set; } = default;
 		public short EINVOICE { get; set; } = default;
 		public short EINVOICE_PROFILEID { get; set; } = default;
-		public Guid GUID { get; set; } = Guid.NewGuid();
+		public double TOTAL_DISCOUNTED { get; set; } = default;
+		public double TOTAL_VAT { get; set; } = default;
+		public double TOTAL_GROSS { get; set; } = default;
+		public double TOTAL_NET { get; set; } = default;
+		public string SALESMAN_CODE { get; set; } = string.Empty;
+
+
+        public Guid GUID { get; set; } = Guid.NewGuid();
 
 
 		public LG_Order()
