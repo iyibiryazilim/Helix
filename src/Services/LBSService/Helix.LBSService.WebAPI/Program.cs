@@ -9,10 +9,13 @@ using Helix.LBSService.Go.Services;
 using Helix.LBSService.Tiger.DataStores;
 using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("appsettings.json");
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+builder.Host.UseSerilog();
 
 
 LBSParameterModel parameterModel = builder.Configuration.GetSection(nameof(LBSParameter)).Get<LBSParameterModel>();
@@ -31,10 +34,10 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
 	{
 		ConnectionRetryCount = 5,
- 		SubscriperClientAppName = "LBSService",
+		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
-		//EventBusConnectionString = "amqp://guest:guest@localhost:52796",
 		EventBusType = EventBusType.RabbitMQ,
+		//EventBusConnectionString = "amqp://guest:guest@rabbit.management:5672", 
 		EventNameSuffix = nameof(IntegrationEvent),
 
 	}, eb);
@@ -100,5 +103,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseSerilogRequestLogging();
 app.Run();
