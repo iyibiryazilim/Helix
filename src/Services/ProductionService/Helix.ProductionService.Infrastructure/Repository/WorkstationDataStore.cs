@@ -20,7 +20,7 @@ public class WorkstationDataStore : BaseDataStore, IWorkstationService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationByCode(code));
+			var result = await new SqlQueryHelper<Workstation>(_configuraiton).GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
@@ -35,7 +35,7 @@ public class WorkstationDataStore : BaseDataStore, IWorkstationService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Workstation>().GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationById(id));
+			var result = await new SqlQueryHelper<Workstation>(_configuraiton).GetObjectAsync(new WorkstationQuery(_configuraiton).GetWorkstationById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
@@ -49,7 +49,7 @@ public class WorkstationDataStore : BaseDataStore, IWorkstationService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Workstation>().GetObjectsAsync(new WorkstationQuery(_configuraiton).GetWorkstationList());
+			var result = await new SqlQueryHelper<Workstation>(_configuraiton).GetObjectsAsync(new WorkstationQuery(_configuraiton).GetWorkstationList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
