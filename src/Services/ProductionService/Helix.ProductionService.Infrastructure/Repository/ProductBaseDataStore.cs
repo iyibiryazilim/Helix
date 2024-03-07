@@ -21,7 +21,7 @@ public class ProductBaseDataStore : BaseDataStore, IProductService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductByCode(code));
+			var result = await new SqlQueryHelper<Product>(_configuraiton).GetObjectAsync(new ProductQuery(_configuraiton).GetProductByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex) {
@@ -35,7 +35,7 @@ public class ProductBaseDataStore : BaseDataStore, IProductService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductById(id));
+			var result = await new SqlQueryHelper<Product>(_configuraiton).GetObjectAsync(new ProductQuery(_configuraiton).GetProductById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
@@ -49,7 +49,7 @@ public class ProductBaseDataStore : BaseDataStore, IProductService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList());
+			var result = await new SqlQueryHelper<Product>(_configuraiton).GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}

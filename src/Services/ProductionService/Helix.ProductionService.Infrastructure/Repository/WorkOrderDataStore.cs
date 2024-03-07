@@ -20,7 +20,7 @@ public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WorkOrder>().GetObjectAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderById(id));
+			var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -32,11 +32,26 @@ public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 
 	}
 
-	public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByProductionOrderCode(string code)
+    public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByProductId(int id)
+    {
+        try
+        {
+            var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductId(id));
+            _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex.Message, DateTime.Now.ToLongTimeString());
+            throw;
+        }
+    }
+
+    public async Task<DataResult<IEnumerable<WorkOrder>>> GetWorkOrderByProductionOrderCode(string code)
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderCode(code));
+			var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -52,7 +67,7 @@ public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderId(id));
+			var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByProductionOrderId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -68,7 +83,7 @@ public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByStatus(status));
+			var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByStatus(status));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -84,7 +99,7 @@ public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationCode(code));
+			var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
@@ -100,7 +115,7 @@ public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 		
 		try
 		{
-			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationId(id));
+			var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderByWorkstationId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -115,7 +130,7 @@ public class WorkOrderDataStore : BaseDataStore, IWorkOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WorkOrder>().GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderList());
+			var result = await new SqlQueryHelper<WorkOrder>(_configuraiton).GetObjectsAsync(new WorkOrderQuery(_configuraiton).GetWorkOrderList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}

@@ -20,7 +20,7 @@ public class StopTransactionDataStore : BaseDataStore, IStopTransactionService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<StopTransaction>().GetObjectsAsync(new StopTransactionQuery(_configuraiton).GetStopTransactionList());
+			var result = await new SqlQueryHelper<StopTransaction>(_configuraiton).GetObjectsAsync(new StopTransactionQuery(_configuraiton).GetStopTransactionList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}

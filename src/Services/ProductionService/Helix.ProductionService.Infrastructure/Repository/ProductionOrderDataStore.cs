@@ -21,7 +21,7 @@ public class ProductionOrderDataStore : BaseDataStore, IProductionOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<ProductionOrder>().GetObjectsAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderList());
+			var result = await new SqlQueryHelper<ProductionOrder>(_configuraiton).GetObjectsAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
@@ -36,7 +36,7 @@ public class ProductionOrderDataStore : BaseDataStore, IProductionOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<ProductionOrder>().GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderByCode(code));
+			var result = await new SqlQueryHelper<ProductionOrder>(_configuraiton).GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -52,7 +52,7 @@ public class ProductionOrderDataStore : BaseDataStore, IProductionOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<ProductionOrder>().GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderById(id));
+			var result = await new SqlQueryHelper<ProductionOrder>(_configuraiton).GetObjectAsync(new ProductionOrderQuery(_configuraiton).GetProductionOrderById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		} catch(Exception ex)
