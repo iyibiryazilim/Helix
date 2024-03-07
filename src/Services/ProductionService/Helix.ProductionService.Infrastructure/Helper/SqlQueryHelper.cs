@@ -1,4 +1,5 @@
 ﻿using Helix.ProductionService.Domain.Models;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
@@ -7,13 +8,19 @@ namespace Helix.ProductionService.Infrastructure.Helper;
 
 public class SqlQueryHelper<T> where T : class
 {
-	public async Task<DataResult<IEnumerable<T>>> GetObjectsAsync(string query)
+	private readonly IConfiguration _configuration;
+    public SqlQueryHelper(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
+    public async Task<DataResult<IEnumerable<T>>> GetObjectsAsync(string query)
 	{
 		DataResult<IEnumerable<T>> dataResult = new();
 		try
 		{
 			DataTable datatable = new();
-			await using (SqlConnection connection = new("Data Source=172.25.86.103; User id= sa; Password = iyibir!*#16730000; Initial Catalog = TIGER3ENTERPRISE"))
+			await using (SqlConnection connection = new(_configuration.GetConnectionString("LBSConnectionString")))
 			{
 				await connection.OpenAsync();
 				using (SqlDataAdapter adapter = new(query, connection))
@@ -64,7 +71,7 @@ public class SqlQueryHelper<T> where T : class
 		try
 		{
 			DataTable datatable = new();
-			await using (SqlConnection connection = new("Data Source=172.25.86.103; User id= sa; Password = iyibir!*#16730000; Initial Catalog = TIGER3ENTERPRISE"))
+			await using (SqlConnection connection = new(_configuration.GetConnectionString("LBSConnectionString")))
 			{
 				await connection.OpenAsync();
 				using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))

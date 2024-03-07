@@ -20,7 +20,7 @@ public class StopCauseDataStore : BaseDataStore, IStopCauseService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<StopCause>().GetObjectsAsync(new StopCauseQuery(_configuraiton).GetStopCauseList());
+			var result = await new SqlQueryHelper<StopCause>(_configuraiton).GetObjectsAsync(new StopCauseQuery(_configuraiton).GetStopCauseList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}

@@ -71,6 +71,16 @@ namespace Helix.ProductionService.WebAPI.Controllers
 			return result;
 		}
 
+		[HttpGet("Product/Id/{id:int}")]
+		public async Task <DataResult<IEnumerable<WorkOrder>>> GetByProductId(int id)
+		{
+			var result= await _workOrderService.GetWorkOrderByProductId(id);
+			return result;
+		}
+
+
+
+
 		[HttpPost]
 		public async Task WorkOrderInsert([FromBody] WorkOrderDto workOrderDto)
 		{
