@@ -3,7 +3,7 @@
 	public class OrderLineDto
 	{
 		public string ProductCode { get; set; } = string.Empty;
-		public int Quantity { get; set; }
+		public double Quantity { get; set; }
         public double VatRate { get; set; }
 		public string VariantCode { get; set; } = string.Empty;
         public double Price { get; set; }
