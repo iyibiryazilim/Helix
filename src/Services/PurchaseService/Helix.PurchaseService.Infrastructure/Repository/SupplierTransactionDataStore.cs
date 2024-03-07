@@ -21,7 +21,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetInputTransactionByCurrentCode(search, orderBy, code, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetInputTransactionByCurrentCode(search, orderBy, code, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -39,7 +39,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetInputTransactionByCurrentId(search, orderBy, id, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetInputTransactionByCurrentId(search, orderBy, id, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -57,7 +57,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetOutputTransactionByCurrentCode(search, orderBy, code, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetOutputTransactionByCurrentCode(search, orderBy, code, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -75,7 +75,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetOutputTransactionByCurrentId(search, orderBy, id, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetOutputTransactionByCurrentId(search, orderBy, id, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -93,7 +93,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByCurrentCode(search, orderBy, code, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByCurrentCode(search, orderBy, code, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -111,7 +111,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByCurrentId(search, orderBy, id, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByCurrentId(search, orderBy, id, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -129,7 +129,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAsync(search, orderBy, currentCode, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAsync(search, orderBy, currentCode, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -146,7 +146,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAsync(search, orderBy, currentId, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAsync(search, orderBy, currentId, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -163,7 +163,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAndWarehouseAsync(search, orderBy, currentId, warehouseNumber, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAndWarehouseAsync(search, orderBy, currentId, warehouseNumber, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -180,7 +180,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransaction>().GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAndWarehouseAndShipInfoAsync(search, orderBy, currentId, warehouseNumber,shipInfoReferenceId, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransaction>(_configuraiton).GetObjectsAsync(new SupplierTransactionQuery(_configuraiton).GetTransactionByTransactionTypeAndWarehouseAndShipInfoAsync(search, orderBy, currentId, warehouseNumber,shipInfoReferenceId, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;

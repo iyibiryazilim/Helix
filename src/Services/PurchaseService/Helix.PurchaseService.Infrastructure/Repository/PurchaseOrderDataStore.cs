@@ -22,7 +22,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrder(search,orderBy,currentPage,pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrder>(_configuraiton).GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrder(search,orderBy,currentPage,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -37,7 +37,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCode(code)); _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
+				var result = await new SqlQueryHelper<PurchaseOrder>(_configuraiton).GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCode(code)); _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
 			catch (Exception ex)
@@ -51,7 +51,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentCode(search,orderBy,code,currentPage,pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrder>(_configuraiton).GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentCode(search,orderBy,code,currentPage,pageSize));
 				return result;
 			}
 			catch (Exception ex)
@@ -65,7 +65,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentId(search, orderBy, id, currentPage, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrder>(_configuraiton).GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentId(search, orderBy, id, currentPage, pageSize));
 				return result;
 			}
 			catch (Exception ex)
@@ -79,7 +79,7 @@ namespace Helix.Tiger.DataAccess.DataStores
         {
             try
             {
-                var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, orderBy, id,number, currentPage, pageSize));
+                var result = await new SqlQueryHelper<PurchaseOrder>(_configuraiton).GetObjectsAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderByCurrentIdAndWarehouseNumber(search, orderBy, id,number, currentPage, pageSize));
                 return result;
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrder>().GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderById(id));
+				var result = await new SqlQueryHelper<PurchaseOrder>(_configuraiton).GetObjectAsync(new PurchaseOrderQuery(_configuraiton).GetPurchaseOrderById(id));
 				return result;
 			}
 			catch (Exception ex)

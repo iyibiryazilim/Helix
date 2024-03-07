@@ -21,7 +21,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetInputTransactionLineByCurrentCode(search, orderBy, code, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetInputTransactionLineByCurrentCode(search, orderBy, code, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -39,7 +39,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetInputTransactionLineByCurrentId(search, orderBy, id, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetInputTransactionLineByCurrentId(search, orderBy, id, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -57,7 +57,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetOutputTransactionLineByCurrentCode(search, orderBy, code, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetOutputTransactionLineByCurrentCode(search, orderBy, code, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -75,7 +75,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetOutputTransactionLineByCurrentId(search, orderBy, id, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetOutputTransactionLineByCurrentId(search, orderBy, id, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -93,7 +93,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByCurrentCode(search, orderBy, code, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByCurrentCode(search, orderBy, code, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -111,7 +111,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByCurrentId(search, orderBy, id, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByCurrentId(search, orderBy, id, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -129,7 +129,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByFicheCode(search, orderBy, code, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByFicheCode(search, orderBy, code, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -147,7 +147,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByFicheId(search, orderBy, id, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByFicheId(search, orderBy, id, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -165,7 +165,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(search, orderBy, currentCode, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(search, orderBy, currentCode, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -183,7 +183,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(search, orderBy, currentId, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(search, orderBy, currentId, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -201,7 +201,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAndWarehouseNumberAsync(search, orderBy, currentId,warehouseNumber, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAndWarehouseNumberAsync(search, orderBy, currentId,warehouseNumber, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
@@ -218,7 +218,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SupplierTransactionLine>().GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAndWarehouseNumberAndShipInfoAsync(search, orderBy, currentId,warehouseNumber,shipInfoReferenceId, TransactionType, page, pageSize));
+                var result = await new SqlQueryHelper<SupplierTransactionLine>(_configuraiton).GetObjectsAsync(new SupplierTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAndWarehouseNumberAndShipInfoAsync(search, orderBy, currentId,warehouseNumber,shipInfoReferenceId, TransactionType, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
