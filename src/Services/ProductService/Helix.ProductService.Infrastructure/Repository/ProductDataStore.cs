@@ -19,7 +19,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductByCode(code));
+				var result = await new SqlQueryHelper<Product>(_configuraiton).GetObjectAsync(new ProductQuery(_configuraiton).GetProductByCode(code));
 				return result;
 			}
 			catch (Exception ex)
@@ -33,7 +33,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Product>().GetObjectAsync(new ProductQuery(_configuraiton).GetProductById(id));
+				var result = await new SqlQueryHelper<Product>(_configuraiton).GetObjectAsync(new ProductQuery(_configuraiton).GetProductById(id));
 				return result;
 			}
 			catch (Exception ex)
@@ -47,7 +47,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductGroup>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductsGroups());
+				var result = await new SqlQueryHelper<ProductGroup>(_configuraiton).GetObjectsAsync(new ProductQuery(_configuraiton).GetProductsGroups());
 				return result;
 			}
 			catch (Exception ex)
@@ -61,7 +61,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList(search,groupCode,orderBy,page,pageSize));
+				var result = await new SqlQueryHelper<Product>(_configuraiton).GetObjectsAsync(new ProductQuery(_configuraiton).GetProductList(search,groupCode,orderBy,page,pageSize));
 				return result;
 
 			}
@@ -76,7 +76,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<Product>().GetObjectsAsync(new ProductQuery(_configuraiton).GetAlternativeProductList(id,search,orderBy, page, pageSize));
+                var result = await new SqlQueryHelper<Product>(_configuraiton).GetObjectsAsync(new ProductQuery(_configuraiton).GetAlternativeProductList(id,search,orderBy, page, pageSize));
                 return result;
 
             }
@@ -91,7 +91,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<ProductCustomerAndSupplier>().GetObjectsAsync(new ProductQuery(_configuraiton).GetCustomerAndSupplierList(id, search, orderBy, page, pageSize));
+                var result = await new SqlQueryHelper<ProductCustomerAndSupplier>(_configuraiton).GetObjectsAsync(new ProductQuery(_configuraiton).GetCustomerAndSupplierList(id, search, orderBy, page, pageSize));
                 return result;
 
             }

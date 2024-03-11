@@ -21,7 +21,7 @@ public class WastageTransactionDataStore : BaseDataStore, IWastageTransactionSer
     {
         try
         {
-            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCode(code));
+            var result = await new SqlQueryHelper<WastageTransaction>(_configuraiton).GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -38,7 +38,7 @@ public class WastageTransactionDataStore : BaseDataStore, IWastageTransactionSer
     {
         try
         {
-            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionById(id));
+            var result = await new SqlQueryHelper<WastageTransaction>(_configuraiton).GetObjectAsync(new WastageTransactionQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -55,7 +55,7 @@ public class WastageTransactionDataStore : BaseDataStore, IWastageTransactionSer
     {
         try
         {
-            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionList());
+            var result = await new SqlQueryHelper<WastageTransaction>(_configuraiton).GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -72,7 +72,7 @@ public class WastageTransactionDataStore : BaseDataStore, IWastageTransactionSer
     {
         try
         {
-            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
+            var result = await new SqlQueryHelper<WastageTransaction>(_configuraiton).GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -89,7 +89,7 @@ public class WastageTransactionDataStore : BaseDataStore, IWastageTransactionSer
     {
         try
         {
-            var result = await new SqlQueryHelper<WastageTransaction>().GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
+            var result = await new SqlQueryHelper<WastageTransaction>(_configuraiton).GetObjectsAsync(new WastageTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

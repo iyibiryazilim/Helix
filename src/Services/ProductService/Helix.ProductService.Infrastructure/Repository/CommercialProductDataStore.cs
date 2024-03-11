@@ -21,7 +21,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 			try
 			{
 				
-                var result = await new SqlQueryHelper<CommercialProduct>().GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductByCode(code));
+                var result = await new SqlQueryHelper<CommercialProduct>(_configuraiton).GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductByCode(code));
                 _logger.LogInformation("Ürün kodu {ProductCode} ile başarıyla getirildi. Mesaj: {ResultMessage}", code, result.Message);
 
                 
@@ -39,7 +39,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<CommercialProduct>().GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductById(id));
+                var result = await new SqlQueryHelper<CommercialProduct>(_configuraiton).GetObjectAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductById(id));
                 return result;
 
             }
@@ -54,7 +54,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<CommercialProduct>().GetObjectsAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductList());
+                var result = await new SqlQueryHelper<CommercialProduct>(_configuraiton).GetObjectsAsync(new CommercialProductQuery(_configuraiton).GetCommercialProductList());
                 return result;
 
             }

@@ -21,7 +21,7 @@ public class RetailSalesReturnDispatchTransactionDataStore : BaseDataStore,IReta
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>().GetObjectAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
+			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>(_configuraiton).GetObjectAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -38,7 +38,7 @@ public class RetailSalesReturnDispatchTransactionDataStore : BaseDataStore,IReta
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>().GetObjectAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
+			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>(_configuraiton).GetObjectAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -55,7 +55,7 @@ public class RetailSalesReturnDispatchTransactionDataStore : BaseDataStore,IReta
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>().GetObjectsAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>(_configuraiton).GetObjectsAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -72,7 +72,7 @@ public class RetailSalesReturnDispatchTransactionDataStore : BaseDataStore,IReta
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>().GetObjectsAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>(_configuraiton).GetObjectsAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -89,7 +89,7 @@ public class RetailSalesReturnDispatchTransactionDataStore : BaseDataStore,IReta
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>().GetObjectsAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<RetailSalesReturnDispatchTransaction>(_configuraiton).GetObjectsAsync(new RetailSalesReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

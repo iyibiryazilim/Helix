@@ -21,7 +21,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<Warehouse>().GetObjectsAsync(new WarehouseQuery(_configuraiton).GetWarehouseList(search,orderBy,page,pageSize));
+                var result = await new SqlQueryHelper<Warehouse>(_configuraiton).GetObjectsAsync(new WarehouseQuery(_configuraiton).GetWarehouseList(search,orderBy,page,pageSize));
                 return result;
             }
 			catch (Exception ex)

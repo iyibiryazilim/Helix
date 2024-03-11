@@ -22,7 +22,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<WarehouseTotal>().GetObjectsAsync(new WarehouseTotalQuery(_configuraiton).GetProductsByWarehouseNumber(number,CardType,search,orderBy,page,pageSize));
+				var result = await new SqlQueryHelper<WarehouseTotal>(_configuraiton).GetObjectsAsync(new WarehouseTotalQuery(_configuraiton).GetProductsByWarehouseNumber(number,CardType,search,orderBy,page,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -39,7 +39,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-				var result = await new SqlQueryHelper<WarehouseTotal>().GetObjectsAsync(new WarehouseTotalQuery(_configuraiton).GetWarehouseTotalByProductId(id, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<WarehouseTotal>(_configuraiton).GetObjectsAsync(new WarehouseTotalQuery(_configuraiton).GetWarehouseTotalByProductId(id, search, orderBy, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;

@@ -21,7 +21,7 @@ public class CustomerDataStore : BaseDataStore, ICustomerService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Customer>().GetObjectAsync(new CustomerQuery(_configuraiton).GetCustomerById(id));
+			var result = await new SqlQueryHelper<Customer>(_configuraiton).GetObjectAsync(new CustomerQuery(_configuraiton).GetCustomerById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			
 			return result;
@@ -37,7 +37,7 @@ public class CustomerDataStore : BaseDataStore, ICustomerService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Customer>().GetObjectsAsync(new CustomerQuery(_configuraiton).GetCustomerList(search,orderBy,page,pageSize));
+			var result = await new SqlQueryHelper<Customer>(_configuraiton).GetObjectsAsync(new CustomerQuery(_configuraiton).GetCustomerList(search,orderBy,page,pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -53,7 +53,7 @@ public class CustomerDataStore : BaseDataStore, ICustomerService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<Customer>().GetObjectAsync(new CustomerQuery(_configuraiton).GetCustomerByCode(code));
+			var result = await new SqlQueryHelper<Customer>(_configuraiton).GetObjectAsync(new CustomerQuery(_configuraiton).GetCustomerByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

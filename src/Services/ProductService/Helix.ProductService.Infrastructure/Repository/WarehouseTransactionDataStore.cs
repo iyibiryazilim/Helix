@@ -21,7 +21,7 @@ public class WarehouseTransactionDataStore : BaseDataStore, IWarehouseTransactio
 		try
 		{
 
-			var result = await new SqlQueryHelper<WarehouseTransaction>().GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetInputTransactionByWarehouseNumber(number, search, orderBy, currentPage, pageSize));
+			var result = await new SqlQueryHelper<WarehouseTransaction>(_configuraiton).GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetInputTransactionByWarehouseNumber(number, search, orderBy, currentPage, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -37,7 +37,7 @@ public class WarehouseTransactionDataStore : BaseDataStore, IWarehouseTransactio
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WarehouseTransaction>().GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetInputTransactionByWarehouseReferenceId(id, search, orderBy, currentPage, pageSize));
+			var result = await new SqlQueryHelper<WarehouseTransaction>(_configuraiton).GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetInputTransactionByWarehouseReferenceId(id, search, orderBy, currentPage, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -53,7 +53,7 @@ public class WarehouseTransactionDataStore : BaseDataStore, IWarehouseTransactio
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WarehouseTransaction>().GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetOutputTransactionByWarehouseNumber(number, search, orderBy, currentPage, pageSize));
+			var result = await new SqlQueryHelper<WarehouseTransaction>(_configuraiton).GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetOutputTransactionByWarehouseNumber(number, search, orderBy, currentPage, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -68,7 +68,7 @@ public class WarehouseTransactionDataStore : BaseDataStore, IWarehouseTransactio
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WarehouseTransaction>().GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetOutputTransactionByWarehouseReferenceId(id, search, orderBy, currentPage, pageSize));
+			var result = await new SqlQueryHelper<WarehouseTransaction>(_configuraiton).GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetOutputTransactionByWarehouseReferenceId(id, search, orderBy, currentPage, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 			return result;
 		}
@@ -83,7 +83,7 @@ public class WarehouseTransactionDataStore : BaseDataStore, IWarehouseTransactio
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WarehouseTransaction>().GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetTransactionsByWarehouseNumber(number, search, orderBy, currentPage, pageSize));
+			var result = await new SqlQueryHelper<WarehouseTransaction>(_configuraiton).GetObjectsAsync(new WarehouseTransactionQuery(_configuraiton).GetTransactionsByWarehouseNumber(number, search, orderBy, currentPage, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

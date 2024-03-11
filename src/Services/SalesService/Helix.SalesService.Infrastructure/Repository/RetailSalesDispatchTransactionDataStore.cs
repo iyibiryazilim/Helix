@@ -21,7 +21,7 @@ public class RetailSalesDispatchTransactionDataStore : BaseDataStore, IRetailSal
     {
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>().GetObjectAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>(_configuraiton).GetObjectAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -39,7 +39,7 @@ public class RetailSalesDispatchTransactionDataStore : BaseDataStore, IRetailSal
     {
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>().GetObjectAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>(_configuraiton).GetObjectAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -56,7 +56,7 @@ public class RetailSalesDispatchTransactionDataStore : BaseDataStore, IRetailSal
     {
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>().GetObjectsAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>(_configuraiton).GetObjectsAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -73,7 +73,7 @@ public class RetailSalesDispatchTransactionDataStore : BaseDataStore, IRetailSal
     {
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>().GetObjectsAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>(_configuraiton).GetObjectsAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -90,7 +90,7 @@ public class RetailSalesDispatchTransactionDataStore : BaseDataStore, IRetailSal
     {
 		try
 		{
-			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>().GetObjectsAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<RetailSalesDispatchTransaction>(_configuraiton).GetObjectsAsync(new RetailSalesDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

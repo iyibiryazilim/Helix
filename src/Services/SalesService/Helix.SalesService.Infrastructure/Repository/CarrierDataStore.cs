@@ -24,7 +24,7 @@ namespace Helix.SalesService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<Carrier>().GetObjectsAsync(new CarrierQuery(_configuraiton).GetCarriersListAsync());
+                var result = await new SqlQueryHelper<Carrier>(_configuraiton).GetObjectsAsync(new CarrierQuery(_configuraiton).GetCarriersListAsync());
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;
