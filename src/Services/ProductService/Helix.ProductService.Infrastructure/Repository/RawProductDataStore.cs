@@ -23,7 +23,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<RawProduct>().GetObjectAsync(new RawProductQuery(_configuraiton).GetRawProductByCode(code));
+                var result = await new SqlQueryHelper<RawProduct>(_configuraiton).GetObjectAsync(new RawProductQuery(_configuraiton).GetRawProductByCode(code));
                 return result;
 
             }
@@ -39,7 +39,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<RawProduct>().GetObjectAsync(new RawProductQuery(_configuraiton).GetRawProductById(id));
+                var result = await new SqlQueryHelper<RawProduct>(_configuraiton).GetObjectAsync(new RawProductQuery(_configuraiton).GetRawProductById(id));
                 return result;
 
             }
@@ -53,7 +53,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<RawProduct>().GetObjectsAsync(new RawProductQuery(_configuraiton).GetRawProductList());
+                var result = await new SqlQueryHelper<RawProduct>(_configuraiton).GetObjectsAsync(new RawProductQuery(_configuraiton).GetRawProductList());
                 return result;
 
             }

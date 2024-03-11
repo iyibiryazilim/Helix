@@ -23,7 +23,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<FixedAssetProduct>().GetObjectAsync(new FixedAssetProductQuery(_configuraiton).GetFixedAssetProductByCode(code));
+                var result = await new SqlQueryHelper<FixedAssetProduct>(_configuraiton).GetObjectAsync(new FixedAssetProductQuery(_configuraiton).GetFixedAssetProductByCode(code));
                 return result;
             }
 			catch(Exception ex) 
@@ -38,7 +38,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<FixedAssetProduct>().GetObjectAsync(new FixedAssetProductQuery(_configuraiton).GetFixedAssetProductById(id));
+                var result = await new SqlQueryHelper<FixedAssetProduct>(_configuraiton).GetObjectAsync(new FixedAssetProductQuery(_configuraiton).GetFixedAssetProductById(id));
                 return result;
 
             }
@@ -55,7 +55,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result =await new SqlQueryHelper<FixedAssetProduct>().GetObjectsAsync(new FixedAssetProductQuery(_configuraiton).GetFixedAssetProductList());
+                var result =await new SqlQueryHelper<FixedAssetProduct>(_configuraiton).GetObjectsAsync(new FixedAssetProductQuery(_configuraiton).GetFixedAssetProductList());
                 return result;
 
             }

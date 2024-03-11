@@ -26,7 +26,7 @@ namespace Helix.SalesService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SpeCodeModel>().GetObjectsAsync(new SpeCodeQuery(_configuraiton).GetSpeCodeListAsync());
+                var result = await new SqlQueryHelper<SpeCodeModel>(_configuraiton).GetObjectsAsync(new SpeCodeQuery(_configuraiton).GetSpeCodeListAsync());
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;

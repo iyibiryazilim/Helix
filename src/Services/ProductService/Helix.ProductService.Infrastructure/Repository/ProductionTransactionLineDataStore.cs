@@ -21,7 +21,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionById(id));
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -38,7 +38,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionList());
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -55,7 +55,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -72,7 +72,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -89,7 +89,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -106,7 +106,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -123,7 +123,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -140,7 +140,7 @@ public class ProductionTransactionLineDataStore : BaseDataStore, IProductionTran
     {
         try
         {
-            var result = await new SqlQueryHelper<ProductionTransactionLine>().GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
+            var result = await new SqlQueryHelper<ProductionTransactionLine>(_configuraiton).GetObjectsAsync(new ProductionTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

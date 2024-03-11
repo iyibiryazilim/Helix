@@ -26,7 +26,7 @@ namespace Helix.SalesService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<ShipInfo>().GetObjectsAsync(new ShipInfoQuery(_configuraiton).GetShipInfoListAsync(currentReferenceId));
+                var result = await new SqlQueryHelper<ShipInfo>(_configuraiton).GetObjectsAsync(new ShipInfoQuery(_configuraiton).GetShipInfoListAsync(currentReferenceId));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;

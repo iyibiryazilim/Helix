@@ -22,7 +22,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<SemiProduct>().GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductByCode(code));
+				var result = await new SqlQueryHelper<SemiProduct>(_configuraiton).GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductByCode(code));
 			return result;
 			}
 			catch (Exception ex)
@@ -37,7 +37,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<SemiProduct>().GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductById(id));
+                var result = await new SqlQueryHelper<SemiProduct>(_configuraiton).GetObjectAsync(new SemiProductQuery(_configuraiton).GetSemiProductById(id));
                 return result;
 
             }
@@ -53,7 +53,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<SemiProduct>().GetObjectsAsync(new SemiProductQuery(_configuraiton).GetSemiProductList());
+                var result = await new SqlQueryHelper<SemiProduct>(_configuraiton).GetObjectsAsync(new SemiProductQuery(_configuraiton).GetSemiProductList());
                 return result;
 
             }
