@@ -20,7 +20,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Supplier>().GetObjectAsync(new SupplierQuery(_configuraiton).GetSupplierByCode(code));
+				var result = await new SqlQueryHelper<Supplier>(_configuraiton).GetObjectAsync(new SupplierQuery(_configuraiton).GetSupplierByCode(code));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -35,7 +35,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Supplier>().GetObjectAsync(new SupplierQuery(_configuraiton).GetSupplierById(id));
+				var result = await new SqlQueryHelper<Supplier>(_configuraiton).GetObjectAsync(new SupplierQuery(_configuraiton).GetSupplierById(id));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -50,7 +50,7 @@ namespace Helix.PurchaseService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<Supplier>().GetObjectsAsync(new SupplierQuery(_configuraiton).GetSupplierList(search,orderBy,page,pageSize));
+				var result = await new SqlQueryHelper<Supplier>(_configuraiton).GetObjectsAsync(new SupplierQuery(_configuraiton).GetSupplierList(search,orderBy,page,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
