@@ -53,6 +53,8 @@ builder.Services.AddTransient<IProductionOrderService, ProductionOrderDataStore>
 builder.Services.AddTransient<IProductionTransactionLineService, ProductionTransactionLineDataStore>();
 builder.Services.AddTransient<IProductionTransactionService, ProductionTransactionDataStore>();
 builder.Services.AddTransient<IProductService, ProductBaseDataStore>();
+builder.Services.AddTransient<IOutsourceProductionOrderService, OutsourceProductionOrderDataStore>();
+builder.Services.AddTransient<IOutsourceWorkOrderService, OutsourceWorkOrderDataStore>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

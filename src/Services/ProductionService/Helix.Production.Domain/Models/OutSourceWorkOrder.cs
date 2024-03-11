@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Helix.ProductionService.Domain.Models
 {
-    public class OutSourceWorkOrder :BaseWorkOrder
+    public class OutsourceWorkOrder :BaseWorkOrder
     {
-        public int SupplierReferenceId { get; set; }
+        public int? SupplierReferenceId { get; set; }
 
-        public string SupplierCode { get; set; }
+        public string SupplierCode { get; set; } = String.Empty;
 
         public string SupplierName { get; set; } = string.Empty;
     }
