@@ -42,31 +42,31 @@ namespace Helix.LBSService.Tiger.DataStores
 							{
 								Data items = unity.NewDataObject(DataObjectType.doSalesOrderSlip);
 								items.New();
- 								object tm = null;
+								object tm = null;
 								unity.PackTime(dto.DATE.TimeOfDay.Hours, dto.DATE.TimeOfDay.Minutes, dto.DATE.TimeOfDay.Seconds, ref tm);
 
 								items.New();
-  								items.DataFields.FieldByName("NUMBER").Value = dto.NUMBER;
- 								items.DataFields.FieldByName("DATE").Value = dto.DATE;
+								items.DataFields.FieldByName("NUMBER").Value = dto.NUMBER;
+								items.DataFields.FieldByName("DATE").Value = dto.DATE;
 								items.DataFields.FieldByName("TIME").Value = tm;
- 								items.DataFields.FieldByName("SOURCE_WH").Value = dto.SOURCE_WH;
+								items.DataFields.FieldByName("SOURCE_WH").Value = dto.SOURCE_WH;
 								items.DataFields.FieldByName("SOURCE_COST_GRP").Value = dto.SOURCE_COST_GRP;
 								items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
 								items.DataFields.FieldByName("DATE_CREATED").Value = dto.DATE_CREATED;
-								items.DataFields.FieldByName("ARP_CODE_SHPM").Value = dto.ARP_CODE_SHPM; 
+								items.DataFields.FieldByName("ARP_CODE_SHPM").Value = dto.ARP_CODE_SHPM;
 								items.DataFields.FieldByName("HOUR_CREATED").Value = dto.HOUR_CREATED;
 								items.DataFields.FieldByName("MIN_CREATED").Value = dto.MIN_CREATED;
 								items.DataFields.FieldByName("SEC_CREATED").Value = dto.SEC_CREATED;
-								items.DataFields.FieldByName("ARP_CODE").Value = dto.ARP_CODE; 
+								items.DataFields.FieldByName("ARP_CODE").Value = dto.ARP_CODE;
 								items.DataFields.FieldByName("GUID").Value = dto.GUID.ToString();
-								items.DataFields.FieldByName("TOTAL_DISCOUNTED").Value = dto.TOTAL_DISCOUNTED; 
+								items.DataFields.FieldByName("TOTAL_DISCOUNTED").Value = dto.TOTAL_DISCOUNTED;
 								items.DataFields.FieldByName("TOTAL_VAT").Value = dto.TOTAL_VAT;
 								items.DataFields.FieldByName("TOTAL_GROSS").Value = dto.TOTAL_GROSS;
 								items.DataFields.FieldByName("TOTAL_NET").Value = dto.TOTAL_NET;
 								items.DataFields.FieldByName("ORDER_STATUS").Value = dto.ORDER_STATUS;
-								items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY; 
+								items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
 								items.DataFields.FieldByName("DATE_CREATED").Value = dto.DATE_CREATED;
-								items.DataFields.FieldByName("HOUR_CREATED").Value =dto.HOUR_CREATED;
+								items.DataFields.FieldByName("HOUR_CREATED").Value = dto.HOUR_CREATED;
 								items.DataFields.FieldByName("MIN_CREATED").Value = dto.MIN_CREATED;
 								items.DataFields.FieldByName("SEC_CREATED").Value = dto.SEC_CREATED;
 								items.DataFields.FieldByName("SALESMAN_CODE").Value = dto.SALESMAN_CODE;
@@ -77,18 +77,18 @@ namespace Helix.LBSService.Tiger.DataStores
 
 								foreach (LG_SalesOrderLine line in dto.TRANSACTIONS)
 								{
-									dtos_lines.AppendLine(); 
+									dtos_lines.AppendLine();
 									dtos_lines[dtos_lines.Count - 1].FieldByName("TYPE").Value = line.TYPE;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("MASTER_CODE").Value = line.MASTER_CODE; 
+									dtos_lines[dtos_lines.Count - 1].FieldByName("MASTER_CODE").Value = line.MASTER_CODE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("GL_CODE1").Value = line.GL_CODE1;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("GL_CODE2").Value = line.GL_CODE2;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRICE").Value = line.PRICE;
- 									dtos_lines[dtos_lines.Count - 1].FieldByName("VAT_RATE").Value = line.VAT_RATE;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("TRANS_DESCRIPTION").Value = line.TRANS_DESCRIPTION; 
+									dtos_lines[dtos_lines.Count - 1].FieldByName("VAT_RATE").Value = line.VAT_RATE;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("TRANS_DESCRIPTION").Value = line.TRANS_DESCRIPTION;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("VARIANTCODE").Value = line.VARIANTCODE; 
-									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV1").Value = line.UNIT_CONV1; 
+									dtos_lines[dtos_lines.Count - 1].FieldByName("VARIANTCODE").Value = line.VARIANTCODE;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV1").Value = line.UNIT_CONV1;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV2").Value = line.UNIT_CONV2;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV3").Value = line.UNIT_CONV3;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV4").Value = line.UNIT_CONV4;
@@ -103,7 +103,7 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_DUE_DATE").Value = line.ORG_DUE_DATE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_QUANTITY").Value = line.ORG_QUANTITY;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRODUCER_CODE").Value = line.PRODUCER_CODE;
-									
+
 								}
 
 								if (items.Post())
@@ -116,15 +116,15 @@ namespace Helix.LBSService.Tiger.DataStores
 									result.IsSuccess = true;
 									result.Message = "Success";
 									_logger.LogInformation($"ConsumableTransaction Inserted :{referenceId}");
-									//_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-									//_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, new Guid(dto.EmployeeOid), dto));
+									_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
+									_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, new Guid(dto.EmployeeOid), dto));
 								}
 								else
 								{
 									result.IsSuccess = false;
 									result.Message = new ErrorHelper().GetError(items);
-									//_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-									//_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(dto.EmployeeOid), dto));
+									_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
+									_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(dto.EmployeeOid), dto));
 								}
 							}
 							else

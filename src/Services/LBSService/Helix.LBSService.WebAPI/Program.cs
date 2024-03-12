@@ -37,8 +37,8 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
-		//EventBusConnectionString = "amqp://guest:guest@rabbit.management:5672", 
-		EventNameSuffix = nameof(IntegrationEvent),
+		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
+        EventNameSuffix = nameof(IntegrationEvent),
 
 	}, eb);
 });
@@ -70,11 +70,7 @@ builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
 builder.Services.AddTransient<ILG_STFICHE_Context,LG_STFICHE_Context>();
 builder.Services.AddTransient<ILG_SalesOrderService, LG_SalesOrderDataStore>();
-
-
-
-
-
+builder.Services.AddTransient<ILG_CurrentService, LG_CurrentDataStore>();
 
 
 builder.Services.AddControllers();

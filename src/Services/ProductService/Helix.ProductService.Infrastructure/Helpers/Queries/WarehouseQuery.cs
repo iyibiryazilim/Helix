@@ -17,7 +17,7 @@ namespace Helix.ProductService.Infrastructure.Helpers.Queries
 			[Number] = LGMAIN.NR,
 			[Name] = LGMAIN.NAME,
 			[LastTransactionDate] = (SELECT TOP 1 LASTTRDATE
-			FROM LV_00{FirmNumber}_0{PeriodNumber}_STINVTOT 
+			FROM LV_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STINVTOT 
 			WHERE INVENNO = LGMAIN.NR ORDER BY DATE_ DESC)
 			FROM L_CAPIWHOUSE AS LGMAIN WITH (NOLOCK) WHERE LGMAIN.FIRMNR = {FirmNumber} AND (LGMAIN.NAME LIKE '%{search}%' OR LGMAIN.NR LIKE '%{search}%')
 			{orderBy}

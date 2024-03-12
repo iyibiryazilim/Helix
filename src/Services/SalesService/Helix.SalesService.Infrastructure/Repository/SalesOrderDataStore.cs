@@ -21,7 +21,7 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByIdQuery(id));
+			var result = await new SqlQueryHelper<SalesOrder>(_configuraiton).GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByIdQuery(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -38,7 +38,7 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCodeQuery(code));
+			var result = await new SqlQueryHelper<SalesOrder>(_configuraiton).GetObjectAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCodeQuery(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -55,7 +55,7 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderQuery(search,orderBy,page,pageSize));
+			var result = await new SqlQueryHelper<SalesOrder>(_configuraiton).GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderQuery(search,orderBy,page,pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -72,7 +72,7 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrder>(_configuraiton).GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -89,7 +89,7 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrder>(_configuraiton).GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -105,7 +105,7 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
     {
         try
         {
-            var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdAndWarehouseNumberQuery(id,number, search, orderBy, page, pageSize));
+            var result = await new SqlQueryHelper<SalesOrder>(_configuraiton).GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdAndWarehouseNumberQuery(id,number, search, orderBy, page, pageSize));
             _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
             return result;
@@ -121,7 +121,7 @@ public class SalesOrderDataStore : BaseDataStore, ISalesOrderService
     {
         try
         {
-            var result = await new SqlQueryHelper<SalesOrder>().GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdAndWarehouseNumberAndShipInfoQuery(id, number,shipInfoReferenceId, search, orderBy, page, pageSize));
+            var result = await new SqlQueryHelper<SalesOrder>(_configuraiton).GetObjectsAsync(new SalesOrderQuery(_configuraiton).GetSalesOrderByCurrentIdAndWarehouseNumberAndShipInfoQuery(id, number,shipInfoReferenceId, search, orderBy, page, pageSize));
             _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
             return result;

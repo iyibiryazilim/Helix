@@ -20,7 +20,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionById(id));
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -37,7 +37,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionList());
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -54,7 +54,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -71,7 +71,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -88,7 +88,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -105,7 +105,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -122,7 +122,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -139,7 +139,7 @@ public class InCountingTransactionLineDataStore : BaseDataStore, IInCountingTran
     {
         try
         {
-            var result = await new SqlQueryHelper<InCountingTransactionLine>().GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
+            var result = await new SqlQueryHelper<InCountingTransactionLine>(_configuraiton).GetObjectsAsync(new InCountingTransactionLineQuery(_configuraiton).GetTransactionByProductId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

@@ -22,7 +22,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>().GetObjectAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
+				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>(_configuraiton).GetObjectAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCode(code));
 				_logger.LogInformation(code, result);
 				return result;
 			}
@@ -38,7 +38,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>().GetObjectsAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(search, orderBy, code, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>(_configuraiton).GetObjectsAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -53,7 +53,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>().GetObjectsAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(search, orderBy, id, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>(_configuraiton).GetObjectsAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionByCurrentId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -68,7 +68,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>().GetObjectAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
+				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>(_configuraiton).GetObjectAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionById(id));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -84,7 +84,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>().GetObjectsAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseReturnDispatchTransaction>(_configuraiton).GetObjectsAsync(new PurchaseReturnDispatchTransactionQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}

@@ -21,7 +21,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<EndProduct>().GetObjectAsync(new EndProductQuery(_configuraiton).GetEndProductByCode(code));
+                var result = await new SqlQueryHelper<EndProduct>(_configuraiton).GetObjectAsync(new EndProductQuery(_configuraiton).GetEndProductByCode(code));
                 return result;
             }
 			catch(Exception ex) {
@@ -34,7 +34,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<EndProduct>().GetObjectAsync(new EndProductQuery(_configuraiton).GetEndProductById(id));
+                var result = await new SqlQueryHelper<EndProduct>(_configuraiton).GetObjectAsync(new EndProductQuery(_configuraiton).GetEndProductById(id));
                 return result;
             }
 			catch(Exception ex)
@@ -48,7 +48,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-                var result = await new SqlQueryHelper<EndProduct>().GetObjectsAsync(new EndProductQuery(_configuraiton).GetEndProductList());
+                var result = await new SqlQueryHelper<EndProduct>(_configuraiton).GetObjectsAsync(new EndProductQuery(_configuraiton).GetEndProductList());
                 return result;
 
             }

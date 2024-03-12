@@ -21,7 +21,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionById(id));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -38,7 +38,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionList(search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -55,7 +55,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentCode(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -72,7 +72,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id,search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByCurrentId(id,search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -89,7 +89,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheCode(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -106,7 +106,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByFicheId(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -123,7 +123,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductCode(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -140,7 +140,7 @@ public class WholeSalesDispatchTransactionLineDataStore : BaseDataStore,IWholeSa
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>().GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductId(id,search,orderBy,page,pageSize));
+			var result = await new SqlQueryHelper<WholeSalesDispatchTransactionLine>(_configuraiton).GetObjectsAsync(new WholeSalesDispatchTransactionLineQuery(_configuraiton).GetTransactionByProductId(id,search,orderBy,page,pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

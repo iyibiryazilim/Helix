@@ -29,11 +29,11 @@ namespace Helix.Queries
 [StarTime] =  [dbo].[LG_INTTOTIME](StopTransaction.STARTTIME),
 [StopDuration] =StopTransaction.STOPDURATION
 
-FROM LG_00{FirmNumber}_STOPTRANS AS StopTransaction
-LEFT JOIN LG_00{FirmNumber}_DISPLINE AS WorkOrder ON StopTransaction.DISPLINEREF = WorkOrder.LOGICALREF
-LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-LEFT JOIN LG_00{FirmNumber}_OPERTION AS Operation ON StopTransaction.OPREF = Operation.LOGICALREF
-LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation ON StopTransaction.WSREF = Workstation.LOGICALREF
-LEFT JOIN LG_00{FirmNumber}_STOPCAUSE AS StopCause ON StopTransaction.CAUSEREF = StopCause.LOGICALREF";
+FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_STOPTRANS AS StopTransaction
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder ON StopTransaction.DISPLINEREF = WorkOrder.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION AS Operation ON StopTransaction.OPREF = Operation.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation ON StopTransaction.WSREF = Workstation.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_STOPCAUSE AS StopCause ON StopTransaction.CAUSEREF = StopCause.LOGICALREF";
 	}
 }

@@ -21,7 +21,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByFicheCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByFicheCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -37,7 +37,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByFicheCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByFicheCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -54,7 +54,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByFicheIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByFicheIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -70,7 +70,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByFicheIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByFicheIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -87,7 +87,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineQuery(search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineQuery(search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -104,7 +104,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByCurrentCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByCurrentCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -121,7 +121,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByCurrentIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByCurrentIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -138,7 +138,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByProductCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByProductCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -155,7 +155,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByProductIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetSalesOrderLineByProductIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -172,7 +172,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineQuery(search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineQuery(search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -189,7 +189,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -206,7 +206,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -223,7 +223,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentIdAndWarehouseNumberQuery(id,warehouseNumber, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentIdAndWarehouseNumberQuery(id,warehouseNumber, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -240,7 +240,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
     {
         try
         {
-            var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentIdAndWarehouseNumberAndShipInfoQuery(id, warehouseNumber,shipInfoReferendeId, search, orderBy, page, pageSize));
+            var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByCurrentIdAndWarehouseNumberAndShipInfoQuery(id, warehouseNumber,shipInfoReferendeId, search, orderBy, page, pageSize));
             _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
             return result;
@@ -257,7 +257,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByProductCodeQuery(code, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByProductCodeQuery(code, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -274,7 +274,7 @@ public class SalesOrderLineDataStore : BaseDataStore, ISalesOrderLineService
 	{
 		try
 		{
-			var result = await new SqlQueryHelper<SalesOrderLine>().GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByProductIdQuery(id, search, orderBy, page, pageSize));
+			var result = await new SqlQueryHelper<SalesOrderLine>(_configuraiton).GetObjectsAsync(new SalesOrderLineQuery(_configuraiton).GetWaitingSalesOrderLineByProductIdQuery(id, search, orderBy, page, pageSize));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

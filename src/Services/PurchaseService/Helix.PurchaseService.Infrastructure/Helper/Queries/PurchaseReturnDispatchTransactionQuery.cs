@@ -27,10 +27,10 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             ISNULL(SUM(STLINE.LINENET), 0) AS [NetTotal],
             COUNT(DISTINCT STLINE.STOCKREF) AS [ReferenceCount]
         FROM
-            LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
-            LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+            LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-            LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
             STFICHE.TRCODE = 6 AND (STFICHE.FICHENO LIKE '%{search}%' OR CLCARD.DEFINITION_ LIKE '%{search}%' OR CLCARD.CODE LIKE '%{search}%' )
         GROUP BY
@@ -58,10 +58,10 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             ISNULL(SUM(STLINE.LINENET), 0) AS [NetTotal],
             COUNT(DISTINCT STLINE.STOCKREF) AS [ReferenceCount]
         FROM
-            LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
-            LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+            LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-            LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
             STFICHE.LOGICALREF = {id} AND STFICHE.TRCODE = 6
         GROUP BY
@@ -84,10 +84,10 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             ISNULL(SUM(STLINE.LINENET), 0) AS [NetTotal],
             COUNT(DISTINCT STLINE.STOCKREF) AS [ReferenceCount]
         FROM
-            LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
-            LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+            LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-            LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
             STFICHE.FICHENO = '{code}' AND STFICHE.TRCODE = 6
         GROUP BY
@@ -113,10 +113,10 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             ISNULL(SUM(STLINE.LINENET), 0) AS [NetTotal],
             COUNT(DISTINCT STLINE.STOCKREF) AS [ReferenceCount]
         FROM
-            LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
-            LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+            LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-            LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
             CLCARD.LOGICALREF = {id} AND STFICHE.TRCODE = 6 AND STFICHE.FICHENO LIKE '%{search}%'
         GROUP BY
@@ -147,10 +147,10 @@ namespace Helix.PurchaseService.Infrastructure.Helper.Queries
             ISNULL(SUM(STLINE.LINENET), 0) AS [NetTotal],
             COUNT(DISTINCT STLINE.STOCKREF) AS [ReferenceCount]
         FROM
-            LG_00{FirmNumber}_0{PeriodNumber}_STLINE AS STLINE
-            LEFT JOIN LG_00{FirmNumber}_0{PeriodNumber}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
+            LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STFICHE AS STFICHE ON STLINE.STFICHEREF = STFICHE.LOGICALREF
             LEFT JOIN L_CAPIWHOUSE AS CAPIWHOUSE ON STLINE.SOURCEINDEX = CAPIWHOUSE.NR AND CAPIWHOUSE.FIRMNR = {FirmNumber}
-            LEFT JOIN LG_00{FirmNumber}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
+            LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS CLCARD ON STLINE.CLIENTREF = CLCARD.LOGICALREF
         WHERE
             CLCARD.CODE = '{code}' AND STFICHE.TRCODE = 6  AND STFICHE.FICHENO LIKE '%{search}%'
         GROUP BY

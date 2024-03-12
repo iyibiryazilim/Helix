@@ -17,7 +17,7 @@ namespace Helix.Queries
 		[Time] = dbo.LG_INTTOTIME(BNFICHE.FTIME),
 		[Description] = BNFICHE.GENEXP1,
 		[SpeCode] = BNFICHE.SPECODE
-		FROM LG_00{FirmNumber}_0{PeriodNumber}_BNFICHE AS BNFICHE";
+		FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_BNFICHE AS BNFICHE";
 		public string GetBankAccountTransactionById(int id) =>
 		@$"SELECT 
 		[ReferenceId] = BNFICHE.LOGICALREF,
@@ -27,7 +27,7 @@ namespace Helix.Queries
 		[Time] = dbo.LG_INTTOTIME(BNFICHE.FTIME),
 		[Description] = BNFICHE.GENEXP1,
 		[SpeCode] = BNFICHE.SPECODE
-		FROM LG_00{FirmNumber}_0{PeriodNumber}_BNFICHE AS BNFICHE
+		FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_BNFICHE AS BNFICHE
 		WHERE BNFICHE.LOGICALREF = {id}";
 		public string GetBankAccountTransactionByCode(string code) =>
 		@$"SELECT 
@@ -38,7 +38,7 @@ namespace Helix.Queries
 		[Time] = dbo.LG_INTTOTIME(BNFICHE.FTIME),
 		[Description] = BNFICHE.GENEXP1,
 		[SpeCode] = BNFICHE.SPECODE
-		FROM LG_00{FirmNumber}_0{PeriodNumber}_BNFICHE AS BNFICHE
+		FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_BNFICHE AS BNFICHE
 		WHERE BNFICHE.FICHENO = {code}";
 	}
 }

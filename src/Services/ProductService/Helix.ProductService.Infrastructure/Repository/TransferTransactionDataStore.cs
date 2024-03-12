@@ -21,7 +21,7 @@ public class TransferTransactionDataStore : BaseDataStore, ITransferTransactionS
     {
         try
         {
-            var result = await new SqlQueryHelper<TransferTransaction>().GetObjectAsync(new TransferTransactionQuery(_configuraiton).GetTransactionByCode(code));
+            var result = await new SqlQueryHelper<TransferTransaction>(_configuraiton).GetObjectAsync(new TransferTransactionQuery(_configuraiton).GetTransactionByCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -38,7 +38,7 @@ public class TransferTransactionDataStore : BaseDataStore, ITransferTransactionS
     {
         try
         {
-            var result = await new SqlQueryHelper<TransferTransaction>().GetObjectAsync(new TransferTransactionQuery(_configuraiton).GetTransactionById(id));
+            var result = await new SqlQueryHelper<TransferTransaction>(_configuraiton).GetObjectAsync(new TransferTransactionQuery(_configuraiton).GetTransactionById(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -55,7 +55,7 @@ public class TransferTransactionDataStore : BaseDataStore, ITransferTransactionS
     {
         try
         {
-            var result = await new SqlQueryHelper<TransferTransaction>().GetObjectsAsync(new TransferTransactionQuery(_configuraiton).GetTransactionList());
+            var result = await new SqlQueryHelper<TransferTransaction>(_configuraiton).GetObjectsAsync(new TransferTransactionQuery(_configuraiton).GetTransactionList());
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -72,7 +72,7 @@ public class TransferTransactionDataStore : BaseDataStore, ITransferTransactionS
     {
         try
         {
-            var result = await new SqlQueryHelper<TransferTransaction>().GetObjectsAsync(new TransferTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
+            var result = await new SqlQueryHelper<TransferTransaction>(_configuraiton).GetObjectsAsync(new TransferTransactionQuery(_configuraiton).GetTransactionByCurrentCode(code));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;
@@ -89,7 +89,7 @@ public class TransferTransactionDataStore : BaseDataStore, ITransferTransactionS
     {
         try
         {
-            var result = await new SqlQueryHelper<TransferTransaction>().GetObjectsAsync(new TransferTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
+            var result = await new SqlQueryHelper<TransferTransaction>(_configuraiton).GetObjectsAsync(new TransferTransactionQuery(_configuraiton).GetTransactionByCurrentId(id));
 			_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 			return result;

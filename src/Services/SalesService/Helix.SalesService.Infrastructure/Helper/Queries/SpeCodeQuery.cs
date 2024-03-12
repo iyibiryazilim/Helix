@@ -16,7 +16,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         public string GetSpeCodeListAsync()
         {
 
-            string query = @$"SELECT LOGICALREF AS [ReferenceId],SPECODE AS [SpeCode], DEFINITION_ AS [Definition] FROM LG_00{FirmNumber}_SPECODES";
+            string query = @$"SELECT LOGICALREF AS [ReferenceId],SPECODE AS [SpeCode], DEFINITION_ AS [Definition] FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_SPECODES";
 
             return query;
         }

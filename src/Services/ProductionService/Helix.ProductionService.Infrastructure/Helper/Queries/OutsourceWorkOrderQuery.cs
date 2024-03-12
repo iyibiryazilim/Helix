@@ -185,15 +185,15 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{FirmNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-    LEFT JOIN LG_00{FirmNumber}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+    LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
 	AND WorkOrder.LOGICALREF = {id}";
 
@@ -248,16 +248,17 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{FirmNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-    LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+    LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+
 	AND Workstation.LOGICALREF = {id}";
         public string GetOutsourceByWorkstationCode(string code) =>
     @$"SELECT
@@ -306,15 +307,15 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-    LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+    LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
 	AND Workstation.CODE = {code}";
         #endregion
@@ -368,16 +369,17 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{FirmNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-    LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+    LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+
 	AND Product.LOGICALREF = {id}";
 
         #endregion
@@ -430,16 +432,17 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{FirmNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-    LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+    LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+
 	AND WorkOrder.PRODORDREF = {id}";
         public string GetOutsourceByProductionOrderCode(string code) =>
     @$"SELECT
@@ -488,15 +491,15 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{FirmNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-    LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+    LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1  AND ProductionOrder.FICHENO = {code}";
         #endregion
 

@@ -20,7 +20,7 @@ namespace Helix.SalesService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<Driver>().GetObjectsAsync(new DriverQuery(_configuraiton).GetDriversListAsync());
+                var result = await new SqlQueryHelper<Driver>(_configuraiton).GetObjectsAsync(new DriverQuery(_configuraiton).GetDriversListAsync());
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
                 return result;

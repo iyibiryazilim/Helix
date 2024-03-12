@@ -25,7 +25,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<Unitset>().GetObjectsAsync(new UnitsetQuery(_configuraiton).GetUnitsetById(id));
+                var result = await new SqlQueryHelper<Unitset>(_configuraiton).GetObjectsAsync(new UnitsetQuery(_configuraiton).GetUnitsetById(id));
                 return result;
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<Unitset>().GetObjectsAsync(new UnitsetQuery(_configuraiton).GetUnitsetFromProductId(id));
+                var result = await new SqlQueryHelper<Unitset>(_configuraiton).GetObjectsAsync(new UnitsetQuery(_configuraiton).GetUnitsetFromProductId(id));
                 return result;
             }
             catch(Exception ex)
@@ -53,7 +53,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<Unitset>().GetObjectsAsync(new UnitsetQuery(_configuraiton).GetUnitsetList());
+                var result = await new SqlQueryHelper<Unitset>(_configuraiton).GetObjectsAsync(new UnitsetQuery(_configuraiton).GetUnitsetList());
                 return result;
             }
             catch (Exception ex)

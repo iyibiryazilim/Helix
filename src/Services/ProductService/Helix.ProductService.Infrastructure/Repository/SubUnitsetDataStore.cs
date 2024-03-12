@@ -21,7 +21,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SubUnitset>().GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetById(id));
+                var result = await new SqlQueryHelper<SubUnitset>(_configuraiton).GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetById(id));
                 return result;
             }
             catch (Exception ex) {
@@ -34,7 +34,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SubUnitset>().GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetByUnitsetId(id));
+                var result = await new SqlQueryHelper<SubUnitset>(_configuraiton).GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetByUnitsetId(id));
                 return result;
 
             }
@@ -50,7 +50,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SubUnitset>().GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetsFromProductId(id));
+                var result = await new SqlQueryHelper<SubUnitset>(_configuraiton).GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetsFromProductId(id));
                 return result;
             }
             catch(Exception ex
@@ -65,7 +65,7 @@ namespace Helix.ProductService.Infrastructure.Repository
         {
             try
             {
-                var result = await new SqlQueryHelper<SubUnitset>().GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetList());
+                var result = await new SqlQueryHelper<SubUnitset>(_configuraiton).GetObjectsAsync(new SubUnitsetQuery(_configuraiton).GetSubUnitsetList());
                 return result;
             }
             catch (Exception ex)

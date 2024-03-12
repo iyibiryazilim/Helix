@@ -20,7 +20,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetInputTransactionLineByProductCode(code,search,orderBy,page,pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetInputTransactionLineByProductCode(code,search,orderBy,page,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -37,7 +37,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetInputTransactionLineByProductId(id, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetInputTransactionLineByProductId(id, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -54,7 +54,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetOutputTransactionLineByProductCode(code, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetOutputTransactionLineByProductCode(code, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -71,7 +71,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetOutputTransactionLineByProductId(id, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetOutputTransactionLineByProductId(id, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -88,7 +88,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByFicheCode(code, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByFicheCode(code, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -105,7 +105,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByFicheId(id, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByFicheId(id, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -122,7 +122,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(ProductCode,TransactionType,search,orderBy,page,pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(ProductCode,TransactionType,search,orderBy,page,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -139,7 +139,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(ProductId,TransactionType, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLineByTransactionTypeAsync(ProductId,TransactionType, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -156,7 +156,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLinesByProductCodeAsync(ProductCode, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLinesByProductCodeAsync(ProductCode, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;
@@ -173,7 +173,7 @@ namespace Helix.ProductService.Infrastructure.Repository
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<ProductTransactionLine>().GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLinesByProductIdAsync(ProductId, search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<ProductTransactionLine>(_configuraiton).GetObjectsAsync(new ProductTransactionLineQuery(_configuraiton).GetTransactionLinesByProductIdAsync(ProductId, search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 
 				return result;

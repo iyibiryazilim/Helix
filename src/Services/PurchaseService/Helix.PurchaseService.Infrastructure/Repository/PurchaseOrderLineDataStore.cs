@@ -21,7 +21,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLine(search,orderBy,page,pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLine(search,orderBy,page,pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -36,7 +36,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentCode(search, orderBy,code, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentCode(search, orderBy,code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -51,7 +51,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentId(search, orderBy, id, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByCurrentId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -66,7 +66,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByFicheCode(search, orderBy, code, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByFicheCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -81,7 +81,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByFicheId(search, orderBy, id, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByFicheId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -96,7 +96,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductCode(search, orderBy, code, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -111,7 +111,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductId(search, orderBy, id, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetPurchaseOrderLineByProductId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -126,7 +126,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLine(search, orderBy, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLine(search, orderBy, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -141,7 +141,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentCode(search, orderBy,code, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentCode(search, orderBy,code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -156,7 +156,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentId(search, orderBy,id, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentId(search, orderBy,id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -171,7 +171,7 @@ namespace Helix.Tiger.DataAccess.DataStores
         {
             try
             {
-                var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, orderBy, id,warehouseNumber, page, pageSize));
+                var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByCurrentIdAndWarehouseNumber(search, orderBy, id,warehouseNumber, page, pageSize));
                 _logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
                 return result;
             }
@@ -186,7 +186,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByFicheCode(search, orderBy, code, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByFicheCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -201,7 +201,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByFicheId(search, orderBy,id, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByFicheId(search, orderBy,id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -216,7 +216,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductCode(search, orderBy, code, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductCode(search, orderBy, code, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}
@@ -231,7 +231,7 @@ namespace Helix.Tiger.DataAccess.DataStores
 		{
 			try
 			{
-				var result = await new SqlQueryHelper<PurchaseOrderLine>().GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductId(search, orderBy, id, page, pageSize));
+				var result = await new SqlQueryHelper<PurchaseOrderLine>(_configuraiton).GetObjectsAsync(new PurchaseOrderLineQuery(_configuraiton).GetWaitingPurchaseOrderLineByProductId(search, orderBy, id, page, pageSize));
 				_logger.LogInformation(result.Message, DateTime.Now.ToLongTimeString());
 				return result;
 			}

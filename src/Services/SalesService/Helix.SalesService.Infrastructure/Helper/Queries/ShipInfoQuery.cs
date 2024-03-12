@@ -20,7 +20,7 @@ namespace Helix.SalesService.Infrastructure.Helper.Queries
         [ReferenceId] = LOGICALREF,
         [Code] = CODE,
         [Name] = NAME
-        FROM LG_00{FirmNumber}_SHIPINFO WHERE CLIENTREF = {currentReferenceId} ORDER BY NAME";
+        FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_SHIPINFO WHERE CLIENTREF = {currentReferenceId} ORDER BY NAME";
             return query;
         }
     }
