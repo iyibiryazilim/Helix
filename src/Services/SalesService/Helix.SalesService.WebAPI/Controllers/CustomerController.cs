@@ -1,4 +1,7 @@
-﻿using Helix.SalesService.Application.Repository;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.SalesService.Application.Repository;
+using Helix.SalesService.Domain.Dtos;
+using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,9 +16,11 @@ namespace Helix.SalesService.WebAPI.Controllers
 	public class CustomerController : ControllerBase
 	{
 		ICustomerService _customerService;
-        public CustomerController(ICustomerService customerService)
+		IEventBus _eventBus;
+        public CustomerController(ICustomerService customerService,IEventBus eventBus)
         {
             _customerService = customerService;
+			_eventBus = eventBus;
         }
 		[HttpGet()]
 		public async Task<DataResult<IEnumerable<Customer>>> GetAll([FromQuery]string search = "",string orderBy = CustomerOrderBy.CustomerNameDesc,int page = 0,int pageSize = 20)
@@ -53,5 +58,14 @@ namespace Helix.SalesService.WebAPI.Controllers
 			var result = await _customerService.GetCustomerByIdAsync(id);
 			return result;
 		}
-	}
+
+		[HttpPost]
+        public async Task CustomerInsert([FromBody] CustomerDto customerDto)
+        {
+            _eventBus.Publish(new CustomerInsertingIntegrationEvent(customerDto.code, customerDto.title,customerDto.address,customerDto.otherAddress,customerDto.districtCode,customerDto.district,customerDto.countyCode,customerDto.county,customerDto.cityCode,customerDto.city,customerDto.countryCode,customerDto.country,customerDto.telephone,customerDto.taxNumber,customerDto.taxOffice,customerDto.paymentCode,customerDto.eMail,customerDto.tckn ));
+
+        }
+
+
+    }
 }
