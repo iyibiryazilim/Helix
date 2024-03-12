@@ -19,7 +19,7 @@ namespace Helix.Queries
 		[City] = BANK.CITY,
 		[Country] = BANK.COUNTRY,
 		[District] = BANK.TOWN
-		FROM LG_00{FirmNumber}_BNCARD AS BANK";
+		FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_BNCARD AS BANK";
 		public string GetBankById(int id) =>
 		@$"SELECT 
 		[ReferenceId] = BANK.LOGICALREF,
@@ -31,7 +31,7 @@ namespace Helix.Queries
 		[City] = BANK.CITY,
 		[Country] = BANK.COUNTRY,
 		[District] = BANK.TOWN
-		FROM LG_00{FirmNumber}_BNCARD AS BANK
+		FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_BNCARD AS BANK
 		WHERE BANK.LOGICALREF = {id}";
 		public string GetBankByCode(string code) =>
 		@$"SELECT 
@@ -44,7 +44,7 @@ namespace Helix.Queries
 		[City] = BANK.CITY,
 		[Country] = BANK.COUNTRY,
 		[District] = BANK.TOWN
-		FROM LG_00{FirmNumber}_BNCARD AS BANK
+		FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_BNCARD AS BANK
 		WHERE BANK.CODE = '{code}'";
 	}
 }

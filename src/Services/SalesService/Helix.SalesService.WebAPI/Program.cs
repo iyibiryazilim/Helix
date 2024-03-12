@@ -27,8 +27,8 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
-		//EventBusConnectionString = "amqp://guest:guest@rabbit.management:5672", 
-		EventNameSuffix = nameof(IntegrationEvent),
+		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
+        EventNameSuffix = nameof(IntegrationEvent),
 		
 	}, eb);
 });

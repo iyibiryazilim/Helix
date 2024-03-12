@@ -13,14 +13,14 @@ namespace Helix.Queries
 			[ReferenceId]=Employee.LOGICALREF,
 			[Code]= Employee.CODE,
 			[Name]=Employee.Name
-			FROM LG_00{FirmNumber}_EMPLOYEE AS Employee";
+			FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_EMPLOYEE AS Employee";
 
 		public string GetEmployeeByCode(string code) =>
 			@$"SELECT 
 			[ReferenceId]=Employee.LOGICALREF,
 			[Code]= Employee.CODE,
 			[Name]=Employee.Name
-			FROM LG_00{FirmNumber}_EMPLOYEE AS Employee
+			FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_EMPLOYEE AS Employee
 			WHERE Code = '{code}'";
 
 		public string GetEmployeeById( int id) =>
@@ -28,7 +28,7 @@ namespace Helix.Queries
 			[ReferenceId]=Employee.LOGICALREF,
 			[Code]= Employee.CODE,
 			[Name]= Employee.Name
-			FROM LG_00{FirmNumber}_EMPLOYEE AS Employee
+			FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_EMPLOYEE AS Employee
 			WHERE Employee.LOGICALREF = {id}";
 
 	}
