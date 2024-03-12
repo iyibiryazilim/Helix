@@ -120,7 +120,7 @@ public class WorkOrderQuery : BaseQuery
 	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_00{FirmNumber}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.LINESTATUS IN ({statusString})";
 		return query;
 	}
