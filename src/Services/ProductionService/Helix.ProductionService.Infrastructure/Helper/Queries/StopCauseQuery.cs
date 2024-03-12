@@ -14,5 +14,5 @@ public class StopCauseQuery : BaseQuery
 		[Name] = STOPCAUSE.NAME,
 		[AffectsCost] = STOPCAUSE.AFFECTSCOST,
 		[AffectsPlan] = STOPCAUSE.AFFECTSPLAN
-		FROM LG_00{FirmNumber}_STOPCAUSE AS STOPCAUSE";
+		FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_STOPCAUSE AS STOPCAUSE";
 }

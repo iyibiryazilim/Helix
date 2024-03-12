@@ -52,14 +52,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 ";
 	public string GetWorkOrderByStatus(int[] status)
@@ -112,14 +112,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.LINESTATUS IN ({statusString})";
 		return query;
@@ -169,14 +169,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.LOGICALREF = {id}";
 
@@ -229,14 +229,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE Workstation.LOGICALREF = {id}";
 	public string GetWorkOrderByWorkstationCode(string code) =>
@@ -283,14 +283,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE Workstation.CODE = {code}";
     #endregion
@@ -341,14 +341,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE Product.LOGICALREF = {id}";
 
@@ -399,14 +399,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.PRODORDREF = {id}";
 	public string GetWorkOrderByProductionOrderCode(string code) =>
@@ -453,14 +453,14 @@ public class WorkOrderQuery : BaseQuery
 	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
-    LG_00{FirmNumber}_DISPLINE AS WorkOrder WITH(NOLOCK) 
-	LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-	LEFT JOIN LG_00{FirmNumber}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
-	LEFT JOIN LG_00{FirmNumber}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
+    LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product WITH(NOLOCK) ON WorkOrder.ITEMREF = Product.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_OPERTION As Operation WITH(NOLOCK) ON WorkOrder.OPERATIONREF = Operation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset WITH(NOLOCK) ON Product.UNITSETREF = Unitset.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset WITH(NOLOCK) ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE ProductionOrder.FICHENO = {code}";
 	#endregion

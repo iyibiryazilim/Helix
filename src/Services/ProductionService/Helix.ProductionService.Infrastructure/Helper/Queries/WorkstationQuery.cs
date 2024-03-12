@@ -14,7 +14,7 @@ public class WorkstationQuery : BaseQuery
 			[Name]=Workstation.NAME,
 			[SpeCode] = Workstation.SPECODE,
 			[PermissionCode] = Workstation.CYPHCODE
-			FROM LG_00{FirmNumber}_WORKSTAT AS Workstation";
+			FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation";
 
 	public string GetWorkstationByCode(string code) =>
 		@$"SELECT
@@ -23,7 +23,7 @@ public class WorkstationQuery : BaseQuery
 			[Name]=Workstation.NAME,
 			[SpeCode] = Workstation.SPECODE,
 			[PermissionCode] = Workstation.CYPHCODE
-			FROM LG_00{FirmNumber}_WORKSTAT AS Workstation
+			FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation
 			WHERE Workstation.CODE = '{code}'";
 	public string GetWorkstationById(int id) =>
 		@$"SELECT
@@ -32,6 +32,6 @@ public class WorkstationQuery : BaseQuery
 			[Name]=Workstation.NAME,
 			[SpeCode] = Workstation.SPECODE,
 			[PermissionCode] = Workstation.CYPHCODE
-			FROM LG_00{FirmNumber}_WORKSTAT AS Workstation
+			FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation
 			WHERE Workstation.LOGICALREF = {id}";
 }

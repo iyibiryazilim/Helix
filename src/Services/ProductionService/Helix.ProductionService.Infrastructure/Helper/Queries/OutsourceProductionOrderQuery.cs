@@ -95,11 +95,11 @@ SELECT
 [SupplierCode]=Current_.CODE,
 [SupplierName]=Current_.DEFINITION_
 
-FROM LG_00{FirmNumber}_PRODORD AS ProductionOrder
-LEFT JOIN LG_00{FirmNumber}_ITEMS AS Product ON ProductionOrder.ITEMREF = Product.LOGICALREF
-LEFT JOIN LG_00{FirmNumber}_CLCARD AS Current_ ON ProductionOrder.CLIENTREF = Current_.LOGICALREF
-LEFT JOIN LG_00{FirmNumber}_UNITSETF As Unitset ON Product.UNITSETREF = Unitset.LOGICALREF
-LEFT JOIN LG_00{FirmNumber}_UNITSETL AS SubUnitset ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product ON ProductionOrder.ITEMREF = Product.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Current_ ON ProductionOrder.CLIENTREF = Current_.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset ON Product.UNITSETREF = Unitset.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
 WHERE ProductionOrder.LOGICALREF = {id} AND ProductionOrder.FICHETYPE=2";
 
         public string GetOutsourceOrderByCode(string code) =>
