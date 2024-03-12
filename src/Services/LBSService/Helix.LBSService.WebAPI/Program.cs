@@ -71,6 +71,7 @@ builder.Services.AddTransient<ILG_WastageTransactionService, LG_WastageTransacti
 builder.Services.AddTransient<ILG_STFICHE_Context,LG_STFICHE_Context>();
 builder.Services.AddTransient<ILG_SalesOrderService, LG_SalesOrderDataStore>();
 builder.Services.AddTransient<ILG_CurrentService, LG_CurrentDataStore>();
+builder.Services.AddTransient<ILG_VariantService, LG_VariantDataStore>();
 
 
 builder.Services.AddControllers();
