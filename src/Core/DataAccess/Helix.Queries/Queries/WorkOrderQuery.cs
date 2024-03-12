@@ -49,7 +49,7 @@ namespace Helix.Queries
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -60,7 +60,8 @@ namespace Helix.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+
 ";
 		public string GetWorkOrderByStatus(int[] status)
 		{
@@ -109,7 +110,7 @@ namespace Helix.Queries
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -120,7 +121,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.LINESTATUS IN ({statusString})";
 			return query;
 		}		
@@ -165,7 +166,7 @@ namespace Helix.Queries
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -176,7 +177,7 @@ namespace Helix.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
 	WHERE WorkOrder.LOGICALREF = {id}";
 
 		#region Workstation Filter
@@ -221,7 +222,7 @@ namespace Helix.Queries
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -232,7 +233,8 @@ namespace Helix.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+
 	WHERE Workstation.LOGICALREF = {id}";
 		public string GetWorkOrderByWorkstationCode(string code) =>
 	@$"SELECT
@@ -275,7 +277,7 @@ namespace Helix.Queries
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -286,7 +288,8 @@ namespace Helix.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+
 	WHERE Workstation.CODE = {code}";
 		#endregion
 
@@ -332,7 +335,7 @@ namespace Helix.Queries
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -343,7 +346,8 @@ namespace Helix.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+
 	WHERE WorkOrder.PRODORDREF = {id}";
 		public string GetWorkOrderByProductionOrderCode(string code) =>
 	@$"SELECT
@@ -386,7 +390,7 @@ namespace Helix.Queries
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_003_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_01_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -397,7 +401,8 @@ namespace Helix.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_WORKSTAT AS Workstation WITH(NOLOCK) ON WorkOrder.WSREF = Workstation.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_003_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4
+
 	WHERE ProductionOrder.FICHENO = {code}";
 		#endregion
 	}

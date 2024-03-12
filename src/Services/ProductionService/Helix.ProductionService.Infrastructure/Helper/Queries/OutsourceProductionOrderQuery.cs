@@ -51,11 +51,11 @@ SELECT
 [SupplierCode]=Current_.CODE,
 [SupplierName]=Current_.DEFINITION_
 
-FROM LG_001_PRODORD AS ProductionOrder
-LEFT JOIN LG_001_ITEMS AS Product ON ProductionOrder.ITEMREF = Product.LOGICALREF
-LEFT JOIN LG_001_CLCARD AS Current_ ON ProductionOrder.CLIENTREF = Current_.LOGICALREF
-LEFT JOIN LG_001_UNITSETF As Unitset ON Product.UNITSETREF = Unitset.LOGICALREF
-LEFT JOIN LG_001_UNITSETL AS SubUnitset ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1  WHERE ProductionOrder.FICHETYPE=2";
+FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product ON ProductionOrder.ITEMREF = Product.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Current_ ON ProductionOrder.CLIENTREF = Current_.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset ON Product.UNITSETREF = Unitset.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1  WHERE ProductionOrder.FICHETYPE=2";
 
         public string GetOutsourceProductionOrderById(int id) =>
     $@"
@@ -141,12 +141,12 @@ SELECT
 [SupplierName]=Current_.NAME
 
 
-FROM LG_001_PRODORD AS ProductionOrder
-LEFT JOIN LG_001_ITEMS AS Product ON ProductionOrder.ITEMREF = Product.LOGICALREF
-LEFT JOIN LG_001_CLCARD AS Current_ ON ProductionOrder.CLIENTREF = Current_.LOGICALREF
-LEFT JOIN LG_001_UNITSETF As Unitset ON Product.UNITSETREF = Unitset.LOGICALREF
-LEFT JOIN LG_001_UNITSETL AS SubUnitset ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
-WHERE ProductionOrder.FICHENO = '0000000000001012' AND ProductionOrder.FICHETYPE=2";
+FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_ITEMS AS Product ON ProductionOrder.ITEMREF = Product.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Current_ ON ProductionOrder.CLIENTREF = Current_.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETF As Unitset ON Product.UNITSETREF = Unitset.LOGICALREF
+LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_UNITSETL AS SubUnitset ON Unitset.LOGICALREF = SubUnitset.UNITSETREF AND SubUnitset.MAINUNIT = 1
+WHERE ProductionOrder.FICHENO = '{code}' AND ProductionOrder.FICHETYPE=2";
 
 
     }
