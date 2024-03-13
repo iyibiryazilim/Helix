@@ -12,7 +12,7 @@ public abstract class BaseWorkOrder : INotifyPropertyChanged
 	DateTime? operationBeginDate;
 	string code = string.Empty;
 	string subUnitsetCode = string.Empty;
-	string currentName = string.Empty;
+	//string currentName = string.Empty;
 	double quantity = 0;
 	double actualRate = 0;
 	double actualQuantity = 0;
@@ -376,41 +376,41 @@ public abstract class BaseWorkOrder : INotifyPropertyChanged
 
 	///Current ref-code-FullName
 
-	int? currentReferenceId;
+	//int? currentReferenceId;
 
-	public int? CurrentReferenceId
-	{
-		get => currentReferenceId;
-		set
-		{
-			if (value != currentReferenceId)
-			{
-				currentReferenceId = value;
-				NotifyPropertyChanged(nameof(CurrentReferenceId));
-			}
-		}
-	}
+	//public int? CurrentReferenceId
+	//{
+	//	get => currentReferenceId;
+	//	set
+	//	{
+	//		if (value != currentReferenceId)
+	//		{
+	//			currentReferenceId = value;
+	//			NotifyPropertyChanged(nameof(CurrentReferenceId));
+	//		}
+	//	}
+	//}
 
-	string? currentCode;
-	public string? CurrentCode
-	{
-		get => currentCode;
-		set
-		{
-			currentCode = value;
-			NotifyPropertyChanged();
-		}
-	}
+	//string? currentCode;
+	//public string? CurrentCode
+	//{
+	//	get => currentCode;
+	//	set
+	//	{
+	//		currentCode = value;
+	//		NotifyPropertyChanged();
+	//	}
+	//}
 
-	public string CurrentName
-	{
-		get => currentName;
-		set
-		{
-			currentName = value;
-			NotifyPropertyChanged();
-		}
-	}
+	//public string CurrentName
+	//{
+	//	get => currentName;
+	//	set
+	//	{
+	//		currentName = value;
+	//		NotifyPropertyChanged();
+	//	}
+	//}
 
 
 	///ProductionSubUnitset ref-code-name
@@ -471,25 +471,7 @@ public abstract class BaseWorkOrder : INotifyPropertyChanged
 	}
 
 
-	public double ActualRate
-	{
-		get
-		{
-			if (actualQuantity == 0) return actualRate = default;
-
-			else
-			{
-				return actualRate = (actualQuantity / quantity);
-			}
-
-
-		}
-		set
-		{
-			actualRate = value;
-			NotifyPropertyChanged();
-		}
-	}
+	public double ActualRate => PlanningQuantity > 0 ?(ActualQuantity / PlanningQuantity) * 100 : default;
 
 	public event PropertyChangedEventHandler? PropertyChanged;
 	public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

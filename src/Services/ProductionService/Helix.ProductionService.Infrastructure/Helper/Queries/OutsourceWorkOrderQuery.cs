@@ -133,8 +133,9 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
     LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
-	AND WorkOrder.LINESTATUS IN ({statusString})";
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=2
+	AND WorkOrder.LINESTATUS IN ({statusString})
+";
             return query;
         }
         public string GetOutsourceProductionOrderById(int id)
@@ -194,7 +195,7 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
     LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=2
 	AND WorkOrder.LOGICALREF = {id}";
 
             return query;
@@ -257,7 +258,7 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
     LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=2
 
 	AND Workstation.LOGICALREF = {id}";
         public string GetOutsourceByWorkstationCode(string code) =>
@@ -316,7 +317,7 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
     LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=2
 	AND Workstation.CODE = {code}";
         #endregion
 
@@ -378,7 +379,7 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
     LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=2
 
 	AND Product.LOGICALREF = {id}";
 
@@ -441,7 +442,7 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
     LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=2
 
 	AND WorkOrder.PRODORDREF = {id}";
         public string GetOutsourceByProductionOrderCode(string code) =>
@@ -500,7 +501,7 @@ namespace Helix.ProductionService.Infrastructure.Helper.Queries
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
     LEFT JOIN LG_001_CLCARD AS Supplier WITH(NOLOCK) ON ProductionOrder.CLIENTREF = Supplier.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
-	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=1  AND ProductionOrder.FICHENO = {code}";
+	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 WHERE ProductionOrder.FICHETYPE=2  AND ProductionOrder.FICHENO = {code}";
         #endregion
 
     }
