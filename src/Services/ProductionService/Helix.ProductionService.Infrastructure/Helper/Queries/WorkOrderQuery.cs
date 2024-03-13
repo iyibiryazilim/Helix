@@ -109,7 +109,7 @@ public class WorkOrderQuery : BaseQuery
 	[SubUnitsetReferenceId] = SubUnitset.LOGICALREF,
 	[SubUnitsetCode] = SubUnitset.CODE ,
 	[PlanningQuantity] = ISNULL(Poline.AMOUNT,0),
-	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 ),0)
+	[ActualQuantity] = ISNULL((SELECT SUM(STLINE.AMOUNT) FROM LG_{FirmNumber.ToString().PadLeft(3, '0')}_{PeriodNumber.ToString().PadLeft(2, '0')}_STLINE AS STLINE WITH(NOLOCK) WHERE STLINE.SOURCEPOLNREF = WorkOrder.LOGICALREF AND STLINE.STOCKREF = Product.LOGICALREF AND STLINE.TRCODE = 13 AND STLINE.LPRODSTAT=0),0)
 	
 	FROM
     LG_{FirmNumber.ToString().PadLeft(3, '0')}_DISPLINE AS WorkOrder WITH(NOLOCK) 
@@ -121,7 +121,8 @@ public class WorkOrderQuery : BaseQuery
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_PRODORD AS ProductionOrder WITH(NOLOCK) ON WorkOrder.PRODORDREF = ProductionOrder.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_MARK AS Brand WITH(NOLOCK) ON Product.MARKREF = Brand.LOGICALREF
 	LEFT JOIN LG_{FirmNumber.ToString().PadLeft(3, '0')}_POLINE AS Poline WITH(NOLOCK) ON WorkOrder.LOGICALREF = Poline.DISPLINEREF  AND Poline.ITEMREF = Product.LOGICALREF AND Poline.LINETYPE = 4 AND ProductionOrder.FICHETYPE = 1
-	WHERE WorkOrder.LINESTATUS IN ({statusString}) ";
+	
+	WHERE WorkOrder.LINESTATUS IN ({statusString})";
 		return query;
 	}
 	public string GetWorkOrderById(int id)
