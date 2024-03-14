@@ -4,6 +4,5 @@
 	{
 		HttpClient GetOrCreateHttpClient();
 		string Token { get; set; }
-		string BaseUri { get; set; }
-	}
+ 	}
 }

@@ -27,6 +27,7 @@ builder.Services.AddTransient<WastageTransactionInsertingIntegrationEventHandler
 builder.Services.AddTransient<WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
+ 
 LoggerProviderOptions.RegisterProviderOptions<
 	EventLogSettings, EventLogLoggerProvider>(builder.Services);
 
@@ -36,6 +37,8 @@ builder.Logging.AddEventLog(eventLogSettings =>
 	eventLogSettings.LogName = "Application";
 	eventLogSettings.SourceName = "Helix.PostConsumer";
 });
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+var test = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"];
 builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 {
 	var eventBus = EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
@@ -44,7 +47,7 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
-		//EventBusConnectionString = "amqp://guest:guest@rabbit.management:5672", 
+		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
 		EventNameSuffix = nameof(IntegrationEvent),
 	}, serviceProvider);
 

@@ -23,11 +23,8 @@ LBSParameter.FirmNumber = parameterModel.FirmNumber;
 LBSParameter.IsTiger = parameterModel.IsTiger;
 LBSParameter.Username = parameterModel.Username;
 LBSParameter.Password = parameterModel.Password;
-LBSParameter.Period = parameterModel.Period;
-LBSParameter.DB_DataSource = parameterModel.DB_DataSource;
-LBSParameter.DB_InitialCatalog = parameterModel.DB_InitialCatalog;
-LBSParameter.DB_UserId = parameterModel.DB_UserId;
-LBSParameter.DB_Password = parameterModel.DB_Password;
+LBSParameter.Period = parameterModel.Period; 
+LBSParameter.Connection = configuration.GetConnectionString("LBSConnectionString");
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
