@@ -3,6 +3,7 @@ using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Go.Services;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 
 namespace Helix.LBSService.Go.DataStores;
 
@@ -12,10 +13,11 @@ public class LG_STLINE_Context : ILG_STLINE_Context
 	readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
 	readonly int _defaultPeriodNumber = LBSParameter.Period;
 	readonly string _connectionString = LBSParameter.Connection;
-
-	public LG_STLINE_Context(IEventBus eventBus)
+    readonly ILogger<LG_STLINE_Context> _logger;
+	public LG_STLINE_Context(IEventBus eventBus, ILogger<LG_STLINE_Context> logger)
 	{
 		_eventBus = eventBus;
+		_logger = logger;
 	}
 	public async Task<DataResult<LG_STLINE>> InsertAsync(LG_STLINE line)
 	{
@@ -92,7 +94,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,VAT
            ,VATAMNT
            ,VATMATRAH
-           ,BILLEDline
+           ,BILLEDITEM
            ,BILLED
            ,CPSTFLAG
            ,RETCOSTTYPE
@@ -149,7 +151,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,CAMPAIGNREFS5
            ,POINTCAMPREF
            ,CAMPPOINT
-           ,PROMCLASlineREF
+           ,PROMCLASITEMREF
            ,CMPGLINEREF
            ,PLNSTTRANSPERNR
            ,PORDCLSPLNAMNT
@@ -309,7 +311,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,CPACODE
            ,GTIPCODE
            ,PUBLICCOUNTRYREF
-           ,QPRODlineTYPE
+           ,QPRODITEMTYPE
            ,FUTMONTHCNT
            ,FUTMONTHBEGDATE
 
@@ -388,7 +390,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,@VAT
            ,@VATAMNT
            ,@VATMATRAH
-           ,@BILLEDline
+           ,@BILLEDITEM
            ,@BILLED
            ,@CPSTFLAG
            ,@RETCOSTTYPE
@@ -445,7 +447,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,@CAMPAIGNREFS5
            ,@POINTCAMPREF
            ,@CAMPPOINT
-           ,@PROMCLASlineREF
+           ,@PROMCLASITEMREF
            ,@CMPGLINEREF
            ,@PLNSTTRANSPERNR
            ,@PORDCLSPLNAMNT
@@ -605,7 +607,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,@CPACODE
            ,@GTIPCODE
            ,@PUBLICCOUNTRYREF
-           ,@QPRODlineTYPE
+           ,@QPRODITEMTYPE
            ,@FUTMONTHCNT
            ,@FUTMONTHBEGDATE
            
@@ -617,6 +619,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
 			await using SqlConnection connection = new SqlConnection(_connectionString);
 			await using (SqlCommand command = new SqlCommand(lineQuery, connection))
 			{
+                await connection.OpenAsync();
 				#region Set Line
 				command.Parameters.AddWithValue("STOCKREF", line.STOCKREF);
 				command.Parameters.AddWithValue("LINETYPE", line.LINETYPE);
@@ -845,7 +848,6 @@ public class LG_STLINE_Context : ILG_STLINE_Context
 				command.Parameters.AddWithValue("REFLOTHACCREF", line.REFLOTHACCREF);
 				command.Parameters.AddWithValue("CAMPPAYDEFREF", line.CAMPPAYDEFREF);
 
-
 				if (line.FAREGBINDDATE == null)
 					command.Parameters.AddWithValue("FAREGBINDDATE", DBNull.Value);
 				else
@@ -924,20 +926,20 @@ public class LG_STLINE_Context : ILG_STLINE_Context
 				command.Parameters.AddWithValue("PUBLICCOUNTRYREF", line.PUBLICCOUNTRYREF);
 				#endregion
 				var id = await command.ExecuteScalarAsync();
-				result.Data = null;
+				result.Data = new()
+                {
+                    LOGICALREF = Convert.ToInt32(id)
+                };
 				result.IsSuccess = true;
 				result.Message = "Satır başarıyla eklendi.";
-
-                return result;
+				await connection.CloseAsync(); 
+				return result;
 			}
 		}
 		catch (Exception ex)
 		{
-
-			result.Message = ex.Message;
-			result.IsSuccess = false;
-
-			return result;
+			_logger.LogError(ex, "An error occurred while inserting the object.");
+			throw;
 		}
 	}
 }

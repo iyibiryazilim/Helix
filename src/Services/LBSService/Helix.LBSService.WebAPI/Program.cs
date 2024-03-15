@@ -69,6 +69,14 @@ builder.Services.AddTransient<ILG_STFICHE_Context,LG_STFICHE_Context>();
 builder.Services.AddTransient<ILG_SalesOrderService, LG_SalesOrderDataStore>();
 builder.Services.AddTransient<ILG_CurrentService, LG_CurrentDataStore>();
 builder.Services.AddTransient<ILG_VariantService, LG_VariantDataStore>();
+builder.Services.AddTransient<ILG_STLINE_Context, LG_STLINE_Context>();
+builder.Services.AddTransient<ILG_EINVOICEDET_Context, LG_EINVOICEDET_Context>();
+builder.Services.AddTransient<IL_LDOCNUM_Context, L_LDOCNUM_Context>();
+builder.Services.AddTransient<ILG_SLTRANS_Context, LG_SLTRANS_Context>();
+
+
+
+
 
 
 builder.Services.AddControllers();
