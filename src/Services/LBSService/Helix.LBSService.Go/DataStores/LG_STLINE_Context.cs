@@ -968,8 +968,8 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 				command.Parameters.AddWithValue(nameof(dto.ITMDISC), dto.ITMDISC);
 				command.Parameters.AddWithValue(nameof(dto.ADDTAXREF), dto.ADDTAXREF);
 				#endregion
-				await command.ExecuteNonQueryAsync();
-
+				await   command.ExecuteNonQueryAsync();
+			 
 				result.IsSuccess = true;
 				result.Message = "Satır başarıyla eklendi.";
 				await connection.CloseAsync();
