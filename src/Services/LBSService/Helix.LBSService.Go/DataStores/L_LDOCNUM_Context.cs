@@ -1,23 +1,30 @@
-﻿using Helix.EventBus.Base.Abstractions;
-using Helix.LBSService.Base.Models;
+﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.Services;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 
 namespace Helix.LBSService.Go.DataStores
 {
-	public class L_LDOCNUM_Context : IL_LDOCNUM_Context
+	public class L_LDOCNUM_Context : IL_LDOCNUM_Context, IDisposable
 	{
-		readonly IEventBus _eventBus;
 		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
- 		readonly string _connectionString = LBSParameter.Connection;
-		readonly Logger<L_LDOCNUM_Context> _logger;
+		readonly string _connectionString = LBSParameter.Connection;
 
-		public L_LDOCNUM_Context(IEventBus eventBus, Logger<L_LDOCNUM_Context> logger)
+		public void Dispose()
 		{
-			_eventBus = eventBus;
-			_logger = logger;
+			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// Dispose of managed resources
+				// Add code here to dispose of managed resources
+			}
+			 
+		}
+
 		public async Task<string> GetLastAsgn(string effsdate, string effedate, int TRCODE)
 		{
 			try
@@ -46,12 +53,11 @@ namespace Helix.LBSService.Go.DataStores
 					{
 						throw new Exception("No data found");
 					}
-					return lastNumber; 
+					return lastNumber;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				_logger.LogError(ex, "An error occurred while getting last L_LDOCNUM  object.");
 
 				throw;
 			}
@@ -74,8 +80,7 @@ namespace Helix.LBSService.Go.DataStores
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "An error occurred while updation L_LDOCNUM  object.");
-
+ 
 				throw;
 			}
 		}

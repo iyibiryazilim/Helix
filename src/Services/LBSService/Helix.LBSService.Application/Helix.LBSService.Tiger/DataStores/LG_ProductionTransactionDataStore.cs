@@ -30,7 +30,6 @@ namespace Helix.LBSService.Tiger.DataStores
 				}
  			}
 
-
 			if (!unity.LoggedIn)
 				await _unityApplicationService.LogIn();
 

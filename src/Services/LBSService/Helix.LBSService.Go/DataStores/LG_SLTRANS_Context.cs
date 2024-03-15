@@ -1,25 +1,35 @@
-﻿using Helix.EventBus.Base.Abstractions;
-using Helix.LBSService.Base.Models;
+﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Go.Services;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 
 namespace Helix.LBSService.Go.DataStores
 {
-	public class LG_SLTRANS_Context : ILG_SLTRANS_Context
+	public class LG_SLTRANS_Context : ILG_SLTRANS_Context, IDisposable
 	{
-		readonly IEventBus _eventBus;
-		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
+ 		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
 		readonly int _defaultPeriodNumber = LBSParameter.Period;
 		readonly string _connectionString = LBSParameter.Connection;
-        readonly Logger<LG_SLTRANS_Context> _logger;
 
-		public LG_SLTRANS_Context(IEventBus eventBus, Logger<LG_SLTRANS_Context> logger)
+
+		public void Dispose()
 		{
-			_eventBus = eventBus;
-			_logger = logger;
+			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// Dispose of managed resources
+				// Add code here to dispose of managed resources
+			}
+
+			// Dispose of unmanaged resources
+			// Add code here to dispose of unmanaged resources
+		}
+
 		public async Task<DataResult<LG_SLTRANS>> InsertAsync(LG_SLTRANS dto)
 		{
 			try
@@ -270,10 +280,9 @@ namespace Helix.LBSService.Go.DataStores
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception )
 			{
-				_logger.LogError(ex, "An error occurred while inserting the object."); 
-				throw;
+ 				throw;
 			}
 		}
 	}

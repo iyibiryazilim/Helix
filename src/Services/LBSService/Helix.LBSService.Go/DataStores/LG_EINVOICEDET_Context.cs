@@ -7,19 +7,38 @@ using Microsoft.Extensions.Logging;
 
 namespace Helix.LBSService.Go.DataStores
 {
-	public class LG_EINVOICEDET_Context : ILG_EINVOICEDET_Context
+	public class LG_EINVOICEDET_Context : ILG_EINVOICEDET_Context, IDisposable
 	{
 		readonly IEventBus _eventBus;
 		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
 		readonly int _defaultPeriodNumber = LBSParameter.Period;
 		readonly string _connectionString = LBSParameter.Connection;
-		readonly Logger<LG_EINVOICEDET_Context> _logger;
+		readonly ILogger<LG_EINVOICEDET_Context> _logger;
 
-		public LG_EINVOICEDET_Context(IEventBus eventBus, Logger<LG_EINVOICEDET_Context> logger)
+		public LG_EINVOICEDET_Context(IEventBus eventBus, ILogger<LG_EINVOICEDET_Context> logger)
 		{
 			_eventBus = eventBus;
 			_logger = logger;
 		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// Dispose of managed resources
+				// Add code here to dispose of managed resources
+			}
+
+			// Dispose of unmanaged resources
+			// Add code here to dispose of unmanaged resources
+		}
+
 		public async Task<DataResult<LG_EINVOICEDET>> InsertAsync(LG_EINVOICEDET dto)
 		{
 			try

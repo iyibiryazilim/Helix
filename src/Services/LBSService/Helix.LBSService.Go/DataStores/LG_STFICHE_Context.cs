@@ -1,78 +1,44 @@
-﻿using Helix.EventBus.Base.Abstractions;
-using Helix.LBSService.Base.Events;
-using Helix.LBSService.Base.Models;
+﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Go.Services;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using System.Numerics;
-using System.Transactions;
 
 namespace Helix.LBSService.Go.DataStores
 {
-	public class LG_STFICHE_Context : ILG_STFICHE_Context
+	public class LG_STFICHE_Context : ILG_STFICHE_Context, IDisposable
 	{
-		private readonly IEventBus _eventBus;
 		private readonly string _connectionString;
 		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
 		readonly int _defaultPeriodNumber = LBSParameter.Period;
-		private readonly IL_LDOCNUM_Context _lLDOCNUM_Context;
-		private readonly ILG_SLTRANS_Context _lG_SLTRANS_Context;
-		private readonly ILG_EINVOICEDET_Context _lG_EINVOICEDET_Context;
-		private readonly ILG_STLINE_Context _lG_STLINE_Context;
-		private readonly ILogger<LG_STFICHE_Context> _logger;
 
-		public LG_STFICHE_Context(IEventBus eventBus, IL_LDOCNUM_Context lLDOCNUM_Context, ILG_SLTRANS_Context lG_SLTRANS_Context, ILG_EINVOICEDET_Context lG_EINVOICEDET_Context, ILG_STLINE_Context lG_STLINE_Context, ILogger<LG_STFICHE_Context> logger)
+		public LG_STFICHE_Context()
 		{
-			_eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-			_lLDOCNUM_Context = lLDOCNUM_Context ?? throw new ArgumentNullException(nameof(lLDOCNUM_Context));
-			_lG_SLTRANS_Context = lG_SLTRANS_Context ?? throw new ArgumentNullException(nameof(lG_SLTRANS_Context));
-			_lG_EINVOICEDET_Context = lG_EINVOICEDET_Context ?? throw new ArgumentNullException(nameof(lG_EINVOICEDET_Context));
-			_lG_STLINE_Context = lG_STLINE_Context ?? throw new ArgumentNullException(nameof(lG_STLINE_Context));
+
 			_connectionString = LBSParameter.Connection ?? throw new InvalidOperationException("Connection string cannot be null.");
-			_logger = logger;
 		}
 
 		public async Task<DataResult<LG_STFICHE>> InsertObjectAsync(LG_STFICHE item)
 		{
-			if (item == null)
-				throw new ArgumentNullException(nameof(item));
-
+			ArgumentNullException.ThrowIfNull(item);
 			try
 			{
-				using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-				{
-					var lastnumber = await GetNextDocumentNumberAsync(item);
-					item.FICHENO = lastnumber;
-					int referenceId = await InsertFicheAsync(item);
-					await InsertLinesAsync(item.TRANSACTIONS, referenceId);
-					await HandleDriverInsertAsync(item, referenceId);
-					await _lLDOCNUM_Context.UpdateObject(await GetNextDocumentNumberAsync(item), item.DATE_.ToString("s"), item.DATE_.ToString("s"), item.TRCODE);
-
-					transaction.Complete();
-
-					return new DataResult<LG_STFICHE>
-					{
-						IsSuccess = true,
-						Message = "Success"
-					};
-				}
-			}
-			catch (Exception ex)
-			{
-				// Log the exception
-				_logger.LogError(ex, "An error occurred while inserting the object."); 
+				int referenceId = await InsertFicheAsync(item);
 				return new DataResult<LG_STFICHE>
 				{
-					IsSuccess = false,
-					Message = ex.Message
+					IsSuccess = true,
+					Message = "Success"
 				};
+			}
+			catch (Exception)
+			{
+				throw;
 			}
 		}
 
 		private async Task<int> InsertFicheAsync(LG_STFICHE item)
 		{
+
 			await using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				await connection.OpenAsync();
@@ -80,232 +46,170 @@ namespace Helix.LBSService.Go.DataStores
 
 				await using (SqlCommand command = new SqlCommand(query, connection))
 				{
-					#region STFICHE
-					command.Parameters.AddWithValue("GRPCODE", item.GRPCODE);
-					command.Parameters.AddWithValue("DOCDATE", item.DOCDATE);
-					command.Parameters.AddWithValue("TRCODE", item.TRCODE);
-					command.Parameters.AddWithValue("IOCODE", item.IOCODE);
-					command.Parameters.AddWithValue("FICHENO", item.FICHENO);
-					command.Parameters.AddWithValue("DATE_", item.DATE_);
-					command.Parameters.AddWithValue("FHOUR", item.DATE_.Hour);
-					command.Parameters.AddWithValue("FMINUTE", item.DATE_.Minute);
-					command.Parameters.AddWithValue("FSECOND", item.DATE_.Second);
-					command.Parameters.AddWithValue("DOCODE", item.DOCODE);
-					command.Parameters.AddWithValue("INVNO", item.INVNO);
-					command.Parameters.AddWithValue("SPECODE", item.SPECODE);
-					command.Parameters.AddWithValue("CYPHCODE", item.CYPHCODE);
-					command.Parameters.AddWithValue("INVOICEREF", item.INVOICEREF);
-					command.Parameters.AddWithValue("CLIENTREF", item.CLIENTREF);
-					command.Parameters.AddWithValue("RECVREF", item.RECVREF);
-					command.Parameters.AddWithValue("ACCOUNTREF", item.ACCOUNTREF);
-					command.Parameters.AddWithValue("CENTERREF", item.CENTERREF);
-					command.Parameters.AddWithValue("PRODORDERREF", item.PRODORDERREF);
-					command.Parameters.AddWithValue("PORDERFICHENO", item.PORDERFICHENO);
-					command.Parameters.AddWithValue("SOURCETYPE", item.SOURCETYPE);
-					command.Parameters.AddWithValue("SOURCEINDEX", item.SOURCEINDEX);
-					command.Parameters.AddWithValue("SOURCEWSREF", item.SOURCEWSREF);
-					command.Parameters.AddWithValue("SOURCEPOLNREF", item.SOURCEPOLNREF);
-					command.Parameters.AddWithValue("SOURCECOSTGRP", item.SOURCECOSTGRP);
-					command.Parameters.AddWithValue("DESTTYPE", item.DESTTYPE);
-					command.Parameters.AddWithValue("DESTINDEX", item.DESTINDEX);
-					command.Parameters.AddWithValue("DESTWSREF", item.DESTWSREF);
-					command.Parameters.AddWithValue("DESTPOLNREF", item.DESTPOLNREF);
-					command.Parameters.AddWithValue("DESTCOSTGRP", item.DESTCOSTGRP);
-					command.Parameters.AddWithValue("FACTORYNR", item.FACTORYNR);
-					command.Parameters.AddWithValue("BRANCH", item.BRANCH);
-					command.Parameters.AddWithValue("DEPARTMENT", item.DEPARTMENT);
-					command.Parameters.AddWithValue("COMPBRANCH", item.COMPBRANCH);
-					command.Parameters.AddWithValue("COMPDEPARTMENT", item.COMPDEPARTMENT);
-					command.Parameters.AddWithValue("COMPFACTORY", item.COMPFACTORY);
-					command.Parameters.AddWithValue("PRODSTAT", item.PRODSTAT);
-					command.Parameters.AddWithValue("DEVIR", item.DEVIR);
-					command.Parameters.AddWithValue("CANCELLED", item.CANCELLED);
-					command.Parameters.AddWithValue("BILLED", item.BILLED);
-					command.Parameters.AddWithValue("ACCOUNTED", item.ACCOUNTED);
-					command.Parameters.AddWithValue("UPDCURR", item.UPDCURR);
-					command.Parameters.AddWithValue("INUSE", item.INUSE);
-					command.Parameters.AddWithValue("INVKIND", item.INVKIND);
-					command.Parameters.AddWithValue("ADDDISCOUNTS", item.ADDDISCOUNTS);
-					command.Parameters.AddWithValue("TOTALDISCOUNTS", item.TOTALDISCOUNTS);
-					command.Parameters.AddWithValue("TOTALDISCOUNTED", item.TOTALDISCOUNTED);
-					command.Parameters.AddWithValue("ADDEXPENSES", item.ADDEXPENSES);
-					command.Parameters.AddWithValue("TOTALEXPENSES", item.TOTALEXPENSES);
-					command.Parameters.AddWithValue("TOTALDEPOZITO", item.TOTALDEPOZITO);
-					command.Parameters.AddWithValue("TOTALPROMOTIONS", item.TOTALPROMOTIONS);
-					command.Parameters.AddWithValue("TOTALVAT", item.TOTALVAT);
-					command.Parameters.AddWithValue("GROSSTOTAL", item.GROSSTOTAL);
-					command.Parameters.AddWithValue("NETTOTAL", item.NETTOTAL);
-					command.Parameters.AddWithValue("GENEXP1", item.GENEXP1);
-					command.Parameters.AddWithValue("GENEXP2", item.GENEXP2);
-					command.Parameters.AddWithValue("GENEXP3", item.GENEXP3);
-					command.Parameters.AddWithValue("GENEXP4", item.GENEXP4);
-					command.Parameters.AddWithValue("GENEXP5", item.GENEXP5);
-					command.Parameters.AddWithValue("GENEXP6", item.GENEXP6);
-					command.Parameters.AddWithValue("REPORTRATE", item.REPORTRATE);
-					command.Parameters.AddWithValue("REPORTNET", item.REPORTNET);
-					command.Parameters.AddWithValue("EXTENREF", item.EXTENREF);
-					command.Parameters.AddWithValue("PAYDEFREF", item.PAYDEFREF);
-					command.Parameters.AddWithValue("PRINTCNT", item.PRINTCNT);
-					command.Parameters.AddWithValue("FICHECNT", item.FICHECNT);
-					command.Parameters.AddWithValue("ACCFICHEREF", item.ACCFICHEREF);
-					command.Parameters.AddWithValue("CAPIBLOCK_CREATEDBY", item.CAPIBLOCK_CREATEDBY);
-					command.Parameters.AddWithValue("CAPIBLOCK_CREADEDDATE", item.CAPIBLOCK_CREADEDDATE);
-					command.Parameters.AddWithValue("CAPIBLOCK_CREATEDHOUR", item.CAPIBLOCK_CREATEDHOUR);
-					command.Parameters.AddWithValue("CAPIBLOCK_CREATEDMIN", item.CAPIBLOCK_CREATEDMIN);
-					command.Parameters.AddWithValue("CAPIBLOCK_CREATEDSEC", item.CAPIBLOCK_CREATEDSEC);
-					command.Parameters.AddWithValue("SALESMANREF", item.SALESMANREF);
-					command.Parameters.AddWithValue("CANCELLEDACC", item.CANCELLEDACC);
-					command.Parameters.AddWithValue("SHPTYPCOD", item.SHPTYPCOD);
-					command.Parameters.AddWithValue("SHPAGNCOD", item.SHPAGNCOD);
-					command.Parameters.AddWithValue("TRACKNR", item.TRACKNR);
-					command.Parameters.AddWithValue("GENEXCTYP", item.GENEXCTYP);
-					command.Parameters.AddWithValue("LINEEXCTYP", item.LINEEXCTYP);
-					command.Parameters.AddWithValue("TRADINGGRP", item.TRADINGGRP);
-					command.Parameters.AddWithValue("TEXTINC", item.TEXTINC);
-					command.Parameters.AddWithValue("SITEID", item.SITEID);
-					command.Parameters.AddWithValue("RECSTATUS", item.RECSTATUS);
-					command.Parameters.AddWithValue("ORGLOGICREF", item.ORGLOGICREF);
-					command.Parameters.AddWithValue("WFSTATUS", item.WFSTATUS);
-					command.Parameters.AddWithValue("SHIPINFOREF", item.SHIPINFOREF);
-					command.Parameters.AddWithValue("DISTORDERREF", item.DISTORDERREF);
-					command.Parameters.AddWithValue("SENDCNT", item.SENDCNT);
-					command.Parameters.AddWithValue("DLVCLIENT", item.DLVCLIENT);
-					command.Parameters.AddWithValue("DOCTRACKINGNR", item.DOCTRACKINGNR);
-					command.Parameters.AddWithValue("ADDTAXCALC", item.ADDTAXCALC);
-					command.Parameters.AddWithValue("TOTALADDTAX", item.TOTALADDTAX);
-					command.Parameters.AddWithValue("UGIRTRACKINGNO", item.UGIRTRACKINGNO);
-					command.Parameters.AddWithValue("QPRODFCREF", item.QPRODFCREF);
-					command.Parameters.AddWithValue("VAACCREF", item.VAACCREF);
-					command.Parameters.AddWithValue("VACENTERREF", item.VACENTERREF);
-					command.Parameters.AddWithValue("ORGLOGOID", item.ORGLOGOID);
-					command.Parameters.AddWithValue("FROMEXIM", item.FROMEXIM);
-					command.Parameters.AddWithValue("FRGTYPCOD", item.FRGTYPCOD);
-					command.Parameters.AddWithValue("TRCURR", item.TRCURR);
-					command.Parameters.AddWithValue("TRRATE", item.TRRATE);
-					command.Parameters.AddWithValue("TRNET", item.TRNET);
-					command.Parameters.AddWithValue("EXIMWHFCREF", item.EXIMWHFCREF);
-					command.Parameters.AddWithValue("EXIMFCTYPE", item.EXIMFCTYPE);
-					command.Parameters.AddWithValue("MAINSTFCREF", item.MAINSTFCREF);
-					command.Parameters.AddWithValue("FROMORDWITHPAY", item.FROMORDWITHPAY);
-					command.Parameters.AddWithValue("PROJECTREF", item.PROJECTREF);
-					command.Parameters.AddWithValue("WFLOWCRDREF", item.WFLOWCRDREF);
-					command.Parameters.AddWithValue("STATUS", item.STATUS);
-					command.Parameters.AddWithValue("UPDTRCURR", item.UPDTRCURR);
-					command.Parameters.AddWithValue("TOTALEXADDTAX", item.TOTALEXADDTAX);
-					command.Parameters.AddWithValue("AFFECTCOLLATRL", item.AFFECTCOLLATRL);
-					command.Parameters.AddWithValue("DEDUCTIONPART1", item.DEDUCTIONPART1);
-					command.Parameters.AddWithValue("DEDUCTIONPART2", item.DEDUCTIONPART2);
-					command.Parameters.AddWithValue("GRPFIRMTRANS", item.GRPFIRMTRANS);
-					command.Parameters.AddWithValue("AFFECTRISK", item.AFFECTRISK);
-					command.Parameters.AddWithValue("DISPSTATUS", item.DISPSTATUS);
-					command.Parameters.AddWithValue("APPROVE", item.APPROVE);
-					command.Parameters.AddWithValue("CANTCREDEDUCT", item.CANTCREDEDUCT);
-					command.Parameters.AddWithValue("SHIPTIME", item.SHIPTIME);
-					command.Parameters.AddWithValue("ENTRUSTDEVIR", item.ENTRUSTDEVIR);
-					command.Parameters.AddWithValue("RELTRANSFCREF", item.RELTRANSFCREF);
-					command.Parameters.AddWithValue("FROMTRANSFER", item.FROMTRANSFER);
-					command.Parameters.AddWithValue("GUID", item.GUID);
-					command.Parameters.AddWithValue("GLOBALID", item.GLOBALID);
-					command.Parameters.AddWithValue("COMPSTFCREF", item.COMPSTFCREF);
-					command.Parameters.AddWithValue("COMPINVREF", item.COMPINVREF);
-					command.Parameters.AddWithValue("TOTALSERVICES", item.TOTALSERVICES);
-					command.Parameters.AddWithValue("CAMPAIGNCODE", item.CAMPAIGNCODE);
-					command.Parameters.AddWithValue("OFFERREF", item.OFFERREF);
-					command.Parameters.AddWithValue("EINVOICETYP", item.EINVOICETYP);
-					command.Parameters.AddWithValue("EINVOICE", item.EINVOICE);
-					command.Parameters.AddWithValue("NOCALCULATE", item.NOCALCULATE);
-					command.Parameters.AddWithValue("PRODORDERTYP", item.PRODORDERTYP);
-					command.Parameters.AddWithValue("QPRODFCTYP", item.QPRODFCTYP);
-					command.Parameters.AddWithValue("PRDORDSLPLNRESERVE", item.PRDORDSLPLNRESERVE);
-					command.Parameters.AddWithValue("CONTROLINFO", item.CONTROLINFO);
-					command.Parameters.AddWithValue("EDESPATCH", item.EDESPATCH);
-					command.Parameters.AddWithValue("DOCTIME", item.DOCTIME);
-					command.Parameters.AddWithValue("EDESPSTATUS", item.EDESPSTATUS);
-					command.Parameters.AddWithValue("PROFILEID", item.PROFILEID);
-					command.Parameters.AddWithValue("DELIVERYCODE", item.DELIVERYCODE);
-					command.Parameters.AddWithValue("DESTSTATUS", item.DESTSTATUS);
-					command.Parameters.AddWithValue("CANCELEXP", item.CANCELEXP);
-					command.Parameters.AddWithValue("UNDOEXP", item.UNDOEXP);
-
-					#endregion
-					var id = await command.ExecuteScalarAsync();
-					await connection.CloseAsync(); 
-					return Convert.ToInt32(id);
-				}
-			}
-		}
-		private async Task InsertLinesAsync(IEnumerable<LG_STLINE> lines, int referenceId)
-		{
-			try
-			{
-				foreach (LG_STLINE line in lines)
-				{
-					line.STFICHEREF = referenceId;
-
-					await _lG_STLINE_Context.InsertAsync(line);
-
-					if (line.SERILOTTRANSACTIONS != null)
+					try
 					{
-						foreach (LG_SLTRANS sl in line.SERILOTTRANSACTIONS)
-						{
-							sl.STFICHEREF = referenceId;
-							await _lG_SLTRANS_Context.InsertAsync(sl);
-						}
+						#region STFICHE
+						command.Parameters.AddWithValue("GRPCODE", item.GRPCODE);
+						command.Parameters.AddWithValue("DOCDATE", item.DOCDATE);
+						command.Parameters.AddWithValue("TRCODE", item.TRCODE);
+						command.Parameters.AddWithValue("IOCODE", item.IOCODE);
+						command.Parameters.AddWithValue("FICHENO", item.FICHENO);
+						command.Parameters.AddWithValue("DATE_", item.DATE_);
+						command.Parameters.AddWithValue("FHOUR", item.DATE_.Hour);
+						command.Parameters.AddWithValue("FMINUTE", item.DATE_.Minute);
+						command.Parameters.AddWithValue("FSECOND", item.DATE_.Second);
+						command.Parameters.AddWithValue("DOCODE", item.DOCODE);
+						command.Parameters.AddWithValue("INVNO", item.INVNO);
+						command.Parameters.AddWithValue("SPECODE", item.SPECODE);
+						command.Parameters.AddWithValue("CYPHCODE", item.CYPHCODE);
+						command.Parameters.AddWithValue("INVOICEREF", item.INVOICEREF);
+						command.Parameters.AddWithValue("CLIENTREF", item.CLIENTREF);
+						command.Parameters.AddWithValue("RECVREF", item.RECVREF);
+						command.Parameters.AddWithValue("ACCOUNTREF", item.ACCOUNTREF);
+						command.Parameters.AddWithValue("CENTERREF", item.CENTERREF);
+						command.Parameters.AddWithValue("PRODORDERREF", item.PRODORDERREF);
+						command.Parameters.AddWithValue("PORDERFICHENO", item.PORDERFICHENO);
+						command.Parameters.AddWithValue("SOURCETYPE", item.SOURCETYPE);
+						command.Parameters.AddWithValue("SOURCEINDEX", item.SOURCEINDEX);
+						command.Parameters.AddWithValue("SOURCEWSREF", item.SOURCEWSREF);
+						command.Parameters.AddWithValue("SOURCEPOLNREF", item.SOURCEPOLNREF);
+						command.Parameters.AddWithValue("SOURCECOSTGRP", item.SOURCECOSTGRP);
+						command.Parameters.AddWithValue("DESTTYPE", item.DESTTYPE);
+						command.Parameters.AddWithValue("DESTINDEX", item.DESTINDEX);
+						command.Parameters.AddWithValue("DESTWSREF", item.DESTWSREF);
+						command.Parameters.AddWithValue("DESTPOLNREF", item.DESTPOLNREF);
+						command.Parameters.AddWithValue("DESTCOSTGRP", item.DESTCOSTGRP);
+						command.Parameters.AddWithValue("FACTORYNR", item.FACTORYNR);
+						command.Parameters.AddWithValue("BRANCH", item.BRANCH);
+						command.Parameters.AddWithValue("DEPARTMENT", item.DEPARTMENT);
+						command.Parameters.AddWithValue("COMPBRANCH", item.COMPBRANCH);
+						command.Parameters.AddWithValue("COMPDEPARTMENT", item.COMPDEPARTMENT);
+						command.Parameters.AddWithValue("COMPFACTORY", item.COMPFACTORY);
+						command.Parameters.AddWithValue("PRODSTAT", item.PRODSTAT);
+						command.Parameters.AddWithValue("DEVIR", item.DEVIR);
+						command.Parameters.AddWithValue("CANCELLED", item.CANCELLED);
+						command.Parameters.AddWithValue("BILLED", item.BILLED);
+						command.Parameters.AddWithValue("ACCOUNTED", item.ACCOUNTED);
+						command.Parameters.AddWithValue("UPDCURR", item.UPDCURR);
+						command.Parameters.AddWithValue("INUSE", item.INUSE);
+						command.Parameters.AddWithValue("INVKIND", item.INVKIND);
+						command.Parameters.AddWithValue("ADDDISCOUNTS", item.ADDDISCOUNTS);
+						command.Parameters.AddWithValue("TOTALDISCOUNTS", item.TOTALDISCOUNTS);
+						command.Parameters.AddWithValue("TOTALDISCOUNTED", item.TOTALDISCOUNTED);
+						command.Parameters.AddWithValue("ADDEXPENSES", item.ADDEXPENSES);
+						command.Parameters.AddWithValue("TOTALEXPENSES", item.TOTALEXPENSES);
+						command.Parameters.AddWithValue("TOTALDEPOZITO", item.TOTALDEPOZITO);
+						command.Parameters.AddWithValue("TOTALPROMOTIONS", item.TOTALPROMOTIONS);
+						command.Parameters.AddWithValue("TOTALVAT", item.TOTALVAT);
+						command.Parameters.AddWithValue("GROSSTOTAL", item.GROSSTOTAL);
+						command.Parameters.AddWithValue("NETTOTAL", item.NETTOTAL);
+						command.Parameters.AddWithValue("GENEXP1", item.GENEXP1);
+						command.Parameters.AddWithValue("GENEXP2", item.GENEXP2);
+						command.Parameters.AddWithValue("GENEXP3", item.GENEXP3);
+						command.Parameters.AddWithValue("GENEXP4", item.GENEXP4);
+						command.Parameters.AddWithValue("GENEXP5", item.GENEXP5);
+						command.Parameters.AddWithValue("GENEXP6", item.GENEXP6);
+						command.Parameters.AddWithValue("REPORTRATE", item.REPORTRATE);
+						command.Parameters.AddWithValue("REPORTNET", item.REPORTNET);
+						command.Parameters.AddWithValue("EXTENREF", item.EXTENREF);
+						command.Parameters.AddWithValue("PAYDEFREF", item.PAYDEFREF);
+						command.Parameters.AddWithValue("PRINTCNT", item.PRINTCNT);
+						command.Parameters.AddWithValue("FICHECNT", item.FICHECNT);
+						command.Parameters.AddWithValue("ACCFICHEREF", item.ACCFICHEREF);
+						command.Parameters.AddWithValue("CAPIBLOCK_CREATEDBY", item.CAPIBLOCK_CREATEDBY);
+						command.Parameters.AddWithValue("CAPIBLOCK_CREADEDDATE", item.CAPIBLOCK_CREADEDDATE);
+						command.Parameters.AddWithValue("CAPIBLOCK_CREATEDHOUR", item.CAPIBLOCK_CREATEDHOUR);
+						command.Parameters.AddWithValue("CAPIBLOCK_CREATEDMIN", item.CAPIBLOCK_CREATEDMIN);
+						command.Parameters.AddWithValue("CAPIBLOCK_CREATEDSEC", item.CAPIBLOCK_CREATEDSEC);
+						command.Parameters.AddWithValue("SALESMANREF", item.SALESMANREF);
+						command.Parameters.AddWithValue("CANCELLEDACC", item.CANCELLEDACC);
+						command.Parameters.AddWithValue("SHPTYPCOD", item.SHPTYPCOD);
+						command.Parameters.AddWithValue("SHPAGNCOD", item.SHPAGNCOD);
+						command.Parameters.AddWithValue("TRACKNR", item.TRACKNR);
+						command.Parameters.AddWithValue("GENEXCTYP", item.GENEXCTYP);
+						command.Parameters.AddWithValue("LINEEXCTYP", item.LINEEXCTYP);
+						command.Parameters.AddWithValue("TRADINGGRP", item.TRADINGGRP);
+						command.Parameters.AddWithValue("TEXTINC", item.TEXTINC);
+						command.Parameters.AddWithValue("SITEID", item.SITEID);
+						command.Parameters.AddWithValue("RECSTATUS", item.RECSTATUS);
+						command.Parameters.AddWithValue("ORGLOGICREF", item.ORGLOGICREF);
+						command.Parameters.AddWithValue("WFSTATUS", item.WFSTATUS);
+						command.Parameters.AddWithValue("SHIPINFOREF", item.SHIPINFOREF);
+						command.Parameters.AddWithValue("DISTORDERREF", item.DISTORDERREF);
+						command.Parameters.AddWithValue("SENDCNT", item.SENDCNT);
+						command.Parameters.AddWithValue("DLVCLIENT", item.DLVCLIENT);
+						command.Parameters.AddWithValue("DOCTRACKINGNR", item.DOCTRACKINGNR);
+						command.Parameters.AddWithValue("ADDTAXCALC", item.ADDTAXCALC);
+						command.Parameters.AddWithValue("TOTALADDTAX", item.TOTALADDTAX);
+						command.Parameters.AddWithValue("UGIRTRACKINGNO", item.UGIRTRACKINGNO);
+						command.Parameters.AddWithValue("QPRODFCREF", item.QPRODFCREF);
+						command.Parameters.AddWithValue("VAACCREF", item.VAACCREF);
+						command.Parameters.AddWithValue("VACENTERREF", item.VACENTERREF);
+						command.Parameters.AddWithValue("ORGLOGOID", item.ORGLOGOID);
+						command.Parameters.AddWithValue("FROMEXIM", item.FROMEXIM);
+						command.Parameters.AddWithValue("FRGTYPCOD", item.FRGTYPCOD);
+						command.Parameters.AddWithValue("TRCURR", item.TRCURR);
+						command.Parameters.AddWithValue("TRRATE", item.TRRATE);
+						command.Parameters.AddWithValue("TRNET", item.TRNET);
+						command.Parameters.AddWithValue("EXIMWHFCREF", item.EXIMWHFCREF);
+						command.Parameters.AddWithValue("EXIMFCTYPE", item.EXIMFCTYPE);
+						command.Parameters.AddWithValue("MAINSTFCREF", item.MAINSTFCREF);
+						command.Parameters.AddWithValue("FROMORDWITHPAY", item.FROMORDWITHPAY);
+						command.Parameters.AddWithValue("PROJECTREF", item.PROJECTREF);
+						command.Parameters.AddWithValue("WFLOWCRDREF", item.WFLOWCRDREF);
+						command.Parameters.AddWithValue("STATUS", item.STATUS);
+						command.Parameters.AddWithValue("UPDTRCURR", item.UPDTRCURR);
+						command.Parameters.AddWithValue("TOTALEXADDTAX", item.TOTALEXADDTAX);
+						command.Parameters.AddWithValue("AFFECTCOLLATRL", item.AFFECTCOLLATRL);
+						command.Parameters.AddWithValue("DEDUCTIONPART1", item.DEDUCTIONPART1);
+						command.Parameters.AddWithValue("DEDUCTIONPART2", item.DEDUCTIONPART2);
+						command.Parameters.AddWithValue("GRPFIRMTRANS", item.GRPFIRMTRANS);
+						command.Parameters.AddWithValue("AFFECTRISK", item.AFFECTRISK);
+						command.Parameters.AddWithValue("DISPSTATUS", item.DISPSTATUS);
+						command.Parameters.AddWithValue("APPROVE", item.APPROVE);
+						command.Parameters.AddWithValue("CANTCREDEDUCT", item.CANTCREDEDUCT);
+						command.Parameters.AddWithValue("SHIPTIME", item.SHIPTIME);
+						command.Parameters.AddWithValue("ENTRUSTDEVIR", item.ENTRUSTDEVIR);
+						command.Parameters.AddWithValue("RELTRANSFCREF", item.RELTRANSFCREF);
+						command.Parameters.AddWithValue("FROMTRANSFER", item.FROMTRANSFER);
+						command.Parameters.AddWithValue("GUID", item.GUID);
+						command.Parameters.AddWithValue("GLOBALID", item.GLOBALID);
+						command.Parameters.AddWithValue("COMPSTFCREF", item.COMPSTFCREF);
+						command.Parameters.AddWithValue("COMPINVREF", item.COMPINVREF);
+						command.Parameters.AddWithValue("TOTALSERVICES", item.TOTALSERVICES);
+						command.Parameters.AddWithValue("CAMPAIGNCODE", item.CAMPAIGNCODE);
+						command.Parameters.AddWithValue("OFFERREF", item.OFFERREF);
+						command.Parameters.AddWithValue("EINVOICETYP", item.EINVOICETYP);
+						command.Parameters.AddWithValue("EINVOICE", item.EINVOICE);
+						command.Parameters.AddWithValue("NOCALCULATE", item.NOCALCULATE);
+						command.Parameters.AddWithValue("PRODORDERTYP", item.PRODORDERTYP);
+						command.Parameters.AddWithValue("QPRODFCTYP", item.QPRODFCTYP);
+						command.Parameters.AddWithValue("PRDORDSLPLNRESERVE", item.PRDORDSLPLNRESERVE);
+						command.Parameters.AddWithValue("CONTROLINFO", item.CONTROLINFO);
+						command.Parameters.AddWithValue("EDESPATCH", item.EDESPATCH);
+						command.Parameters.AddWithValue("DOCTIME", item.DOCTIME);
+						command.Parameters.AddWithValue("EDESPSTATUS", item.EDESPSTATUS);
+						command.Parameters.AddWithValue("PROFILEID", item.PROFILEID);
+						command.Parameters.AddWithValue("DELIVERYCODE", item.DELIVERYCODE);
+						command.Parameters.AddWithValue("DESTSTATUS", item.DESTSTATUS);
+						command.Parameters.AddWithValue("CANCELEXP", item.CANCELEXP);
+						command.Parameters.AddWithValue("UNDOEXP", item.UNDOEXP);
+
+						#endregion
+						var id = await command.ExecuteScalarAsync();
+						await connection.CloseAsync();
+						return Convert.ToInt32(id);
+					}
+					catch (Exception)
+					{
+
+						throw;
 					}
 				}
 			}
-			catch (Exception)
-			{
-
-				throw;
-			}
 		}
-		private async Task HandleDriverInsertAsync(LG_STFICHE item, int referenceId)
-		{
-			try
-			{
-				if (item.TRCODE == 2 || item.TRCODE == 3 || item.TRCODE == 7 || item.TRCODE == 8)
-				{
-					if (item.EINVOICEDET is not null)
-					{
-						item.EINVOICEDET.STFREF = referenceId;
-						await _lG_EINVOICEDET_Context.InsertAsync(item.EINVOICEDET);
-					}
 
-				}
-			}
-			catch (Exception)
-			{
 
-				throw;
-			}
-		}
-		private async Task<string> GetNextDocumentNumberAsync(LG_STFICHE item)
-		{
-			try
-			{
-				string lastDocumentNumber = await _lLDOCNUM_Context.GetLastAsgn(item.DATE_.ToString("s"), item.DATE_.ToString("s"), item.TRCODE);
-
-				if (string.IsNullOrEmpty(lastDocumentNumber))
-				{
-					lastDocumentNumber = "0"; // Assume starting point if no last document number is found
-				}
-
-				if (!BigInteger.TryParse(lastDocumentNumber, out BigInteger lastNumber))
-				{
-					throw new InvalidOperationException("Invalid document number format.");
-				}
-
-				BigInteger nextNumber = lastNumber + 1;
-				return nextNumber.ToString("D16"); // Adjust the format as needed
-
-			}
-			catch (Exception)
-			{
-
-				throw;
-			}
-		}
 
 
 		public async Task<DataResult<LG_STFICHE>> InsertTransferTransactionAsync(LG_STFICHE item)
@@ -3018,6 +2922,23 @@ namespace Helix.LBSService.Go.DataStores
 			//}
 		}
 
-		 
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// Dispose of managed resources
+				// Add code here to dispose of managed resources
+			}
+
+			// Dispose of unmanaged resources
+			// Add code here to dispose of unmanaged resources
+		}
 	}
 }

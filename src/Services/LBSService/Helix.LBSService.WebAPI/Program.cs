@@ -8,7 +8,9 @@ using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Services;
 using Helix.LBSService.Tiger.DataStores;
 using Helix.LBSService.Tiger.Services;
+using Helix.LBSService.WebAPI.DataStores;
 using Helix.LBSService.WebAPI.Models;
+using Helix.LBSService.WebAPI.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,9 +49,10 @@ var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 eventBus.Subscribe<LOGOSuccessIntegrationEvent, LOGOSuccessIntegrationEventHandler>();
 eventBus.Subscribe<LOGOFailureIntegrationEvent,LOGOFailureIntegrationEventHandler>();
 eventBus.Subscribe<SYSMessageIntegrationEvent,SYSMessageIntegrationEventHandler>();
- 
+
 
 // Add services to the container. 
+builder.Services.AddLogging();
 builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_ProductionTransactionService, LG_ProductionTransactionDataStore>();
@@ -73,6 +76,8 @@ builder.Services.AddTransient<ILG_STLINE_Context, LG_STLINE_Context>();
 builder.Services.AddTransient<ILG_EINVOICEDET_Context, LG_EINVOICEDET_Context>();
 builder.Services.AddTransient<IL_LDOCNUM_Context, L_LDOCNUM_Context>();
 builder.Services.AddTransient<ILG_SLTRANS_Context, LG_SLTRANS_Context>();
+builder.Services.AddTransient<IProductionTransactionService, ProductionTransactionDataStore>();
+
 
 
 
