@@ -1,10 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Go.Models;
-using Helix.LBSService.Go.Services;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -13,51 +9,33 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class WholeSalesDispatchTransactionController : ControllerBase
 	{
-		private readonly ILG_WholeSalesDispatchTransactionService _wholeSalesDispatchTransactionService;
-		private readonly ILG_STFICHE_Context _stficheService;
+		 
 
-		private ILogger<WholeSalesDispatchTransactionController> _logger;
-		public WholeSalesDispatchTransactionController(ILG_WholeSalesDispatchTransactionService wholeSalesDispatchTransactionService, ILG_STFICHE_Context stficheContext, ILogger<WholeSalesDispatchTransactionController> logger)
+		private readonly ILogger<WholeSalesDispatchTransactionController> _logger;
+		private readonly IWholeSalesDispatchTransactionService _service;
+		public WholeSalesDispatchTransactionController(ILogger<WholeSalesDispatchTransactionController> logger, IWholeSalesDispatchTransactionService service)
 		{
-			_wholeSalesDispatchTransactionService = wholeSalesDispatchTransactionService;
 			_logger = logger;
-			_stficheService = stficheContext;
+			_service = service;
 		}
+
 		[HttpPost("Insert")]
 		public async Task<DataResult<WholeSalesDispatchTransactionDto>> Insert([FromBody] WholeSalesDispatchTransactionDto dto)
 		{
-			if (LBSParameter.IsTiger)
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_WholeSalesDispatchTransaction>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_WholeSalesDispatchLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _wholeSalesDispatchTransactionService.Insert(obj);
-				return new DataResult<WholeSalesDispatchTransactionDto>()
-				{
-					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				};
+				var result = await _service.Insert(dto);
+				return result;
 			}
-			else
+			catch (Exception ex)
 			{
-				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _stficheService.InsertObjectAsync(obj);
-				return new DataResult<WholeSalesDispatchTransactionDto>()
+				_logger.LogError(ex, "WholeSalesDispatchTransactionController.Insert");
+				return new DataResult<WholeSalesDispatchTransactionDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
-
 			}
 		}
 	}
