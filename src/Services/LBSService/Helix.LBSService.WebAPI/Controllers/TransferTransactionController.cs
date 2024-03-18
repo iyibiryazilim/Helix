@@ -51,7 +51,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
 					obj.TRANSACTIONS.Add(transaction);
 				}
-				var result = await _stficheService.InsertTransferTransaction(obj);
+				var result = await _stficheService.InsertTransferTransactionAsync(obj);
 				return new DataResult<TransferTransactionDto>()
 				{
 					Data = null,

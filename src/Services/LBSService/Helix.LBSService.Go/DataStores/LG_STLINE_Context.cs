@@ -1,23 +1,40 @@
-﻿using Helix.EventBus.Base.Abstractions;
-using Helix.LBSService.Base.Models;
+﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Go.Services;
 using Microsoft.Data.SqlClient;
 
 namespace Helix.LBSService.Go.DataStores;
 
-public class LG_STLINE_Context : ILG_STLINE_Context
+public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 {
-	readonly IEventBus _eventBus;
+
 	readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
 	readonly int _defaultPeriodNumber = LBSParameter.Period;
 	readonly string _connectionString = LBSParameter.Connection;
-
-	public LG_STLINE_Context(IEventBus eventBus)
+	public LG_STLINE_Context()
 	{
-		_eventBus = eventBus;
 	}
-	public async Task<DataResult<LG_STLINE>> InsertAsync(LG_STLINE line)
+
+	public void Dispose()
+	{
+		Dispose(true);
+		GC.SuppressFinalize(this);
+	}
+
+
+	protected virtual void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			// Dispose of managed resources
+			// Add code here to dispose of managed resources
+		}
+
+		// Dispose of unmanaged resources
+		// Add code here to dispose of unmanaged resources
+	}
+
+	public async Task<DataResult<LG_STLINE>> InsertAsync(LG_STLINE dto)
 	{
 		DataResult<LG_STLINE> result = new DataResult<LG_STLINE>();
 		string lineQuery = $@"INSERT INTO LG_{_defaultFirmNumber.ToString().PadLeft(3, '0')}_{_defaultPeriodNumber.ToString().PadLeft(2, '0')}_STLINE(
@@ -92,7 +109,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,VAT
            ,VATAMNT
            ,VATMATRAH
-           ,BILLEDline
+           ,BILLEDITEM
            ,BILLED
            ,CPSTFLAG
            ,RETCOSTTYPE
@@ -149,7 +166,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,CAMPAIGNREFS5
            ,POINTCAMPREF
            ,CAMPPOINT
-           ,PROMCLASlineREF
+           ,PROMCLASITEMREF
            ,CMPGLINEREF
            ,PLNSTTRANSPERNR
            ,PORDCLSPLNAMNT
@@ -309,7 +326,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,CPACODE
            ,GTIPCODE
            ,PUBLICCOUNTRYREF
-           ,QPRODlineTYPE
+           ,QPRODITEMTYPE
            ,FUTMONTHCNT
            ,FUTMONTHBEGDATE
 
@@ -388,7 +405,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,@VAT
            ,@VATAMNT
            ,@VATMATRAH
-           ,@BILLEDline
+           ,@BILLEDITEM
            ,@BILLED
            ,@CPSTFLAG
            ,@RETCOSTTYPE
@@ -445,7 +462,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,@CAMPAIGNREFS5
            ,@POINTCAMPREF
            ,@CAMPPOINT
-           ,@PROMCLASlineREF
+           ,@PROMCLASITEMREF
            ,@CMPGLINEREF
            ,@PLNSTTRANSPERNR
            ,@PORDCLSPLNAMNT
@@ -605,7 +622,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context
            ,@CPACODE
            ,@GTIPCODE
            ,@PUBLICCOUNTRYREF
-           ,@QPRODlineTYPE
+           ,@QPRODITEMTYPE
            ,@FUTMONTHCNT
            ,@FUTMONTHBEGDATE
            
@@ -617,327 +634,352 @@ public class LG_STLINE_Context : ILG_STLINE_Context
 			await using SqlConnection connection = new SqlConnection(_connectionString);
 			await using (SqlCommand command = new SqlCommand(lineQuery, connection))
 			{
+				await connection.OpenAsync();
 				#region Set Line
-				command.Parameters.AddWithValue("STOCKREF", line.STOCKREF);
-				command.Parameters.AddWithValue("LINETYPE", line.LINETYPE);
-				command.Parameters.AddWithValue("PREVLINEREF", line.PREVLINEREF);
-				command.Parameters.AddWithValue("PREVLINENO", line.PREVLINENO);
-				command.Parameters.AddWithValue("DETLINE", line.DETLINE);
-				command.Parameters.AddWithValue("TRCODE", line.TRCODE);
-				command.Parameters.AddWithValue("DATE_", line.DATE_);
-				command.Parameters.AddWithValue("FHOUR", line.DATE_.Hour);
-				command.Parameters.AddWithValue("FMINUTE", line.DATE_.Minute);
-				command.Parameters.AddWithValue("FSECOND", line.DATE_.Second);
-				command.Parameters.AddWithValue("GLOBTRANS", line.GLOBTRANS);
-				command.Parameters.AddWithValue("CALCTYPE", line.CALCTYPE);
-				command.Parameters.AddWithValue("PRODORDERREF", line.PRODORDERREF);
-				command.Parameters.AddWithValue("SOURCETYPE", line.SOURCETYPE);
-				command.Parameters.AddWithValue("SOURCEINDEX", line.SOURCEINDEX);
-				command.Parameters.AddWithValue("SOURCECOSTGRP", line.SOURCECOSTGRP);
-				command.Parameters.AddWithValue("SOURCEWSREF", line.SOURCEWSREF);
-				command.Parameters.AddWithValue("SOURCEPOLNREF", line.SOURCEPOLNREF);
-				command.Parameters.AddWithValue("DESTTYPE", line.DESTTYPE);
-				command.Parameters.AddWithValue("DESTINDEX", line.DESTINDEX);
-				command.Parameters.AddWithValue("DESTCOSTGRP", line.DESTCOSTGRP);
-				command.Parameters.AddWithValue("DESTWSREF", line.DESTWSREF);
-				command.Parameters.AddWithValue("DESTPOLNREF", line.DESTPOLNREF);
-				command.Parameters.AddWithValue("FACTORYNR", line.FACTORYNR);
-				command.Parameters.AddWithValue("IOCODE", line.IOCODE);
-				command.Parameters.AddWithValue("STFICHEREF", line.LOGICALREF);
-				command.Parameters.AddWithValue("STFICHELNNO", line.STFICHELNNO);
-				command.Parameters.AddWithValue("INVOICEREF", line.INVOICEREF);
-				command.Parameters.AddWithValue("INVOICELNNO", line.INVOICELNNO);
-				command.Parameters.AddWithValue("CLIENTREF", line.CLIENTREF);
-				command.Parameters.AddWithValue("ORDTRANSREF", line.ORDTRANSREF);
-				command.Parameters.AddWithValue("ORDFICHEREF", line.ORDFICHEREF);
-				command.Parameters.AddWithValue("CENTERREF", line.CENTERREF);
-				command.Parameters.AddWithValue("ACCOUNTREF", line.ACCOUNTREF);
-				command.Parameters.AddWithValue("VATACCREF", line.VATACCREF);
-				command.Parameters.AddWithValue("VATCENTERREF", line.VATCENTERREF);
-				command.Parameters.AddWithValue("PRACCREF", line.PRACCREF);
-				command.Parameters.AddWithValue("PRCENTERREF", line.PRCENTERREF);
-				command.Parameters.AddWithValue("PRVATACCREF", line.PRVATACCREF);
-				command.Parameters.AddWithValue("PRVATCENREF", line.PRVATCENREF);
-				command.Parameters.AddWithValue("PROMREF", line.PROMREF);
-				command.Parameters.AddWithValue("PAYDEFREF", line.PAYDEFREF);
-				command.Parameters.AddWithValue("SPECODE", line.SPECODE);
-				command.Parameters.AddWithValue("DELVRYCODE", line.DELVRYCODE);
-				command.Parameters.AddWithValue("AMOUNT", line.AMOUNT);
-				command.Parameters.AddWithValue("PRICE", line.PRICE);
-				command.Parameters.AddWithValue("TOTAL", line.TOTAL);
-				command.Parameters.AddWithValue("PRCURR", line.PRCURR);
-				command.Parameters.AddWithValue("PRPRICE", line.PRPRICE);
-				command.Parameters.AddWithValue("TRCURR", line.TRCURR);
-				command.Parameters.AddWithValue("TRRATE", line.TRRATE);
-				command.Parameters.AddWithValue("REPORTRATE", line.REPORTRATE);
-				command.Parameters.AddWithValue("DISTCOST", line.DISTCOST);
-				command.Parameters.AddWithValue("DISTDISC", line.DISTDISC);
-				command.Parameters.AddWithValue("DISTEXP", line.DISTEXP);
-				command.Parameters.AddWithValue("DISTPROM", line.DISTPROM);
-				command.Parameters.AddWithValue("DISCPER", line.DISCPER);
-				command.Parameters.AddWithValue("LINEEXP", line.LINEEXP);
-				command.Parameters.AddWithValue("UOMREF", line.UOMREF);
-				command.Parameters.AddWithValue("USREF", line.USREF);
-				command.Parameters.AddWithValue("UINFO1", line.UINFO1);
-				command.Parameters.AddWithValue("UINFO2", line.UINFO2);
-				command.Parameters.AddWithValue("UINFO3", line.UINFO3);
-				command.Parameters.AddWithValue("UINFO4", line.UINFO4);
-				command.Parameters.AddWithValue("UINFO5", line.UINFO5);
-				command.Parameters.AddWithValue("UINFO6", line.UINFO6);
-				command.Parameters.AddWithValue("UINFO7", line.UINFO7);
-				command.Parameters.AddWithValue("UINFO8", line.UINFO8);
-				command.Parameters.AddWithValue("PLNAMOUNT", line.PLNAMOUNT);
-				command.Parameters.AddWithValue("VATINC", line.VATINC);
-				command.Parameters.AddWithValue("VAT", line.VAT);
-				command.Parameters.AddWithValue("VATAMNT", line.VATAMNT);
-				command.Parameters.AddWithValue("VATMATRAH", line.VATMATRAH);
-				command.Parameters.AddWithValue("BILLEDITEM", line.BILLEDITEM);
-				command.Parameters.AddWithValue("BILLED", line.BILLED);
-				command.Parameters.AddWithValue("CPSTFLAG", line.CPSTFLAG);
-				command.Parameters.AddWithValue("RETCOSTTYPE", line.RETCOSTTYPE);
-				command.Parameters.AddWithValue("SOURCELINK", line.SOURCELINK);
-				command.Parameters.AddWithValue("RETCOST", line.RETCOST);
-				command.Parameters.AddWithValue("RETCOSTCURR", line.RETCOSTCURR);
-				command.Parameters.AddWithValue("OUTCOST", line.OUTCOST);
-				command.Parameters.AddWithValue("OUTCOSTCURR", line.OUTCOSTCURR);
-				command.Parameters.AddWithValue("RETAMOUNT", line.RETAMOUNT);
-				command.Parameters.AddWithValue("FAREGREF", line.FAREGREF);
-				command.Parameters.AddWithValue("FAATTRIB", line.FAATTRIB);
-				command.Parameters.AddWithValue("CANCELLED", line.CANCELLED);
-				command.Parameters.AddWithValue("LINENET", line.LINENET);
-				command.Parameters.AddWithValue("DISTADDEXP", line.DISTADDEXP);
-				command.Parameters.AddWithValue("FADACCREF", line.FADACCREF);
-				command.Parameters.AddWithValue("FADCENTERREF", line.FADCENTERREF);
-				command.Parameters.AddWithValue("FARACCREF", line.FARACCREF);
-				command.Parameters.AddWithValue("FARCENTERREF", line.FARCENTERREF);
-				command.Parameters.AddWithValue("DIFFPRICE", line.DIFFPRICE);
-				command.Parameters.AddWithValue("DIFFPRCOST", line.DIFFPRCOST);
-				command.Parameters.AddWithValue("DECPRDIFF", line.DECPRDIFF);
-				command.Parameters.AddWithValue("LPRODSTAT", line.LPRODSTAT);
-				command.Parameters.AddWithValue("PRDEXPTOTAL", line.PRDEXPTOTAL);
-				command.Parameters.AddWithValue("DIFFREPPRICE", line.DIFFREPPRICE);
-				command.Parameters.AddWithValue("DIFFPRCRCOST", line.DIFFPRCRCOST);
-				command.Parameters.AddWithValue("SALESMANREF", line.SALESMANREF);
-				command.Parameters.AddWithValue("FAPLACCREF", line.FAPLACCREF);
-				command.Parameters.AddWithValue("FAPLCENTERREF", line.FAPLCENTERREF);
-				command.Parameters.AddWithValue("OUTPUTIDCODE", line.OUTPUTIDCODE);
-				command.Parameters.AddWithValue("DREF", line.DREF);
-				command.Parameters.AddWithValue("COSTRATE", line.COSTRATE);
-				command.Parameters.AddWithValue("XPRICEUPD", line.XPRICEUPD);
-				command.Parameters.AddWithValue("XPRICE", line.XPRICE);
-				command.Parameters.AddWithValue("XREPRATE", line.XREPRATE);
-				command.Parameters.AddWithValue("DISTCOEF", line.DISTCOEF);
-				command.Parameters.AddWithValue("TRANSQCOK", line.TRANSQCOK);
-				command.Parameters.AddWithValue("SITEID", line.SITEID);
-				command.Parameters.AddWithValue("RECSTATUS", line.RECSTATUS);
-				command.Parameters.AddWithValue("ORGLOGICREF", line.ORGLOGICREF);
-				command.Parameters.AddWithValue("WFSTATUS", line.WFSTATUS);
-				command.Parameters.AddWithValue("POLINEREF", line.POLINEREF);
-				command.Parameters.AddWithValue("PLNSTTRANSREF", line.PLNSTTRANSREF);
-				command.Parameters.AddWithValue("NETDISCFLAG", line.NETDISCFLAG);
-				command.Parameters.AddWithValue("NETDISCPERC", line.NETDISCPERC);
-				command.Parameters.AddWithValue("NETDISCAMNT", line.NETDISCAMNT);
-				command.Parameters.AddWithValue("VATCALCDIFF", line.VATCALCDIFF);
-				command.Parameters.AddWithValue("CONDITIONREF", line.CONDITIONREF);
-				command.Parameters.AddWithValue("DISTORDERREF", line.DISTORDERREF);
-				command.Parameters.AddWithValue("DISTORDLINEREF", line.DISTORDLINEREF);
-				command.Parameters.AddWithValue("CAMPAIGNREFS1", line.CAMPAIGNREFS1);
-				command.Parameters.AddWithValue("CAMPAIGNREFS2", line.CAMPAIGNREFS2);
-				command.Parameters.AddWithValue("CAMPAIGNREFS3", line.CAMPAIGNREFS3);
-				command.Parameters.AddWithValue("CAMPAIGNREFS4", line.CAMPAIGNREFS4);
-				command.Parameters.AddWithValue("CAMPAIGNREFS5", line.CAMPAIGNREFS5);
-				command.Parameters.AddWithValue("POINTCAMPREF", line.POINTCAMPREF);
-				command.Parameters.AddWithValue("CAMPPOINT", line.CAMPPOINT);
-				command.Parameters.AddWithValue("PROMCLASITEMREF", line.PROMCLASITEMREF);
-				command.Parameters.AddWithValue("CMPGLINEREF", line.CMPGLINEREF);
-				command.Parameters.AddWithValue("PLNSTTRANSPERNR", line.PLNSTTRANSPERNR);
-				command.Parameters.AddWithValue("PORDCLSPLNAMNT", line.PORDCLSPLNAMNT);
-				command.Parameters.AddWithValue("VENDCOMM", line.VENDCOMM);
-				command.Parameters.AddWithValue("PREVIOUSOUTCOST", line.PREVIOUSOUTCOST);
-				command.Parameters.AddWithValue("COSTOFSALEACCREF", line.COSTOFSALEACCREF);
-				command.Parameters.AddWithValue("PURCHACCREF", line.PURCHACCREF);
-				command.Parameters.AddWithValue("COSTOFSALECNTREF", line.COSTOFSALECNTREF);
-				command.Parameters.AddWithValue("PURCHCENTREF", line.PURCHCENTREF);
-				command.Parameters.AddWithValue("PREVOUTCOSTCURR", line.PREVOUTCOSTCURR);
-				command.Parameters.AddWithValue("ABVATAMOUNT", line.ABVATAMOUNT);
-				command.Parameters.AddWithValue("ABVATSTATUS", line.ABVATSTATUS);
-				command.Parameters.AddWithValue("PRRATE", line.PRRATE);
-				command.Parameters.AddWithValue("ADDTAXRATE", line.ADDTAXRATE);
-				command.Parameters.AddWithValue("ADDTAXCONVFACT", line.ADDTAXCONVFACT);
-				command.Parameters.AddWithValue("ADDTAXAMOUNT", line.ADDTAXAMOUNT);
-				command.Parameters.AddWithValue("ADDTAXPRCOST", line.ADDTAXPRCOST);
-				command.Parameters.AddWithValue("ADDTAXRETCOST", line.ADDTAXRETCOST);
-				command.Parameters.AddWithValue("ADDTAXRETCOSTCURR", line.ADDTAXRETCOSTCURR);
-				command.Parameters.AddWithValue("GROSSUINFO1", line.GROSSUINFO1);
-				command.Parameters.AddWithValue("GROSSUINFO2", line.GROSSUINFO2);
-				command.Parameters.AddWithValue("ADDTAXPRCOSTCURR", line.ADDTAXPRCOSTCURR);
-				command.Parameters.AddWithValue("ADDTAXACCREF", line.ADDTAXACCREF);
-				command.Parameters.AddWithValue("ADDTAXCENTERREF", line.ADDTAXCENTERREF);
-				command.Parameters.AddWithValue("ADDTAXAMNTISUPD", line.ADDTAXAMNTISUPD);
-				command.Parameters.AddWithValue("INFIDX", line.INFIDX);
-				command.Parameters.AddWithValue("ADDTAXCOSACCREF", line.ADDTAXCOSACCREF);
-				command.Parameters.AddWithValue("ADDTAXCOSCNTREF", line.ADDTAXCOSCNTREF);
-				command.Parameters.AddWithValue("PREVIOUSATAXPRCOST", line.PREVIOUSATAXPRCOST);
-				command.Parameters.AddWithValue("PREVATAXPRCOSTCURR", line.PREVATAXPRCOSTCURR);
-				command.Parameters.AddWithValue("PRDORDTOTCOEF", line.PRDORDTOTCOEF);
-				command.Parameters.AddWithValue("DEMPEGGEDAMNT", line.DEMPEGGEDAMNT);
-				command.Parameters.AddWithValue("STDUNITCOST", line.STDUNITCOST);
-				command.Parameters.AddWithValue("STDRPUNITCOST", line.STDRPUNITCOST);
-				command.Parameters.AddWithValue("COSTDIFFACCREF", line.COSTDIFFACCREF);
-				command.Parameters.AddWithValue("COSTDIFFCENREF", line.COSTDIFFCENREF);
-				command.Parameters.AddWithValue("TEXTINC", line.TEXTINC);
-				command.Parameters.AddWithValue("ADDTAXDISCAMOUNT", line.ADDTAXDISCAMOUNT);
-				command.Parameters.AddWithValue("ORGLOGOID", line.ORGLOGOID);
-				command.Parameters.AddWithValue("EXIMFICHENO", line.EXIMFICHENO);
-				command.Parameters.AddWithValue("EXIMFCTYPE", line.EXIMFCTYPE);
-				command.Parameters.AddWithValue("TRANSEXPLINE", line.TRANSEXPLINE);
-				command.Parameters.AddWithValue("INSEXPLINE", line.INSEXPLINE);
-				command.Parameters.AddWithValue("EXIMWHFCREF", line.EXIMWHFCREF);
-				command.Parameters.AddWithValue("EXIMWHLNREF", line.EXIMWHLNREF);
-				command.Parameters.AddWithValue("EXIMFILEREF", line.EXIMFILEREF);
-				command.Parameters.AddWithValue("EXIMPROCNR", line.EXIMPROCNR);
-				command.Parameters.AddWithValue("EISRVDSTTYP", line.EISRVDSTTYP);
-				command.Parameters.AddWithValue("MAINSTLNREF", line.MAINSTLNREF);
-				command.Parameters.AddWithValue("MADEOFSHRED", line.MADEOFSHRED);
-				command.Parameters.AddWithValue("FROMORDWITHPAY", line.FROMORDWITHPAY);
-				command.Parameters.AddWithValue("PROJECTREF", line.PROJECTREF);
-				command.Parameters.AddWithValue("STATUS", line.STATUS);
-				command.Parameters.AddWithValue("DORESERVE", line.DORESERVE);
-				command.Parameters.AddWithValue("POINTCAMPREFS1", line.POINTCAMPREFS1);
-				command.Parameters.AddWithValue("POINTCAMPREFS2", line.POINTCAMPREFS2);
-				command.Parameters.AddWithValue("POINTCAMPREFS3", line.POINTCAMPREFS3);
-				command.Parameters.AddWithValue("POINTCAMPREFS4", line.POINTCAMPREFS4);
-				command.Parameters.AddWithValue("CAMPPOINTS1", line.CAMPPOINTS1);
-				command.Parameters.AddWithValue("CAMPPOINTS2", line.CAMPPOINTS2);
-				command.Parameters.AddWithValue("CAMPPOINTS3", line.CAMPPOINTS3);
-				command.Parameters.AddWithValue("CAMPPOINTS4", line.CAMPPOINTS4);
-				command.Parameters.AddWithValue("CMPGLINEREFS1", line.CMPGLINEREFS1);
-				command.Parameters.AddWithValue("CMPGLINEREFS2", line.CMPGLINEREFS2);
-				command.Parameters.AddWithValue("CMPGLINEREFS3", line.CMPGLINEREFS3);
-				command.Parameters.AddWithValue("CMPGLINEREFS4", line.CMPGLINEREFS4);
-				command.Parameters.AddWithValue("PRCLISTREF", line.PRCLISTREF);
-				command.Parameters.AddWithValue("PORDSYMOUTLN", line.PORDSYMOUTLN);
-				command.Parameters.AddWithValue("MONTH_", line.MONTH_);
-				command.Parameters.AddWithValue("YEAR_", line.YEAR_);
-				command.Parameters.AddWithValue("EXADDTAXRATE", line.EXADDTAXRATE);
-				command.Parameters.AddWithValue("EXADDTAXCONVF", line.EXADDTAXCONVF);
-				command.Parameters.AddWithValue("EXADDTAXAREF", line.EXADDTAXAREF);
-				command.Parameters.AddWithValue("EXADDTAXCREF", line.EXADDTAXCREF);
-				command.Parameters.AddWithValue("OTHRADDTAXAREF", line.OTHRADDTAXAREF);
-				command.Parameters.AddWithValue("OTHRADDTAXCREF", line.OTHRADDTAXCREF);
-				command.Parameters.AddWithValue("EXADDTAXAMNT", line.EXADDTAXAMNT);
-				command.Parameters.AddWithValue("AFFECTCOLLATRL", line.AFFECTCOLLATRL);
-				command.Parameters.AddWithValue("ALTPROMFLAG", line.ALTPROMFLAG);
-				command.Parameters.AddWithValue("EIDISTFLNNR", line.EIDISTFLNNR);
-				command.Parameters.AddWithValue("EXIMTYPE", line.EXIMTYPE);
-				command.Parameters.AddWithValue("VARIANTREF", line.VARIANTREF);
-				command.Parameters.AddWithValue("CANDEDUCT", line.CANDEDUCT);
-				command.Parameters.AddWithValue("OUTREMAMNT", line.OUTREMAMNT);
-				command.Parameters.AddWithValue("OUTREMCOST", line.OUTREMCOST);
-				command.Parameters.AddWithValue("OUTREMCOSTCURR", line.OUTREMCOSTCURR);
-				command.Parameters.AddWithValue("REFLVATACCREF", line.REFLVATACCREF);
-				command.Parameters.AddWithValue("REFLVATOTHACCREF", line.REFLVATOTHACCREF);
-				command.Parameters.AddWithValue("PARENTLNREF", line.PARENTLNREF);
-				command.Parameters.AddWithValue("AFFECTRISK", line.AFFECTRISK);
-				command.Parameters.AddWithValue("INEFFECTIVECOST", line.INEFFECTIVECOST);
-				command.Parameters.AddWithValue("ADDTAXVATMATRAH", line.ADDTAXVATMATRAH);
-				command.Parameters.AddWithValue("REFLACCREF", line.REFLACCREF);
-				command.Parameters.AddWithValue("REFLOTHACCREF", line.REFLOTHACCREF);
-				command.Parameters.AddWithValue("CAMPPAYDEFREF", line.CAMPPAYDEFREF);
 
-
-				if (line.FAREGBINDDATE == null)
-					command.Parameters.AddWithValue("FAREGBINDDATE", DBNull.Value);
-				else
-					command.Parameters.AddWithValue("FAREGBINDDATE", line.FAREGBINDDATE);
-
-				command.Parameters.AddWithValue("RELTRANSLNREF", line.RELTRANSLNREF);
-				command.Parameters.AddWithValue("FROMTRANSFER", line.FROMTRANSFER);
-				command.Parameters.AddWithValue("COSTDISTPRICE", line.COSTDISTPRICE);
-				command.Parameters.AddWithValue("COSTDISTREPPRICE", line.COSTDISTREPPRICE);
-				command.Parameters.AddWithValue("DIFFPRICEUFRS", line.DIFFPRICEUFRS);
-				command.Parameters.AddWithValue("DIFFREPPRICEUFRS", line.DIFFREPPRICEUFRS);
-				command.Parameters.AddWithValue("OUTCOSTUFRS", line.OUTCOSTUFRS);
-				command.Parameters.AddWithValue("OUTCOSTCURRUFRS", line.OUTCOSTCURRUFRS);
-				command.Parameters.AddWithValue("DIFFPRCOSTUFRS", line.DIFFPRCOSTUFRS);
-				command.Parameters.AddWithValue("DIFFPRCRCOSTUFRS", line.DIFFPRCRCOSTUFRS);
-				command.Parameters.AddWithValue("RETCOSTUFRS", line.RETCOSTUFRS);
-				command.Parameters.AddWithValue("RETCOSTCURRUFRS", line.RETCOSTCURRUFRS);
-				command.Parameters.AddWithValue("OUTREMCOSTUFRS", line.OUTREMCOSTUFRS);
-				command.Parameters.AddWithValue("OUTREMCOSTCURRUFRS", line.OUTREMCOSTCURRUFRS);
-				command.Parameters.AddWithValue("INFIDXUFRS", line.INFIDXUFRS);
-				command.Parameters.AddWithValue("ADJPRICEUFRS", line.ADJPRICEUFRS);
-				command.Parameters.AddWithValue("ADJREPPRICEUFRS", line.ADJREPPRICEUFRS);
-				command.Parameters.AddWithValue("ADJPRCOSTUFRS", line.ADJPRCOSTUFRS);
-				command.Parameters.AddWithValue("ADJPRCRCOSTUFRS", line.ADJPRCRCOSTUFRS);
-				command.Parameters.AddWithValue("COSTDISTPRICEUFRS", line.COSTDISTPRICEUFRS);
-				command.Parameters.AddWithValue("COSTDISTREPPRICEUFRS", line.COSTDISTREPPRICEUFRS);
-				command.Parameters.AddWithValue("PURCHACCREFUFRS", line.PURCHACCREFUFRS);
-				command.Parameters.AddWithValue("PURCHCENTREFUFRS", line.PURCHCENTREFUFRS);
-				command.Parameters.AddWithValue("COSACCREFUFRS", line.COSACCREFUFRS);
-				command.Parameters.AddWithValue("COSCNTREFUFRS", line.COSCNTREFUFRS);
-				command.Parameters.AddWithValue("PROUTCOSTUFRSDIFF", line.PROUTCOSTUFRSDIFF);
-				command.Parameters.AddWithValue("PROUTCOSTCRUFRSDIFF", line.PROUTCOSTCRUFRSDIFF);
-				command.Parameters.AddWithValue("UNDERDEDUCTLIMIT", line.UNDERDEDUCTLIMIT);
-				command.Parameters.AddWithValue("GLOBALID", line.GLOBALID);
-				command.Parameters.AddWithValue("DEDUCTIONPART1", line.DEDUCTIONPART1);
-				command.Parameters.AddWithValue("DEDUCTIONPART2", line.DEDUCTIONPART2);
-				command.Parameters.AddWithValue("GUID", line.GUID);
-				command.Parameters.AddWithValue("SPECODE2", line.SPECODE2);
-				command.Parameters.AddWithValue("OFFERREF", line.OFFERREF);
-				command.Parameters.AddWithValue("OFFTRANSREF", line.OFFTRANSREF);
-				command.Parameters.AddWithValue("VATEXCEPTREASON", line.VATEXCEPTREASON);
-				command.Parameters.AddWithValue("PLNDEFSERILOTNO", line.PLNDEFSERILOTNO);
-				command.Parameters.AddWithValue("PLNUNRSRVAMOUNT", line.PLNUNRSRVAMOUNT);
-				command.Parameters.AddWithValue("PORDCLSPLNUNRSRVAMNT", line.PORDCLSPLNUNRSRVAMNT);
-				command.Parameters.AddWithValue("LPRODRSRVSTAT", line.LPRODRSRVSTAT);
-				command.Parameters.AddWithValue("FALINKTYPE", line.FALINKTYPE);
-				command.Parameters.AddWithValue("DEDUCTCODE", line.DEDUCTCODE);
-				command.Parameters.AddWithValue("UPDTHISLINE", line.UPDTHISLINE);
-				command.Parameters.AddWithValue("VATEXCEPTCODE", line.VATEXCEPTCODE);
-				command.Parameters.AddWithValue("PORDERFICHENO", line.PORDERFICHENO);
-				command.Parameters.AddWithValue("QPRODFCREF", line.QPRODFCREF);
-				command.Parameters.AddWithValue("RELTRANSFCREF", line.RELTRANSFCREF);
-				command.Parameters.AddWithValue("ATAXEXCEPTREASON", line.ATAXEXCEPTREASON);
-				command.Parameters.AddWithValue("ATAXEXCEPTCODE", line.ATAXEXCEPTCODE);
-				command.Parameters.AddWithValue("PRODORDERTYP", line.PRODORDERTYP);
-				command.Parameters.AddWithValue("SUBCONTORDERREF", line.SUBCONTORDERREF);
-				command.Parameters.AddWithValue("QPRODFCTYP", line.QPRODFCTYP);
-				command.Parameters.AddWithValue("PRDORDSLPLNRESERVE", line.PRDORDSLPLNRESERVE);
-
-				if (line.INFDATE == null)
-					command.Parameters.AddWithValue("INFDATE", DBNull.Value);
-				else
-					command.Parameters.AddWithValue("INFDATE", line.INFDATE);
-
-				command.Parameters.AddWithValue("DESTSTATUS", line.DESTSTATUS);
-				command.Parameters.AddWithValue("REGTYPREF", line.REGTYPREF);
-				command.Parameters.AddWithValue("FAPROFITACCREF", line.FAPROFITACCREF);
-				command.Parameters.AddWithValue("FAPROFITCENTREF", line.FAPROFITCENTREF);
-				command.Parameters.AddWithValue("FALOSSACCREF", line.FALOSSACCREF);
-				command.Parameters.AddWithValue("FALOSSCENTREF", line.FALOSSCENTREF);
-				command.Parameters.AddWithValue("FUTMONTHCNT", line.FUTMONTHCNT);
-				command.Parameters.AddWithValue("FUTMONTHBEGDATE", line.FUTMONTHBEGDATE);
-				command.Parameters.AddWithValue("GTIPCODE", line.GTIPCODE);
-				command.Parameters.AddWithValue("CPACODE", line.CPACODE);
-				command.Parameters.AddWithValue("QPRODITEMTYPE", line.QPRODITEMTYPE);
-				command.Parameters.AddWithValue("PUBLICCOUNTRYREF", line.PUBLICCOUNTRYREF);
+				command.Parameters.AddWithValue(nameof(dto.LOGICALREF), dto.LOGICALREF);
+				command.Parameters.AddWithValue(nameof(dto.STOCKREF), dto.STOCKREF);
+				command.Parameters.AddWithValue(nameof(dto.LINETYPE), dto.LINETYPE);
+				command.Parameters.AddWithValue(nameof(dto.PREVLINEREF), dto.PREVLINEREF);
+				command.Parameters.AddWithValue(nameof(dto.PREVLINENO), dto.PREVLINENO);
+				command.Parameters.AddWithValue(nameof(dto.DETLINE), dto.DETLINE);
+				command.Parameters.AddWithValue(nameof(dto.TRCODE), dto.TRCODE);
+				command.Parameters.AddWithValue(nameof(dto.DATE_), dto.DATE_);
+				command.Parameters.AddWithValue(nameof(dto.FTIME), dto.FTIME);
+				command.Parameters.AddWithValue("FHOUR", dto.DATE_.Hour);
+				command.Parameters.AddWithValue("FMINUTE", dto.DATE_.Minute);
+				command.Parameters.AddWithValue("FSECOND", dto.DATE_.Second);
+				command.Parameters.AddWithValue(nameof(dto.GLOBTRANS), dto.GLOBTRANS);
+				command.Parameters.AddWithValue(nameof(dto.CALCTYPE), dto.CALCTYPE);
+				command.Parameters.AddWithValue(nameof(dto.PRODORDERREF), dto.PRODORDERREF);
+				command.Parameters.AddWithValue(nameof(dto.SOURCETYPE), dto.SOURCETYPE);
+				command.Parameters.AddWithValue(nameof(dto.SOURCEINDEX), dto.SOURCEINDEX);
+				command.Parameters.AddWithValue(nameof(dto.SOURCECOSTGRP), dto.SOURCECOSTGRP);
+				command.Parameters.AddWithValue(nameof(dto.SOURCEWSREF), dto.SOURCEWSREF);
+				command.Parameters.AddWithValue(nameof(dto.SOURCEPOLNREF), dto.SOURCEPOLNREF);
+				command.Parameters.AddWithValue(nameof(dto.DESTTYPE), dto.DESTTYPE);
+				command.Parameters.AddWithValue(nameof(dto.DESTINDEX), dto.DESTINDEX);
+				command.Parameters.AddWithValue(nameof(dto.DESTCOSTGRP), dto.DESTCOSTGRP);
+				command.Parameters.AddWithValue(nameof(dto.DESTWSREF), dto.DESTWSREF);
+				command.Parameters.AddWithValue(nameof(dto.DESTPOLNREF), dto.DESTPOLNREF);
+				command.Parameters.AddWithValue(nameof(dto.FACTORYNR), dto.FACTORYNR);
+				command.Parameters.AddWithValue(nameof(dto.IOCODE), dto.IOCODE);
+				command.Parameters.AddWithValue(nameof(dto.STFICHEREF), dto.STFICHEREF);
+				command.Parameters.AddWithValue(nameof(dto.STFICHELNNO), dto.STFICHELNNO);
+				command.Parameters.AddWithValue(nameof(dto.INVOICEREF), dto.INVOICEREF);
+				command.Parameters.AddWithValue(nameof(dto.INVOICELNNO), dto.INVOICELNNO);
+				command.Parameters.AddWithValue(nameof(dto.CLIENTREF), dto.CLIENTREF);
+				command.Parameters.AddWithValue(nameof(dto.ORDTRANSREF), dto.ORDTRANSREF);
+				command.Parameters.AddWithValue(nameof(dto.ORDFICHEREF), dto.ORDFICHEREF);
+				command.Parameters.AddWithValue(nameof(dto.CENTERREF), dto.CENTERREF);
+				command.Parameters.AddWithValue(nameof(dto.ACCOUNTREF), dto.ACCOUNTREF);
+				command.Parameters.AddWithValue(nameof(dto.VATACCREF), dto.VATACCREF);
+				command.Parameters.AddWithValue(nameof(dto.VATCENTERREF), dto.VATCENTERREF);
+				command.Parameters.AddWithValue(nameof(dto.PRACCREF), dto.PRACCREF);
+				command.Parameters.AddWithValue(nameof(dto.PRCENTERREF), dto.PRCENTERREF);
+				command.Parameters.AddWithValue(nameof(dto.PRVATACCREF), dto.PRVATACCREF);
+				command.Parameters.AddWithValue(nameof(dto.PRVATCENREF), dto.PRVATCENREF);
+				command.Parameters.AddWithValue(nameof(dto.PROMREF), dto.PROMREF);
+				command.Parameters.AddWithValue(nameof(dto.PAYDEFREF), dto.PAYDEFREF);
+				command.Parameters.AddWithValue(nameof(dto.SPECODE), dto.SPECODE);
+				command.Parameters.AddWithValue(nameof(dto.DELVRYCODE), dto.DELVRYCODE);
+				command.Parameters.AddWithValue(nameof(dto.AMOUNT), dto.AMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.PRICE), dto.PRICE);
+				command.Parameters.AddWithValue(nameof(dto.TOTAL), dto.TOTAL);
+				command.Parameters.AddWithValue(nameof(dto.PRCURR), dto.PRCURR);
+				command.Parameters.AddWithValue(nameof(dto.PRPRICE), dto.PRPRICE);
+				command.Parameters.AddWithValue(nameof(dto.TRCURR), dto.TRCURR);
+				command.Parameters.AddWithValue(nameof(dto.TRRATE), dto.TRRATE);
+				command.Parameters.AddWithValue(nameof(dto.REPORTRATE), dto.REPORTRATE);
+				command.Parameters.AddWithValue(nameof(dto.DISTCOST), dto.DISTCOST);
+				command.Parameters.AddWithValue(nameof(dto.DISTDISC), dto.DISTDISC);
+				command.Parameters.AddWithValue(nameof(dto.DISTEXP), dto.DISTEXP);
+				command.Parameters.AddWithValue(nameof(dto.DISTPROM), dto.DISTPROM);
+				command.Parameters.AddWithValue(nameof(dto.DISCPER), dto.DISCPER);
+				command.Parameters.AddWithValue(nameof(dto.LINEEXP), dto.LINEEXP);
+				command.Parameters.AddWithValue(nameof(dto.UOMREF), dto.UOMREF);
+				command.Parameters.AddWithValue(nameof(dto.USREF), dto.USREF);
+				command.Parameters.AddWithValue(nameof(dto.UINFO1), dto.UINFO1);
+				command.Parameters.AddWithValue(nameof(dto.UINFO2), dto.UINFO2);
+				command.Parameters.AddWithValue(nameof(dto.UINFO3), dto.UINFO3);
+				command.Parameters.AddWithValue(nameof(dto.UINFO4), dto.UINFO4);
+				command.Parameters.AddWithValue(nameof(dto.UINFO5), dto.UINFO5);
+				command.Parameters.AddWithValue(nameof(dto.UINFO6), dto.UINFO6);
+				command.Parameters.AddWithValue(nameof(dto.UINFO7), dto.UINFO7);
+				command.Parameters.AddWithValue(nameof(dto.UINFO8), dto.UINFO8);
+				command.Parameters.AddWithValue(nameof(dto.PLNAMOUNT), dto.PLNAMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.VATINC), dto.VATINC);
+				command.Parameters.AddWithValue(nameof(dto.VAT), dto.VAT);
+				command.Parameters.AddWithValue(nameof(dto.VATAMNT), dto.VATAMNT);
+				command.Parameters.AddWithValue(nameof(dto.VATMATRAH), dto.VATMATRAH);
+				command.Parameters.AddWithValue(nameof(dto.BILLEDITEM), dto.BILLEDITEM);
+				command.Parameters.AddWithValue(nameof(dto.BILLED), dto.BILLED);
+				command.Parameters.AddWithValue(nameof(dto.CPSTFLAG), dto.CPSTFLAG);
+				command.Parameters.AddWithValue(nameof(dto.RETCOSTTYPE), dto.RETCOSTTYPE);
+				command.Parameters.AddWithValue(nameof(dto.SOURCELINK), dto.SOURCELINK);
+				command.Parameters.AddWithValue(nameof(dto.RETCOST), dto.RETCOST);
+				command.Parameters.AddWithValue(nameof(dto.RETCOSTCURR), dto.RETCOSTCURR);
+				command.Parameters.AddWithValue(nameof(dto.OUTCOST), dto.OUTCOST);
+				command.Parameters.AddWithValue(nameof(dto.OUTCOSTCURR), dto.OUTCOSTCURR);
+				command.Parameters.AddWithValue(nameof(dto.RETAMOUNT), dto.RETAMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.FAREGREF), dto.FAREGREF);
+				command.Parameters.AddWithValue(nameof(dto.FAATTRIB), dto.FAATTRIB);
+				command.Parameters.AddWithValue(nameof(dto.CANCELLED), dto.CANCELLED);
+				command.Parameters.AddWithValue(nameof(dto.LINENET), dto.LINENET);
+				command.Parameters.AddWithValue(nameof(dto.DISTADDEXP), dto.DISTADDEXP);
+				command.Parameters.AddWithValue(nameof(dto.FADACCREF), dto.FADACCREF);
+				command.Parameters.AddWithValue(nameof(dto.FADCENTERREF), dto.FADCENTERREF);
+				command.Parameters.AddWithValue(nameof(dto.FARACCREF), dto.FARACCREF);
+				command.Parameters.AddWithValue(nameof(dto.FARCENTERREF), dto.FARCENTERREF);
+				command.Parameters.AddWithValue(nameof(dto.DIFFPRICE), dto.DIFFPRICE);
+				command.Parameters.AddWithValue(nameof(dto.DIFFPRCOST), dto.DIFFPRCOST);
+				command.Parameters.AddWithValue(nameof(dto.DECPRDIFF), dto.DECPRDIFF);
+				command.Parameters.AddWithValue(nameof(dto.LPRODSTAT), dto.LPRODSTAT);
+				command.Parameters.AddWithValue(nameof(dto.PRDEXPTOTAL), dto.PRDEXPTOTAL);
+				command.Parameters.AddWithValue(nameof(dto.DIFFREPPRICE), dto.DIFFREPPRICE);
+				command.Parameters.AddWithValue(nameof(dto.DIFFPRCRCOST), dto.DIFFPRCRCOST);
+				command.Parameters.AddWithValue(nameof(dto.SALESMANREF), dto.SALESMANREF);
+				command.Parameters.AddWithValue(nameof(dto.FAPLACCREF), dto.FAPLACCREF);
+				command.Parameters.AddWithValue(nameof(dto.FAPLCENTERREF), dto.FAPLCENTERREF);
+				command.Parameters.AddWithValue(nameof(dto.OUTPUTIDCODE), dto.OUTPUTIDCODE);
+				command.Parameters.AddWithValue(nameof(dto.DREF), dto.DREF);
+				command.Parameters.AddWithValue(nameof(dto.COSTRATE), dto.COSTRATE);
+				command.Parameters.AddWithValue(nameof(dto.XPRICEUPD), dto.XPRICEUPD);
+				command.Parameters.AddWithValue(nameof(dto.XPRICE), dto.XPRICE);
+				command.Parameters.AddWithValue(nameof(dto.XREPRATE), dto.XREPRATE);
+				command.Parameters.AddWithValue(nameof(dto.DISTCOEF), dto.DISTCOEF);
+				command.Parameters.AddWithValue(nameof(dto.TRANSQCOK), dto.TRANSQCOK);
+				command.Parameters.AddWithValue(nameof(dto.SITEID), dto.SITEID);
+				command.Parameters.AddWithValue(nameof(dto.RECSTATUS), dto.RECSTATUS);
+				command.Parameters.AddWithValue(nameof(dto.ORGLOGICREF), dto.ORGLOGICREF);
+				command.Parameters.AddWithValue(nameof(dto.WFSTATUS), dto.WFSTATUS);
+				command.Parameters.AddWithValue(nameof(dto.POLINEREF), dto.POLINEREF);
+				command.Parameters.AddWithValue(nameof(dto.PLNSTTRANSREF), dto.PLNSTTRANSREF);
+				command.Parameters.AddWithValue(nameof(dto.NETDISCFLAG), dto.NETDISCFLAG);
+				command.Parameters.AddWithValue(nameof(dto.NETDISCPERC), dto.NETDISCPERC);
+				command.Parameters.AddWithValue(nameof(dto.NETDISCAMNT), dto.NETDISCAMNT);
+				command.Parameters.AddWithValue(nameof(dto.VATCALCDIFF), dto.VATCALCDIFF);
+				command.Parameters.AddWithValue(nameof(dto.CONDITIONREF), dto.CONDITIONREF);
+				command.Parameters.AddWithValue(nameof(dto.DISTORDERREF), dto.DISTORDERREF);
+				command.Parameters.AddWithValue(nameof(dto.DISTORDLINEREF), dto.DISTORDLINEREF);
+				command.Parameters.AddWithValue(nameof(dto.CAMPAIGNREFS1), dto.CAMPAIGNREFS1);
+				command.Parameters.AddWithValue(nameof(dto.CAMPAIGNREFS2), dto.CAMPAIGNREFS2);
+				command.Parameters.AddWithValue(nameof(dto.CAMPAIGNREFS3), dto.CAMPAIGNREFS3);
+				command.Parameters.AddWithValue(nameof(dto.CAMPAIGNREFS4), dto.CAMPAIGNREFS4);
+				command.Parameters.AddWithValue(nameof(dto.CAMPAIGNREFS5), dto.CAMPAIGNREFS5);
+				command.Parameters.AddWithValue(nameof(dto.POINTCAMPREF), dto.POINTCAMPREF);
+				command.Parameters.AddWithValue(nameof(dto.CAMPPOINT), dto.CAMPPOINT);
+				command.Parameters.AddWithValue(nameof(dto.PROMCLASITEMREF), dto.PROMCLASITEMREF);
+				command.Parameters.AddWithValue(nameof(dto.CMPGLINEREF), dto.CMPGLINEREF);
+				command.Parameters.AddWithValue(nameof(dto.PLNSTTRANSPERNR), dto.PLNSTTRANSPERNR);
+				command.Parameters.AddWithValue(nameof(dto.PORDCLSPLNAMNT), dto.PORDCLSPLNAMNT);
+				command.Parameters.AddWithValue(nameof(dto.VENDCOMM), dto.VENDCOMM);
+				command.Parameters.AddWithValue(nameof(dto.PREVIOUSOUTCOST), dto.PREVIOUSOUTCOST);
+				command.Parameters.AddWithValue(nameof(dto.COSTOFSALEACCREF), dto.COSTOFSALEACCREF);
+				command.Parameters.AddWithValue(nameof(dto.PURCHACCREF), dto.PURCHACCREF);
+				command.Parameters.AddWithValue(nameof(dto.COSTOFSALECNTREF), dto.COSTOFSALECNTREF);
+				command.Parameters.AddWithValue(nameof(dto.PURCHCENTREF), dto.PURCHCENTREF);
+				command.Parameters.AddWithValue(nameof(dto.PREVOUTCOSTCURR), dto.PREVOUTCOSTCURR);
+				command.Parameters.AddWithValue(nameof(dto.ABVATAMOUNT), dto.ABVATAMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.ABVATSTATUS), dto.ABVATSTATUS);
+				command.Parameters.AddWithValue(nameof(dto.PRRATE), dto.PRRATE);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXRATE), dto.ADDTAXRATE);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXCONVFACT), dto.ADDTAXCONVFACT);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXAMOUNT), dto.ADDTAXAMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXPRCOST), dto.ADDTAXPRCOST);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXRETCOST), dto.ADDTAXRETCOST);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXRETCOSTCURR), dto.ADDTAXRETCOSTCURR);
+				command.Parameters.AddWithValue(nameof(dto.GROSSUINFO1), dto.GROSSUINFO1);
+				command.Parameters.AddWithValue(nameof(dto.GROSSUINFO2), dto.GROSSUINFO2);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXPRCOSTCURR), dto.ADDTAXPRCOSTCURR);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXACCREF), dto.ADDTAXACCREF);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXCENTERREF), dto.ADDTAXCENTERREF);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXAMNTISUPD), dto.ADDTAXAMNTISUPD);
+				command.Parameters.AddWithValue(nameof(dto.INFIDX), dto.INFIDX);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXCOSACCREF), dto.ADDTAXCOSACCREF);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXCOSCNTREF), dto.ADDTAXCOSCNTREF);
+				command.Parameters.AddWithValue(nameof(dto.PREVIOUSATAXPRCOST), dto.PREVIOUSATAXPRCOST);
+				command.Parameters.AddWithValue(nameof(dto.PREVATAXPRCOSTCURR), dto.PREVATAXPRCOSTCURR);
+				command.Parameters.AddWithValue(nameof(dto.PRDORDTOTCOEF), dto.PRDORDTOTCOEF);
+				command.Parameters.AddWithValue(nameof(dto.DEMPEGGEDAMNT), dto.DEMPEGGEDAMNT);
+				command.Parameters.AddWithValue(nameof(dto.STDUNITCOST), dto.STDUNITCOST);
+				command.Parameters.AddWithValue(nameof(dto.STDRPUNITCOST), dto.STDRPUNITCOST);
+				command.Parameters.AddWithValue(nameof(dto.COSTDIFFACCREF), dto.COSTDIFFACCREF);
+				command.Parameters.AddWithValue(nameof(dto.COSTDIFFCENREF), dto.COSTDIFFCENREF);
+				command.Parameters.AddWithValue(nameof(dto.TEXTINC), dto.TEXTINC);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXDISCAMOUNT), dto.ADDTAXDISCAMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.ORGLOGOID), dto.ORGLOGOID);
+				command.Parameters.AddWithValue(nameof(dto.EXIMFICHENO), dto.EXIMFICHENO);
+				command.Parameters.AddWithValue(nameof(dto.EXIMFCTYPE), dto.EXIMFCTYPE);
+				command.Parameters.AddWithValue(nameof(dto.TRANSEXPLINE), dto.TRANSEXPLINE);
+				command.Parameters.AddWithValue(nameof(dto.INSEXPLINE), dto.INSEXPLINE);
+				command.Parameters.AddWithValue(nameof(dto.EXIMWHFCREF), dto.EXIMWHFCREF);
+				command.Parameters.AddWithValue(nameof(dto.EXIMWHLNREF), dto.EXIMWHLNREF);
+				command.Parameters.AddWithValue(nameof(dto.EXIMFILEREF), dto.EXIMFILEREF);
+				command.Parameters.AddWithValue(nameof(dto.EXIMPROCNR), dto.EXIMPROCNR);
+				command.Parameters.AddWithValue(nameof(dto.EISRVDSTTYP), dto.EISRVDSTTYP);
+				command.Parameters.AddWithValue(nameof(dto.MAINSTLNREF), dto.MAINSTLNREF);
+				command.Parameters.AddWithValue(nameof(dto.MADEOFSHRED), dto.MADEOFSHRED);
+				command.Parameters.AddWithValue(nameof(dto.FROMORDWITHPAY), dto.FROMORDWITHPAY);
+				command.Parameters.AddWithValue(nameof(dto.PROJECTREF), dto.PROJECTREF);
+				command.Parameters.AddWithValue(nameof(dto.STATUS), dto.STATUS);
+				command.Parameters.AddWithValue(nameof(dto.DORESERVE), dto.DORESERVE);
+				command.Parameters.AddWithValue(nameof(dto.POINTCAMPREFS1), dto.POINTCAMPREFS1);
+				command.Parameters.AddWithValue(nameof(dto.POINTCAMPREFS2), dto.POINTCAMPREFS2);
+				command.Parameters.AddWithValue(nameof(dto.POINTCAMPREFS3), dto.POINTCAMPREFS3);
+				command.Parameters.AddWithValue(nameof(dto.POINTCAMPREFS4), dto.POINTCAMPREFS4);
+				command.Parameters.AddWithValue(nameof(dto.CAMPPOINTS1), dto.CAMPPOINTS1);
+				command.Parameters.AddWithValue(nameof(dto.CAMPPOINTS2), dto.CAMPPOINTS2);
+				command.Parameters.AddWithValue(nameof(dto.CAMPPOINTS3), dto.CAMPPOINTS3);
+				command.Parameters.AddWithValue(nameof(dto.CAMPPOINTS4), dto.CAMPPOINTS4);
+				command.Parameters.AddWithValue(nameof(dto.CMPGLINEREFS1), dto.CMPGLINEREFS1);
+				command.Parameters.AddWithValue(nameof(dto.CMPGLINEREFS2), dto.CMPGLINEREFS2);
+				command.Parameters.AddWithValue(nameof(dto.CMPGLINEREFS3), dto.CMPGLINEREFS3);
+				command.Parameters.AddWithValue(nameof(dto.CMPGLINEREFS4), dto.CMPGLINEREFS4);
+				command.Parameters.AddWithValue(nameof(dto.PRCLISTREF), dto.PRCLISTREF);
+				command.Parameters.AddWithValue(nameof(dto.PORDSYMOUTLN), dto.PORDSYMOUTLN);
+				command.Parameters.AddWithValue(nameof(dto.MONTH_), dto.MONTH_);
+				command.Parameters.AddWithValue(nameof(dto.YEAR_), dto.YEAR_);
+				command.Parameters.AddWithValue(nameof(dto.EXADDTAXRATE), dto.EXADDTAXRATE);
+				command.Parameters.AddWithValue(nameof(dto.EXADDTAXCONVF), dto.EXADDTAXCONVF);
+				command.Parameters.AddWithValue(nameof(dto.EXADDTAXAREF), dto.EXADDTAXAREF);
+				command.Parameters.AddWithValue(nameof(dto.EXADDTAXCREF), dto.EXADDTAXCREF);
+				command.Parameters.AddWithValue(nameof(dto.OTHRADDTAXAREF), dto.OTHRADDTAXAREF);
+				command.Parameters.AddWithValue(nameof(dto.OTHRADDTAXCREF), dto.OTHRADDTAXCREF);
+				command.Parameters.AddWithValue(nameof(dto.EXADDTAXAMNT), dto.EXADDTAXAMNT);
+				command.Parameters.AddWithValue(nameof(dto.AFFECTCOLLATRL), dto.AFFECTCOLLATRL);
+				command.Parameters.AddWithValue(nameof(dto.ALTPROMFLAG), dto.ALTPROMFLAG);
+				command.Parameters.AddWithValue(nameof(dto.EIDISTFLNNR), dto.EIDISTFLNNR);
+				command.Parameters.AddWithValue(nameof(dto.EXIMTYPE), dto.EXIMTYPE);
+				command.Parameters.AddWithValue(nameof(dto.VARIANTREF), dto.VARIANTREF);
+				command.Parameters.AddWithValue(nameof(dto.CANDEDUCT), dto.CANDEDUCT);
+				command.Parameters.AddWithValue(nameof(dto.OUTREMAMNT), dto.OUTREMAMNT);
+				command.Parameters.AddWithValue(nameof(dto.OUTREMCOST), dto.OUTREMCOST);
+				command.Parameters.AddWithValue(nameof(dto.OUTREMCOSTCURR), dto.OUTREMCOSTCURR);
+				command.Parameters.AddWithValue(nameof(dto.REFLVATACCREF), dto.REFLVATACCREF);
+				command.Parameters.AddWithValue(nameof(dto.REFLVATOTHACCREF), dto.REFLVATOTHACCREF);
+				command.Parameters.AddWithValue(nameof(dto.PARENTLNREF), dto.PARENTLNREF);
+				command.Parameters.AddWithValue(nameof(dto.AFFECTRISK), dto.AFFECTRISK);
+				command.Parameters.AddWithValue(nameof(dto.INEFFECTIVECOST), dto.INEFFECTIVECOST);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXVATMATRAH), dto.ADDTAXVATMATRAH);
+				command.Parameters.AddWithValue(nameof(dto.REFLACCREF), dto.REFLACCREF);
+				command.Parameters.AddWithValue(nameof(dto.REFLOTHACCREF), dto.REFLOTHACCREF);
+				command.Parameters.AddWithValue(nameof(dto.CAMPPAYDEFREF), dto.CAMPPAYDEFREF);
+				command.Parameters.AddWithValue(nameof(dto.FAREGBINDDATE), dto.FAREGBINDDATE);
+				command.Parameters.AddWithValue(nameof(dto.RELTRANSLNREF), dto.RELTRANSLNREF);
+				command.Parameters.AddWithValue(nameof(dto.FROMTRANSFER), dto.FROMTRANSFER);
+				command.Parameters.AddWithValue(nameof(dto.COSTDISTPRICE), dto.COSTDISTPRICE);
+				command.Parameters.AddWithValue(nameof(dto.COSTDISTREPPRICE), dto.COSTDISTREPPRICE);
+				command.Parameters.AddWithValue(nameof(dto.DIFFPRICEUFRS), dto.DIFFPRICEUFRS);
+				command.Parameters.AddWithValue(nameof(dto.DIFFREPPRICEUFRS), dto.DIFFREPPRICEUFRS);
+				command.Parameters.AddWithValue(nameof(dto.OUTCOSTUFRS), dto.OUTCOSTUFRS);
+				command.Parameters.AddWithValue(nameof(dto.OUTCOSTCURRUFRS), dto.OUTCOSTCURRUFRS);
+				command.Parameters.AddWithValue(nameof(dto.DIFFPRCOSTUFRS), dto.DIFFPRCOSTUFRS);
+				command.Parameters.AddWithValue(nameof(dto.DIFFPRCRCOSTUFRS), dto.DIFFPRCRCOSTUFRS);
+				command.Parameters.AddWithValue(nameof(dto.RETCOSTUFRS), dto.RETCOSTUFRS);
+				command.Parameters.AddWithValue(nameof(dto.RETCOSTCURRUFRS), dto.RETCOSTCURRUFRS);
+				command.Parameters.AddWithValue(nameof(dto.OUTREMCOSTUFRS), dto.OUTREMCOSTUFRS);
+				command.Parameters.AddWithValue(nameof(dto.OUTREMCOSTCURRUFRS), dto.OUTREMCOSTCURRUFRS);
+				command.Parameters.AddWithValue(nameof(dto.INFIDXUFRS), dto.INFIDXUFRS);
+				command.Parameters.AddWithValue(nameof(dto.ADJPRICEUFRS), dto.ADJPRICEUFRS);
+				command.Parameters.AddWithValue(nameof(dto.ADJREPPRICEUFRS), dto.ADJREPPRICEUFRS);
+				command.Parameters.AddWithValue(nameof(dto.ADJPRCOSTUFRS), dto.ADJPRCOSTUFRS);
+				command.Parameters.AddWithValue(nameof(dto.ADJPRCRCOSTUFRS), dto.ADJPRCRCOSTUFRS);
+				command.Parameters.AddWithValue(nameof(dto.COSTDISTPRICEUFRS), dto.COSTDISTPRICEUFRS);
+				command.Parameters.AddWithValue(nameof(dto.COSTDISTREPPRICEUFRS), dto.COSTDISTREPPRICEUFRS);
+				command.Parameters.AddWithValue(nameof(dto.PURCHACCREFUFRS), dto.PURCHACCREFUFRS);
+				command.Parameters.AddWithValue(nameof(dto.PURCHCENTREFUFRS), dto.PURCHCENTREFUFRS);
+				command.Parameters.AddWithValue(nameof(dto.COSACCREFUFRS), dto.COSACCREFUFRS);
+				command.Parameters.AddWithValue(nameof(dto.COSCNTREFUFRS), dto.COSCNTREFUFRS);
+				command.Parameters.AddWithValue(nameof(dto.PROUTCOSTUFRSDIFF), dto.PROUTCOSTUFRSDIFF);
+				command.Parameters.AddWithValue(nameof(dto.PROUTCOSTCRUFRSDIFF), dto.PROUTCOSTCRUFRSDIFF);
+				command.Parameters.AddWithValue(nameof(dto.UNDERDEDUCTLIMIT), dto.UNDERDEDUCTLIMIT);
+				command.Parameters.AddWithValue(nameof(dto.GLOBALID), dto.GLOBALID);
+				command.Parameters.AddWithValue(nameof(dto.DEDUCTIONPART1), dto.DEDUCTIONPART1);
+				command.Parameters.AddWithValue(nameof(dto.DEDUCTIONPART2), dto.DEDUCTIONPART2);
+				command.Parameters.AddWithValue(nameof(dto.GUID), dto.GUID);
+				command.Parameters.AddWithValue(nameof(dto.SPECODE2), dto.SPECODE2);
+				command.Parameters.AddWithValue(nameof(dto.OFFERREF), dto.OFFERREF);
+				command.Parameters.AddWithValue(nameof(dto.OFFTRANSREF), dto.OFFTRANSREF);
+				command.Parameters.AddWithValue(nameof(dto.VATEXCEPTREASON), dto.VATEXCEPTREASON);
+				command.Parameters.AddWithValue(nameof(dto.PLNDEFSERILOTNO), dto.PLNDEFSERILOTNO);
+				command.Parameters.AddWithValue(nameof(dto.PLNUNRSRVAMOUNT), dto.PLNUNRSRVAMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.PORDCLSPLNUNRSRVAMNT), dto.PORDCLSPLNUNRSRVAMNT);
+				command.Parameters.AddWithValue(nameof(dto.LPRODRSRVSTAT), dto.LPRODRSRVSTAT);
+				command.Parameters.AddWithValue(nameof(dto.FALINKTYPE), dto.FALINKTYPE);
+				command.Parameters.AddWithValue(nameof(dto.DEDUCTCODE), dto.DEDUCTCODE);
+				command.Parameters.AddWithValue(nameof(dto.UPDTHISLINE), dto.UPDTHISLINE);
+				command.Parameters.AddWithValue(nameof(dto.VATEXCEPTCODE), dto.VATEXCEPTCODE);
+				command.Parameters.AddWithValue(nameof(dto.PORDERFICHENO), dto.PORDERFICHENO);
+				command.Parameters.AddWithValue(nameof(dto.QPRODFCREF), dto.QPRODFCREF);
+				command.Parameters.AddWithValue(nameof(dto.RELTRANSFCREF), dto.RELTRANSFCREF);
+				command.Parameters.AddWithValue(nameof(dto.ATAXEXCEPTREASON), dto.ATAXEXCEPTREASON);
+				command.Parameters.AddWithValue(nameof(dto.ATAXEXCEPTCODE), dto.ATAXEXCEPTCODE);
+				command.Parameters.AddWithValue(nameof(dto.PRODORDERTYP), dto.PRODORDERTYP);
+				command.Parameters.AddWithValue(nameof(dto.SUBCONTORDERREF), dto.SUBCONTORDERREF);
+				command.Parameters.AddWithValue(nameof(dto.QPRODFCTYP), dto.QPRODFCTYP);
+				command.Parameters.AddWithValue(nameof(dto.PRDORDSLPLNRESERVE), dto.PRDORDSLPLNRESERVE);
+				command.Parameters.AddWithValue(nameof(dto.INFDATE), dto.INFDATE);
+				command.Parameters.AddWithValue(nameof(dto.DESTSTATUS), dto.DESTSTATUS);
+				command.Parameters.AddWithValue(nameof(dto.REGTYPREF), dto.REGTYPREF);
+				command.Parameters.AddWithValue(nameof(dto.FAPROFITACCREF), dto.FAPROFITACCREF);
+				command.Parameters.AddWithValue(nameof(dto.FAPROFITCENTREF), dto.FAPROFITCENTREF);
+				command.Parameters.AddWithValue(nameof(dto.FALOSSACCREF), dto.FALOSSACCREF);
+				command.Parameters.AddWithValue(nameof(dto.FALOSSCENTREF), dto.FALOSSCENTREF);
+				command.Parameters.AddWithValue(nameof(dto.CPACODE), dto.CPACODE);
+				command.Parameters.AddWithValue(nameof(dto.GTIPCODE), dto.GTIPCODE);
+				command.Parameters.AddWithValue(nameof(dto.PUBLICCOUNTRYREF), dto.PUBLICCOUNTRYREF);
+				command.Parameters.AddWithValue(nameof(dto.QPRODITEMTYPE), dto.QPRODITEMTYPE);
+				command.Parameters.AddWithValue(nameof(dto.FUTMONTHCNT), dto.FUTMONTHCNT);
+				command.Parameters.AddWithValue(nameof(dto.FUTMONTHBEGDATE), dto.FUTMONTHBEGDATE);
+				command.Parameters.AddWithValue(nameof(dto.QCTRANSFERREF), dto.QCTRANSFERREF);
+				command.Parameters.AddWithValue(nameof(dto.QCTRANSFERAMNT), dto.QCTRANSFERAMNT);
+				command.Parameters.AddWithValue(nameof(dto.FUTMONTHENDDATE), dto.FUTMONTHENDDATE);
+				command.Parameters.AddWithValue(nameof(dto.KKEGACCREF), dto.KKEGACCREF);
+				command.Parameters.AddWithValue(nameof(dto.KKEGCENTREF), dto.KKEGCENTREF);
+				command.Parameters.AddWithValue(nameof(dto.MNTORDERFREF), dto.MNTORDERFREF);
+				command.Parameters.AddWithValue(nameof(dto.FAKKEGAMOUNT), dto.FAKKEGAMOUNT);
+				command.Parameters.AddWithValue(nameof(dto.MIDDLEMANEXPTYP), dto.MIDDLEMANEXPTYP);
+				command.Parameters.AddWithValue(nameof(dto.EXPRACCREF), dto.EXPRACCREF);
+				command.Parameters.AddWithValue(nameof(dto.EXPRCNTRREF), dto.EXPRCNTRREF);
+				command.Parameters.AddWithValue(nameof(dto.KKEGVATACCREF), dto.KKEGVATACCREF);
+				command.Parameters.AddWithValue(nameof(dto.KKEGVATCENTREF), dto.KKEGVATCENTREF);
+				command.Parameters.AddWithValue(nameof(dto.MARKINGTAGNO), dto.MARKINGTAGNO);
+				command.Parameters.AddWithValue(nameof(dto.OWNER), dto.OWNER);
+				command.Parameters.AddWithValue(nameof(dto.TCKTAXNR), dto.TCKTAXNR);
+				command.Parameters.AddWithValue(nameof(dto.FUTMONTHBEGDATE_), dto.FUTMONTHBEGDATE_);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXVATACCREF), dto.ADDTAXVATACCREF);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXVATCENREF), dto.ADDTAXVATCENREF);
+				command.Parameters.AddWithValue(nameof(dto.EXPDAYS), dto.EXPDAYS);
+				command.Parameters.AddWithValue(nameof(dto.CANCELLEDINVREF1), dto.CANCELLEDINVREF1);
+				command.Parameters.AddWithValue(nameof(dto.CANCELLEDINVREF2), dto.CANCELLEDINVREF2);
+				command.Parameters.AddWithValue(nameof(dto.CANCELLEDINVREF3), dto.CANCELLEDINVREF3);
+				command.Parameters.AddWithValue(nameof(dto.CANCELLEDINVREF4), dto.CANCELLEDINVREF4);
+				command.Parameters.AddWithValue(nameof(dto.FROMINTEGTYPE), dto.FROMINTEGTYPE);
+				command.Parameters.AddWithValue(nameof(dto.FROMINTEGREF), dto.FROMINTEGREF);
+				command.Parameters.AddWithValue(nameof(dto.TAXFREEACCREF), dto.TAXFREEACCREF);
+				command.Parameters.AddWithValue(nameof(dto.TAXFREECNTRREF), dto.TAXFREECNTRREF);
+				command.Parameters.AddWithValue(nameof(dto.EISRVDSTADDTAXINC), dto.EISRVDSTADDTAXINC);
+				command.Parameters.AddWithValue(nameof(dto.QCTRANSFERREF2), dto.QCTRANSFERREF2);
+				command.Parameters.AddWithValue(nameof(dto.QCTRANSFERAMNT2), dto.QCTRANSFERAMNT2);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXINLINENET), dto.ADDTAXINLINENET);
+				command.Parameters.AddWithValue(nameof(dto.ORDFICHECMREF), dto.ORDFICHECMREF);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXEFFECTKDV), dto.ADDTAXEFFECTKDV);
+				command.Parameters.AddWithValue(nameof(dto.ITMDISC), dto.ITMDISC);
+				command.Parameters.AddWithValue(nameof(dto.ADDTAXREF), dto.ADDTAXREF);
 				#endregion
-				var id = await command.ExecuteScalarAsync();
-				result.Data = null;
+				await   command.ExecuteNonQueryAsync();
+			 
 				result.IsSuccess = true;
 				result.Message = "Satır başarıyla eklendi.";
-
-                return result;
+				await connection.CloseAsync();
+				return result;
 			}
 		}
-		catch (Exception ex)
+		catch (Exception)
 		{
-
-			result.Message = ex.Message;
-			result.IsSuccess = false;
-
-			return result;
+			throw;
 		}
+
 	}
 }

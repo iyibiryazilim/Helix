@@ -51,7 +51,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
 					obj.TRANSACTIONS.Add(transaction);
 				}
-				var result = await _stficheService.InsertObject(obj);
+				var result = await _stficheService.InsertObjectAsync(obj);
 				//Gonna publish LOGO.FailureEvent 
 				return new DataResult<ConsumableTransactionDto>()
 				{

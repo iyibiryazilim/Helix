@@ -11,17 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DataStores\**" />
-    <Compile Remove="Services\**" />
-    <Content Remove="DataStores\**" />
-    <Content Remove="Services\**" />
-    <EmbeddedResource Remove="DataStores\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="DataStores\**" />
-    <None Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <COMReference Include="UnityObjects">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>0</VersionMinor>
