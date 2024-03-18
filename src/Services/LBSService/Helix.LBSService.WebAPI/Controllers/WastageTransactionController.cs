@@ -1,10 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Go.Models;
-using Helix.LBSService.Go.Services;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -13,48 +9,30 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class WastageTransactionController : ControllerBase
 	{
-		private readonly ILG_STFICHE_Context _stficheService;
-		private readonly ILG_WastageTransactionService _consumableTransactionService;
-		private ILogger<ConsumableTransactionController> _logger;
-		public WastageTransactionController(ILG_WastageTransactionService consumableTransactionService, ILG_STFICHE_Context stficheService, ILogger<ConsumableTransactionController> logger)
+		 
+		private readonly IWastageTransactionService _service;
+		private readonly ILogger<WastageTransactionController> _logger;
+		public WastageTransactionController(ILogger<WastageTransactionController> logger, IWastageTransactionService service)
 		{
-			_stficheService = stficheService;
-			_consumableTransactionService = consumableTransactionService;
 			_logger = logger;
+			_service = service;
 		}
 		[HttpPost("Insert")]
 		public async Task<DataResult<WastageTransactionDto>> Insert([FromBody] WastageTransactionDto dto)
 		{
-			if (LBSParameter.IsTiger)
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_WastageTransaction>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_WastageTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _consumableTransactionService.Insert(obj);
-				return new DataResult<WastageTransactionDto>()
-				{
-					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				};
+				var result = await _service.Insert(dto);
+				return result;
 			}
-			else
+			catch (Exception ex)
 			{
-				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _stficheService.InsertObjectAsync(obj);
-				return new DataResult<WastageTransactionDto>()
+				_logger.LogError(ex, "WastageTransactionController.Insert");
+				return new DataResult<WastageTransactionDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
 			}
 

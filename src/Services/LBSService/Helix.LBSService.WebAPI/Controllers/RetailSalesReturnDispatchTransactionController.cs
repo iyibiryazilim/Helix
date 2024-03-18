@@ -1,10 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Go.Models;
-using Helix.LBSService.Go.Services;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -13,50 +9,31 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class RetailSalesReturnDispatchTransactionController : ControllerBase
 	{
-		private readonly ILG_RetailSalesReturnDispatchTransactionService _retailSalesReturnDispatchTransactionService;
-		private readonly ILG_STFICHE_Context _stficheService;
-
-		private ILogger<RetailSalesReturnDispatchTransactionController> _logger;
-		public RetailSalesReturnDispatchTransactionController(ILG_RetailSalesReturnDispatchTransactionService retailSalesReturnDispatchTransactionService, ILG_STFICHE_Context stficheContext, ILogger<RetailSalesReturnDispatchTransactionController> logger)
+		 
+		private readonly IRetailSalesReturnDispatchTransactionService _service;
+		private readonly ILogger<RetailSalesReturnDispatchTransactionController> _logger;
+		public RetailSalesReturnDispatchTransactionController(ILogger<RetailSalesReturnDispatchTransactionController> logger, IRetailSalesReturnDispatchTransactionService services)
 		{
-			_retailSalesReturnDispatchTransactionService = retailSalesReturnDispatchTransactionService;
 			_logger = logger;
-			_stficheService = stficheContext;
+			_service = services;
 		}
 
 		[HttpPost("Insert")]
 		public async Task<DataResult<RetailSalesReturnDispatchTransactionDto>> Insert([FromBody] RetailSalesReturnDispatchTransactionDto dto)
 		{
-			if (LBSParameter.IsTiger)
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_RetailSalesReturnDispatchTransaction>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_RetailSalesReturnDispatchTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _retailSalesReturnDispatchTransactionService.Insert(obj);
-				return new DataResult<RetailSalesReturnDispatchTransactionDto>()
-				{
-					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				}; 
+				var result = await _service.Insert(dto);
+				return result;
 			}
-			else
+			catch (Exception ex)
 			{
-				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _stficheService.InsertObjectAsync(obj);
-				return new DataResult<RetailSalesReturnDispatchTransactionDto>()
+				_logger.LogError(ex, "RetailSalesReturnDispatchTransactionController.Insert");
+				return new DataResult<RetailSalesReturnDispatchTransactionDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
 			}
 		}
