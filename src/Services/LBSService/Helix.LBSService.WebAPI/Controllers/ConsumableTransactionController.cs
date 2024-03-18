@@ -1,66 +1,38 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Go.Models;
-using Helix.LBSService.Go.Services;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
-using Microsoft.AspNetCore.Mvc;
-
-
+using Helix.LBSService.WebAPI.Services;
+using Microsoft.AspNetCore.Mvc; 
 namespace Helix.LBSService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ConsumableTransactionController : ControllerBase
 	{
-		private readonly ILG_STFICHE_Context _stficheService;
-		private readonly ILG_ConsumableTransactionService _consumableTransactionService;
+		private readonly IConsumableTransactionService _service;
 		private ILogger<ConsumableTransactionController> _logger;
-		public ConsumableTransactionController(ILG_ConsumableTransactionService consumableTransactionService, ILG_STFICHE_Context stficheService, ILogger<ConsumableTransactionController> logger)
+		public ConsumableTransactionController(ILogger<ConsumableTransactionController> logger, IConsumableTransactionService service)
 		{
-			_stficheService = stficheService;
-			_consumableTransactionService = consumableTransactionService;
 			_logger = logger;
+			_service = service;
 		}
 		[HttpPost("Insert")]
 		public async Task<DataResult<ConsumableTransactionDto>> Insert([FromBody] ConsumableTransactionDto dto)
-		{ 
-			if (LBSParameter.IsTiger)
+		{
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_ConsumableTransaction>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_ConsumableTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _consumableTransactionService.Insert(obj); 
-		 
-				return new DataResult<ConsumableTransactionDto>()
+				var result = await _service.Insert(dto);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "ConsumableTransactionController.Insert");
+				return new DataResult<ConsumableTransactionDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
 			}
-			else
-			{
-				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _stficheService.InsertObjectAsync(obj);
-				//Gonna publish LOGO.FailureEvent 
-				return new DataResult<ConsumableTransactionDto>()
-				{
-					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				};
-			}
-
 		}
 	}
 }

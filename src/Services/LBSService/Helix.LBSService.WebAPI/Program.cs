@@ -25,7 +25,7 @@ LBSParameter.FirmNumber = parameterModel.FirmNumber;
 LBSParameter.IsTiger = parameterModel.IsTiger;
 LBSParameter.Username = parameterModel.Username;
 LBSParameter.Password = parameterModel.Password;
-LBSParameter.Period = parameterModel.Period; 
+LBSParameter.Period = parameterModel.Period;
 LBSParameter.Connection = configuration.GetConnectionString("LBSConnectionString");
 
 builder.Services.AddSingleton<IEventBus>(eb =>
@@ -37,7 +37,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
 		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
-        EventNameSuffix = nameof(IntegrationEvent),
+		EventNameSuffix = nameof(IntegrationEvent),
 
 	}, eb);
 });
@@ -47,8 +47,8 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
 eventBus.Subscribe<LOGOSuccessIntegrationEvent, LOGOSuccessIntegrationEventHandler>();
-eventBus.Subscribe<LOGOFailureIntegrationEvent,LOGOFailureIntegrationEventHandler>();
-eventBus.Subscribe<SYSMessageIntegrationEvent,SYSMessageIntegrationEventHandler>();
+eventBus.Subscribe<LOGOFailureIntegrationEvent, LOGOFailureIntegrationEventHandler>();
+eventBus.Subscribe<SYSMessageIntegrationEvent, SYSMessageIntegrationEventHandler>();
 
 
 // Add services to the container. 
@@ -68,7 +68,7 @@ builder.Services.AddTransient<ILG_PurchaseReturnDispatchTransactionService, LG_P
 builder.Services.AddTransient<ILG_PurchaseDispatchTransactionService, LG_PurchaseDispatchTransactionDataStore>();
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
-builder.Services.AddTransient<ILG_STFICHE_Context,LG_STFICHE_Context>();
+builder.Services.AddTransient<ILG_STFICHE_Context, LG_STFICHE_Context>();
 builder.Services.AddTransient<ILG_SalesOrderService, LG_SalesOrderDataStore>();
 builder.Services.AddTransient<ILG_CurrentService, LG_CurrentDataStore>();
 builder.Services.AddTransient<ILG_VariantService, LG_VariantDataStore>();
@@ -77,10 +77,16 @@ builder.Services.AddTransient<ILG_EINVOICEDET_Context, LG_EINVOICEDET_Context>()
 builder.Services.AddTransient<IL_LDOCNUM_Context, L_LDOCNUM_Context>();
 builder.Services.AddTransient<ILG_SLTRANS_Context, LG_SLTRANS_Context>();
 builder.Services.AddTransient<IProductionTransactionService, ProductionTransactionDataStore>();
-
-
-
-
+builder.Services.AddTransient<IWastageTransactionService, WastageTransactionDataStore>();
+builder.Services.AddTransient<IConsumableTransactionService, ConsumableTransactionDataStore>();
+builder.Services.AddTransient<IRetailSalesDispatchTransactionService, RetailSalesDispatchTransactionDataStore>();
+builder.Services.AddTransient<IRetailSalesReturnDispatchTransactionService, RetailSalesReturnDisatchTransactionDataStore>();
+builder.Services.AddTransient<IWholeSalesReturnDispatchTransactionService, WholeSalesReturnDispatchTransactionDataStore>();
+builder.Services.AddTransient<IWholeSalesDispatchTransactionService, WholeSalesDispatchTransactionDataStore>();
+builder.Services.AddTransient<IPurchaseReturnDispatchTransactionService, PurchaseReturnDispatchTransactionDataStore>();
+builder.Services.AddTransient<IPurchaseDispatchTransactionService, PurchaseDispatchTransactionDataStore>();
+builder.Services.AddTransient<IInCountingTransactionService, InCountingTransactionDataStore>();
+builder.Services.AddTransient<IOutCountingTransactionService, OutCountingTransactionDataStore>();
 
 
 

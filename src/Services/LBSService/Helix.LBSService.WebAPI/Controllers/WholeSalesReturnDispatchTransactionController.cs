@@ -1,65 +1,42 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Go.Models;
-using Helix.LBSService.Go.Services;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace Helix.LBSService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
-    [ApiController]
-    public class WholeSalesReturnDispatchTransactionController : ControllerBase
-    {
-        private readonly ILG_WholeSalesReturnDispatchTransactionService _wholeSalesReturnDispatchTransactionService;
-		private readonly ILG_STFICHE_Context _stficheService;
-
+	[ApiController]
+	public class WholeSalesReturnDispatchTransactionController : ControllerBase
+	{
 		private ILogger<WholeSalesReturnDispatchTransactionController> _logger;
-        public WholeSalesReturnDispatchTransactionController(ILG_WholeSalesReturnDispatchTransactionService wholeSalesReturnDispatchTransactionService,ILG_STFICHE_Context stficheContext, ILogger<WholeSalesReturnDispatchTransactionController> logger)
-        {
-            _wholeSalesReturnDispatchTransactionService = wholeSalesReturnDispatchTransactionService;
-            _logger = logger;
-			_stficheService = stficheContext;
-        }
+		private IWholeSalesReturnDispatchTransactionService _service;
 
-        [HttpPost("Insert")]
-        public async Task<DataResult<WholeSalesReturnTransactionDto>> Insert([FromBody] WholeSalesReturnTransactionDto dto)
-        {
-            if (LBSParameter.IsTiger)
-            {
-				var obj = Mapping.Mapper.Map<LG_WholeSalesReturnDispatchTransaction>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_WholeSalesReturnDispatchLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _wholeSalesReturnDispatchTransactionService.Insert(obj);
-				return new DataResult<WholeSalesReturnTransactionDto>()
-				{
-					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				};
-			}
-			else
+		public WholeSalesReturnDispatchTransactionController(IWholeSalesReturnDispatchTransactionService service, ILogger<WholeSalesReturnDispatchTransactionController> logger)
+		{
+			_service = service;
+			_logger = logger;
+		}
+
+		[HttpPost("Insert")]
+		public async Task<DataResult<WholeSalesReturnTransactionDto>> Insert([FromBody] WholeSalesReturnTransactionDto dto)
+		{
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _stficheService.InsertObjectAsync(obj);
-				return new DataResult<WholeSalesReturnTransactionDto>()
+				var result = await _service.Insert(dto);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "ConsumableTransactionController.Insert");
+				return new DataResult<WholeSalesReturnTransactionDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
 			}
-         }
-    }
+		}
+	}
 }

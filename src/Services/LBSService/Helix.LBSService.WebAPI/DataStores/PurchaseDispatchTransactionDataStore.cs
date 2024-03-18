@@ -9,28 +9,27 @@ using System.Numerics;
 
 namespace Helix.LBSService.WebAPI.DataStores
 {
-	public class ProductionTransactionDataStore : IProductionTransactionService
+	public class PurchaseDispatchTransactionDataStore : IPurchaseDispatchTransactionService
 	{
 
-
-		private readonly ILogger<ProductionTransactionDataStore> _logger;
-		public ProductionTransactionDataStore(ILogger<ProductionTransactionDataStore> logger)
+		private readonly ILogger<PurchaseDispatchTransactionDataStore> _logger;
+		public PurchaseDispatchTransactionDataStore(ILogger<PurchaseDispatchTransactionDataStore> logger)
 		{
 			_logger = logger;
 		}
-		public async Task<DataResult<ProductionTransactionDto>> Insert(ProductionTransactionDto dto)
+		public async Task<DataResult<PurchaseDispatchTransactionDto>> Insert(PurchaseDispatchTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_ProductionTransaction>(dto);
+				var obj = Mapping.Mapper.Map<LG_PurchaseDispatchTransaction>(dto);
 				foreach (var item in dto.Lines)
 				{
-					var transaction = Mapping.Mapper.Map<LG_ProductionTransactionLine>(item);
+					var transaction = Mapping.Mapper.Map<LG_PurchaseDispatchTransactionLine>(item);
 					obj.TRANSACTIONS.Add(transaction);
 				}
 				//var result = await _tigerService.Insert(obj);
 
-				return new DataResult<ProductionTransactionDto>()
+				return new DataResult<PurchaseDispatchTransactionDto>()
 				{
 					Data = null,
 					//Message = result.Message,
@@ -59,7 +58,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 						{
 							throw new Exception(result.Message);
 						}
-						obj.LOGICALREF = result.Data.LOGICALREF; 
+						obj.LOGICALREF = result.Data.LOGICALREF;
 						foreach (var item in obj.TRANSACTIONS)
 						{
 							using (var stlineContext = new LG_STLINE_Context())
@@ -89,7 +88,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 						}
 
 						await UpdateNumber(obj);
-						return new DataResult<ProductionTransactionDto>()
+						return new DataResult<PurchaseDispatchTransactionDto>()
 						{
 							Data = dto,
 							IsSuccess = true,
@@ -104,7 +103,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 					}
 				}
 			}
-		} 
+		}
 		private async Task<string> GetNextDocumentNumberAsync(LG_STFICHE item)
 		{
 			try

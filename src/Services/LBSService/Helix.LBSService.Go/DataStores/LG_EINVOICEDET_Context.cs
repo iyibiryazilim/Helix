@@ -33,10 +33,7 @@ namespace Helix.LBSService.Go.DataStores
 			{
 				// Dispose of managed resources
 				// Add code here to dispose of managed resources
-			}
-
-			// Dispose of unmanaged resources
-			// Add code here to dispose of unmanaged resources
+			} 
 		}
 
 		public async Task<DataResult<LG_EINVOICEDET>> InsertAsync(LG_EINVOICEDET dto)

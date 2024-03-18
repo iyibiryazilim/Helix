@@ -1,11 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Go.Models;
-using Helix.LBSService.Go.Services;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
-
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -13,55 +8,34 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[Route("api/[controller]")]
     [ApiController]
     public class InCountingTransactionController : ControllerBase
-    {
-        private readonly ILG_InCountingTransactionService _inCountingTransactionService;
-		private readonly ILG_STFICHE_Context _stficheService;
+    { 
+		private readonly ILogger<InCountingTransactionController> _logger;
+		private readonly IInCountingTransactionService _service;
+		public InCountingTransactionController(ILogger<InCountingTransactionController> logger, IInCountingTransactionService service)
+		{
+			_logger = logger;
+			_service = service;
+		}
 
-		private ILogger<InCountingTransactionController> _logger;
-        public InCountingTransactionController(ILG_InCountingTransactionService inCountingTransactionService, ILogger<InCountingTransactionController> logger,ILG_STFICHE_Context stficheService)
-        {
-            _inCountingTransactionService = inCountingTransactionService;
-            _logger = logger;
-			_stficheService = stficheService;
-        }
-
-        [HttpPost("Insert")]
+		[HttpPost("Insert")]
         public async Task<DataResult<InCountingTransactionDto>> Insert([FromBody] InCountingTransactionDto dto)
         {
-			if (LBSParameter.IsTiger)
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_InCountingTransaction>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_InCountingTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _inCountingTransactionService.Insert(obj);
-
-				return new DataResult<InCountingTransactionDto>()
+				var result = await _service.Insert(dto);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "InCountingTransactionController.Insert");
+				return new DataResult<InCountingTransactionDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
 			}
-			else
-			{
-				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _stficheService.InsertObjectAsync(obj);
-				return new DataResult<InCountingTransactionDto>()
-				{
-					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				};
-			}
-         }
+		}
 
 
     }

@@ -2,7 +2,6 @@
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Go.Services;
 using Microsoft.Data.SqlClient;
-using System.Numerics;
 
 namespace Helix.LBSService.Go.DataStores
 {
@@ -27,7 +26,11 @@ namespace Helix.LBSService.Go.DataStores
 				return new DataResult<LG_STFICHE>
 				{
 					IsSuccess = true,
-					Message = "Success"
+					Message = "Success",
+					Data = new LG_STFICHE
+					{
+						LOGICALREF = referenceId
+					}
 				};
 			}
 			catch (Exception)

@@ -1,10 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Go.Models;
-using Helix.LBSService.Go.Services;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -13,52 +9,35 @@ namespace Helix.LBSService.WebAPI.Controllers
     [ApiController]
     public class OutCountingTransactionController : ControllerBase
     {
-		private readonly ILG_STFICHE_Context _stficheService;
-        private readonly ILG_OutCountingTransactionService _outCountingTransactionService;
-		private ILogger<OutCountingTransactionController> _logger;
-        public OutCountingTransactionController(ILG_OutCountingTransactionService outCountingTransactionService, ILogger<OutCountingTransactionController> logger,ILG_STFICHE_Context stficheContext)
-        {
-            _outCountingTransactionService = outCountingTransactionService;
-            _logger = logger;
-			_stficheService = stficheContext;
-        }
+		private readonly ILogger<OutCountingTransactionController> _logger;
+		private readonly IOutCountingTransactionService _service;
+		public OutCountingTransactionController(ILogger<OutCountingTransactionController> logger, IOutCountingTransactionService service)
+		{
+			_logger = logger;
+			_service = service;
+		}
 
-        [HttpPost("Insert")]
-        public async Task<DataResult<OutCountingTransactionDto>> Insert([FromBody] OutCountingTransactionDto dto)
-        {
-            if (LBSParameter.IsTiger)
-            {
-				var obj = Mapping.Mapper.Map<LG_OutCountingTransaction>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_OutCountingTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _outCountingTransactionService.Insert(obj);
-				return new DataResult<OutCountingTransactionDto>()
-				{
-					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				};
-			}
-			else
+		[HttpPost("Insert")]
+		public async Task<DataResult<OutCountingTransactionDto>> Insert([FromBody] OutCountingTransactionDto dto)
+		{
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_STFICHE>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_STLINE>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _stficheService.InsertObjectAsync(obj);
-				return new DataResult<OutCountingTransactionDto>()
+				var result = await _service.Insert(dto);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "OutCountingTransactionController.Insert");
+				return new DataResult<OutCountingTransactionDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
 			}
 		}
 
-    }
+
+
+	}
 }

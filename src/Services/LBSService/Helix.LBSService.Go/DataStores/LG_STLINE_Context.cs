@@ -138,200 +138,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
            ,SALESMANREF
            ,FAPLACCREF
            ,FAPLCENTERREF
-           ,OUTPUTIDCODE
-           ,DREF
-           ,COSTRATE
-           ,XPRICEUPD
-           ,XPRICE
-           ,XREPRATE
-           ,DISTCOEF
-           ,TRANSQCOK
-           ,SITEID
-           ,RECSTATUS
-           ,ORGLOGICREF
-           ,WFSTATUS
-           ,POLINEREF
-           ,PLNSTTRANSREF
-           ,NETDISCFLAG
-           ,NETDISCPERC
-           ,NETDISCAMNT
-           ,VATCALCDIFF
-           ,CONDITIONREF
-           ,DISTORDERREF
-           ,DISTORDLINEREF
-           ,CAMPAIGNREFS1
-           ,CAMPAIGNREFS2
-           ,CAMPAIGNREFS3
-           ,CAMPAIGNREFS4
-           ,CAMPAIGNREFS5
-           ,POINTCAMPREF
-           ,CAMPPOINT
-           ,PROMCLASITEMREF
-           ,CMPGLINEREF
-           ,PLNSTTRANSPERNR
-           ,PORDCLSPLNAMNT
-           ,VENDCOMM
-           ,PREVIOUSOUTCOST
-           ,COSTOFSALEACCREF
-           ,PURCHACCREF
-           ,COSTOFSALECNTREF
-           ,PURCHCENTREF
-           ,PREVOUTCOSTCURR
-           ,ABVATAMOUNT
-           ,ABVATSTATUS
-           ,PRRATE
-           ,ADDTAXRATE
-           ,ADDTAXCONVFACT
-           ,ADDTAXAMOUNT
-           ,ADDTAXPRCOST
-           ,ADDTAXRETCOST
-           ,ADDTAXRETCOSTCURR
-           ,GROSSUINFO1
-           ,GROSSUINFO2
-           ,ADDTAXPRCOSTCURR
-           ,ADDTAXACCREF
-           ,ADDTAXCENTERREF
-           ,ADDTAXAMNTISUPD
-           ,INFIDX
-           ,ADDTAXCOSACCREF
-           ,ADDTAXCOSCNTREF
-           ,PREVIOUSATAXPRCOST
-           ,PREVATAXPRCOSTCURR
-           ,PRDORDTOTCOEF
-           ,DEMPEGGEDAMNT
-           ,STDUNITCOST
-           ,STDRPUNITCOST
-           ,COSTDIFFACCREF
-           ,COSTDIFFCENREF
-           ,TEXTINC
-           ,ADDTAXDISCAMOUNT
-           ,ORGLOGOID
-           ,EXIMFICHENO
-           ,EXIMFCTYPE
-           ,TRANSEXPLINE
-           ,INSEXPLINE
-           ,EXIMWHFCREF
-           ,EXIMWHLNREF
-           ,EXIMFILEREF
-           ,EXIMPROCNR
-           ,EISRVDSTTYP
-           ,MAINSTLNREF
-           ,MADEOFSHRED
-           ,FROMORDWITHPAY
-           ,PROJECTREF
-           ,STATUS
-           ,DORESERVE
-           ,POINTCAMPREFS1
-           ,POINTCAMPREFS2
-           ,POINTCAMPREFS3
-           ,POINTCAMPREFS4
-           ,CAMPPOINTS1
-           ,CAMPPOINTS2
-           ,CAMPPOINTS3
-           ,CAMPPOINTS4
-           ,CMPGLINEREFS1
-           ,CMPGLINEREFS2
-           ,CMPGLINEREFS3
-           ,CMPGLINEREFS4
-           ,PRCLISTREF
-           ,PORDSYMOUTLN
-           ,MONTH_
-           ,YEAR_
-           ,EXADDTAXRATE
-           ,EXADDTAXCONVF
-           ,EXADDTAXAREF
-           ,EXADDTAXCREF
-           ,OTHRADDTAXAREF
-           ,OTHRADDTAXCREF
-           ,EXADDTAXAMNT
-           ,AFFECTCOLLATRL
-           ,ALTPROMFLAG
-           ,EIDISTFLNNR
-           ,EXIMTYPE
-           ,VARIANTREF
-           ,CANDEDUCT
-           ,OUTREMAMNT
-           ,OUTREMCOST
-           ,OUTREMCOSTCURR
-           ,REFLVATACCREF
-           ,REFLVATOTHACCREF
-           ,PARENTLNREF
-           ,AFFECTRISK
-           ,INEFFECTIVECOST
-           ,ADDTAXVATMATRAH
-           ,REFLACCREF
-           ,REFLOTHACCREF
-           ,CAMPPAYDEFREF
-           ,FAREGBINDDATE
-           ,RELTRANSLNREF
-           ,FROMTRANSFER
-           ,COSTDISTPRICE
-           ,COSTDISTREPPRICE
-           ,DIFFPRICEUFRS
-           ,DIFFREPPRICEUFRS
-           ,OUTCOSTUFRS
-           ,OUTCOSTCURRUFRS
-           ,DIFFPRCOSTUFRS
-           ,DIFFPRCRCOSTUFRS
-           ,RETCOSTUFRS
-           ,RETCOSTCURRUFRS
-           ,OUTREMCOSTUFRS
-           ,OUTREMCOSTCURRUFRS
-           ,INFIDXUFRS
-           ,ADJPRICEUFRS
-           ,ADJREPPRICEUFRS
-           ,ADJPRCOSTUFRS
-           ,ADJPRCRCOSTUFRS
-           ,COSTDISTPRICEUFRS
-           ,COSTDISTREPPRICEUFRS
-           ,PURCHACCREFUFRS
-           ,PURCHCENTREFUFRS
-           ,COSACCREFUFRS
-           ,COSCNTREFUFRS
-           ,PROUTCOSTUFRSDIFF
-           ,PROUTCOSTCRUFRSDIFF
-           ,UNDERDEDUCTLIMIT
-           ,GLOBALID
-           ,DEDUCTIONPART1
-           ,DEDUCTIONPART2
-           ,GUID
-           ,SPECODE2
-           ,OFFERREF
-           ,OFFTRANSREF
-           ,VATEXCEPTREASON
-           ,PLNDEFSERILOTNO
-           ,PLNUNRSRVAMOUNT
-           ,PORDCLSPLNUNRSRVAMNT
-           ,LPRODRSRVSTAT
-           ,FALINKTYPE
-           ,DEDUCTCODE
-           ,UPDTHISLINE
-           ,VATEXCEPTCODE
-           ,PORDERFICHENO
-           ,QPRODFCREF
-           ,RELTRANSFCREF
-           ,ATAXEXCEPTREASON
-           ,ATAXEXCEPTCODE
-           ,PRODORDERTYP
-           ,SUBCONTORDERREF
-           ,QPRODFCTYP
-           ,PRDORDSLPLNRESERVE
-           ,INFDATE
-           ,DESTSTATUS
-           ,REGTYPREF
-           ,FAPROFITACCREF
-           ,FAPROFITCENTREF
-           ,FALOSSACCREF
-           ,FALOSSCENTREF
-           ,CPACODE
-           ,GTIPCODE
-           ,PUBLICCOUNTRYREF
-           ,QPRODITEMTYPE
-           ,FUTMONTHCNT
-           ,FUTMONTHBEGDATE
-
-          
-          
+           ,OUTPUTIDCODE 
              )
             VALUES (
             @STOCKREF
@@ -434,206 +241,15 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
            ,@SALESMANREF
            ,@FAPLACCREF
            ,@FAPLCENTERREF
-           ,@OUTPUTIDCODE
-           ,@DREF
-           ,@COSTRATE
-           ,@XPRICEUPD
-           ,@XPRICE
-           ,@XREPRATE
-           ,@DISTCOEF
-           ,@TRANSQCOK
-           ,@SITEID
-           ,@RECSTATUS
-           ,@ORGLOGICREF
-           ,@WFSTATUS
-           ,@POLINEREF
-           ,@PLNSTTRANSREF
-           ,@NETDISCFLAG
-           ,@NETDISCPERC
-           ,@NETDISCAMNT
-           ,@VATCALCDIFF
-           ,@CONDITIONREF
-           ,@DISTORDERREF
-           ,@DISTORDLINEREF
-           ,@CAMPAIGNREFS1
-           ,@CAMPAIGNREFS2
-           ,@CAMPAIGNREFS3
-           ,@CAMPAIGNREFS4
-           ,@CAMPAIGNREFS5
-           ,@POINTCAMPREF
-           ,@CAMPPOINT
-           ,@PROMCLASITEMREF
-           ,@CMPGLINEREF
-           ,@PLNSTTRANSPERNR
-           ,@PORDCLSPLNAMNT
-           ,@VENDCOMM
-           ,@PREVIOUSOUTCOST
-           ,@COSTOFSALEACCREF
-           ,@PURCHACCREF
-           ,@COSTOFSALECNTREF
-           ,@PURCHCENTREF
-           ,@PREVOUTCOSTCURR
-           ,@ABVATAMOUNT
-           ,@ABVATSTATUS
-           ,@PRRATE
-           ,@ADDTAXRATE
-           ,@ADDTAXCONVFACT
-           ,@ADDTAXAMOUNT
-           ,@ADDTAXPRCOST
-           ,@ADDTAXRETCOST
-           ,@ADDTAXRETCOSTCURR
-           ,@GROSSUINFO1
-           ,@GROSSUINFO2
-           ,@ADDTAXPRCOSTCURR
-           ,@ADDTAXACCREF
-           ,@ADDTAXCENTERREF
-           ,@ADDTAXAMNTISUPD
-           ,@INFIDX
-           ,@ADDTAXCOSACCREF
-           ,@ADDTAXCOSCNTREF
-           ,@PREVIOUSATAXPRCOST
-           ,@PREVATAXPRCOSTCURR
-           ,@PRDORDTOTCOEF
-           ,@DEMPEGGEDAMNT
-           ,@STDUNITCOST
-           ,@STDRPUNITCOST
-           ,@COSTDIFFACCREF
-           ,@COSTDIFFCENREF
-           ,@TEXTINC
-           ,@ADDTAXDISCAMOUNT
-           ,@ORGLOGOID
-           ,@EXIMFICHENO
-           ,@EXIMFCTYPE
-           ,@TRANSEXPLINE
-           ,@INSEXPLINE
-           ,@EXIMWHFCREF
-           ,@EXIMWHLNREF
-           ,@EXIMFILEREF
-           ,@EXIMPROCNR
-           ,@EISRVDSTTYP
-           ,@MAINSTLNREF
-           ,@MADEOFSHRED
-           ,@FROMORDWITHPAY
-           ,@PROJECTREF
-           ,@STATUS
-           ,@DORESERVE
-           ,@POINTCAMPREFS1
-           ,@POINTCAMPREFS2
-           ,@POINTCAMPREFS3
-           ,@POINTCAMPREFS4
-           ,@CAMPPOINTS1
-           ,@CAMPPOINTS2
-           ,@CAMPPOINTS3
-           ,@CAMPPOINTS4
-           ,@CMPGLINEREFS1
-           ,@CMPGLINEREFS2
-           ,@CMPGLINEREFS3
-           ,@CMPGLINEREFS4
-           ,@PRCLISTREF
-           ,@PORDSYMOUTLN
-           ,@MONTH_
-           ,@YEAR_
-           ,@EXADDTAXRATE
-           ,@EXADDTAXCONVF
-           ,@EXADDTAXAREF
-           ,@EXADDTAXCREF
-           ,@OTHRADDTAXAREF
-           ,@OTHRADDTAXCREF
-           ,@EXADDTAXAMNT
-           ,@AFFECTCOLLATRL
-           ,@ALTPROMFLAG
-           ,@EIDISTFLNNR
-           ,@EXIMTYPE
-           ,@VARIANTREF
-           ,@CANDEDUCT
-           ,@OUTREMAMNT
-           ,@OUTREMCOST
-           ,@OUTREMCOSTCURR
-           ,@REFLVATACCREF
-           ,@REFLVATOTHACCREF
-           ,@PARENTLNREF
-           ,@AFFECTRISK
-           ,@INEFFECTIVECOST
-           ,@ADDTAXVATMATRAH
-           ,@REFLACCREF
-           ,@REFLOTHACCREF
-           ,@CAMPPAYDEFREF
-           ,@FAREGBINDDATE
-           ,@RELTRANSLNREF
-           ,@FROMTRANSFER
-           ,@COSTDISTPRICE
-           ,@COSTDISTREPPRICE
-           ,@DIFFPRICEUFRS
-           ,@DIFFREPPRICEUFRS
-           ,@OUTCOSTUFRS
-           ,@OUTCOSTCURRUFRS
-           ,@DIFFPRCOSTUFRS
-           ,@DIFFPRCRCOSTUFRS
-           ,@RETCOSTUFRS
-           ,@RETCOSTCURRUFRS
-           ,@OUTREMCOSTUFRS
-           ,@OUTREMCOSTCURRUFRS
-           ,@INFIDXUFRS
-           ,@ADJPRICEUFRS
-           ,@ADJREPPRICEUFRS
-           ,@ADJPRCOSTUFRS
-           ,@ADJPRCRCOSTUFRS
-           ,@COSTDISTPRICEUFRS
-           ,@COSTDISTREPPRICEUFRS
-           ,@PURCHACCREFUFRS
-           ,@PURCHCENTREFUFRS
-           ,@COSACCREFUFRS
-           ,@COSCNTREFUFRS
-           ,@PROUTCOSTUFRSDIFF
-           ,@PROUTCOSTCRUFRSDIFF
-           ,@UNDERDEDUCTLIMIT
-           ,@GLOBALID
-           ,@DEDUCTIONPART1
-           ,@DEDUCTIONPART2
-           ,@GUID
-           ,@SPECODE2
-           ,@OFFERREF
-           ,@OFFTRANSREF
-           ,@VATEXCEPTREASON
-           ,@PLNDEFSERILOTNO
-           ,@PLNUNRSRVAMOUNT
-           ,@PORDCLSPLNUNRSRVAMNT
-           ,@LPRODRSRVSTAT
-           ,@FALINKTYPE
-           ,@DEDUCTCODE
-           ,@UPDTHISLINE
-           ,@VATEXCEPTCODE
-           ,@PORDERFICHENO
-           ,@QPRODFCREF
-           ,@RELTRANSFCREF
-           ,@ATAXEXCEPTREASON
-           ,@ATAXEXCEPTCODE
-           ,@PRODORDERTYP
-           ,@SUBCONTORDERREF
-           ,@QPRODFCTYP
-           ,@PRDORDSLPLNRESERVE
-           ,@INFDATE
-           ,@DESTSTATUS
-           ,@REGTYPREF
-           ,@FAPROFITACCREF
-           ,@FAPROFITCENTREF
-           ,@FALOSSACCREF
-           ,@FALOSSCENTREF
-           ,@CPACODE
-           ,@GTIPCODE
-           ,@PUBLICCOUNTRYREF
-           ,@QPRODITEMTYPE
-           ,@FUTMONTHCNT
-           ,@FUTMONTHBEGDATE
-           
-           
+           ,@OUTPUTIDCODE  
            ); SELECT SCOPE_IDENTITY();";
-
-		try
+ 		try
 		{
+            var referenceId = 0;
 			await using SqlConnection connection = new SqlConnection(_connectionString);
 			await using (SqlCommand command = new SqlCommand(lineQuery, connection))
 			{
+				command.CommandTimeout = 600;
 				await connection.OpenAsync();
 				#region Set Line
 
@@ -742,6 +358,241 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 				command.Parameters.AddWithValue(nameof(dto.FAPLACCREF), dto.FAPLACCREF);
 				command.Parameters.AddWithValue(nameof(dto.FAPLCENTERREF), dto.FAPLCENTERREF);
 				command.Parameters.AddWithValue(nameof(dto.OUTPUTIDCODE), dto.OUTPUTIDCODE);
+
+				#endregion
+				var id = await command.ExecuteScalarAsync();
+                referenceId = Convert.ToInt32(id);
+				 
+ 			}
+            lineQuery = $@"UPDATE [dbo].[LG_{_defaultFirmNumber.ToString().PadLeft(3, '0')}_{_defaultPeriodNumber.ToString().PadLeft(2, '0')}_STLINE]
+   SET [DREF] = @DREF 
+      ,[COSTRATE] = @COSTRATE 
+      ,[XPRICEUPD] = @XPRICEUPD
+      ,[XPRICE] = @XPRICE
+      ,[XREPRATE] = @XREPRATE
+      ,[DISTCOEF] = @DISTCOEF
+      ,[TRANSQCOK] = @TRANSQCOK
+      ,[SITEID] = @SITEID
+      ,[RECSTATUS] = @RECSTATUS
+      ,[ORGLOGICREF] = @ORGLOGICREF
+      ,[WFSTATUS] = @WFSTATUS
+      ,[POLINEREF] = @POLINEREF
+      ,[PLNSTTRANSREF] = @PLNSTTRANSREF
+      ,[NETDISCFLAG] = @NETDISCFLAG
+      ,[NETDISCPERC] = @NETDISCPERC
+      ,[NETDISCAMNT] = @NETDISCAMNT
+      ,[VATCALCDIFF] = @VATCALCDIFF
+      ,[CONDITIONREF] = @CONDITIONREF
+      ,[DISTORDERREF] = @DISTORDERREF
+      ,[DISTORDLINEREF] = @DISTORDLINEREF
+      ,[CAMPAIGNREFS1] = @CAMPAIGNREFS1
+      ,[CAMPAIGNREFS2] = @CAMPAIGNREFS2
+      ,[CAMPAIGNREFS3] = @CAMPAIGNREFS3 
+      ,[CAMPAIGNREFS4] = @CAMPAIGNREFS4 
+      ,[CAMPAIGNREFS5] = @CAMPAIGNREFS5 
+      ,[POINTCAMPREF] = @POINTCAMPREF 
+      ,[CAMPPOINT] = @CAMPPOINT
+      ,[PROMCLASITEMREF] = @PROMCLASITEMREF
+      ,[CMPGLINEREF] = @CMPGLINEREF
+      ,[PLNSTTRANSPERNR] = @PLNSTTRANSPERNR
+      ,[PORDCLSPLNAMNT] = @PORDCLSPLNAMNT
+      ,[VENDCOMM] = @VENDCOMM
+      ,[PREVIOUSOUTCOST] = @PREVIOUSOUTCOST
+      ,[COSTOFSALEACCREF] = @COSTOFSALEACCREF
+      ,[PURCHACCREF] = @PURCHACCREF
+      ,[COSTOFSALECNTREF] = @COSTOFSALECNTREF
+      ,[PURCHCENTREF] = @PURCHCENTREF
+      ,[PREVOUTCOSTCURR] = @PREVOUTCOSTCURR
+      ,[ABVATAMOUNT] = @ABVATAMOUNT
+      ,[ABVATSTATUS] = @ABVATSTATUS
+      ,[PRRATE] = @PRRATE
+      ,[ADDTAXRATE] = @ADDTAXRATE
+      ,[ADDTAXCONVFACT] = @ADDTAXCONVFACT
+      ,[ADDTAXAMOUNT] = @ADDTAXAMOUNT
+      ,[ADDTAXPRCOST] = @ADDTAXPRCOST
+      ,[ADDTAXRETCOST] = @ADDTAXRETCOST
+      ,[ADDTAXRETCOSTCURR] = @ADDTAXRETCOSTCURR
+      ,[GROSSUINFO1] = @GROSSUINFO1
+      ,[GROSSUINFO2] = @GROSSUINFO2
+      ,[ADDTAXPRCOSTCURR] = @ADDTAXPRCOSTCURR
+      ,[ADDTAXACCREF] = @ADDTAXACCREF
+      ,[ADDTAXCENTERREF] = @ADDTAXCENTERREF
+      ,[ADDTAXAMNTISUPD] = @ADDTAXAMNTISUPD
+      ,[INFIDX] = @INFIDX
+      ,[ADDTAXCOSACCREF] = @ADDTAXCOSACCREF
+      ,[ADDTAXCOSCNTREF] = @ADDTAXCOSCNTREF
+      ,[PREVIOUSATAXPRCOST] = @PREVIOUSATAXPRCOST
+      ,[PREVATAXPRCOSTCURR] = @PREVATAXPRCOSTCURR
+      ,[PRDORDTOTCOEF] = @PRDORDTOTCOEF
+      ,[DEMPEGGEDAMNT] = @DEMPEGGEDAMNT
+      ,[STDUNITCOST] = @STDUNITCOST
+      ,[STDRPUNITCOST] = @STDRPUNITCOST
+      ,[COSTDIFFACCREF] = @COSTDIFFACCREF
+      ,[COSTDIFFCENREF] = @COSTDIFFCENREF
+      ,[TEXTINC] = @TEXTINC
+      ,[ADDTAXDISCAMOUNT] = @ADDTAXDISCAMOUNT
+      ,[ORGLOGOID] = @ORGLOGOID 
+      ,[EXIMFICHENO] = @EXIMFICHENO 
+      ,[EXIMFCTYPE] = @EXIMFCTYPE
+      ,[TRANSEXPLINE] = @TRANSEXPLINE
+      ,[INSEXPLINE] = @INSEXPLINE
+      ,[EXIMWHFCREF] = @EXIMWHFCREF
+      ,[EXIMWHLNREF] = @EXIMWHLNREF
+      ,[EXIMFILEREF] = @EXIMFILEREF
+      ,[EXIMPROCNR] = @EXIMPROCNR
+      ,[EISRVDSTTYP] = @EISRVDSTTYP
+      ,[MAINSTLNREF] = @MAINSTLNREF
+      ,[MADEOFSHRED] = @MADEOFSHRED
+      ,[FROMORDWITHPAY] = @FROMORDWITHPAY
+      ,[PROJECTREF] = @PROJECTREF
+      ,[STATUS] = @STATUS
+      ,[DORESERVE] = @DORESERVE
+      ,[POINTCAMPREFS1] = @POINTCAMPREFS1
+      ,[POINTCAMPREFS2] = @POINTCAMPREFS2
+      ,[POINTCAMPREFS3] = @POINTCAMPREFS3
+      ,[POINTCAMPREFS4] = @POINTCAMPREFS4
+      ,[CAMPPOINTS1] = @CAMPPOINTS1
+      ,[CAMPPOINTS2] = @CAMPPOINTS2
+      ,[CAMPPOINTS3] = @CAMPPOINTS3
+      ,[CAMPPOINTS4] = @CAMPPOINTS4
+      ,[CMPGLINEREFS1] = @CMPGLINEREFS1
+      ,[CMPGLINEREFS2] = @CMPGLINEREFS2
+      ,[CMPGLINEREFS3] = @CMPGLINEREFS3
+      ,[CMPGLINEREFS4] = @CMPGLINEREFS4
+      ,[PRCLISTREF] = @PRCLISTREF
+      ,[PORDSYMOUTLN] = @PORDSYMOUTLN
+      ,[MONTH_] = @MONTH_
+      ,[YEAR_] = @YEAR_
+      ,[EXADDTAXRATE] = @EXADDTAXRATE
+      ,[EXADDTAXCONVF] = @EXADDTAXCONVF
+      ,[EXADDTAXAREF] = @EXADDTAXAREF
+      ,[EXADDTAXCREF] = @EXADDTAXCREF
+      ,[OTHRADDTAXAREF] = @OTHRADDTAXAREF
+      ,[OTHRADDTAXCREF] = @OTHRADDTAXCREF
+      ,[EXADDTAXAMNT] = @EXADDTAXAMNT
+      ,[AFFECTCOLLATRL] = @AFFECTCOLLATRL
+      ,[ALTPROMFLAG] = @ALTPROMFLAG
+      ,[EIDISTFLNNR] = @EIDISTFLNNR
+      ,[EXIMTYPE] = @EXIMTYPE
+      ,[VARIANTREF] = @VARIANTREF
+      ,[CANDEDUCT] = @CANDEDUCT
+      ,[OUTREMAMNT] = @OUTREMAMNT
+      ,[OUTREMCOST] = @OUTREMCOST
+      ,[OUTREMCOSTCURR] = @OUTREMCOSTCURR
+      ,[REFLVATACCREF] = @REFLVATACCREF
+      ,[REFLVATOTHACCREF] = @REFLVATOTHACCREF
+      ,[PARENTLNREF] = @PARENTLNREF
+      ,[AFFECTRISK] = @AFFECTRISK
+      ,[INEFFECTIVECOST] = @INEFFECTIVECOST
+      ,[ADDTAXVATMATRAH] = @ADDTAXVATMATRAH
+      ,[REFLACCREF] = @REFLACCREF
+      ,[REFLOTHACCREF] = @REFLOTHACCREF
+      ,[CAMPPAYDEFREF] = @CAMPPAYDEFREF
+      ,[FAREGBINDDATE] = @FAREGBINDDATE 
+      ,[RELTRANSLNREF] = @RELTRANSLNREF
+      ,[FROMTRANSFER] = @FROMTRANSFER
+      ,[COSTDISTPRICE] = @COSTDISTPRICE
+      ,[COSTDISTREPPRICE] = @COSTDISTREPPRICE
+      ,[DIFFPRICEUFRS] = @DIFFPRICEUFRS
+      ,[DIFFREPPRICEUFRS] = @DIFFREPPRICEUFRS
+      ,[OUTCOSTUFRS] = @OUTCOSTUFRS
+      ,[OUTCOSTCURRUFRS] = @OUTCOSTCURRUFRS
+      ,[DIFFPRCOSTUFRS] = @DIFFPRCOSTUFRS
+      ,[DIFFPRCRCOSTUFRS] = @DIFFPRCRCOSTUFRS
+      ,[RETCOSTUFRS] = @RETCOSTUFRS
+      ,[RETCOSTCURRUFRS] = @RETCOSTCURRUFRS
+      ,[OUTREMCOSTUFRS] = @OUTREMCOSTUFRS
+      ,[OUTREMCOSTCURRUFRS] = @OUTREMCOSTCURRUFRS
+      ,[INFIDXUFRS] = @INFIDXUFRS
+      ,[ADJPRICEUFRS] = @ADJPRICEUFRS
+      ,[ADJREPPRICEUFRS] = @ADJREPPRICEUFRS
+      ,[ADJPRCOSTUFRS] = @ADJPRCOSTUFRS
+      ,[ADJPRCRCOSTUFRS] = @ADJPRCRCOSTUFRS
+      ,[COSTDISTPRICEUFRS] = @COSTDISTPRICEUFRS
+      ,[COSTDISTREPPRICEUFRS] = @COSTDISTREPPRICEUFRS
+      ,[PURCHACCREFUFRS] = @PURCHACCREFUFRS
+      ,[PURCHCENTREFUFRS] = @PURCHCENTREFUFRS
+      ,[COSACCREFUFRS] = @COSACCREFUFRS
+      ,[COSCNTREFUFRS] = @COSCNTREFUFRS
+      ,[PROUTCOSTUFRSDIFF] = @PROUTCOSTUFRSDIFF
+      ,[PROUTCOSTCRUFRSDIFF] = @PROUTCOSTCRUFRSDIFF
+      ,[UNDERDEDUCTLIMIT] = @UNDERDEDUCTLIMIT
+      ,[GLOBALID] = @GLOBALID 
+      ,[DEDUCTIONPART1] = @DEDUCTIONPART1
+      ,[DEDUCTIONPART2] = @DEDUCTIONPART2
+      ,[GUID] = @GUID 
+      ,[SPECODE2] = @SPECODE2 
+      ,[OFFERREF] = @OFFERREF
+      ,[OFFTRANSREF] = @OFFTRANSREF
+      ,[VATEXCEPTREASON] = @VATEXCEPTREASON 
+      ,[PLNDEFSERILOTNO] = @PLNDEFSERILOTNO 
+      ,[PLNUNRSRVAMOUNT] = @PLNUNRSRVAMOUNT
+      ,[PORDCLSPLNUNRSRVAMNT] = @PORDCLSPLNUNRSRVAMNT
+      ,[LPRODRSRVSTAT] = @LPRODRSRVSTAT
+      ,[FALINKTYPE] = @FALINKTYPE
+      ,[DEDUCTCODE] = @DEDUCTCODE 
+      ,[UPDTHISLINE] = @UPDTHISLINE
+      ,[VATEXCEPTCODE] = @VATEXCEPTCODE 
+      ,[PORDERFICHENO] = @PORDERFICHENO 
+      ,[QPRODFCREF] = @QPRODFCREF
+      ,[RELTRANSFCREF] = @RELTRANSFCREF
+      ,[ATAXEXCEPTREASON] = @ATAXEXCEPTREASON  
+      ,[ATAXEXCEPTCODE] = @ATAXEXCEPTCODE 
+      ,[PRODORDERTYP] = @PRODORDERTYP
+      ,[SUBCONTORDERREF] = @SUBCONTORDERREF
+      ,[QPRODFCTYP] = @QPRODFCTYP
+      ,[PRDORDSLPLNRESERVE] = @PRDORDSLPLNRESERVE
+      ,[INFDATE] = @INFDATE
+      ,[DESTSTATUS] = @DESTSTATUS
+      ,[REGTYPREF] = @REGTYPREF
+      ,[FAPROFITACCREF] = @FAPROFITACCREF
+      ,[FAPROFITCENTREF] = @FAPROFITCENTREF
+      ,[FALOSSACCREF] = @FALOSSACCREF
+      ,[FALOSSCENTREF] = @FALOSSCENTREF
+      ,[CPACODE] = @CPACODE 
+      ,[GTIPCODE] = @GTIPCODE 
+      ,[PUBLICCOUNTRYREF] = @PUBLICCOUNTRYREF
+      ,[QPRODITEMTYPE] = @QPRODITEMTYPE
+      ,[FUTMONTHCNT] = @FUTMONTHCNT
+      ,[FUTMONTHBEGDATE] = @FUTMONTHBEGDATE
+      ,[QCTRANSFERREF] = @QCTRANSFERREF
+      ,[QCTRANSFERAMNT] = @QCTRANSFERAMNT
+      ,[FUTMONTHENDDATE] = @FUTMONTHENDDATE
+      ,[KKEGACCREF] = @KKEGACCREF
+      ,[KKEGCENTREF] = @KKEGCENTREF
+      ,[MNTORDERFREF] = @MNTORDERFREF
+      ,[FAKKEGAMOUNT] = @FAKKEGAMOUNT
+      ,[MIDDLEMANEXPTYP] = @MIDDLEMANEXPTYP
+      ,[EXPRACCREF] = @EXPRACCREF
+      ,[EXPRCNTRREF] = @EXPRCNTRREF
+      ,[KKEGVATACCREF] = @KKEGVATACCREF
+      ,[KKEGVATCENTREF] = @KKEGVATCENTREF
+      ,[MARKINGTAGNO] = @MARKINGTAGNO 
+      ,[OWNER] = @OWNER 
+      ,[TCKTAXNR] = @TCKTAXNR 
+      ,[FUTMONTHBEGDATE_] = @FUTMONTHBEGDATE_
+      ,[ADDTAXVATACCREF] = @ADDTAXVATACCREF
+      ,[ADDTAXVATCENREF] = @ADDTAXVATCENREF
+      ,[EXPDAYS] = @EXPDAYS
+      ,[CANCELLEDINVREF1] = @CANCELLEDINVREF1
+      ,[CANCELLEDINVREF2] = @CANCELLEDINVREF2
+      ,[CANCELLEDINVREF3] = @CANCELLEDINVREF3
+      ,[CANCELLEDINVREF4] = @CANCELLEDINVREF4
+      ,[FROMINTEGTYPE] = @FROMINTEGTYPE
+      ,[FROMINTEGREF] = @FROMINTEGREF
+      ,[TAXFREEACCREF] = @TAXFREEACCREF
+      ,[TAXFREECNTRREF] = @TAXFREECNTRREF
+      ,[EISRVDSTADDTAXINC] = @EISRVDSTADDTAXINC
+      ,[QCTRANSFERREF2] = @QCTRANSFERREF2
+      ,[QCTRANSFERAMNT2] = @QCTRANSFERAMNT2
+      ,[ADDTAXINLINENET] = @ADDTAXINLINENET
+      ,[ORDFICHECMREF] = @ORDFICHECMREF
+      ,[ADDTAXEFFECTKDV] = @ADDTAXEFFECTKDV
+      ,[ITMDISC] = @ITMDISC
+      ,[ADDTAXREF] = @ADDTAXREF
+ WHERE LOGICALREF = {referenceId}";
+            await using(SqlCommand command = new SqlCommand(lineQuery, connection))
+            {
 				command.Parameters.AddWithValue(nameof(dto.DREF), dto.DREF);
 				command.Parameters.AddWithValue(nameof(dto.COSTRATE), dto.COSTRATE);
 				command.Parameters.AddWithValue(nameof(dto.XPRICEUPD), dto.XPRICEUPD);
@@ -967,14 +818,14 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 				command.Parameters.AddWithValue(nameof(dto.ADDTAXEFFECTKDV), dto.ADDTAXEFFECTKDV);
 				command.Parameters.AddWithValue(nameof(dto.ITMDISC), dto.ITMDISC);
 				command.Parameters.AddWithValue(nameof(dto.ADDTAXREF), dto.ADDTAXREF);
-				#endregion
-				await   command.ExecuteNonQueryAsync();
-			 
+
+				await command.ExecuteNonQueryAsync();
+
 				result.IsSuccess = true;
 				result.Message = "Satır başarıyla eklendi.";
-				await connection.CloseAsync();
-				return result;
-			}
+				await connection.CloseAsync(); 
+				return result; 
+			} 
 		}
 		catch (Exception)
 		{
