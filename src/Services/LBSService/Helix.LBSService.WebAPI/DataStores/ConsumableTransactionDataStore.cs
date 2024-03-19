@@ -2,6 +2,7 @@
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
@@ -12,28 +13,37 @@ namespace Helix.LBSService.WebAPI.DataStores
 	public class ConsumableTransactionDataStore : IConsumableTransactionService
 	{
 		ILogger<ConsumableTransactionDataStore> _logger;
-		public ConsumableTransactionDataStore(ILogger<ConsumableTransactionDataStore> logger)
+		ILG_ConsumableTransactionService _tigerService;
+		public ConsumableTransactionDataStore(ILogger<ConsumableTransactionDataStore> logger, ILG_ConsumableTransactionService tigerService)
 		{
 			_logger = logger;
+			_tigerService = tigerService;
 		}
 		public async Task<DataResult<ConsumableTransactionDto>> Insert(ConsumableTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_ConsumableTransaction>(dto);
-				foreach (var item in dto.Lines)
+				try
 				{
-					var transaction = Mapping.Mapper.Map<LG_ConsumableTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				//var result = await _tigerService.Insert(obj);
+					var obj = Mapping.Mapper.Map<LG_ConsumableTransaction>(dto);
+					foreach (var item in dto.Lines)
+					{
+						var transaction = Mapping.Mapper.Map<LG_ConsumableTransactionLine>(item);
+						obj.TRANSACTIONS.Add(transaction);
+					}
+					var result = await _tigerService.Insert(obj);
 
-				return new DataResult<ConsumableTransactionDto>()
-				{
-					Data = null,
-					//Message = result.Message,
-					//IsSuccess = result.IsSuccess,
-				};
+					return new DataResult<ConsumableTransactionDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				catch (Exception)
+				{ 
+					throw;
+				}
 			}
 			else
 			{

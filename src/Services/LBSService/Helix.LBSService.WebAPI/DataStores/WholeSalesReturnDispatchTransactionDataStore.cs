@@ -2,6 +2,7 @@
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
@@ -12,28 +13,38 @@ namespace Helix.LBSService.WebAPI.DataStores
 	public class WholeSalesReturnDispatchTransactionDataStore : IWholeSalesReturnDispatchTransactionService
 	{
 		private readonly ILogger<WholeSalesReturnDispatchTransactionDataStore> _logger;
-		public WholeSalesReturnDispatchTransactionDataStore(ILogger<WholeSalesReturnDispatchTransactionDataStore> logger)
+		private readonly ILG_WholeSalesReturnDispatchTransactionService _tigerService;
+		public WholeSalesReturnDispatchTransactionDataStore(ILogger<WholeSalesReturnDispatchTransactionDataStore> logger, ILG_WholeSalesReturnDispatchTransactionService tigerService)
 		{
 			_logger = logger;
+			_tigerService = tigerService;
 		}
-		public  async Task<DataResult<WholeSalesReturnTransactionDto>> Insert(WholeSalesReturnTransactionDto dto)
+		public async Task<DataResult<WholeSalesReturnTransactionDto>> Insert(WholeSalesReturnTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_WholeSalesReturnDispatchTransaction>(dto);
-				foreach (var item in dto.Lines)
+				try
 				{
-					var transaction = Mapping.Mapper.Map<LG_WholeSalesReturnDispatchLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				//var result = await _tigerService.Insert(obj);
+					var obj = Mapping.Mapper.Map<LG_WholeSalesReturnDispatchTransaction>(dto);
+					foreach (var item in dto.Lines)
+					{
+						var transaction = Mapping.Mapper.Map<LG_WholeSalesReturnDispatchLine>(item);
+						obj.TRANSACTIONS.Add(transaction);
+					}
+					var result = await _tigerService.Insert(obj);
 
-				return new DataResult<WholeSalesReturnTransactionDto>()
+					return new DataResult<WholeSalesReturnTransactionDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				catch (Exception)
 				{
-					Data = null,
-					//Message = result.Message,
-					//IsSuccess = result.IsSuccess,
-				};
+
+					throw;
+				}
 			}
 			else
 			{
@@ -57,7 +68,9 @@ namespace Helix.LBSService.WebAPI.DataStores
 						{
 							throw new Exception(result.Message);
 						}
+
 						obj.LOGICALREF = result.Data.LOGICALREF;
+
 						foreach (var item in obj.TRANSACTIONS)
 						{
 							using (var stlineContext = new LG_STLINE_Context())

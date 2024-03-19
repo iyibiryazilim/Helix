@@ -2,6 +2,7 @@
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
@@ -12,29 +13,39 @@ namespace Helix.LBSService.WebAPI.DataStores
 	public class WastageTransactionDataStore : IWastageTransactionService
 	{
 		private readonly ILogger<WastageTransactionDataStore> _logger;
-		public WastageTransactionDataStore(ILogger<WastageTransactionDataStore> logger)
+		private readonly ILG_WastageTransactionService _tigerService;
+		public WastageTransactionDataStore(ILogger<WastageTransactionDataStore> logger, ILG_WastageTransactionService tigerService)
 		{
 			_logger = logger;
+			_tigerService = tigerService;
 		}
 
 		public async Task<DataResult<WastageTransactionDto>> Insert(WastageTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_WastageTransaction>(dto);
-				foreach (var item in dto.Lines)
+				try
 				{
-					var transaction = Mapping.Mapper.Map<LG_WastageTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				//var result = await _tigerService.Insert(obj);
+					var obj = Mapping.Mapper.Map<LG_WastageTransaction>(dto);
+					foreach (var item in dto.Lines)
+					{
+						var transaction = Mapping.Mapper.Map<LG_WastageTransactionLine>(item);
+						obj.TRANSACTIONS.Add(transaction);
+					}
+					var result = await _tigerService.Insert(obj);
 
-				return new DataResult<WastageTransactionDto>()
+					return new DataResult<WastageTransactionDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				catch (Exception)
 				{
-					Data = null,
-					//Message = result.Message,
-					//IsSuccess = result.IsSuccess,
-				};
+
+					throw;
+				}
 			}
 			else
 			{

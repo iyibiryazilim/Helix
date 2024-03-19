@@ -29,7 +29,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "ConsumableTransactionController.Insert");
+				_logger.LogError(ex, "WholeSalesReturnTransactionController.Insert");
 				return new DataResult<WholeSalesReturnTransactionDto>
 				{
 					Data = null,
