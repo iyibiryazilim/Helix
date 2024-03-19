@@ -81,7 +81,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 
 
 
-		[HttpPost]
+		[HttpPost("InsertActualQuantity")]
 		public async Task WorkOrderInsert([FromBody] WorkOrderDto workOrderDto)
 		{
 			_eventBus.Publish(new WorkOrderInsertedIntegrationEvent(workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
