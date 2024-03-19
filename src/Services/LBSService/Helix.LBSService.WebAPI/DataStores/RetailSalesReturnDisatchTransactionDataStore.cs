@@ -2,6 +2,7 @@
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
@@ -11,29 +12,39 @@ namespace Helix.LBSService.WebAPI.DataStores
 {
 	public class RetailSalesReturnDisatchTransactionDataStore : IRetailSalesReturnDispatchTransactionService
 	{
-		ILogger<RetailSalesReturnDisatchTransactionDataStore> _logger;
-		public RetailSalesReturnDisatchTransactionDataStore(ILogger<RetailSalesReturnDisatchTransactionDataStore> logger)
+		private readonly ILogger<RetailSalesReturnDisatchTransactionDataStore> _logger;
+		private readonly ILG_RetailSalesReturnDispatchTransactionService _tigerService;
+		public RetailSalesReturnDisatchTransactionDataStore(ILogger<RetailSalesReturnDisatchTransactionDataStore> logger, ILG_RetailSalesReturnDispatchTransactionService tigerService)
 		{
 			_logger = logger;
+			_tigerService = tigerService;
 		}
 		public async Task<DataResult<RetailSalesReturnDispatchTransactionDto>> Insert(RetailSalesReturnDispatchTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_RetailSalesReturnDispatchTransaction>(dto);
-				foreach (var item in dto.Lines)
+				try
 				{
-					var transaction = Mapping.Mapper.Map<LG_RetailSalesReturnDispatchTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				//var result = await _tigerService.Insert(obj);
+					var obj = Mapping.Mapper.Map<LG_RetailSalesReturnDispatchTransaction>(dto);
+					foreach (var item in dto.Lines)
+					{
+						var transaction = Mapping.Mapper.Map<LG_RetailSalesReturnDispatchTransactionLine>(item);
+						obj.TRANSACTIONS.Add(transaction);
+					}
+					var result = await _tigerService.Insert(obj);
 
-				return new DataResult<RetailSalesReturnDispatchTransactionDto>()
+					return new DataResult<RetailSalesReturnDispatchTransactionDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				catch (Exception)
 				{
-					Data = null,
-					//Message = result.Message,
-					//IsSuccess = result.IsSuccess,
-				};
+
+					throw;
+				}
 			}
 			else
 			{

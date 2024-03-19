@@ -2,6 +2,7 @@
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
@@ -11,31 +12,39 @@ namespace Helix.LBSService.WebAPI.DataStores
 {
 	public class ProductionTransactionDataStore : IProductionTransactionService
 	{
-
-
 		private readonly ILogger<ProductionTransactionDataStore> _logger;
-		public ProductionTransactionDataStore(ILogger<ProductionTransactionDataStore> logger)
+		private readonly ILG_ProductionTransactionService _tigerService;
+		public ProductionTransactionDataStore(ILogger<ProductionTransactionDataStore> logger, ILG_ProductionTransactionService tigerService)
 		{
 			_logger = logger;
+			_tigerService = tigerService;
 		}
 		public async Task<DataResult<ProductionTransactionDto>> Insert(ProductionTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_ProductionTransaction>(dto);
-				foreach (var item in dto.Lines)
+				try
 				{
-					var transaction = Mapping.Mapper.Map<LG_ProductionTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				//var result = await _tigerService.Insert(obj);
+					var obj = Mapping.Mapper.Map<LG_ProductionTransaction>(dto);
+					foreach (var item in dto.Lines)
+					{
+						var transaction = Mapping.Mapper.Map<LG_ProductionTransactionLine>(item);
+						obj.TRANSACTIONS.Add(transaction);
+					}
+					var result = await _tigerService.Insert(obj);
 
-				return new DataResult<ProductionTransactionDto>()
+					return new DataResult<ProductionTransactionDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				catch (Exception)
 				{
-					Data = null,
-					//Message = result.Message,
-					//IsSuccess = result.IsSuccess,
-				};
+
+					throw;
+				}
 			}
 			else
 			{
@@ -59,7 +68,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 						{
 							throw new Exception(result.Message);
 						}
-						obj.LOGICALREF = result.Data.LOGICALREF; 
+						obj.LOGICALREF = result.Data.LOGICALREF;
 						foreach (var item in obj.TRANSACTIONS)
 						{
 							using (var stlineContext = new LG_STLINE_Context())
@@ -104,7 +113,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 					}
 				}
 			}
-		} 
+		}
 		private async Task<string> GetNextDocumentNumberAsync(LG_STFICHE item)
 		{
 			try

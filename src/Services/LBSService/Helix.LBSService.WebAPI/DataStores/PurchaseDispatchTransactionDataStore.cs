@@ -2,6 +2,7 @@
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
@@ -13,28 +14,38 @@ namespace Helix.LBSService.WebAPI.DataStores
 	{
 
 		private readonly ILogger<PurchaseDispatchTransactionDataStore> _logger;
-		public PurchaseDispatchTransactionDataStore(ILogger<PurchaseDispatchTransactionDataStore> logger)
+		private readonly ILG_PurchaseDispatchTransactionService _tigerService;
+		public PurchaseDispatchTransactionDataStore(ILogger<PurchaseDispatchTransactionDataStore> logger, ILG_PurchaseDispatchTransactionService tigerService)
 		{
 			_logger = logger;
+			_tigerService = tigerService;
 		}
 		public async Task<DataResult<PurchaseDispatchTransactionDto>> Insert(PurchaseDispatchTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_PurchaseDispatchTransaction>(dto);
-				foreach (var item in dto.Lines)
+				try
 				{
-					var transaction = Mapping.Mapper.Map<LG_PurchaseDispatchTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				//var result = await _tigerService.Insert(obj);
+					var obj = Mapping.Mapper.Map<LG_PurchaseDispatchTransaction>(dto);
+					foreach (var item in dto.Lines)
+					{
+						var transaction = Mapping.Mapper.Map<LG_PurchaseDispatchTransactionLine>(item);
+						obj.TRANSACTIONS.Add(transaction);
+					}
+					var result = await _tigerService.Insert(obj);
 
-				return new DataResult<PurchaseDispatchTransactionDto>()
+					return new DataResult<PurchaseDispatchTransactionDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				catch (Exception)
 				{
-					Data = null,
-					//Message = result.Message,
-					//IsSuccess = result.IsSuccess,
-				};
+
+					throw;
+				}
 			}
 			else
 			{

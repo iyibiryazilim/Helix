@@ -2,6 +2,7 @@
 using Helix.LBSService.Go.DataStores;
 using Helix.LBSService.Go.Models;
 using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
@@ -12,28 +13,38 @@ namespace Helix.LBSService.WebAPI.DataStores
 	public class OutCountingTransactionDataStore : IOutCountingTransactionService
 	{
 		private readonly ILogger<OutCountingTransactionDataStore> _logger;
-		public OutCountingTransactionDataStore(ILogger<OutCountingTransactionDataStore> logger)
+		private readonly ILG_OutCountingTransactionService _tigerService;
+		public OutCountingTransactionDataStore(ILogger<OutCountingTransactionDataStore> logger, ILG_OutCountingTransactionService tigerService)
 		{
 			_logger = logger;
+			_tigerService = tigerService;
 		}
 		public async Task<DataResult<OutCountingTransactionDto>> Insert(OutCountingTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
 			{
-				var obj = Mapping.Mapper.Map<LG_OutCountingTransaction>(dto);
-				foreach (var item in dto.Lines)
+				try
 				{
-					var transaction = Mapping.Mapper.Map<LG_OutCountingTransactionLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				//var result = await _tigerService.Insert(obj);
+					var obj = Mapping.Mapper.Map<LG_OutCountingTransaction>(dto);
+					foreach (var item in dto.Lines)
+					{
+						var transaction = Mapping.Mapper.Map<LG_OutCountingTransactionLine>(item);
+						obj.TRANSACTIONS.Add(transaction);
+					}
+					var result = await _tigerService.Insert(obj);
 
-				return new DataResult<OutCountingTransactionDto>()
+					return new DataResult<OutCountingTransactionDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				catch (Exception)
 				{
-					Data = null,
-					//Message = result.Message,
-					//IsSuccess = result.IsSuccess,
-				};
+
+					throw;
+				}
 			}
 			else
 			{
