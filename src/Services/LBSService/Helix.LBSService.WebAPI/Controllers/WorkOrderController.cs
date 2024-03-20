@@ -3,7 +3,7 @@ using Helix.LBSService.Tiger.DTOs;
 using Helix.LBSService.Tiger.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Helix.LBSService.WebAPI.DTOs
+namespace Helix.LBSService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
