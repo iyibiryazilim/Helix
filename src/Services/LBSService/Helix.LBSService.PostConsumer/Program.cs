@@ -32,8 +32,7 @@ builder.Services.AddTransient<PurchaseOrderInsertingIntegrationEventHandler>();
 
 builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
 
-LoggerProviderOptions.RegisterProviderOptions<
-	EventLogSettings, EventLogLoggerProvider>(builder.Services);
+LoggerProviderOptions.RegisterProviderOptions<EventLogSettings, EventLogLoggerProvider>(builder.Services);
 
 //On docker gonna be comment
 builder.Logging.AddEventLog(eventLogSettings =>
