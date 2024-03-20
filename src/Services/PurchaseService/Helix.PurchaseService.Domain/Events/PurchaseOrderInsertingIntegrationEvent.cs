@@ -14,11 +14,12 @@ public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 		OrderDate = orderDate;
 		Description = description;
 		WarehouseNumber = warehouseNumber;
-		CustomerCode = customerCode;
+		CurrentCode = customerCode;
 		ShipmentAccountCode = shipmentAccountCode;
 		ProjectCode = projectCode;
 		Lines = lines;
 	}
+
 	public string? EmployeeOid { get; set; }
 	public int? ReferenceId { get; set; }
 	public string? Code { get; set; } = string.Empty;
@@ -26,7 +27,7 @@ public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 	public DateTime? OrderDate { get; set; } = DateTime.Now;
 	public string? Description { get; set; } = string.Empty;
 	public short? WarehouseNumber { get; set; }
-	public string? CustomerCode { get; set; } = string.Empty;
+	public string? CurrentCode { get; set; } = string.Empty;
 	public string? ShipmentAccountCode { get; set; } = string.Empty;
 	public string? ProjectCode { get; set; } = string.Empty;
 	public List<PurchaseOrderLineDto> Lines { get; set; }

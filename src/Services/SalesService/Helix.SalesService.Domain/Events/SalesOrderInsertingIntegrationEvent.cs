@@ -14,7 +14,7 @@ public class SalesOrderInsertingIntegrationEvent : IntegrationEvent
 		OrderDate = orderDate;
 		Description = description;
 		WarehouseNumber = warehouseNumber;
-		CustomerCode = customerCode;
+		CurrentCode = customerCode;
 		ShipmentAccountCode = shipmentAccountCode;
 		ProjectCode = projectCode;
 		Lines = lines;
@@ -27,7 +27,7 @@ public class SalesOrderInsertingIntegrationEvent : IntegrationEvent
 	public DateTime? OrderDate { get; set; } = DateTime.Now;
 	public string? Description { get; set; } = string.Empty;
 	public short? WarehouseNumber { get; set; }
-	public string? CustomerCode { get; set; } = string.Empty;
+	public string? CurrentCode { get; set; } = string.Empty;
 	public string? ShipmentAccountCode { get; set; } = string.Empty;
 	public string? ProjectCode { get; set; } = string.Empty;
 	public List<SalesOrderLineDto> Lines { get; set; }

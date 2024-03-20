@@ -15,8 +15,8 @@ namespace Helix.SalesService.WebAPI.Controllers;
 [Authorize]
 public class SalesOrderController : ControllerBase
 {
-	ISalesOrderService _salesOrderService;
-	IEventBus _eventBus;
+	private ISalesOrderService _salesOrderService;
+	private IEventBus _eventBus;
 
 	public SalesOrderController(ISalesOrderService salesOrderService, IEventBus eventBus)
 	{
@@ -30,42 +30,51 @@ public class SalesOrderController : ControllerBase
 		DataResult<IEnumerable<SalesOrder>> result = new();
 		switch (orderBy)
 		{
-
 			case "customernamedesc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.CustomerNameDesc, page, pageSize);
 				return result;
+
 			case "customernameasc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.CustomerNameAsc, page, pageSize);
 				return result;
+
 			case "customercodedesc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.CustomerCodeDesc, page, pageSize);
 				return result;
+
 			case "customercodeasc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.CustomerCodeAsc, page, pageSize);
 				return result;
+
 			case "nettotalasc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.NetTotalAsc, page, pageSize);
 				return result;
+
 			case "nettotaldesc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.NetTotalDesc, page, pageSize);
 				return result;
+
 			case "dateasc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.DateAsc, page, pageSize);
 				return result;
+
 			case "datedesc":
 				result = await _salesOrderService.GetSalesOrdersAsync(search, SalesOrdersOrderBy.DateDesc, page, pageSize);
 				return result;
+
 			default:
 				result = await _salesOrderService.GetSalesOrdersAsync(search, orderBy, page, pageSize);
 				return result;
 		}
 	}
+
 	[HttpGet("Code/{code}")]
 	public async Task<DataResult<SalesOrder>> GetByCode(string code)
 	{
 		var result = await _salesOrderService.GetSalesOrderByCode(code);
 		return result;
 	}
+
 	[HttpGet("Id/{id:int}")]
 	public async Task<DataResult<SalesOrder>> GetById(int id)
 	{
@@ -79,31 +88,38 @@ public class SalesOrderController : ControllerBase
 		DataResult<IEnumerable<SalesOrder>> result = new();
 		switch (orderBy)
 		{
-
 			case "customernamedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.CustomerNameDesc, page, pageSize);
 				return result;
+
 			case "customernameasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.CustomerNameAsc, page, pageSize);
 				return result;
+
 			case "customercodedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.CustomerCodeDesc, page, pageSize);
 				return result;
+
 			case "customercodeasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.CustomerCodeAsc, page, pageSize);
 				return result;
+
 			case "nettotalasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.NetTotalAsc, page, pageSize);
 				return result;
+
 			case "nettotaldesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.NetTotalDesc, page, pageSize);
 				return result;
+
 			case "dateasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.DateAsc, page, pageSize);
 				return result;
+
 			case "datedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, SalesOrdersOrderBy.DateDesc, page, pageSize);
 				return result;
+
 			default:
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAsync(id, search, orderBy, page, pageSize);
 				return result;
@@ -116,31 +132,38 @@ public class SalesOrderController : ControllerBase
 		DataResult<IEnumerable<SalesOrder>> result = new();
 		switch (orderBy)
 		{
-
 			case "customernamedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerNameDesc, page, pageSize);
 				return result;
+
 			case "customernameasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerNameAsc, page, pageSize);
 				return result;
+
 			case "customercodedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerCodeDesc, page, pageSize);
 				return result;
+
 			case "customercodeasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.CustomerCodeAsc, page, pageSize);
 				return result;
+
 			case "nettotalasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.NetTotalAsc, page, pageSize);
 				return result;
+
 			case "nettotaldesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.NetTotalDesc, page, pageSize);
 				return result;
+
 			case "dateasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.DateAsc, page, pageSize);
 				return result;
+
 			case "datedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, SalesOrdersOrderBy.DateDesc, page, pageSize);
 				return result;
+
 			default:
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAsync(id, number, search, orderBy, page, pageSize);
 				return result;
@@ -153,31 +176,38 @@ public class SalesOrderController : ControllerBase
 		DataResult<IEnumerable<SalesOrder>> result = new();
 		switch (orderBy)
 		{
-
 			case "customernamedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.CustomerNameDesc, page, pageSize);
 				return result;
+
 			case "customernameasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.CustomerNameAsc, page, pageSize);
 				return result;
+
 			case "customercodedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.CustomerCodeDesc, page, pageSize);
 				return result;
+
 			case "customercodeasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.CustomerCodeAsc, page, pageSize);
 				return result;
+
 			case "nettotalasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.NetTotalAsc, page, pageSize);
 				return result;
+
 			case "nettotaldesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.NetTotalDesc, page, pageSize);
 				return result;
+
 			case "dateasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.DateAsc, page, pageSize);
 				return result;
+
 			case "datedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, SalesOrdersOrderBy.DateDesc, page, pageSize);
 				return result;
+
 			default:
 				result = await _salesOrderService.GetSalesOrdersByCurrentIdAndWarehouseNumberAndShipInfoAsync(id, number, shipInfoReferenceId, search, orderBy, page, pageSize);
 				return result;
@@ -190,31 +220,38 @@ public class SalesOrderController : ControllerBase
 		DataResult<IEnumerable<SalesOrder>> result = new();
 		switch (orderBy)
 		{
-
 			case "customernamedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.CustomerNameDesc, page, pageSize);
 				return result;
+
 			case "customernameasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.CustomerNameAsc, page, pageSize);
 				return result;
+
 			case "customercodedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.CustomerCodeDesc, page, pageSize);
 				return result;
+
 			case "customercodeasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.CustomerCodeAsc, page, pageSize);
 				return result;
+
 			case "nettotalasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.NetTotalAsc, page, pageSize);
 				return result;
+
 			case "nettotaldesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.NetTotalDesc, page, pageSize);
 				return result;
+
 			case "dateasc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.DateAsc, page, pageSize);
 				return result;
+
 			case "datedesc":
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, SalesOrdersOrderBy.DateDesc, page, pageSize);
 				return result;
+
 			default:
 				result = await _salesOrderService.GetSalesOrdersByCurrentCodeAsync(code, search, orderBy, page, pageSize);
 				return result;

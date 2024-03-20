@@ -7,10 +7,10 @@ public record SalesOrderDto(
 	string? transactionTypeName,
 	short? orderType,
 	string? code,
-	string? salesmanCode, 
+	string? salesmanCode,
 	string? warehouseName,
 	string? shipmentAccountCode,
-	string? projectCode, 
+	string? projectCode,
 	int? warehouseNumber,
 	int? currentReferenceId,
 	string? currentName,
@@ -23,5 +23,4 @@ public record SalesOrderDto(
 	short? statusi,
 	List<SalesOrderLineDto> lines)
 {
-
 }

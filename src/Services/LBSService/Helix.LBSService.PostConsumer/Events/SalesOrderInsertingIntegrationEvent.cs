@@ -8,8 +8,8 @@ namespace Helix.LBSService.PostConsumer.Events
 		public SalesOrderInsertingIntegrationEvent()
 		{
 			Lines = new List<SalesOrderLineDto>();
-
 		}
+
 		public IList<SalesOrderLineDto> Lines { get; set; }
 
 		public string? EmployeeOid { get; set; }
@@ -19,16 +19,15 @@ namespace Helix.LBSService.PostConsumer.Events
 		public DateTime OrderDate { get; set; } = DateTime.Now;
 		public string? Description { get; set; } = string.Empty;
 		public short WarehouseNumber { get; set; }
-		public string CustomerCode { get; set; } = string.Empty;
+		public string CurrentCode { get; set; } = string.Empty;
 		public string ShipmentAccountCode { get; set; } = string.Empty;
 		public string ProjectCode { get; set; } = string.Empty;
-
 	}
 
 	public class SalesOrderLineDto : OrderLineDto
-	{ 
+	{
 		public SalesOrderLineDto()
 		{
 		}
 	}
-} 
+}
