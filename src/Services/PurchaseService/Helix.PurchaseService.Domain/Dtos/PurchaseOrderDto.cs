@@ -1,20 +1,27 @@
 ﻿namespace Helix.PurchaseService.Domain.Dtos;
 
- record PurchaseOrderDto(int referenceId, 
- DateTime orderDate, 
- int transactionType, 
- string transactionTypeName, 
- short orderType,
- string code,
-string warehouseName,
-int warehouseNumber, 
-int currentReferenceId,
- string currentName,
-string currentCode,
- double total,
- double totalVat,  
- double netTotal,
- string description,  
- short status)
+public record PurchaseOrderDto(
+	int? referenceId,
+	DateTime orderDate,
+	int? transactionType,
+	string? transactionTypeName,
+	short? orderType,
+	string? code,
+	string? salesmanCode,
+	string? warehouseName,
+	string? shipmentAccountCode,
+	string? projectCode,
+	int? warehouseNumber,
+	int? currentReferenceId,
+	string? currentName,
+	string? currentCode,
+	double? total,
+	double? totalVat,
+	double? netTotal,
+	string? employeeOid,
+	string? description,
+	short? statusi,
+	List<PurchaseOrderLineDto> lines)
 {
+
 }

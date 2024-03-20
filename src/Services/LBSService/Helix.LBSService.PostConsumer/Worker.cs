@@ -55,6 +55,10 @@ namespace Helix.LBSService.PostConsumer
 			_eventBus.Consume(new WastageTransactionInsertingIntegrationEvent());
 			_eventBus.Consume(new WholeSalesDispatchTransactionInsertingIntegrationEvent());
 			_eventBus.Consume(new WholeSalesReturnDispatchTransactionInsertingIntegrationEvent());
+			_eventBus.Consume(new PurchaseOrderInsertingIntegrationEvent());
+			_eventBus.Consume(new SalesOrderInsertingIntegrationEvent());
+
+
 
 			while (!stoppingToken.IsCancellationRequested)
 			{

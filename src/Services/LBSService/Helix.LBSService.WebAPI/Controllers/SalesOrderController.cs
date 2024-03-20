@@ -1,9 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
-using Microsoft.AspNetCore.Http;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -12,12 +9,11 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class SalesOrderController : ControllerBase
 	{
-		private readonly ILG_SalesOrderService _service;
- 
+		private readonly ISalesOrderService _service;
 		private ILogger<SalesOrderController> _logger;
-		public SalesOrderController(ILG_SalesOrderService purchaseDispatchTransactionService, ILogger<SalesOrderController> logger)
+		public SalesOrderController(ISalesOrderService service, ILogger<SalesOrderController> logger)
 		{
-			_service = purchaseDispatchTransactionService;
+			_service = service;
 			_logger = logger;
 		}
 
@@ -25,29 +21,19 @@ namespace Helix.LBSService.WebAPI.Controllers
 		[HttpPost("Insert")]
 		public async Task<DataResult<SalesOrderDto>> Insert([FromBody] SalesOrderDto dto)
 		{
-			if (LBSParameter.IsTiger)
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_SalesOrder>(dto);
-				foreach (var item in dto.Lines)
-				{
-					var transaction = Mapping.Mapper.Map<LG_SalesOrderLine>(item);
-					obj.TRANSACTIONS.Add(transaction);
-				}
-				var result = await _service.Insert(obj);
-				return new DataResult<SalesOrderDto>()
+				var result = await _service.Insert(dto);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "SalesOrderController.Insert");
+				return new DataResult<SalesOrderDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
-				};
-			} 
-			else
-			{
-				return new DataResult<SalesOrderDto>()
-				{
-					Data = null,
-					Message = "Not Implemented",
 					IsSuccess = false,
+					Message = ex.Message
 				};
 			}
 		}

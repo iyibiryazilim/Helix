@@ -7,8 +7,6 @@ namespace Helix.LBSService.Tiger.DataStores
 {
 	public class UnityApplicationDataStore : IUnityApplicationService
 	{
-
-
 		public Task<UnityResult> CompanyLogIn()
 		{
 			throw new NotImplementedException();
@@ -81,8 +79,6 @@ namespace Helix.LBSService.Tiger.DataStores
 				};
 			});
 			return await Task.FromResult(LogOutTask.Result);
-
-
 		}
 
 		public Task<UnityResult> UserLogIn()

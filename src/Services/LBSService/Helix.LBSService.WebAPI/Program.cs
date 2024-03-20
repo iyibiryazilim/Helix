@@ -70,6 +70,7 @@ builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
 builder.Services.AddTransient<ILG_STFICHE_Context, LG_STFICHE_Context>();
 builder.Services.AddTransient<ILG_SalesOrderService, LG_SalesOrderDataStore>();
+builder.Services.AddTransient<ILG_PurchaseOrderService, LG_PurchaseOrderDataStore>(); 
 builder.Services.AddTransient<ILG_CurrentService, LG_CurrentDataStore>();
 builder.Services.AddTransient<ILG_VariantService, LG_VariantDataStore>();
 builder.Services.AddTransient<ILG_STLINE_Context, LG_STLINE_Context>();
@@ -87,7 +88,8 @@ builder.Services.AddTransient<IPurchaseReturnDispatchTransactionService, Purchas
 builder.Services.AddTransient<IPurchaseDispatchTransactionService, PurchaseDispatchTransactionDataStore>();
 builder.Services.AddTransient<IInCountingTransactionService, InCountingTransactionDataStore>();
 builder.Services.AddTransient<IOutCountingTransactionService, OutCountingTransactionDataStore>();
-
+builder.Services.AddTransient<IPurchaseOrderService, PurchaseOrderDataStore>();
+builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
 
 
 builder.Services.AddControllers();
