@@ -27,6 +27,10 @@ builder.Services.AddTransient<WastageTransactionInsertingIntegrationEventHandler
 builder.Services.AddTransient<WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
+builder.Services.AddTransient<WorkOrderChangeStatusInsertedIntegrationEvent>();
+builder.Services.AddTransient<WorkOrderChangeStatusInsertedIntegrationEventHandler>();
+builder.Services.AddTransient<StopTransactionForWorkOrderInsertedIntegrationEvent>();
+builder.Services.AddTransient<StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
  
 LoggerProviderOptions.RegisterProviderOptions<
 	EventLogSettings, EventLogLoggerProvider>(builder.Services);
@@ -63,6 +67,9 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 	eventBus.Subscribe<WastageTransactionInsertingIntegrationEvent, WastageTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WholeSalesDispatchTransactionInsertingIntegrationEvent, WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertingIntegrationEvent, WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>(); 
+	eventBus.Subscribe<WorkOrderChangeStatusInsertedIntegrationEvent, WorkOrderChangeStatusInsertedIntegrationEventHandler>();
+	
+	eventBus.Subscribe<StopTransactionForWorkOrderInsertedIntegrationEvent, StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
 
 
 	return eventBus;
