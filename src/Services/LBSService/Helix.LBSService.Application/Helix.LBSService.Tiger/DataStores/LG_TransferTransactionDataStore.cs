@@ -12,12 +12,11 @@ namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_TransferTransactionDataStore : ILG_TransferTransactionService
 	{
-		IUnityApplicationService _unityApplicationService;
-		IEventBus _eventBus;
-		public LG_TransferTransactionDataStore(IUnityApplicationService unityApplicationService, IEventBus eventBus)
+		private IUnityApplicationService _unityApplicationService;
+
+		public LG_TransferTransactionDataStore(IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
-			_eventBus = eventBus;
 		}
 
 		public async Task<DataResult<LG_TransferTransaction>> Insert(LG_TransferTransaction dto)
@@ -31,15 +30,13 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					line.SLTRANS.Add(item);
 				}
- 			}
-
+			}
 
 			if (!unity.LoggedIn)
 				await _unityApplicationService.LogIn();
 
 			if (unity.LoggedIn)
 			{
-
 				try
 				{
 					if (unity != null)
@@ -85,7 +82,7 @@ namespace Helix.LBSService.Tiger.DataStores
 								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV1").Value = line.UNIT_CONV1;
 								dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CONV2").Value = line.UNIT_CONV2;
- 								if (line.SLTRANS.Count > 0)
+								if (line.SLTRANS.Count > 0)
 
 								{
 									UnityObjects.Lines sl_details0 = dtos_lines[dtos_lines.Count - 1].FieldByName("SL_DETAILS").Lines;
@@ -106,7 +103,7 @@ namespace Helix.LBSService.Tiger.DataStores
 										sl_details0[sl_details0.Count - 1].FieldByName("UNIT_CONV1").Value = trans.UNIT_CONV1;
 										sl_details0[sl_details0.Count - 1].FieldByName("UNIT_CONV2").Value = trans.UNIT_CONV2;
 										sl_details0[sl_details0.Count - 1].FieldByName("QUANTITY").Value = trans.QUANTITY;
- 
+
 										if (trans.UNIT_CONV1 == trans.UNIT_CONV2)
 										{
 											sl_details0[sl_details0.Count - 1].FieldByName("MU_QUANTITY").Value = trans.MU_QUANTITY;
@@ -120,7 +117,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 										//sl_details0[sl_details0.Count - 1].FieldByName("DATE_EXPIRED").Value = DateTime.Now.AddDays(90);
 									}
-
 								}
 							}
 
@@ -132,15 +128,11 @@ namespace Helix.LBSService.Tiger.DataStores
 								result.Data = null;
 								result.IsSuccess = true;
 								result.Message = "Success";
-								_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-								_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, new Guid(dto.EmployeeOid), dto));
 							}
 							else
 							{
 								result.IsSuccess = false;
 								result.Message = new ErrorHelper().GetError(items);
-								_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-								_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(dto.EmployeeOid), dto));
 							}
 						}
 						else
@@ -153,7 +145,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						result.IsSuccess = false;
 						result.Message = "Unity is null";
-
 					}
 				}
 				catch (Exception ex)
@@ -174,7 +165,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
-
 			}
 			return await Task.FromResult(result);
 		}

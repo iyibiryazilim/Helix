@@ -12,14 +12,13 @@ namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_RetailSalesReturnDispatchTransactionDataStore : ILG_RetailSalesReturnDispatchTransactionService
 	{
-		IUnityApplicationService _unityApplicationService;
-		IEventBus _eventBus;
+		private IUnityApplicationService _unityApplicationService;
 
-		public LG_RetailSalesReturnDispatchTransactionDataStore(IUnityApplicationService unityApplicationService, IEventBus eventBus)
+		public LG_RetailSalesReturnDispatchTransactionDataStore(IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
-			_eventBus = eventBus;
 		}
+
 		public async Task<DataResult<LG_RetailSalesReturnDispatchTransaction>> Insert(LG_RetailSalesReturnDispatchTransaction dto)
 		{
 			UnityApplication unity = Global.UnityApp;
@@ -31,14 +30,13 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					line.SLTRANS.Add(item);
 				}
- 			}
+			}
 
 			if (!unity.LoggedIn)
 				await _unityApplicationService.LogIn();
 
 			if (unity.LoggedIn)
 			{
-
 				try
 				{
 					if (Global.UnityApp != null)
@@ -94,14 +92,10 @@ namespace Helix.LBSService.Tiger.DataStores
 							items.DataFields.FieldByName("EDESPATCH_PROFILEID").Value = dto.EDESPATCH_PROFILEID;
 							items.DataFields.FieldByName("EINVOICE_PROFILEID").Value = dto.EINVOICE_PROFILEID;
 
-
-
 							Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
-
 
 							foreach (var line in dto.TRANSACTIONS)
 							{
-
 								dtos_lines.AppendLine();
 
 								dtos_lines[dtos_lines.Count - 1].FieldByName("TYPE").Value = line.TYPE;
@@ -164,7 +158,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 										//sl_details0[sl_details0.Count - 1].FieldByName("DATE_EXPIRED").Value = DateTime.Now.AddDays(90);
 									}
-
 								}
 							}
 
@@ -176,15 +169,11 @@ namespace Helix.LBSService.Tiger.DataStores
 								result.Data = null;
 								result.IsSuccess = true;
 								result.Message = "Success";
-								_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-								_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, new Guid(dto.EmployeeOid), dto));
 							}
 							else
 							{
 								result.IsSuccess = false;
 								result.Message = new ErrorHelper().GetError(items);
-								_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-								_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(dto.EmployeeOid), dto));
 							}
 						}
 						else
@@ -197,7 +186,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						result.IsSuccess = false;
 						result.Message = "Unity is null";
-
 					}
 				}
 				catch (Exception ex)
@@ -218,7 +206,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
-
 			}
 			return await Task.FromResult(result);
 		}

@@ -36,7 +36,7 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 
 var eventBus = serviceProvider.GetRequiredService<IEventBus>();
 
-eventBus.Subscribe<PurchaseOrderInsertedIntegrationEvent, PurchaseOrderInsertedIntegrationEventHandler>();
+eventBus.Subscribe<PurchaseOrderInsertingIntegrationEvent, PurchaseOrderInsertedIntegrationEventHandler>();
 eventBus.Subscribe<PurchaseDispatchTransactionInsertedIntegrationEvent, PurchaseDispatchTransactionInsertedIntegrationEventHandler>();
 eventBus.Subscribe<PurchaseReturnDispatchTransactionInsertedIntegrationEvent, PurchaseReturnDispatchTransactionInsertedIntegrationEventHandler>();
 

@@ -7,6 +7,7 @@ namespace Helix.LBSService.PostConsumer
 	{
 		private readonly IEventBus _eventBus;
 		private readonly ILogger<Worker> _logger;
+
 		public Worker(ILogger<Worker> logger, IEventBus eventBus)
 		{
 			_logger = logger;
@@ -18,7 +19,6 @@ namespace Helix.LBSService.PostConsumer
 			try
 			{
 				await StartRabbitMQ(stoppingToken);
-
 			}
 			catch (OperationCanceledException)
 			{
@@ -54,10 +54,12 @@ namespace Helix.LBSService.PostConsumer
 			_eventBus.Consume(new TransferTransactionInsertingIntegrationEvent());
 			_eventBus.Consume(new WastageTransactionInsertingIntegrationEvent());
 			_eventBus.Consume(new WholeSalesDispatchTransactionInsertingIntegrationEvent());
-			_eventBus.Consume(new WholeSalesReturnDispatchTransactionInsertingIntegrationEvent());
-			
+			_eventBus.Consume(new WholeSalesReturnDispatchTransactionInsertingIntegrationEvent());  
 			_eventBus.Consume(new WorkOrderChangeStatusInsertedIntegrationEvent());
-			_eventBus.Consume(new StopTransactionForWorkOrderInsertedIntegrationEvent());
+			_eventBus.Consume(new StopTransactionForWorkOrderInsertedIntegrationEvent()); 
+			_eventBus.Consume(new PurchaseOrderInsertingIntegrationEvent());
+			_eventBus.Consume(new SalesOrderInsertingIntegrationEvent());
+			_eventBus.Consume(new CustomerInsertingIntegrationEvent()); 
 
 			while (!stoppingToken.IsCancellationRequested)
 			{

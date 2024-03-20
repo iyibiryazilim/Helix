@@ -9,13 +9,13 @@ namespace Helix.LBSService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class SalesOrderController : ControllerBase
+	public class PurchaseOrderController : ControllerBase
 	{
-		private readonly ISalesOrderService _service;
-		private ILogger<SalesOrderController> _logger;
+		private readonly IPurchaseOrderService _service;
+		private readonly ILogger<PurchaseOrderController> _logger;
 		private readonly IEventBus _eventBus;
 
-		public SalesOrderController(ISalesOrderService service, ILogger<SalesOrderController> logger, IEventBus eventBus)
+		public PurchaseOrderController(IPurchaseOrderService service, ILogger<PurchaseOrderController> logger, IEventBus eventBus)
 		{
 			_service = service;
 			_logger = logger;
@@ -23,7 +23,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 		}
 
 		[HttpPost("Insert")]
-		public async Task<DataResult<SalesOrderDto>> Insert([FromBody] SalesOrderDto dto)
+		public async Task<DataResult<PurchaseOrderDto>> Insert([FromBody] PurchaseOrderDto dto)
 		{
 			try
 			{
@@ -44,8 +44,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 			{
 				_eventBus.Publish(new SYSMessageIntegrationEvent(dto.ReferenceId, false, ex.Message, string.IsNullOrEmpty(dto.EmployeeOid) ? null : new Guid(dto.EmployeeOid), dto));
 				_eventBus.Publish(new LOGOFailureIntegrationEvent(dto.ReferenceId, ex.Message, string.IsNullOrEmpty(dto.EmployeeOid) ? null : new Guid(dto.EmployeeOid), dto));
-				_logger.LogError(ex, "SalesOrderController.Insert");
-				return new DataResult<SalesOrderDto>
+				_logger.LogError(ex, "PurchaseOrderController.Insert");
+				return new DataResult<PurchaseOrderDto>
 				{
 					Data = null,
 					IsSuccess = false,

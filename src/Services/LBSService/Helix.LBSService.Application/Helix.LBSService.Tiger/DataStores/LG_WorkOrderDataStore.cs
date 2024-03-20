@@ -4,17 +4,17 @@ using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Services;
 using UnityObjects;
 
-
 namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_WorkOrderDataStore : ILG_WorkOrderService
 	{
-		IUnityApplicationService _unityApplicationService;
+		private IUnityApplicationService _unityApplicationService;
+
 		public LG_WorkOrderDataStore(IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
-
 		}
+
 		public async Task<DataResult<WorkOrderDto>> Insert(WorkOrdersDto dtos)
 		{
 			var unity = Global.UnityApp;
@@ -37,7 +37,6 @@ namespace Helix.LBSService.Tiger.DataStores
 							Data = null,
 							IsSuccess = false,
 							Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
-
 						};
 
 						return result;
@@ -57,7 +56,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					Data = null,
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
-
 				};
 			}
 			return await Task.FromResult(result);
@@ -72,7 +70,6 @@ namespace Helix.LBSService.Tiger.DataStores
 				await _unityApplicationService.LogIn();
 			if (unity.LoggedIn)
 			{
-
 				object StpDate = 0;
 				object StpTime = 0;
 				unity.PackDate(dtos.StopDate.Day, dtos.StopDate.Month, dtos.StopDate.Year, ref StpDate);
@@ -84,7 +81,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						Data = null,
 						IsSuccess = false,
 						Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
-
 					};
 				}
 				else
@@ -96,7 +92,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						Message = "Success"
 					};
 				}
-
 			}
 			else
 			{
@@ -105,7 +100,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					Data = null,
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
-
 				};
 			}
 			return await Task.FromResult(result);
@@ -128,7 +122,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						IsSuccess = false,
 						Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 					};
-
 				}
 				else
 				{
