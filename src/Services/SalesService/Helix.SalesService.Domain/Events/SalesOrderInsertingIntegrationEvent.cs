@@ -5,7 +5,6 @@ namespace Helix.SalesService.Domain.Events;
 
 public class SalesOrderInsertingIntegrationEvent : IntegrationEvent
 {
-
 	public SalesOrderInsertingIntegrationEvent(string? employeeOid, int? referenceId, string? code, string? salesmanCode, DateTime? orderDate, string? description, short? warehouseNumber, string? customerCode, string? shipmentAccountCode, string? projectCode, List<SalesOrderLineDto> lines)
 	{
 		EmployeeOid = employeeOid;
@@ -20,6 +19,7 @@ public class SalesOrderInsertingIntegrationEvent : IntegrationEvent
 		ProjectCode = projectCode;
 		Lines = lines;
 	}
+
 	public string? EmployeeOid { get; set; }
 	public int? ReferenceId { get; set; }
 	public string? Code { get; set; } = string.Empty;
@@ -31,7 +31,4 @@ public class SalesOrderInsertingIntegrationEvent : IntegrationEvent
 	public string? ShipmentAccountCode { get; set; } = string.Empty;
 	public string? ProjectCode { get; set; } = string.Empty;
 	public List<SalesOrderLineDto> Lines { get; set; }
-
-
-
 }
