@@ -1,12 +1,11 @@
 ﻿using Helix.EventBus.Base.Events;
-using Helix.SalesService.Domain.Dtos;
+using Helix.PurchaseService.Domain.Dtos;
 
-namespace Helix.SalesService.Domain.Events;
+namespace Helix.PurchaseService.Domain.Events;
 
-public class SalesOrderInsertingIntegrationEvent : IntegrationEvent
+public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 {
-
-	public SalesOrderInsertingIntegrationEvent(string? employeeOid, int? referenceId, string? code, string? salesmanCode, DateTime? orderDate, string? description, short? warehouseNumber, string? customerCode, string? shipmentAccountCode, string? projectCode, List<SalesOrderLineDto> lines)
+	public PurchaseOrderInsertingIntegrationEvent(string? employeeOid, int? referenceId, string? code, string? salesmanCode, DateTime? orderDate, string? description, short? warehouseNumber, string? customerCode, string? shipmentAccountCode, string? projectCode, List<PurchaseOrderLineDto> lines)
 	{
 		EmployeeOid = employeeOid;
 		ReferenceId = referenceId;
@@ -30,8 +29,5 @@ public class SalesOrderInsertingIntegrationEvent : IntegrationEvent
 	public string? CustomerCode { get; set; } = string.Empty;
 	public string? ShipmentAccountCode { get; set; } = string.Empty;
 	public string? ProjectCode { get; set; } = string.Empty;
-	public List<SalesOrderLineDto> Lines { get; set; }
-
-
-
+	public List<PurchaseOrderLineDto> Lines { get; set; }
 }

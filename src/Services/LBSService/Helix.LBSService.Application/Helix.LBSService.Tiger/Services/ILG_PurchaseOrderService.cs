@@ -3,8 +3,9 @@ using Helix.LBSService.Tiger.Models;
 
 namespace Helix.LBSService.Tiger.Services
 {
-	public interface ILG_SalesOrderService
+	public interface ILG_PurchaseOrderService
 	{
-		public Task<DataResult<LG_SalesOrder>> Insert(LG_SalesOrder dto); 
+		public Task<DataResult<LG_PurchaseOrder>> Insert(LG_PurchaseOrder dto);
+
 	}
 }

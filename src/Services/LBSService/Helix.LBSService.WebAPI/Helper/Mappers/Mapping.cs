@@ -36,6 +36,8 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 				cfg.AddProfile<TransferTransactionLineProfile>();
 				cfg.AddProfile<SalesOrderProfile>();
 				cfg.AddProfile<SalesOrderLineProfile>();
+				cfg.AddProfile<PurchaseOrderProfile>();
+				cfg.AddProfile<PurchaseOrderLineProfile>();
 				cfg.AddProfile<CurrentProfile>();
 				cfg.AddProfile<VariantProfile>();
 				cfg.AddProfile<VariantAssignProfile>();

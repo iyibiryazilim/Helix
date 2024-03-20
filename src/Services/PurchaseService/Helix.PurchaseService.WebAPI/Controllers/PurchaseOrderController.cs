@@ -1,5 +1,8 @@
-﻿using Helix.PurchaseService.Application.Services;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.PurchaseService.Application.Services;
 using Helix.PurchaseService.Domain.AggregateModelss;
+using Helix.PurchaseService.Domain.Dtos;
+using Helix.PurchaseService.Domain.Events;
 using Helix.PurchaseService.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +16,12 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 	{
 		IConfiguration _configuration;
 		IPurchaseOrderService _purchaseOrderService;
-		public PurchaseOrderController(IConfiguration configuration, IPurchaseOrderService purchaseOrderService)
+		IEventBus _eventBus;
+		public PurchaseOrderController(IConfiguration configuration, IPurchaseOrderService purchaseOrderService, IEventBus eventBus)
 		{
 			_configuration = configuration;
 			_purchaseOrderService = purchaseOrderService;
+			_eventBus = eventBus;
 		}
 
 		[HttpGet]
@@ -177,6 +182,12 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 					result.Message = "OrderBy wrong text";
 					return result;
 			}
+		}
+
+		[HttpPost]
+		public async Task PurchaseOrderInsert([FromBody] PurchaseOrderDto purchaseOrderDto)
+		{
+			_eventBus.Publish(new PurchaseOrderInsertingIntegrationEvent(purchaseOrderDto.employeeOid, purchaseOrderDto.referenceId, purchaseOrderDto.code, purchaseOrderDto.salesmanCode, purchaseOrderDto.orderDate, purchaseOrderDto.description, (short?)purchaseOrderDto.warehouseNumber, purchaseOrderDto.currentCode, purchaseOrderDto.shipmentAccountCode, purchaseOrderDto.projectCode, purchaseOrderDto.lines));
 		}
 	}
 }

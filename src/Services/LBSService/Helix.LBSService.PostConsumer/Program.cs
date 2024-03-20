@@ -26,10 +26,13 @@ builder.Services.AddTransient<TransferTransactionInsertingIntegrationEventHandle
 builder.Services.AddTransient<WastageTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
+builder.Services.AddTransient<CustomerInsertingIntegrationEventHandler>();
+builder.Services.AddTransient<SalesOrderInsertingIntegrationEventHandler>();
+builder.Services.AddTransient<PurchaseOrderInsertingIntegrationEventHandler>();
+
 builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
- 
-LoggerProviderOptions.RegisterProviderOptions<
-	EventLogSettings, EventLogLoggerProvider>(builder.Services);
+
+LoggerProviderOptions.RegisterProviderOptions<EventLogSettings, EventLogLoggerProvider>(builder.Services);
 
 //On docker gonna be comment
 builder.Logging.AddEventLog(eventLogSettings =>
@@ -51,7 +54,7 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 		EventNameSuffix = nameof(IntegrationEvent),
 	}, serviceProvider);
 
- 	eventBus.Subscribe<ConsumableTransactionInsertingIntegrationEvent, ConsumableTransactionInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<ConsumableTransactionInsertingIntegrationEvent, ConsumableTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<InCountingTransactionInsertingIntegrationEvent, InCountingTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<OutCountingTransactionInsertingIntegrationEvent, OutCountingTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<ProductionTransactionInsertingIntegrationEvent, ProductionTransactionInsertingIntegrationEventHandler>();
@@ -62,8 +65,10 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 	eventBus.Subscribe<TransferTransactionInsertingIntegrationEvent, TransferTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WastageTransactionInsertingIntegrationEvent, WastageTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WholeSalesDispatchTransactionInsertingIntegrationEvent, WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
-	eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertingIntegrationEvent, WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>(); 
-
+	eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertingIntegrationEvent, WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<PurchaseOrderInsertingIntegrationEvent, PurchaseOrderInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<SalesOrderInsertingIntegrationEvent, SalesOrderInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<CustomerInsertingIntegrationEvent, CustomerInsertingIntegrationEventHandler>();
 
 	return eventBus;
 });

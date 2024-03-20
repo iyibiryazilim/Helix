@@ -9,7 +9,8 @@
         public DateTime OrderDate { get; set; } = DateTime.Now;
 		public string? Description { get; set; } = string.Empty;
 		public short WarehouseNumber { get; set; }
-		public string CustomerCode { get; set; } = string.Empty;
+		public string CurrentCode { get; set; } = string.Empty;
 		public string ShipmentAccountCode { get; set; } = string.Empty;
+		public string ProjectCode { get; set; } = string.Empty;
     }
 }

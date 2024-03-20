@@ -10,8 +10,8 @@
 		public string? ARP_CODE { get; set; } = string.Empty;
 		public string? ARP_CODE_SHPM { get; set; } = string.Empty;
 		public string SALESMAN { get; set; } = string.Empty;
-
-		public string GL_CODE { get; set; } = string.Empty;
+		public string PROJECT_CODE { get; set; } = string.Empty;
+        public string GL_CODE { get; set; } = string.Empty;
 		public short SOURCE_WH { get; set; } = default;
 		public int SOURCE_COST_GRP { get; set; } = default;
 		public int RC_RATE { get; set; } = default;

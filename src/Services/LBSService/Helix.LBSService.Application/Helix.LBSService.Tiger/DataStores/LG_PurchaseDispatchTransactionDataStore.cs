@@ -1,11 +1,8 @@
-﻿using Helix.EventBus.Base.Abstractions;
-using Helix.LBSService.Base.Events;
-using Helix.LBSService.Base.Models;
+﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Helper.ErrorHelper;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Services;
-using System.Diagnostics;
 using UnityObjects;
 
 namespace Helix.LBSService.Tiger.DataStores
@@ -13,11 +10,9 @@ namespace Helix.LBSService.Tiger.DataStores
 	public class LG_PurchaseDispatchTransactionDataStore : ILG_PurchaseDispatchTransactionService
 	{
 		IUnityApplicationService _unityApplicationService;
-		IEventBus _eventBus;
-		public LG_PurchaseDispatchTransactionDataStore(IUnityApplicationService unityApplicationService, IEventBus eventBus)
+		public LG_PurchaseDispatchTransactionDataStore(IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
-			_eventBus = eventBus;
 		}
 		public async Task<DataResult<LG_PurchaseDispatchTransaction>> Insert(LG_PurchaseDispatchTransaction dto)
 		{
@@ -30,7 +25,7 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					line.SLTRANS.Add(item);
 				}
- 			}
+			}
 
 			if (!unity.LoggedIn)
 				await _unityApplicationService.LogIn();
@@ -174,16 +169,12 @@ namespace Helix.LBSService.Tiger.DataStores
 
 								result.Data = null;
 								result.IsSuccess = true;
-								result.Message = "Success";
-								_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-								_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, new Guid(dto.EmployeeOid), dto));
+								result.Message = "Success"; 
 							}
 							else
 							{
 								result.IsSuccess = false;
 								result.Message = new ErrorHelper().GetError(items);
-								_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-								_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(dto.EmployeeOid), dto));
 							}
 						}
 						else

@@ -1,5 +1,4 @@
-﻿using Helix.EventBus.Base.Abstractions;
-using Helix.LBSService.Base.Models;
+﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Helper.ErrorHelper;
 using Helix.LBSService.Tiger.Models;
@@ -12,13 +11,11 @@ namespace Helix.LBSService.Tiger.DataStores
 	public class LG_CurrentDataStore : ILG_CurrentService
 	{
 		IUnityApplicationService _unityApplicationService;
-		IEventBus _eventBus;
-		ILogger<LG_CurrentDataStore> _logger;
-		public LG_CurrentDataStore(ILogger<LG_CurrentDataStore> logger, IUnityApplicationService unityApplicationService, IEventBus eventBus)
+ 		ILogger<LG_CurrentDataStore> _logger;
+		public LG_CurrentDataStore(ILogger<LG_CurrentDataStore> logger, IUnityApplicationService unityApplicationService )
 		{
 			_unityApplicationService = unityApplicationService;
-			_eventBus = eventBus;
-			_logger = logger;
+ 			_logger = logger;
 		}
 		public async Task<DataResult<LG_Current>> Insert(LG_Current dto)
 		{
@@ -105,15 +102,13 @@ namespace Helix.LBSService.Tiger.DataStores
 							result.IsSuccess = true;
 							result.Message = "Success";
 							_logger.LogInformation($"Current Inserted :{referenceId}");
-							//_eventBus.Publish(new SYSMessageIntegrationEvent(referenceId, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-							//_eventBus.Publish(new LOGOSuccessIntegrationEvent(referenceId, result.Message, new Guid(dto.EmployeeOid), dto));
+						 
 						}
 						else
 						{
 							result.IsSuccess = false;
 							result.Message = new ErrorHelper().GetError(items);
-							//_eventBus.Publish(new SYSMessageIntegrationEvent(null, result.IsSuccess, result.Message, new Guid(dto.EmployeeOid), dto));
-							//_eventBus.Publish(new LOGOFailureIntegrationEvent(null, result.Message, new Guid(dto.EmployeeOid), dto));
+							 
 						}
 					}
 					catch (Exception ex)
