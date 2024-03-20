@@ -261,6 +261,6 @@ public class SalesOrderController : ControllerBase
 	[HttpPost]
 	public async Task SalesOrderInsert([FromBody] SalesOrderDto salesOrderDto)
 	{
-		_eventBus.Publish(new SalesOrderInsertingIntegrationEvent(salesOrderDto.employeeOid, salesOrderDto.referenceId, salesOrderDto.code, salesOrderDto.salesmanCode, salesOrderDto.orderDate, salesOrderDto.description, (short?)salesOrderDto.warehouseNumber, salesOrderDto.currentCode, salesOrderDto.shipmentAccountCode, salesOrderDto.projectCode, salesOrderDto.lines));
+		_eventBus.Publish(new SalesOrderInsertingIntegrationEvent(salesOrderDto.employeeOid, salesOrderDto.referenceId, salesOrderDto.code, salesOrderDto.salesmanCode, salesOrderDto.orderDate, salesOrderDto.description, (short?)salesOrderDto.warehouseNumber, salesOrderDto.currentCode, salesOrderDto.shipmentAccountCode, salesOrderDto.projectCode, salesOrderDto.lines, salesOrderDto.total, salesOrderDto.totalVat, salesOrderDto.netTotal, salesOrderDto.discountTotal));
 	}
 }

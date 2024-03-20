@@ -18,10 +18,10 @@ public record PurchaseOrderDto(
 	double? total,
 	double? totalVat,
 	double? netTotal,
+	double? discountTotal,
 	string? employeeOid,
 	string? description,
 	short? statusi,
 	List<PurchaseOrderLineDto> lines)
 {
-
 }

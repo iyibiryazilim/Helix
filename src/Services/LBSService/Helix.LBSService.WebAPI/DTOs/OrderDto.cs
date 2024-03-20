@@ -12,5 +12,9 @@
 		public string CurrentCode { get; set; } = string.Empty;
 		public string ShipmentAccountCode { get; set; } = string.Empty;
 		public string ProjectCode { get; set; } = string.Empty;
+		public double? Total { get; set; } = default;
+		public double? TotalVat { get; set; } = default;
+		public double? NetTotal { get; set; } = default;
+		public double? DiscountTotal { get; set; } = default;
 	}
 }

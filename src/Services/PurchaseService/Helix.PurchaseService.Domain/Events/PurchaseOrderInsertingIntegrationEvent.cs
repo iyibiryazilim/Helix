@@ -5,7 +5,7 @@ namespace Helix.PurchaseService.Domain.Events;
 
 public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 {
-	public PurchaseOrderInsertingIntegrationEvent(string? employeeOid, int? referenceId, string? code, string? salesmanCode, DateTime? orderDate, string? description, short? warehouseNumber, string? customerCode, string? shipmentAccountCode, string? projectCode, List<PurchaseOrderLineDto> lines)
+	public PurchaseOrderInsertingIntegrationEvent(string? employeeOid, int? referenceId, string? code, string? salesmanCode, DateTime? orderDate, string? description, short? warehouseNumber, string? customerCode, string? shipmentAccountCode, string? projectCode, List<PurchaseOrderLineDto> lines, double? total, double? totalVat, double? netTotal, double? discountTotal)
 	{
 		EmployeeOid = employeeOid;
 		ReferenceId = referenceId;
@@ -18,6 +18,10 @@ public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 		ShipmentAccountCode = shipmentAccountCode;
 		ProjectCode = projectCode;
 		Lines = lines;
+		Total = total;
+		TotalVat = totalVat;
+		NetTotal = netTotal;
+		DiscountTotal = discountTotal;
 	}
 
 	public string? EmployeeOid { get; set; }
@@ -30,5 +34,9 @@ public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 	public string? CurrentCode { get; set; } = string.Empty;
 	public string? ShipmentAccountCode { get; set; } = string.Empty;
 	public string? ProjectCode { get; set; } = string.Empty;
+	public double? Total { get; set; } = default;
+	public double? TotalVat { get; set; } = default;
+	public double? NetTotal { get; set; } = default;
+	public double? DiscountTotal { get; set; } = default;
 	public List<PurchaseOrderLineDto> Lines { get; set; }
 }

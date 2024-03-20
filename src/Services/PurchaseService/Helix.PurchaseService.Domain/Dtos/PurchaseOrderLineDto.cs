@@ -25,7 +25,11 @@
 		int? dispatchReference,
 		string? speCode,
 		double? conversionFactor,
-		double? otherConversionFactor)
+ 		double? otherConversionFactor,
+		double? totalDiscount,
+		double? totalVat,
+		double? netTotal,
+		double? total)
 	{
 	}
 }

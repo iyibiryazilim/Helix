@@ -18,6 +18,7 @@ public record SalesOrderDto(
 	double? total,
 	double? totalVat,
 	double? netTotal,
+	double? discountTotal,
 	string? employeeOid,
 	string? description,
 	short? statusi,

@@ -219,7 +219,7 @@ namespace Helix.PurchaseService.WebAPI.Controllers
 		[HttpPost]
 		public async Task PurchaseOrderInsert([FromBody] PurchaseOrderDto purchaseOrderDto)
 		{
-			_eventBus.Publish(new PurchaseOrderInsertingIntegrationEvent(purchaseOrderDto.employeeOid, purchaseOrderDto.referenceId, purchaseOrderDto.code, purchaseOrderDto.salesmanCode, purchaseOrderDto.orderDate, purchaseOrderDto.description, (short?)purchaseOrderDto.warehouseNumber, purchaseOrderDto.currentCode, purchaseOrderDto.shipmentAccountCode, purchaseOrderDto.projectCode, purchaseOrderDto.lines));
+			_eventBus.Publish(new PurchaseOrderInsertingIntegrationEvent(purchaseOrderDto.employeeOid, purchaseOrderDto.referenceId, purchaseOrderDto.code, purchaseOrderDto.salesmanCode, purchaseOrderDto.orderDate, purchaseOrderDto.description, (short?)purchaseOrderDto.warehouseNumber, purchaseOrderDto.currentCode, purchaseOrderDto.shipmentAccountCode, purchaseOrderDto.projectCode, purchaseOrderDto.lines, purchaseOrderDto.total, purchaseOrderDto.totalVat, purchaseOrderDto.netTotal, purchaseOrderDto.discountTotal));
 		}
 	}
 }
