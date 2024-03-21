@@ -15,18 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.ConfigureAuth(builder.Configuration);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
-builder.Host.UseSerilog();   
+builder.Host.UseSerilog();
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
 	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
 	{
 		ConnectionRetryCount = 5,
-		SubscriperClientAppName = "ProductionService",
+		SubscriperClientAppName = "LBSService",
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
-        EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
-        EventNameSuffix = nameof(IntegrationEvent)
+		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
+		EventNameSuffix = nameof(IntegrationEvent)
 	}, eb);
 });
 
@@ -39,7 +39,6 @@ eventBus.Subscribe<WorkOrdersInsertedIntegrationEvent, WorkOrdersInsertedIntegra
 eventBus.Subscribe<WorkOrderChangeStatusInsertedIntegrationEvent, WorkOrderChangeStatusInsertedIntegrationEventHandler>();
 eventBus.Subscribe<ProductionTransactionInsertedIntegrationEvent, ProductionTransactionInsertedIntegrationEventHandler>();
 eventBus.Subscribe<ProductionTransactionLineInsertedIntegrationEvent, ProductionTransactionLineInsertedIntegrationEventHandler>();
-
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
