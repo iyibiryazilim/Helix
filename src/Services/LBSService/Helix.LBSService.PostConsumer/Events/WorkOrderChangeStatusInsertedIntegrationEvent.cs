@@ -4,8 +4,7 @@ namespace Helix.LBSService.PostConsumer.Events;
 
 public class WorkOrderChangeStatusInsertedIntegrationEvent : IntegrationEvent
 {
-    public string FicheNo { get; set; } = string.Empty;
-    public int Status { get; set; } = 0;
-    public short DeleteFiche { get; set; } = 2;
+	public string FicheNo { get; set; } = string.Empty;
+	public int Status { get; set; } = 0;
+	public short DeleteFiche { get; set; } = 2;
 }
-

@@ -11,8 +11,9 @@ namespace Helix.LBSService.PostConsumer.Events
 		public PurchaseDispatchTransactionInsertingIntegrationEvent()
 		{
 			TransactionType = 1;
- 			Lines = new List<PurchaseDispatchLineDto>();
+			Lines = new List<PurchaseDispatchLineDto>();
 		}
+
 		public int? ReferenceId { get; set; }
 		public DateTime TransactionDate { get; set; } = DateTime.Now;
 		public string? Code { get; set; } = string.Empty;
@@ -25,6 +26,7 @@ namespace Helix.LBSService.PostConsumer.Events
 		public string? DoCode { get; set; } = string.Empty;
 		public string? DocTrackingNumber { get; set; } = string.Empty;
 	}
+
 	public class PurchaseDispatchLineDto : ProductTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
@@ -32,7 +34,7 @@ namespace Helix.LBSService.PostConsumer.Events
 		public PurchaseDispatchLineDto()
 		{
 			TransactionType = 1;
- 			SeriLotTransactions = new List<SeriLotTransactionDto>();
+			SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
 }

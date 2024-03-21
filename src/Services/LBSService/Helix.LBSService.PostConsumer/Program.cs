@@ -33,6 +33,11 @@ builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
 builder.Services.AddTransient<WorkOrderChangeStatusInsertedIntegrationEventHandler>();
 builder.Services.AddTransient<StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
 builder.Services.AddTransient<VariantInsertingIntegrationEventHandler>();
+builder.Services.AddTransient<OutSourceWorkOrderChangeStatusInsertedIntegrationEventHandler>();
+builder.Services.AddTransient<OutSourceWorkOrderInsertActualQuantityIntegrationEventHandler>();
+builder.Services.AddTransient<OutSourceWorkOrderStopTransactionInsertingIntegrationEventHandler>();
+builder.Services.AddTransient<WorkOrderInsertActualQuantityIntegrationEventHandler>();
+builder.Services.AddTransient<WorkOrderStopTransactionInsertingIntegrationEventHandler>();
 
 LoggerProviderOptions.RegisterProviderOptions<EventLogSettings, EventLogLoggerProvider>(builder.Services);
 
@@ -74,6 +79,11 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 	eventBus.Subscribe<StopTransactionForWorkOrderInsertedIntegrationEvent, StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
 	eventBus.Subscribe<CustomerInsertingIntegrationEvent, CustomerInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<VariantInsertingIntegrationEvent, VariantInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<OutSourceWorkOrderChangeStatusInsertedIntegrationEvent, OutSourceWorkOrderChangeStatusInsertedIntegrationEventHandler>();
+	eventBus.Subscribe<OutSourceWorkOrderInsertActualQuantityIntegrationEvent, OutSourceWorkOrderInsertActualQuantityIntegrationEventHandler>();
+	eventBus.Subscribe<OutSourceWorkOrderStopTransactionInsertingIntegrationEvent, OutSourceWorkOrderStopTransactionInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<WorkOrderInsertActualQuantityIntegrationEvent, WorkOrderInsertActualQuantityIntegrationEventHandler>();
+	eventBus.Subscribe<WorkOrderStopTransactionInsertingIntegrationEvent, WorkOrderStopTransactionInsertingIntegrationEventHandler>();
 
 	return eventBus;
 });

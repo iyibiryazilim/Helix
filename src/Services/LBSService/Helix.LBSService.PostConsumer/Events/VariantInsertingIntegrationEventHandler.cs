@@ -27,20 +27,24 @@ namespace Helix.LBSService.PostConsumer.Events
 
 				StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 				HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
-				string responseBody = await response.Content.ReadAsStringAsync();
-				// Deserialize the JSON response
-				JObject jsonResponse = JObject.Parse(responseBody);
-
-				// Get the value of the IsSuccess property
-				bool isSuccess = jsonResponse["isSuccess"].Value<bool>();
-				string message = jsonResponse["message"].Value<string>();
-				if (isSuccess)
+				if (response.IsSuccessStatusCode)
 				{
-					_logger.LogInformation($" [>] Successfully posted DTO to API.");
+					string responseBody = await response.Content.ReadAsStringAsync();
+					JObject jsonResponse = JObject.Parse(responseBody);
+					bool isSuccess = jsonResponse["isSuccess"].Value<bool>();
+					string message = jsonResponse["message"].Value<string>();
+					if (isSuccess)
+					{
+						_logger.LogInformation($" [>] Successfully posted DTO to API.");
+					}
+					else
+					{
+						_logger.LogError($" [!] Failed to post DTO to API. Status Mess: {message} and JSON: {json}");
+					}
 				}
 				else
 				{
-					_logger.LogError($" [!] Failed to post DTO to API. Status Mess: {message} and JSON: {json}");
+					_logger.LogError($" [!] Failed to post DTO to API. Status Code: {response.StatusCode} and JSON: {json}");
 				}
 			}
 			catch (HttpRequestException ex)

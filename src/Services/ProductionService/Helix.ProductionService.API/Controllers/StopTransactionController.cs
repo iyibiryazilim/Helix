@@ -10,11 +10,11 @@ namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	//[Authorize]
 	public class StopTransactionController : ControllerBase
 	{
-		IStopTransactionService _stopTransactionService;
-		IEventBus _eventBus;
+		private IStopTransactionService _stopTransactionService;
+		private IEventBus _eventBus;
+
 		public StopTransactionController(IStopTransactionService stopTransactionService, IEventBus eventBus)
 		{
 			_stopTransactionService = stopTransactionService;
@@ -26,12 +26,6 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		{
 			var result = await _stopTransactionService.GetStopTransactionList();
 			return result;
-		}
-
-		[HttpPost]
-		public async Task InsertStopTransaction([FromBody] StopTransactionForWorkOrderDto stopTransactionForWorkOrderDto)
-		{
-			_eventBus.Publish(new StopTransactionForWorkOrderInsertedIntegrationEvent(stopTransactionForWorkOrderDto.workOrderReferenceId, stopTransactionForWorkOrderDto.stopCauseReferenceId, stopTransactionForWorkOrderDto.stopDate, stopTransactionForWorkOrderDto.stopTime));
 		}
 	}
 }
