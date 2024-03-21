@@ -1,8 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
-using Helix.LBSService.Tiger.Models;
-using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.WebAPI.Helper.Mappers;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -11,38 +9,32 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class VariantController : ControllerBase
 	{
-		private readonly ILG_VariantService _variantService;
+		private readonly ILogger<VariantController> _logger;
+		private readonly IVariantService _service;
 
-		public VariantController(ILG_VariantService variantService)
+		public VariantController(ILogger<VariantController> logger, IVariantService variantService)
 		{
-			_variantService = variantService;
+			_logger = logger;
+			_service = variantService;
 		}
 
 		[HttpPost("Insert")]
 		public async Task<DataResult<VariantDto>> Insert([FromBody] VariantDto dto)
 		{
-			if (LBSParameter.IsTiger)
+			try
 			{
-				var obj = Mapping.Mapper.Map<LG_Variant>(dto);
-
-				foreach (var item in dto.Lines)
-				{
-					var variantAssign = Mapping.Mapper.Map<LG_VRNTASSIGN>(item);
-					obj.VRNT_ASSIGNS.Add(variantAssign);
-				}
-
-				var result = await _variantService.Insert(obj);
-
-				return new DataResult<VariantDto>()
+				var result = await _service.Insert(dto);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "VariantController.Insert");
+				return new DataResult<VariantDto>
 				{
 					Data = null,
-					Message = result.Message,
-					IsSuccess = result.IsSuccess,
+					IsSuccess = false,
+					Message = ex.Message
 				};
-			}
-			else
-			{
-				throw new HttpRequestException("Not implemented for GO");
 			}
 		}
 	}
