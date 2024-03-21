@@ -29,11 +29,12 @@ builder.Services.AddTransient<WholeSalesReturnDispatchTransactionInsertingIntegr
 builder.Services.AddTransient<CustomerInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<SalesOrderInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<PurchaseOrderInsertingIntegrationEventHandler>();
- builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
-  builder.Services.AddTransient<WorkOrderChangeStatusInsertedIntegrationEventHandler>();
- builder.Services.AddTransient<StopTransactionForWorkOrderInsertedIntegrationEventHandler>(); 
+builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
+builder.Services.AddTransient<WorkOrderChangeStatusInsertedIntegrationEventHandler>();
+builder.Services.AddTransient<StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
+builder.Services.AddTransient<VariantInsertingIntegrationEventHandler>();
+
 LoggerProviderOptions.RegisterProviderOptions<EventLogSettings, EventLogLoggerProvider>(builder.Services);
- 
 
 //On docker gonna be comment
 builder.Logging.AddEventLog(eventLogSettings =>
@@ -66,14 +67,13 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 	eventBus.Subscribe<TransferTransactionInsertingIntegrationEvent, TransferTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WastageTransactionInsertingIntegrationEvent, WastageTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WholeSalesDispatchTransactionInsertingIntegrationEvent, WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
- 	eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertingIntegrationEvent, WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>(); 
+	eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertingIntegrationEvent, WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WorkOrderChangeStatusInsertedIntegrationEvent, WorkOrderChangeStatusInsertedIntegrationEventHandler>();
-		eventBus.Subscribe<PurchaseOrderInsertingIntegrationEvent, PurchaseOrderInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<PurchaseOrderInsertingIntegrationEvent, PurchaseOrderInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<SalesOrderInsertingIntegrationEvent, SalesOrderInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<StopTransactionForWorkOrderInsertedIntegrationEvent, StopTransactionForWorkOrderInsertedIntegrationEventHandler>();
 	eventBus.Subscribe<CustomerInsertingIntegrationEvent, CustomerInsertingIntegrationEventHandler>();
-
- 
+	eventBus.Subscribe<VariantInsertingIntegrationEvent, VariantInsertingIntegrationEventHandler>();
 
 	return eventBus;
 });

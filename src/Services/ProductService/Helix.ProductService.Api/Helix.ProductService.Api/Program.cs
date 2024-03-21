@@ -15,20 +15,17 @@ IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettin
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
 
-
-
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
-    return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
-    {
-        ConnectionRetryCount = 5,
-        SubscriperClientAppName = "LBSService",
-        DefaultTopicName = "HelixTopicName",
-        EventBusType = EventBusType.RabbitMQ,
-        EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"], 
-        EventNameSuffix = nameof(IntegrationEvent),
-        
-    }, eb);
+	return EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig
+	{
+		ConnectionRetryCount = 5,
+		SubscriperClientAppName = "LBSService",
+		DefaultTopicName = "HelixTopicName",
+		EventBusType = EventBusType.RabbitMQ,
+		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
+		EventNameSuffix = nameof(IntegrationEvent),
+	}, eb);
 });
 
 var serviceProvider = builder.Services.BuildServiceProvider();
@@ -41,10 +38,7 @@ eventBus.Subscribe<ProductionTransactionInsertingIntegrationEvent, ProductionTra
 eventBus.Subscribe<TransferTransactionInsertingIntegrationEvent, TransferTransactionInsertingIntegrationEventHandler>();
 eventBus.Subscribe<WastageTransactionInsertingIntegrationEvent, WastageTransactionInsertingIntegrationEventHandler>();
 eventBus.Subscribe<OutCountingTransactionInsertingIntegrationEvent, OutCountingTransactionInsertingIntegrationEventHandler>();
-
-
-
-
+eventBus.Subscribe<VariantInsertingIntegrationEvent, VariantInsertingIntegrationEventHandler>();
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
@@ -54,11 +48,11 @@ eventBus.Subscribe<OutCountingTransactionInsertingIntegrationEvent, OutCountingT
 builder.Services.AddTransient<ICommercialProductService, CommercialProductDataStore>();
 builder.Services.AddTransient<IEndProductService, EndProductDataStore>();
 builder.Services.AddTransient<IFixedAssetProductService, FixedAssetProductDataStore>();
-builder.Services.AddTransient<ISemiProductService,SemiProductDataStore>();
+builder.Services.AddTransient<ISemiProductService, SemiProductDataStore>();
 builder.Services.AddTransient<IRawProductService, RawProductDataStore>();
 builder.Services.AddTransient<IWarehouseService, WarehouseDataStore>();
 builder.Services.AddTransient<IConsumableTransactionService, ConsumableTransactionDataStore>();
-builder.Services.AddTransient<IConsumableTransactionLineService,ConsumableTransactionLineDataStore>();
+builder.Services.AddTransient<IConsumableTransactionLineService, ConsumableTransactionLineDataStore>();
 builder.Services.AddTransient<IInCountingTransactionService, InCountingTransactionDataStore>();
 builder.Services.AddTransient<IInCountingTransactionLineService, InCountingTransactionLineDataStore>();
 builder.Services.AddTransient<IOutCountingTransactionService, OutCountingTransactionDataStore>();
@@ -77,21 +71,11 @@ builder.Services.AddTransient<IWarehouseTransactionService, WarehouseTransaction
 builder.Services.AddTransient<IWarehouseTotalService, WarehouseTotalDataStore>();
 builder.Services.AddTransient<IWarehouseParameterService, WarehouseParameterDataStore>();
 
-
-
-
-
-
-
-
-
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-
 
 var app = builder.Build();
 

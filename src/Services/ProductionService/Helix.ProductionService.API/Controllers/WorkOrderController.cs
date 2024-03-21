@@ -10,11 +10,10 @@ namespace Helix.ProductionService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	//[Authorize]
 	public class WorkOrderController : ControllerBase
 	{
-		IWorkOrderService _workOrderService;
-		IEventBus _eventBus;
+		private IWorkOrderService _workOrderService;
+		private IEventBus _eventBus;
 
 		public WorkOrderController(IWorkOrderService workOrderService, IEventBus eventBus)
 		{
@@ -37,7 +36,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		}
 
 		[HttpGet("Status")]
-		public async Task<DataResult<IEnumerable<WorkOrder>>> GetByStatus([FromQuery(Name = "status")]int[] status)
+		public async Task<DataResult<IEnumerable<WorkOrder>>> GetByStatus([FromQuery(Name = "status")] int[] status)
 		{
 			var result = await _workOrderService.GetWorkOrderByStatus(status);
 			return result;
@@ -72,14 +71,17 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		}
 
 		[HttpGet("Product/Id/{id:int}")]
-		public async Task <DataResult<IEnumerable<WorkOrder>>> GetByProductId(int id)
+		public async Task<DataResult<IEnumerable<WorkOrder>>> GetByProductId(int id)
 		{
-			var result= await _workOrderService.GetWorkOrderByProductId(id);
+			var result = await _workOrderService.GetWorkOrderByProductId(id);
 			return result;
 		}
 
-
-
+		/// <summary>
+		/// //// /Inserts the actual quantity of the work order
+		/// </summary>
+		/// <param name="workOrderDto"></param>
+		/// <returns></returns>
 
 		[HttpPost("InsertActualQuantity")]
 		public async Task WorkOrderInsert([FromBody] WorkOrderDto workOrderDto)
@@ -100,6 +102,5 @@ namespace Helix.ProductionService.WebAPI.Controllers
 				status: workOrderChangeStatusDto.status,
 				deleteFiche: workOrderChangeStatusDto.deleteFiche));
 		}
-
 	}
 }
