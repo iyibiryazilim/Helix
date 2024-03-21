@@ -17,7 +17,7 @@ namespace Helix.LBSService.Tiger.DataStores
 
 		public async Task<DataResult<WorkOrderDto>> Insert(WorkOrdersDto dtos)
 		{
-			var unity = Global.UnityApp;
+			UnityApplication unity = Global.UnityApp;
 			DataResult<WorkOrderDto> result;
 			if (!unity.LoggedIn)
 				await _unityApplicationService.LogIn();
@@ -63,7 +63,7 @@ namespace Helix.LBSService.Tiger.DataStores
 
 		public async Task<DataResult<WorkOrderDto>> InsertStopTransaction(StopTransactionForWorkOrderDto dtos)
 		{
-			var unity = Global.UnityApp;
+			UnityApplication unity = Global.UnityApp;
 			DataResult<WorkOrderDto> result;
 			ProductionApplication ProdApp = unity.NewProductionApplication();
 			if (!unity.LoggedIn)
@@ -107,7 +107,7 @@ namespace Helix.LBSService.Tiger.DataStores
 
 		public async Task<DataResult<WorkOrderDto>> InsertWorkOrderStatus(WorkOrderChangeStatusDto dtos)
 		{
-			var unity = Global.UnityApp;
+			UnityApplication unity = Global.UnityApp;
 			DataResult<WorkOrderDto> result;
 			ProductionApplication ProdApp = unity.NewProductionApplication();
 			if (!unity.LoggedIn)
