@@ -1,15 +1,12 @@
-using Helix.ProductionService.Application.Services;
-using Helix.ProductionService.Infrastructure.Repository;
-using Helix.ProductionService.WebAPI.ConsulRegistrations;
-using Serilog;
-using RabbitMQ.Client;
-using Helix.EventBus.Base.Abstractions;
-using Helix.EventBus.Factory;
 using Helix.EventBus.Base;
+using Helix.EventBus.Base.Abstractions;
 using Helix.EventBus.Base.Events;
+using Helix.EventBus.Factory;
+using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Infrastructure.EventHandlers;
-using Helix.ProductionService.WebAPI.AuthRegistrations;
+using Helix.ProductionService.Infrastructure.Repository;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Services.ConfigureAuth(builder.Configuration);
