@@ -14,6 +14,7 @@ namespace Helix.LBSService.PostConsumer.Events
 			IOType = 4;
 			Lines = new List<OutCountingTransactionLineDto>();
 		}
+
 		public int? ReferenceId { get; set; }
 		public DateTime TransactionDate { get; set; } = DateTime.Now;
 		public string? Code { get; set; } = string.Empty;
@@ -26,6 +27,7 @@ namespace Helix.LBSService.PostConsumer.Events
 		public string? DoCode { get; set; } = string.Empty;
 		public string? DocTrackingNumber { get; set; } = string.Empty;
 	}
+
 	public class OutCountingTransactionLineDto : ProductTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }

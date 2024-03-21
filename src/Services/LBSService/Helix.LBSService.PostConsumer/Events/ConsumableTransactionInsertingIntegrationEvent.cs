@@ -8,13 +8,14 @@ namespace Helix.LBSService.PostConsumer.Events
 		public IList<ConsumableTransactionLineDto> Lines { get; set; }
 
 		public ConsumableTransactionInsertingIntegrationEvent()
-        {
+		{
 			TransactionType = 12;
 			IOType = 4;
 			Lines = new List<ConsumableTransactionLineDto>();
 		}
+
 		public string EmployeeOid { get; set; } = string.Empty;
-        public int? ReferenceId { get; set; }
+		public int? ReferenceId { get; set; }
 		public DateTime TransactionDate { get; set; } = DateTime.Now;
 		public string? Code { get; set; } = string.Empty;
 		public short? GroupType { get; set; } = 3;
@@ -26,6 +27,7 @@ namespace Helix.LBSService.PostConsumer.Events
 		public string? DoCode { get; set; } = string.Empty;
 		public string? DocTrackingNumber { get; set; } = string.Empty;
 	}
+
 	public class ConsumableTransactionLineDto : ProductTransactionLineDto
 	{
 		//public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
@@ -37,5 +39,4 @@ namespace Helix.LBSService.PostConsumer.Events
 			//SeriLotTransactions = new List<SeriLotTransactionDto>();
 		}
 	}
-
 }

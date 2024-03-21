@@ -5,23 +5,23 @@ using System.Text.Json;
 
 namespace Helix.LBSService.PostConsumer.Events
 {
-	public class PurchaseReturnDispatchTransactionInsertingIntegrationEventHandler : IIntegrationEventHandler<PurchaseReturnDispatchTransactionInsertingIntegrationEvent>
+	public class WorkOrderStopTransactionInsertingIntegrationEventHandler : IIntegrationEventHandler<WorkOrderStopTransactionInsertingIntegrationEvent>
 	{
 		private readonly IHttpClientService _httpClientService;
-		private readonly ILogger<PurchaseReturnDispatchTransactionInsertingIntegrationEventHandler> _logger;
+		private readonly ILogger<WorkOrderStopTransactionInsertingIntegrationEventHandler> _logger;
 
-		public PurchaseReturnDispatchTransactionInsertingIntegrationEventHandler(IHttpClientService httpClientService, ILogger<PurchaseReturnDispatchTransactionInsertingIntegrationEventHandler> logger)
+		public WorkOrderStopTransactionInsertingIntegrationEventHandler(IHttpClientService httpClientService, ILogger<WorkOrderStopTransactionInsertingIntegrationEventHandler> logger)
 		{
 			_httpClientService = httpClientService;
 			_logger = logger;
 		}
 
-		public async Task Handle(PurchaseReturnDispatchTransactionInsertingIntegrationEvent @event)
+		public async Task Handle(WorkOrderStopTransactionInsertingIntegrationEvent @event)
 		{
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			try
 			{
-				string apiUrl = "/api/PurchaseReturnDispatchTransaction/Insert"; // Replace with your actual API endpoint
+				string apiUrl = "/api/WorkOrder/StopTransaction"; // Replace with your actual API endpoint
 				var json = JsonSerializer.Serialize(@event);
 
 				StringContent content = new StringContent(json, Encoding.UTF8, "application/json");

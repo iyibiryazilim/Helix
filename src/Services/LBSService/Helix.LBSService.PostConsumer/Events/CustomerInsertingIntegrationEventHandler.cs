@@ -27,6 +27,7 @@ namespace Helix.LBSService.PostConsumer.Events
 
 				StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 				HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+
 				string responseBody = await response.Content.ReadAsStringAsync();
 				// Deserialize the JSON response
 				JObject jsonResponse = JObject.Parse(responseBody);

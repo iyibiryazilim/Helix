@@ -52,6 +52,11 @@ namespace Helix.LBSService.PostConsumer
 			_eventBus.Consume(new SalesOrderInsertingIntegrationEvent());
 			_eventBus.Consume(new CustomerInsertingIntegrationEvent());
 			_eventBus.Consume(new VariantInsertingIntegrationEvent());
+			_eventBus.Consume(new WorkOrderStopTransactionInsertingIntegrationEvent());
+			_eventBus.Consume(new WorkOrderInsertActualQuantityIntegrationEvent());
+			_eventBus.Consume(new OutSourceWorkOrderStopTransactionInsertingIntegrationEvent());
+			_eventBus.Consume(new OutSourceWorkOrderInsertActualQuantityIntegrationEvent());
+			_eventBus.Consume(new OutSourceWorkOrderChangeStatusInsertedIntegrationEvent());
 
 			while (!stoppingToken.IsCancellationRequested)
 			{

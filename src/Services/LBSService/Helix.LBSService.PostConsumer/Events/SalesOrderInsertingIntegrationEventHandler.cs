@@ -7,8 +7,8 @@ namespace Helix.LBSService.PostConsumer.Events
 {
 	public class SalesOrderInsertingIntegrationEventHandler : IIntegrationEventHandler<SalesOrderInsertingIntegrationEvent>
 	{
-		readonly IHttpClientService _httpClientService;
-		readonly ILogger<OutCountingTransactionInsertingIntegrationEventHandler> _logger;
+		private readonly IHttpClientService _httpClientService;
+		private readonly ILogger<OutCountingTransactionInsertingIntegrationEventHandler> _logger;
 
 		public SalesOrderInsertingIntegrationEventHandler(IHttpClientService httpClientService, ILogger<OutCountingTransactionInsertingIntegrationEventHandler> logger)
 		{
@@ -16,12 +16,12 @@ namespace Helix.LBSService.PostConsumer.Events
 			this._logger = logger;
 		}
 
- 		public async Task Handle(SalesOrderInsertingIntegrationEvent @event)
+		public async Task Handle(SalesOrderInsertingIntegrationEvent @event)
 		{
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			try
 			{
-				string apiUrl = "/api/SalesOrder/Insert"; // Replace with your actual API endpoint 
+				string apiUrl = "/api/SalesOrder/Insert"; // Replace with your actual API endpoint
 				var json = JsonSerializer.Serialize(@event);
 
 				StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -40,19 +40,16 @@ namespace Helix.LBSService.PostConsumer.Events
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
 				throw;
-
 			}
 			catch (JsonException ex)
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
 				throw;
-
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
 				throw;
-
 			}
 		}
 	}

@@ -3,7 +3,6 @@ using Helix.ProductionService.Application.Services;
 using Helix.ProductionService.Domain.Dtos;
 using Helix.ProductionService.Domain.Events;
 using Helix.ProductionService.Domain.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.ProductionService.WebAPI.Controllers
@@ -77,16 +76,10 @@ namespace Helix.ProductionService.WebAPI.Controllers
 			return result;
 		}
 
-		/// <summary>
-		/// //// /Inserts the actual quantity of the work order
-		/// </summary>
-		/// <param name="workOrderDto"></param>
-		/// <returns></returns>
-
 		[HttpPost("InsertActualQuantity")]
-		public async Task WorkOrderInsert([FromBody] WorkOrderDto workOrderDto)
+		public async Task WorkOrderInsertActualQuantityInsert([FromBody] WorkOrderDto workOrderDto)
 		{
-			_eventBus.Publish(new WorkOrderInsertedIntegrationEvent(workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
+			_eventBus.Publish(new WorkOrderInsertActualQuantityIntegrationEvent(workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
 		}
 
 		[HttpPost("WorkOrders")]
@@ -101,6 +94,12 @@ namespace Helix.ProductionService.WebAPI.Controllers
 			_eventBus.Publish(new WorkOrderChangeStatusInsertedIntegrationEvent(ficheNo: workOrderChangeStatusDto.ficheNo,
 				status: workOrderChangeStatusDto.status,
 				deleteFiche: workOrderChangeStatusDto.deleteFiche));
+		}
+
+		[HttpPost("StopTransaction")]
+		public async Task WorkOrderStopTransaction([FromBody] StopTransactionForWorkOrderDto stopTransactionForWorkOrderDto)
+		{
+			_eventBus.Publish(new WorkOrderStopTransactionInsertingIntegrationEvent(stopTransactionForWorkOrderDto.workOrderReferenceId, stopTransactionForWorkOrderDto.stopCauseReferenceId, stopTransactionForWorkOrderDto.stopDate, stopTransactionForWorkOrderDto.stopTime));
 		}
 	}
 }

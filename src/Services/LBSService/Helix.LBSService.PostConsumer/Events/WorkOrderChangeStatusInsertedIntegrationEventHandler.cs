@@ -5,54 +5,53 @@ using System.Text.Json;
 
 namespace Helix.LBSService.PostConsumer.Events
 {
-    public class WorkOrderChangeStatusInsertedIntegrationEventHandler : IIntegrationEventHandler<WorkOrderChangeStatusInsertedIntegrationEvent>
+	public class WorkOrderChangeStatusInsertedIntegrationEventHandler : IIntegrationEventHandler<WorkOrderChangeStatusInsertedIntegrationEvent>
 
-    {
-        readonly IHttpClientService _httpClientService;
-        readonly ILogger<WorkOrderChangeStatusInsertedIntegrationEventHandler> _logger;
-        public WorkOrderChangeStatusInsertedIntegrationEventHandler(IHttpClientService httpClientService, ILogger<WorkOrderChangeStatusInsertedIntegrationEventHandler> logger)
-        {
-            _httpClientService = httpClientService;
-            _logger = logger;
-        }
-        public async Task Handle(WorkOrderChangeStatusInsertedIntegrationEvent @event)
-        {
-            var httpClient = _httpClientService.GetOrCreateHttpClient();
-            try
-            {
-                string apiUrl = "/api/WorkOrder/Status"; // Replace with your actual API endpoint 
-                var json = JsonSerializer.Serialize(@event);
+	{
+		private readonly IHttpClientService _httpClientService;
+		private readonly ILogger<WorkOrderChangeStatusInsertedIntegrationEventHandler> _logger;
 
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+		public WorkOrderChangeStatusInsertedIntegrationEventHandler(IHttpClientService httpClientService, ILogger<WorkOrderChangeStatusInsertedIntegrationEventHandler> logger)
+		{
+			_httpClientService = httpClientService;
+			_logger = logger;
+		}
 
-                if (response.IsSuccessStatusCode)
-                {
-                    _logger.LogInformation($" [>] Successfully posted DTO to API.");
-                }
-                else
-                {
-                    _logger.LogError($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                _logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
-                throw;
+		public async Task Handle(WorkOrderChangeStatusInsertedIntegrationEvent @event)
+		{
+			var httpClient = _httpClientService.GetOrCreateHttpClient();
+			try
+			{
+				string apiUrl = "/api/WorkOrder/Status"; // Replace with your actual API endpoint
+				var json = JsonSerializer.Serialize(@event);
 
-            }
-            catch (JsonException ex)
-            {
-                _logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
-                throw;
+				StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+				HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
 
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
-                throw;
-
-            }
-        }
-    }
+				if (response.IsSuccessStatusCode)
+				{
+					_logger.LogInformation($" [>] Successfully posted DTO to API.");
+				}
+				else
+				{
+					_logger.LogError($" [!] Failed to post DTO to API. Status code: {response.StatusCode}");
+				}
+			}
+			catch (HttpRequestException ex)
+			{
+				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
+				throw;
+			}
+			catch (JsonException ex)
+			{
+				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
+				throw;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
+				throw;
+			}
+		}
+	}
 }
