@@ -13,6 +13,7 @@ namespace Helix.LBSService.PostConsumer.Events
 			TransactionType = 1;
 			Lines = new List<PurchaseReturnDispatchLineDto>();
 		}
+
 		public int? ReferenceId { get; set; }
 		public DateTime TransactionDate { get; set; } = DateTime.Now;
 		public string? Code { get; set; } = string.Empty;
@@ -25,6 +26,7 @@ namespace Helix.LBSService.PostConsumer.Events
 		public string? DoCode { get; set; } = string.Empty;
 		public string? DocTrackingNumber { get; set; } = string.Empty;
 	}
+
 	public class PurchaseReturnDispatchLineDto : ProductTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }

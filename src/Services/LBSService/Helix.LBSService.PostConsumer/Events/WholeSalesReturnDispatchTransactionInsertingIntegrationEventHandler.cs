@@ -2,23 +2,26 @@
 using Helix.LBSService.PostConsumer.Helper;
 using System.Text;
 using System.Text.Json;
+
 namespace Helix.LBSService.PostConsumer.Events
 {
 	public class WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler : IIntegrationEventHandler<WholeSalesReturnDispatchTransactionInsertingIntegrationEvent>
 	{
-		readonly IHttpClientService _httpClientService;
-		readonly ILogger<WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler> _logger;
+		private readonly IHttpClientService _httpClientService;
+		private readonly ILogger<WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler> _logger;
+
 		public WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler(IHttpClientService httpClientService, ILogger<WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler> logger)
 		{
 			_httpClientService = httpClientService;
 			_logger = logger;
 		}
+
 		public async Task Handle(WholeSalesReturnDispatchTransactionInsertingIntegrationEvent @event)
 		{
 			var httpClient = _httpClientService.GetOrCreateHttpClient();
 			try
 			{
-				string apiUrl = "/api/WholeSalesReturnDispatchTransaction/Insert"; // Replace with your actual API endpoint 
+				string apiUrl = "/api/WholeSalesReturnDispatchTransaction/Insert"; // Replace with your actual API endpoint
 				var json = JsonSerializer.Serialize(@event);
 
 				StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -37,21 +40,17 @@ namespace Helix.LBSService.PostConsumer.Events
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
 				throw;
-
 			}
 			catch (JsonException ex)
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
 				throw;
-
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
 				throw;
-
 			}
-
 		}
 	}
 }
