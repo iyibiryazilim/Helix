@@ -6,15 +6,14 @@
 
 		public SalesOrderDto()
 		{
- 			Lines = new List<SalesOrderLineDto>();
+			Lines = new List<SalesOrderLineDto>();
 		}
 	}
 
 	public class SalesOrderLineDto : OrderLineDto
 	{
-        public SalesOrderLineDto()
-        {
-            
-        }
-    }
+		public SalesOrderLineDto()
+		{
+		}
+	}
 }

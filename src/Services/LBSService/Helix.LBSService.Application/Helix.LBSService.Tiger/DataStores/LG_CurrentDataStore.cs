@@ -10,13 +10,15 @@ namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_CurrentDataStore : ILG_CurrentService
 	{
-		IUnityApplicationService _unityApplicationService;
- 		ILogger<LG_CurrentDataStore> _logger;
-		public LG_CurrentDataStore(ILogger<LG_CurrentDataStore> logger, IUnityApplicationService unityApplicationService )
+		private IUnityApplicationService _unityApplicationService;
+		private ILogger<LG_CurrentDataStore> _logger;
+
+		public LG_CurrentDataStore(ILogger<LG_CurrentDataStore> logger, IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
- 			_logger = logger;
+			_logger = logger;
 		}
+
 		public async Task<DataResult<LG_Current>> Insert(LG_Current dto)
 		{
 			UnityApplication unity = Global.UnityApp;
@@ -24,17 +26,15 @@ namespace Helix.LBSService.Tiger.DataStores
 
 			try
 			{
-
 				if (!unity.LoggedIn)
 					await _unityApplicationService.LogIn();
 
 				if (unity.LoggedIn)
 				{
-
 					try
 					{
 						Data items = unity.NewDataObject(DataObjectType.doAccountsRP);
-						items.New(); 
+						items.New();
 
 						items.DataFields.FieldByName("ACCOUNT_TYPE").Value = dto.ACCOUNT_TYPE;
 						items.DataFields.FieldByName("CODE").Value = dto.CODE;
@@ -55,7 +55,7 @@ namespace Helix.LBSService.Tiger.DataStores
 						items.DataFields.FieldByName("TAX_OFFICE").Value = dto.TAX_OFFICE;
 						items.DataFields.FieldByName("PAYMENT_CODE").Value = dto.PAYMENT_CODE;
 						items.DataFields.FieldByName("E_MAIL").Value = dto.E_MAIL;
- 						items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
+						items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
 						items.DataFields.FieldByName("DATE_CREATED").Value = dto.DATE_CREATED;
 						items.DataFields.FieldByName("HOUR_CREATED").Value = dto.HOUR_CREATED;
 						items.DataFields.FieldByName("MIN_CREATED").Value = dto.MIN_CREATED;
@@ -96,19 +96,16 @@ namespace Helix.LBSService.Tiger.DataStores
 						if (items.Post())
 						{
 							var referenceId = Convert.ToInt32(items.DataFields.FieldByName("INTERNAL_REFERENCE").Value.ToString());
- 
 
 							result.Data = null;
 							result.IsSuccess = true;
 							result.Message = "Success";
 							_logger.LogInformation($"Current Inserted :{referenceId}");
-						 
 						}
 						else
 						{
 							result.IsSuccess = false;
 							result.Message = new ErrorHelper().GetError(items);
-							 
 						}
 					}
 					catch (Exception ex)
@@ -132,7 +129,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						IsSuccess = false,
 						Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 					};
-
 				}
 			}
 			catch (Exception ex)

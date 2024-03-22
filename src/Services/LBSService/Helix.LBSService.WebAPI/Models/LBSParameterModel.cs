@@ -12,7 +12,5 @@
 		public string DB_InitialCatalog { get; set; } = string.Empty;
 		public bool IsTiger { get; set; } = false;
 		public string Connection { get; set; } = string.Empty;
-
-
 	}
 }

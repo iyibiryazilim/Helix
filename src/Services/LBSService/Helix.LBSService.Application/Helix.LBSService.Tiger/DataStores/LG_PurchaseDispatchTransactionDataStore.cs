@@ -9,11 +9,13 @@ namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_PurchaseDispatchTransactionDataStore : ILG_PurchaseDispatchTransactionService
 	{
-		IUnityApplicationService _unityApplicationService;
+		private IUnityApplicationService _unityApplicationService;
+
 		public LG_PurchaseDispatchTransactionDataStore(IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
 		}
+
 		public async Task<DataResult<LG_PurchaseDispatchTransaction>> Insert(LG_PurchaseDispatchTransaction dto)
 		{
 			UnityApplication unity = Global.UnityApp;
@@ -32,7 +34,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 			if (unity.LoggedIn)
 			{
-
 				try
 				{
 					if (unity != null)
@@ -88,14 +89,10 @@ namespace Helix.LBSService.Tiger.DataStores
 							items.DataFields.FieldByName("EDESPATCH_PROFILEID").Value = dto.EDESPATCH_PROFILEID;
 							items.DataFields.FieldByName("EINVOICE_PROFILEID").Value = dto.EINVOICE_PROFILEID;
 
-
-
 							Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
-
 
 							foreach (var line in dto.TRANSACTIONS)
 							{
-
 								dtos_lines.AppendLine();
 
 								dtos_lines[dtos_lines.Count - 1].FieldByName("TYPE").Value = line.TYPE;
@@ -158,7 +155,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 										//sl_details0[sl_details0.Count - 1].FieldByName("DATE_EXPIRED").Value = DateTime.Now.AddDays(90);
 									}
-
 								}
 							}
 
@@ -169,7 +165,7 @@ namespace Helix.LBSService.Tiger.DataStores
 
 								result.Data = null;
 								result.IsSuccess = true;
-								result.Message = "Success"; 
+								result.Message = "Success";
 							}
 							else
 							{
@@ -187,7 +183,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						result.IsSuccess = false;
 						result.Message = "Unity is null";
-
 					}
 				}
 				catch (Exception ex)
@@ -208,7 +203,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
-
 			}
 			return await Task.FromResult(result);
 		}

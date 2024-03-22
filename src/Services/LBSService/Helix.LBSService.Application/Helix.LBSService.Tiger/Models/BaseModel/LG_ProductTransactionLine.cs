@@ -5,8 +5,8 @@
 		public LG_ProductTransactionLine()
 		{
 			SLTRANS = new List<LG_SeriLotTransaction>();
-
 		}
+
 		public IList<LG_SeriLotTransaction> SLTRANS { get; set; }
 
 		/// <summary>
@@ -28,6 +28,7 @@
 		/// Sipariş Miktarı
 		/// </summary>
 		public double QUANTITY { get; set; } = default;
+
 		public string ITEM_CODE { get; set; } = string.Empty;
 		public short LINE_TYPE { get; set; } = default;
 		public short PRORD_TYPE { get; set; } = default;

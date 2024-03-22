@@ -10,6 +10,7 @@
 			Lines = new List<WholeSalesReturnTransactionLineDto>();
 		}
 	}
+
 	public class WholeSalesReturnTransactionLineDto : DispatchTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }

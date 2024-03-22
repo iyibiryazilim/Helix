@@ -8,6 +8,7 @@ namespace Helix.LBSService.Tiger.Models
 		{
 			SLTRANS = new List<LG_SeriLotTransaction>();
 		}
+
 		public IList<LG_SeriLotTransaction> SLTRANS { get; set; }
 		public int ORDER_REFERENCE { get; set; } = default;
 		public string GL_CODE1 { get; set; } = string.Empty;

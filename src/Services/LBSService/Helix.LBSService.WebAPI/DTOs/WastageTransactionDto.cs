@@ -12,13 +12,13 @@
 			Lines = new List<WastageTransactionLineDto>();
 		}
 	}
+
 	public class WastageTransactionLineDto : ProductTransactionLineDto
 	{
 		public WastageTransactionLineDto()
 		{
 			TransactionType = 11;
 			IOType = 4;
-
 		}
 	}
 }

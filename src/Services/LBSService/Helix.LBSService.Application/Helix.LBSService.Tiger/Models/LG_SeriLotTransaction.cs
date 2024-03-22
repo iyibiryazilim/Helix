@@ -1,7 +1,7 @@
 ﻿namespace Helix.LBSService.Tiger.Models
 {
 	public class LG_SeriLotTransaction
-    {
+	{
 		public int SOURCE_MT_REFERENCE { get; set; } = default;
 		public int SOURCE_SLT_REFERENCE { get; set; } = default;
 		public DateTime DATE { get; set; } = DateTime.Now;

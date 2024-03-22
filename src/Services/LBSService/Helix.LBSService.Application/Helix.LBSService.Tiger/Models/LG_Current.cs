@@ -3,8 +3,8 @@
 	public class LG_Current
 	{
 		public int ACCOUNT_TYPE { get; set; } = 3;
-        public string CODE { get; set; } = string.Empty;
-        public string TITLE { get; set; } = string.Empty;
+		public string CODE { get; set; } = string.Empty;
+		public string TITLE { get; set; } = string.Empty;
 		public string AUXIL_CODE { get; set; } = string.Empty;
 		public string ADDRESS1 { get; set; } = string.Empty;
 		public string ADDRESS2 { get; set; } = string.Empty;
@@ -15,13 +15,13 @@
 		public string CITY_CODE { get; set; } = string.Empty;
 		public string CITY { get; set; } = string.Empty;
 		public string COUNTRY_CODE { get; set; } = string.Empty;
-		public string COUNTRY { get; set; } = string.Empty; 
+		public string COUNTRY { get; set; } = string.Empty;
 		public string TELEPHONE1 { get; set; } = string.Empty;
 		public string TAX_ID { get; set; } = string.Empty;
 		public string TAX_OFFICE { get; set; } = string.Empty;
 		public string PAYMENT_CODE { get; set; } = string.Empty;
 		public string E_MAIL { get; set; } = string.Empty;
-		public int CREATED_BY { get; set; } = default; 
+		public int CREATED_BY { get; set; } = default;
 		public DateTime DATE_CREATED { get; set; } = DateTime.Now;
 		public int HOUR_CREATED { get; set; } = DateTime.Now.Hour;
 		public int MIN_CREATED { get; set; } = DateTime.Now.Minute;
@@ -53,14 +53,14 @@
 		public int EARCHIVE_SEND_MODE { get; set; } = default;
 		public string TITLE2 { get; set; } = string.Empty;
 		public string POST_LABEL { get; set; } = string.Empty;
-		public string SENDER_LABEL { get; set; } = string.Empty; 
+		public string SENDER_LABEL { get; set; } = string.Empty;
 		public int PROFILEID_DESP { get; set; } = default;
 		public string POST_LABEL_CODE_DESP { get; set; } = string.Empty;
 		public string SENDER_LABEL_CODE_DESP { get; set; } = string.Empty;
 		public Guid GUID { get; set; } = Guid.NewGuid();
 		public int DATA_REFERENCE { get; set; } = default;
 
-		public int DISP_PRINT_CNT { get; set; } = default; 
-		public int ORD_PRINT_CNT { get; set; } = default; 
+		public int DISP_PRINT_CNT { get; set; } = default;
+		public int ORD_PRINT_CNT { get; set; } = default;
 	}
 }

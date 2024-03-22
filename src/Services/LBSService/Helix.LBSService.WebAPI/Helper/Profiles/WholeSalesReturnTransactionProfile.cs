@@ -7,8 +7,8 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 {
 	public class WholeSalesReturnTransactionProfile : Profile
 	{
-        public WholeSalesReturnTransactionProfile()
-        {
+		public WholeSalesReturnTransactionProfile()
+		{
 			CreateMap<WholeSalesReturnTransactionDto, LG_WholeSalesReturnDispatchTransaction>()
 			 .ForMember(d => d.NUMBER, o => o.MapFrom(s => s.Code))
 				.ForMember(d => d.DATE, o => o.MapFrom(s => s.TransactionDate))
@@ -51,5 +51,5 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 				 .ForMember(d => d.GRPCODE, o => o.MapFrom(s => s.GroupType))
 				 .ForMember(d => d.SOURCEINDEX, o => o.MapFrom(s => s.WarehouseNumber));
 		}
-    }
+	}
 }

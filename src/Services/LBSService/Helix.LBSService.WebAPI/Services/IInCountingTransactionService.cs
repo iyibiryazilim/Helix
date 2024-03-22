@@ -6,6 +6,5 @@ namespace Helix.LBSService.WebAPI.Services
 	public interface IInCountingTransactionService
 	{
 		public Task<DataResult<InCountingTransactionDto>> Insert(InCountingTransactionDto dto);
-
 	}
 }
