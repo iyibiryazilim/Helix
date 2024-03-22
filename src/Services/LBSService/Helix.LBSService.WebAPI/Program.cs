@@ -19,7 +19,6 @@ IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettin
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
 
-
 LBSParameterModel parameterModel = builder.Configuration.GetSection(nameof(LBSParameter)).Get<LBSParameterModel>();
 LBSParameter.FirmNumber = parameterModel.FirmNumber;
 LBSParameter.IsTiger = parameterModel.IsTiger;
@@ -38,7 +37,6 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		EventBusType = EventBusType.RabbitMQ,
 		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
 		EventNameSuffix = nameof(IntegrationEvent),
-
 	}, eb);
 });
 
@@ -50,8 +48,7 @@ eventBus.Subscribe<LOGOSuccessIntegrationEvent, LOGOSuccessIntegrationEventHandl
 eventBus.Subscribe<LOGOFailureIntegrationEvent, LOGOFailureIntegrationEventHandler>();
 eventBus.Subscribe<SYSMessageIntegrationEvent, SYSMessageIntegrationEventHandler>();
 
-
-// Add services to the container. 
+// Add services to the container.
 builder.Services.AddLogging();
 builder.Services.AddTransient<IUnityApplicationService, UnityApplicationDataStore>();
 builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
@@ -70,7 +67,7 @@ builder.Services.AddTransient<ILG_WorkOrderService, LG_WorkOrderDataStore>();
 builder.Services.AddTransient<ILG_WastageTransactionService, LG_WastageTransactionDataStore>();
 builder.Services.AddTransient<ILG_STFICHE_Context, LG_STFICHE_Context>();
 builder.Services.AddTransient<ILG_SalesOrderService, LG_SalesOrderDataStore>();
-builder.Services.AddTransient<ILG_PurchaseOrderService, LG_PurchaseOrderDataStore>(); 
+builder.Services.AddTransient<ILG_PurchaseOrderService, LG_PurchaseOrderDataStore>();
 builder.Services.AddTransient<ILG_CurrentService, LG_CurrentDataStore>();
 builder.Services.AddTransient<ILG_VariantService, LG_VariantDataStore>();
 builder.Services.AddTransient<ILG_STLINE_Context, LG_STLINE_Context>();
@@ -90,11 +87,9 @@ builder.Services.AddTransient<IInCountingTransactionService, InCountingTransacti
 builder.Services.AddTransient<IOutCountingTransactionService, OutCountingTransactionDataStore>();
 builder.Services.AddTransient<IPurchaseOrderService, PurchaseOrderDataStore>();
 builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
-
+builder.Services.AddTransient<IWorkOrderService, WorkOrderDataStore>();
 
 builder.Services.AddControllers();
-
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
