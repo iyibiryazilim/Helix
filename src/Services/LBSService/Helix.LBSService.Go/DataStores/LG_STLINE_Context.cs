@@ -7,10 +7,10 @@ namespace Helix.LBSService.Go.DataStores;
 
 public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 {
+	private readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
+	private readonly int _defaultPeriodNumber = LBSParameter.Period;
+	private readonly string _connectionString = LBSParameter.Connection;
 
-	readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
-	readonly int _defaultPeriodNumber = LBSParameter.Period;
-	readonly string _connectionString = LBSParameter.Connection;
 	public LG_STLINE_Context()
 	{
 	}
@@ -20,7 +20,6 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 		Dispose(true);
 		GC.SuppressFinalize(this);
 	}
-
 
 	protected virtual void Dispose(bool disposing)
 	{
@@ -138,7 +137,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
            ,SALESMANREF
            ,FAPLACCREF
            ,FAPLCENTERREF
-           ,OUTPUTIDCODE 
+           ,OUTPUTIDCODE
              )
             VALUES (
             @STOCKREF
@@ -241,16 +240,17 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
            ,@SALESMANREF
            ,@FAPLACCREF
            ,@FAPLCENTERREF
-           ,@OUTPUTIDCODE  
+           ,@OUTPUTIDCODE
            ); SELECT SCOPE_IDENTITY();";
- 		try
+		try
 		{
-            var referenceId = 0;
+			var referenceId = 0;
 			await using SqlConnection connection = new SqlConnection(_connectionString);
 			await using (SqlCommand command = new SqlCommand(lineQuery, connection))
 			{
 				command.CommandTimeout = 600;
 				await connection.OpenAsync();
+
 				#region Set Line
 
 				command.Parameters.AddWithValue(nameof(dto.LOGICALREF), dto.LOGICALREF);
@@ -359,14 +359,14 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 				command.Parameters.AddWithValue(nameof(dto.FAPLCENTERREF), dto.FAPLCENTERREF);
 				command.Parameters.AddWithValue(nameof(dto.OUTPUTIDCODE), dto.OUTPUTIDCODE);
 
-				#endregion
+				#endregion Set Line
+
 				var id = await command.ExecuteScalarAsync();
-                referenceId = Convert.ToInt32(id);
-				 
- 			}
-            lineQuery = $@"UPDATE [dbo].[LG_{_defaultFirmNumber.ToString().PadLeft(3, '0')}_{_defaultPeriodNumber.ToString().PadLeft(2, '0')}_STLINE]
-   SET [DREF] = @DREF 
-      ,[COSTRATE] = @COSTRATE 
+				referenceId = Convert.ToInt32(id);
+			}
+			lineQuery = $@"UPDATE [dbo].[LG_{_defaultFirmNumber.ToString().PadLeft(3, '0')}_{_defaultPeriodNumber.ToString().PadLeft(2, '0')}_STLINE]
+   SET [DREF] = @DREF
+      ,[COSTRATE] = @COSTRATE
       ,[XPRICEUPD] = @XPRICEUPD
       ,[XPRICE] = @XPRICE
       ,[XREPRATE] = @XREPRATE
@@ -387,10 +387,10 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
       ,[DISTORDLINEREF] = @DISTORDLINEREF
       ,[CAMPAIGNREFS1] = @CAMPAIGNREFS1
       ,[CAMPAIGNREFS2] = @CAMPAIGNREFS2
-      ,[CAMPAIGNREFS3] = @CAMPAIGNREFS3 
-      ,[CAMPAIGNREFS4] = @CAMPAIGNREFS4 
-      ,[CAMPAIGNREFS5] = @CAMPAIGNREFS5 
-      ,[POINTCAMPREF] = @POINTCAMPREF 
+      ,[CAMPAIGNREFS3] = @CAMPAIGNREFS3
+      ,[CAMPAIGNREFS4] = @CAMPAIGNREFS4
+      ,[CAMPAIGNREFS5] = @CAMPAIGNREFS5
+      ,[POINTCAMPREF] = @POINTCAMPREF
       ,[CAMPPOINT] = @CAMPPOINT
       ,[PROMCLASITEMREF] = @PROMCLASITEMREF
       ,[CMPGLINEREF] = @CMPGLINEREF
@@ -431,8 +431,8 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
       ,[COSTDIFFCENREF] = @COSTDIFFCENREF
       ,[TEXTINC] = @TEXTINC
       ,[ADDTAXDISCAMOUNT] = @ADDTAXDISCAMOUNT
-      ,[ORGLOGOID] = @ORGLOGOID 
-      ,[EXIMFICHENO] = @EXIMFICHENO 
+      ,[ORGLOGOID] = @ORGLOGOID
+      ,[EXIMFICHENO] = @EXIMFICHENO
       ,[EXIMFCTYPE] = @EXIMFCTYPE
       ,[TRANSEXPLINE] = @TRANSEXPLINE
       ,[INSEXPLINE] = @INSEXPLINE
@@ -488,7 +488,7 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
       ,[REFLACCREF] = @REFLACCREF
       ,[REFLOTHACCREF] = @REFLOTHACCREF
       ,[CAMPPAYDEFREF] = @CAMPPAYDEFREF
-      ,[FAREGBINDDATE] = @FAREGBINDDATE 
+      ,[FAREGBINDDATE] = @FAREGBINDDATE
       ,[RELTRANSLNREF] = @RELTRANSLNREF
       ,[FROMTRANSFER] = @FROMTRANSFER
       ,[COSTDISTPRICE] = @COSTDISTPRICE
@@ -517,27 +517,27 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
       ,[PROUTCOSTUFRSDIFF] = @PROUTCOSTUFRSDIFF
       ,[PROUTCOSTCRUFRSDIFF] = @PROUTCOSTCRUFRSDIFF
       ,[UNDERDEDUCTLIMIT] = @UNDERDEDUCTLIMIT
-      ,[GLOBALID] = @GLOBALID 
+      ,[GLOBALID] = @GLOBALID
       ,[DEDUCTIONPART1] = @DEDUCTIONPART1
       ,[DEDUCTIONPART2] = @DEDUCTIONPART2
-      ,[GUID] = @GUID 
-      ,[SPECODE2] = @SPECODE2 
+      ,[GUID] = @GUID
+      ,[SPECODE2] = @SPECODE2
       ,[OFFERREF] = @OFFERREF
       ,[OFFTRANSREF] = @OFFTRANSREF
-      ,[VATEXCEPTREASON] = @VATEXCEPTREASON 
-      ,[PLNDEFSERILOTNO] = @PLNDEFSERILOTNO 
+      ,[VATEXCEPTREASON] = @VATEXCEPTREASON
+      ,[PLNDEFSERILOTNO] = @PLNDEFSERILOTNO
       ,[PLNUNRSRVAMOUNT] = @PLNUNRSRVAMOUNT
       ,[PORDCLSPLNUNRSRVAMNT] = @PORDCLSPLNUNRSRVAMNT
       ,[LPRODRSRVSTAT] = @LPRODRSRVSTAT
       ,[FALINKTYPE] = @FALINKTYPE
-      ,[DEDUCTCODE] = @DEDUCTCODE 
+      ,[DEDUCTCODE] = @DEDUCTCODE
       ,[UPDTHISLINE] = @UPDTHISLINE
-      ,[VATEXCEPTCODE] = @VATEXCEPTCODE 
-      ,[PORDERFICHENO] = @PORDERFICHENO 
+      ,[VATEXCEPTCODE] = @VATEXCEPTCODE
+      ,[PORDERFICHENO] = @PORDERFICHENO
       ,[QPRODFCREF] = @QPRODFCREF
       ,[RELTRANSFCREF] = @RELTRANSFCREF
-      ,[ATAXEXCEPTREASON] = @ATAXEXCEPTREASON  
-      ,[ATAXEXCEPTCODE] = @ATAXEXCEPTCODE 
+      ,[ATAXEXCEPTREASON] = @ATAXEXCEPTREASON
+      ,[ATAXEXCEPTCODE] = @ATAXEXCEPTCODE
       ,[PRODORDERTYP] = @PRODORDERTYP
       ,[SUBCONTORDERREF] = @SUBCONTORDERREF
       ,[QPRODFCTYP] = @QPRODFCTYP
@@ -549,8 +549,8 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
       ,[FAPROFITCENTREF] = @FAPROFITCENTREF
       ,[FALOSSACCREF] = @FALOSSACCREF
       ,[FALOSSCENTREF] = @FALOSSCENTREF
-      ,[CPACODE] = @CPACODE 
-      ,[GTIPCODE] = @GTIPCODE 
+      ,[CPACODE] = @CPACODE
+      ,[GTIPCODE] = @GTIPCODE
       ,[PUBLICCOUNTRYREF] = @PUBLICCOUNTRYREF
       ,[QPRODITEMTYPE] = @QPRODITEMTYPE
       ,[FUTMONTHCNT] = @FUTMONTHCNT
@@ -567,9 +567,9 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
       ,[EXPRCNTRREF] = @EXPRCNTRREF
       ,[KKEGVATACCREF] = @KKEGVATACCREF
       ,[KKEGVATCENTREF] = @KKEGVATCENTREF
-      ,[MARKINGTAGNO] = @MARKINGTAGNO 
-      ,[OWNER] = @OWNER 
-      ,[TCKTAXNR] = @TCKTAXNR 
+      ,[MARKINGTAGNO] = @MARKINGTAGNO
+      ,[OWNER] = @OWNER
+      ,[TCKTAXNR] = @TCKTAXNR
       ,[FUTMONTHBEGDATE_] = @FUTMONTHBEGDATE_
       ,[ADDTAXVATACCREF] = @ADDTAXVATACCREF
       ,[ADDTAXVATCENREF] = @ADDTAXVATCENREF
@@ -591,8 +591,8 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
       ,[ITMDISC] = @ITMDISC
       ,[ADDTAXREF] = @ADDTAXREF
  WHERE LOGICALREF = {referenceId}";
-            await using(SqlCommand command = new SqlCommand(lineQuery, connection))
-            {
+			await using (SqlCommand command = new SqlCommand(lineQuery, connection))
+			{
 				command.Parameters.AddWithValue(nameof(dto.DREF), dto.DREF);
 				command.Parameters.AddWithValue(nameof(dto.COSTRATE), dto.COSTRATE);
 				command.Parameters.AddWithValue(nameof(dto.XPRICEUPD), dto.XPRICEUPD);
@@ -823,14 +823,13 @@ public class LG_STLINE_Context : ILG_STLINE_Context, IDisposable
 
 				result.IsSuccess = true;
 				result.Message = "Satır başarıyla eklendi.";
-				await connection.CloseAsync(); 
-				return result; 
-			} 
+				await connection.CloseAsync();
+				return result;
+			}
 		}
 		catch (Exception)
 		{
 			throw;
 		}
-
 	}
 }

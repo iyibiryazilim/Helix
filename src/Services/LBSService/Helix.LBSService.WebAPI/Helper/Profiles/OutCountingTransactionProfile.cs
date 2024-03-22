@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Helix.LBSService.WebAPI.DTOs;
-using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Go.Models;
+using Helix.LBSService.Tiger.Models;
+using Helix.LBSService.WebAPI.DTOs;
 
 namespace Helix.LBSService.WebAPI.Helper.Profiles
 {

@@ -9,6 +9,5 @@
 		{
 			IsTiger = configuration.GetValue<bool>("YourConfigKey");
 		}
-
 	}
 }

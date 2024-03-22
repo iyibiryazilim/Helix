@@ -7,10 +7,9 @@ namespace Helix.LBSService.Go.DataStores
 {
 	public class LG_SLTRANS_Context : ILG_SLTRANS_Context, IDisposable
 	{
- 		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
-		readonly int _defaultPeriodNumber = LBSParameter.Period;
-		readonly string _connectionString = LBSParameter.Connection;
-
+		private readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
+		private readonly int _defaultPeriodNumber = LBSParameter.Period;
+		private readonly string _connectionString = LBSParameter.Connection;
 
 		public void Dispose()
 		{
@@ -107,7 +106,7 @@ namespace Helix.LBSService.Go.DataStores
            ,PRDORDSLPLNRESERVE
            ,INPLNSLTRANSREF
            ,NOTSHIPPED
-            ,EXPDATE)  
+            ,EXPDATE)
          VALUES(
             @STFICHEREF
            ,@DATE_
@@ -186,8 +185,10 @@ namespace Helix.LBSService.Go.DataStores
 				using (SqlConnection connection = new SqlConnection(_connectionString))
 				await using (SqlCommand command = new SqlCommand(seriLotQuery, connection))
 				{
-                    await connection.OpenAsync();   
+					await connection.OpenAsync();
+
 					#region Serilot
+
 					command.Parameters.AddWithValue("STFICHEREF", dto.STFICHEREF);
 					command.Parameters.AddWithValue("STTRANSREF", dto.STTRANSREF);
 					command.Parameters.AddWithValue("INTRANSREF", dto.INTRANSREF);
@@ -260,7 +261,8 @@ namespace Helix.LBSService.Go.DataStores
 					command.Parameters.AddWithValue("PRDORDSLPLNRESERVE", dto.PRDORDSLPLNRESERVE);
 					command.Parameters.AddWithValue("INPLNSLTRANSREF", dto.INPLNSLTRANSREF);
 					command.Parameters.AddWithValue("NOTSHIPPED", dto.NOTSHIPPED);
-					#endregion
+
+					#endregion Serilot
 
 					var id = await command.ExecuteScalarAsync();
 					if (id != null)
@@ -275,14 +277,13 @@ namespace Helix.LBSService.Go.DataStores
 					}
 					else
 					{
-
 						throw new Exception("Insert failed");
 					}
 				}
 			}
-			catch (Exception )
+			catch (Exception)
 			{
- 				throw;
+				throw;
 			}
 		}
 	}

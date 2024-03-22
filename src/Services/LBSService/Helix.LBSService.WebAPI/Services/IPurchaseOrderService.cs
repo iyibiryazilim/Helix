@@ -6,6 +6,5 @@ namespace Helix.LBSService.WebAPI.Services
 	public interface IPurchaseOrderService
 	{
 		public Task<DataResult<PurchaseOrderDto>> Insert(PurchaseOrderDto dto);
-
 	}
 }

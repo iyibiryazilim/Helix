@@ -9,6 +9,7 @@ namespace Helix.LBSService.Base.Events
 		public string Message { get; set; } = string.Empty;
 		public Guid? ApplicationOwner { get; set; }
 		public object? Dto { get; set; }
+
 		public LOGOSuccessIntegrationEvent(int? ficheId, string message, Guid? applicationOwner, object dto)
 		{
 			FicheId = ficheId;

@@ -9,11 +9,13 @@ namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_OutCountingTransactionDataStore : ILG_OutCountingTransactionService
 	{
-		IUnityApplicationService _unityApplicationService;
- 		public LG_OutCountingTransactionDataStore(IUnityApplicationService unityApplicationService)
+		private IUnityApplicationService _unityApplicationService;
+
+		public LG_OutCountingTransactionDataStore(IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
- 		}
+		}
+
 		public async Task<DataResult<LG_OutCountingTransaction>> Insert(LG_OutCountingTransaction dto)
 		{
 			UnityApplication unity = Global.UnityApp;
@@ -25,16 +27,13 @@ namespace Helix.LBSService.Tiger.DataStores
 				{
 					line.SLTRANS.Add(item);
 				}
- 			}
-
-
+			}
 
 			if (!unity.LoggedIn)
 				await _unityApplicationService.LogIn();
 
 			if (unity.LoggedIn)
 			{
-
 				try
 				{
 					if (unity != null)
@@ -111,7 +110,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 										//sl_details0[sl_details0.Count - 1].FieldByName("DATE_EXPIRED").Value = DateTime.Now.AddDays(90);
 									}
-
 								}
 							}
 
@@ -122,13 +120,12 @@ namespace Helix.LBSService.Tiger.DataStores
 
 								result.Data = null;
 								result.IsSuccess = true;
-								result.Message = "Success"; 
+								result.Message = "Success";
 							}
 							else
 							{
 								result.IsSuccess = false;
 								result.Message = new ErrorHelper().GetError(items);
-								 
 							}
 						}
 						else
@@ -141,7 +138,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					{
 						result.IsSuccess = false;
 						result.Message = "Unity is null";
-
 					}
 				}
 				catch (Exception ex)
@@ -162,7 +158,6 @@ namespace Helix.LBSService.Tiger.DataStores
 					IsSuccess = false,
 					Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 				};
-
 			}
 			return await Task.FromResult(result);
 		}

@@ -10,14 +10,15 @@
 			Lines = new List<RetailSalesReturnDispatchTransactionLineDto>();
 		}
 	}
+
 	public class RetailSalesReturnDispatchTransactionLineDto : DispatchTransactionLineDto
 	{
 		public RetailSalesReturnDispatchTransactionLineDto()
 		{
 			TransactionType = 2;
 			SeriLotTransactions = new List<SeriLotTransactionDto>();
-
 		}
+
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
 	}
 }

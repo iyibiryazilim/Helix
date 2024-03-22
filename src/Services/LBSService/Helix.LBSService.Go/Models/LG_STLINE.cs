@@ -3,6 +3,7 @@
 	public class LG_STLINE
 	{
 		#region Properties
+
 		public int LOGICALREF { get; set; } = default;
 		public int STOCKREF { get; set; } = default;
 		public int LINETYPE { get; set; } = default;
@@ -330,12 +331,14 @@
 		public int ADDTAXEFFECTKDV { get; set; } = default;
 		public int ITMDISC { get; set; } = default;
 		public int ADDTAXREF { get; set; } = default;
-		#endregion
+
+		#endregion Properties
 
 		public LG_STLINE()
 		{
 			SERILOTTRANSACTIONS = new List<LG_SLTRANS>();
 		}
+
 		public IList<LG_SLTRANS> SERILOTTRANSACTIONS { get; set; }
 	}
 }

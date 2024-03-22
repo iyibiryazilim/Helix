@@ -9,8 +9,9 @@ namespace Helix.LBSService.WebAPI.DataStores
 {
 	public class SalesOrderDataStore : ISalesOrderService
 	{
-		ILogger<SalesOrderDataStore> _logger;
-		ILG_SalesOrderService _tigerService;
+		private ILogger<SalesOrderDataStore> _logger;
+		private ILG_SalesOrderService _tigerService;
+
 		public SalesOrderDataStore(ILogger<SalesOrderDataStore> logger, ILG_SalesOrderService tigerService)
 		{
 			_logger = logger;
@@ -39,7 +40,6 @@ namespace Helix.LBSService.WebAPI.DataStores
 				}
 				catch (Exception)
 				{
-
 					throw;
 				}
 			}

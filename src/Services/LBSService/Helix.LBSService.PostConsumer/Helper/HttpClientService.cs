@@ -22,7 +22,7 @@
 		}
 
 		public string Token { get; set; } = string.Empty;
- 
+
 		public HttpClient GetOrCreateHttpClient()
 		{
 			var httpClient = _httpClient.Value;

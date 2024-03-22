@@ -14,11 +14,13 @@ namespace Helix.LBSService.WebAPI.DataStores
 	{
 		private readonly ILogger<OutCountingTransactionDataStore> _logger;
 		private readonly ILG_OutCountingTransactionService _tigerService;
+
 		public OutCountingTransactionDataStore(ILogger<OutCountingTransactionDataStore> logger, ILG_OutCountingTransactionService tigerService)
 		{
 			_logger = logger;
 			_tigerService = tigerService;
 		}
+
 		public async Task<DataResult<OutCountingTransactionDto>> Insert(OutCountingTransactionDto dto)
 		{
 			if (LBSParameter.IsTiger)
@@ -42,7 +44,6 @@ namespace Helix.LBSService.WebAPI.DataStores
 				}
 				catch (Exception)
 				{
-
 					throw;
 				}
 			}
@@ -57,10 +58,8 @@ namespace Helix.LBSService.WebAPI.DataStores
 
 				using (var stficheContext = new LG_STFICHE_Context())
 				{
-
 					try
 					{
-
 						obj.FICHENO = await GetNextDocumentNumberAsync(obj);
 
 						var result = await stficheContext.InsertObjectAsync(obj);
@@ -73,7 +72,6 @@ namespace Helix.LBSService.WebAPI.DataStores
 						{
 							using (var stlineContext = new LG_STLINE_Context())
 							{
-
 								item.STFICHEREF = obj.LOGICALREF;
 
 								var resultLine = await stlineContext.InsertAsync(item);
@@ -93,7 +91,6 @@ namespace Helix.LBSService.WebAPI.DataStores
 										}
 									}
 								}
-
 							}
 						}
 
@@ -114,6 +111,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 				}
 			}
 		}
+
 		private async Task<string> GetNextDocumentNumberAsync(LG_STFICHE item)
 		{
 			try
@@ -138,7 +136,6 @@ namespace Helix.LBSService.WebAPI.DataStores
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
 		}
@@ -150,15 +147,12 @@ namespace Helix.LBSService.WebAPI.DataStores
 				using (L_LDOCNUM_Context context = new())
 				{
 					await context.UpdateObject(await GetNextDocumentNumberAsync(item), item.DATE_.ToString("s"), item.DATE_.ToString("s"), item.TRCODE);
-
 				}
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
 		}
-
 	}
 }

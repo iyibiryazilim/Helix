@@ -9,6 +9,7 @@
 			WorkOrders = new List<WorkOrderDto>();
 		}
 	}
+
 	public class WorkOrderDto
 	{
 		public int WorkOrderReferenceId { get; set; }

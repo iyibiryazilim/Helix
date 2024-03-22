@@ -11,6 +11,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 	{
 		private readonly ILogger<PurchaseOrderDataStore> _logger;
 		private readonly ILG_PurchaseOrderService _tigerService;
+
 		public PurchaseOrderDataStore(ILogger<PurchaseOrderDataStore> logger, ILG_PurchaseOrderService tigerService)
 		{
 			_logger = logger;
@@ -39,7 +40,6 @@ namespace Helix.LBSService.WebAPI.DataStores
 				}
 				catch (Exception)
 				{
-
 					throw;
 				}
 			}
@@ -52,7 +52,6 @@ namespace Helix.LBSService.WebAPI.DataStores
 					IsSuccess = false,
 				};
 			}
-
 		}
 	}
 }

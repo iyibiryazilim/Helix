@@ -7,8 +7,8 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 {
 	public class RetailSalesReturnDispatchTransactionLineProfile : Profile
 	{
-        public RetailSalesReturnDispatchTransactionLineProfile()
-        {
+		public RetailSalesReturnDispatchTransactionLineProfile()
+		{
 			CreateMap<RetailSalesReturnDispatchTransactionLineDto, LG_RetailSalesReturnDispatchTransactionLine>()
 			.ForMember(d => d.MASTER_CODE, o => o.MapFrom(s => s.ProductCode))
 			.ForMember(d => d.QUANTITY, o => o.MapFrom(s => s.Quantity))
@@ -32,5 +32,5 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 			.ForMember(d => d.UOMREF, o => o.MapFrom(s => s.SubUnitsetReferenceId))
 		   .ForMember(d => d.SOURCEINDEX, o => o.MapFrom(s => s.WarehouseNumber));
 		}
-    }
+	}
 }

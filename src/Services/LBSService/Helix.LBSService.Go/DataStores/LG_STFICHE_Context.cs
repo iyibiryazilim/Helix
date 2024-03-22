@@ -8,12 +8,11 @@ namespace Helix.LBSService.Go.DataStores
 	public class LG_STFICHE_Context : ILG_STFICHE_Context, IDisposable
 	{
 		private readonly string _connectionString;
-		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
-		readonly int _defaultPeriodNumber = LBSParameter.Period;
+		private readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
+		private readonly int _defaultPeriodNumber = LBSParameter.Period;
 
 		public LG_STFICHE_Context()
 		{
-
 			_connectionString = LBSParameter.Connection ?? throw new InvalidOperationException("Connection string cannot be null.");
 		}
 
@@ -41,7 +40,6 @@ namespace Helix.LBSService.Go.DataStores
 
 		private async Task<int> InsertFicheAsync(LG_STFICHE item)
 		{
-
 			await using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				await connection.OpenAsync();
@@ -52,6 +50,7 @@ namespace Helix.LBSService.Go.DataStores
 					try
 					{
 						#region STFICHE
+
 						command.Parameters.AddWithValue("GRPCODE", item.GRPCODE);
 						command.Parameters.AddWithValue("DOCDATE", item.DOCDATE);
 						command.Parameters.AddWithValue("TRCODE", item.TRCODE);
@@ -198,22 +197,19 @@ namespace Helix.LBSService.Go.DataStores
 						command.Parameters.AddWithValue("CANCELEXP", item.CANCELEXP);
 						command.Parameters.AddWithValue("UNDOEXP", item.UNDOEXP);
 
-						#endregion
+						#endregion STFICHE
+
 						var id = await command.ExecuteScalarAsync();
 						await connection.CloseAsync();
 						return Convert.ToInt32(id);
 					}
 					catch (Exception)
 					{
-
 						throw;
 					}
 				}
 			}
 		}
-
-
-
 
 		public async Task<DataResult<LG_STFICHE>> InsertTransferTransactionAsync(LG_STFICHE item)
 		{
@@ -393,7 +389,6 @@ namespace Helix.LBSService.Go.DataStores
 			//		}
 			//		#endregion
 
-
 			//		if (item.TRCODE == 2 || item.TRCODE == 3 || item.TRCODE == 7 || item.TRCODE == 8)
 			//		{
 			//			#region Driver Insert
@@ -470,7 +465,7 @@ namespace Helix.LBSService.Go.DataStores
 			//        ,[ORDFCREF]
 			//        ,[CHAINDELIVERY]
 			//        ,[SELLERCLIENTREF]
-			//        ,[TAXNRTOPAY]) 
+			//        ,[TAXNRTOPAY])
 			//         VALUES(
 			//         @INVOICEREF,@STFREF,@EINVOICETYP,@PROFILEID,@ESTATUS,@EDESCRIPTION,@EDURATION,@EDURATIONTYPE,@TAXTYPE,@TUNAME
 			//        ,@TUSURNAME,@TUPASSPORTNO,@TUNATIONALITY,@TUNATIONALITYNAME,@TUBANKNAME,@TUBNACCOUNTNO,@TUBNBRANCH
@@ -569,7 +564,6 @@ namespace Helix.LBSService.Go.DataStores
 			//			}
 			//			#endregion
 			//		}
-
 
 			//		#region OutCounting Line Insert
 			//		foreach (LG_STLINE line in item.TRANSACTIONS)
@@ -867,8 +861,6 @@ namespace Helix.LBSService.Go.DataStores
 			//        ,FUTMONTHCNT
 			//        ,FUTMONTHBEGDATE
 
-
-
 			//          )
 			//         VALUES (
 			//         @STOCKREF
@@ -1163,7 +1155,6 @@ namespace Helix.LBSService.Go.DataStores
 			//        ,@FUTMONTHCNT
 			//        ,@FUTMONTHBEGDATE
 
-
 			//        ); SELECT SCOPE_IDENTITY();";
 			//			await using (SqlConnection connection = new SqlConnection(_connectionString))
 			//			{
@@ -1400,7 +1391,6 @@ namespace Helix.LBSService.Go.DataStores
 			//						command.Parameters.AddWithValue("REFLOTHACCREF", line.REFLOTHACCREF);
 			//						command.Parameters.AddWithValue("CAMPPAYDEFREF", line.CAMPPAYDEFREF);
 
-
 			//						if (line.FAREGBINDDATE == null)
 			//							command.Parameters.AddWithValue("FAREGBINDDATE", DBNull.Value);
 			//						else
@@ -1488,7 +1478,6 @@ namespace Helix.LBSService.Go.DataStores
 			//				}
 			//			}
 
-
 			//			if (line.SERILOTTRANSACTIONS != null)
 			//			{
 			//				foreach (var serilot in line.SERILOTTRANSACTIONS)
@@ -1566,7 +1555,7 @@ namespace Helix.LBSService.Go.DataStores
 			//        ,PRDORDSLPLNRESERVE
 			//        ,INPLNSLTRANSREF
 			//        ,NOTSHIPPED
-			//         ,EXPDATE)  
+			//         ,EXPDATE)
 			//      VALUES(
 			//         @STFICHEREF
 			//        ,@DATE_
@@ -1728,7 +1717,6 @@ namespace Helix.LBSService.Go.DataStores
 			//						}
 			//					}
 			//				}
-
 
 			//			}
 			//		}
@@ -2029,8 +2017,6 @@ namespace Helix.LBSService.Go.DataStores
 			//        ,FUTMONTHCNT
 			//        ,FUTMONTHBEGDATE
 
-
-
 			//          )
 			//         VALUES (
 			//         @STOCKREF
@@ -2325,7 +2311,6 @@ namespace Helix.LBSService.Go.DataStores
 			//        ,@FUTMONTHCNT
 			//        ,@FUTMONTHBEGDATE
 
-
 			//        ); SELECT SCOPE_IDENTITY();";
 			//			await using (SqlConnection connection = new SqlConnection(_connectionString))
 			//			{
@@ -2562,7 +2547,6 @@ namespace Helix.LBSService.Go.DataStores
 			//						command.Parameters.AddWithValue("REFLOTHACCREF", line.REFLOTHACCREF);
 			//						command.Parameters.AddWithValue("CAMPPAYDEFREF", line.CAMPPAYDEFREF);
 
-
 			//						if (line.FAREGBINDDATE == null)
 			//							command.Parameters.AddWithValue("FAREGBINDDATE", DBNull.Value);
 			//						else
@@ -2650,7 +2634,6 @@ namespace Helix.LBSService.Go.DataStores
 			//				}
 			//			}
 
-
 			//			if (line.SERILOTTRANSACTIONS != null)
 			//			{
 			//				foreach (var serilot in line.SERILOTTRANSACTIONS)
@@ -2728,7 +2711,7 @@ namespace Helix.LBSService.Go.DataStores
 			//        ,PRDORDSLPLNRESERVE
 			//        ,INPLNSLTRANSREF
 			//        ,NOTSHIPPED
-			//         ,EXPDATE)  
+			//         ,EXPDATE)
 			//      VALUES(
 			//         @STFICHEREF
 			//        ,@DATE_
@@ -2891,7 +2874,6 @@ namespace Helix.LBSService.Go.DataStores
 			//					}
 			//				}
 
-
 			//			}
 			//		}
 			//		#endregion
@@ -2930,7 +2912,6 @@ namespace Helix.LBSService.Go.DataStores
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
-		
 
 		protected virtual void Dispose(bool disposing)
 		{

@@ -6,7 +6,6 @@ using Helix.LBSService.Tiger.Services;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Helper.Mappers;
 using Helix.LBSService.WebAPI.Services;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.DataStores
 {

@@ -3,8 +3,10 @@
 	public class LG_STFICHE
 	{
 		public string EmployeeOid { get; set; } = string.Empty;
-        #region Properties
-        public int LOGICALREF { get; set; }
+
+		#region Properties
+
+		public int LOGICALREF { get; set; }
 		public short GRPCODE { get; set; } = default;
 		public short TRCODE { get; set; } = default;
 		public short IOCODE { get; set; } = default;
@@ -158,12 +160,14 @@
 		public string UNDOEXP { get; set; } = string.Empty;
 		public DateTime CANCELDATE { get; set; } = DateTime.Now;
 		public string RECHASH { get; set; } = string.Empty;
-		#endregion
+
+		#endregion Properties
 
 		public LG_STFICHE()
 		{
 			TRANSACTIONS = new List<LG_STLINE>();
 		}
+
 		public IList<LG_STLINE> TRANSACTIONS { get; set; }
 
 		public LG_EINVOICEDET? EINVOICEDET { get; set; }

@@ -6,8 +6,8 @@ namespace Helix.LBSService.Go.DataStores
 {
 	public class L_LDOCNUM_Context : IL_LDOCNUM_Context, IDisposable
 	{
-		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
-		readonly string _connectionString = LBSParameter.Connection;
+		private readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
+		private readonly string _connectionString = LBSParameter.Connection;
 
 		public void Dispose()
 		{
@@ -22,7 +22,6 @@ namespace Helix.LBSService.Go.DataStores
 				// Dispose of managed resources
 				// Add code here to dispose of managed resources
 			}
-			 
 		}
 
 		public async Task<string> GetLastAsgn(string effsdate, string effedate, int TRCODE)
@@ -38,7 +37,7 @@ namespace Helix.LBSService.Go.DataStores
 					await using (SqlCommand command = new SqlCommand(query, connection))
 					{
 						SqlDataReader dr = await command.ExecuteReaderAsync();
-						await dr.ReadAsync(); // Veri okuma işlemine başla  
+						await dr.ReadAsync(); // Veri okuma işlemine başla
 						if (dr.HasRows)
 						{
 							lastNumber = dr["lastNumber"].ToString();
@@ -58,7 +57,6 @@ namespace Helix.LBSService.Go.DataStores
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
 		}
@@ -80,7 +78,6 @@ namespace Helix.LBSService.Go.DataStores
 			}
 			catch (Exception ex)
 			{
- 
 				throw;
 			}
 		}

@@ -5,6 +5,6 @@ namespace Helix.LBSService.Tiger.Services
 {
 	public interface ILG_SalesOrderService
 	{
-		public Task<DataResult<LG_SalesOrder>> Insert(LG_SalesOrder dto); 
+		public Task<DataResult<LG_SalesOrder>> Insert(LG_SalesOrder dto);
 	}
 }
