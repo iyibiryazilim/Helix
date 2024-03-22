@@ -101,6 +101,19 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_DUE_DATE").Value = line.ORG_DUE_DATE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_QUANTITY").Value = line.ORG_QUANTITY;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRODUCER_CODE").Value = line.PRODUCER_CODE;
+
+									if (line.DISCOUNT_RATE > 0)
+									{
+										dtos_lines.AppendLine();
+										dtos_lines[dtos_lines.Count - 1].FieldByName("TYPE").Value = 2;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = 0;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("TOTAL").Value = line.TOTAL * (line.DISCOUNT_RATE / 100);
+										dtos_lines[dtos_lines.Count - 1].FieldByName("DISCOUNT_RATE").Value = line.DISCOUNT_RATE;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("DUE_DATE").Value = line.DUE_DATE;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCE_WH").Value = line.SOURCE_WH;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCE_COST_GRP").Value = line.SOURCE_COST_GRP;
+										//dtos_lines[dtos_lines.Count - 1].FieldByName("MULTI_ADD_TAX").Value = line.MULTI_ADD_TAX;
+									}
 								}
 
 								if (items.Post())
