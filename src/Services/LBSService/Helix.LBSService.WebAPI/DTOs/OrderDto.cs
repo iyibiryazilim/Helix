@@ -16,6 +16,6 @@
 		public double? TotalVat { get; set; } = default;
 		public double? NetTotal { get; set; } = default;
 		public double? DiscountTotal { get; set; } = default;
-		public short? CurrencyType { get; set; } = 53;
+		public short? CurrencyType { get; set; } = default;
 	}
 }
