@@ -29,7 +29,8 @@
 		double? totalDiscount,
 		double? totalVat,
 		double? netTotal,
-		double? total)
+		double? total,
+		short? currencyType)
 	{
 	}
 }
