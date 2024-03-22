@@ -1,6 +1,6 @@
 ﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Tiger.DTOs;
-using Helix.LBSService.Tiger.Services;
+using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helix.LBSService.WebAPI.Controllers
@@ -9,9 +9,9 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class WorkOrderController : ControllerBase
 	{
-		private ILG_WorkOrderService _workOrderService;
+		private IWorkOrderService _workOrderService;
 
-		public WorkOrderController(ILG_WorkOrderService workOrderService)
+		public WorkOrderController(IWorkOrderService workOrderService)
 		{
 			_workOrderService = workOrderService;
 		}
