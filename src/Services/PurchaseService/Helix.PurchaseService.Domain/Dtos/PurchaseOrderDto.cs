@@ -21,6 +21,7 @@ public record PurchaseOrderDto(
 	double? discountTotal,
 	string? employeeOid,
 	string? description,
+	short? currencyType,
 	short? statusi,
 	List<PurchaseOrderLineDto> lines)
 {

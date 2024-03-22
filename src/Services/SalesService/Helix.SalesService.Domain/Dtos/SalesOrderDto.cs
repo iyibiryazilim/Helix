@@ -22,6 +22,7 @@ public record SalesOrderDto(
 	string? employeeOid,
 	string? description,
 	short? statusi,
+	short? currencyType,
 	List<SalesOrderLineDto> lines)
 {
 }

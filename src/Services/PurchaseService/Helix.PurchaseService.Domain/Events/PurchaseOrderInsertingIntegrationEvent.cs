@@ -5,7 +5,7 @@ namespace Helix.PurchaseService.Domain.Events;
 
 public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 {
-	public PurchaseOrderInsertingIntegrationEvent(string? employeeOid, int? referenceId, string? code, string? salesmanCode, DateTime? orderDate, string? description, short? warehouseNumber, string? customerCode, string? shipmentAccountCode, string? projectCode, List<PurchaseOrderLineDto> lines, double? total, double? totalVat, double? netTotal, double? discountTotal)
+	public PurchaseOrderInsertingIntegrationEvent(string? employeeOid, int? referenceId, string? code, string? salesmanCode, DateTime? orderDate, string? description, short? warehouseNumber, string? customerCode, string? shipmentAccountCode, string? projectCode, List<PurchaseOrderLineDto> lines, double? total, double? totalVat, double? netTotal, double? discountTotal, short? currencyType)
 	{
 		EmployeeOid = employeeOid;
 		ReferenceId = referenceId;
@@ -22,6 +22,7 @@ public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 		TotalVat = totalVat;
 		NetTotal = netTotal;
 		DiscountTotal = discountTotal;
+		CurrencyType = currencyType;
 	}
 
 	public string? EmployeeOid { get; set; }
@@ -37,6 +38,7 @@ public class PurchaseOrderInsertingIntegrationEvent : IntegrationEvent
 	public double? Total { get; set; } = default;
 	public double? TotalVat { get; set; } = default;
 	public double? NetTotal { get; set; } = default;
+	public short? CurrencyType { get; set; } = 53;
 	public double? DiscountTotal { get; set; } = default;
 	public List<PurchaseOrderLineDto> Lines { get; set; }
 }
