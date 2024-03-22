@@ -7,6 +7,7 @@ using Helix.LBSService.PostConsumer.Events;
 using Helix.LBSService.PostConsumer.Helper;
 using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.Logging.EventLog;
+using Serilog;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddWindowsService(options =>
@@ -39,16 +40,11 @@ builder.Services.AddTransient<OutSourceWorkOrderStopTransactionInsertingIntegrat
 builder.Services.AddTransient<WorkOrderInsertActualQuantityIntegrationEventHandler>();
 builder.Services.AddTransient<WorkOrderStopTransactionInsertingIntegrationEventHandler>();
 
-LoggerProviderOptions.RegisterProviderOptions<EventLogSettings, EventLogLoggerProvider>(builder.Services);
-
-//On docker gonna be comment
-builder.Logging.AddEventLog(eventLogSettings =>
-{
-	eventLogSettings.LogName = "Application";
-	eventLogSettings.SourceName = "Helix.PostConsumer";
-});
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+
 var test = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"];
+
 builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 {
 	var eventBus = EventBusFactory.Create(new Helix.EventBus.Base.EventBusConfig

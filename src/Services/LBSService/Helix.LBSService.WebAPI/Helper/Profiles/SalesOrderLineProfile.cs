@@ -22,6 +22,7 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 			.ForMember(d => d.VAT_AMOUNT, o => o.MapFrom(s => s.TotalVat))
 			.ForMember(d => d.TOTAL_NET, o => o.MapFrom(s => s.NetTotal))
 			.ForMember(d => d.CURR_TRANSACTIN, o => o.MapFrom(s => s.CurrencyType))
+			.ForMember(d => d.DISCOUNT_RATE, o => o.MapFrom(s => s.DiscountRate))
 			.ForMember(d => d.EDT_CURR, o => o.MapFrom(s => s.EdtCurr))
 			.ForMember(d => d.EDT_PRICE, o => o.MapFrom(s => s.EdtPrice));
 		}
