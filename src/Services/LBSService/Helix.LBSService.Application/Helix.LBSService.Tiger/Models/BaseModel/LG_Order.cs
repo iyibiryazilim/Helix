@@ -42,13 +42,6 @@
 		public double TOTAL_NET { get; set; } = default;
 		public string SALESMAN_CODE { get; set; } = string.Empty;
 
-		public Guid GUID { get; set; } = Guid.NewGuid();
-
-		public LG_Order()
-		{
-			TRANSACTIONS = new List<LG_OrderLine>();
-		}
-
-		public IList<LG_OrderLine> TRANSACTIONS { get; set; }
+		public Guid GUID { get; set; } = Guid.NewGuid(); 
 	}
 }

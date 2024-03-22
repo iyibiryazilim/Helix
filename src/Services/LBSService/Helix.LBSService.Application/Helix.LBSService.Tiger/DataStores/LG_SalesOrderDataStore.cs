@@ -70,8 +70,11 @@ namespace Helix.LBSService.Tiger.DataStores
 								items.DataFields.FieldByName("SALESMAN_CODE").Value = dto.SALESMAN_CODE;
 								items.DataFields.FieldByName("CURRSEL_TOTAL").Value = dto.CURRSEL_TOTAL;
 								items.DataFields.FieldByName("DATA_REFERENCE").Value = dto.DATA_REFERENCE;
+                                items.DataFields.FieldByName("CURR_TRANSACTIN").Value = dto.CURR_TRANSACTIN;
 
-								Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
+                                
+
+                                Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
 
 								foreach (LG_SalesOrderLine line in dto.TRANSACTIONS)
 								{
@@ -80,7 +83,7 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("MASTER_CODE").Value = line.MASTER_CODE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("GL_CODE1").Value = line.GL_CODE1;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("GL_CODE2").Value = line.GL_CODE2;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY;
+ 									dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = line.QUANTITY;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRICE").Value = line.PRICE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("VAT_RATE").Value = line.VAT_RATE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("TRANS_DESCRIPTION").Value = line.TRANS_DESCRIPTION;
@@ -101,8 +104,10 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_DUE_DATE").Value = line.ORG_DUE_DATE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_QUANTITY").Value = line.ORG_QUANTITY;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRODUCER_CODE").Value = line.PRODUCER_CODE;
+                                    dtos_lines[dtos_lines.Count - 1].FieldByName("CURR_TRANSACTIN").Value = line.CURR_TRANSACTIN;
 
-									if (line.DISCOUNT_RATE > 0)
+
+                                    if (line.DISCOUNT_RATE > 0)
 									{
 										dtos_lines.AppendLine();
 										dtos_lines[dtos_lines.Count - 1].FieldByName("TYPE").Value = 2;
@@ -170,6 +175,7 @@ namespace Helix.LBSService.Tiger.DataStores
 			catch (Exception ex)
 			{
 				_logger.LogError(ex, ex.Message);
+				throw;
 			}
 			return await Task.FromResult(result);
 		}
