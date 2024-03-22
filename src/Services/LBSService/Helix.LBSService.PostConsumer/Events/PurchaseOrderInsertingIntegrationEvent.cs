@@ -25,6 +25,7 @@ namespace Helix.LBSService.PostConsumer.Events
 		public double? Total { get; set; } = default;
 		public double? TotalVat { get; set; } = default;
 		public double? NetTotal { get; set; } = default;
+		public short? CurrencyType { get; set; } = 53;
 		public double? DiscountTotal { get; set; } = default;
 	}
 
