@@ -8,8 +8,9 @@ namespace Helix.ProductionService.Domain.Events
 		public int Status { get; private set; }
 		public short DeleteFiche { get; private set; }
 
-		public OutSourceWorkOrderChangeStatusInsertedIntegrationEvent(string ficheNo, int status, short deleteFiche)
+		public OutSourceWorkOrderChangeStatusInsertedIntegrationEvent(Guid eventId, string ficheNo, int status, short deleteFiche)
 		{
+			Id = eventId;
 			FicheNo = ficheNo;
 			Status = status;
 			DeleteFiche = deleteFiche;

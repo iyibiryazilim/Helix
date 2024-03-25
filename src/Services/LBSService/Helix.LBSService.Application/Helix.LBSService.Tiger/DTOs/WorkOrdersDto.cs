@@ -11,7 +11,7 @@
 	}
 
 	public class WorkOrderDto
-	{
+	{ 
 		public int WorkOrderReferenceId { get; set; }
 
 		public int ProductReferenceId { get; set; }

@@ -79,7 +79,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpPost("InsertActualQuantity")]
 		public async Task WorkOrderInsertActualQuantityInsert([FromBody] WorkOrderDto workOrderDto)
 		{
-			_eventBus.Publish(new OutSourceWorkOrderInsertActualQuantityIntegrationEvent(workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
+			_eventBus.Publish(new OutSourceWorkOrderInsertActualQuantityIntegrationEvent(workOrderDto.eventId, workOrderDto.workOrderReferenceId, workOrderDto.productReferenceId, workOrderDto.actualQuantity, workOrderDto.subUnitsetReferenceId, workOrderDto.calculatedMethod, workOrderDto.isIncludeSideProduct));
 		}
 
 		[HttpPost("WorkOrders")]
@@ -91,7 +91,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpPost("ChangeStatus")]
 		public async Task WorkOrderChangeStatus([FromBody] WorkOrderChangeStatusDto workOrderChangeStatusDto)
 		{
-			_eventBus.Publish(new OutSourceWorkOrderChangeStatusInsertedIntegrationEvent(ficheNo: workOrderChangeStatusDto.ficheNo,
+			_eventBus.Publish(new OutSourceWorkOrderChangeStatusInsertedIntegrationEvent(workOrderChangeStatusDto.eventId, ficheNo: workOrderChangeStatusDto.ficheNo,
 				status: workOrderChangeStatusDto.status,
 				deleteFiche: workOrderChangeStatusDto.deleteFiche));
 		}
@@ -99,7 +99,7 @@ namespace Helix.ProductionService.WebAPI.Controllers
 		[HttpPost("StopTransaction")]
 		public async Task WorkOrderStopTransaction([FromBody] StopTransactionForWorkOrderDto stopTransactionForWorkOrderDto)
 		{
-			_eventBus.Publish(new OutSourceWorkOrderStopTransactionInsertingIntegrationEvent(stopTransactionForWorkOrderDto.workOrderReferenceId, stopTransactionForWorkOrderDto.stopCauseReferenceId, stopTransactionForWorkOrderDto.stopDate, stopTransactionForWorkOrderDto.stopTime));
+			_eventBus.Publish(new OutSourceWorkOrderStopTransactionInsertingIntegrationEvent(stopTransactionForWorkOrderDto.eventId, stopTransactionForWorkOrderDto.workOrderReferenceId, stopTransactionForWorkOrderDto.stopCauseReferenceId, stopTransactionForWorkOrderDto.stopDate, stopTransactionForWorkOrderDto.stopTime));
 		}
 	}
 }
