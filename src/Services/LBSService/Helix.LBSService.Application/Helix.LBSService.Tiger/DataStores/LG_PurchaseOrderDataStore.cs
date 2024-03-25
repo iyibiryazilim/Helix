@@ -67,8 +67,10 @@ namespace Helix.LBSService.Tiger.DataStores
 								items.DataFields.FieldByName("SALESMAN_CODE").Value = dto.SALESMAN_CODE;
 								items.DataFields.FieldByName("CURRSEL_TOTAL").Value = dto.CURRSEL_TOTAL;
 								items.DataFields.FieldByName("DATA_REFERENCE").Value = dto.DATA_REFERENCE;
+                                items.DataFields.FieldByName("CURR_TRANSACTIN").Value = dto.CURR_TRANSACTIN;
 
-								Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
+
+                                Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
 
 								foreach (LG_PurchaseOrderLine line in dto.TRANSACTIONS)
 								{
@@ -98,8 +100,10 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_DUE_DATE").Value = line.ORG_DUE_DATE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_QUANTITY").Value = line.ORG_QUANTITY;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRODUCER_CODE").Value = line.PRODUCER_CODE;
+                                    dtos_lines[dtos_lines.Count - 1].FieldByName("CURR_TRANSACTIN").Value = line.CURR_TRANSACTIN;
 
-									if (line.DISCOUNT_RATE > 0)
+
+                                    if (line.DISCOUNT_RATE > 0)
 									{
 										dtos_lines.AppendLine();
 										dtos_lines[dtos_lines.Count - 1].FieldByName("TYPE").Value = 2;
