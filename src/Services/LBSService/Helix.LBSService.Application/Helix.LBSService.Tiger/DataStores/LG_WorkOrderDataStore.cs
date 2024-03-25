@@ -114,7 +114,7 @@ namespace Helix.LBSService.Tiger.DataStores
 				await _unityApplicationService.LogIn();
 			if (unity.LoggedIn)
 			{
-				if (!ProdApp.ChangePOAndWOStatus(dtos.FicheNo, dtos.Status, 2, true, dtos.DeleteFiche))
+				if (!ProdApp.ChangePOAndWOStatus(dtos.FicheNo, dtos.Status, dtos.ProductionType, dtos.OpenTransaction, dtos.DeleteFiche))
 				{
 					result = new DataResult<WorkOrderDto>
 					{
