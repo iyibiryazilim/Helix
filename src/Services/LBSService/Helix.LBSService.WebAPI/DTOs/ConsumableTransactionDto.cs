@@ -11,6 +11,7 @@
 			Lines = new List<ConsumableTransactionLineDto>();
 		}
 	}
+
 	public class ConsumableTransactionLineDto : ProductTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }

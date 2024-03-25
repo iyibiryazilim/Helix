@@ -10,25 +10,26 @@ using Microsoft.AspNetCore.Mvc;
 namespace Helix.LBSService.WebAPI.Controllers
 {
 	[Route("api/[controller]")]
-    [ApiController]
-    public class TransferTransactionController : ControllerBase
-    {
-        private readonly ILG_TransferTransactionService _transferTransactionService;
+	[ApiController]
+	public class TransferTransactionController : ControllerBase
+	{
+		private readonly ILG_TransferTransactionService _transferTransactionService;
 		private readonly ILG_STFICHE_Context _stficheService;
 
 		private ILogger<TransferTransactionController> _logger;
-        public TransferTransactionController(ILG_TransferTransactionService transferTransactionService, ILogger<TransferTransactionController> logger,ILG_STFICHE_Context stficheContext)
-        {
-            _transferTransactionService = transferTransactionService;
-            _logger = logger;
-			_stficheService = stficheContext;
-        }
 
-        [HttpPost("Insert")]
-        public async Task<DataResult<TransferTransactionDto>> Insert([FromBody] TransferTransactionDto dto)
-        {
-            if (LBSParameter.IsTiger)
-            {
+		public TransferTransactionController(ILG_TransferTransactionService transferTransactionService, ILogger<TransferTransactionController> logger, ILG_STFICHE_Context stficheContext)
+		{
+			_transferTransactionService = transferTransactionService;
+			_logger = logger;
+			_stficheService = stficheContext;
+		}
+
+		[HttpPost("Insert")]
+		public async Task<DataResult<TransferTransactionDto>> Insert([FromBody] TransferTransactionDto dto)
+		{
+			if (LBSParameter.IsTiger)
+			{
 				var obj = Mapping.Mapper.Map<LG_TransferTransaction>(dto);
 				foreach (var item in dto.Lines)
 				{
@@ -59,6 +60,6 @@ namespace Helix.LBSService.WebAPI.Controllers
 					IsSuccess = result.IsSuccess,
 				};
 			}
-         }
-    }
+		}
+	}
 }

@@ -15,43 +15,50 @@ namespace Helix.SalesService.WebAPI.Controllers
 	[Authorize]
 	public class CustomerController : ControllerBase
 	{
-		ICustomerService _customerService;
-		IEventBus _eventBus;
-        public CustomerController(ICustomerService customerService,IEventBus eventBus)
-        {
-            _customerService = customerService;
+		private ICustomerService _customerService;
+		private IEventBus _eventBus;
+
+		public CustomerController(ICustomerService customerService, IEventBus eventBus)
+		{
+			_customerService = customerService;
 			_eventBus = eventBus;
-        }
+		}
+
 		[HttpGet()]
-		public async Task<DataResult<IEnumerable<Customer>>> GetAll([FromQuery]string search = "",string orderBy = CustomerOrderBy.CustomerNameDesc,int page = 0,int pageSize = 20)
+		public async Task<DataResult<IEnumerable<Customer>>> GetAll([FromQuery] string search = "", string orderBy = CustomerOrderBy.CustomerNameDesc, int page = 0, int pageSize = 20)
 		{
 			DataResult<IEnumerable<Customer>> result = new();
 			switch (orderBy)
 			{
 				case "namedesc":
-					 result = await _customerService.GetCustomersAsync(search, CustomerOrderBy.CustomerNameDesc, page,pageSize);
+					result = await _customerService.GetCustomersAsync(search, CustomerOrderBy.CustomerNameDesc, page, pageSize);
 					return result;
+
 				case "nameasc":
 					result = await _customerService.GetCustomersAsync(search, CustomerOrderBy.CustomerNameAsc, page, pageSize);
 					return result;
+
 				case "codedesc":
 					result = await _customerService.GetCustomersAsync(search, CustomerOrderBy.CustomerCodeDesc, page, pageSize);
 					return result;
+
 				case "codeasc":
 					result = await _customerService.GetCustomersAsync(search, CustomerOrderBy.CustomerCodeAsc, page, pageSize);
 					return result;
+
 				default:
-					 result = await _customerService.GetCustomersAsync(search, orderBy, page, pageSize);
+					result = await _customerService.GetCustomersAsync(search, orderBy, page, pageSize);
 					return result;
 			}
-			
 		}
+
 		[HttpGet("Code/{code}")]
 		public async Task<DataResult<Customer>> GetByCode(string code)
 		{
 			var result = await _customerService.GetCustomersByCodeAsync(code);
 			return result;
 		}
+
 		[HttpGet("Id/{id:int}")]
 		public async Task<DataResult<Customer>> GetById(int id)
 		{
@@ -60,12 +67,9 @@ namespace Helix.SalesService.WebAPI.Controllers
 		}
 
 		[HttpPost]
-        public async Task CustomerInsert([FromBody] CustomerDto customerDto)
-        {
-            _eventBus.Publish(new CustomerInsertingIntegrationEvent(customerDto.code, customerDto.title,customerDto.address,customerDto.otherAddress,customerDto.districtCode,customerDto.district,customerDto.countyCode,customerDto.county,customerDto.cityCode,customerDto.city,customerDto.countryCode,customerDto.country,customerDto.telephone,customerDto.taxNumber,customerDto.taxOffice,customerDto.paymentCode,customerDto.eMail,customerDto.tckn ));
-
-        }
-
-
-    }
+		public async Task CustomerInsert([FromBody] CustomerDto customerDto)
+		{
+			_eventBus.Publish(new CustomerInsertingIntegrationEvent(customerDto.code, customerDto.title, customerDto.address, customerDto.otherAddress, customerDto.districtCode, customerDto.countyCode, customerDto.cityCode, customerDto.countryCode, customerDto.telephone, customerDto.taxNumber, customerDto.taxOffice, customerDto.paymentCode, customerDto.eMail, customerDto.tckn));
+		}
+	}
 }

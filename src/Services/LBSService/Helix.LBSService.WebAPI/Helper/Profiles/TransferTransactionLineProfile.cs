@@ -30,7 +30,6 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 			.ForMember(d => d.USREF, o => o.MapFrom(s => s.UnitsetReferenceId))
 				.ForMember(d => d.UOMREF, o => o.MapFrom(s => s.SubUnitsetReferenceId))
 			.ForMember(d => d.SOURCEINDEX, o => o.MapFrom(s => s.WarehouseNumber));
-
 		}
 	}
 }

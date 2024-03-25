@@ -5,6 +5,6 @@ namespace Helix.LBSService.Tiger.Services
 {
 	public interface ILG_CurrentService
 	{
-		Task<DataResult<LG_Current>> Insert(LG_Current dto); 
+		Task<DataResult<LG_Current>> Insert(LG_Current dto);
 	}
 }

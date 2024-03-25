@@ -3,7 +3,7 @@
 	public class LG_Order
 	{
 		public string EmployeeOid { get; set; } = string.Empty;
-        public string NUMBER { get; set; } = "~";
+		public string NUMBER { get; set; } = "~";
 		public DateTime DATE { get; set; } = DateTime.Now;
 		public object? TIME { get; set; }
 		public string? DOC_NUMBER { get; set; } = string.Empty;
@@ -11,7 +11,7 @@
 		public string? ARP_CODE_SHPM { get; set; } = string.Empty;
 		public string SALESMAN { get; set; } = string.Empty;
 		public string PROJECT_CODE { get; set; } = string.Empty;
-        public string GL_CODE { get; set; } = string.Empty;
+		public string GL_CODE { get; set; } = string.Empty;
 		public short SOURCE_WH { get; set; } = default;
 		public int SOURCE_COST_GRP { get; set; } = default;
 		public int RC_RATE { get; set; } = default;
@@ -33,6 +33,7 @@
 		public int AFFECT_RISK { get; set; } = default;
 		public short DEDUCTIONPART1 { get; set; } = default;
 		public short DEDUCTIONPART2 { get; set; } = default;
+		public short CURR_TRANSACTIN { get; set; } = default;
 		public short EINVOICE { get; set; } = default;
 		public short EINVOICE_PROFILEID { get; set; } = default;
 		public double TOTAL_DISCOUNTED { get; set; } = default;
@@ -41,15 +42,6 @@
 		public double TOTAL_NET { get; set; } = default;
 		public string SALESMAN_CODE { get; set; } = string.Empty;
 
-
-        public Guid GUID { get; set; } = Guid.NewGuid();
-
-
-		public LG_Order()
-		{
-			TRANSACTIONS = new List<LG_OrderLine>();
-		}
-
-		public IList<LG_OrderLine> TRANSACTIONS { get; set; }
+		public Guid GUID { get; set; } = Guid.NewGuid(); 
 	}
 }

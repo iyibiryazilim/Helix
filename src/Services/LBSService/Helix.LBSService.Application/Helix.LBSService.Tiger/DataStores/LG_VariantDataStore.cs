@@ -1,5 +1,4 @@
-﻿using Helix.EventBus.Base.Abstractions;
-using Helix.LBSService.Base.Models;
+﻿using Helix.LBSService.Base.Models;
 using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Helper.ErrorHelper;
 using Helix.LBSService.Tiger.Models;

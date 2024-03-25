@@ -9,11 +9,13 @@ namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_PurchaseOrderDataStore : ILG_PurchaseOrderService
 	{
-		IUnityApplicationService _unityApplicationService;
+		private IUnityApplicationService _unityApplicationService;
+
 		public LG_PurchaseOrderDataStore(IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
 		}
+
 		public async Task<DataResult<LG_PurchaseOrder>> Insert(LG_PurchaseOrder dto)
 		{
 			UnityApplication unity = Global.UnityApp;
@@ -26,7 +28,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 				if (unity.LoggedIn)
 				{
-
 					try
 					{
 						if (unity != null)
@@ -57,7 +58,7 @@ namespace Helix.LBSService.Tiger.DataStores
 								items.DataFields.FieldByName("TOTAL_GROSS").Value = dto.TOTAL_GROSS;
 								items.DataFields.FieldByName("TOTAL_NET").Value = dto.TOTAL_NET;
 								items.DataFields.FieldByName("ORDER_STATUS").Value = dto.ORDER_STATUS;
-								items.DataFields.FieldByName("PROJECT_CODE").Value = dto.PROJECT_CODE; 
+								items.DataFields.FieldByName("PROJECT_CODE").Value = dto.PROJECT_CODE;
 								items.DataFields.FieldByName("CREATED_BY").Value = dto.CREATED_BY;
 								items.DataFields.FieldByName("DATE_CREATED").Value = dto.DATE_CREATED;
 								items.DataFields.FieldByName("HOUR_CREATED").Value = dto.HOUR_CREATED;
@@ -66,8 +67,10 @@ namespace Helix.LBSService.Tiger.DataStores
 								items.DataFields.FieldByName("SALESMAN_CODE").Value = dto.SALESMAN_CODE;
 								items.DataFields.FieldByName("CURRSEL_TOTAL").Value = dto.CURRSEL_TOTAL;
 								items.DataFields.FieldByName("DATA_REFERENCE").Value = dto.DATA_REFERENCE;
+                                items.DataFields.FieldByName("CURR_TRANSACTIN").Value = dto.CURR_TRANSACTIN;
 
-								Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
+
+                                Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
 
 								foreach (LG_PurchaseOrderLine line in dto.TRANSACTIONS)
 								{
@@ -97,7 +100,21 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_DUE_DATE").Value = line.ORG_DUE_DATE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ORG_QUANTITY").Value = line.ORG_QUANTITY;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRODUCER_CODE").Value = line.PRODUCER_CODE;
+                                    dtos_lines[dtos_lines.Count - 1].FieldByName("CURR_TRANSACTIN").Value = line.CURR_TRANSACTIN;
 
+
+                                    if (line.DISCOUNT_RATE > 0)
+									{
+										dtos_lines.AppendLine();
+										dtos_lines[dtos_lines.Count - 1].FieldByName("TYPE").Value = 2;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("QUANTITY").Value = 0;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("TOTAL").Value = line.TOTAL * (line.DISCOUNT_RATE / 100);
+										dtos_lines[dtos_lines.Count - 1].FieldByName("DISCOUNT_RATE").Value = line.DISCOUNT_RATE;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("DUE_DATE").Value = line.DUE_DATE;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCE_WH").Value = line.SOURCE_WH;
+										dtos_lines[dtos_lines.Count - 1].FieldByName("SOURCE_COST_GRP").Value = line.SOURCE_COST_GRP;
+										//dtos_lines[dtos_lines.Count - 1].FieldByName("MULTI_ADD_TAX").Value = line.MULTI_ADD_TAX;
+									}
 								}
 
 								if (items.Post())
@@ -105,17 +122,14 @@ namespace Helix.LBSService.Tiger.DataStores
 									var referenceId = Convert.ToInt32(items.DataFields.FieldByName("INTERNAL_REFERENCE").Value.ToString());
 									var code = items.DataFields.FieldByName("NUMBER").Value.ToString();
 
-
 									result.Data = null;
 									result.IsSuccess = true;
 									result.Message = "Success";
-
 								}
 								else
 								{
 									result.IsSuccess = false;
 									result.Message = new ErrorHelper().GetError(items);
-
 								}
 							}
 							else
@@ -128,7 +142,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						{
 							result.IsSuccess = false;
 							result.Message = "Unity is null";
-
 						}
 					}
 					catch (Exception)
@@ -138,14 +151,12 @@ namespace Helix.LBSService.Tiger.DataStores
 				}
 				else
 				{
-
 					result = new DataResult<LG_PurchaseOrder>
 					{
 						Data = null,
 						IsSuccess = false,
 						Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 					};
-
 				}
 			}
 			catch (Exception ex)

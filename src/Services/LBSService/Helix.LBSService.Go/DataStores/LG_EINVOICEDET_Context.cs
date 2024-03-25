@@ -9,11 +9,11 @@ namespace Helix.LBSService.Go.DataStores
 {
 	public class LG_EINVOICEDET_Context : ILG_EINVOICEDET_Context, IDisposable
 	{
-		readonly IEventBus _eventBus;
-		readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
-		readonly int _defaultPeriodNumber = LBSParameter.Period;
-		readonly string _connectionString = LBSParameter.Connection;
-		readonly ILogger<LG_EINVOICEDET_Context> _logger;
+		private readonly IEventBus _eventBus;
+		private readonly int _defaultFirmNumber = LBSParameter.FirmNumber;
+		private readonly int _defaultPeriodNumber = LBSParameter.Period;
+		private readonly string _connectionString = LBSParameter.Connection;
+		private readonly ILogger<LG_EINVOICEDET_Context> _logger;
 
 		public LG_EINVOICEDET_Context(IEventBus eventBus, ILogger<LG_EINVOICEDET_Context> logger)
 		{
@@ -33,7 +33,7 @@ namespace Helix.LBSService.Go.DataStores
 			{
 				// Dispose of managed resources
 				// Add code here to dispose of managed resources
-			} 
+			}
 		}
 
 		public async Task<DataResult<LG_EINVOICEDET>> InsertAsync(LG_EINVOICEDET dto)
@@ -112,7 +112,7 @@ namespace Helix.LBSService.Go.DataStores
            ,[ORDFCREF]
            ,[CHAINDELIVERY]
            ,[SELLERCLIENTREF]
-           ,[TAXNRTOPAY]) 
+           ,[TAXNRTOPAY])
             VALUES(
             @INVOICEREF,@STFREF,@EINVOICETYP,@PROFILEID,@ESTATUS,@EDESCRIPTION,@EDURATION,@EDURATIONTYPE,@TAXTYPE,@TUNAME
            ,@TUSURNAME,@TUPASSPORTNO,@TUNATIONALITY,@TUNATIONALITYNAME,@TUBANKNAME,@TUBNACCOUNTNO,@TUBNBRANCH
@@ -128,6 +128,7 @@ namespace Helix.LBSService.Go.DataStores
 				await using (SqlCommand command = new SqlCommand(driverQuery, connection))
 				{
 					#region Driver
+
 					command.Parameters.AddWithValue("INVOICEREF", dto.INVOICEREF);
 					command.Parameters.AddWithValue("ORDFCREF", dto.ORDFCREF);
 					command.Parameters.AddWithValue("SELLERCLIENTREF", dto.SELLERCLIENTREF);
@@ -200,7 +201,9 @@ namespace Helix.LBSService.Go.DataStores
 					command.Parameters.AddWithValue("PROFILEID", dto.PROFILEID);
 					command.Parameters.AddWithValue("ESTATUS", dto.ESTATUS);
 					command.Parameters.AddWithValue("EDURATION", dto.EDURATION);
-					#endregion
+
+					#endregion Driver
+
 					var id = await command.ExecuteScalarAsync();
 					if (id != null)
 					{
@@ -215,7 +218,7 @@ namespace Helix.LBSService.Go.DataStores
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "An error occurred while inserting the object."); 
+				_logger.LogError(ex, "An error occurred while inserting the object.");
 				throw;
 			}
 		}

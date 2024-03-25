@@ -3,7 +3,7 @@
 	public class LG_ProductTransaction
 	{
 		public string EmployeeOid { get; set; } = string.Empty;
-        public short GROUP { get; set; } = default;
+		public short GROUP { get; set; } = default;
 		public short TYPE { get; set; } = default;
 		public string NUMBER { get; set; } = "~";
 		public DateTime DATE { get; set; } = DateTime.Now;

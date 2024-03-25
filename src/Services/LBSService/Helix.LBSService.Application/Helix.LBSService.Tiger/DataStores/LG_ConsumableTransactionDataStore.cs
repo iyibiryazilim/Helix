@@ -6,19 +6,19 @@ using Helix.LBSService.Tiger.Services;
 using Microsoft.Extensions.Logging;
 using UnityObjects;
 
-
-
 namespace Helix.LBSService.Tiger.DataStores
 {
 	public class LG_ConsumableTransactionDataStore : ILG_ConsumableTransactionService
 	{
-		IUnityApplicationService _unityApplicationService;
- 		ILogger<LG_ConsumableTransactionDataStore> _logger;
-		public LG_ConsumableTransactionDataStore(ILogger<LG_ConsumableTransactionDataStore>  logger ,IUnityApplicationService unityApplicationService)
+		private IUnityApplicationService _unityApplicationService;
+		private ILogger<LG_ConsumableTransactionDataStore> _logger;
+
+		public LG_ConsumableTransactionDataStore(ILogger<LG_ConsumableTransactionDataStore> logger, IUnityApplicationService unityApplicationService)
 		{
 			_unityApplicationService = unityApplicationService;
- 			_logger = logger;
+			_logger = logger;
 		}
+
 		public async Task<DataResult<LG_ConsumableTransaction>> Insert(LG_ConsumableTransaction dto)
 		{
 			UnityApplication unity = Global.UnityApp;
@@ -39,7 +39,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 				if (unity.LoggedIn)
 				{
-
 					try
 					{
 						if (unity != null)
@@ -117,7 +116,6 @@ namespace Helix.LBSService.Tiger.DataStores
 
 											//sl_details0[sl_details0.Count - 1].FieldByName("DATE_EXPIRED").Value = DateTime.Now.AddDays(90);
 										}
-
 									}
 								}
 
@@ -126,18 +124,15 @@ namespace Helix.LBSService.Tiger.DataStores
 									var referenceId = Convert.ToInt32(items.DataFields.FieldByName("INTERNAL_REFERENCE").Value.ToString());
 									var code = items.DataFields.FieldByName("NUMBER").Value.ToString();
 
-
 									result.Data = null;
 									result.IsSuccess = true;
 									result.Message = "Success";
-									_logger.LogInformation($"ConsumableTransaction Inserted :{referenceId}" );
- 
+									_logger.LogInformation($"ConsumableTransaction Inserted :{referenceId}");
 								}
 								else
 								{
 									result.IsSuccess = false;
 									result.Message = new ErrorHelper().GetError(items);
-								 
 								}
 							}
 							else
@@ -150,12 +145,11 @@ namespace Helix.LBSService.Tiger.DataStores
 						{
 							result.IsSuccess = false;
 							result.Message = "Unity is null";
-
 						}
 					}
 					catch (Exception ex)
 					{
-						_logger.LogError(ex,ex.Message); 
+						_logger.LogError(ex, ex.Message);
 						result = new DataResult<LG_ConsumableTransaction>
 						{
 							Data = null,
@@ -174,7 +168,6 @@ namespace Helix.LBSService.Tiger.DataStores
 						IsSuccess = false,
 						Message = unity.GetLastError() + "-" + unity.GetLastErrorString()
 					};
-
 				}
 			}
 			catch (Exception ex)
@@ -183,6 +176,5 @@ namespace Helix.LBSService.Tiger.DataStores
 			}
 			return await Task.FromResult(result);
 		}
-
 	}
 }

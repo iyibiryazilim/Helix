@@ -9,7 +9,6 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 	{
 		public ProductionTransactionLineProfile()
 		{
-
 			CreateMap<ProductionTransactionLineDto, LG_ProductionTransactionLine>()
 			  .ForMember(d => d.ITEM_CODE, o => o.MapFrom(s => s.ProductCode))
 			  .ForMember(d => d.DESCRIPTION, o => o.MapFrom(s => s.Description))

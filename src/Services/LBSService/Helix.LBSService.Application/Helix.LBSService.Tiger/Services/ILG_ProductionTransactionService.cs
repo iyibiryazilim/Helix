@@ -6,6 +6,5 @@ namespace Helix.LBSService.Tiger.Services
 	public interface ILG_ProductionTransactionService
 	{
 		Task<DataResult<LG_ProductionTransaction>> Insert(LG_ProductionTransaction dto);
-
 	}
 }

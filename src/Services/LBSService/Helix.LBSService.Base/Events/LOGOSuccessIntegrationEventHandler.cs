@@ -6,7 +6,7 @@ namespace Helix.LBSService.Base.Events
 	{
 		public Task Handle(LOGOSuccessIntegrationEvent @event)
 		{
-				return Task.CompletedTask;
+			return Task.CompletedTask;
 		}
 	}
 }

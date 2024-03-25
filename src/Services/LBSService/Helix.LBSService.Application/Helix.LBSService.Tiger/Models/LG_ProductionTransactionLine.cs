@@ -2,7 +2,7 @@
 
 namespace Helix.LBSService.Tiger.Models
 {
-    public class LG_ProductionTransactionLine : LG_ProductTransactionLine
-    {
-    }
+	public class LG_ProductionTransactionLine : LG_ProductTransactionLine
+	{
+	}
 }

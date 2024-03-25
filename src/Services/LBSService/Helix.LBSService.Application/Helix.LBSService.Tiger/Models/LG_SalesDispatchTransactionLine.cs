@@ -1,6 +1,6 @@
 ﻿namespace Helix.LBSService.Tiger.Models
 {
-    public class LG_SalesDispatchTransactionLine : LG_ProductSalesDispatchTransactionLine
-    {
-    }
+	public class LG_SalesDispatchTransactionLine : LG_ProductSalesDispatchTransactionLine
+	{
+	}
 }

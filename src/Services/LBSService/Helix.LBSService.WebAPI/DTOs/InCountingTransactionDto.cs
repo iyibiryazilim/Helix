@@ -12,6 +12,7 @@
 			Lines = new List<InCountingTransactionLineDto>();
 		}
 	}
+
 	public class InCountingTransactionLineDto : ProductTransactionLineDto
 	{
 		public IList<SeriLotTransactionDto> SeriLotTransactions { get; set; }
