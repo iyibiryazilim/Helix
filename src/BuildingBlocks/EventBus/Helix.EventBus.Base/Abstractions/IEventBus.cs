@@ -13,8 +13,9 @@ namespace Helix.EventBus.Base.Abstractions
 		void UnSubscribe<T, TH>() where T : IntegrationEvent where TH : IIntegrationEventHandler<T>;
 
 		void Consume(IntegrationEvent @event);
-		EventingBasicConsumer GetConsumer();
-		IModel GetConsumerChannel();
 
+		EventingBasicConsumer GetConsumer();
+
+		IModel GetConsumerChannel();
 	}
 }

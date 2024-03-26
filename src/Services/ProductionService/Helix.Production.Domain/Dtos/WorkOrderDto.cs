@@ -1,6 +1,6 @@
 ﻿namespace Helix.ProductionService.Domain.Dtos;
 
-public record WorkOrderDto(
+public record WorkOrderDto(Guid eventId,
 		int workOrderReferenceId,
 		int productReferenceId,
 		double actualQuantity,

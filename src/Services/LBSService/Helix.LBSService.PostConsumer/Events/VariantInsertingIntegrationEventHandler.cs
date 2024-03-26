@@ -54,13 +54,11 @@ namespace Helix.LBSService.PostConsumer.Events
 			}
 			catch (JsonException ex)
 			{
-				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
-				throw;
+				_logger.LogError($"JsonException in PostDtoToApiAsync: {ex.Message}");
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError($"Error in PostDtoToApiAsync: {ex.Message}");
-				throw;
+				_logger.LogError($"Exception in PostDtoToApiAsync: {ex.Message} StackTrace: {ex.StackTrace} ");
 			}
 		}
 	}

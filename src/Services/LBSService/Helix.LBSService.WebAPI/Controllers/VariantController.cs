@@ -1,4 +1,6 @@
-﻿using Helix.LBSService.Base.Models;
+﻿using Helix.EventBus.Base.Abstractions;
+using Helix.LBSService.Base.Events;
+using Helix.LBSService.Base.Models;
 using Helix.LBSService.WebAPI.DTOs;
 using Helix.LBSService.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,13 +11,13 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class VariantController : ControllerBase
 	{
-		private readonly ILogger<VariantController> _logger;
 		private readonly IVariantService _service;
+		private readonly IEventBus _eventBus;
 
-		public VariantController(ILogger<VariantController> logger, IVariantService variantService)
+		public VariantController(IVariantService variantService, IEventBus eventBus)
 		{
-			_logger = logger;
 			_service = variantService;
+			_eventBus = eventBus;
 		}
 
 		[HttpPost("Insert")]
@@ -28,7 +30,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "VariantController.Insert");
+				_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
+				_eventBus.Publish(new LOGOFailureIntegrationEvent(0, ex.Message, null, dto));
 				return new DataResult<VariantDto>
 				{
 					Data = null,

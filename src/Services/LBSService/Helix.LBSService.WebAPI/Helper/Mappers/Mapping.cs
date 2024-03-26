@@ -41,6 +41,9 @@ namespace Helix.LBSService.WebAPI.Helper.Mappers
 				cfg.AddProfile<CurrentProfile>();
 				cfg.AddProfile<VariantProfile>();
 				cfg.AddProfile<VariantAssignProfile>();
+				cfg.AddProfile<DemandProfile>();
+				cfg.AddProfile<DemandLineProfile>();
+
 				cfg.AllowNullCollections = true;
 			});
 			//config.AssertConfigurationIsValid();

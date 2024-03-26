@@ -88,6 +88,8 @@ builder.Services.AddTransient<IOutCountingTransactionService, OutCountingTransac
 builder.Services.AddTransient<IPurchaseOrderService, PurchaseOrderDataStore>();
 builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
 builder.Services.AddTransient<IWorkOrderService, WorkOrderDataStore>();
+builder.Services.AddTransient<IDemandService, DemandDataStore>();
+builder.Services.AddTransient<ILG_DemandService, LG_DemandDataStore>();
 
 builder.Services.AddControllers();
 

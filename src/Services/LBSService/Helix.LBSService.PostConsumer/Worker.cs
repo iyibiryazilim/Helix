@@ -56,6 +56,7 @@ namespace Helix.LBSService.PostConsumer
 			_eventBus.Consume(new WorkOrderInsertActualQuantityIntegrationEvent());
 			_eventBus.Consume(new OutSourceWorkOrderStopTransactionInsertingIntegrationEvent());
 			_eventBus.Consume(new OutSourceWorkOrderInsertActualQuantityIntegrationEvent());
+			_eventBus.Consume(new DemandInsertingIntegrationEvent());
 			_eventBus.Consume(new OutSourceWorkOrderChangeStatusInsertedIntegrationEvent());
 
 			while (!stoppingToken.IsCancellationRequested)

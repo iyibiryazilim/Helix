@@ -8,8 +8,9 @@ public class WorkOrderChangeStatusInsertedIntegrationEvent : IntegrationEvent
 	public int Status { get; private set; }
 	public short DeleteFiche { get; private set; }
 
-	public WorkOrderChangeStatusInsertedIntegrationEvent(string ficheNo, int status, short deleteFiche)
+	public WorkOrderChangeStatusInsertedIntegrationEvent(Guid eventId, string ficheNo, int status, short deleteFiche)
 	{
+		Id = eventId;
 		FicheNo = ficheNo;
 		Status = status;
 		DeleteFiche = deleteFiche;

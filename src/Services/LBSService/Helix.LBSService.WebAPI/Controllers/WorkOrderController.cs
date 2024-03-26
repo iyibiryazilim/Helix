@@ -11,8 +11,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 	[ApiController]
 	public class WorkOrderController : ControllerBase
 	{
-		private IWorkOrderService _workOrderService;
-		private IEventBus _eventBus;
+		private readonly IWorkOrderService _workOrderService;
+		private readonly IEventBus _eventBus;
 
 		public WorkOrderController(IWorkOrderService workOrderService, IEventBus eventBus)
 		{
@@ -26,16 +26,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 			try
 			{
 				var result = await _workOrderService.Insert(dto);
-				if (result.IsSuccess)
-				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
-				}
-				else
-				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
-				}
+
 				return new DataResult<WorkOrderDto>()
 				{
 					Data = null,
@@ -45,6 +36,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 			}
 			catch (Exception ex)
 			{
+				_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
+				_eventBus.Publish(new LOGOFailureIntegrationEvent(0, ex.Message, null, dto));
 				return new DataResult<WorkOrderDto>()
 				{
 					Data = null,
@@ -60,16 +53,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 			try
 			{
 				var result = await _workOrderService.InsertStopTransaction(dto);
-				if (result.IsSuccess)
-				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
-				}
-				else
-				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
-				}
+
 				return new DataResult<WorkOrderDto>()
 				{
 					Data = null,
@@ -79,6 +63,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 			}
 			catch (Exception ex)
 			{
+				_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
+				_eventBus.Publish(new LOGOFailureIntegrationEvent(0, ex.Message, null, dto));
 				return new DataResult<WorkOrderDto>()
 				{
 					Data = null,
@@ -94,16 +80,7 @@ namespace Helix.LBSService.WebAPI.Controllers
 			try
 			{
 				var result = await _workOrderService.InsertWorkOrderStatus(dto);
-				if (result.IsSuccess)
-				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
-				}
-				else
-				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
-				}
+
 				return new DataResult<WorkOrderDto>()
 				{
 					Data = null,
@@ -113,6 +90,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 			}
 			catch (Exception ex)
 			{
+				_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
+				_eventBus.Publish(new LOGOFailureIntegrationEvent(0, ex.Message, null, dto));
 				return new DataResult<WorkOrderDto>()
 				{
 					Data = null,

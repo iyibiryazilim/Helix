@@ -6,18 +6,15 @@ using Helix.SalesService.Application.Repository;
 using Helix.SalesService.Domain.Events;
 using Helix.SalesService.Infrastructure.EventHandlers;
 using Helix.SalesService.Infrastructure.Repository;
-using Helix.SalesService.WebAPI.AuthRegistrations;
 using Helix.Tiger.DataAccess.DataStores;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureAuth(builder.Configuration);
 
-
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
-
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {
@@ -28,8 +25,7 @@ builder.Services.AddSingleton<IEventBus>(eb =>
 		DefaultTopicName = "HelixTopicName",
 		EventBusType = EventBusType.RabbitMQ,
 		EventBusConnectionString = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"],
-        EventNameSuffix = nameof(IntegrationEvent),
-		
+		EventNameSuffix = nameof(IntegrationEvent),
 	}, eb);
 });
 
@@ -42,7 +38,6 @@ eventBus.Subscribe<RetailSalesDispatchTransactionInsertingIntegrationEvent, Reta
 eventBus.Subscribe<RetailSalesReturnDispatchTransactionInsertingIntegrationEvent, RetailSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
 eventBus.Subscribe<WholeSalesDispatchTransactionInsertingIntegrationEvent, WholeSalesDispatchTransactionInsertingIntegrationEventHandler>();
 eventBus.Subscribe<WholeSalesReturnDispatchTransactionInsertingIntegrationEvent, WholeSalesReturnDispatchTransactionInsertingIntegrationEventHandler>();
-
 
 //builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.AddTransient<IRetailSalesDispatchTransactionService, RetailSalesDispatchTransactionDataStore>();
@@ -59,14 +54,10 @@ builder.Services.AddTransient<ICustomerTransactionService, CustomerTransactionDa
 builder.Services.AddTransient<ISalesOrderLineService, SalesOrderLineDataStore>();
 builder.Services.AddTransient<IDriverService, DriverDataStore>();
 builder.Services.AddTransient<ICarrierService, CarrierDataStore>();
-builder.Services.AddTransient<ISpeCodeModelService,SpeCodeDataStore>();
+builder.Services.AddTransient<ISpeCodeModelService, SpeCodeDataStore>();
 builder.Services.AddTransient<IShipInfoService, ShipInfoDataStore>();
 
-
-
 builder.Services.AddTransient<ICustomerService, CustomerDataStore>();
-
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -78,7 +69,6 @@ var app = builder.Build();
 //// Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-	
 //}
 app.UseSwagger();
 app.UseSwaggerUI();

@@ -2,26 +2,25 @@
 
 namespace Helix.EventBus.Base.Events
 {
-    public class IntegrationEvent
-    {
-        [JsonProperty]
-        public Guid Id { get; private set; }
+	public class IntegrationEvent
+	{
+		[JsonProperty]
+		public Guid Id { get; set; }
 
-        [JsonProperty]
-        public DateTime CreatedOn { get; private set; }
+		[JsonProperty]
+		public DateTime CreatedOn { get; private set; }
 
-       
-        public IntegrationEvent()
-        {
-            Id = Guid.NewGuid();
-            CreatedOn = DateTime.Now;
-        }
+		public IntegrationEvent()
+		{
+			Id = Guid.NewGuid();
+			CreatedOn = DateTime.Now;
+		}
 
-        [JsonConstructor]
-        public IntegrationEvent(Guid id, DateTime createdOn)
-        {
-            Id  = id;
-            CreatedOn = createdOn;
-        }
-    }
+		[JsonConstructor]
+		public IntegrationEvent(Guid id, DateTime createdOn)
+		{
+			Id = id;
+			CreatedOn = createdOn;
+		}
+	}
 }
