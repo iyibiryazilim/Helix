@@ -6,7 +6,6 @@ using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
@@ -14,7 +13,7 @@ namespace Helix.EventBus.RabbitMQ
 {
 	public class EventBusRabbitMQ : BaseEventBus
 	{
-		RabbitMQPersistentConnection persistentConnection;
+		private RabbitMQPersistentConnection persistentConnection;
 		private readonly IConnectionFactory _connectionFactory;
 		private readonly IModel _consumerChannel;
 		private EventingBasicConsumer _consumer;
@@ -40,7 +39,6 @@ namespace Helix.EventBus.RabbitMQ
 					//UserName = "oqhbtvgt",
 					//Password = "Zh4cCLQdL1U3_E5dtAA0TOh7vnYUVA7g"
 				};
-
 			}
 
 			persistentConnection = new RabbitMQPersistentConnection(_connectionFactory, eventBusconfig.ConnectionRetryCount);
@@ -64,7 +62,6 @@ namespace Helix.EventBus.RabbitMQ
 
 			if (_subscriptionManager.isEmpty)
 				_consumerChannel.Close();
-
 		}
 
 		private IModel CreateConsumerModel()
@@ -76,9 +73,7 @@ namespace Helix.EventBus.RabbitMQ
 
 			channel.ExchangeDeclare(exchange: _eventBusconfig.DefaultTopicName, type: "direct");
 
-
 			return channel;
-
 		}
 
 		private void StartBasicConsume(string eventName)
@@ -94,7 +89,7 @@ namespace Helix.EventBus.RabbitMQ
 																  arguments: null);
 
 					_consumerChannel.QueueBind(queue: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}", exchange: _eventBusconfig.DefaultTopicName, routingKey: $"{_eventBusconfig.SubscriperClientAppName}.{eventName}");
-				    _consumer = new EventingBasicConsumer(_consumerChannel);
+					_consumer = new EventingBasicConsumer(_consumerChannel);
 					_consumer.Received += Consumer_Received;
 
 					_consumerChannel.BasicConsume(queue: GetSubName(eventName),
@@ -103,11 +98,9 @@ namespace Helix.EventBus.RabbitMQ
 				}
 				catch (Exception)
 				{
-
 					throw;
 				}
 			}
-
 		}
 
 		private async void Consumer_Received(object sender, BasicDeliverEventArgs args)
@@ -115,17 +108,16 @@ namespace Helix.EventBus.RabbitMQ
 			var eventName = args.RoutingKey;
 			eventName = ProcessEventName(eventName);
 			var message = Encoding.UTF8.GetString(args.Body.Span);
- 			try
+			try
 			{
 				await ProcessEvent(eventName, message);
 			}
 			catch (Exception)
-			{ 
+			{
 				throw;
 			}
 
 			_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
-
 		}
 
 		public override void Publish(IntegrationEvent @event)
@@ -165,9 +157,7 @@ namespace Helix.EventBus.RabbitMQ
 															   mandatory: true,
 															   basicProperties: properties,
 															   body: body);
-
 			});
-
 		}
 
 		public override void Subscribe<T, TH>()
@@ -199,8 +189,7 @@ namespace Helix.EventBus.RabbitMQ
 
 		public override void Consume(IntegrationEvent @event)
 		{
-
-			var eventName = @event.GetType().Name; 
+			var eventName = @event.GetType().Name;
 			// Check if eventName ends with the suffix
 			if (eventName.EndsWith(_eventBusconfig.EventNameSuffix))
 			{

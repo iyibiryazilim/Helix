@@ -5,8 +5,6 @@ using Helix.EventBus.Factory;
 using Helix.LBSService.PostConsumer;
 using Helix.LBSService.PostConsumer.Events;
 using Helix.LBSService.PostConsumer.Helper;
-using Microsoft.Extensions.Logging.Configuration;
-using Microsoft.Extensions.Logging.EventLog;
 using Serilog;
 
 var builder = Host.CreateApplicationBuilder(args);
@@ -39,6 +37,7 @@ builder.Services.AddTransient<OutSourceWorkOrderInsertActualQuantityIntegrationE
 builder.Services.AddTransient<OutSourceWorkOrderStopTransactionInsertingIntegrationEventHandler>();
 builder.Services.AddTransient<WorkOrderInsertActualQuantityIntegrationEventHandler>();
 builder.Services.AddTransient<WorkOrderStopTransactionInsertingIntegrationEventHandler>();
+builder.Services.AddTransient<DemandInsertingIntegrationEventHandler>();
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
@@ -80,6 +79,7 @@ builder.Services.AddSingleton<IEventBus>(serviceProvider =>
 	eventBus.Subscribe<OutSourceWorkOrderStopTransactionInsertingIntegrationEvent, OutSourceWorkOrderStopTransactionInsertingIntegrationEventHandler>();
 	eventBus.Subscribe<WorkOrderInsertActualQuantityIntegrationEvent, WorkOrderInsertActualQuantityIntegrationEventHandler>();
 	eventBus.Subscribe<WorkOrderStopTransactionInsertingIntegrationEvent, WorkOrderStopTransactionInsertingIntegrationEventHandler>();
+	eventBus.Subscribe<DemandInsertingIntegrationEvent, DemandInsertingIntegrationEventHandler>();
 
 	return eventBus;
 });
