@@ -51,39 +51,45 @@ public abstract class BaseEventBus : IEventBus
 
 	public async Task<bool> ProcessEvent(string eventName, string message)
 	{
-		eventName = ProcessEventName(eventName);
-
 		var processed = false;
-
-		if (_subscriptionManager.HasSubscriptionsForEvent(eventName))
+		try
 		{
-			var subscriptions = _subscriptionManager.GetHandlerForEvent(eventName);
+			eventName = ProcessEventName(eventName);
 
-			using (var scope = _serviceProvider.CreateScope())
+			if (_subscriptionManager.HasSubscriptionsForEvent(eventName))
 			{
-				foreach (var subscription in subscriptions)
+				var subscriptions = _subscriptionManager.GetHandlerForEvent(eventName);
+
+				using (var scope = _serviceProvider.CreateScope())
 				{
-					var handler = _serviceProvider.GetService(subscription.HandleType);
-
-					if (handler == null)
+					foreach (var subscription in subscriptions)
 					{
-						Console.WriteLine("Handler is null");
-						continue;
+						var handler = _serviceProvider.GetService(subscription.HandleType);
+
+						if (handler == null)
+						{
+							Console.WriteLine("Handler is null");
+							continue;
+						}
+
+						var eventType = _subscriptionManager.GetEventTypeByName($"{_eventBusconfig.EventNamePrefix}{eventName}{_eventBusconfig.EventNameSuffix}");
+
+						var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
+
+						var concreateType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+						await (Task)concreateType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
 					}
-
-					var eventType = _subscriptionManager.GetEventTypeByName($"{_eventBusconfig.EventNamePrefix}{eventName}{_eventBusconfig.EventNameSuffix}");
-
-					var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
-
-					var concreateType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-					await (Task)concreateType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
 				}
+
+				processed = true;
 			}
 
-			processed = true;
+			return processed;
 		}
-
-		return processed;
+		catch (Exception)
+		{
+			return false;
+		}
 	}
 
 	public abstract void Publish(IntegrationEvent @event);

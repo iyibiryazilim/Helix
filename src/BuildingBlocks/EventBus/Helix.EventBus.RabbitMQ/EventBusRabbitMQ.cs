@@ -108,16 +108,17 @@ namespace Helix.EventBus.RabbitMQ
 			var eventName = args.RoutingKey;
 			eventName = ProcessEventName(eventName);
 			var message = Encoding.UTF8.GetString(args.Body.Span);
-			try
-			{
-				await ProcessEvent(eventName, message);
-			}
-			catch (Exception)
-			{
-				throw;
-			}
 
-			_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
+			if (await ProcessEvent(eventName, message))
+			{
+				_consumerChannel.BasicAck(args.DeliveryTag, multiple: false);
+			}
+			else
+			{
+				bool requeue = true;
+				_consumerChannel.BasicNack(args.DeliveryTag, multiple: false, requeue: requeue);
+			}
+			// Acknowledge the message if ProcessEvent succeeds
 		}
 
 		public override void Publish(IntegrationEvent @event)
@@ -189,14 +190,21 @@ namespace Helix.EventBus.RabbitMQ
 
 		public override void Consume(IntegrationEvent @event)
 		{
-			var eventName = @event.GetType().Name;
-			// Check if eventName ends with the suffix
-			if (eventName.EndsWith(_eventBusconfig.EventNameSuffix))
+			try
 			{
-				// Remove the suffix
-				eventName = eventName.Substring(0, eventName.Length - _eventBusconfig.EventNameSuffix.Length);
+				var eventName = @event.GetType().Name;
+				// Check if eventName ends with the suffix
+				if (eventName.EndsWith(_eventBusconfig.EventNameSuffix))
+				{
+					// Remove the suffix
+					eventName = eventName.Substring(0, eventName.Length - _eventBusconfig.EventNameSuffix.Length);
+				}
+				StartBasicConsume(eventName);
 			}
-			StartBasicConsume(eventName);
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		public override EventingBasicConsumer GetConsumer()
