@@ -2,13 +2,13 @@
 
 namespace Helix.LBSService.PostConsumer.Events
 {
-	public class OutSourceWorkOrderInsertActualQuantityIntegrationEvent : IntegrationEvent
-	{
-		public int WorkOrderReferenceId { get; private set; }
-		public int ProductReferenceId { get; private set; }
-		public double ActualQuantity { get; private set; }
-		public int SubUnitsetReferenceId { get; private set; }
-		public short CalculatedMethod { get; private set; }
-		public bool IsIncludeSideProduct { get; private set; }
-	}
+    public class OutSourceWorkOrderInsertActualQuantityIntegrationEvent : IntegrationEvent
+    {
+        public int WorkOrderReferenceId { get; set; }
+        public int ProductReferenceId { get; set; }
+        public double ActualQuantity { get; set; }
+        public int SubUnitsetReferenceId { get; set; }
+        public short CalculatedMethod { get; set; }
+        public bool IsIncludeSideProduct { get; set; }
+    }
 }
