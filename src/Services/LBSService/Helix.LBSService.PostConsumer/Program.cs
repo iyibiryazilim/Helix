@@ -5,8 +5,7 @@ using Helix.EventBus.Factory;
 using Helix.LBSService.PostConsumer;
 using Helix.LBSService.PostConsumer.Events;
 using Helix.LBSService.PostConsumer.Helper;
-using Serilog;
-
+ 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddWindowsService(options =>
 {
@@ -40,8 +39,7 @@ builder.Services.AddTransient<WorkOrderStopTransactionInsertingIntegrationEventH
 builder.Services.AddTransient<DemandInsertingIntegrationEventHandler>();
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
-Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
-
+ 
 var test = configuration.GetSection("RabbitMQ")["RabbitMQConnectionString"];
 
 builder.Services.AddSingleton<IEventBus>(serviceProvider =>
