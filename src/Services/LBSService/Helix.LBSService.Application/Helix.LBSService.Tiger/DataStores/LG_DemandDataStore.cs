@@ -3,6 +3,7 @@ using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Helper.ErrorHelper;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Services;
+using UnityObjects;
 
 namespace Helix.LBSService.Tiger.DataStores
 {
