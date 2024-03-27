@@ -1,3 +1,4 @@
+using Helix.DemandService.Api.AuthRegistrations;
 using Helix.DemandService.Domain.Events;
 using Helix.DemandService.Infrastructure.EventHandlers;
 using Helix.EventBus.Base;
@@ -11,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 builder.Host.UseSerilog();
+
+builder.Services.ConfigureAuth(builder.Configuration);
 
 builder.Services.AddSingleton<IEventBus>(eb =>
 {

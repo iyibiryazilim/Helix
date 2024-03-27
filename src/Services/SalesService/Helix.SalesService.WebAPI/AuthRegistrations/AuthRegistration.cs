@@ -7,7 +7,7 @@ namespace Helix.SalesService.WebAPI.AuthRegistrations
 {
 	public static class AuthRegistration
 	{
-#if !DEBUG
+
           public static IServiceCollection ConfigureAuth(this IServiceCollection services, IConfiguration configuration)
         		{
                     // Check if authentication has already been configured
@@ -36,6 +36,5 @@ namespace Helix.SalesService.WebAPI.AuthRegistrations
 
                     return services;
                 }
-#endif
 	}
 }

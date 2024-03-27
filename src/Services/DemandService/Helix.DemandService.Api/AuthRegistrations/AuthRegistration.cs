@@ -1,8 +1,12 @@
-﻿namespace Helix.DemandService.Api.AuthRegistrations
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+namespace Helix.DemandService.Api.AuthRegistrations
 {
 	public static class AuthRegistration
 	{
-#if !DEBUG
+
           public static IServiceCollection ConfigureAuth(this IServiceCollection services, IConfiguration configuration)
         		{
                     // Check if authentication has already been configured
@@ -31,6 +35,5 @@
 
                     return services;
                 }
-#endif
 	}
 }
