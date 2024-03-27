@@ -29,11 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Helix.DemandService.Domain\Helix.DemandService.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\Helix.DemandService.Infrastructure\Helix.DemandService.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Base\Helix.EventBus.Base.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.Factory\Helix.EventBus.Factory.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Helix.EventBus.RabbitMQ\Helix.EventBus.RabbitMQ.csproj" />
+    <ProjectReference Include="..\Helix.DemandService.Domain\Helix.DemandService.Domain.csproj" />
+    <ProjectReference Include="..\Helix.DemandService.Infrastructure\Helix.DemandService.Infrastructure.csproj" /> 
   </ItemGroup>
 
 </Project>
