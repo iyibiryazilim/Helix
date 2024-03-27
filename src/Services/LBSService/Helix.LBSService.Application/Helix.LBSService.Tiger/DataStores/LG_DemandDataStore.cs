@@ -3,7 +3,6 @@ using Helix.LBSService.Tiger.Helper;
 using Helix.LBSService.Tiger.Helper.ErrorHelper;
 using Helix.LBSService.Tiger.Models;
 using Helix.LBSService.Tiger.Services;
-using UnityObjects;
 
 namespace Helix.LBSService.Tiger.DataStores
 {
@@ -61,6 +60,8 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ARP_CODE").Value = line.ARP_CODE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ITEM_CODE").Value = line.ITEM_CODE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("DETAIL").Value = line.DETAIL;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("REAL_SRC_INDEX").Value = line.REAL_SRC_INDEX;
 									//dtos_lines[dtos_lines.Count - 1].FieldByName("ORD_PEG_USE").Value = 0; // SİPARİŞ BAĞLANTISI
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRICE").Value = line.PRICE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("VARIANTCODE").Value = line.VARIANTCODE;

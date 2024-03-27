@@ -11,5 +11,7 @@
 		public double PRICE { get; set; } = default;
 		public string VARIANTCODE { get; set; } = string.Empty;
 		public string PROJECT_CODE { get; set; } = string.Empty;
+		public string DETAIL { get; set; } = string.Empty;
+		public int REAL_SRC_INDEX { get; set; } = default;
 	}
 }
