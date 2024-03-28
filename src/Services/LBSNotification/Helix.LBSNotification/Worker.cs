@@ -19,9 +19,6 @@ namespace Helix.NotificationService
             {
                 await StartRabbitMQ(stoppingToken);
             }
-            catch (OperationCanceledException)
-            {
-            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "{Message}", ex.Message);
@@ -33,7 +30,7 @@ namespace Helix.NotificationService
 
         private async Task StartRabbitMQ(CancellationToken stoppingToken)
         {
-            _eventBus.Consume(new SysMessageIntegrationEvent());
+            _eventBus.Consume(new SYSMessageIntegrationEvent());
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (_logger.IsEnabled(LogLevel.Information))

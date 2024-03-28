@@ -2,9 +2,10 @@
 
 namespace Helix.LBSNotification.Events
 {
-    public class SysMessageIntegrationEvent : IntegrationEvent
+    public class SYSMessageIntegrationEvent : IntegrationEvent
     {
         public Guid Owner { get; set; }
-        public string Content { get; set; } = string.Empty;
+        public object Content { get; set; }
+
     }
 }
