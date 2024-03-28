@@ -21,7 +21,7 @@ namespace Helix.DemandService.Api.Controllers
 		{
 			try
 			{
-				_eventbus.Publish(new DemandInsertingIntegrationEvent(dto.ReferenceId, dto.Date, dto.DocumentNumber, dto.SpeCode, dto.DateCreated, dto.ProjectCode, dto.Lines));
+				_eventbus.Publish(new DemandInsertingIntegrationEvent(dto.ReferenceId, dto.Date, dto.DocumentNumber, dto.SpeCode, dto.DateCreated, dto.ProjectCode, dto.WarehouseNumber, dto.Lines));
 			}
 			catch (Exception)
 			{

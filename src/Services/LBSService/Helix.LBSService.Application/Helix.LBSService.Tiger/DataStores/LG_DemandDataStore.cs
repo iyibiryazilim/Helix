@@ -49,8 +49,10 @@ namespace Helix.LBSService.Tiger.DataStores
 								items.DataFields.FieldByName("MIN_CREATED").Value = dto.DATE_CREATED.Minute;
 								items.DataFields.FieldByName("SEC_CREATED").Value = dto.DATE_CREATED.Second;
 								items.DataFields.FieldByName("PROJECT_CODE").Value = dto.PROJECT_CODE;
+								items.DataFields.FieldByName("SOURCE_INDEX").Value = dto.SOURCE_INDEX;
 
-								Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
+
+                                Lines dtos_lines = items.DataFields.FieldByName("TRANSACTIONS").Lines;
 
 								foreach (var line in dto.TRANSACTION)
 								{
@@ -61,7 +63,7 @@ namespace Helix.LBSService.Tiger.DataStores
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ARP_CODE").Value = line.ARP_CODE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("ITEM_CODE").Value = line.ITEM_CODE;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("UNIT_CODE").Value = line.UNIT_CODE;
-									dtos_lines[dtos_lines.Count - 1].FieldByName("DETAIL").Value = line.DETAIL;
+									dtos_lines[dtos_lines.Count - 1].FieldByName("DETAILS").Value = line.DETAILS;
 									dtos_lines[dtos_lines.Count - 1].FieldByName("REAL_SRC_INDEX").Value = line.REAL_SRC_INDEX;
 									//dtos_lines[dtos_lines.Count - 1].FieldByName("ORD_PEG_USE").Value = 0; // SİPARİŞ BAĞLANTISI
 									dtos_lines[dtos_lines.Count - 1].FieldByName("PRICE").Value = line.PRICE;

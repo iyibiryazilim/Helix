@@ -90,6 +90,7 @@ builder.Services.AddTransient<ISalesOrderService, SalesOrderDataStore>();
 builder.Services.AddTransient<IWorkOrderService, WorkOrderDataStore>();
 builder.Services.AddTransient<IDemandService, DemandDataStore>();
 builder.Services.AddTransient<ILG_DemandService, LG_DemandDataStore>();
+builder.Services.AddTransient<IVariantService, VariantDataStore>();
 
 builder.Services.AddControllers();
 

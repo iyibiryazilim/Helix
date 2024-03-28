@@ -14,6 +14,7 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 				 .ForMember(d => d.DocumentNumber, o => o.MapFrom(s => s.DO_CODE))
 				 .ForMember(d => d.ProjectCode, o => o.MapFrom(s => s.PROJECT_CODE))
 				 .ForMember(d => d.SpeCode, o => o.MapFrom(s => s.AUXIL_CODE))
+				 .ForMember(d => d.WarehouseNumber, o => o.MapFrom(s => s.SOURCE_INDEX))
 				 .ForMember(dest => dest.Lines, opt => opt.MapFrom(src => src.TRANSACTION))
 				.ReverseMap();
 		}
