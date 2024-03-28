@@ -40,12 +40,12 @@ namespace Helix.LBSService.WebAPI.DataStores
 
 					if (result.IsSuccess)
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-						_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
 					}
 					else
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
 						_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
 					}
 
@@ -63,7 +63,7 @@ namespace Helix.LBSService.WebAPI.DataStores
 			}
 			catch (Exception ex)
 			{
-				_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
+				//_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
 				_eventBus.Publish(new LOGOFailureIntegrationEvent(0, ex.Message, null, dto));
 				throw;
 			}

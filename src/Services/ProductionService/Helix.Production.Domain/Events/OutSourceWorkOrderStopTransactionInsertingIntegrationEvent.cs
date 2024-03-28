@@ -11,7 +11,7 @@ namespace Helix.ProductionService.Domain.Events
 
 		public OutSourceWorkOrderStopTransactionInsertingIntegrationEvent(Guid eventId, int workOrderReferenceId, int stopCauseReferenceId, DateTime stopDate, TimeSpan stopTime)
 		{
-			Id = eventId;
+			Owner = eventId;
 			WorkOrderReferenceId = workOrderReferenceId;
 			StopCauseReferenceId = stopCauseReferenceId;
 			StopDate = stopDate;

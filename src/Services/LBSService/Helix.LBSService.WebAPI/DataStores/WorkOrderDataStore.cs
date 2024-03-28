@@ -7,7 +7,7 @@ using Helix.LBSService.WebAPI.Services;
 
 namespace Helix.LBSService.WebAPI.DataStores
 {
-    public class WorkOrderDataStore : IWorkOrderService
+	public class WorkOrderDataStore : IWorkOrderService
 	{
 		private ILG_WorkOrderService _tigerService;
 		private ILogger<WorkOrderDataStore> _logger;
@@ -20,43 +20,43 @@ namespace Helix.LBSService.WebAPI.DataStores
 			_eventBus = eventBus;
 		}
 
-        public async Task<DataResult<WorkOrderDto>> Insert(WorkOrderDto dto)
-        {
-            try
-            {
-                if (LBSParameter.IsTiger)
-                {
-                    var result = await _tigerService.Insert(dto);
-                    if (result.IsSuccess)
-                    {
-                        _eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-                        _eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
-                    }
-                    else
-                    {
-                        _eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-                        _eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
-                    }
-                    return new DataResult<WorkOrderDto>()
-                    {
-                        Data = null,
-                        Message = result.Message,
-                        IsSuccess = result.IsSuccess,
-                    };
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            throw new NotImplementedException();
-        }
+		public async Task<DataResult<WorkOrderDto>> Insert(WorkOrderDto dto)
+		{
+			try
+			{
+				if (LBSParameter.IsTiger)
+				{
+					var result = await _tigerService.Insert(dto);
+					if (result.IsSuccess)
+					{
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
+					}
+					else
+					{
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
+					}
+					return new DataResult<WorkOrderDto>()
+					{
+						Data = null,
+						Message = result.Message,
+						IsSuccess = result.IsSuccess,
+					};
+				}
+				else
+				{
+					throw new NotImplementedException();
+				}
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			throw new NotImplementedException();
+		}
 
-        public async Task<DataResult<WorkOrderDto>> Inserts(WorkOrdersDto dto)
+		public async Task<DataResult<WorkOrderDto>> Inserts(WorkOrdersDto dto)
 		{
 			try
 			{
@@ -65,12 +65,12 @@ namespace Helix.LBSService.WebAPI.DataStores
 					var result = await _tigerService.Inserts(dto);
 					if (result.IsSuccess)
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
 						_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
 					}
 					else
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
 						_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
 					}
 					return new DataResult<WorkOrderDto>()
@@ -100,12 +100,12 @@ namespace Helix.LBSService.WebAPI.DataStores
 					var result = await _tigerService.InsertStopTransaction(dto);
 					if (result.IsSuccess)
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
 						_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
 					}
 					else
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
 						_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
 					}
 					return new DataResult<WorkOrderDto>()
@@ -135,12 +135,12 @@ namespace Helix.LBSService.WebAPI.DataStores
 					var result = await _tigerService.InsertWorkOrderStatus(dto);
 					if (result.IsSuccess)
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
 						_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
 					}
 					else
 					{
-						_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+						//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
 						_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
 					}
 					return new DataResult<WorkOrderDto>()

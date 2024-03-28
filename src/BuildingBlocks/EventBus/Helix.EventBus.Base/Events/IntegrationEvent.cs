@@ -8,6 +8,9 @@ namespace Helix.EventBus.Base.Events
 		public Guid Id { get; set; }
 
 		[JsonProperty]
+		public Guid Owner { get; set; }
+
+		[JsonProperty]
 		public DateTime CreatedOn { get; private set; }
 
 		public IntegrationEvent()

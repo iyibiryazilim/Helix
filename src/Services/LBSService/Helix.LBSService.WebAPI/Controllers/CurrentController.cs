@@ -32,13 +32,13 @@ namespace Helix.LBSService.WebAPI.Controllers
 				var result = await _currentService.Insert(obj);
 				if (result.IsSuccess)
 				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
+					//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+					//_eventBus.Publish(new LOGOSuccessIntegrationEvent(0, result.Message, null, dto));
 				}
 				else
 				{
-					_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
-					_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
+					//_eventBus.Publish(new SYSMessageIntegrationEvent(0, result.IsSuccess, result.Message, null, dto));
+					//_eventBus.Publish(new LOGOFailureIntegrationEvent(0, result.Message, null, dto));
 				}
 				return new DataResult<CurrentDto>()
 				{

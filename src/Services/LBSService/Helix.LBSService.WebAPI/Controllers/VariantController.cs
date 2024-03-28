@@ -30,8 +30,8 @@ namespace Helix.LBSService.WebAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
-				_eventBus.Publish(new LOGOFailureIntegrationEvent(0, ex.Message, null, dto));
+				//_eventBus.Publish(new SYSMessageIntegrationEvent(0, false, ex.Message, null, dto));
+				//_eventBus.Publish(new LOGOFailureIntegrationEvent(0, ex.Message, null, dto));
 				return new DataResult<VariantDto>
 				{
 					Data = null,
