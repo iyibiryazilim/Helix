@@ -10,7 +10,7 @@ namespace Helix.ProductionService.Domain.Events
 
 		public OutSourceWorkOrderChangeStatusInsertedIntegrationEvent(Guid eventId, string ficheNo, int status, short deleteFiche)
 		{
-			Id = eventId;
+			Owner = eventId;
 			FicheNo = ficheNo;
 			Status = status;
 			DeleteFiche = deleteFiche;

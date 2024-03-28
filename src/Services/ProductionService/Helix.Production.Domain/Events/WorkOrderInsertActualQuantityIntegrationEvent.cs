@@ -13,7 +13,7 @@ public class WorkOrderInsertActualQuantityIntegrationEvent : IntegrationEvent
 
 	public WorkOrderInsertActualQuantityIntegrationEvent(Guid eventId, int workOrderReferenceId, int productReferenceId, double actualQuantity, int subUnitsetReferenceId, short calculatedMethod, bool ısIncludeSideProduct)
 	{
-		Id = eventId;
+		Owner = eventId;
 		WorkOrderReferenceId = workOrderReferenceId;
 		ProductReferenceId = productReferenceId;
 		ActualQuantity = actualQuantity;
