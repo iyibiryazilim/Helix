@@ -12,9 +12,8 @@ namespace Helix.LBSNotification.WebAPI.DataStore
         public MongoDBDataStore(IOptions<NotificationDatabaseSettings> notificationDatabaseSetting)
         {
             var mongoClient = new MongoClient(notificationDatabaseSetting.Value.ConnectionString);
-
+            
             var mongoDatabase = mongoClient.GetDatabase( notificationDatabaseSetting.Value.DatabaseName);
-
             _notificationResultCollection = mongoDatabase.GetCollection<NotificationResult>( notificationDatabaseSetting.Value.NotificationCollectionName);
         }
 
