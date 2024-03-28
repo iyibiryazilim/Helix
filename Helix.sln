@@ -172,7 +172,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.DemandService.Infrast
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LBSNotification", "LBSNotification", "{9F2A59E3-A180-4ED4-B44F-AB85A51485E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSNotification", "src\Services\LBSNotification\Helix.LBSNotification\Helix.LBSNotification.csproj", "{52544315-F3D3-4628-BD54-F332A8B85415}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helix.LBSNotification", "src\Services\LBSNotification\Helix.LBSNotification\Helix.LBSNotification.csproj", "{52544315-F3D3-4628-BD54-F332A8B85415}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.LBSNotification.WebAPI", "src\Services\LBSNotification\Helix.LBSNotification.WebAPI\Helix.LBSNotification.WebAPI.csproj", "{C8EA1D0D-51D1-4134-B3F9-17B719002D8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -526,6 +528,12 @@ Global
 		{52544315-F3D3-4628-BD54-F332A8B85415}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
 		{52544315-F3D3-4628-BD54-F332A8B85415}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52544315-F3D3-4628-BD54-F332A8B85415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8EA1D0D-51D1-4134-B3F9-17B719002D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8EA1D0D-51D1-4134-B3F9-17B719002D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8EA1D0D-51D1-4134-B3F9-17B719002D8B}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8EA1D0D-51D1-4134-B3F9-17B719002D8B}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{C8EA1D0D-51D1-4134-B3F9-17B719002D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8EA1D0D-51D1-4134-B3F9-17B719002D8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -615,6 +623,7 @@ Global
 		{3864451F-9A75-4097-96BB-59C5BA07E33B} = {80F33270-61BE-41AB-9771-643C23D71041}
 		{9F2A59E3-A180-4ED4-B44F-AB85A51485E7} = {545A203E-A040-4BFD-A610-48C2C1C9A72D}
 		{52544315-F3D3-4628-BD54-F332A8B85415} = {9F2A59E3-A180-4ED4-B44F-AB85A51485E7}
+		{C8EA1D0D-51D1-4134-B3F9-17B719002D8B} = {9F2A59E3-A180-4ED4-B44F-AB85A51485E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C87CFD-0EA8-4BDD-B273-900BDB42AD58}
