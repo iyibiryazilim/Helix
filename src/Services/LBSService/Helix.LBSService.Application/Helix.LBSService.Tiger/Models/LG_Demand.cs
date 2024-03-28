@@ -12,6 +12,7 @@
 		public System.DateTime DATE_CREATED { get; set; } = DateTime.Now;
 		public string DO_CODE { get; set; } = string.Empty;
 		public string AUXIL_CODE { get; set; } = string.Empty;
+		public short SOURCE_INDEX { get; set; } = default;
 		public IList<LG_DemandLine> TRANSACTION { get; set; }
 	}
 }

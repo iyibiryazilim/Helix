@@ -13,6 +13,7 @@
 		public string SpeCode { get; set; } = string.Empty;
 		public DateTime DateCreated { get; set; } = DateTime.Now;
 		public string ProjectCode { get; set; } = string.Empty;
+		public short WarehouseNumber { get; set; } = default;
 		public IList<DemandLineDto> Lines { get; set; }
 	}
 }

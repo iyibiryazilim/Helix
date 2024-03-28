@@ -14,7 +14,7 @@ namespace Helix.LBSService.WebAPI.Helper.Profiles
 				.ForMember(d => d.Unitset, o => o.MapFrom(s => s.UNIT_CODE))
 				.ForMember(d => d.Price, o => o.MapFrom(s => s.PRICE))
 				.ForMember(d => d.VariantCode, o => o.MapFrom(s => s.VARIANTCODE))
-				.ForMember(d => d.Description, o => o.MapFrom(s => s.DETAIL))
+				.ForMember(d => d.Description, o => o.MapFrom(s => s.DETAILS))
 				.ForMember(d => d.WarehouseNumber, o => o.MapFrom(s => s.REAL_SRC_INDEX))
  				.ReverseMap();
 		}
